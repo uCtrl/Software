@@ -1,0 +1,14 @@
+/*
+#ifndef UCTRLCORE_GLOBAL_H
+#define UCTRLCORE_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(UCTRLCORE_LIBRARY)
+#  define UCTRLCORESHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define UCTRLCORESHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // UCTRLCORE_GLOBAL_H
+*/
