@@ -10,6 +10,8 @@
 #include <cctype>
 #include <stack>
 
+#pragma GCC diagnostic ignored "-Wsign-compare"
+
 #ifndef WIN32
 #define _stricmp strcasecmp
 #endif
@@ -811,3 +813,4 @@ Value json::Deserialize(const std::string &str)
 	return DeserializeInternal(str, depth_stack);
 }
 
+#pragma GCC diagnostic warning "-Wsign-compare"

@@ -184,6 +184,8 @@
 #ifndef __SUPER_EASY_JSON_H__
 #define __SUPER_EASY_JSON_H__
 
+#pragma GCC diagnostic ignored "-Wreorder"
+
 #include <vector>
 #include <map>
 #include <string>
@@ -322,6 +324,7 @@ namespace json
 
 			Value() 					: mValueType(NULLVal), mIntVal(0), mFloatVal(0), mDoubleVal(0), mBoolVal(false) {}
 			Value(int v)				: mValueType(IntVal), mIntVal(v), mFloatVal((float)v), mDoubleVal((double)v) {}
+
 			Value(float v)				: mValueType(FloatVal), mFloatVal(v), mIntVal((int)v), mDoubleVal((double)v) {}
 			Value(double v)				: mValueType(DoubleVal), mDoubleVal(v), mIntVal((int)v), mFloatVal((float)v) {}
 			Value(const std::string& v)	: mValueType(StringVal), mStringVal(v) {}
@@ -524,5 +527,7 @@ namespace json
 		}
 	}
 }
+
+#pragma GCC diagnostic warning "-Wreorder"
 
 #endif //__SUPER_EASY_JSON_H__
