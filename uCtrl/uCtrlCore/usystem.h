@@ -8,6 +8,7 @@ class /*UCTRLCORESHARED_EXPORT*/ USystem
 
 public:
     USystem();
+    ~USystem();
 };
 
 #endif // USYSTEM_H

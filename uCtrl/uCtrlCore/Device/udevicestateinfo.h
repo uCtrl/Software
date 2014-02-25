@@ -5,6 +5,8 @@ class UDeviceStateInfo
 {
 public:
     UDeviceStateInfo();
+    ~UDeviceStateInfo();
+
 };
 
 #endif // UDEVICESTATEINFO_H

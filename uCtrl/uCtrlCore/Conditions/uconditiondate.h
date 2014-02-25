@@ -7,6 +7,7 @@ class UConditionDate : public UCondition
 {
 public:
     UConditionDate();
+    ~UConditionDate();
 };
 
 #endif // UCONDITIONDATE_H

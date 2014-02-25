@@ -22,7 +22,11 @@ SOURCES += usystem.cpp \
     Conditions/uconditiondate.cpp \
     Scenario/uscenario.cpp \
     Serialization/json/json.cpp \
-    Device/udevicestateinfo.cpp
+    Device/udevicestateinfo.cpp \
+    Scenario/uscenariobuilder.cpp \
+    Tasks/utasksbuilder.cpp \
+    Conditions/uconditionbuilder.cpp \
+    Conditions/uconditionday.cpp
 
 HEADERS += usystem.h\
         uctrlcore_global.h \
@@ -36,7 +40,11 @@ HEADERS += usystem.h\
     Conditions/uconditiondate.h \
     Scenario/uscenario.h \
     Serialization/json/json.h \
-    Device/udevicestateinfo.h
+    Device/udevicestateinfo.h \
+    Scenario/uscenariobuilder.h \
+    Tasks/utasksbuilder.h \
+    Conditions/uconditionbuilder.h \
+    Conditions/uconditionday.h
 
 unix {
     target.path = /usr/lib

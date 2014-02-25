@@ -5,6 +5,7 @@ class UCondition
 {
 public:
     UCondition();
+    ~UCondition();
 };
 
 #endif // UCONDITION_H

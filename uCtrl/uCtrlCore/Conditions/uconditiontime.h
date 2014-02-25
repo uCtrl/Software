@@ -7,6 +7,7 @@ class UConditionTime : public UCondition
 {
 public:
     UConditionTime();
+    ~UConditionTime();
 };
 
 #endif // UCONDITIONTIME_H
