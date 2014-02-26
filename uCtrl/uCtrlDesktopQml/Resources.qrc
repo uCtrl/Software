@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/Resources">
+        <file>Images/uCtrl-Icon.png</file>
+        <file>Images/Back.png</file>
+    </qresource>
+</RCC>
