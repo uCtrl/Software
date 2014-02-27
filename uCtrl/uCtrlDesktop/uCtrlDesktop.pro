@@ -1,21 +1,26 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2014-02-19T13:39:27
-#
-#-------------------------------------------------
+# Add more folders to ship with the application, here
+folder_01.source = qml/uCtrlDesktopQml
+folder_01.target = qml
+DEPLOYMENTFOLDERS = folder_01
 
-include(../common.pri)
-QT       += core gui
+# Additional import path used to resolve QML modules in Creator's code model
+QML_IMPORT_PATH =
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+# The .cpp file which was generated for your project. Feel free to hack it.
+SOURCES += main.cpp
 
-TARGET = uCtrlDesktop
-TEMPLATE = app
+# Installation path
+# target.path =
 
+# Please do not modify the following two lines. Required for deployment.
+include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
+qtcAddDeployment()
 
-SOURCES += main.cpp\
-        mainwindow.cpp
+OTHER_FILES += \
+    qml/uCtrlDesktopQml/UHeaderBarWidget.qml \
+    qml/uCtrlDesktopQml/UTitleLabelWidget.qml \
+    qml/uCtrlDesktopQml/UImageWidget.qml \
+    Images/uCtrl-Icon.png
 
-HEADERS  += mainwindow.h
-
-FORMS    += mainwindow.ui
+RESOURCES += \
+    Resources.qrc
