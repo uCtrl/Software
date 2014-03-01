@@ -1,7 +1,9 @@
 #ifndef UCONDITIONDAY_H
 #define UCONDITIONDAY_H
 
-class UConditionDay
+#include "ucondition.h"
+
+class UConditionDay : public UCondition
 {
 public:
     UConditionDay();

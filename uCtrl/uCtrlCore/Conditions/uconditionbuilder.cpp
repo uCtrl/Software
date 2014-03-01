@@ -2,22 +2,25 @@
 
 UConditionBuilder::UConditionBuilder()
 {
-    IsDirty = false;
 
-    void AddCondition();
-    {
-        IsDirty = true;
+}
 
-    }
-    void EditCondition();
-    {
-        IsDirty = true;
+UCondition::~UCondition()
+{
 
-    }
-    void DeleteCondition();
-    {
-        IsDirty = true;
+}
 
-    }
+void UConditionBuilder::AddCondition()
+{
+
+}
+
+void UConditionBuilder::EditCondition()
+{
+
+}
+
+void UConditionBuilder::DeleteCondition()
+{
 
 }

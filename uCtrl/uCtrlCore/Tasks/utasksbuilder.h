@@ -1,18 +1,18 @@
 #ifndef UTASKSBUILDER_H
 #define UTASKSBUILDER_H
 
-class UTasksBuilder
+#include "utask.h"
+
+class UTasksBuilder : public UTask
 {
 public:
     UTasksBuilder();
     ~UTasksBuilder();
 
+private:    
     void AddTask();
     void EditTask();
     void DeleteTask();
-
-private:
-    bool IsDirty;
 };
 
 #endif // UTASKSBUILDER_H

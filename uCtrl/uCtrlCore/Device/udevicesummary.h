@@ -2,8 +2,9 @@
 #define UDEVICESUMMARY_H
 
 #include <string>
+#include "udevice.h"
 
-class UDeviceSummary
+class UDeviceSummary : public UDevice
 {
 public:
     UDeviceSummary();

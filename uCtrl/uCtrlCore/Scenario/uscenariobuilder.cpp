@@ -1,31 +1,38 @@
 #include "uscenariobuilder.h"
+#include "uscenario.h"
 
-UScenarioBuilder::UScenarioBuilder(const UScenario &scenario)
+
+UScenarioBuilder::UScenarioBuilder()
 {
-    IsDirty = false;
-    tempScenario = new UScenario(scenario);
-
-    void AddScenario();
-    {
-        IsDirty = true;
-
-    }
-
-    void EditScenrio();
-    {
-        IsDirty = true;
-
-    }
-
-    void DeleteScenario();
-    {
-        IsDirty = true;
-
-    }
-
-    void NotifyScenarioUpdate(ID, tempScenario);
-    {
-
-    }
 
 }
+
+UScenarioBuilder::UScenarioBuilder(const UScenario& uscenario)
+{
+    //UScenario tempUScenario = new UScenario(uscenario);
+}
+
+UScenarioBuilder::~UScenarioBuilder()
+{
+
+}
+
+void UScenarioBuilder::AddScenario()
+{
+
+}
+
+void UScenarioBuilder::EditScenrio()
+{
+
+}
+
+void UScenarioBuilder::DeleteScenario()
+{
+
+}
+
+/* void UScenarioBuilder::NotifyScenarioUpdate(ID, &tempScenario)
+{
+}
+*/

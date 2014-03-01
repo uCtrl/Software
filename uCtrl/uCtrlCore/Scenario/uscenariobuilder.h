@@ -1,20 +1,23 @@
 #ifndef USCENARIOBUILDER_H
 #define USCENARIOBUILDER_H
 
-class UScenarioBuilder
+#include "uscenario.h"
+
+class UScenarioBuilder : public UScenario
 {
+    UScenario uscenario;
+
 public:
     UScenarioBuilder();
+    UScenarioBuilder(const UScenario &uscenario);
     ~UScenarioBuilder();
 
-    void UScenarioBuilder(const UScenario &scenario);
+private:
     void AddScenario();
     void EditScenrio();
     void DeleteScenario();
     void NotifyScenarioUpdate();
 
-private:
-    bool IsDirty;
 };
 
 #endif // USCENARIOBUILDER_H

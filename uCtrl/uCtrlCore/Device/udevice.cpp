@@ -4,3 +4,8 @@ UDevice::UDevice()
 {
 
 }
+
+UDevice::~UDevice()
+{
+
+}

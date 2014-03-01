@@ -2,4 +2,10 @@
 
 UConditionDay::UConditionDay()
 {
+
+}
+
+UCondition::~UCondition()
+{
+
 }

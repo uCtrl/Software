@@ -2,22 +2,26 @@
 
 UTasksBuilder::UTasksBuilder()
 {
-    IsDirty = false;
 
-    void AddTask();
-    {
-        IsDirty = true;
+}
 
-    }
-    void EditTask();
-    {
-        IsDirty = true;
+UTasksBuilder::~UTasksBuilder()
+{
 
-    }
-    void DeleteTask();
-    {
-        IsDirty = true;
+}
 
-    }
+
+void UTasksBuilder::AddTask()
+{
+
+}
+
+void UTasksBuilder::EditTask()
+{
+
+}
+
+void UTasksBuilder::DeleteTask()
+{
 
 }

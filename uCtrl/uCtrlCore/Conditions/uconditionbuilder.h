@@ -1,18 +1,18 @@
 #ifndef UCONDITIONBUILDER_H
 #define UCONDITIONBUILDER_H
 
-class UConditionBuilder
+#include "ucondition.h"
+
+class UConditionBuilder : public UCondition
 {
 public:
     UConditionBuilder();
     ~UConditionBuilder();
 
+private:    
     void AddCondition();
     void EditCondition();
     void DeleteCondition();
-
-private:
-    bool IsDirty;
 };
 
 #endif // UCONDITIONBUILDER_H
