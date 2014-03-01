@@ -5,7 +5,7 @@ UConditionBuilder::UConditionBuilder()
 
 }
 
-UCondition::~UCondition()
+UConditionBuilder::~UConditionBuilder()
 {
 
 }

@@ -5,7 +5,7 @@ UConditionDate::UConditionDate()
 
 }
 
-UCondition::~UCondition()
+UConditionDate::~UConditionDate()
 {
 
 }

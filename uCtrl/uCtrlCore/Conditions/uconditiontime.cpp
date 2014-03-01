@@ -5,7 +5,7 @@ UConditionTime::UConditionTime()
 
 }
 
-UCondition::~UCondition()
+UConditionTime::~UConditionTime()
 {
 
 }
