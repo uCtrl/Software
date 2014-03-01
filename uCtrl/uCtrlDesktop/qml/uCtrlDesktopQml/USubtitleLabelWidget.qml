@@ -6,6 +6,6 @@ Text {
     color: "#404040"
     text: labelText
     font.family: "Helvetica neue"
-    font.pointSize: 18
+    font.pointSize: 15
     font.bold: true
 }

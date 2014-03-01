@@ -16,11 +16,24 @@ SOURCES += main.cpp
 include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
 qtcAddDeployment()
 
-OTHER_FILES += \
-    qml/uCtrlDesktopQml/UHeaderBarWidget.qml \
-    qml/uCtrlDesktopQml/UTitleLabelWidget.qml \
-    qml/uCtrlDesktopQml/UImageWidget.qml \
-    Images/uCtrl-Icon.png
+SOURCES += \
+    ../uCtrlCore/*.cpp \
+    ../uCtrlCore/Device/*.cpp \
+    ../uCtrlCore/Tasks/*.cpp \
+    ../uCtrlCore/Conditions/*.cpp \
+    ../uCtrlCore/Scenario/*.cpp \
+    ../uCtrlCore/Serialization/*.cpp \
+
+HEADERS += \
+    ../uCtrlCore/*.h \
+    ../uCtrlCore/Device/*.h \
+    ../uCtrlCore/Tasks/*.h \
+    ../uCtrlCore/Conditions/*.h \
+    ../uCtrlCore/Scenario/*.h \
+    ../uCtrlCore/Serialization/*.h \
+
+INCLUDEPATH += \
+    qml/uCtrlDesktopQml/
 
 RESOURCES += \
     Resources.qrc
