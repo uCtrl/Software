@@ -19,6 +19,7 @@ qtcAddDeployment()
 OTHER_FILES += \
     qml/uCtrlDesktopQml/UHeaderBarWidget.qml \
     qml/uCtrlDesktopQml/UTitleLabelWidget.qml \
+    qml/uCtrlDesktopQml/UConfigWidget.qml \
     qml/uCtrlDesktopQml/UImageWidget.qml \
     Images/uCtrl-Icon.png
 
