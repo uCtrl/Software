@@ -2,15 +2,14 @@ import QtQuick 2.0
 
 
 Rectangle {
-    color: "red"
-    height: 70
+    border.color: "crimson"
+    height: cellText.height
     width: parent.width
 
     Text {
-        property string labelText: "UNKNOWN"
-
+        id: cellText
         color: "blue"
-        text: "this is something"
+        text: "This is a config cell with id #" + id
         font.family: "Helvetica"
         font.pointSize: 20
     }
