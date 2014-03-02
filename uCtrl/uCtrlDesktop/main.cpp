@@ -1,7 +1,5 @@
 #include <QtGui/QGuiApplication>
 #include "qtquick2applicationviewer.h"
-
-#include <QGuiApplication>
 #include <qqmlengine.h>
 #include <qqmlcontext.h>
 #include <qqml.h>
@@ -17,7 +15,6 @@ int main(int argc, char *argv[])
     scenarioModel.addTask(UTask(11));
     scenarioModel.addTask(UTask(23));
     scenarioModel.addTask(UTask(43));
-
 
     QtQuick2ApplicationViewer viewer;
     QQmlContext *ctxt = viewer.rootContext();

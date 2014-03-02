@@ -1,42 +1,45 @@
 import QtQuick 2.0
 
 Rectangle {
+    property string img: "DEFAULT URL OF AN IMG"
+    property string title: "DEFAULT TITLE"
+    property string subtitle: "DEFAULT SUBTITLE"
+
     width: parent.width
-    height: 80
-    anchors.top: parent.top
+    height: 90
+    anchors.top: navigationBar.bottom
+    color: "#14892C"
 
     Rectangle {
-        id: navigationBar
-        width: parent.width
-        height: parent.height * 0.5
-        anchors.top: parent.top
-        color: "#14892C"
+        id: headerLogo
+        width: 70
+        height: parent.height
+        color: "transparent"
 
         UImageWidget {
-            //Back button
-            anchors.left: parent.left
-            anchors.top: parent.top
-            source: "qrc:///Resources/Images/Back.png"
-        }
-
-        UImageWidget {
-            //Home button
-            anchors.right: parent.right
-            anchors.top: parent.top
-            source: "qrc:///Resources/Images/uCtrl-Icon.png"
+            anchors.centerIn: parent
+            height: 50
+            width: 50
+            source: img
         }
     }
 
     Rectangle {
-        id: titleBar
-        width: parent.width
-        height: parent.height * 0.5
-        anchors.top: navigationBar.bottom
-        color: "#14892C"
+        anchors.left: headerLogo.right
+        height: parent.height
+        color: "transparent"
 
         UTitleLabelWidget {
-            anchors.centerIn: parent
-            labelText: "My title!"
+            id: titleLabel
+            anchors.left: parent.left
+            anchors.verticalCenter: parent.verticalCenter
+            labelText: title
+        }
+        USubtitleLabelWidget {
+            id: subtitleLabel
+            anchors.left: parent.left
+            anchors.top: titleLabel.bottom
+            labelText: subtitle
         }
     }
 }

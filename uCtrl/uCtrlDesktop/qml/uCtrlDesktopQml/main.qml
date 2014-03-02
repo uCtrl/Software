@@ -6,19 +6,67 @@ Rectangle {
 
     ListView {
         id: listContent
-        anchors.top: headerBar.bottom
+        anchors.top: deviceHeader.bottom
         height: 200
         width: parent.width
         transformOrigin: Item.Center
 
         model: myScenarioModel
-        delegate: UConfigWidget {}
-        highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
+        delegate: UConfigWidget{}
         focus: true
+
+        highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
     }
+
     UHeaderBarWidget {
-        id: headerBar
+        id: deviceHeader
+        img: "qrc:///Resources/Images/light_icon.png"
+        title: "Lampe de chevet gauche"
+        subtitle: "Chambre des maîtres"
     }
+
+
+    Rectangle {
+        id: navigationBar
+        width: parent.width
+        height: 60
+        anchors.top: parent.top
+        color: "#6cb043"
+
+        UImageWidget {
+            //Back button
+            id: backBtn
+            anchors.left: parent.left
+            anchors.top: parent.top
+            source: "qrc:///Resources/Images/Back.png"
+        }
+
+        UImageWidget {
+            id: homeBtn
+            anchors.right: parent.right
+            anchors.top: parent.top
+            source: "qrc:///Resources/Images/uCtrl-Icon.png"
+        }
+
+        Rectangle {
+            width: parent.width - backBtn.width - homeBtn.width
+            border.color: "red"
+            anchors.centerIn: parent
+
+            Text {
+                id: navigationTitle
+                width: parent.width
+                color: "#404040"
+                text:"Configuration des modules"
+                font.family: "Helvetica"
+                font.pointSize: 20
+                font.bold: true
+
+            }
+        }
+    }
+
+
     Rectangle {
         id: simplebutton
         objectName: "btn"
