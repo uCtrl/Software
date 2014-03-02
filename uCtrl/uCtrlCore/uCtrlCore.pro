@@ -11,32 +11,34 @@ TEMPLATE = lib
 
 DEFINES += UCTRLCORE_LIBRARY
 
-SOURCES += usystem.cpp \
-    uplatform.cpp \
-    Device/udevice.cpp \
-    Device/udevicesummary.cpp \
-    Device/udeviceinfo.cpp \
-    Tasks/utask.cpp \
-    Conditions/ucondition.cpp \
-    Conditions/uconditiontime.cpp \
-    Conditions/uconditiondate.cpp \
-    Scenario/uscenario.cpp \
-    Serialization/json/json.cpp \
-    Device/udevicestateinfo.cpp
+SOURCES += \
+    ../../common/usystem.cpp \
+    ../../common/uplatform.cpp \
+    ../../common/Device/udevice.cpp \
+    ../../common/Device/udevicesummary.cpp \
+    ../../common/Device/udeviceinfo.cpp \
+    ../../common/Tasks/utask.cpp \
+    ../../common/Conditions/ucondition.cpp \
+    ../../common/Conditions/uconditiontime.cpp \
+    ../../common/Conditions/uconditiondate.cpp \
+    ../../common/Scenario/uscenario.cpp \
+    ../../common/Serialization/json/json.cpp \
+    ../../common/Device/udevicestateinfo.cpp
 
-HEADERS += usystem.h\
-        uctrlcore_global.h \
-    uplatform.h \
-    Device/udevice.h \
-    Device/udevicesummary.h \
-    Device/udeviceinfo.h \
-    Tasks/utask.h \
-    Conditions/ucondition.h \
-    Conditions/uconditiontime.h \
-    Conditions/uconditiondate.h \
-    Scenario/uscenario.h \
-    Serialization/json/json.h \
-    Device/udevicestateinfo.h
+HEADERS += \
+    ../../common/usystem.h\
+    ../../common/uctrlcore_global.h \
+    ../../common/uplatform.h \
+    ../../common/Device/udevice.h \
+    ../../common/Device/udevicesummary.h \
+    ../../common/Device/udeviceinfo.h \
+    ../../common/Tasks/utask.h \
+    ../../common/Conditions/ucondition.h \
+    ../../common/Conditions/uconditiontime.h \
+    ../../common/Conditions/uconditiondate.h \
+    ../../common/Scenario/uscenario.h \
+    ../../common/Serialization/json/json.h \
+    ../../common/Device/udevicestateinfo.h
 
 unix {
     target.path = /usr/lib
