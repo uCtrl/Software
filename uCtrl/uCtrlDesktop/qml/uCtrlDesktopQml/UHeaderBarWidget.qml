@@ -6,8 +6,7 @@ Rectangle {
     property string subtitle: "DEFAULT SUBTITLE"
 
     width: parent.width
-    height: 90
-    anchors.top: navigationBar.bottom
+    height: 70
     color: "#14892C"
 
     Rectangle {
