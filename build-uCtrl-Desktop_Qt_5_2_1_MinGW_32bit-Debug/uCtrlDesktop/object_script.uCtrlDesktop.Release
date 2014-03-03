@@ -1,0 +1,12 @@
+INPUT(
+./release\main.o
+./release\qtquick2applicationviewer.o
+./release\*.o
+./release\*.o
+./release\*.o
+./release\*.o
+./release\*.o
+./release\*.o
+./release\qrc_Resources.o
+./release\moc_qtquick2applicationviewer.o
+);
