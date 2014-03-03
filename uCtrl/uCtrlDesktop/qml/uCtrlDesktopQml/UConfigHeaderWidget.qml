@@ -15,7 +15,7 @@ Rectangle {
         height: parent.height
         color: "transparent"
 
-        UImageWidget {
+        Image {
             anchors.centerIn: parent
             height: 50
             width: 50
