@@ -1,0 +1,12 @@
+INPUT(
+./debug\main.o
+./debug\qtquick2applicationviewer.o
+./debug\*.o
+./debug\*.o
+./debug\*.o
+./debug\*.o
+./debug\*.o
+./debug\*.o
+./debug\qrc_Resources.o
+./debug\moc_qtquick2applicationviewer.o
+);

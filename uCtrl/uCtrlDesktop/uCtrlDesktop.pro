@@ -66,3 +66,8 @@ INCLUDEPATH += \
 
 RESOURCES += \
     Resources.qrc
+
+OTHER_FILES += \
+    qml/uCtrlDesktopQml/UConfigTaskWidget.qml \
+    qml/uCtrlDesktopQml/UConfigHeaderWidget.qml \
+    qml/uCtrlDesktopQml/UTitleWidgetWidget.qml
