@@ -9,7 +9,6 @@ public:
     UConditionBuilder();
     ~UConditionBuilder();
 
-private:    
     void AddCondition();
     void EditCondition();
     void DeleteCondition();

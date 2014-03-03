@@ -10,6 +10,7 @@ public:
      ~UDevice();
 
 private:
+    //Attributs
     std::string Name;
     int ID;
 };
