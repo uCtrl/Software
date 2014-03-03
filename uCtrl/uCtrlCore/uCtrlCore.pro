@@ -39,7 +39,8 @@ HEADERS += \
     Conditions/uconditiondate.h \
     Scenario/uscenario.h \
     Serialization/json/json.h \
-    Device/udevicestateinfo.h
+    Device/udevicestateinfo.h \
+    Serialization/JsonMacros.h
 
 unix {
     target.path = /usr/lib

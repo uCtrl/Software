@@ -2,10 +2,7 @@
     <qresource prefix="/Resources">
         <file>Images/uCtrl-Icon.png</file>
         <file>Images/Back.png</file>
-<<<<<<< HEAD
-=======
         <file>Images/light_icon.png</file>
         <file>Images/drag.png</file>
->>>>>>> cleanup
     </qresource>
 </RCC>
