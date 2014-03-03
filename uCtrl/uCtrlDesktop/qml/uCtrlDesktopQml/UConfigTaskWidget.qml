@@ -1,7 +1,7 @@
 import QtQuick 2.0
 
 
-Rectangle {
+Rectangle{
     border.color: "gray"
     radius: 5
     height: message.height + (conditions.height > dragger.height ? conditions.height : dragger.height)
@@ -15,9 +15,7 @@ Rectangle {
         color: "transparent"
         border.color: "red"
         Text {
-//            anchors.margins: 5
             color: "blue"
-//            text: "sadfasdf "+ id
             text: "Changer l'état pour <b><i>50%</b></i> quand:"
 
             font.family: "Helvetica neue"
@@ -33,8 +31,14 @@ Rectangle {
         color: "transparent"
         border.color: "blue"
         ListView {
-            id:conditionsContent
+            id: conditionsContent
             anchors.fill: parent
+            model:listContent.model.getConditionsModel
+            delegate: Text { text:"fuckall"}
+
+            focus: true
+
+            highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
         }
     }
 
@@ -53,7 +57,5 @@ Rectangle {
             source: "qrc:///Resources/Images/drag.png"
         }
     }
-
-
 }
 

@@ -1,12 +1,12 @@
 #include "uconditiontime.h"
 
-UConditionTime::UConditionTime(): UCondition("","")
+UConditionTime::UConditionTime(): UCondition("")
 {
 
 }
 
-UConditionTime::UConditionTime(QString type, QString name):
-    UCondition(type, name)
+UConditionTime::UConditionTime(QString type):
+    UCondition(type)
 {
 
 }

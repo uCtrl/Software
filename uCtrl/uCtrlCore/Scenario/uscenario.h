@@ -9,8 +9,8 @@ class UScenario : public QAbstractListModel
     Q_OBJECT
 
 public slots:
-     void cppSlot() {
-         this->addTask(UTask(34));
+     void cppSlot() { // Used to test the insertion from UI
+         this->addTask(new UTask());
      }
 
 public:
@@ -20,16 +20,17 @@ public:
 
     UScenario(QObject *parent = 0);
 
-    void addTask(const UTask &animal);
-
-    int rowCount(const QModelIndex & parent = QModelIndex()) const;
-
-    QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
-
-protected:
-    QHash<int, QByteArray> roleNames() const;
 private:
-    QList<UTask> m_tasks;
+    QList<UTask*> m_tasks;
+
+public:
+    void addTask(UTask* task);
+    virtual int rowCount(const QModelIndex &parent = QModelIndex()) const;
+    virtual QVariant data(const QModelIndex &index, int role) const;
+    virtual QHash<int, QByteArray> roleNames() const;
+
+    // Make sure you define a destructor for UScenario
+    ~UScenario();
 };
 
 #endif // USCENARIO_H

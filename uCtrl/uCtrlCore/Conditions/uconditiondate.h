@@ -7,7 +7,7 @@ class UConditionDate : public UCondition
 {
 public:
     UConditionDate();
-    UConditionDate(QString type, QString name);
+    UConditionDate(QString type);
 
 };
 

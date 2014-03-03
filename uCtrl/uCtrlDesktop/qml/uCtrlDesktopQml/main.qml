@@ -12,7 +12,7 @@ Rectangle {
         transformOrigin: Item.Center
 
         model: myScenarioModel
-        delegate: UConfigTaskWidget{}
+        delegate: UConfigTaskWidget{       }
         focus: true
 
         highlight: Rectangle { color: "lightsteelblue"; radius: 5 }

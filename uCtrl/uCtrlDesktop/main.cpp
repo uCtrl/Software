@@ -12,9 +12,9 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     UScenario scenarioModel;
-    scenarioModel.addTask(UTask(11));
-    scenarioModel.addTask(UTask(23));
-    scenarioModel.addTask(UTask(43));
+    scenarioModel.addTask(new UTask());
+    scenarioModel.addTask(new UTask());
+    scenarioModel.addTask(new UTask());
 
     QtQuick2ApplicationViewer viewer;
     QQmlContext *ctxt = viewer.rootContext();
@@ -23,7 +23,6 @@ int main(int argc, char *argv[])
 
     QObject *item = viewer.rootObject()->findChild<QObject*>("btn");
     QObject::connect(item, SIGNAL(qmlSignal()), &scenarioModel, SLOT(cppSlot()));
-
 
     viewer.showExpanded();
 
