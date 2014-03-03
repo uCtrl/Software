@@ -1,3 +1,6 @@
 */build-*
 *.user
 *.user.*
+*/.metadata/*
+*/.settings/*
+*/bin/*
