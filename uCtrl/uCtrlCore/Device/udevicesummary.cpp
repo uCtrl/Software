@@ -2,4 +2,10 @@
 
 UDeviceSummary::UDeviceSummary()
 {
+
+}
+
+UDeviceSummary::~UDeviceSummary()
+{
+
 }

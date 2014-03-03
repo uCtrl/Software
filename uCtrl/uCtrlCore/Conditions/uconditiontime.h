@@ -6,8 +6,9 @@
 class UConditionTime : public UCondition
 {
 public:
-    UConditionTime();
     UConditionTime(QString type, QString name);
+    UConditionTime();
+    ~UConditionTime(){}
 };
 
 #endif // UCONDITIONTIME_H

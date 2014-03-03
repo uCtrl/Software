@@ -11,3 +11,8 @@ UConditionDate::UConditionDate(QString type, QString name):
 {
 
 }
+
+UConditionDate::~UConditionDate()
+{
+
+}

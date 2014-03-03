@@ -22,8 +22,8 @@ Rectangle {
         id: deviceHeader
         anchors.top: navigationBar.bottom
         img: "qrc:///Resources/Images/light_icon.png"
-        title: "Lampe de chevet gauche"
-        subtitle: "Chambre des maîtres"
+//        title: "Lampe de chevet gauche"
+//        subtitle: "Chambre des maîtres"
     }
 
     UNavbarWidget {

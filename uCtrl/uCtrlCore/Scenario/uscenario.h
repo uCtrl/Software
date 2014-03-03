@@ -3,9 +3,10 @@
 
 #include <QAbstractListModel>
 #include "../Tasks/utask.h"
+#include <string>
 
-class UScenario : public QAbstractListModel
-{
+class UScenario : public QAbstractListModel {
+
     Q_OBJECT
 
 public slots:
@@ -19,6 +20,7 @@ public:
     };
 
     UScenario(QObject *parent = 0);
+    ~UScenario();
 
     void addTask(const UTask &animal);
 
@@ -30,6 +32,11 @@ protected:
     QHash<int, QByteArray> roleNames() const;
 private:
     QList<UTask> m_tasks;
+
+    //Attributs
+    int ID;
+    std::string Name;
+
 };
 
 #endif // USCENARIO_H
