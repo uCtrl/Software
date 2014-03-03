@@ -5,7 +5,7 @@
 #include <qqml.h>
 #include <QtQuick/qquickitem.h>
 #include <QtQuick/qquickview.h>
-#include "../../common/Scenario/uscenario.h"
+#include "../uCtrlCore/Scenario/uscenario.h"
 
 int main(int argc, char *argv[])
 {
