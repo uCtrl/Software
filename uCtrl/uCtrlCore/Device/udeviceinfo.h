@@ -10,6 +10,7 @@ public:
     UDeviceInfo();
     ~UDeviceInfo();
 
+    //Attributs
     float MinValue;
     float MaxValue;
     int Precision;

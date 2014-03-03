@@ -10,6 +10,7 @@ public:
     ~UScenario();
 
 private:
+    //Attributs
     int ID;
     std::string Name;
 

@@ -11,6 +11,7 @@ public:
     ~UDeviceSummary();
 
 private:
+    //Attributs
     std::string Name;
     int IP;
     int ID;

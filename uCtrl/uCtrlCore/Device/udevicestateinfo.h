@@ -10,6 +10,7 @@ public:
     ~UDeviceStateInfo();
 
 private:
+    //Attributs
     std::string Name;
     int Value;
 

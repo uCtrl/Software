@@ -5,19 +5,21 @@
 
 class UScenarioBuilder : public UScenario
 {
-    UScenario uscenario;
+    //UScenario uscenario;
 
 public:
     UScenarioBuilder();
-    UScenarioBuilder(const UScenario &uscenario);
+    UScenarioBuilder(UScenario const&);
     ~UScenarioBuilder();
 
-private:
     void AddScenario();
     void EditScenrio();
     void DeleteScenario();
-    void NotifyScenarioUpdate();
+    void NotifyScenarioUpdate(int, UScenario&);
 
+private:
+    //Attributs
+    int ID;
 };
 
 #endif // USCENARIOBUILDER_H

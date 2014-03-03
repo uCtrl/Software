@@ -9,7 +9,6 @@ public:
     UTasksBuilder();
     ~UTasksBuilder();
 
-private:    
     void AddTask();
     void EditTask();
     void DeleteTask();

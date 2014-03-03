@@ -7,9 +7,9 @@ UScenarioBuilder::UScenarioBuilder()
 
 }
 
-UScenarioBuilder::UScenarioBuilder(const UScenario& uscenario)
+UScenarioBuilder::UScenarioBuilder(UScenario const &uscenario)
 {
-    //UScenario tempUScenario = new UScenario(uscenario);
+     UScenario* tempUScenario = new UScenario(uscenario);
 }
 
 UScenarioBuilder::~UScenarioBuilder()
@@ -32,7 +32,10 @@ void UScenarioBuilder::DeleteScenario()
 
 }
 
-/* void UScenarioBuilder::NotifyScenarioUpdate(ID, &tempScenario)
+
+void UScenarioBuilder::NotifyScenarioUpdate(int ID, UScenario &tempScenario)
 {
+
 }
-*/
+
+
