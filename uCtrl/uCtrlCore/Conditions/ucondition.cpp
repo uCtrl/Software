@@ -2,4 +2,10 @@
 
 UCondition::UCondition()
 {
+
+}
+
+UCondition::~UCondition()
+{
+
 }

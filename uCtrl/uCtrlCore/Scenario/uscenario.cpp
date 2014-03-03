@@ -2,4 +2,10 @@
 
 UScenario::UScenario()
 {
+
+}
+
+UScenario::~UScenario()
+{
+
 }

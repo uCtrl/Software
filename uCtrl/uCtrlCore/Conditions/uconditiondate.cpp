@@ -2,4 +2,10 @@
 
 UConditionDate::UConditionDate()
 {
+
+}
+
+UConditionDate::~UConditionDate()
+{
+
 }

@@ -2,4 +2,10 @@
 
 UConditionTime::UConditionTime()
 {
+
+}
+
+UConditionTime::~UConditionTime()
+{
+
 }

@@ -2,4 +2,10 @@
 
 UTask::UTask()
 {
+
+}
+
+UTask::~UTask()
+{
+
 }

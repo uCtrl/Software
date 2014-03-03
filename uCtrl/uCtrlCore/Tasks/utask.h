@@ -5,6 +5,7 @@ class UTask
 {
 public:
     UTask();
+    ~UTask();
 };
 
 #endif // UTASK_H

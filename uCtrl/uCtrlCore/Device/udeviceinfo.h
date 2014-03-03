@@ -2,12 +2,15 @@
 #define UDEVICEINFO_H
 
 #include <string>
+#include "udevice.h"
 
-class UDeviceInfo
+class UDeviceInfo : public UDevice
 {
 public:
     UDeviceInfo();
+    ~UDeviceInfo();
 
+    //Attributs
     float MinValue;
     float MaxValue;
     int Precision;

@@ -2,4 +2,10 @@
 
 UDeviceStateInfo::UDeviceStateInfo()
 {
+
+}
+
+UDeviceStateInfo::~UDeviceStateInfo()
+{
+
 }

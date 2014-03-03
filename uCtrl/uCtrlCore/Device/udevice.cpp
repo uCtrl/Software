@@ -2,4 +2,10 @@
 
 UDevice::UDevice()
 {
+
+}
+
+UDevice::~UDevice()
+{
+
 }
