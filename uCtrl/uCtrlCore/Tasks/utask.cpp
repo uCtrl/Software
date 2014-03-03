@@ -1,5 +1,7 @@
 #include "utask.h"
 
-UTask::UTask()
+
+int UTask::id() const
 {
+    return m_id;
 }

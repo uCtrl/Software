@@ -4,14 +4,16 @@
 #
 #-------------------------------------------------
 
-QT       -= core gui
+QT       += core
+QT       -= gui
 
 TARGET = uCtrlCore
 TEMPLATE = lib
 
 DEFINES += UCTRLCORE_LIBRARY
 
-SOURCES += usystem.cpp \
+SOURCES += \
+    usystem.cpp \
     uplatform.cpp \
     Device/udevice.cpp \
     Device/udevicesummary.cpp \
@@ -24,8 +26,9 @@ SOURCES += usystem.cpp \
     Serialization/json/json.cpp \
     Device/udevicestateinfo.cpp
 
-HEADERS += usystem.h\
-        uctrlcore_global.h \
+HEADERS += \
+    usystem.h\
+    uctrlcore_global.h \
     uplatform.h \
     Device/udevice.h \
     Device/udevicesummary.h \
