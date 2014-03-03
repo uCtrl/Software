@@ -15,7 +15,7 @@ Rectangle { // NavBar
         anchors.left: parent.left
         color:"transparent"
 
-        UImageWidget {
+        Image {
             id: backImg
             anchors.centerIn: parent
             source: "qrc:///Resources/Images/Back.png"
@@ -49,7 +49,7 @@ Rectangle { // NavBar
         anchors.right: parent.right
         color:"transparent"
 
-        UImageWidget {
+        Image {
             id: homeImg
             anchors.centerIn: parent
             source: "qrc:///Resources/Images/uCtrl-Icon.png"

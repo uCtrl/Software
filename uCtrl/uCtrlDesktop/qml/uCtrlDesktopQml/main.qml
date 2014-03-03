@@ -12,13 +12,13 @@ Rectangle {
         transformOrigin: Item.Center
 
         model: myScenarioModel
-        delegate: UConfigWidget{}
+        delegate: UConfigTaskWidget{}
         focus: true
 
         highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
     }
 
-    UHeaderBarWidget {
+    UConfigHeaderWidget {
         id: deviceHeader
         anchors.top: navigationBar.bottom
         img: "qrc:///Resources/Images/light_icon.png"
@@ -26,7 +26,7 @@ Rectangle {
         subtitle: "Chambre des maîtres"
     }
 
-    UNavbarWidget {
+    UTitleWidget {
         title: "Configuration des modules"
         id:navigationBar
     }
