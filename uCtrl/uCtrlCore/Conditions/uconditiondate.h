@@ -9,6 +9,7 @@ public:
     UConditionDate();
     UConditionDate(QString type, QString name);
 
+    ~UConditionDate();
 };
 
 #endif // UCONDITIONDATE_H

@@ -12,12 +12,10 @@ Rectangle {
         id: message
         anchors.top: parent.top
         anchors.left: parent.left
+        anchors.margins: 5
         color: "transparent"
-        border.color: "red"
         Text {
-//            anchors.margins: 5
             color: "blue"
-//            text: "sadfasdf "+ id
             text: "Changer l'état pour <b><i>50%</b></i> quand:"
 
             font.family: "Helvetica neue"

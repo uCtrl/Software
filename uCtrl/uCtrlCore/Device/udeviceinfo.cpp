@@ -2,5 +2,11 @@
 
 UDeviceInfo::UDeviceInfo()
 {
+
+}
+
+UDeviceInfo::~UDeviceInfo()
+{
+
 }
 

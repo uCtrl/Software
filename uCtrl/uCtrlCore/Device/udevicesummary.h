@@ -1,10 +1,21 @@
 #ifndef UDEVICESUMMARY_H
 #define UDEVICESUMMARY_H
 
-class UDeviceSummary
+#include <string>
+#include "udevice.h"
+
+class UDeviceSummary : public UDevice
 {
 public:
     UDeviceSummary();
+    ~UDeviceSummary();
+
+private:
+    //Attributs
+    std::string Name;
+    int IP;
+    int ID;
+
 };
 
 #endif // UDEVICESUMMARY_H

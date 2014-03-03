@@ -5,6 +5,7 @@ class UPlatform
 {
 public:
     UPlatform();
+    ~UPlatform();
 };
 
 #endif // UPLATFORM_H

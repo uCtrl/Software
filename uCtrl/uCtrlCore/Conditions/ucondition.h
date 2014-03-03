@@ -13,6 +13,7 @@ public:
         return m_name;
     }
 
+    ~UCondition();
 private:
     QString m_type;
     QString m_name;

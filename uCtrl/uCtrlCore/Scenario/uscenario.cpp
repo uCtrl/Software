@@ -3,7 +3,14 @@
 UScenario::UScenario(QObject *parent)
     : QAbstractListModel(parent)
 {
+
 }
+
+UScenario::~UScenario()
+{
+
+}
+
 
 void UScenario::addTask(const UTask &task)
 {
