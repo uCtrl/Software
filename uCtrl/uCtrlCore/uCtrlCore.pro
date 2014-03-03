@@ -13,20 +13,33 @@ TEMPLATE = lib
 DEFINES += UCTRLCORE_LIBRARY
 
 SOURCES += \
-    ../uCtrlCore/*.cpp \
-    ../uCtrlCore/Device/*.cpp \
-    ../uCtrlCore/Tasks/*.cpp \
-    ../uCtrlCore/Conditions/*.cpp \
-    ../uCtrlCore/Scenario/*.cpp \
-    ../uCtrlCore/Serialization/*.cpp \
+    usystem.cpp \
+    uplatform.cpp \
+    Device/udevice.cpp \
+    Device/udevicesummary.cpp \
+    Device/udeviceinfo.cpp \
+    Tasks/utask.cpp \
+    Conditions/ucondition.cpp \
+    Conditions/uconditiontime.cpp \
+    Conditions/uconditiondate.cpp \
+    Scenario/uscenario.cpp \
+    Serialization/json/json.cpp \
+    Device/udevicestateinfo.cpp
 
 HEADERS += \
-    ../uCtrlCore/*.h \
-    ../uCtrlCore/Device/*.h \
-    ../uCtrlCore/Tasks/*.h \
-    ../uCtrlCore/Conditions/*.h \
-    ../uCtrlCore/Scenario/*.h \
-    ../uCtrlCore/Serialization/*.h \
+    usystem.h\
+    uctrlcore_global.h \
+    uplatform.h \
+    Device/udevice.h \
+    Device/udevicesummary.h \
+    Device/udeviceinfo.h \
+    Tasks/utask.h \
+    Conditions/ucondition.h \
+    Conditions/uconditiontime.h \
+    Conditions/uconditiondate.h \
+    Scenario/uscenario.h \
+    Serialization/json/json.h \
+    Device/udevicestateinfo.h
 
 unix {
     target.path = /usr/lib

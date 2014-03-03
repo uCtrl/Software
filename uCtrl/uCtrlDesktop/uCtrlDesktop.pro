@@ -17,20 +17,50 @@ include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
 qtcAddDeployment()
 
 SOURCES += \
-    ../uCtrlCore/*.cpp \
-    ../uCtrlCore/Device/*.cpp \
-    ../uCtrlCore/Tasks/*.cpp \
-    ../uCtrlCore/Conditions/*.cpp \
-    ../uCtrlCore/Scenario/*.cpp \
-    ../uCtrlCore/Serialization/*.cpp \
+    ../uCtrlCore/usystem.cpp \
+    ../uCtrlCore/uplatform.cpp \
+    ../uCtrlCore/Device/udevice.cpp \
+    ../uCtrlCore/Device/udevicesummary.cpp \
+    ../uCtrlCore/Device/udeviceinfo.cpp \
+    ../uCtrlCore/Tasks/utask.cpp \
+    ../uCtrlCore/Conditions/ucondition.cpp \
+    ../uCtrlCore/Conditions/uconditiontime.cpp \
+    ../uCtrlCore/Conditions/uconditiondate.cpp \
+    ../uCtrlCore/Scenario/uscenario.cpp \
+    ../uCtrlCore/Serialization/json/json.cpp \
+    ../uCtrlCore/Device/udevicestateinfo.cpp
 
 HEADERS += \
-    ../uCtrlCore/*.h \
-    ../uCtrlCore/Device/*.h \
-    ../uCtrlCore/Tasks/*.h \
-    ../uCtrlCore/Conditions/*.h \
-    ../uCtrlCore/Scenario/*.h \
-    ../uCtrlCore/Serialization/*.h \
+    ../uCtrlCore/usystem.h\
+    ../uCtrlCore/uctrlcore_global.h \
+    ../uCtrlCore/uplatform.h \
+    ../uCtrlCore/Device/udevice.h \
+    ../uCtrlCore/Device/udevicesummary.h \
+    ../uCtrlCore/Device/udeviceinfo.h \
+    ../uCtrlCore/Tasks/utask.h \
+    ../uCtrlCore/Conditions/ucondition.h \
+    ../uCtrlCore/Conditions/uconditiontime.h \
+    ../uCtrlCore/Conditions/uconditiondate.h \
+    ../uCtrlCore/Scenario/uscenario.h \
+    ../uCtrlCore/Serialization/json/json.h \
+    ../uCtrlCore/Device/udevicestateinfo.h
+
+
+#SOURCES += \
+#    ../uCtrlCore/*.cpp \
+#    ../uCtrlCore/Device/*.cpp \
+#    ../uCtrlCore/Tasks/*.cpp \
+#    ../uCtrlCore/Conditions/*.cpp \
+#    ../uCtrlCore/Scenario/*.cpp \
+#    ../uCtrlCore/Serialization/*.cpp \
+
+#HEADERS += \
+#    ../uCtrlCore/*.h \
+#    ../uCtrlCore/Device/*.h \
+#    ../uCtrlCore/Tasks/*.h \
+#    ../uCtrlCore/Conditions/*.h \
+#    ../uCtrlCore/Scenario/*.h \
+#    ../uCtrlCore/Serialization/*.h \
 
 INCLUDEPATH += \
     qml/uCtrlDesktopQml/
