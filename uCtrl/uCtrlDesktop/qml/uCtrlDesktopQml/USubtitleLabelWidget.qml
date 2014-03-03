@@ -5,7 +5,7 @@ Text {
 
     color: "#404040"
     text: labelText
-    font.family: "Helvetica neue"
+    font.family: "Calibri"
     font.pointSize: 15
     font.bold: true
 }
