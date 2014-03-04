@@ -1,0 +1,15 @@
+* text=auto
+
+*.cpp text
+*.h text
+*.txt text
+*.html text
+*.xml text
+*.css text
+*.sh text
+*.py text
+
+*.png binary
+*.jpeg binary
+*.jpg binary
+*.bmp binary
