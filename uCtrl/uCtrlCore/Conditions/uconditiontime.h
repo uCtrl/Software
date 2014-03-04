@@ -3,11 +3,11 @@
 
 #include "ucondition.h"
 
-class UConditionTime : public UCondition
-{
+BEGIN_DECLARE_JSON_CHILD_CLASS_ARGS0(UConditionTime, UCondition)
+
 public:
-    UConditionTime();
-    UConditionTime(QString type, QString name);
-};
+    UConditionTime(const UConditionTime& conditionTime);
+
+END_DECLARE_JSON_CLASS()
 
 #endif // UCONDITIONTIME_H

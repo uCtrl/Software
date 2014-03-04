@@ -4,16 +4,14 @@
 #
 #-------------------------------------------------
 
-QT       += core
-QT       -= gui
+QT       -= core gui
 
 TARGET = uCtrlCore
 TEMPLATE = lib
 
 DEFINES += UCTRLCORE_LIBRARY
 
-SOURCES += \
-    usystem.cpp \
+SOURCES += usystem.cpp \
     uplatform.cpp \
     Device/udevice.cpp \
     Device/udevicesummary.cpp \
@@ -24,11 +22,14 @@ SOURCES += \
     Conditions/uconditiondate.cpp \
     Scenario/uscenario.cpp \
     Serialization/json/json.cpp \
-    Device/udevicestateinfo.cpp
+    Device/udevicestateinfo.cpp \
+    Scenario/uscenariobuilder.cpp \
+    Tasks/utasksbuilder.cpp \
+    Conditions/uconditionbuilder.cpp \
+    Conditions/uconditionday.cpp
 
-HEADERS += \
-    usystem.h\
-    uctrlcore_global.h \
+HEADERS += usystem.h\
+        uctrlcore_global.h \
     uplatform.h \
     Device/udevice.h \
     Device/udevicesummary.h \
@@ -40,7 +41,10 @@ HEADERS += \
     Scenario/uscenario.h \
     Serialization/json/json.h \
     Device/udevicestateinfo.h \
-    Serialization/JsonMacros.h
+    Scenario/uscenariobuilder.h \
+    Tasks/utasksbuilder.h \
+    Conditions/uconditionbuilder.h \
+    Conditions/uconditionday.h
 
 unix {
     target.path = /usr/lib

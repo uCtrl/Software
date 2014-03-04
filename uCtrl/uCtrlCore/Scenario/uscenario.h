@@ -1,35 +1,17 @@
 #ifndef USCENARIO_H
 #define USCENARIO_H
 
-#include <QAbstractListModel>
+#include "../Serialization/JsonMacros.h"
 #include "../Tasks/utask.h"
+#include "../Conditions/ucondition.h"
+#include <string>
+#include <vector>
 
-class UScenario : public QAbstractListModel
-{
-    Q_OBJECT
-
-public slots:
-     void cppSlot() {
-         this->addTask(UTask(34));
-     }
+BEGIN_DECLARE_JSON_CLASS_ARGS4(UScenario, int, id, std::string, name, std::vector<UTask>, scenarioTasks, std::vector<UCondition>, scenarioConditions)
 
 public:
-    enum TaskRoles {
-        IdRole = Qt::UserRole + 1
-    };
+    UScenario(const UScenario& scenario);
 
-    UScenario(QObject *parent = 0);
-
-    void addTask(const UTask &animal);
-
-    int rowCount(const QModelIndex & parent = QModelIndex()) const;
-
-    QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
-
-protected:
-    QHash<int, QByteArray> roleNames() const;
-private:
-    QList<UTask> m_tasks;
-};
+END_DECLARE_JSON_CLASS()
 
 #endif // USCENARIO_H

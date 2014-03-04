@@ -3,12 +3,11 @@
 
 #include "ucondition.h"
 
-class UConditionDate : public UCondition
-{
-public:
-    UConditionDate();
-    UConditionDate(QString type, QString name);
+BEGIN_DECLARE_JSON_CHILD_CLASS_ARGS0(UConditionDate, UCondition)
 
-};
+public:
+    UConditionDate(const UConditionDate& conditionDate);
+
+END_DECLARE_JSON_CLASS()
 
 #endif // UCONDITIONDATE_H

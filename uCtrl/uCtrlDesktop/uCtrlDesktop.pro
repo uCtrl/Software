@@ -7,7 +7,11 @@ DEPLOYMENTFOLDERS = folder_01
 QML_IMPORT_PATH =
 
 # The .cpp file which was generated for your project. Feel free to hack it.
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    ../uCtrlCore/Tasks/utasksbuilder.cpp \
+    ../uCtrlCore/Conditions/uconditionbuilder.cpp \
+    ../uCtrlCore/Conditions/uconditionday.cpp \
+    ../uCtrlCore/Scenario/uscenariobuilder.cpp
 
 # Installation path
 # target.path =
@@ -43,7 +47,12 @@ HEADERS += \
     ../uCtrlCore/Conditions/uconditiondate.h \
     ../uCtrlCore/Scenario/uscenario.h \
     ../uCtrlCore/Serialization/json/json.h \
-    ../uCtrlCore/Device/udevicestateinfo.h
+    ../uCtrlCore/Device/udevicestateinfo.h \
+    ../uCtrlCore/Tasks/utasksbuilder.h \
+    ../uCtrlCore/Conditions/uconditionbuilder.h \
+    ../uCtrlCore/Conditions/uconditionday.h \
+    ../uCtrlCore/Scenario/uscenariobuilder.h \
+    ../uCtrlCore/Serialization/JsonMacros.h
 
 
 #SOURCES += \

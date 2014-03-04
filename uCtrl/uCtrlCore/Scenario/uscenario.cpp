@@ -1,37 +1,86 @@
 #include "uscenario.h"
+#include <sstream>
 
-UScenario::UScenario(QObject *parent)
-    : QAbstractListModel(parent)
+UScenario::UScenario(const UScenario& scenario)
 {
+    this->id = scenario.id;
+    this->name = scenario.name;
+    this->scenarioTasks = scenario.scenarioTasks;
 }
 
-void UScenario::addTask(const UTask &task)
+json::Object UScenario::ToObject()
 {
-    beginInsertRows(QModelIndex(), rowCount(), rowCount());
-    m_tasks << task;
-    endInsertRows();
+	json::Object obj;
+	FillObject(obj);
+	return obj;
 }
 
-int UScenario::rowCount(const QModelIndex & parent) const {
-    return m_tasks.count();
+void UScenario::FillObject(json::Object& obj)
+{
+	obj["id"] = id;
+	obj["name"] = name;
+
+    // WARNING : Custom code
+    obj["scenarioTasks_size"] = (int) scenarioTasks.size();
+    for (int i = 0; i < scenarioTasks.size(); i++)
+    {
+        std::ostringstream oss;
+        oss << "scenarioTasks[" << i << "]";
+
+        std::string key = oss.str();
+        obj[key] = scenarioTasks[i].ToObject();
+    }
+
+    obj["scenarioConditions_size"] = (int) scenarioConditions.size();
+    for (int i = 0; i < scenarioConditions.size(); i++)
+    {
+        std::ostringstream oss;
+        oss << "scenarioConditions[" << i << "]";
+
+        std::string key = oss.str();
+        obj[key] = scenarioConditions[i].ToObject();
+    }
 }
 
-QVariant UScenario::data(const QModelIndex & index, int role) const {
-    if (index.row() < 0 || index.row() >= m_tasks.count())
-        return QVariant();
-
-    const UTask &task = m_tasks[index.row()];
-    if (role == IdRole)
-        return task.id();
-
-    return QVariant();
+std::string UScenario::Serialize()
+{
+	json::Object obj = ToObject();
+	return json::Serialize(obj);
 }
 
-//![0]
-QHash<int, QByteArray> UScenario::roleNames() const {
-    QHash<int, QByteArray> roles;
-    roles[IdRole] = "id";
-    return roles;
+void UScenario::FillMembers(const json::Object& obj)
+{
+	id = obj["id"];
+    name = obj["name"].ToString();
+
+    // WARNING : Custom code
+    int scenarioTasks_size = obj["scenarioTasks_size"];
+    for (int i = 0 ; i < scenarioTasks_size; i++)
+    {
+        std::ostringstream oss;
+        oss << "scenarioTasks[" << i << "]";
+
+        std::string key = oss.str();
+        UTask task = UTask::Deserialize(obj[key]);
+        scenarioTasks.push_back(task);
+    }
+
+    int scenarioConditions_size = obj["scenarioConditions_size"];
+    for (int i = 0 ; i < scenarioConditions_size; i++)
+    {
+        std::ostringstream oss;
+        oss << "scenarioConditions[" << i << "]";
+
+        std::string key = oss.str();
+        UCondition condition = UCondition::Deserialize(obj[key]);
+        scenarioConditions.push_back(condition);
+    }
 }
-//![0]
+
+UScenario UScenario::Deserialize(const json::Object& obj)
+{
+	UScenario o;
+	o.FillMembers(obj);
+	return o;
+}
 
