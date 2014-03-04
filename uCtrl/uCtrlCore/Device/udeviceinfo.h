@@ -1,19 +1,15 @@
 #ifndef UDEVICEINFO_H
 #define UDEVICEINFO_H
 
+#include "../Serialization/JsonMacros.h"
+#include "udevicesummary.h"
 #include <string>
 
-class UDeviceInfo
-{
-public:
-    UDeviceInfo();
+BEGIN_DECLARE_JSON_CLASS_ARGS6(UDeviceInfo, float, minValue, float, maxValue, int, precision, std::string, unitLabel, int, type, UDeviceSummary, deviceSummary)
 
-    float MinValue;
-    float MaxValue;
-    int Precision;
-    std::string UnitLabel;
-    int Type; // Enum?
-    //UDeviceSummary
-};
+public:
+    UDeviceInfo(const UDeviceInfo& deviceInfo);
+
+END_DECLARE_JSON_CLASS()
 
 #endif // UDEVICEINFO_H
