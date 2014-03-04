@@ -1,7 +1,7 @@
 #ifndef UTASK_H
 #define UTASK_H
 #include <QAbstractListModel>
-#include "../Conditions/ucondition.h"
+#include "../Conditions/uconditiondate.h"
 
 class UTask: public QAbstractListModel
 {
@@ -13,6 +13,8 @@ public:
     };
 
     UTask(QObject *parent = 0);
+    UTask(const UTask &task){this->m_id = task.m_id; }
+            //UTask(){}
     ~UTask();
      int id() const{return m_id;}
 
@@ -28,5 +30,6 @@ public:
     virtual QHash<int, QByteArray> roleNames() const;
 };
 
+Q_DECLARE_METATYPE(UTask)
 
 #endif // UTASK_H

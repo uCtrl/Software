@@ -2,9 +2,11 @@ import QtQuick 2.0
 
 
 Rectangle{
-    border.color: "gray"
+    property variant theModel: model
+    property variant myIndex: index
+    color: "gray"
     radius: 5
-    height: message.height + (conditions.height > dragger.height ? conditions.height : dragger.height)
+    height: 30 + conditions.height
     width: parent.width-8
     anchors.horizontalCenter: parent.horizontalCenter
 
@@ -12,11 +14,12 @@ Rectangle{
         id: message
         anchors.top: parent.top
         anchors.left: parent.left
-        color: "transparent"
-        border.color: "red"
+        height: msgText.height
+        color: "red"
         Text {
-            color: "blue"
-            text: "Changer l'état pour <b><i>50%</b></i> quand:"
+            id: msgText
+            color:"blue"
+            text: "Changer l'état pour <b><i>50%</b></i> quand: " + myIndex
 
             font.family: "Helvetica neue"
             font.pointSize: 14
@@ -27,18 +30,15 @@ Rectangle{
         id: conditions
         anchors.top: message.bottom
         anchors.left: parent.left
-        height: conditionsContent.height
-        color: "transparent"
+        height: (20) * conditionsContent.count
         border.color: "blue"
+
         ListView {
             id: conditionsContent
-            anchors.fill: parent
-            model:listContent.model.getConditionsModel
-            delegate: Text { text:"fuckall"}
-
-            focus: true
-
-            highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
+            height: parent.height
+            spacing: 4
+            model: listContent.model.GetTasks(myIndex) // utiliser listContent.model pour tester
+            delegate: Text { text:"J'ai un élément!" }
         }
     }
 

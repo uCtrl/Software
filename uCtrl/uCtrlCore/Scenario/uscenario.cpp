@@ -36,16 +36,24 @@ QVariant UScenario::data(const QModelIndex & index, int role) const {
         return QVariant();
 
     UTask* task = m_tasks[index.row()];
-    if (role == IdRole)
+    if (role == IdRole){
         return task->id();
-
-    return QVariant();
+    }
 }
 
 QHash<int, QByteArray> UScenario::roleNames() const {
     QHash<int, QByteArray> roles;
     roles[IdRole] = "id";
     return roles;
+}
+
+QObject *UScenario::GetTasks(const QString &id) const
+{
+    UTask *task = static_cast<UTask*>(m_tasks.at(id.toInt()));
+    if (task) {
+        return task;
+    }
+    return 0;
 }
 
 

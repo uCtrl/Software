@@ -13,8 +13,6 @@ int main(int argc, char *argv[])
 
     UScenario scenarioModel;
     scenarioModel.addTask(new UTask());
-    scenarioModel.addTask(new UTask());
-    scenarioModel.addTask(new UTask());
 
     QtQuick2ApplicationViewer viewer;
     QQmlContext *ctxt = viewer.rootContext();

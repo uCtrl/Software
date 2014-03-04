@@ -9,13 +9,18 @@ Rectangle {
         anchors.top: deviceHeader.bottom
         height: 200
         width: parent.width
-        transformOrigin: Item.Center
+        spacing: 5
 
         model: myScenarioModel
-        delegate: UConfigTaskWidget{       }
+        delegate: UConfigTaskWidget {}
         focus: true
 
-        highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
+        highlight: Rectangle
+        {
+            width: parent.width
+            color: "lightsteelblue"
+            radius: 5
+        }
     }
 
     UConfigHeaderWidget {

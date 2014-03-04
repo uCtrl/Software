@@ -29,6 +29,9 @@ public:
     virtual QVariant data(const QModelIndex &index, int role) const;
     virtual QHash<int, QByteArray> roleNames() const;
 
+    Q_INVOKABLE QObject* GetTasks(const QString &id) const;
+
+
     // Make sure you define a destructor for UScenario
     ~UScenario();
 };

@@ -5,7 +5,9 @@
 UTask::UTask(QObject *parent):
     QAbstractListModel(parent), m_id(0)
 {
-
+    this->addCondition(new UConditionDate("da good type"));
+    this->addCondition(new UConditionDate("da good type"));
+    printf("au moins une condition de créée");
 }
 
 UTask::~UTask()
