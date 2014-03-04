@@ -8,7 +8,7 @@ Rectangle {
     color: "#808080"
     border.color: "black"
     border.width: 2
-    height: 100
+    height: 150
 
     Rectangle {
         id: taskHeaderContainer
@@ -77,6 +77,35 @@ Rectangle {
         }
     }
 
+    Rectangle {
+        id: conditionListContainer
+        anchors.top: taskHeaderContainer.bottom
+        anchors.bottom: conditionList.bottom
+        anchors.left: parent.left
+        anchors.right: dragger.left
+        color: "transparent"
 
+        Rectangle
+        {
+            id: conditionList
+            color: "transparent"
+            width: parent.width - 10
+            height: parent.height - 10
+            anchors.centerIn: parent
+
+            UTimeConditionWidget {
+                id: condition1
+                anchors.top: parent.top
+                conditionHour: 15
+                conditionMinute: 00
+            }
+            UTimeConditionWidget {
+                id: condition2
+                anchors.top: condition1.bottom
+                conditionHour: 17
+                conditionMinute: 35
+            }
+        }
+    }
 }
 

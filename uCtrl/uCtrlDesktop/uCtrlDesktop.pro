@@ -74,4 +74,8 @@ OTHER_FILES += \
     qml/uCtrlDesktopQml/UScenarioHeaderWidget.qml \
     qml/uCtrlDesktopQml/UScenarioWidget.qml \
     qml/uCtrlDesktopQml/UScenarioConditionWidget.qml \
-    qml/uCtrlDesktopQml/ULabel.qml
+    qml/uCtrlDesktopQml/ULabel.qml \
+    qml/uCtrlDesktopQml/UConfigConditionWidget.qml \
+    qml/uCtrlDesktopQml/UClock.qml \
+    qml/uCtrlDesktopQml/ULine.qml \
+    qml/uCtrlDesktopQml/UTimeConditionWidget.qml

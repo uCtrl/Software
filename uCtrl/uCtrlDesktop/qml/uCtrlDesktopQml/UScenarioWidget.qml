@@ -23,6 +23,7 @@ Rectangle {
             anchors.top: parent.top
             status: "50%"
         }
+        /*
         UConfigTaskWidget {
             id: task2
             anchors.top: task1.bottom
@@ -43,6 +44,7 @@ Rectangle {
             anchors.top: task4.bottom
             status: "21.38%"
         }
+        */
     }
 
     UScenarioConditionWidget {
