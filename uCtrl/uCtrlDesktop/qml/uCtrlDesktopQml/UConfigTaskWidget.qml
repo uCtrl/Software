@@ -2,53 +2,78 @@ import QtQuick 2.0
 
 
 Rectangle {
-    border.color: "gray"
-    radius: 5
-    height: message.height + (conditions.height > dragger.height ? conditions.height : dragger.height)
-    width: parent.width-8
-    anchors.horizontalCenter: parent.horizontalCenter
+    property string status: "UNKNOWN"
+
+    width: parent.width
+    color: "#808080"
+    border.color: "black"
+    border.width: 2
+    height: 100
 
     Rectangle {
-        id: message
-        anchors.top: parent.top
-        anchors.left: parent.left
-        anchors.margins: 5
+        id: taskHeaderContainer
+        width: parent.width
+        height: 40
         color: "transparent"
-        Text {
-            color: "blue"
-            text: "Changer l'état pour <b><i>50%</b></i> quand:"
+        Rectangle {
+            id: taskHeader
+            width: parent.width - 10
+            height: parent.height - 10
+            anchors.centerIn: parent
+            color: "transparent"
 
-            font.family: "Helvetica neue"
-            font.pointSize: 14
-        }
-    }
+            ULabel {
+                id: changeStateLabel
+                text: "Changer l'état pour "
+                anchors.verticalCenter: parent.verticalCenter
+                font.pointSize: 14
+                color: "white"
+            }
 
-    Rectangle {
-        id: conditions
-        anchors.top: message.bottom
-        anchors.left: parent.left
-        height: conditionsContent.height
-        color: "transparent"
-        border.color: "blue"
-        ListView {
-            id:conditionsContent
-            anchors.fill: parent
+            Rectangle {
+                id: stateContainer
+                color: "white"
+
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: changeStateLabel.right
+
+                width: stateLabel.width + 10
+                height: parent.height - 10
+
+                ULabel {
+                    id: stateLabel
+                    text: status
+                    anchors.centerIn: parent
+                    font.pointSize: 12
+                }
+            }
+
+            ULabel {
+                id: stateLabelWhen
+                text: "quand:"
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: stateContainer.right
+                font.pointSize: 14
+                color: "white"
+                anchors.leftMargin: 5
+            }
         }
     }
 
     Rectangle {
         id: dragger
         anchors.right: parent.right
-        anchors.top: message.bottom
-        width: 25
-        height: 25
+        height: parent.height
+        width: 40
         color: "transparent"
 
-        UImageWidget {
-            anchors.centerIn: parent
-            height: 15
-            width: 15
+        Image {
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+            height: 30
+            width: 30
             source: "qrc:///Resources/Images/drag.png"
+
         }
     }
 

@@ -1,11 +1,10 @@
 import QtQuick 2.0
 
-Text {
+ULabel {
     property string labelText: "UNKNOWN"
 
-    color: "#404040"
+    color: "black"
     text: labelText
-    font.family: "Calibri"
-    font.pointSize: 15
-    font.bold: true
+    font.pointSize: 14
+    font.italic: true
 }

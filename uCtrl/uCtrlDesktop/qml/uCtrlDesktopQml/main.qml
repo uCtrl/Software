@@ -1,24 +1,17 @@
 import QtQuick 2.0
 
 Rectangle {
-    width: 360
-    height: 600
+    width: 500
+    height: 800
+    color: "gray"
 
-    ListView {
-        id: listContent
+    UScenarioWidget {
         anchors.top: deviceHeader.bottom
-        height: 200
-        width: parent.width
-        transformOrigin: Item.Center
-
-        model: myScenarioModel
-        delegate: UConfigWidget{}
-        focus: true
-
-        highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
+        anchors.bottom: parent.bottom
+        name: "Scenario #1 - Semaine de travail"
     }
 
-    UHeaderBarWidget {
+    UConfigHeaderWidget {
         id: deviceHeader
         anchors.top: navigationBar.bottom
         img: "qrc:///Resources/Images/light_icon.png"
@@ -26,31 +19,9 @@ Rectangle {
         subtitle: "Chambre des maîtres"
     }
 
-    UNavbarWidget {
+    UTitleWidget {
         title: "Configuration des modules"
         id:navigationBar
     }
 
-    Rectangle {
-        id: simplebutton
-        objectName: "btn"
-        anchors.top: listContent.bottom
-        color: "grey"
-        width: 96; height: 27
-
-        Text{
-            id: buttonLabel
-            anchors.centerIn: parent
-            text: "Add a task"
-        }
-
-        signal qmlSignal()
-
-        MouseArea{
-            id: buttonMouseArea
-
-            anchors.fill: parent
-            onClicked: simplebutton.qmlSignal()
-        }
-    }
 }
