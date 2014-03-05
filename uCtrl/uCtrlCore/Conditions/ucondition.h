@@ -7,6 +7,7 @@ BEGIN_DECLARE_JSON_CLASS_ARGS1(UCondition, int, id)
 
 public:
     UCondition(const UCondition& condition);
+    static UCondition CreateNewCondition();
 
 END_DECLARE_JSON_CLASS()
 

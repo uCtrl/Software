@@ -16,7 +16,6 @@ UConditionBuilder::~UConditionBuilder()
 
 void UConditionBuilder::AddCondition()
 {
-
 }
 
 void UConditionBuilder::EditCondition()

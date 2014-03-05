@@ -8,10 +8,14 @@ QML_IMPORT_PATH =
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
-    ../uCtrlCore/Tasks/utasksbuilder.cpp \
     ../uCtrlCore/Conditions/uconditionbuilder.cpp \
     ../uCtrlCore/Conditions/uconditionday.cpp \
-    ../uCtrlCore/Scenario/uscenariobuilder.cpp
+    ../uCtrlCore/Scenario/uscenariobuilder.cpp \
+    ../uCtrlCore/Device/udevicebuilder.cpp \
+    ../uCtrlCore/Utility/uniqueidgenerator.cpp \
+    ../uCtrlCore/Scenario/uscenariobuilderobserver.cpp \
+    ../uCtrlCore/Tasks/utaskbuilderobserver.cpp \
+    ../uCtrlCore/Tasks/utaskbuilder.cpp
 
 # Installation path
 # target.path =
@@ -48,11 +52,15 @@ HEADERS += \
     ../uCtrlCore/Scenario/uscenario.h \
     ../uCtrlCore/Serialization/json/json.h \
     ../uCtrlCore/Device/udevicestateinfo.h \
-    ../uCtrlCore/Tasks/utasksbuilder.h \
     ../uCtrlCore/Conditions/uconditionbuilder.h \
     ../uCtrlCore/Conditions/uconditionday.h \
     ../uCtrlCore/Scenario/uscenariobuilder.h \
-    ../uCtrlCore/Serialization/JsonMacros.h
+    ../uCtrlCore/Serialization/JsonMacros.h \
+    ../uCtrlCore/Device/udevicebuilder.h \
+    ../uCtrlCore/Utility/uniqueidgenerator.h \
+    ../uCtrlCore/Scenario/uscenariobuilderobserver.h \
+    ../uCtrlCore/Tasks/utaskbuilderobserver.h \
+    ../uCtrlCore/Tasks/utaskbuilder.h
 
 INCLUDEPATH += \
     qml/uCtrlDesktopQml/
