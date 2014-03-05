@@ -18,10 +18,14 @@ Rectangle {
         width: parent.width
         color: "transparent"
 
-        UConfigTaskWidget {
-            id: task1
-            anchors.top: parent.top
-            status: "50%"
+        ListView {
+            id: taskList
+            anchors.fill: parent
+
+            model: myScenarioModel
+            delegate: UConfigTaskWidget {
+                status: taskStatus;
+            }
         }
     }
 

@@ -20,6 +20,7 @@ SOURCES += main.cpp \
 include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
 qtcAddDeployment()
 
+# Common stuff
 SOURCES += \
     ../uCtrlCore/usystem.cpp \
     ../uCtrlCore/uplatform.cpp \
@@ -54,21 +55,17 @@ HEADERS += \
     ../uCtrlCore/Scenario/uscenariobuilder.h \
     ../uCtrlCore/Serialization/JsonMacros.h
 
+# Interface-specific stuff
+SOURCES += \
+    Models/Task/utaskmodel.cpp \
+    Models/Scenario/uscenariomodel.cpp \
+
+HEADERS += \
+    Models/Task/utaskmodel.h \
+    Models/Scenario/uscenariomodel.h \
+
 INCLUDEPATH += \
     qml/uCtrlDesktopQml/
 
 RESOURCES += \
     Resources.qrc
-
-OTHER_FILES += \
-    qml/uCtrlDesktopQml/UConfigTaskWidget.qml \
-    qml/uCtrlDesktopQml/UConfigHeaderWidget.qml \
-    qml/uCtrlDesktopQml/UTitleWidget.qml \
-    qml/uCtrlDesktopQml/UScenarioHeaderWidget.qml \
-    qml/uCtrlDesktopQml/UScenarioWidget.qml \
-    qml/uCtrlDesktopQml/UScenarioConditionWidget.qml \
-    qml/uCtrlDesktopQml/ULabel.qml \
-    qml/uCtrlDesktopQml/UConfigConditionWidget.qml \
-    qml/uCtrlDesktopQml/UClock.qml \
-    qml/uCtrlDesktopQml/ULine.qml \
-    qml/uCtrlDesktopQml/UTimeConditionWidget.qml
