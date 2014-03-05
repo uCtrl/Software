@@ -3,20 +3,13 @@ folder_01.source = qml/uCtrlDesktopQml
 folder_01.target = qml
 DEPLOYMENTFOLDERS = folder_01
 
-# Additional import path used to resolve QML modules in Creator's code model
-QML_IMPORT_PATH =
+QT += network
 
 # The .cpp file which was generated for your project. Feel free to hack it.
-SOURCES += main.cpp
-
-# Installation path
-# target.path =
-
-# Please do not modify the following two lines. Required for deployment.
-include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
-qtcAddDeployment()
-
 SOURCES += \
+    main.cpp \
+    Network/bonjourservicebrowser.cpp \
+    Network/bonjourserviceresolver.cpp \
     ../uCtrlCore/usystem.cpp \
     ../uCtrlCore/uplatform.cpp \
     ../uCtrlCore/Device/udevice.cpp \
@@ -31,6 +24,9 @@ SOURCES += \
     ../uCtrlCore/Device/udevicestateinfo.cpp
 
 HEADERS += \
+    Network/bonjourrecord.h \
+    Network/bonjourservicebrowser.h \
+    Network/bonjourserviceresolver.h \
     ../uCtrlCore/usystem.h\
     ../uCtrlCore/uctrlcore_global.h \
     ../uCtrlCore/uplatform.h \
@@ -43,7 +39,12 @@ HEADERS += \
     ../uCtrlCore/Conditions/uconditiondate.h \
     ../uCtrlCore/Scenario/uscenario.h \
     ../uCtrlCore/Serialization/json/json.h \
-    ../uCtrlCore/Device/udevicestateinfo.h
+    ../uCtrlCore/Device/udevicestateinfo.h \
+
+
+# Please do not modify the following two lines. Required for deployment.
+include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
+qtcAddDeployment()
 
 
 #SOURCES += \
@@ -67,3 +68,10 @@ INCLUDEPATH += \
 
 RESOURCES += \
     Resources.qrc
+
+!mac:LIBS += -ldns_sd
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/Network/lib/ -ldnss
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/Network/lib/ -ldnssd
+win32:INCLUDEPATH += $$PWD/Network/lib
+win32:DEPENDPATH += $$PWD/Network/lib

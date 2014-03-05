@@ -4,8 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core
-QT       -= gui
+QT += core
+QT -= gui
 
 TARGET = uCtrlCore
 TEMPLATE = lib

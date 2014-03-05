@@ -1,4 +1,6 @@
 TEMPLATE = subdirs
 
-SUBDIRS += 	uCtrlCore \
-    		uCtrlDesktop
+SUBDIRS += \
+    uCtrlCore \
+    uCtrlDesktop \
+    uCtrlServiceBrowser
