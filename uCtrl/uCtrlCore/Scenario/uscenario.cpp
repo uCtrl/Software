@@ -1,11 +1,16 @@
 #include "uscenario.h"
 #include <sstream>
 
+int UScenario::taskCount() const
+{
+    return m_tasks.size();
+}
+
 UScenario::UScenario(const UScenario& scenario)
 {
     this->id = scenario.id;
     this->name = scenario.name;
-    this->scenarioTasks = scenario.scenarioTasks;
+    this->m_tasks = scenario.m_tasks;
 }
 
 json::Object UScenario::ToObject()
@@ -15,20 +20,42 @@ json::Object UScenario::ToObject()
 	return obj;
 }
 
+
+UScenario::~UScenario()
+{
+    // TODO: properly delete m_tasks data
+    m_tasks.clear();
+}
+
+void UScenario::addTask(UTask* task)
+{
+    m_tasks.insert(m_tasks.end(), task); 
+}
+
+UTask* UScenario::taskAt(int index) const
+{
+    if (m_tasks.size() > index)
+    {
+        return m_tasks[index];
+    }
+}
+
+
+
 void UScenario::FillObject(json::Object& obj)
 {
 	obj["id"] = id;
 	obj["name"] = name;
 
     // WARNING : Custom code
-    obj["scenarioTasks_size"] = (int) scenarioTasks.size();
-    for (int i = 0; i < scenarioTasks.size(); i++)
+    obj["m_tasks_size"] = (int) m_tasks.size();
+    for (int i = 0; i < m_tasks.size(); i++)
     {
         std::ostringstream oss;
-        oss << "scenarioTasks[" << i << "]";
+        oss << "m_tasks[" << i << "]";
 
         std::string key = oss.str();
-        obj[key] = scenarioTasks[i].ToObject();
+        obj[key] = m_tasks[i]->ToObject();
     }
 
     obj["scenarioConditions_size"] = (int) scenarioConditions.size();
@@ -54,15 +81,15 @@ void UScenario::FillMembers(const json::Object& obj)
     name = obj["name"].ToString();
 
     // WARNING : Custom code
-    int scenarioTasks_size = obj["scenarioTasks_size"];
-    for (int i = 0 ; i < scenarioTasks_size; i++)
+    int m_tasks_size = obj["m_tasks_size"];
+    for (int i = 0 ; i < m_tasks_size; i++)
     {
         std::ostringstream oss;
-        oss << "scenarioTasks[" << i << "]";
+        oss << "m_tasks[" << i << "]";
 
         std::string key = oss.str();
         UTask task = UTask::Deserialize(obj[key]);
-        scenarioTasks.push_back(task);
+        m_tasks.push_back(new UTask(task));
     }
 
     int scenarioConditions_size = obj["scenarioConditions_size"];

@@ -20,6 +20,7 @@ SOURCES += main.cpp \
 include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
 qtcAddDeployment()
 
+# Common stuff
 SOURCES += \
     ../uCtrlCore/usystem.cpp \
     ../uCtrlCore/uplatform.cpp \
@@ -54,8 +55,18 @@ HEADERS += \
     ../uCtrlCore/Scenario/uscenariobuilder.h \
     ../uCtrlCore/Serialization/JsonMacros.h
 
+# Interface-specific stuff
+SOURCES += \
+    Models/Task/utaskmodel.cpp \
+    Models/Scenario/uscenariomodel.cpp \
+
+HEADERS += \
+    Models/Task/utaskmodel.h \
+    Models/Scenario/uscenariomodel.h \
+
 INCLUDEPATH += \
     qml/uCtrlDesktopQml/
 
 RESOURCES += \
     Resources.qrc
+
