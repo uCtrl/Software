@@ -59,3 +59,16 @@ INCLUDEPATH += \
 
 RESOURCES += \
     Resources.qrc
+
+OTHER_FILES += \
+    qml/uCtrlDesktopQml/UConfigTaskWidget.qml \
+    qml/uCtrlDesktopQml/UConfigHeaderWidget.qml \
+    qml/uCtrlDesktopQml/UTitleWidget.qml \
+    qml/uCtrlDesktopQml/UScenarioHeaderWidget.qml \
+    qml/uCtrlDesktopQml/UScenarioWidget.qml \
+    qml/uCtrlDesktopQml/UScenarioConditionWidget.qml \
+    qml/uCtrlDesktopQml/ULabel.qml \
+    qml/uCtrlDesktopQml/UConfigConditionWidget.qml \
+    qml/uCtrlDesktopQml/UClock.qml \
+    qml/uCtrlDesktopQml/ULine.qml \
+    qml/uCtrlDesktopQml/UTimeConditionWidget.qml
