@@ -29,21 +29,10 @@ UConfigConditionWidget {
             id: conditionLabel
             anchors.left: clockContainer.right
             anchors.leftMargin: 5
-            text: "Time is later than " + conditionHour + ":" + zeroPad(conditionMinute, 2)
+            text: "Time is " + condition
             anchors.verticalCenter: parent.verticalCenter
             color: "black"
             font.pointSize: 14
-
-            function zeroPad(num, numZeros) {
-                var n = Math.abs(num);
-                var zeros = Math.max(0, numZeros - Math.floor(n).toString().length );
-                var zeroString = Math.pow(10,zeros).toString().substr(1);
-                if( num < 0 ) {
-                    zeroString = '-' + zeroString;
-                }
-
-                return zeroString+n;
-            }
         }
 
 
