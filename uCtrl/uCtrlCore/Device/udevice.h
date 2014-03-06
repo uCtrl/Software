@@ -7,7 +7,7 @@
 #include <vector>
 
 
-BEGIN_DECLARE_JSON_CLASS_ARGS3(UDevice, int, id, std::string, name, std::vector<UScenario>, deviceScenarios)
+BEGIN_DECLARE_JSON_CLASS_ARGS3(UDevice, int, m_id, std::string, m_name, std::vector<UScenario>, m_deviceScenarios)
 
 public:
     UDevice(const UDevice& device);

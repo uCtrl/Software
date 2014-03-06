@@ -8,8 +8,8 @@ int UScenario::taskCount() const
 
 UScenario::UScenario(const UScenario& scenario)
 {
-    this->id = scenario.id;
-    this->name = scenario.name;
+    this->m_id = scenario.m_id;
+    this->m_name = scenario.m_name;
     this->m_tasks = scenario.m_tasks;
 }
 
@@ -27,25 +27,26 @@ UScenario::~UScenario()
     m_tasks.clear();
 }
 
-void UScenario::addTask(UTask* task)
+void UScenario::addTask(const UTask& task)
 {
-    m_tasks.insert(m_tasks.end(), task); 
+    m_tasks.push_back(task);
 }
 
-UTask* UScenario::taskAt(int index) const
+const UTask* UScenario::taskAt(int index) const
 {
     if (m_tasks.size() > index)
     {
-        return m_tasks[index];
+        return &m_tasks[index];
     }
+    return NULL;
 }
 
 
 
 void UScenario::FillObject(json::Object& obj)
 {
-	obj["id"] = id;
-	obj["name"] = name;
+    obj["m_id"] = m_id;
+    obj["m_name"] = m_name;
 
     // WARNING : Custom code
     obj["m_tasks_size"] = (int) m_tasks.size();
@@ -55,7 +56,7 @@ void UScenario::FillObject(json::Object& obj)
         oss << "m_tasks[" << i << "]";
 
         std::string key = oss.str();
-        obj[key] = m_tasks[i]->ToObject();
+        obj[key] = m_tasks[i].ToObject();
     }
 
     obj["scenarioConditions_size"] = (int) scenarioConditions.size();
@@ -77,8 +78,8 @@ std::string UScenario::Serialize()
 
 void UScenario::FillMembers(const json::Object& obj)
 {
-	id = obj["id"];
-    name = obj["name"].ToString();
+    m_id = obj["m_id"];
+    m_name = obj["m_name"].ToString();
 
     // WARNING : Custom code
     int m_tasks_size = obj["m_tasks_size"];
@@ -89,7 +90,7 @@ void UScenario::FillMembers(const json::Object& obj)
 
         std::string key = oss.str();
         UTask task = UTask::Deserialize(obj[key]);
-        m_tasks.push_back(new UTask(task));
+        m_tasks.push_back(task);
     }
 
     int scenarioConditions_size = obj["scenarioConditions_size"];
