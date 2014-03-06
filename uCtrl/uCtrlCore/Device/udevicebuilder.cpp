@@ -17,11 +17,11 @@ UScenarioBuilder* UDeviceBuilder::createScenario()
 
 UScenarioBuilder* UDeviceBuilder::editScenario(int scenarioId)
 {
-    for (int i = 0; i < m_device->deviceScenarios.size(); ++i)
+    for (int i = 0; i < m_device->m_deviceScenarios.size(); ++i)
     {
-        if (m_device->deviceScenarios[i].id == scenarioId)
+        if (m_device->m_deviceScenarios[i].m_id == scenarioId)
         {
-            UScenarioBuilder* scenarioBuilder = new UScenarioBuilder(this, m_device->deviceScenarios[i]);
+            UScenarioBuilder* scenarioBuilder = new UScenarioBuilder(this, m_device->m_deviceScenarios[i]);
             return scenarioBuilder;
         }
     }
@@ -29,13 +29,13 @@ UScenarioBuilder* UDeviceBuilder::editScenario(int scenarioId)
 
 void UDeviceBuilder::deleteScenario(int scenarioId)
 {
-    for (int i = 0; i < m_device->deviceScenarios.size(); ++i)
+    for (int i = 0; i < m_device->m_deviceScenarios.size(); ++i)
     {
-        if (m_device->deviceScenarios[i].id == scenarioId)
+        if (m_device->m_deviceScenarios[i].m_id == scenarioId)
         {
-            std::vector<UScenario>::iterator iter = m_device->deviceScenarios.begin() + i;
+            std::vector<UScenario>::iterator iter = m_device->m_deviceScenarios.begin() + i;
 
-            m_device->deviceScenarios.erase(iter);
+            m_device->m_deviceScenarios.erase(iter);
 
             // TODO : Notify device scenario deleted
             return;
@@ -45,20 +45,20 @@ void UDeviceBuilder::deleteScenario(int scenarioId)
 
 void UDeviceBuilder::onScenarioUpdated(const UScenario& updatedScenario)
 {
-    for (int i = 0; i < m_device->deviceScenarios.size(); ++i)
+    for (int i = 0; i < m_device->m_deviceScenarios.size(); ++i)
     {
-        if (m_device->deviceScenarios[i].id == updatedScenario.id)
+        if (m_device->m_deviceScenarios[i].m_id == updatedScenario.m_id)
         {
-            std::vector<UScenario>::iterator iter = m_device->deviceScenarios.begin() + i;
+            std::vector<UScenario>::iterator iter = m_device->m_deviceScenarios.begin() + i;
 
-            m_device->deviceScenarios.erase(iter);
-            m_device->deviceScenarios.insert(iter, updatedScenario);
+            m_device->m_deviceScenarios.erase(iter);
+            m_device->m_deviceScenarios.insert(iter, updatedScenario);
 
             // TODO : Notify device scenario edited
             return;
         }
     }
 
-    m_device->deviceScenarios.push_back(updatedScenario);
+    m_device->m_deviceScenarios.push_back(updatedScenario);
     // TODO : Notify device scenario added
 }

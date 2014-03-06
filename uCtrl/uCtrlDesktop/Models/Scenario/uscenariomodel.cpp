@@ -5,31 +5,26 @@ UScenarioModel::UScenarioModel(QObject *parent)
 {
 }
 
-UScenarioModel::UScenarioModel(UScenario& scenario, QObject *parent)
+UScenarioModel::UScenarioModel(const UScenarioBuilder* scenarioBuilder, QObject *parent)
     : QAbstractListModel(parent)
+    , m_scenarioBuilder(scenarioBuilder)
+    , m_scenario(scenarioBuilder->getScenario())
 {
-    m_scenario = scenario;
+    //m_scenario = scenarioBuilder->getScenario();
 }
-
 
 UScenarioModel::~UScenarioModel()
 {
-    m_scenario.~UScenario();
-}
-
-void UScenarioModel::addTask(UTask* task)
-{
-    m_scenario.addTask(task);
 }
 
 int UScenarioModel::rowCount(const QModelIndex & parent) const {
-    return m_scenario.taskCount();
+    return m_scenario->taskCount();
 }
 
 QVariant UScenarioModel::data(const QModelIndex & index, int role) const {
-    if (index.row() < 0 || index.row() >= m_scenario.taskCount())
+    if (index.row() < 0 || index.row() >= m_scenario->taskCount())
         return QVariant();
-    UTask* task = m_scenario.taskAt(index.row());
+    const UTask* task = m_scenario->taskAt(index.row());
     if (role == IdRole){
         return task->id();
     }

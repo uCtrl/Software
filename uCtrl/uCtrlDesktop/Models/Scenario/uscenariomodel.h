@@ -4,6 +4,7 @@
 #include <QAbstractListModel>
 #include "../../uCtrlCore/Tasks/utask.h"
 #include "../../uCtrlCore/Scenario/uscenario.h"
+#include "../../uCtrlCore/Scenario/uscenariobuilder.h"
 
 class UScenarioModel : public QAbstractListModel
 {
@@ -15,14 +16,14 @@ public:
     };
 
     UScenarioModel(QObject *parent = 0);
+    UScenarioModel(const UScenarioBuilder* scenarioBuilder, QObject *parent = 0);
     ~UScenarioModel();
-    UScenarioModel(UScenario &scenario, QObject *parent = 0);
 
 private:
-    UScenario m_scenario;
+    const UScenarioBuilder* m_scenarioBuilder;
+    const UScenario*        m_scenario;
 
 public:
-    void addTask(UTask* task);
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const;
     virtual QVariant data(const QModelIndex &index, int role) const;
     virtual QHash<int, QByteArray> roleNames() const;

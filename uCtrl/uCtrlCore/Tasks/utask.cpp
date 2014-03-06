@@ -5,6 +5,7 @@ UTask::UTask(const UTask& task)
 {
     m_id = task.id();
     m_name = task.name();
+    m_status = task.status();
     m_conditions = task.conditions();
 }
 
@@ -35,8 +36,6 @@ UCondition* UTask::conditionAt(int index) const
         return m_conditions[index];
     }
 }
-
-
 
 json::Object UTask::ToObject()
 {

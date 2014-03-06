@@ -21,8 +21,8 @@ public:
     UTaskBuilder* editTask(int taskId);
     void          deleteTask(int taskId);
 
-    const UScenario* getScenario() { return &m_scenario; }
-    bool             isDirty() { return m_isDirty; }
+    const UScenario* getScenario() const { return &m_scenario; }
+    bool             isDirty() const { return m_isDirty; }
 
     void notifyScenarioUpdate();
     void onTaskUpdated(const UTask& updatedTask);

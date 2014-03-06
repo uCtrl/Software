@@ -7,9 +7,7 @@
 // ID = DDMMYYYYhhmmssxx  (xx = random number 0-99)
 long long UniqueIdGenerator::GenerateUniqueId()
 {
-    /* initialize random seed: */
-    srand (time(NULL));
-    int randomNumber = rand() % 100;
+    static int idEnd = 0;
 
     time_t t = time(0);   // get time now
     struct tm * now = localtime( & t );
@@ -21,6 +19,6 @@ long long UniqueIdGenerator::GenerateUniqueId()
                 uniqueId += now->tm_hour * (long long) 1000000;
                 uniqueId += now->tm_min  * (long long) 10000;
                 uniqueId += now->tm_sec  * (long long) 100;
-                uniqueId += randomNumber * (long long) 1;
+                uniqueId += idEnd++      * (long long) 1;
     return uniqueId;
 }

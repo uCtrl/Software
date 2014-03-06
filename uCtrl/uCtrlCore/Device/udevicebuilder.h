@@ -11,6 +11,7 @@ public:
     UDeviceBuilder();
     UDeviceBuilder(UDevice* device);
 
+    void setName(const std::string& name) { m_device->m_name = name; }
     const UDevice* getDevice() { return m_device; }
 
     UScenarioBuilder* createScenario();
