@@ -1,8 +1,16 @@
 #include "ucondition.h"
+#include "../Utility/uniqueidgenerator.h"
 
 UCondition::UCondition(const UCondition& condition)
 {
     this->id = condition.id;
+}
+
+UCondition UCondition::CreateNewCondition()
+{
+    UCondition condition;
+    condition.id = UniqueIdGenerator::GenerateUniqueId();
+    return condition;
 }
 
 json::Object UCondition::ToObject()

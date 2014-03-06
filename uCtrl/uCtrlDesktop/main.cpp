@@ -6,9 +6,12 @@
 #include <QtQuick/qquickitem.h>
 #include <QtQuick/qquickview.h>
 #include "../uCtrlDesktop/Models/Scenario/uscenariomodel.h"
+#include "../uCtrlCore/Scenario/uscenario.h"
+#include "../uCtrlCore/Utility/uniqueidgenerator.h"
 
 int main(int argc, char *argv[])
 {
+
     QGuiApplication app(argc, argv);
     QtQuick2ApplicationViewer viewer;
 
@@ -18,12 +21,14 @@ int main(int argc, char *argv[])
     scenarioModel.addTask(new UTask("11%"));
     scenarioModel.addTask(new UTask("13%"));
     scenarioModel.addTask(new UTask("12%"));
-	                                        
+
     QQmlContext *ctxt = viewer.rootContext();
     ctxt->setContextProperty("myScenarioModel", &scenarioModel);  
 
     viewer.setMainQmlFile(QStringLiteral("qml/uCtrlDesktopQml/main.qml"));
     viewer.showExpanded();
+*/
 
+    long long id = UniqueIdGenerator::GenerateUniqueId();
     return app.exec();
 }
