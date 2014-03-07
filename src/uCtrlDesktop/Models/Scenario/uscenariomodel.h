@@ -2,9 +2,9 @@
 #define USCENARIOMODEL_H
 
 #include <QAbstractListModel>
-#include "../../uCtrlCore/Tasks/utask.h"
-#include "../../uCtrlCore/Scenario/uscenario.h"
-#include "../../uCtrlCore/Scenario/uscenariobuilder.h"
+#include "Tasks/utask.h"
+#include "Scenario/uscenario.h"
+#include "Scenario/uscenariobuilder.h"
 
 class UScenarioModel : public QAbstractListModel
 {
