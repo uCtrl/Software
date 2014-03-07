@@ -16,7 +16,6 @@ SOURCES += \
     Network/bonjourserviceresolver.cpp \
     Models/Task/utaskmodel.cpp \
     Models/Scenario/uscenariomodel.cpp \
-    ../uCtrlCore/Tasks/utasksbuilder.cpp \
     ../uCtrlCore/Conditions/uconditionbuilder.cpp \
     ../uCtrlCore/Conditions/uconditionday.cpp \
     ../uCtrlCore/Scenario/uscenariobuilder.cpp \
@@ -31,7 +30,12 @@ SOURCES += \
     ../uCtrlCore/Conditions/uconditiondate.cpp \
     ../uCtrlCore/Scenario/uscenario.cpp \
     ../uCtrlCore/Serialization/json/json.cpp \
-    ../uCtrlCore/Device/udevicestateinfo.cpp
+    ../uCtrlCore/Device/udevicestateinfo.cpp \
+    ../uCtrlCore/Utility/uniqueidgenerator.cpp \
+    ../uCtrlCore/Scenario/uscenariobuilderobserver.cpp \
+    ../uCtrlCore/Tasks/utaskbuilderobserver.cpp \
+    ../uCtrlCore/Device/udevicebuilder.cpp \
+    ../uCtrlCore/Tasks/utaskbuilder.cpp
 
 HEADERS += \
     Network/bonjourrecord.h \
@@ -39,7 +43,7 @@ HEADERS += \
     Network/bonjourserviceresolver.h \
     Models/Task/utaskmodel.h \
     Models/Scenario/uscenariomodel.h \
-    ../uCtrlCore/usystem.h \
+    ../uCtrlCore/usystem.h\
     ../uCtrlCore/uctrlcore_global.h \
     ../uCtrlCore/uplatform.h \
     ../uCtrlCore/Device/udevice.h \
@@ -52,11 +56,15 @@ HEADERS += \
     ../uCtrlCore/Scenario/uscenario.h \
     ../uCtrlCore/Serialization/json/json.h \
     ../uCtrlCore/Device/udevicestateinfo.h \
-    ../uCtrlCore/Tasks/utasksbuilder.h \
     ../uCtrlCore/Conditions/uconditionbuilder.h \
     ../uCtrlCore/Conditions/uconditionday.h \
     ../uCtrlCore/Scenario/uscenariobuilder.h \
-    ../uCtrlCore/Serialization/JsonMacros.h
+    ../uCtrlCore/Serialization/JsonMacros.h \
+    ../uCtrlCore/Device/udevicebuilder.h \
+    ../uCtrlCore/Utility/uniqueidgenerator.h \
+    ../uCtrlCore/Scenario/uscenariobuilderobserver.h \
+    ../uCtrlCore/Tasks/utaskbuilderobserver.h \
+    ../uCtrlCore/Tasks/utaskbuilder.h
 
 INCLUDEPATH += \
     qml/uCtrlDesktopQml/

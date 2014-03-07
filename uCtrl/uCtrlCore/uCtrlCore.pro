@@ -25,9 +25,13 @@ SOURCES += usystem.cpp \
     Serialization/json/json.cpp \
     Device/udevicestateinfo.cpp \
     Scenario/uscenariobuilder.cpp \
-    Tasks/utasksbuilder.cpp \
     Conditions/uconditionbuilder.cpp \
-    Conditions/uconditionday.cpp
+    Conditions/uconditionday.cpp \
+    Utility/uniqueidgenerator.cpp \
+    Tasks/utaskbuilder.cpp \
+    Tasks/utaskbuilderobserver.cpp \
+    Scenario/uscenariobuilderobserver.cpp \
+    Device/udevicebuilder.cpp
 
 HEADERS += usystem.h\
         uctrlcore_global.h \
@@ -43,9 +47,14 @@ HEADERS += usystem.h\
     Serialization/json/json.h \
     Device/udevicestateinfo.h \
     Scenario/uscenariobuilder.h \
-    Tasks/utasksbuilder.h \
     Conditions/uconditionbuilder.h \
-    Conditions/uconditionday.h
+    Conditions/uconditionday.h \
+    Utility/uniqueidgenerator.h \
+    Tasks/utaskbuilder.h \
+    Tasks/utaskbuilderobserver.h \
+    Serialization/JsonMacros.h \
+    Scenario/uscenariobuilderobserver.h \
+    Device/udevicebuilder.h
 
 unix {
     target.path = /usr/lib
