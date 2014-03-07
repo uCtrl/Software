@@ -3,13 +3,13 @@
 
 UCondition::UCondition(const UCondition& condition)
 {
-    this->id = condition.id;
+    this->m_id = condition.m_id;
 }
 
 UCondition UCondition::CreateNewCondition()
 {
     UCondition condition;
-    condition.id = UniqueIdGenerator::GenerateUniqueId();
+    condition.m_id = UniqueIdGenerator::GenerateUniqueId();
     return condition;
 }
 
@@ -22,7 +22,7 @@ json::Object UCondition::ToObject()
 
 void UCondition::FillObject(json::Object& obj)
 {
-	obj["id"] = id;
+    obj["m_id"] = m_id;
 }
 
 std::string UCondition::Serialize()
@@ -33,7 +33,7 @@ std::string UCondition::Serialize()
 
 void UCondition::FillMembers(const json::Object& obj)
 {
-	id = obj["id"];
+    m_id = obj["m_id"];
 }
 
 UCondition UCondition::Deserialize(const json::Object& obj)

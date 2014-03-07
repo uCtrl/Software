@@ -10,20 +10,22 @@ class UTaskModel : public QAbstractListModel
 
 public:
     enum TaskRoles {
-        typeRole = Qt::UserRole + 1
+        idRole = Qt::UserRole + 1
     };
 
     ~UTaskModel();
-    UTaskModel(UTask &task, QObject *parent = 0);
+    UTaskModel(const UTask* task, QObject *parent = 0);
 
 private:
-    UTask m_task;
+    const UTask* m_task;
 
 public:
-    void addCondition(UCondition *cond);
+    void addCondition(const UCondition *cond);
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const;
     virtual QVariant data(const QModelIndex &index, int role) const;
     virtual QHash<int, QByteArray> roleNames() const; 
+
+    Q_INVOKABLE UCondition* getConditionAt(const QString &index) const;
 };
 
 #endif // UTaskModel_H
