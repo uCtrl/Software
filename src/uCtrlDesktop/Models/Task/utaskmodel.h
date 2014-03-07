@@ -2,7 +2,7 @@
 #define UTaskModel_H
 
 #include <QAbstractListModel>
-#include "../../uCtrlCore/Tasks/utask.h"
+#include "Tasks/utask.h"
 
 class UTaskModel : public QAbstractListModel
 {

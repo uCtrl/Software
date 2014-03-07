@@ -1,9 +1,7 @@
 #ifndef USYSTEM_H
 #define USYSTEM_H
 
-#include "uctrlcore_global.h"
-
-class /*UCTRLCORESHARED_EXPORT*/ USystem
+class USystem
 {
 
 public:

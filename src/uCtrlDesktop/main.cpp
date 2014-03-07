@@ -5,10 +5,10 @@
 #include <qqml.h>
 #include <QtQuick/qquickitem.h>
 #include <QtQuick/qquickview.h>
-#include "../uCtrlDesktop/Models/Scenario/uscenariomodel.h"
-#include "../uCtrlCore/Scenario/uscenario.h"
-#include "../uCtrlCore/Utility/uniqueidgenerator.h"
-#include "../uCtrlCore/Scenario/uscenariobuilder.h"
+#include "Models/Scenario/uscenariomodel.h"
+#include "Scenario/uscenario.h"
+#include "Utility/uniqueidgenerator.h"
+#include "Scenario/uscenariobuilder.h"
 
 void DestroyTaskBuilder(UTaskBuilder* taskBuilder)
 {
