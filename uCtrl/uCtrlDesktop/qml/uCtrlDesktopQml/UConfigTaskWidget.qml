@@ -3,12 +3,13 @@ import QtQuick 2.0
 
 Rectangle {
     property string status: "UNKNOWN"
+    property int delegateIndex: index
 
     width: parent.width
     color: "#808080"
     border.color: "black"
     border.width: 2
-    height: 150
+    height: 40 + conditionListContainer.height
 
     Rectangle {
         id: taskHeaderContainer
@@ -80,30 +81,19 @@ Rectangle {
     Rectangle {
         id: conditionListContainer
         anchors.top: taskHeaderContainer.bottom
-        anchors.bottom: conditionList.bottom
         anchors.left: parent.left
         anchors.right: dragger.left
         color: "transparent"
+        height: 40 * conditionList.count
 
-        Rectangle
-        {
+        ListView {
             id: conditionList
-            color: "transparent"
-            width: parent.width - 10
-            height: parent.height - 10
-            anchors.centerIn: parent
-
-            UTimeConditionWidget {
-                id: condition1
-                anchors.top: parent.top
+            anchors.fill: parent
+            model: taskList.model.getTaskAt(delegateIndex)
+            spacing:5
+            delegate: UTimeConditionWidget {
                 conditionHour: 15
                 conditionMinute: 00
-            }
-            UTimeConditionWidget {
-                id: condition2
-                anchors.top: condition1.bottom
-                conditionHour: 17
-                conditionMinute: 35
             }
         }
     }

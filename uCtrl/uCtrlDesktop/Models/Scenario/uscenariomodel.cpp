@@ -1,4 +1,5 @@
 #include "uscenariomodel.h"
+#include "../Models/Task/utaskmodel.h"
 
 UScenarioModel::UScenarioModel(QObject *parent)
     : QAbstractListModel(parent)
@@ -41,4 +42,11 @@ QHash<int, QByteArray> UScenarioModel::roleNames() const {
     return roles;
 }
 
-
+QObject* UScenarioModel::getTaskAt(const QString &index) const
+{
+    const UTask *task = m_scenario->taskAt(index.toInt());
+    if (task) {
+        return new UTaskModel(task);
+    }
+    return 0;
+}
