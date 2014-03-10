@@ -1,6 +1,4 @@
-#include "../Task/utaskmodel.h"
-
-
+#include "utaskmodel.h"
 
 UTaskModel::UTaskModel(const UTask* task, QObject *parent)
     : QAbstractListModel(parent)
