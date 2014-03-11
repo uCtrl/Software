@@ -2,17 +2,23 @@
 #define UCONDITIONBUILDER_H
 
 #include "ucondition.h"
+#include "uconditionbuilderobserver.h"
 
 class UConditionBuilder
 {
 public:
-    UConditionBuilder();
-    UConditionBuilder(const UCondition& condition);
+    UConditionBuilder(UConditionBuilderObserver* conditionBuilderObserver);
+    UConditionBuilder(UConditionBuilderObserver* conditionBuilderObserver, const UCondition& condition);
     ~UConditionBuilder();
 
-    void AddCondition();
-    void EditCondition();
-    void DeleteCondition();
+    const UCondition* getCondition() { return &m_condition; }
+    bool isDirty() const { return m_isDirty; }
+
+    void notifyConditionUpdate();
+private:
+    UCondition m_condition;
+    UConditionBuilderObserver* m_conditionBuilderObserver;
+    bool m_isDirty;
 };
 
 #endif // UCONDITIONBUILDER_H

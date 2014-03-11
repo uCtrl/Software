@@ -2,8 +2,8 @@
 #define UDEVICEBUILDER_H
 
 #include "udevice.h"
-#include "../Scenario/uscenariobuilder.h"
-#include "../Scenario/uscenariobuilderobserver.h"
+#include "Scenario/uscenariobuilder.h"
+#include "Scenario/uscenariobuilderobserver.h"
 
 class UDeviceBuilder : public UScenarioBuilderObserver
 {

@@ -3,13 +3,19 @@
 
 #include "utask.h"
 #include "utaskbuilderobserver.h"
+#include "Conditions/uconditionbuilder.h"
+#include "Conditions/uconditionbuilderobserver.h"
 
-class UTaskBuilder
+class UTaskBuilder : public UConditionBuilderObserver
 {
 public:
     UTaskBuilder(UTaskBuilderObserver* taskBuilderObserver);
     UTaskBuilder(UTaskBuilderObserver* taskBuilderObserver, const UTask& task);
     ~UTaskBuilder();
+
+    UConditionBuilder* createCondition();
+    UConditionBuilder* editCondition(int conditionId);
+    void               deleteCondition(int conditionId);
 
     void setName(const std::string& name);
     void setStatus(const std::string& status);
@@ -18,6 +24,7 @@ public:
     bool         isDirty() { return m_isDirty; }
 
     void notifyTaskUpdate();
+    void onConditionUpdated(const UCondition& updatedCondition);
 
 private:
     UTask m_task;

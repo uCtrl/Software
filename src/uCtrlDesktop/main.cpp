@@ -59,9 +59,11 @@ int main(int argc, char *argv[])
     const UScenario* scenario = scenarioBuilder.getScenario();
     UScenarioModel scenarioModel(&scenarioBuilder);
 
-    const UTask* task1 = scenario->taskAt(0);
-    const UTask* task2 = scenario->taskAt(1);
-    const UTask* task3 = scenario->taskAt(2);
+    const std::vector<UTask>& tasks = scenario->tasks();
+
+    const UTask* task1 = &tasks.at(0);
+    const UTask* task2 = &tasks.at(1);
+    const UTask* task3 = &tasks.at(2);
 
     PrintTask(task1);
     PrintTask(task2);

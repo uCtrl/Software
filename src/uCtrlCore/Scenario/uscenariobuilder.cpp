@@ -78,4 +78,55 @@ void UScenarioBuilder::onTaskUpdated(const UTask& updatedTask)
     m_isDirty = true;
 }
 
+UConditionBuilder* UScenarioBuilder::createCondition()
+{
+    return new UConditionBuilder(this);
+}
+
+UConditionBuilder* UScenarioBuilder::editCondition(int conditionId)
+{
+    for (int i = 0; i < m_scenario.m_conditions.size(); ++i)
+    {
+        if (m_scenario.m_conditions[i].id() == conditionId)
+        {
+            UConditionBuilder* conditionBuilder = new UConditionBuilder(this, m_scenario.m_conditions[i]);
+            return conditionBuilder;
+        }
+    }
+}
+
+void UScenarioBuilder::deleteCondition(int conditionId)
+{
+    for (int i = 0; i < m_scenario.m_conditions.size(); ++i)
+    {
+        if (m_scenario.m_conditions[i].id() == conditionId)
+        {
+            std::vector<UCondition>::iterator iter = m_scenario.m_conditions.begin() + i;
+
+            m_scenario.m_conditions.erase(iter);
+            m_isDirty = true;
+            return;
+        }
+    }
+}
+
+void UScenarioBuilder::onConditionUpdated(const UCondition& updatedCondition)
+{
+    for (int i = 0; i < m_scenario.m_conditions.size(); ++i)
+    {
+        if (m_scenario.m_conditions[i].id() == updatedCondition.id())
+        {
+            std::vector<UCondition>::iterator iter = m_scenario.m_conditions.begin() + i;
+
+            m_scenario.m_conditions.erase(iter);
+            m_scenario.m_conditions.insert(iter, updatedCondition);
+            m_isDirty = true;
+            return;
+        }
+    }
+
+    m_scenario.m_conditions.push_back(updatedCondition);
+    m_isDirty = true;
+}
+
 
