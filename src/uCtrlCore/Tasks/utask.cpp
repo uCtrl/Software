@@ -19,24 +19,6 @@ UTask::~UTask()
     m_conditions.clear();
 }
 
-void UTask::addCondition(UCondition* cond)
-{
-    m_conditions.insert(m_conditions.end(), cond);
-}
-
-int UTask::conditionCount() const
-{
-    return m_conditions.size();
-}
-
-UCondition* UTask::conditionAt(int index) const
-{
-    if (m_conditions.size() > index)
-    {
-        return m_conditions[index];
-    }
-}
-
 json::Object UTask::ToObject()
 {
 	json::Object obj;
@@ -57,7 +39,7 @@ void UTask::FillObject(json::Object& obj)
         oss << "m_conditions[" << i << "]";
 
         std::string key = oss.str();
-        obj[key] = m_conditions[i]->ToObject();
+        obj[key] = m_conditions[i].ToObject();
     }
 
 }
@@ -82,8 +64,7 @@ void UTask::FillMembers(const json::Object& obj)
 
         std::string key = oss.str();
         UCondition condition = UCondition::Deserialize(obj[key]);
-        UCondition* cond = new UCondition(condition);
-        m_conditions.push_back(cond);
+        m_conditions.push_back(condition);
     }
 }
 

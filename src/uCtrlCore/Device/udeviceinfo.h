@@ -1,7 +1,7 @@
 #ifndef UDEVICEINFO_H
 #define UDEVICEINFO_H
 
-#include "../Serialization/JsonMacros.h"
+#include "Serialization/JsonMacros.h"
 #include "udevicesummary.h"
 #include <string>
 

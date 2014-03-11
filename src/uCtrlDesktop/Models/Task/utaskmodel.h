@@ -25,7 +25,7 @@ public:
     virtual QVariant data(const QModelIndex &index, int role) const;
     virtual QHash<int, QByteArray> roleNames() const; 
 
-    Q_INVOKABLE UCondition* getConditionAt(const QString &index) const;
+    Q_INVOKABLE const UCondition* getConditionAt(const QString &index) const;
 };
 
 #endif // UTaskModel_H

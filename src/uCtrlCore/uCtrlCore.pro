@@ -26,7 +26,8 @@ SOURCES += \
     Tasks/utask.cpp \
     Tasks/utaskbuilder.cpp \
     Tasks/utaskbuilderobserver.cpp \
-    Utility/uniqueidgenerator.cpp
+    Utility/uniqueidgenerator.cpp \
+    Conditions/uconditionbuilderobserver.cpp
 
 HEADERS += \
     uplatform.h \
@@ -49,7 +50,8 @@ HEADERS += \
     Tasks/utask.h \
     Tasks/utaskbuilder.h \
     Tasks/utaskbuilderobserver.h \
-    Utility/uniqueidgenerator.h
+    Utility/uniqueidgenerator.h \
+    Conditions/uconditionbuilderobserver.h
 
 unix {
     target.path = /usr/lib

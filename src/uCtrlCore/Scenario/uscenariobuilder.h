@@ -3,13 +3,14 @@
 
 #include "uscenario.h"
 #include "uscenariobuilderobserver.h"
-#include "../Tasks/utask.h"
-#include "../Tasks/utaskbuilder.h"
-#include "../Tasks/utaskbuilderobserver.h"
-#include "../Conditions/ucondition.h"
-#include "../Conditions/uconditionbuilder.h"
+#include "Tasks/utask.h"
+#include "Tasks/utaskbuilder.h"
+#include "Tasks/utaskbuilderobserver.h"
+#include "Conditions/ucondition.h"
+#include "Conditions/uconditionbuilder.h"
+#include "Conditions/uconditionbuilderobserver.h"
 
-class UScenarioBuilder : public UTaskBuilderObserver
+class UScenarioBuilder : public UTaskBuilderObserver, public UConditionBuilderObserver
 {
 
 public:
@@ -21,11 +22,16 @@ public:
     UTaskBuilder* editTask(int taskId);
     void          deleteTask(int taskId);
 
+    UConditionBuilder* createCondition();
+    UConditionBuilder* editCondition(int conditionId);
+    void               deleteCondition(int conditionId);
+
     const UScenario* getScenario() const { return &m_scenario; }
     bool             isDirty() const { return m_isDirty; }
 
     void notifyScenarioUpdate();
     void onTaskUpdated(const UTask& updatedTask);
+    void onConditionUpdated(const UCondition& updatedCondition);
 
 private:
     UScenarioBuilderObserver* m_scenarioBuilderObserver;

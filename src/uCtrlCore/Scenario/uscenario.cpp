@@ -1,10 +1,6 @@
 #include "uscenario.h"
 #include <sstream>
 
-int UScenario::taskCount() const
-{
-    return m_tasks.size();
-}
 
 UScenario::UScenario(const UScenario& scenario)
 {
@@ -27,22 +23,6 @@ UScenario::~UScenario()
     m_tasks.clear();
 }
 
-void UScenario::addTask(const UTask& task)
-{
-    m_tasks.push_back(task);
-}
-
-const UTask* UScenario::taskAt(int index) const
-{
-    if (m_tasks.size() > index)
-    {
-        return &m_tasks[index];
-    }
-    return NULL;
-}
-
-
-
 void UScenario::FillObject(json::Object& obj)
 {
     obj["m_id"] = m_id;
@@ -59,14 +39,14 @@ void UScenario::FillObject(json::Object& obj)
         obj[key] = m_tasks[i].ToObject();
     }
 
-    obj["scenarioConditions_size"] = (int) scenarioConditions.size();
-    for (int i = 0; i < scenarioConditions.size(); i++)
+    obj["m_conditions_size"] = (int) m_conditions.size();
+    for (int i = 0; i < m_conditions.size(); i++)
     {
         std::ostringstream oss;
         oss << "scenarioConditions[" << i << "]";
 
         std::string key = oss.str();
-        obj[key] = scenarioConditions[i].ToObject();
+        obj[key] = m_conditions[i].ToObject();
     }
 }
 
@@ -93,15 +73,15 @@ void UScenario::FillMembers(const json::Object& obj)
         m_tasks.push_back(task);
     }
 
-    int scenarioConditions_size = obj["scenarioConditions_size"];
-    for (int i = 0 ; i < scenarioConditions_size; i++)
+    int m_conditions_size = obj["m_conditions_size"];
+    for (int i = 0 ; i < m_conditions_size; i++)
     {
         std::ostringstream oss;
-        oss << "scenarioConditions[" << i << "]";
+        oss << "m_conditions[" << i << "]";
 
         std::string key = oss.str();
         UCondition condition = UCondition::Deserialize(obj[key]);
-        scenarioConditions.push_back(condition);
+        m_conditions.push_back(condition);
     }
 }
 
