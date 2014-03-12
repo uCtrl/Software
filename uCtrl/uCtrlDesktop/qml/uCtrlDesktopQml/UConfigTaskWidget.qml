@@ -96,14 +96,14 @@ Rectangle {
             UTimeConditionWidget {
                 id: condition1
                 anchors.top: parent.top
-                conditionHour: 15
-                conditionMinute: 00
-                condition: "between 15:00 and 21:30"
+                conditionHour: 13
+                conditionMinute: 25
+                condition: "between 13:25 and 21:30"
             }
             UDateConditionWidget {
                 id: condition2
                 anchors.top: condition1.bottom
-                condition: "Monday or Tuesday"
+                condition: "Monday to Thursday"
             }
         }
     }
