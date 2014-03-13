@@ -23,7 +23,7 @@ void UDeviceInfo::FillObject(json::Object& obj)
 	obj["precision"] = precision;
 	obj["unitLabel"] = unitLabel;
 	obj["type"] = type;
-	obj["deviceSummary"] = deviceSummary.ToObject();
+    obj["m_summary"] = m_summary->ToObject();
 }
 
 std::string UDeviceInfo::Serialize()
@@ -39,7 +39,8 @@ void UDeviceInfo::FillMembers(const json::Object& obj)
 	precision = obj["precision"];
 	unitLabel = obj["unitLabel"].ToString();
 	type = obj["type"];
-	deviceSummary = UDeviceSummary::Deserialize(obj["deviceSummary"].ToObject());
+    UDeviceSummary summary = UDeviceSummary::Deserialize(obj["deviceSummary"].ToObject());
+    m_summary = &summary;
 }
 
 UDeviceInfo UDeviceInfo::Deserialize(const json::Object& obj)

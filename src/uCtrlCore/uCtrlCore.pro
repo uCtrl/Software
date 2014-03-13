@@ -27,7 +27,9 @@ SOURCES += \
     Tasks/utaskbuilder.cpp \
     Tasks/utaskbuilderobserver.cpp \
     Utility/uniqueidgenerator.cpp \
-    Conditions/uconditionbuilderobserver.cpp
+    Conditions/uconditionbuilderobserver.cpp \
+    Device/udeviceinfobuilder.cpp \
+    Device/udevicesummarybuilder.cpp
 
 HEADERS += \
     uplatform.h \
@@ -51,7 +53,9 @@ HEADERS += \
     Tasks/utaskbuilder.h \
     Tasks/utaskbuilderobserver.h \
     Utility/uniqueidgenerator.h \
-    Conditions/uconditionbuilderobserver.h
+    Conditions/uconditionbuilderobserver.h \
+    Device/udeviceinfobuilder.h \
+    Device/udevicesummarybuilder.h
 
 unix {
     target.path = /usr/lib

@@ -1,4 +1,6 @@
 import QtQuick 2.0
+import "../UI" as UI
+
 
 UConfigConditionWidget {
     property real conditionHour : 12
@@ -25,7 +27,7 @@ UConfigConditionWidget {
                 clockMinute: conditionMinute
             }
         }
-        ULabel {
+        UI.ULabel {
             id: conditionLabel
             anchors.left: clockContainer.right
             anchors.leftMargin: 5
@@ -45,8 +47,5 @@ UConfigConditionWidget {
                 return zeroString+n;
             }
         }
-
-
     }
-
 }
