@@ -23,7 +23,7 @@ void UPlatform::updateDeviceScenario(int deviceId, UScenario &deviceScenario)
 {
     for (int i = 0; i < m_device.size(); ++i)
         {
-            if (m_device[i].id() == scenarioId)
+            if (m_device[i].id() == deviceId)
             {
                 std::vector<UScenario>::iterator iter = m_device.begin() + i;
 
@@ -35,21 +35,21 @@ void UPlatform::updateDeviceScenario(int deviceId, UScenario &deviceScenario)
 
         m_device.push_back(deviceScenario);
 }
-
+*/
 void UPlatform::restoreDeviceDefault(int deviceId)
 {
     if(deviceId == 1234){
         m_device.m_name = "Light";
     }
     else if (deviceId == 2345){
-        m_device.m_name == "Thermomether"
+        m_device.m_name = "Thermomether";
     }
     else{
-        m_device.m_name == "Motion Sensor"
+        m_device.m_name = "Motion Sensor";
     }
 
 }
-*/
+
 void UPlatform::getAllDevices(GetAllDevicesCallback* callback)
 {
     if (devicesVector.size() == 0)
