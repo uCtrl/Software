@@ -28,7 +28,6 @@ SOURCES += \
     Utility/uniqueidgenerator.cpp \
     Conditions/uconditionbuilderobserver.cpp \
     Platform/uplatform.cpp \
-    Platform/uplatformbuilder.cpp \
     Device/udevicebuilderobserver.cpp
 
 HEADERS += \
@@ -54,7 +53,6 @@ HEADERS += \
     Utility/uniqueidgenerator.h \
     Conditions/uconditionbuilderobserver.h \
     Platform/uplatform.h \
-    Platform/uplatformbuilder.h \
     Device/udevicebuilderobserver.h
 
 unix {
