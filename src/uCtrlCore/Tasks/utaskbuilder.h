@@ -20,8 +20,8 @@ public:
     void setName(const std::string& name);
     void setStatus(const std::string& status);
 
-    const UTask* getTask() { return &m_task; }
-    bool         isDirty() { return m_isDirty; }
+    const UTask* getTask() const { return &m_task; }
+    bool         isDirty() const { return m_isDirty; }
 
     void notifyTaskUpdate();
     void onConditionUpdated(const UCondition& updatedCondition);

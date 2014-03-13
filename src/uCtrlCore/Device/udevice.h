@@ -13,14 +13,15 @@ BEGIN_DECLARE_JSON_CLASS_ARGS3(UDevice, int, m_id, std::string, m_name, std::vec
 public:
     UDevice(const UDevice& device);
 
-    void setInformations(UDeviceInfo*);
-    const UDeviceInfo* m_infos;
-    const UDeviceInfo* getInformations();
+    void setDeviceInfo(UDeviceInfo* deviceInfo);
 
     // accessors
     int id() const { return m_id; }
     const std::string& name() const { return m_name; }
     const std::vector<UScenario>& scenarios() const { return m_scenarios; }
+    const UDeviceInfo* getDeviceInfo() const { return m_deviceInfo; }
+
+    UDeviceInfo* m_deviceInfo;
 
 END_DECLARE_JSON_CLASS()
 

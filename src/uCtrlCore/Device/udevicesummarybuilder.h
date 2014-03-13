@@ -13,7 +13,7 @@ public:
     void setIp(int ip) { m_summary->m_ip = ip; }
     void setName(std::string name) { m_summary->m_name = name; }
 
-    UDeviceSummary* getDeviceSummary() { return m_summary; }
+    UDeviceSummary* getDeviceSummary() const { return m_summary; }
 
 private:
     UDeviceSummary* m_summary;
