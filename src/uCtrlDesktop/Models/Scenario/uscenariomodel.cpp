@@ -1,9 +1,21 @@
 #include "uscenariomodel.h"
-#include "../Models/Task/utaskmodel.h"
 
 UScenarioModel::UScenarioModel(QObject *parent)
     : QAbstractListModel(parent)
 {
+}
+
+UScenarioModel::UScenarioModel(const UScenario* scenario, QObject *parent)
+    : QAbstractListModel(parent)
+{
+    m_scenario = scenario;
+}
+
+UScenarioModel::UScenarioModel(const UScenarioModel& scenarioModel, QObject *parent)
+    : QAbstractListModel(parent)
+{
+    this->m_scenarioBuilder = scenarioModel.m_scenarioBuilder;
+    this->m_scenario = scenarioModel.m_scenario;
 }
 
 UScenarioModel::UScenarioModel(const UScenarioBuilder* scenarioBuilder, QObject *parent)
@@ -11,12 +23,18 @@ UScenarioModel::UScenarioModel(const UScenarioBuilder* scenarioBuilder, QObject 
     , m_scenarioBuilder(scenarioBuilder)
     , m_scenario(scenarioBuilder->getScenario())
 {
-    //m_scenario = scenarioBuilder->getScenario();
 }
 
 UScenarioModel::~UScenarioModel()
 {
 }
+
+QString UScenarioModel::name() {
+    QString string = QString::fromStdString(m_scenario->m_name);
+    return string;
+}
+
+void UScenarioModel::setName(QString newName) {}
 
 int UScenarioModel::rowCount(const QModelIndex & parent) const {
     return m_scenario->tasks().size();
@@ -49,4 +67,14 @@ QObject* UScenarioModel::getTaskAt(const QString &index) const
         return new UTaskModel(task);
     }
     return 0;
+}
+
+QList<QObject*> UScenarioModel::getTasks() const
+{
+    QList<QObject*> list;
+    for (int i=0; i<m_scenario->m_tasks.size(); i++) {
+        list.append(new UTaskModel(&m_scenario->tasks().at(i)));
+    }
+
+    return list;
 }

@@ -2,6 +2,8 @@
 #define UDEVICEBUILDER_H
 
 #include "udevice.h"
+#include "udeviceinfo.h"
+#include "udeviceinfobuilder.h"
 #include "Scenario/uscenariobuilder.h"
 #include "Scenario/uscenariobuilderobserver.h"
 
@@ -9,10 +11,13 @@ class UDeviceBuilder : public UScenarioBuilderObserver
 {
 public:
     UDeviceBuilder();
-    UDeviceBuilder(UDevice* device);
+    UDeviceBuilder(const UDevice& device);
 
-    void setName(const std::string& name) { m_device->m_name = name; }
-    const UDevice* getDevice() { return m_device; }
+    void setName(const std::string& name);
+    void setDeviceInfo(UDeviceInfo* info) { m_device.m_infos = info; }
+    const UDevice* getDevice() const { return &m_device; }
+
+    UDeviceInfoBuilder* createDeviceInfo();
 
     UScenarioBuilder* createScenario();
     UScenarioBuilder* editScenario(int scenarioId);
@@ -22,7 +27,7 @@ public:
     void onScenarioUpdated(const UScenario& updatedScenario);
 
 private:
-    UDevice* m_device;
+    UDevice m_device;
 };
 
 #endif // UDEVICEBUILDER_H

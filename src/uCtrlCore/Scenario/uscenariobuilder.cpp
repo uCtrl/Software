@@ -10,9 +10,9 @@ UScenarioBuilder::UScenarioBuilder(UScenarioBuilderObserver* scenarioBuilderObse
 
 UScenarioBuilder::UScenarioBuilder(UScenarioBuilderObserver* scenarioBuilderObserver, const UScenario& scenario)
     : m_scenarioBuilderObserver(scenarioBuilderObserver)
-    , m_scenario(scenario)
     , m_isDirty(false)
 {
+    m_scenario = scenario;
 }
 
 UScenarioBuilder::~UScenarioBuilder()
@@ -54,7 +54,7 @@ void UScenarioBuilder::deleteTask(int taskId)
 void UScenarioBuilder::notifyScenarioUpdate()
 {
     if (m_scenarioBuilderObserver != NULL)
-         m_scenarioBuilderObserver->onScenarioUpdated(m_scenario);
+        m_scenarioBuilderObserver->onScenarioUpdated(m_scenario);
 
     m_isDirty = false;
 }
