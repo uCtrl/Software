@@ -1,3 +1,5 @@
+include( ../uCtrl.pri )
+
 # Add more folders to ship with the application, here
 folder_01.source = qml/uCtrlDesktopQml
 folder_01.target = qml
@@ -34,22 +36,25 @@ INCLUDEPATH += \
 RESOURCES += \
     Resources.qrc
 
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../uCtrlCore/release/ -luCtrlCore
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../uCtrlCore/debug/ -luCtrlCore
-else:unix: LIBS += -L$$OUT_PWD/../uCtrlCore/ -luCtrlCore
+debug: uCtrlCore_QMAKE_CMD    = qmake $$SRC_DIR/uCtrlCore/uCtrlCore.pro -r CONFIG+=debug \
+                                CONFIG+=x86_64 CONFIG+=declarative_debug CONFIG+=qml_debug
+release: uCtrlCore_QMAKE_CMD  = qmake $$SRC_DIR/uCtrlCore/uCtrlCore.pro -r CONFIG+=x86_64
+
+uCtrlCore.target     = $$OUT_PWD/../uCtrlCore/libuCtrlCore.a
+uCtrlCore.depends    = $$SRC_DIR/uCtrlCore/uCtrlCore.pro
+uCtrlCore.commands   = mkdir -p $$OUT_PWD/../uCtrlCore && cd $$OUT_PWD/../uCtrlCore && $$uCtrlCore_QMAKE_CMD && make
+PRE_TARGETDEPS      += $$OUT_PWD/../uCtrlCore/libuCtrlCore.a
+QMAKE_EXTRA_TARGETS += uCtrlCore
+
+LIBS += -L$$OUT_PWD/../uCtrlCore/ -luCtrlCore
 
 INCLUDEPATH += $$PWD/../uCtrlCore
 DEPENDPATH += $$PWD/../uCtrlCore
 
-win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../uCtrlCore/release/libuCtrlCore.a
-else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../uCtrlCore/debug/libuCtrlCore.a
-else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../uCtrlCore/release/uCtrlCore.lib
-else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../uCtrlCore/debug/uCtrlCore.lib
-else:unix: PRE_TARGETDEPS += $$OUT_PWD/../uCtrlCore/libuCtrlCore.a
-
 !mac:LIBS += -ldns_sd
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/Network/lib/ -ldnss
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/Network/lib/ -ldnssd
-win32:INCLUDEPATH += $$PWD/Network/lib
-win32:DEPENDPATH += $$PWD/Network/lib
+win32 {
+    LIBS += -L$$PWD/Network/lib/ -ldnssd
+    INCLUDEPATH += $$PWD/Network/lib
+    DEPENDPATH += $$PWD/Network/lib
+}
