@@ -17,14 +17,16 @@ SOURCES += \
     Network/bonjourservicebrowser.cpp \
     Network/bonjourserviceresolver.cpp \
     Models/Task/utaskmodel.cpp \
-    Models/Scenario/uscenariomodel.cpp
+    Models/Scenario/uscenariomodel.cpp \
+    Models/Device/udevicemodel.cpp
 
 HEADERS += \
     Network/bonjourrecord.h \
     Network/bonjourservicebrowser.h \
     Network/bonjourserviceresolver.h \
     Models/Task/utaskmodel.h \
-    Models/Scenario/uscenariomodel.h
+    Models/Scenario/uscenariomodel.h \
+    Models/Device/udevicemodel.h
 
 INCLUDEPATH += \
     qml/uCtrlDesktopQml/

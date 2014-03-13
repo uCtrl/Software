@@ -4,6 +4,7 @@
         <file>Images/Back.png</file>
         <file>Images/light_icon.png</file>
         <file>Images/drag.png</file>
+        <file>Images/icon-uctrl-white.png</file>
         <file>Images/Clock-Icon.png</file>
     </qresource>
 </RCC>

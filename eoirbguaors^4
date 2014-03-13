@@ -1,0 +1,452 @@
+[33mcommit 0b6813a6d07d5d10bba83322f01a14189bc4d6f7[m
+Author: frankbew <frank_beauchemin9@hotmail.com>
+Date:   Thu Mar 13 11:42:16 2014 -0400
+
+    Rebase master
+
+[33mcommit b74079ac0ee1bf140940f18ca6b216ec6ace549a[m
+Merge: ffad85b 542490f
+Author: frankbew <frank_beauchemin9@hotmail.com>
+Date:   Tue Mar 11 13:07:36 2014 -0400
+
+    Merge pull request #24 from uCtrl/builders2
+    
+    Continuation of builders, mostly task and condition
+
+[33mcommit 542490f734c9558f1a0ac59982e7e9746c8bb1e7[m
+Author: frankbew <frank_beauchemin9@hotmail.com>
+Date:   Mon Mar 10 20:39:56 2014 -0400
+
+    Continuation of builders, mostly task and condition
+
+[33mcommit ffad85b2429b747bcf7abaf1aff73e9afe71bc59[m
+Merge: 8f84c00 43c1069
+Author: jpg <jp.gauthier0@gmail.com>
+Date:   Mon Mar 10 14:35:18 2014 -0400
+
+    Merge branch 'Restructuration'
+
+[33mcommit 8f84c004ef975f5a6914ee8c71798534ffe5d8d2[m
+Merge: 1a89026 6509ea9
+Author: Laurens <lcoderre@me.com>
+Date:   Mon Mar 10 09:38:00 2014 -0400
+
+    Merge pull request #18 from uCtrl/conditionBinding
+    
+    Bind task conditions to QML
+
+[33mcommit 6509ea90beed0799e929f5a2718467f15dbb7b70[m
+Author: Laurens Coderre <wrench@10.238.32.88.aerius.usherbrooke.ca>
+Date:   Fri Mar 7 13:57:29 2014 -0500
+
+    Bind task conditions to QML
+
+[33mcommit 43c10697759d2fa3514e5f87e3449fd91c816f39[m
+Author: jpg <jp.gauthier0@gmail.com>
+Date:   Fri Mar 7 17:03:03 2014 -0500
+
+    Project restructuration
+    
+     - Renamed uCtrl folder to src folder
+     - Changed uCtrlCore to a static library and linked that one to
+       uCtrlDesktop
+     - Added uCtrlCore to the IncludePath
+       - Changed uCtrlDesktop files to match the include path
+     - Deleted old *.pro.shared files to replace with new ones
+       - Added one for each project since some people are only running
+         individual projects
+       - Added a build structure so we can build each project separately
+       - Added build steps on uCtrlDesktop to compile uCtrlCore if it's not
+         already there
+     - Moved @frankbew Precompilation to tools
+     - Deleted obselete files
+
+[33mcommit 1a8902686b6cdf4e7eab8c8eb4ff3efec7b9ff1f[m
+Merge: b878431 7d50b11
+Author: jpg <j-p.g@hotmail.com>
+Date:   Fri Mar 7 10:45:24 2014 -0500
+
+    Merge pull request #21 from uCtrl/BonjourScripts
+    
+    Bonjour test scripts
+
+[33mcommit b8784316a05c7fd6fb54c08212e4062e2435ea68[m
+Merge: e99dfd2 737f397
+Author: frankbew <frank_beauchemin9@hotmail.com>
+Date:   Fri Mar 7 10:41:21 2014 -0500
+
+    Merge remote-tracking branch 'origin/setupbuilders'
+    
+    Conflicts:
+    	uCtrl/uCtrlDesktop/uCtrlDesktop.pro
+
+[33mcommit 737f397242d10e39af03136a143452a5e2979acc[m
+Merge: f723f75 fe0d423
+Author: frankbew <frank_beauchemin9@hotmail.com>
+Date:   Thu Mar 6 13:50:32 2014 -0500
+
+    Merge branch 'setupbuilders' of github.com:uCtrl/Software into setupbuilders
+
+[33mcommit f723f757a3ee422ba619351305e00134b278557f[m
+Author: frankbew <frank_beauchemin9@hotmail.com>
+Date:   Thu Mar 6 13:30:13 2014 -0500
+
+    Fixed the builders and tests of scenario builder
+
+[33mcommit 7d50b112c7de1dc275ddeac5cbb0b382f675175c[m
+Author: jpg <jp.gauthier0@gmail.com>
+Date:   Thu Mar 6 12:49:44 2014 -0500
+
+    Bonjour test scripts
+
+[33mcommit fe0d423254257082ba37b22f8b77d9264a8293c6[m
+Author: frankbew <frank_beauchemin9@hotmail.com>
+Date:   Thu Mar 6 13:30:13 2014 -0500
+
+    Fixed the builders and tests of scenario builder
+
+[33mcommit e99dfd21b28532c7be12ab96d92331737fbe0dec[m
+Merge: 768ab53 c43aba1
+Author: jpg <jp.gauthier0@gmail.com>
+Date:   Thu Mar 6 11:05:47 2014 -0500
+
+    Merge branch 'ZeroConf'
+    
+    Conflicts:
+    	uCtrl/uCtrlCore/uCtrlCore.pro
+    	uCtrl/uCtrlDesktop/uCtrlDesktop.pro
+
+[33mcommit 0bb059c658dbbc13bf81b5faeeb7f4671253e685[m
+Merge: 768ab53 564472b
+Author: frankbew <frank_beauchemin9@hotmail.com>
+Date:   Wed Mar 5 19:51:31 2014 -0500
+
+    Merge branch 'setupbuilders'
+    
+    Conflicts:
+    	uCtrl/uCtrlDesktop/main.cpp
+
+[33mcommit c43aba1ecd34e5f6acf2d841e56e485854a099b9[m
+Author: jpg <jp.gauthier0@gmail.com>
+Date:   Tue Mar 4 20:50:54 2014 -0500
+
+    ZeroConf (Bonjour)
+    
+     - Added a Bonjour browser and a resolver
+     - Added a simple client to browse services
+     - Tested on Mac/Linux/Windows
+
+[33mcommit 564472bd50a4004f15b7db0e3e49c58635039fba[m
+Author: frankbew <frank_beauchemin9@hotmail.com>
+Date:   Wed Mar 5 14:41:00 2014 -0500
+
+    Update device builders, scenario builders, task buidlers...
+
+[33mcommit 768ab530c4b2cf47df3b9c424f3e1349718f4b10[m
+Merge: b3525e0 3a634fd
+Author: Laurens Coderre <wrench@10.238.32.62.aerius.usherbrooke.ca>
+Date:   Wed Mar 5 13:24:36 2014 -0500
+
+    Merge branch 'lcoderre'
+    
+    Conflicts:
+    	uCtrl/uCtrlDesktop/qml/uCtrlDesktopQml/UScenarioWidget.qml
+    	uCtrl/uCtrlDesktop/uCtrlDesktop.pro
+
+[33mcommit b3525e0e3215d43fe8fd7be790959b1951c0e2e4[m
+Merge: 78347f8 6e3fb30
+Author: Msonic <amartel-7@hotmail.ca>
+Date:   Wed Mar 5 12:14:08 2014 -0500
+
+    Merge with pull request 17
+
+[33mcommit 6e3fb305d001a6ae4950606bc7dd315b5964f8e5[m
+Author: Msonic <amartel-7@hotmail.ca>
+Date:   Wed Mar 5 11:41:23 2014 -0500
+
+    Update UScenarioWidget.qml
+
+[33mcommit a249b6f01886ab3ee9096dc52387d45318047dd2[m
+Author: Msonic <amartel-7@hotmail.ca>
+Date:   Wed Mar 5 11:29:11 2014 -0500
+
+    Improved UTimeConditionWidget
+
+[33mcommit 3a634fd68b310082119718b1e4b08e7b41a88e2d[m
+Author: Laurens Coderre <wrench@WrenchBook.local>
+Date:   Tue Mar 4 19:04:46 2014 -0500
+
+    Rebind to models
+
+[33mcommit ebcb4efbc40893df86deb4467b7aace366725f31[m
+Author: Msonic <amartel-7@hotmail.ca>
+Date:   Tue Mar 4 16:24:41 2014 -0500
+
+    Begun development for the UConfigConditionWidget and UTimeConditionWidget
+    Created a dynamic clock module named UClock
+
+[33mcommit 78347f8784b8a2e093785028bb0f8e12d053cd73[m
+Merge: d401395 cd67aed
+Author: frankbew <frank_beauchemin9@hotmail.com>
+Date:   Tue Mar 4 14:24:00 2014 -0500
+
+    Merge branch 'serialization'
+
+[33mcommit d40139558203034b60a3bc82d93bdbd8351b071d[m
+Author: Laurens Coderre <wrench@10.238.32.39.aerius.usherbrooke.ca>
+Date:   Tue Mar 4 12:48:09 2014 -0500
+
+    Seems like *.h *.cpp no longer work
+
+[33mcommit b1e04e27cf1d9b6bbff62b1200c858639c75b6fa[m
+Merge: b54b0c3 4c9dcab
+Author: Msonic <amartel-7@hotmail.ca>
+Date:   Tue Mar 4 11:59:58 2014 -0500
+
+    Merge pull request #14 from uCtrl/MartelConfigTask
+    
+    ConfigTaskWidget (no line endings)
+
+[33mcommit cd67aed053f900173d14f357fa30cceadaf3f20d[m
+Author: frankbew <frank_beauchemin9@hotmail.com>
+Date:   Tue Mar 4 11:58:19 2014 -0500
+
+    Serialization of classes, fixed constructor code
+
+[33mcommit b54b0c32f4745c73b2b25f9a483f19540ad434e9[m
+Author: Laurens Coderre <wrench@10.238.32.39.aerius.usherbrooke.ca>
+Date:   Tue Mar 4 11:55:15 2014 -0500
+
+    Request of JPG to add gitattributes
+
+[33mcommit 4c9dcabbc6374b79006885da3c000ec22d0b0804[m
+Author: Laurens Coderre <wrench@10.238.32.39.aerius.usherbrooke.ca>
+Date:   Tue Mar 4 11:43:30 2014 -0500
+
+    ConfigTaskWidget (no line endings)
+
+[33mcommit 8bb6c99947b410e0a92633d62cdeafc8190d7560[m
+Author: Laurens Coderre <wrench@10.238.32.38.aerius.usherbrooke.ca>
+Date:   Mon Mar 3 14:23:52 2014 -0500
+
+    Rename classes
+
+[33mcommit 641a25711693713a2bb03f1e48cff938197ca981[m
+Author: Alexandre Beaudoin <ofrogon@gmail.com>
+Date:   Mon Mar 3 14:16:39 2014 -0500
+
+    Update .gitignore
+    
+    Add ignore files from : https://github.com/github/gitignore/blob/master/Qt.gitignore
+
+[33mcommit a3895e6c00be2c4fcc1dc6c995ec632c94253c22[m
+Merge: 5be1708 41c4579
+Author: frankbew <frank_beauchemin9@hotmail.com>
+Date:   Mon Mar 3 13:51:00 2014 -0500
+
+    Merge pull request #11 from uCtrl/precompilation
+    
+    Add precompilation tools
+
+[33mcommit 41c4579e92ce9bb6ac73c23a36eddaa44018b86b[m
+Author: frankbew <frank_beauchemin9@hotmail.com>
+Date:   Mon Mar 3 11:34:19 2014 -0500
+
+    Add precompilation tools
+
+[33mcommit 5be17080bc1c10d3968007e30986032cf02d7134[m
+Merge: 235b59c 9be2156
+Author: Laurens Coderre <wrench@10.238.32.38.aerius.usherbrooke.ca>
+Date:   Mon Mar 3 11:56:07 2014 -0500
+
+    Merge branch 'cleanup'
+    
+    * cleanup:
+      clean links to common/
+      fix builds
+      Clean branch
+      Adjusted gitignore Build folders anywhere in the repo must be ignored
+      Changed the project
+      First commit for the QML user interface
+      Configurations for QT projects
+    
+    Conflicts:
+    	uCtrl/uCtrlDesktop/Resources.qrc
+    	uCtrl/uCtrlDesktop/main.cpp
+    	uCtrl/uCtrlDesktop/qml/uCtrlDesktopQml/UHeaderBarWidget.qml
+    	uCtrl/uCtrlDesktop/qml/uCtrlDesktopQml/UTitleLabelWidget.qml
+    	uCtrl/uCtrlDesktop/qml/uCtrlDesktopQml/main.qml
+    	uCtrl/uCtrlDesktop/uCtrlDesktop.pro
+
+[33mcommit 9be21561211e9ace4c44d24d32bb8fc4f91207ad[m
+Author: Laurens Coderre <wrench@10.238.32.38.aerius.usherbrooke.ca>
+Date:   Mon Mar 3 11:28:27 2014 -0500
+
+    clean links to common/
+
+[33mcommit fdbe563c7a411ee88c205c7afc6898f1c2c3b24d[m
+Author: Laurens Coderre <wrench@10.238.32.38.aerius.usherbrooke.ca>
+Date:   Mon Mar 3 11:19:23 2014 -0500
+
+    fix builds
+
+[33mcommit b841ac4cc7c0b8cc0f60fd341338ce9138940a1a[m
+Author: Laurens Coderre <wrench@WrenchBook.local>
+Date:   Sat Mar 1 17:38:08 2014 -0500
+
+    Clean branch
+
+[33mcommit 9b352ed1305465e7f7481ad36aa130be4590635d[m
+Author: Laurens Coderre <wrench@WrenchBook.local>
+Date:   Sat Mar 1 17:07:17 2014 -0500
+
+    Adjusted gitignore
+    Build folders anywhere in the repo must be ignored
+
+[33mcommit 9a14317a22bb00e5067318b037aabb252a24dc57[m
+Author: Msonic <amartel-7@hotmail.ca>
+Date:   Thu Feb 27 13:21:40 2014 -0500
+
+    Changed the project
+    
+    Changed the project name from uCtrlDesktopQml to uCtrlDesktop
+
+[33mcommit beb679d7417be9421013ee242603a4e951e4d543[m
+Author: Msonic <amartel-7@hotmail.ca>
+Date:   Wed Feb 26 15:29:20 2014 -0500
+
+    First commit for the QML user interface
+
+[33mcommit 7e55e7746b09a3cb653471e45ef34ee3cd7e0462[m
+Author: Jean-Philippe Gauthier <jp.gauthier0@gmail.com>
+Date:   Mon Feb 24 12:29:20 2014 -0500
+
+    Configurations for QT projects
+    
+    - Removed .pro.user files
+    - Added a shared file for all projects
+    - Igonored warnings in JSON lib
+    - Added useless files in gitignore
+
+[33mcommit 235b59c93188eaedb7a3d152d9a68d911422f0c1[m
+Author: Laurens Coderre <wrench@WrenchBook.local>
+Date:   Sat Mar 1 17:07:17 2014 -0500
+
+    Adjusted gitignore
+    Build folders anywhere in the repo must be ignored
+
+[33mcommit 9793e15269461938c6c6deb73108936bbf90f595[m
+Merge: a0910e3 a1ade99
+Author: Msonic <amartel-7@hotmail.ca>
+Date:   Thu Feb 27 14:46:50 2014 -0500
+
+    Merge pull request #4 from uCtrl/Martel
+    
+    First commit for the QML user interface
+
+[33mcommit a1ade999143dbed58de7fcae29f8d3bc3305948f[m
+Author: Msonic <amartel-7@hotmail.ca>
+Date:   Thu Feb 27 13:21:40 2014 -0500
+
+    Changed the project
+    
+    Changed the project name from uCtrlDesktopQml to uCtrlDesktop
+
+[33mcommit 01b2056f63fc1d3ae7e094ccb79bbc0ac0d72321[m
+Author: Msonic <amartel-7@hotmail.ca>
+Date:   Wed Feb 26 15:29:20 2014 -0500
+
+    First commit for the QML user interface
+
+[33mcommit a0910e356dfc02856e13db6e3dd6f120864707aa[m
+Merge: 4c3e598 d6618fe
+Author: jpg <j-p.g@hotmail.com>
+Date:   Mon Feb 24 16:02:53 2014 -0500
+
+    Merge pull request #2 from uCtrl/Shared_Config_File
+    
+    Configurations for QT projects
+
+[33mcommit d6618fef39595630583d74dbae7246441a01f73d[m
+Author: Jean-Philippe Gauthier <jp.gauthier0@gmail.com>
+Date:   Mon Feb 24 12:29:20 2014 -0500
+
+    Configurations for QT projects
+    
+    - Removed .pro.user files
+    - Added a shared file for all projects
+    - Igonored warnings in JSON lib
+    - Added useless files in gitignore
+
+[33mcommit 4c3e598b827cdb901fcc40e7e5691f7a509cee03[m
+Merge: 9a42cf4 86bf806
+Author: Laurens <lcoderre@me.com>
+Date:   Thu Feb 20 08:52:30 2014 -0500
+
+    Merge pull request #1 from frankbew/master
+    
+    Create Qt Projects
+
+[33mcommit 86bf806c83925d416c1862e0211fcf608a0ff849[m
+Author: frankbew <frank_beauchemin9@hotmail.com>
+Date:   Wed Feb 19 16:08:56 2014 -0500
+
+    Delete stuff
+    
+    ...
+
+[33mcommit 8f776be9a73cced6b3a9d637d62761611b2bf305[m
+Author: frankbew <frank_beauchemin9@hotmail.com>
+Date:   Wed Feb 19 16:04:07 2014 -0500
+
+    Revert "Revert "Create Qt Projects""
+    
+    This reverts commit 725ba3836fee15871c38adbd4e363b27f26f5358.
+
+[33mcommit 725ba3836fee15871c38adbd4e363b27f26f5358[m
+Author: frankbew <frank_beauchemin9@hotmail.com>
+Date:   Wed Feb 19 16:03:48 2014 -0500
+
+    Revert "Create Qt Projects"
+    
+    This reverts commit 04aba47ae8bab5542619c3231c4d378a2fbfbf89.
+
+[33mcommit 04aba47ae8bab5542619c3231c4d378a2fbfbf89[m
+Author: frankbew <frank_beauchemin9@hotmail.com>
+Date:   Wed Feb 19 16:01:54 2014 -0500
+
+    Create Qt Projects
+
+[33mcommit 9a42cf47dd6a45012cc22a83ed66c6071f26565c[m
+Author: Laurens Coderre <lcoderre@me.com>
+Date:   Mon Feb 17 15:43:55 2014 -0500
+
+    Added a common submodule
+
+[33mcommit 4e624b2a65105c84ae2278e9ccc883cee13a13ec[m
+Author: frankbew <frank_beauchemin9@hotmail.com>
+Date:   Wed Feb 12 13:41:38 2014 -0500
+
+    Delete stuff
+
+[33mcommit b6e206fb3bb8e8a372d553f531e69dc6c8962bc8[m
+Author: frankbew <frank_beauchemin9@hotmail.com>
+Date:   Wed Feb 12 13:40:00 2014 -0500
+
+    Remove gason
+    
+    It's too complicated to use
+
+[33mcommit 072bc9a05a0ccae598d1d645936e0c5ef16352af[m
+Author: frankbew <frank_beauchemin9@hotmail.com>
+Date:   Wed Feb 12 10:42:05 2014 -0500
+
+    Add Gason lib
+    
+    Add gason lib for integration tests
+
+[33mcommit 31897b92901f80fe9e53429b35bd3246778db9ab[m
+Author: Laurens <lcoderre@me.com>
+Date:   Wed Feb 12 07:38:15 2014 -0800
+
+    Initial commit

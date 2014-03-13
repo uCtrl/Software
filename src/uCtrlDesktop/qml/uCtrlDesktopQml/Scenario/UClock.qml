@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import "../UI" as UI
 
 Rectangle {
     property int clockHour: 12
@@ -23,7 +24,7 @@ Rectangle {
         height: 0
         color: "transparent"
 
-        ULine {
+        UI.ULine {
             id: shortClockHand
             lineLength: parent.parent.width * 0.25
             rotationDegrees: {
@@ -36,7 +37,7 @@ Rectangle {
             color: "#14892C"
             thickness: 2
         }
-        ULine {
+        UI.ULine {
             id: longClockHand
             lineLength: parent.parent.width * 0.45
             rotationDegrees: {
@@ -47,6 +48,4 @@ Rectangle {
             thickness: 2
         }
     }
-
-
 }

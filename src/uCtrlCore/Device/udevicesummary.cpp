@@ -2,9 +2,13 @@
 
 UDeviceSummary::UDeviceSummary(const UDeviceSummary& deviceSummary)
 {
-    this->id = deviceSummary.id;
-    this->ip = deviceSummary.ip;
-    this->name = deviceSummary.name;
+    this->m_id = deviceSummary.m_id;
+    this->m_ip = deviceSummary.m_ip;
+    this->m_name = deviceSummary.m_name;
+}
+
+void UDeviceSummary::setId(int id) {
+    this->m_id = id;
 }
 
 json::Object UDeviceSummary::ToObject()
@@ -16,9 +20,9 @@ json::Object UDeviceSummary::ToObject()
 
 void UDeviceSummary::FillObject(json::Object& obj)
 {
-	obj["id"] = id;
-	obj["ip"] = ip;
-	obj["name"] = name;
+    obj["id"] = m_id;
+    obj["ip"] = m_ip;
+    obj["name"] = m_name;
 }
 
 std::string UDeviceSummary::Serialize()
@@ -29,9 +33,9 @@ std::string UDeviceSummary::Serialize()
 
 void UDeviceSummary::FillMembers(const json::Object& obj)
 {
-	id = obj["id"];
-	ip = obj["ip"];
-	name = obj["name"].ToString();
+    m_id = obj["id"];
+    m_ip = obj["ip"];
+    m_name = obj["name"].ToString();
 }
 
 UDeviceSummary UDeviceSummary::Deserialize(const json::Object& obj)
