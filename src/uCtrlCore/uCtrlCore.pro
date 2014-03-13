@@ -29,9 +29,6 @@ SOURCES += \
     Conditions/uconditionbuilderobserver.cpp \
     Platform/uplatform.cpp \
     Platform/uplatformbuilder.cpp \
-    Platform/uplatformbuilderobserver.cpp \
-    System/usystembuilder.cpp \
-    System/usystembuilderobserver.cpp \
     Device/udevicebuilderobserver.cpp
 
 HEADERS += \
@@ -58,9 +55,6 @@ HEADERS += \
     Conditions/uconditionbuilderobserver.h \
     Platform/uplatform.h \
     Platform/uplatformbuilder.h \
-    Platform/uplatformbuilderobserver.h \
-    System/usystembuilder.h \
-    System/usystembuilderobserver.h \
     Device/udevicebuilderobserver.h
 
 unix {

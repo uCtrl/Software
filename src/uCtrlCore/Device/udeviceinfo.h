@@ -12,7 +12,7 @@ public:
     UDeviceInfo(const UDeviceInfo& deviceInfo);
 
 private:
-    UDevice m_deviceInfo;
+    UDevice m_device;
 
 END_DECLARE_JSON_CLASS()
 
