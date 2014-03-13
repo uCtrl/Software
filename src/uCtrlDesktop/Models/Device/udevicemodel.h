@@ -2,8 +2,8 @@
 #define UDEVICEMODEL_H
 
 #include <QAbstractListModel>
-#include "../../uCtrlCore/Device/udevice.h"
-#include "../../uCtrlCore/Device/udevicebuilder.h"
+#include "Device/udevice.h"
+#include "Device/udevicebuilder.h"
 #include "../Scenario/uscenariomodel.h"
 
 class UDeviceModel : public QAbstractListModel

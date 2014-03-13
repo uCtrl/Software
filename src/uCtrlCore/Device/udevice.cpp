@@ -28,11 +28,8 @@ void UDevice::FillObject(json::Object& obj)
 {
     obj["m_id"] = m_id;
     obj["m_name"] = m_name;
-    
-    // AFTER ALEXIS MERGE (verify m_scenarios)
-        // WARNING : Custom code
 
-
+    // WARNING : Custom code
     obj["m_scenarios_size"] = (int) m_scenarios.size();
     for (int i = 0; i < m_scenarios.size(); i++)
     {
@@ -40,7 +37,7 @@ void UDevice::FillObject(json::Object& obj)
         oss << "m_scenarios[" << i << "]";
 
         std::string key = oss.str();
-        //obj[key] = m_scenarios[i]->ToObject();
+        obj[key] = m_scenarios[i].ToObject();
     }
 }
 
@@ -56,15 +53,15 @@ void UDevice::FillMembers(const json::Object& obj)
     m_name = obj["m_name"].ToString();
 
     // WARNING : Custom code
-    int deviceScenarios_size = obj["deviceScenarios_size"];
-    for (int i = 0 ; i < deviceScenarios_size; i++)
+    int m_scenarios_size = obj["m_scenarios_size"];
+    for (int i = 0 ; i < m_scenarios_size; i++)
     {
         std::ostringstream oss;
-        oss << "deviceScenarios[" << i << "]";
+        oss << "m_scenarios[" << i << "]";
 
         std::string key = oss.str();
         UScenario scenario = UScenario::Deserialize(obj[key]);
-        //m_scenarios.push_back(scenario);
+        m_scenarios.push_back(scenario);
     }
 }
 

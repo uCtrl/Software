@@ -37,7 +37,7 @@ int UDeviceModel::type() {
 void UDeviceModel::setType(int newType) {}
 
 int UDeviceModel::rowCount(const QModelIndex & parent) const {
-    return 0; //m_scenario.taskCount();
+    return 0;
 }
 
 QVariant UDeviceModel::data(const QModelIndex & index, int role) const { 
@@ -52,8 +52,6 @@ QHash<int, QByteArray> UDeviceModel::roleNames() const {
     roles[2] = "ip";
     roles[3] = "type";
 
-    /*roles[IdRole] = "id";
-    roles[StatusRole] = "taskStatus";*/
     return roles;
 }
 
