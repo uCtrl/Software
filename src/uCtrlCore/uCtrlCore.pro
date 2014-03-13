@@ -7,8 +7,7 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 SOURCES += \
-    uplatform.cpp \
-    usystem.cpp \
+    System/usystem.cpp \
     Device/udevice.cpp \
     Device/udevicebuilder.cpp \
     Device/udeviceinfo.cpp \
@@ -27,11 +26,13 @@ SOURCES += \
     Tasks/utaskbuilder.cpp \
     Tasks/utaskbuilderobserver.cpp \
     Utility/uniqueidgenerator.cpp \
-    Conditions/uconditionbuilderobserver.cpp
+    Conditions/uconditionbuilderobserver.cpp \
+    Platform/uplatform.cpp \
+    Platform/uplatformbuilder.cpp \
+    Device/udevicebuilderobserver.cpp
 
 HEADERS += \
-    uplatform.h \
-    usystem.h \
+    System/usystem.h \
     Device/udevice.h \
     Device/udevicebuilder.h \
     Device/udeviceinfo.h \
@@ -51,7 +52,10 @@ HEADERS += \
     Tasks/utaskbuilder.h \
     Tasks/utaskbuilderobserver.h \
     Utility/uniqueidgenerator.h \
-    Conditions/uconditionbuilderobserver.h
+    Conditions/uconditionbuilderobserver.h \
+    Platform/uplatform.h \
+    Platform/uplatformbuilder.h \
+    Device/udevicebuilderobserver.h
 
 unix {
     target.path = /usr/lib
