@@ -5,16 +5,8 @@ UDevice::UDevice(const UDevice& device)
 {
     this->m_id = device.m_id;
     this->m_name = device.m_name;
-    this->m_infos = device.m_infos;
     this->m_scenarios = device.m_scenarios;
-}
-
-void UDevice::setInformations(UDeviceInfo* infos) {
-    m_infos = infos;
-}
-
-const UDeviceInfo* UDevice::getInformations() {
-    return m_infos;
+    this->m_deviceInfo = device.m_deviceInfo;
 }
 
 json::Object UDevice::ToObject()

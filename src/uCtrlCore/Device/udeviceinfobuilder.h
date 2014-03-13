@@ -11,14 +11,14 @@ public:
     UDeviceInfoBuilder();
     UDeviceInfoBuilder(UDeviceInfo* info);
 
-    void setMin(float min) { m_info->minValue = min; }
-    void setMax(float max) { m_info->maxValue = max; }
-    void setPrecision(int precision) { m_info->precision = precision; }
-    void setUnitLabel(std::string label) { m_info->unitLabel = label; }
-    void setType(int type) { m_info->type = type; }
+    void setMin(float min) { m_info->m_minValue = min; }
+    void setMax(float max) { m_info->m_maxValue = max; }
+    void setPrecision(int precision) { m_info->m_precision = precision; }
+    void setUnitLabel(const std::string& label) { m_info->m_unitLabel = label; }
+    void setType(int type) { m_info->m_type = type; }
 
     UDeviceSummaryBuilder* createDeviceSummary();
-    void setDeviceSummary(UDeviceSummary* summary) { m_info->m_summary = summary; }
+    void setDeviceSummary(UDeviceSummary* summary) { m_info->m_deviceSummary = summary; }
 
     UDeviceInfo* getDeviceInfo() { return m_info; }
 

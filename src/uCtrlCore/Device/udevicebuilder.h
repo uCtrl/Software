@@ -13,9 +13,8 @@ public:
     UDeviceBuilder();
     UDeviceBuilder(const UDevice& device);
 
-    void setName(const std::string& name);
-    void setDeviceInfo(UDeviceInfo* info) { m_device.m_infos = info; }
-    const UDevice* getDevice() const { return &m_device; }
+    void setName(const std::string& name) { m_device.m_name = name; }
+    void setDeviceInfo(UDeviceInfo* info) { m_device.m_deviceInfo = info; }
 
     UDeviceInfoBuilder* createDeviceInfo();
 
@@ -23,11 +22,15 @@ public:
     UScenarioBuilder* editScenario(int scenarioId);
     void deleteScenario(int scenarioId);
 
+    const UDevice* getDevice() const { return &m_device; }
+    bool isDirty() const { return m_isDirty; }
+
     // Scenario Builder Observer
     void onScenarioUpdated(const UScenario& updatedScenario);
 
 private:
     UDevice m_device;
+    bool m_isDirty;
 };
 
 #endif // UDEVICEBUILDER_H
