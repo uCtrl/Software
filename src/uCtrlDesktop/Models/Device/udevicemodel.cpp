@@ -19,19 +19,19 @@ QString UDeviceModel::name() {
 void UDeviceModel::setName(QString newName) {}
 
 int UDeviceModel::id() {
-    return m_device->m_infos->m_summary->m_id;
+    return m_device->m_deviceInfo->m_deviceSummary->m_id;
 }
 
 void UDeviceModel::setId(int newId) {}
 
 int UDeviceModel::ip() {
-    return m_device->m_infos->m_summary->m_ip;
+    return m_device->m_deviceInfo->m_deviceSummary->m_ip;
 }
 
 void UDeviceModel::setIp(int newIp) {}
 
 int UDeviceModel::type() {
-    return m_device->m_infos->type;
+    return m_device->m_deviceInfo->m_type;
 }
 
 void UDeviceModel::setType(int newType) {}

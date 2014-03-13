@@ -4,7 +4,7 @@
 UDeviceStateInfo::UDeviceStateInfo(const UDeviceStateInfo& deviceStateInfo)
     : UDeviceInfo(deviceStateInfo)
 {
-    this->valueToNameMap = deviceStateInfo.valueToNameMap;
+    this->m_valueToNameMap = deviceStateInfo.m_valueToNameMap;
 }
 
 json::Object UDeviceStateInfo::ToObject()
@@ -19,11 +19,11 @@ void UDeviceStateInfo::FillObject(json::Object& obj)
 	UDeviceInfo::FillObject(obj);
 
     // WARNING : Custom code
-    obj["valueToNameMap_size"] = (int)valueToNameMap.size();
+    obj["valueToNameMap_size"] = (int)m_valueToNameMap.size();
 
     std::map<float, std::string>::iterator iter;
     int i = 0;
-    for (iter = valueToNameMap.begin(); iter != valueToNameMap.end(); ++iter, ++i)
+    for (iter = m_valueToNameMap.begin(); iter != m_valueToNameMap.end(); ++iter, ++i)
     {
         std::ostringstream oss;
         oss << "valueToNameMap_keys[" << i << "]";
@@ -65,7 +65,7 @@ void UDeviceStateInfo::FillMembers(const json::Object& obj)
         key = oss.str();
         std::string mapValue = obj[key].ToString();
 
-        valueToNameMap[mapKey] = mapValue;
+        m_valueToNameMap[mapKey] = mapValue;
     }
 }
 

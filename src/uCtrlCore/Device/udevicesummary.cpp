@@ -7,10 +7,6 @@ UDeviceSummary::UDeviceSummary(const UDeviceSummary& deviceSummary)
     this->m_name = deviceSummary.m_name;
 }
 
-void UDeviceSummary::setId(int id) {
-    this->m_id = id;
-}
-
 json::Object UDeviceSummary::ToObject()
 {
 	json::Object obj;

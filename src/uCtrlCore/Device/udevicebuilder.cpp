@@ -11,11 +11,6 @@ UDeviceBuilder::UDeviceBuilder(const UDevice& device)
     m_device = device;
 }
 
-void UDeviceBuilder::setName(const std::string& status)
-{
-    m_device.m_name = status;
-}
-
 UDeviceInfoBuilder* UDeviceBuilder::createDeviceInfo()
 {
     return new UDeviceInfoBuilder(new UDeviceInfo());
@@ -48,11 +43,15 @@ void UDeviceBuilder::deleteScenario(int scenarioId)
 
             m_device.m_scenarios.erase(iter);
 
-            // TODO : Notify device scenario deleted
+            m_isDirty = true;
             return;
         }
     }
 }
+
+
+// TODO : Notify device scenario edited/added/deleted
+
 
 void UDeviceBuilder::onScenarioUpdated(const UScenario& updatedScenario)
 {
@@ -65,11 +64,11 @@ void UDeviceBuilder::onScenarioUpdated(const UScenario& updatedScenario)
             m_device.m_scenarios.erase(iter);
             m_device.m_scenarios.insert(iter, updatedScenario);
 
-            // TODO : Notify device scenario edited
+            m_isDirty = true;
             return;
         }
     }
 
     m_device.m_scenarios.push_back(updatedScenario);
-    // TODO : Notify device scenario added
+    m_isDirty = true;
 }

@@ -2,11 +2,11 @@
 
 UDeviceInfo::UDeviceInfo(const UDeviceInfo& deviceInfo)
 {
-    this->minValue = deviceInfo.minValue;
-    this->maxValue = deviceInfo.maxValue;
-    this->precision = deviceInfo.precision;
-    this->type = deviceInfo.type;
-    this->unitLabel = deviceInfo.unitLabel;
+    this->m_minValue = deviceInfo.m_minValue;
+    this->m_maxValue = deviceInfo.m_maxValue;
+    this->m_precision = deviceInfo.m_precision;
+    this->m_type = deviceInfo.m_type;
+    this->m_unitLabel = deviceInfo.m_unitLabel;
 }
 
 json::Object UDeviceInfo::ToObject()
@@ -18,12 +18,12 @@ json::Object UDeviceInfo::ToObject()
 
 void UDeviceInfo::FillObject(json::Object& obj)
 {
-	obj["minValue"] = minValue;
-	obj["maxValue"] = maxValue;
-	obj["precision"] = precision;
-	obj["unitLabel"] = unitLabel;
-	obj["type"] = type;
-    obj["m_summary"] = m_summary->ToObject();
+    obj["m_minValue"] = m_minValue;
+    obj["m_maxValue"] = m_maxValue;
+    obj["m_precision"] = m_precision;
+    obj["m_unitLabel"] = m_unitLabel;
+    obj["m_type"] = m_type;
+    obj["m_deviceSummary"] = m_deviceSummary->ToObject();
 }
 
 std::string UDeviceInfo::Serialize()
@@ -34,13 +34,13 @@ std::string UDeviceInfo::Serialize()
 
 void UDeviceInfo::FillMembers(const json::Object& obj)
 {
-	minValue = obj["minValue"];
-	maxValue = obj["maxValue"];
-	precision = obj["precision"];
-	unitLabel = obj["unitLabel"].ToString();
-	type = obj["type"];
-    UDeviceSummary summary = UDeviceSummary::Deserialize(obj["deviceSummary"].ToObject());
-    m_summary = &summary;
+    m_minValue = obj["m_minValue"];
+    m_maxValue = obj["m_maxValue"];
+    m_precision = obj["m_precision"];
+    m_unitLabel = obj["m_unitLabel"].ToString();
+    m_type = obj["m_type"];
+    UDeviceSummary summary = UDeviceSummary::Deserialize(obj["m_deviceSummary"].ToObject());
+    m_deviceSummary = &summary;
 }
 
 UDeviceInfo UDeviceInfo::Deserialize(const json::Object& obj)

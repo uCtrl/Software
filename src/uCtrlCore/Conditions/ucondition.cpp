@@ -6,13 +6,6 @@ UCondition::UCondition(const UCondition& condition)
     this->m_id = condition.m_id;
 }
 
-UCondition UCondition::CreateNewCondition()
-{
-    UCondition condition;
-    condition.m_id = UniqueIdGenerator::GenerateUniqueId();
-    return condition;
-}
-
 json::Object UCondition::ToObject()
 {
 	json::Object obj;
