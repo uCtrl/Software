@@ -30,10 +30,10 @@ void PrintDeviceSummary(const UDeviceSummary* summary) {
 }
 
 void PrintDeviceInfo(const UDeviceInfo* info) {
-    PrintFloat(info->minValue);
-    PrintFloat(info->maxValue);
+    PrintFloat(info->m_minValue);
+    PrintFloat(info->m_maxValue);
 
-    PrintDeviceSummary(info->m_summary);
+    PrintDeviceSummary(info->m_deviceSummary);
 }
 
 void PrintTask(const UTask& task)
@@ -52,7 +52,7 @@ void PrintScenario(const UScenario& scenario) {
 
 void PrintDevice(const UDevice* device) {
     qDebug(device->m_name.c_str());
-    PrintDeviceInfo(device->m_infos);
+    PrintDeviceInfo(device->m_deviceInfo);
 
     const std::vector<UScenario>& scenarios = device->m_scenarios;
     for (int i=0; i<scenarios.size(); i++) {
@@ -86,11 +86,7 @@ int main(int argc, char *argv[])
     infoBuilder->setUnitLabel(units[i]);
     infoBuilder->setType(i + 1);
 
-    // Creating Device's summary
-    UDeviceSummaryBuilder* summaryBuilder = infoBuilder->createDeviceSummary();
-    summaryBuilder->setId(i);
-    summaryBuilder->setIp(100 + i);
-    summaryBuilder->setName(names[i]);
+
 
     // Creating Device's scenario
     int j=0;
@@ -110,7 +106,13 @@ int main(int argc, char *argv[])
 
     scenarioBuilder->notifyScenarioUpdate();
 
+    // Creating Device's summary
+    UDeviceSummaryBuilder* summaryBuilder = infoBuilder->createDeviceSummary();
+    summaryBuilder->setId(i);
+    summaryBuilder->setIp(100 + i);
+    summaryBuilder->setName(names[i]);
     infoBuilder->setDeviceSummary(summaryBuilder->getDeviceSummary());
+
     deviceBuilder.setDeviceInfo(infoBuilder->getDeviceInfo());
 
     //device = deviceBuilder.getDevice();

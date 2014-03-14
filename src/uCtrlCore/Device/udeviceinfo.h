@@ -5,7 +5,7 @@
 #include "udevicesummary.h"
 #include <string>
 
-BEGIN_DECLARE_JSON_CLASS_ARGS6(UDeviceInfo, float, minValue, float, maxValue, int, precision, std::string, unitLabel, int, type, UDeviceSummary*, m_summary)
+BEGIN_DECLARE_JSON_CLASS_ARGS6(UDeviceInfo, float, m_minValue, float, m_maxValue, int, m_precision, std::string, m_unitLabel, int, m_type, UDeviceSummary*, m_deviceSummary)
 
 public:
     UDeviceInfo(const UDeviceInfo& deviceInfo);
