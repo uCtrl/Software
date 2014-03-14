@@ -36,18 +36,36 @@ INCLUDEPATH += \
 RESOURCES += \
     Resources.qrc
 
-debug: uCtrlCore_QMAKE_CMD    = qmake $$SRC_DIR/uCtrlCore/uCtrlCore.pro -r CONFIG+=debug \
-                                CONFIG+=x86_64 CONFIG+=declarative_debug CONFIG+=qml_debug
-release: uCtrlCore_QMAKE_CMD  = qmake $$SRC_DIR/uCtrlCore/uCtrlCore.pro -r CONFIG+=x86_64
+CONFIG(debug, debug|release) {
+    uCtrlCore_QMAKE_CMD = qmake $$SRC_DIR/uCtrlCore/uCtrlCore.pro -r CONFIG+=debug CONFIG-=release\
+                          CONFIG+=x86_64 CONFIG+=declarative_debug CONFIG+=qml_debug
+} else {
+    uCtrlCore_QMAKE_CMD = qmake $$SRC_DIR/uCtrlCore/uCtrlCore.pro -r CONFIG+=x86_64
+}
 
-uCtrlCore.target     = $$OUT_PWD/../uCtrlCore/libuCtrlCore.a
+win32 { 
+    uCtrlCore_DIR = $$OUT_PWD/../uCtrlCore
+    uCtrlCore_CMD = IF NOT EXIST $$uCtrlCore_DIR MKDIR $$uCtrlCore_DIR && cd $$OUT_PWD/../uCtrlCore && $$uCtrlCore_QMAKE_CMD && mingw32-make
+    uCtrlCore_CMD = $$replace(uCtrlCore_CMD, /, \\)
+    CONFIG(debug, debug|release) {
+        LIBS += -L$$OUT_PWD/../uCtrlCore/debug -luCtrlCore
+        uCtrlCore_TARGET = $$OUT_PWD/../uCtrlCore/debug/libuCtrlCore.a
+    } else {
+        LIBS += -L$$OUT_PWD/../uCtrlCore/release -luCtrlCore
+        uCtrlCore_TARGET = $$OUT_PWD/../uCtrlCore/release/libuCtrlCore.a
+    }
+} else {
+    uCtrlCore_CMD = mkdir -p $$OUT_PWD/../uCtrlCore && cd $$OUT_PWD/../uCtrlCore && $$uCtrlCore_QMAKE_CMD && make
+    LIBS += -L$$OUT_PWD/../uCtrlCore/ -luCtrlCore
+    uCtrlCore_TARGET = $$OUT_PWD/../uCtrlCore/libuCtrlCore.a
+}
+
+uCtrlCore.target     = $$uCtrlCore_TARGET
 uCtrlCore.depends    = $$SRC_DIR/uCtrlCore/uCtrlCore.pro
-uCtrlCore.commands   = mkdir -p $$OUT_PWD/../uCtrlCore && cd $$OUT_PWD/../uCtrlCore && $$uCtrlCore_QMAKE_CMD && make
-PRE_TARGETDEPS      += $$OUT_PWD/../uCtrlCore/libuCtrlCore.a
+uCtrlCore.commands   = $$uCtrlCore_CMD
+
+PRE_TARGETDEPS += $$uCtrlCore_TARGET
 QMAKE_EXTRA_TARGETS += uCtrlCore
-
-LIBS += -L$$OUT_PWD/../uCtrlCore/ -luCtrlCore
-
 INCLUDEPATH += $$PWD/../uCtrlCore
 DEPENDPATH += $$PWD/../uCtrlCore
 
