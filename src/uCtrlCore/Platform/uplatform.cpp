@@ -18,24 +18,24 @@ void UPlatform::updatedDeviceInfo(UDeviceInfo &deviceInfo)
 {
 
 }
-/*
-void UPlatform::updateDeviceScenario(int deviceId, UScenario &deviceScenario)
-{
-    for (int i = 0; i < m_device.size(); ++i)
-        {
-            if (m_device[i].id() == deviceId)
-            {
-                std::vector<UScenario>::iterator iter = m_device.begin() + i;
 
-                m_device.erase(iter);
-                m_device.insert(iter, deviceScenario);
+void UPlatform::updateDeviceScenario(int scenarioId, UScenario &deviceScenario)
+{
+    for (int i = 0; i < m_scenario.size();  ++i)
+        {
+            if (m_scenario[i].id() == scenarioId)
+            {
+                std::vector<UScenario>::iterator iter = m_scenario.begin() + i;
+
+                m_scenario.erase(iter);
+                m_scenario.insert(iter, deviceScenario);
                 return;
             }
         }
 
-        m_device.push_back(deviceScenario);
+     m_scenario.push_back(deviceScenario);
 }
-*/
+
 void UPlatform::restoreDeviceDefault(int deviceId)
 {
     if(deviceId == 1234){

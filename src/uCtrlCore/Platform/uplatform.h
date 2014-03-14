@@ -22,12 +22,15 @@ public:
 
     void getDeviceInfo(int deviceId);
     void updatedDeviceInfo(UDeviceInfo& deviceInfo);
-    void updateDeviceScenario(int deviceId, UScenario& deviceScenario);
+    void updateDeviceScenario(int scenarioId, UScenario& deviceScenario);
     void getAllDevices(GetAllDevicesCallback* callback);
     void restoreDeviceDefault(int deviceId);
+    const std::vector<UScenario>& deviceScenario() const {return m_scenario;}
+    //const std::vector<UDevice>& deviceScenario() const {return m_device;}
 
 private:
     UDevice m_device;
+    std::vector<UScenario> m_scenario;
     std::vector<UDevice> devicesVector;
 };
 
