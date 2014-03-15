@@ -44,14 +44,13 @@ Rectangle { // NavBar
         anchors.left: homeBtn.right
         color:"transparent"
 
-        Text {
-            color: "white"
+        UI.ULabel {
             text: title
-            font.family: "Helvetica neue"
-            font.pointSize: 18
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 5
-            anchors.horizontalCenter: parent.horizontalCenter
+            headerStyle: 1
+
+            Component.onCompleted: color="white"
         }
 
     }
