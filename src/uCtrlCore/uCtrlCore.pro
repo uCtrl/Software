@@ -29,7 +29,9 @@ SOURCES += \
     Utility/uniqueidgenerator.cpp \
     Conditions/uconditionbuilderobserver.cpp \
     Device/udeviceinfobuilder.cpp \
-    Device/udevicesummarybuilder.cpp
+    Device/udevicesummarybuilder.cpp \
+    Conditions/udate.cpp \
+    Conditions/utime.cpp
 
 HEADERS += \
     uplatform.h \
@@ -55,7 +57,9 @@ HEADERS += \
     Utility/uniqueidgenerator.h \
     Conditions/uconditionbuilderobserver.h \
     Device/udeviceinfobuilder.h \
-    Device/udevicesummarybuilder.h
+    Device/udevicesummarybuilder.h \
+    Conditions/udate.h \
+    Conditions/utime.h
 
 unix {
     target.path = /usr/lib

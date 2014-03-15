@@ -7,7 +7,7 @@
 class UConditionBuilder
 {
 public:
-    UConditionBuilder(UConditionBuilderObserver* conditionBuilderObserver);
+    UConditionBuilder(UConditionBuilderObserver* conditionBuilderObserver, UEConditionType::Type conditionType);
     UConditionBuilder(UConditionBuilderObserver* conditionBuilderObserver, const UCondition& condition);
     ~UConditionBuilder();
 
