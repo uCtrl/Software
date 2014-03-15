@@ -56,8 +56,3 @@ HEADERS += \
     Conditions/uconditionbuilderobserver.h \
     Device/udeviceinfobuilder.h \
     Device/udevicesummarybuilder.h
-
-unix {
-    target.path = /usr/lib
-    INSTALLS += target
-}
