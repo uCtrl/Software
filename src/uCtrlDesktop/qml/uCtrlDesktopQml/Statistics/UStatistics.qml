@@ -10,4 +10,3 @@ UI.UFrame {
         color: colors.uGreen
     }
 }
-

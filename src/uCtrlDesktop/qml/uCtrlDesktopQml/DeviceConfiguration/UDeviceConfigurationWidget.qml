@@ -41,16 +41,9 @@ UI.UFrame {
             anchors.bottomMargin: 7
             width: 96; height: 27
             x: 10
-            labelText: "Ajouter"
+            label: "Ajouter"
 
             signal qmlSignal()
-
-            MouseArea{
-                id: buttonMouseArea
-
-                anchors.fill: parent
-                onClicked: simplebutton.qmlSignal()
-            }
         }
     }
 }
