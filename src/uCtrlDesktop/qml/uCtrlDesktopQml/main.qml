@@ -53,32 +53,42 @@ Rectangle {
         }
     }
 
-    function refreshPage() {
-        destroyPage()
+    function refreshPage(model) {
         if (activeComponent.status == Component.Ready) {
+            destroyPage()
             activePage = activeComponent.createObject(main)
-            validatePage()
+            validatePage(model)
         } else {
             displayComponentError()
         }
     }
 
-    function renderComponent(path) {
+    function renderComponent(path, model) {
         destroyComponent()
         activeComponent = Qt.createComponent(path)
-        refreshPage()
+        refreshPage(model)
     }
 
-    function validatePage() {
+    function setPageModel(model) {
+        if (model !== undefined) {
+            activePage.bind(model)
+        } else if (activePage.requiredModel) {
+            // @TODO : Replace with error alert.
+            console.log("Error undefined model");
+        }
+    }
+
+    function validatePage(model) {
         if (activePage == null) {
             // @TODO : Replace with error alert.
             console.log("Error creating object");
+        } else {
+            setPageModel(model)
         }
-        return false
     }
 
-    signal swap (string page)
-    onSwap: { renderComponent(page) }
+    signal swap (string page, variant model)
+    onSwap: { renderComponent(page, model) }
 
     signal menu (bool visible)
     onMenu: { }

@@ -6,7 +6,7 @@ Item {
 
     function swap() {
         parent.toggleMenu()
-        main.swap(pageName)
+        main.swap(pageName, null)
     }
 
     Rectangle {
