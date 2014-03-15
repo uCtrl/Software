@@ -80,7 +80,8 @@ void UScenarioBuilder::onTaskUpdated(const UTask& updatedTask)
 
 UConditionBuilder* UScenarioBuilder::createCondition()
 {
-    return new UConditionBuilder(this);
+    // TODO fix this
+    return new UConditionBuilder(this, UEConditionType::Date);
 }
 
 UConditionBuilder* UScenarioBuilder::editCondition(int conditionId)

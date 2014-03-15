@@ -22,6 +22,21 @@ int UConditionDate::getComparisonPossible()
     }
 }
 
+void UConditionDate::setValue1(void* value)
+{
+    UDate* date = (UDate*)value;
+    m_date1 = *date;
+}
+
+void UConditionDate::setValue2(void* value)
+{
+    if (m_currentComparisonType != UEComparisonPossible::InBetween)
+        return;
+
+    UDate* date = (UDate*)value;
+    m_date2 = *date;
+}
+
 json::Object UConditionDate::ToObject()
 {
 	json::Object obj;

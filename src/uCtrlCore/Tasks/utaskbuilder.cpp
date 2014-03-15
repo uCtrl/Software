@@ -21,7 +21,8 @@ UTaskBuilder::~UTaskBuilder()
 
 UConditionBuilder* UTaskBuilder::createCondition()
 {
-    return new UConditionBuilder(this);
+    // TODO fix this
+    return new UConditionBuilder(this, UEConditionType::Date);
 }
 
 UConditionBuilder* UTaskBuilder::editCondition(int conditionId)

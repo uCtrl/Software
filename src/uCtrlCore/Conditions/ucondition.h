@@ -32,6 +32,8 @@ public:
     int id() const { return m_id; }
     int getCurrentComparisonType() { return m_currentComparisonType; }
     virtual int getComparisonPossible() { return 0; }
+    virtual void setValue1(void* value) {};
+    virtual void setValue2(void* value) {};
 
 END_DECLARE_JSON_CLASS()
 
