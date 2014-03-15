@@ -87,9 +87,8 @@ Item {
                 anchors.right: parent.right
                 anchors.rightMargin: 10
 
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: toggleTasks()
+                function execute() {
+                    toggleTasks()
                 }
             }
         }

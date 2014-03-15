@@ -117,6 +117,11 @@ Rectangle {
                 border.color: colors.uGrey
 
                 visible: showInfo
+
+                function execute() {
+                    // @TODO : Display informations
+                    console.log("Display informations")
+                }
             }
         }
 
@@ -152,10 +157,8 @@ Rectangle {
                 border.color: colors.uGrey
 
                 visible: showConfig
-                MouseArea{
-                    id: mouseArea
-                    anchors.fill: parent
-                    onClicked: swapConfig()
+                function execute() {
+                    swapConfig()
                 }
             }
         }
