@@ -6,5 +6,6 @@
         <file>Images/drag.png</file>
         <file>Images/icon-uctrl-white.png</file>
         <file>Images/Clock-Icon.png</file>
+        <file>uCtrl-small-white.png</file>
     </qresource>
 </RCC>

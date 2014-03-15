@@ -13,17 +13,18 @@ Rectangle { // NavBar
         if (backBtn.isVisible()) backBtn.toggleMenu()
     }
 
-    Rectangle {
+    UI.UImage {
         id: homeBtn
-        x: 20
-        y: 20
-        color:"transparent"
+        width: 60
+        height: 35
 
-        Image {
-            id: homeImg
-            anchors.centerIn: parent
-            source: "qrc:///Resources/Images/icon-uctrl-white.png"
-        }
+        anchors.top: parent.top
+        anchors.topMargin: 3
+
+        anchors.left: parent.left
+        anchors.leftMargin: 25
+
+        img: "qrc:///Resources/uCtrl-small-white.png"
     }
 
     UMenu {
@@ -38,7 +39,7 @@ Rectangle { // NavBar
 
     Rectangle {
         id: navText
-        width: parent.width - backBtn.width - homeBtn.width
+        width: parent.width - backBtn.width - homeBtn.width - 15
         height: parent.height
         anchors.left: homeBtn.right
         color:"transparent"
