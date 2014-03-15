@@ -39,9 +39,9 @@ Rectangle { // NavBar
 
     Rectangle {
         id: navText
-        width: parent.width - backBtn.width - homeBtn.width - 15
+        width: parent.width
         height: parent.height
-        anchors.left: homeBtn.right
+        anchors.left: parent.left
         color:"transparent"
 
         UI.ULabel {
