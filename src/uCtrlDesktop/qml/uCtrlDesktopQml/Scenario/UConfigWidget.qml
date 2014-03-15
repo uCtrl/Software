@@ -81,15 +81,14 @@ Item {
 
             UI.UButton {
                 id: toggleBtn
-                labelText: "T"
+                label: "T"
                 width: 20
                 height: 20
                 anchors.right: parent.right
                 anchors.rightMargin: 10
 
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: toggleTasks()
+                function execute() {
+                    toggleTasks()
                 }
             }
         }

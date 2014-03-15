@@ -17,6 +17,10 @@ Rectangle {
 
     color: backgroundColor
 
+    Component.onCompleted: {
+        visible: true
+    }
+
     // Responsive signals
     signal move(int x, int y)
     onMove: {

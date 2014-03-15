@@ -35,6 +35,10 @@ Rectangle {
         iconLabel.text = getImagePath()
     }
 
+    function swapConfig() {
+        main.swap(paths.uConfig, "Configuration", device)
+    }
+
     UI.UCircle {
         id: iconShadow
         height: 50
@@ -108,10 +112,16 @@ Rectangle {
                 anchors.top: parent.top
                 anchors.topMargin: 15
 
-                labelText: "I"
+                label: "I"
                 color: colors.uGrey
+                border.color: colors.uGrey
 
                 visible: showInfo
+
+                function execute() {
+                    // @TODO : Display informations
+                    console.log("Display informations")
+                }
             }
         }
 
@@ -142,14 +152,13 @@ Rectangle {
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 15
 
-                labelText: "C"
+                label: "C"
                 color: colors.uGrey
+                border.color: colors.uGrey
 
                 visible: showConfig
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: main.swap(paths.uConfig, "Configuration", device)
+                function execute() {
+                    swapConfig()
                 }
             }
         }
