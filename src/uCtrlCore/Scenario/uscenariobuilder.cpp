@@ -78,10 +78,10 @@ void UScenarioBuilder::onTaskUpdated(const UTask& updatedTask)
     m_isDirty = true;
 }
 
-UConditionBuilder* UScenarioBuilder::createCondition()
+UConditionBuilder* UScenarioBuilder::createCondition(UEConditionType::Type conditionType)
 {
     // TODO fix this
-    return new UConditionBuilder(this, UEConditionType::Date);
+    return new UConditionBuilder(this, conditionType);
 }
 
 UConditionBuilder* UScenarioBuilder::editCondition(int conditionId)

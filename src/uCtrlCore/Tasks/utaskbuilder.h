@@ -13,7 +13,7 @@ public:
     UTaskBuilder(UTaskBuilderObserver* taskBuilderObserver, const UTask& task);
     ~UTaskBuilder();
 
-    UConditionBuilder* createCondition();
+    UConditionBuilder* createCondition(UEConditionType::Type conditionType);
     UConditionBuilder* editCondition(int conditionId);
     void               deleteCondition(int conditionId);
 

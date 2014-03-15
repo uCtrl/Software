@@ -1,5 +1,12 @@
 #include "udate.h"
 
+UDate::UDate(const UDate& date)
+{
+    this->m_day = date.m_day;
+    this->m_month = date.m_month;
+    this->m_year = date.m_year;
+}
+
 json::Object UDate::ToObject()
 {
 	json::Object obj;

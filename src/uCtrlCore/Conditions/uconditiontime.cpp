@@ -5,6 +5,21 @@ UConditionTime::UConditionTime(const UConditionTime& conditionTime)
 {
 }
 
+void UConditionTime::setValue1(void* value)
+{
+    UTime* time= (UTime*)value;
+    m_time1 = *time;
+}
+
+void UConditionTime::setValue2(void* value)
+{
+    if (m_currentComparisonType != UEComparisonPossible::InBetween)
+        return;
+
+    UTime* time= (UTime*)value;
+    m_time2 = *time;
+}
+
 json::Object UConditionTime::ToObject()
 {
 	json::Object obj;

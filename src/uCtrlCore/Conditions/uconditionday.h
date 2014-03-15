@@ -22,8 +22,8 @@ BEGIN_DECLARE_JSON_CHILD_CLASS_ARGS2(UConditionDay, UCondition, int, m_weekDay1,
 public:
     UConditionDay(const UConditionDay& conditionDay);
     int getComparisonPossible() { return UEComparisonPossible::Equals | UEComparisonPossible::InBetween; }
-    //virtual void setValue1(const std::string& value) { /*TODO*/ };
-    //virtual void setValue2(const std::string& value) { /*TODO*/ };
+
+    // TODO Set values
 
 END_DECLARE_JSON_CLASS()
 
