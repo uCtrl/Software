@@ -3,15 +3,11 @@ import "../UI" as UI
 
 UI.UFrame {
     id: statsFrame
+    title: "Statistics"
 
     Text {
         text: "Hello World !"
         color: colors.uGreen
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: swap()
-        }
     }
 }
 
