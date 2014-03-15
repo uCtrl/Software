@@ -21,7 +21,7 @@ Item {
         Text {
             x: 7
             text: "x"
-            visible: (main.activePage.name === pageName)
+            visible: (main.activePage.title === pageName)
             color: colors.uGreen
 
             MouseArea {

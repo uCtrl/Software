@@ -2,7 +2,7 @@ import QtQuick 2.0
 import "../UI" as UI
 
 UI.UFrame {
-    name: "Homepage"
+    title: "Homepage"
     anchors.horizontalCenter: parent.horizontalCenter
 
     Text {

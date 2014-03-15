@@ -6,7 +6,7 @@ import "../Scenario" as Scenario
 UI.UFrame {
     property variant device: null
     property ListModel scenarios: null
-    name: "Configuration"
+    title: "Configuration"
     requiredModel: true
 
     function refresh(newDevice) {
