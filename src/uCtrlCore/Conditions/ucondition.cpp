@@ -6,6 +6,10 @@ UCondition::UCondition(const UCondition& condition)
     this->m_id = condition.m_id;
 }
 
+void UCondition::setValue1(void* value)
+{
+}
+
 json::Object UCondition::ToObject()
 {
 	json::Object obj;

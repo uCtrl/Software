@@ -10,26 +10,39 @@ UConditionBuilder::UConditionBuilder(UConditionBuilderObserver* conditionBuilder
 {
     switch (conditionType) {
     case UEConditionType::Date:
-        m_condition = UConditionDate();
+        m_condition = new UConditionDate();
         break;
     case UEConditionType::Day:
-        m_condition = UConditionDay();
+        m_condition = new UConditionDay();
         break;
     case UEConditionType::Time:
-        m_condition = UConditionTime();
+        m_condition = new UConditionTime();
         break;
     default:
         break;
     }
 
-    m_condition.m_id = UniqueIdGenerator::GenerateUniqueId();
+    m_condition->m_id = UniqueIdGenerator::GenerateUniqueId();
 }
 
 UConditionBuilder::UConditionBuilder(UConditionBuilderObserver* conditionBuilderObserver, const UCondition& condition)
     : m_conditionBuilderObserver(conditionBuilderObserver)
-    , m_condition(condition)
     , m_isDirty(false)
 {
+    /*
+    switch (conditionType) {
+    case UEConditionType::Date:
+        m_condition = new UConditionDate(condition);
+        break;
+    case UEConditionType::Day:
+        m_condition = new UConditionDay(condition);
+        break;
+    case UEConditionType::Time:
+        m_condition = new UConditionTime(condition);
+        break;
+    default:
+        break;
+    }*/
 }
 
 UConditionBuilder::~UConditionBuilder()
@@ -37,10 +50,20 @@ UConditionBuilder::~UConditionBuilder()
 
 }
 
+void UConditionBuilder::setValue1(void* value)
+{
+    m_condition->setValue1(value);
+}
+
+void UConditionBuilder::setValue2(void* value)
+{
+    m_condition->setValue2(value);
+}
+
 void UConditionBuilder::notifyConditionUpdate()
 {
     if (m_conditionBuilderObserver)
-        m_conditionBuilderObserver->onConditionUpdated(m_condition);
+        m_conditionBuilderObserver->onConditionUpdated(*m_condition);
 
     m_isDirty = false;
 }

@@ -3,6 +3,8 @@
 UConditionDate::UConditionDate(const UConditionDate& conditionDate)
     : UCondition(conditionDate)
 {
+    this->m_date1 = conditionDate.m_date1;
+    this->m_date2 = conditionDate.m_date2;
 }
 
 int UConditionDate::getComparisonPossible()
@@ -25,7 +27,7 @@ int UConditionDate::getComparisonPossible()
 void UConditionDate::setValue1(void* value)
 {
     UDate* date = (UDate*)value;
-    m_date1 = *date;
+    m_date1 = UDate(*date);
 }
 
 void UConditionDate::setValue2(void* value)
@@ -34,7 +36,7 @@ void UConditionDate::setValue2(void* value)
         return;
 
     UDate* date = (UDate*)value;
-    m_date2 = *date;
+    m_date2 = UDate(*date);
 }
 
 json::Object UConditionDate::ToObject()

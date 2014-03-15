@@ -117,8 +117,8 @@ int main(int argc, char *argv[])
         conditionBuilder->setValue2(&date2);
 
         const UConditionDate* conditionDate = (const UConditionDate*)conditionBuilder->getCondition();
-        const UDate* pdate1 = &conditionDate->m_date1;
-        const UDate* pdate2 = &conditionDate->m_date2;
+        const UDate& pdate1 = conditionDate->m_date1;
+        const UDate& pdate2 = conditionDate->m_date2;
 
         conditionBuilder->notifyConditionUpdate();
         delete conditionBuilder;

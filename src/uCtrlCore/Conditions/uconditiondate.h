@@ -20,8 +20,8 @@ public:
     UConditionDate(const UConditionDate& conditionDate);
     int getComparisonPossible();
     UEConditionDateType::Type getConditionDateType() { return (UEConditionDateType::Type)m_conditionDateType; }
-    virtual void setValue1(void* value);
-    virtual void setValue2(void* value);
+    void setValue1(void* value);
+    void setValue2(void* value);
 
 END_DECLARE_JSON_CLASS()
 
