@@ -20,7 +20,7 @@ Item {
         Text {
             x: 7
             text: "x"
-            visible: (main.getActivePage() === pageName)
+            visible: false //(main.getActivePage() === pageName)
             color: colors.uGreen
 
             MouseArea {

@@ -53,3 +53,6 @@ win32:CONFIG(release, debug|release): LIBS += -L$$PWD/Network/lib/ -ldnss
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/Network/lib/ -ldnssd
 win32:INCLUDEPATH += $$PWD/Network/lib
 win32:DEPENDPATH += $$PWD/Network/lib
+
+OTHER_FILES += \
+    qml/uCtrlDesktopQml/UI/UPath.qml

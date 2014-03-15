@@ -15,114 +15,71 @@ Rectangle {
         id: colors
     }
 
-    id: main
+    UI.UPath {
+        id: paths
+    }
 
     // Rectangle properties
+    id: main
     width: 500
     height: 800
-    color: "#EEEEEE"
 
     // Reference values
     property int centered: 83
-    property string activePage: "homepage"
     property variant deviceConfiguration: null
-
-    signal swap (string page)
-    onSwap: {
-        refreshPage()
-
-        switch (page) {
-        case "homepage":
-            switchHome()
-            break
-        case "summary":
-            switchDeviceSummary()
-            break
-        case "statistics":
-            switchStatistics()
-            break
-        }
-
-        activePage = page
-        if (navigationBar.children[1].isVisible()) {
-            menu(true)
-        }
-    }
-
-    signal menu (bool visible)
-    onMenu: {
-        var menuSize = 95
-        if (!visible) menuSize *= -1
-
-        switch (activePage) {
-        case "homepage":
-            homepage.move(0, menuSize)
-            break
-        case "summary":
-            deviceSummary.move(0, menuSize)
-            break
-        case "statistics":
-            statistics.move(0, menuSize)
-            break
-        }
-    }
-
-    // Functions
-    function refreshPage() {
-        homepage.visible = false
-        deviceSummary.visible = false
-        deviceConfiguration.visible = false
-        statistics.visible = false
-    }
-
-    function switchHome() {
-        navigationBar.title = "Accueil"
-        homepage.visible = true
-    }
-
-    function switchDeviceConfiguration(device) {
-        navigationBar.title = "Configuration"
-        deviceConfiguration.refresh(device)
-        deviceConfiguration.visible = true
-    }
-
-    function switchDeviceSummary() {
-        navigationBar.title = "Liste des appareils"
-        deviceSummary.visible = true
-    }
-
-    function switchStatistics() {
-        navigationBar.title = "Statistics"
-        statistics.visible = true
-    }
-
-    function getActivePage() {
-        return activePage
-    }
+    property variant activeComponent: null
+    property variant activePage: null
 
     Navbar.UNavbarWidget {
         id: navigationBar
-        title: "Acceuil"
+        title: "Homepage"
         z: 1
     }
 
-    Home.UHome {
-        id: homepage
-        visible: true
+    Component.onCompleted: renderComponent("./Home/UHome.qml")
+
+    function destroyComponent() {
+        if (activeComponent != null) activeComponent.destroy()
     }
 
-    Summary.UDeviceSummary {
-        id: deviceSummary
-        visible: false
+    function destroyPage() {
+        if (activePage != null) activePage.destroy()
     }
 
-    Config.UDeviceConfigurationWidget {
-        id: deviceConfiguration
-        visible: false
+    function displayComponentError() {
+        if (activeComponent.status == Component.Error) {
+            // @TODO : Replace with error alert.
+            console.log("Error loading component:", activeComponent.errorString());
+        }
     }
 
-    Stats.UStatistics {
-        id: statistics
-        visible: false
+    function refreshPage() {
+        destroyPage()
+        if (activeComponent.status == Component.Ready) {
+            activePage = activeComponent.createObject(main)
+            validatePage()
+        } else {
+            displayComponentError()
+        }
     }
+
+    function renderComponent(path) {
+        destroyComponent()
+        activeComponent = Qt.createComponent(path)
+        refreshPage()
+    }
+
+    function validatePage() {
+        if (activePage == null) {
+            // @TODO : Replace with error alert.
+            console.log("Error creating object");
+        }
+        return false
+    }
+
+    signal swap (string page)
+    onSwap: { renderComponent(page) }
+
+    signal menu (bool visible)
+    onMenu: { }
 }
