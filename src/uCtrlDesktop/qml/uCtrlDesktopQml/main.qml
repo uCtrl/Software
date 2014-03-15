@@ -36,7 +36,7 @@ Rectangle {
         z: 1
     }
 
-    Component.onCompleted: renderComponent("./Home/UHome.qml")
+    Component.onCompleted: renderComponent("./Home/UHome.qml", "Homepage")
 
     function destroyComponent() {
         if (activeComponent != null) activeComponent.destroy()
@@ -63,7 +63,8 @@ Rectangle {
         }
     }
 
-    function renderComponent(path, model) {
+    function renderComponent(path, title, model) {
+        navigationBar.title = title
         destroyComponent()
         activeComponent = Qt.createComponent(path)
         refreshPage(model)
@@ -87,9 +88,13 @@ Rectangle {
         }
     }
 
-    signal swap (string page, variant model)
-    onSwap: { renderComponent(page, model) }
+    signal swap (string page, string title, variant model)
+    onSwap: { renderComponent(page, title, model) }
 
     signal menu (bool visible)
-    onMenu: { }
+    onMenu: {
+        var menuSize = 95
+        if (!visible) menuSize *= -1
+        activePage.move(0, menuSize)
+    }
 }

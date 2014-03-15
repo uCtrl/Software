@@ -5,6 +5,7 @@ Rectangle {
     property color backgroundColor: "white"
     property variant model: null
     property bool requiredModel: false
+    property string name: "unknown"
 
     // Default dimensions, anchoring and coloring
     width: parent.width

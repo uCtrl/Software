@@ -149,7 +149,7 @@ Rectangle {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: main.swap(paths.uConfig, device)
+                    onClicked: main.swap(paths.uConfig, name, device)
                 }
             }
         }

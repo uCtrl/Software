@@ -3,6 +3,7 @@ import "../UI" as UI
 
 UI.UFrame {
     id: statsFrame
+    name: "Statistics"
 
     Text {
         text: "Hello World !"

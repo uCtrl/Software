@@ -36,22 +36,25 @@ Item {
         UMenuItem {
             id: homePage
             y: 5
-            itemLabel: "Accueil"
-            pageName: paths.uHome
+            itemLabel: "Homepage"
+            pageName: "Homepage"
+            pagePath: paths.uHome
         }
 
         UMenuItem {
             id: deviceConfiguration
             y: 35
             itemLabel: "Configuration"
-            pageName: paths.uSummary
+            pageName: "Configuration"
+            pagePath: paths.uSummary
         }
 
         UMenuItem {
             id: statistics
             y: 65
-            itemLabel: "Statistiques"
-            pageName: paths.uStatistics
+            itemLabel: "Statistics"
+            pageName: "Statistics"
+            pagePath: paths.uStatistics
         }
     }
 }

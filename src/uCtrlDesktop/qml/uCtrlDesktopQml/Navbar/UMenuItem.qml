@@ -3,10 +3,11 @@ import QtQuick 2.0
 Item {
     property string itemLabel: "Unknown"
     property string pageName: "homepage"
+    property string pagePath: "."
 
     function swap() {
         parent.toggleMenu()
-        main.swap(pageName, null)
+        main.swap(pagePath, pageName, null)
     }
 
     Rectangle {
@@ -20,7 +21,7 @@ Item {
         Text {
             x: 7
             text: "x"
-            visible: false //(main.getActivePage() === pageName)
+            visible: (main.activePage.name === pageName)
             color: colors.uGreen
 
             MouseArea {
