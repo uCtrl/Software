@@ -35,6 +35,10 @@ Rectangle {
         iconLabel.text = getImagePath()
     }
 
+    function swapConfig() {
+        main.swap(paths.uConfig, "Configuration", device)
+    }
+
     UI.UCircle {
         id: iconShadow
         height: 50
@@ -148,10 +152,10 @@ Rectangle {
                 border.color: colors.uGrey
 
                 visible: showConfig
-
-                MouseArea {
+                MouseArea{
+                    id: mouseArea
                     anchors.fill: parent
-                    onClicked: main.swap(paths.uConfig, "Configuration", device)
+                    onClicked: swapConfig()
                 }
             }
         }

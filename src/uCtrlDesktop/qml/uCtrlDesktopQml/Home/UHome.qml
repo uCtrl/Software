@@ -6,17 +6,25 @@ UI.UFrame {
     anchors.horizontalCenter: parent.horizontalCenter
 
     Text {
+        id: homeLabel
         text: "Homepage"
         color: colors.uGreen
     }
 
-    UI.UButton {
-        label: "Normal button"
+    Item {
+        width: parent.width
+        height: parent.height
         anchors.centerIn: parent
-        width: 96; height: 27
-    }
 
-    Component.onCompleted: {
-        visible: true
+        UI.UButton {
+            id: firstButton
+            label: "Click me !"
+            width: 96; height: 27
+            anchors.top: parent.top
+            anchors.topMargin: homeLabel.height + 3
+            function execute() {
+                setDisabled()
+            }
+        }
     }
 }
