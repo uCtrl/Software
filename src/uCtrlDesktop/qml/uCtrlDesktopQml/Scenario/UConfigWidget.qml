@@ -81,7 +81,7 @@ Item {
 
             UI.UButton {
                 id: toggleBtn
-                labelText: "T"
+                label: "T"
                 width: 20
                 height: 20
                 anchors.right: parent.right
