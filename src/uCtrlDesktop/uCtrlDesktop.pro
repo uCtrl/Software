@@ -55,4 +55,5 @@ win32:INCLUDEPATH += $$PWD/Network/lib
 win32:DEPENDPATH += $$PWD/Network/lib
 
 OTHER_FILES += \
+    qml/uCtrlDesktopQml/UI/UPath.qml \
     qml/uCtrlDesktopQml/UI/UPath.qml
