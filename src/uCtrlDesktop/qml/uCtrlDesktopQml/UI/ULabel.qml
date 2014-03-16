@@ -5,8 +5,14 @@ Text {
     property bool justified: false
     property var textSize: [12, 24, 20, 18, 16, 12]
     property var textBold: [false, false, true, false, false, false]
-    property var textColor: ["black", colors.uGreen, colors.uDarkGrey, colors.uDarkGrey, colors.uDarkGrey, colors.uDarkGrey]
+    property var textColor: ["black", _colors.uGreen, _colors.uDarkGrey, _colors.uDarkGrey, _colors.uDarkGrey, _colors.uDarkGrey]
     property int headerStyle: 0
+
+    font.family: "Calibri"
+    wrapMode: Text.WordWrap
+    text: formatText(label)
+
+    Component.onCompleted: this.applyHeadingStyle(headerStyle)
 
     function formatText(label) {
         label = label.replace(/(\n|\r)/, "").replace(/\s+/g, " ")
@@ -42,9 +48,4 @@ Text {
     function justify() {
         horizontalAlignment = Text.AlignJustify
     }
-
-    font.family: "Calibri"
-    wrapMode: Text.WordWrap
-    text: formatText(label)
-    Component.onCompleted: this.applyHeadingStyle(headerStyle)
 }

@@ -3,11 +3,12 @@ import "../UI" as UI
 
 UI.ULabel {
     property string labelText: "UNKNOWN"
+
     text: labelText
     headerStyle: 3
 
     Component.onCompleted: {
-        color = colors.uGreen
+        color = _colors.uGreen
         font.bold = true
     }
 }

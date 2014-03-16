@@ -19,6 +19,7 @@ Item {
 
     Rectangle {
         id: menuFrame
+
         color: "white"
         height: 95
         width: main.width
@@ -35,26 +36,29 @@ Item {
 
         UMenuItem {
             id: homePage
+
             y: 5
             itemLabel: "Homepage"
             pageName: "Homepage"
-            pagePath: paths.uHome
+            pagePath: _paths.uHome
         }
 
         UMenuItem {
             id: deviceConfiguration
+
             y: 35
             itemLabel: "Configuration"
             pageName: "Configuration"
-            pagePath: paths.uSummary
+            pagePath: _paths.uSummary
         }
 
         UMenuItem {
             id: statistics
+
             y: 65
             itemLabel: "Statistics"
             pageName: "Statistics"
-            pagePath: paths.uStatistics
+            pagePath: _paths.uStatistics
         }
     }
 }

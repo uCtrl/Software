@@ -33,11 +33,15 @@ Rectangle {
 
     Rectangle {
         id: scenarioTask
+
         anchors.top: scenarioHeader.bottom
         anchors.bottom: parent.bottom
+
         width: parent.width
+
         color: "transparent"
         visible: true
+
         ListView {
             id: taskList
             anchors.fill: parent

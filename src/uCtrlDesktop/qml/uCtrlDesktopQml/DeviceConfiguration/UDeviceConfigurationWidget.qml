@@ -6,6 +6,7 @@ import "../Scenario" as Scenario
 UI.UFrame {
     property variant device: null
     property ListModel scenarios: null
+
     title: "Configuration"
     requiredModel: true
 
@@ -16,11 +17,13 @@ UI.UFrame {
 
     Device.UHeader {
         id: deviceHeader
+
         device: device
     }
 
     Scenario.UScenarioWidget {
         id: scenarioWidget
+
         anchors.top: deviceHeader.bottom
         height: parent.height - deviceHeader.height - 80
         name: "Scenario #1 - Semaine de travail"
@@ -28,14 +31,16 @@ UI.UFrame {
 
     Rectangle {
         id: commandButtons
+
         width: parent.width
         height: 40
         anchors.top: scenarioWidget.bottom
 
-        color: colors.uUltraLightGrey
+        color: _colors.uUltraLightGrey
 
         UI.UButton {
             id: simplebutton
+
             objectName: "btn"
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 7
