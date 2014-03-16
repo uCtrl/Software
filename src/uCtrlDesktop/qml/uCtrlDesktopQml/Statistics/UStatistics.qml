@@ -7,6 +7,6 @@ UI.UFrame {
 
     Text {
         text: "Hello World !"
-        color: colors.uGreen
+        color: _colors.uGreen
     }
 }

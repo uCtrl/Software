@@ -32,7 +32,7 @@ UI.UFrame {
         height: 40
         anchors.top: scenarioWidget.bottom
 
-        color: colors.uUltraLightGrey
+        color: _colors.uUltraLightGrey
 
         UI.UButton {
             id: simplebutton

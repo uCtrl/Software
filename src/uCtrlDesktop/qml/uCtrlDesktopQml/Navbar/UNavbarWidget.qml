@@ -7,7 +7,7 @@ Rectangle { // NavBar
     width: parent.width
     height: 40
     anchors.top: parent.top
-    color: colors.uGreen
+    color: _colors.uGreen
 
     function toggleMenu() {
         if (backBtn.isVisible()) backBtn.toggleMenu()

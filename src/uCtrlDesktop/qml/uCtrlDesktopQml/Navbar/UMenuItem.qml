@@ -22,7 +22,7 @@ Item {
             x: 7
             text: "x"
             visible: (main.activePage.title === pageName)
-            color: colors.uGreen
+            color: _colors.uGreen
 
             MouseArea {
                 anchors.fill: parent

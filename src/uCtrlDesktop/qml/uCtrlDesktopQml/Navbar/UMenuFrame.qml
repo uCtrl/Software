@@ -38,7 +38,7 @@ Item {
             y: 5
             itemLabel: "Homepage"
             pageName: "Homepage"
-            pagePath: paths.uHome
+            pagePath: _paths.uHome
         }
 
         UMenuItem {
@@ -46,7 +46,7 @@ Item {
             y: 35
             itemLabel: "Configuration"
             pageName: "Configuration"
-            pagePath: paths.uSummary
+            pagePath: _paths.uSummary
         }
 
         UMenuItem {
@@ -54,7 +54,7 @@ Item {
             y: 65
             itemLabel: "Statistics"
             pageName: "Statistics"
-            pagePath: paths.uStatistics
+            pagePath: _paths.uStatistics
         }
     }
 }

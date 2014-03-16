@@ -8,8 +8,8 @@ Rectangle {
     radius: 5
 
     function adjustTitle() {
-        label.color = menuFrame.visible ? colors.uGreen : "white"
-        menuButton.color = menuFrame.visible ? "white" : colors.uGreen
+        label.color = menuFrame.visible ? _colors.uGreen : "white"
+        menuButton.color = menuFrame.visible ? "white" : _colors.uGreen
     }
 
     function toggleMenu() {

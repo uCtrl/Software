@@ -7,7 +7,7 @@ UI.ULabel {
     headerStyle: 3
 
     Component.onCompleted: {
-        color = colors.uGreen
+        color = _colors.uGreen
         font.bold = true
     }
 }

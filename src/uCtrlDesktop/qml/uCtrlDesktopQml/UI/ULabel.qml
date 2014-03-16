@@ -5,7 +5,7 @@ Text {
     property bool justified: false
     property var textSize: [12, 24, 20, 18, 16, 12]
     property var textBold: [false, false, true, false, false, false]
-    property var textColor: ["black", colors.uGreen, colors.uDarkGrey, colors.uDarkGrey, colors.uDarkGrey, colors.uDarkGrey]
+    property var textColor: ["black", _colors.uGreen, _colors.uDarkGrey, _colors.uDarkGrey, _colors.uDarkGrey, _colors.uDarkGrey]
     property int headerStyle: 0
 
     function formatText(label) {

@@ -17,7 +17,7 @@ Item {
         id: shadow
         width: parent.width
         height: parent.height +1
-        color: colors.uUltraLightGrey
+        color: _colors.uUltraLightGrey
     }
 
     Rectangle {
@@ -48,7 +48,7 @@ Item {
 
             Rectangle {
                 id: stateContainer
-                color: colors.uLightGrey
+                color: _colors.uLightGrey
 
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: changeStateLabel.right

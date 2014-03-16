@@ -10,7 +10,7 @@ Rectangle {
 
     width: parent.width
     height: 30
-    color: colors.uUltraLightGrey
+    color: _colors.uUltraLightGrey
 
     UI.ULabel {
         text: scenarioName
