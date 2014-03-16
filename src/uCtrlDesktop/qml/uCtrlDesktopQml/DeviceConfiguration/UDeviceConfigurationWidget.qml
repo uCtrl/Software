@@ -41,7 +41,7 @@ UI.UFrame {
             anchors.bottomMargin: 7
             width: 96; height: 27
             x: 10
-            label: "Ajouter"
+            displayedText: "Ajouter"
 
             signal qmlSignal()
         }

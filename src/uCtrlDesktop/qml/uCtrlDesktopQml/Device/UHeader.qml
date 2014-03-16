@@ -112,7 +112,7 @@ Rectangle {
                 anchors.top: parent.top
                 anchors.topMargin: 15
 
-                label: "I"
+                displayedText: "I"
                 color: colors.uGrey
                 border.color: colors.uGrey
 
@@ -152,7 +152,7 @@ Rectangle {
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 15
 
-                label: "C"
+                displayedText: "C"
                 color: colors.uGrey
                 border.color: colors.uGrey
 
