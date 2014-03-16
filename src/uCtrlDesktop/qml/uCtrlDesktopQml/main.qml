@@ -10,12 +10,13 @@ import "Statistics" as Stats
 import "DeviceSummary" as Summary
 
 Rectangle {
-    // Object properties
     id: main
-    width: 500; height: 800
 
+    // Object properties
     property variant activeComponent: null
     property variant activePage: null
+
+    width: 500; height: 800
 
     // Object Signals declaration
     signal swap (string page, string title, variant model)
@@ -29,7 +30,7 @@ Rectangle {
     }
 
     // Extern Signals declaration
-    Component.onCompleted: renderComponent("./Home/UHome.qml", "Homepage")
+    Component.onCompleted: renderComponent(_paths.uHome, "Homepage")
 
     // Object functions
     function destroyComponent() {
