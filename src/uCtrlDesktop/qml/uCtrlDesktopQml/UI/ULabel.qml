@@ -8,6 +8,12 @@ Text {
     property var textColor: ["black", _colors.uGreen, _colors.uDarkGrey, _colors.uDarkGrey, _colors.uDarkGrey, _colors.uDarkGrey]
     property int headerStyle: 0
 
+    font.family: "Calibri"
+    wrapMode: Text.WordWrap
+    text: formatText(label)
+
+    Component.onCompleted: this.applyHeadingStyle(headerStyle)
+
     function formatText(label) {
         label = label.replace(/(\n|\r)/, "").replace(/\s+/g, " ")
         if (headerStyle == 5) label = label.toUpperCase()
@@ -42,9 +48,4 @@ Text {
     function justify() {
         horizontalAlignment = Text.AlignJustify
     }
-
-    font.family: "Calibri"
-    wrapMode: Text.WordWrap
-    text: formatText(label)
-    Component.onCompleted: this.applyHeadingStyle(headerStyle)
 }

@@ -1,8 +1,10 @@
 import QtQuick 2.0
 
 Rectangle {
-    property string img: "unknown"
     id: imageContainer
+
+    property string img: "unknown"
+
     color: "transparent"
 
     Image {

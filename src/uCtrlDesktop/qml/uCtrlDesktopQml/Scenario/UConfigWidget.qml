@@ -15,16 +15,18 @@ Item {
 
     Rectangle {
         id: shadow
+
         width: parent.width
         height: parent.height +1
         color: _colors.uUltraLightGrey
     }
 
     Rectangle {
+        id: scenarioFrame
+
         x:0
         y:0
 
-        id: scenarioFrame
         width: parent.width
         height: parent.height -1
 
@@ -71,19 +73,24 @@ Item {
 
             UI.ULabel {
                 id: stateLabelWhen
-                text: "quand:"
+
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: stateContainer.right
+                anchors.leftMargin: 5
+
+                text: "quand:"
                 font.pointSize: 14
                 color: colors.uDarkGrey
-                anchors.leftMargin: 5
             }
 
             UI.UButton {
                 id: toggleBtn
+
                 displayedText: "T"
+
                 width: 20
                 height: 20
+
                 anchors.right: parent.right
                 anchors.rightMargin: 10
 
@@ -95,9 +102,11 @@ Item {
 
         Rectangle {
             id: dragger
+
             anchors.right: parent.right
             height: parent.height
             width: 40
+
             color: "transparent"
             visible: conditionsContainer.adjustedHeight() > 0
 
@@ -111,11 +120,8 @@ Item {
         }
 
         Rectangle {
-            function adjustedHeight(){
-                return visible? height: 0
-            }
-
             id: conditionsContainer
+
             height: 40 * conditionList.count
             width: parent.width - dragger.width
 
@@ -123,6 +129,10 @@ Item {
             y: taskHeader.height
 
             color: "transparent"
+
+            function adjustedHeight(){
+                return visible? height: 0
+            }
 
             ListView {
                 id: conditionList

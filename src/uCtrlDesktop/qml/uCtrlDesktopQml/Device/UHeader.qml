@@ -5,7 +5,6 @@ import "../UI" as UI
 Rectangle {
     property bool showConfig: false
     property bool showInfo: false
-
     property variant device: null
 
     height: 75
@@ -41,6 +40,7 @@ Rectangle {
 
     UI.UCircle {
         id: iconShadow
+
         height: 50
         width: 50
         color: _colors.uGrey
@@ -53,6 +53,7 @@ Rectangle {
 
     UI.UCircle {
         id: iconFrame
+
         height: 50
         width: 50
         color: "white"
@@ -65,6 +66,7 @@ Rectangle {
         // To be replaced by an icon
         UI.ULabel {
             id: iconLabel
+
             color: colors.uGreen
             font.pointSize: 15
             anchors.bottom: parent.bottom
@@ -80,6 +82,7 @@ Rectangle {
 
     Rectangle {
         id: textFrame
+
         anchors.left: iconFrame.right
         anchors.leftMargin: 20
         height: parent.height
@@ -88,6 +91,7 @@ Rectangle {
 
         Rectangle {
             id: topTextFrame
+
             anchors.top: parent.top
             color: "transparent"
             width: parent.width
@@ -127,6 +131,7 @@ Rectangle {
 
         Rectangle {
             id: botTextFrame
+
             anchors.bottom: parent.bottom
             anchors.right: parent.right
             color: "transparent"
@@ -157,6 +162,7 @@ Rectangle {
                 border.color: colors.uGrey
 
                 visible: showConfig
+
                 function execute() {
                     swapConfig()
                 }

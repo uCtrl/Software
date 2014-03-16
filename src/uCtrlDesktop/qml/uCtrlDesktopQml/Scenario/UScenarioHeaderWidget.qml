@@ -10,6 +10,7 @@ Rectangle {
 
     width: parent.width
     height: 30
+
     color: _colors.uUltraLightGrey
 
     UI.ULabel {
@@ -17,6 +18,7 @@ Rectangle {
         color: colors.uDarkGrey
         font.pointSize: 11
         font.bold: true
+
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
         anchors.leftMargin: 10

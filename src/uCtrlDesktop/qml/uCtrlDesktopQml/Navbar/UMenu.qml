@@ -2,6 +2,7 @@ import QtQuick 2.0
 
 Rectangle {
     id: menuButton
+
     color: "transparent"
     height: 25
     width: 25

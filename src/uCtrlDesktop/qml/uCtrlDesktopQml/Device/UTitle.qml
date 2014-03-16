@@ -3,6 +3,7 @@ import "../UI" as UI
 
 UI.ULabel {
     property string labelText: "UNKNOWN"
+
     text: labelText
     headerStyle: 3
 

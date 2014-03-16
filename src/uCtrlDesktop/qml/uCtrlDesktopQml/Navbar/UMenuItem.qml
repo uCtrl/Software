@@ -12,9 +12,11 @@ Item {
 
     Rectangle {
         id: activeFrame
+
         color: "transparent"
         height: 25
         width: 25
+
         anchors.left: parent.left
         anchors.leftMargin: 5
 
@@ -38,7 +40,9 @@ Item {
 
     Text {
         y: 2
+
         text: itemLabel
+
         anchors.left: activeFrame.right
         anchors.leftMargin: 5
 
