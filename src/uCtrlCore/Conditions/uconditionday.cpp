@@ -5,19 +5,19 @@ UConditionDay::UConditionDay(const UConditionDay& conditionDay)
 {
 }
 
-json::Object UConditionDay::ToObject()
+json::Object UConditionDay::ToObject() const
 {
 	json::Object obj;
 	FillObject(obj);
 	return obj;
 }
 
-void UConditionDay::FillObject(json::Object& obj)
+void UConditionDay::FillObject(json::Object& obj) const
 {
 	UCondition::FillObject(obj);
 }
 
-std::string UConditionDay::Serialize()
+std::string UConditionDay::Serialize() const
 {
 	json::Object obj = ToObject();
 	return json::Serialize(obj);

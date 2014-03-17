@@ -8,9 +8,9 @@ class NAME PARENT_DECLARATION \
 {\
 public:\
     NAME(){}\
-    json::Object    ToObject();\
-    void            FillObject(json::Object& obj);\
-    std::string     Serialize();\
+    json::Object    ToObject() const;\
+    void            FillObject(json::Object& obj) const;\
+    std::string     Serialize() const;\
     void            FillMembers(const json::Object& obj);\
     static NAME     Deserialize(const json::Object& obj);\
     \

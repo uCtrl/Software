@@ -6,19 +6,19 @@ UCondition::UCondition(const UCondition& condition)
     this->m_id = condition.m_id;
 }
 
-json::Object UCondition::ToObject()
+json::Object UCondition::ToObject() const
 {
 	json::Object obj;
 	FillObject(obj);
 	return obj;
 }
 
-void UCondition::FillObject(json::Object& obj)
+void UCondition::FillObject(json::Object& obj) const
 {
-    obj["m_id"] = m_id;
+    obj["id"] = m_id;
 }
 
-std::string UCondition::Serialize()
+std::string UCondition::Serialize() const
 {
 	json::Object obj = ToObject();
 	return json::Serialize(obj);
@@ -26,7 +26,7 @@ std::string UCondition::Serialize()
 
 void UCondition::FillMembers(const json::Object& obj)
 {
-    m_id = obj["m_id"];
+    m_id = obj["id"];
 }
 
 UCondition UCondition::Deserialize(const json::Object& obj)

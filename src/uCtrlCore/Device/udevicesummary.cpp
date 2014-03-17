@@ -7,21 +7,21 @@ UDeviceSummary::UDeviceSummary(const UDeviceSummary& deviceSummary)
     this->m_name = deviceSummary.m_name;
 }
 
-json::Object UDeviceSummary::ToObject()
+json::Object UDeviceSummary::ToObject() const
 {
 	json::Object obj;
 	FillObject(obj);
 	return obj;
 }
 
-void UDeviceSummary::FillObject(json::Object& obj)
+void UDeviceSummary::FillObject(json::Object& obj) const
 {
     obj["id"] = m_id;
     obj["ip"] = m_ip;
     obj["name"] = m_name;
 }
 
-std::string UDeviceSummary::Serialize()
+std::string UDeviceSummary::Serialize() const
 {
 	json::Object obj = ToObject();
 	return json::Serialize(obj);

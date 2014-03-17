@@ -19,24 +19,24 @@ UTask::~UTask()
     m_conditions.clear();
 }
 
-json::Object UTask::ToObject()
+json::Object UTask::ToObject() const
 {
 	json::Object obj;
 	FillObject(obj);
 	return obj;
 }
 
-void UTask::FillObject(json::Object& obj)
+void UTask::FillObject(json::Object& obj) const
 {
     obj["id"] = m_id;
     obj["name"] = m_name;
 
     // WARNING : Custom code
-    obj["m_conditions_size"] = (int) m_conditions.size();
+    obj["conditions_size"] = (int) m_conditions.size();
     for (int i = 0; i < m_conditions.size(); i++)
     {
         std::ostringstream oss;
-        oss << "m_conditions[" << i << "]";
+        oss << "conditions[" << i << "]";
 
         std::string key = oss.str();
         obj[key] = m_conditions[i].ToObject();
@@ -44,7 +44,7 @@ void UTask::FillObject(json::Object& obj)
 
 }
 
-std::string UTask::Serialize()
+std::string UTask::Serialize() const
 {
 	json::Object obj = ToObject();
 	return json::Serialize(obj);
@@ -56,11 +56,11 @@ void UTask::FillMembers(const json::Object& obj)
     m_name = obj["name"].ToString();
 
     // WARNING : Custom code
-    int m_conditions_size = obj["m_conditions_size"];
+    int m_conditions_size = obj["conditions_size"];
     for (int i = 0 ; i < m_conditions_size; i++)
     {
         std::ostringstream oss;
-        oss << "m_conditions[" << i << "]";
+        oss << "conditions[" << i << "]";
 
         std::string key = oss.str();
         UCondition condition = UCondition::Deserialize(obj[key]);

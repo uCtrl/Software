@@ -5,19 +5,19 @@ UConditionTime::UConditionTime(const UConditionTime& conditionTime)
 {
 }
 
-json::Object UConditionTime::ToObject()
+json::Object UConditionTime::ToObject() const
 {
 	json::Object obj;
 	FillObject(obj);
 	return obj;
 }
 
-void UConditionTime::FillObject(json::Object& obj)
+void UConditionTime::FillObject(json::Object& obj) const
 {
 	UCondition::FillObject(obj);
 }
 
-std::string UConditionTime::Serialize()
+std::string UConditionTime::Serialize() const
 {
 	json::Object obj = ToObject();
 	return json::Serialize(obj);

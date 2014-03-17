@@ -9,31 +9,32 @@ UDevice::UDevice(const UDevice& device)
     this->m_deviceInfo = device.m_deviceInfo;
 }
 
-json::Object UDevice::ToObject()
+json::Object UDevice::ToObject() const
 {
 	json::Object obj;
 	FillObject(obj);
 	return obj;
 }
 
-void UDevice::FillObject(json::Object& obj)
+void UDevice::FillObject(json::Object& obj) const
 {
-    obj["m_id"] = m_id;
-    obj["m_name"] = m_name;
+    obj["id"] = m_id;
+    obj["name"] = m_name;
+    obj["deviceInfo"] = m_deviceInfo->ToObject();
 
     // WARNING : Custom code
-    obj["m_scenarios_size"] = (int) m_scenarios.size();
+    obj["scenarios_size"] = (int) m_scenarios.size();
     for (int i = 0; i < m_scenarios.size(); i++)
     {
         std::ostringstream oss;
-        oss << "m_scenarios[" << i << "]";
+        oss << "scenarios[" << i << "]";
 
         std::string key = oss.str();
         obj[key] = m_scenarios[i].ToObject();
     }
 }
 
-std::string UDevice::Serialize()
+std::string UDevice::Serialize() const
 {
 	json::Object obj = ToObject();
 	return json::Serialize(obj);
@@ -41,15 +42,15 @@ std::string UDevice::Serialize()
 
 void UDevice::FillMembers(const json::Object& obj)
 {
-    m_id = obj["m_id"];
-    m_name = obj["m_name"].ToString();
+    m_id = obj["id"];
+    m_name = obj["name"].ToString();
 
     // WARNING : Custom code
-    int m_scenarios_size = obj["m_scenarios_size"];
+    int m_scenarios_size = obj["scenarios_size"];
     for (int i = 0 ; i < m_scenarios_size; i++)
     {
         std::ostringstream oss;
-        oss << "m_scenarios[" << i << "]";
+        oss << "scenarios[" << i << "]";
 
         std::string key = oss.str();
         UScenario scenario = UScenario::Deserialize(obj[key]);

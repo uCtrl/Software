@@ -14,6 +14,8 @@
 #include "Device/udevicesummary.h"
 #include "Device/udevicesummarybuilder.h"
 #include "Models/Device/udevicemodel.h"
+#include <QFile>
+#include <QTextStream>
 
 #include <sstream>
 
@@ -60,6 +62,17 @@ void PrintDevice(const UDevice* device) {
     }
 }
 
+void SaveDeviceToFile(const UDevice* device, std::string filename){
+
+    QFile file(QString::fromStdString(filename));
+    file.open(QIODevice::WriteOnly | QIODevice::Text);
+    QTextStream out(&file);
+    out << QString::fromStdString(device->Serialize());
+
+    // optional, as QFile destructor will already do it:
+    file.close();
+}
+
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
@@ -86,8 +99,6 @@ int main(int argc, char *argv[])
     infoBuilder->setUnitLabel(units[i]);
     infoBuilder->setType(i + 1);
 
-
-
     // Creating Device's scenario
     int j=0;
     UScenarioBuilder* scenarioBuilder = deviceBuilder.createScenario();
@@ -98,8 +109,17 @@ int main(int argc, char *argv[])
         UTaskBuilder* taskBuilder = scenarioBuilder->createTask();
         taskBuilder->setName("newTask1");
         taskBuilder->setStatus(status[k]);
-        taskBuilder->notifyTaskUpdate();
 
+        UConditionBuilder* condBuilder = taskBuilder->createCondition();
+        condBuilder->notifyConditionUpdate();
+
+        delete condBuilder;
+        condBuilder = taskBuilder->createCondition();
+        condBuilder->notifyConditionUpdate();
+        delete condBuilder;
+        condBuilder = NULL;
+
+        taskBuilder->notifyTaskUpdate();
         delete taskBuilder;
         taskBuilder = NULL;
     }
@@ -134,6 +154,7 @@ int main(int argc, char *argv[])
     viewer.setMainQmlFile(QStringLiteral("qml/uCtrlDesktopQml/main.qml"));
     viewer.showExpanded();
 
+    SaveDeviceToFile(deviceModel.device(), "deviceJSON.txt");
     long long id = UniqueIdGenerator::GenerateUniqueId();
     return app.exec();
 }
