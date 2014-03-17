@@ -26,5 +26,9 @@ UI.UFrame {
                 setDisabled()
             }
         }
+
+        UI.UComboBox {
+            id: combo
+        }
     }
 }

@@ -79,3 +79,4 @@ win32 {
 
 OTHER_FILES += \
     qml/uCtrlDesktopQml/UI/UPath.qml \
+    qml/uCtrlDesktopQml/UI/UComboBox.qml
