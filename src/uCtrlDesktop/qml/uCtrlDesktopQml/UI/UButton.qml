@@ -1,7 +1,7 @@
 import QtQuick 2.0
 
 Rectangle {
-    property string label: "UNKNOWN"
+    property string displayedText: "UNKNOWN"
     property bool enabled: true
 
     signal click
@@ -12,22 +12,28 @@ Rectangle {
     ULabel {
         id: buttonLabel
         anchors.centerIn: parent
-        text: label
-        color: "white"
         font.bold: true
+        label: displayedText
+
+        Component.onCompleted: {
+            applyHeadingStyle(5)
+            centerHorizontally()
+            buttonLabel.color = "white"
+            buttonLabel.font.bold = true
+        }
     }
 
     function setDisabled() {
         enabled = false
-        color = colors.uLightGrey
-        border.color = colors.uGrey
-        buttonLabel.color = colors.uDarkGrey
+        color = _colors.uLightGrey
+        border.color = _colors.uGrey
+        buttonLabel.color = _colors.uDarkGrey
     }
 
     function setEnabled() {
         enabled = true
-        color = colors.uGreen
-        border.color = colors.uDarkGreen
+        color = _colors.uGreen
+        border.color = _colors.uDarkGreen
         buttonLabel.color = "white"
     }
 

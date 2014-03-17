@@ -12,13 +12,16 @@ Rectangle {
 
     Image {
         anchors.centerIn: parent
+
         height: parent.width
         width: parent.height
+
         source: "qrc:///Resources/Images/Clock-Icon.png"
     }
 
     Rectangle {
         id: clockHandContainer
+
         anchors.centerIn: parent
         width: 0
         height: 0
@@ -26,6 +29,7 @@ Rectangle {
 
         UI.ULine {
             id: shortClockHand
+
             lineLength: parent.parent.width * 0.25
             rotationDegrees: {
                 var regHour = clockHour
@@ -39,6 +43,7 @@ Rectangle {
         }
         UI.ULine {
             id: longClockHand
+
             lineLength: parent.parent.width * 0.45
             rotationDegrees: {
                 var angle = clockMinute / 60.0 * 360 - 90;

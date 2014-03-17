@@ -12,9 +12,11 @@ Item {
 
     Rectangle {
         id: activeFrame
+
         color: "transparent"
         height: 25
         width: 25
+
         anchors.left: parent.left
         anchors.leftMargin: 5
 
@@ -22,7 +24,7 @@ Item {
             x: 7
             text: "x"
             visible: (main.activePage.title === pageName)
-            color: colors.uGreen
+            color: _colors.uGreen
 
             MouseArea {
                 anchors.fill: parent
@@ -38,7 +40,9 @@ Item {
 
     Text {
         y: 2
+
         text: itemLabel
+
         anchors.left: activeFrame.right
         anchors.leftMargin: 5
 
