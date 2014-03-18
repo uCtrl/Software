@@ -2,7 +2,7 @@ import QtQuick 2.0
 import "../UI" as UI
 
 UI.UFrame {
-    title: "Homepage"
+    title: qsTr("Homepage")
     anchors.top: parent.top
     width: parent.width
     height: parent.height
@@ -10,7 +10,7 @@ UI.UFrame {
     UI.UButton {
         id: firstButton
 
-        displayedText: "Click me !"
+        displayedText: qsTr("Click me !")
         width: 96; height: 27; y: 7;
         anchors.horizontalCenter: parent.horizontalCenter
 
@@ -45,7 +45,7 @@ UI.UFrame {
             anchors.topMargin: 5
             anchors.left: parent.left
 
-            label: "Hello, I am <b>bold</b> !"
+            label: qsTr("Hello, I am <b>bold</b> !")
         }
 
         UI.ULabel {
@@ -69,7 +69,7 @@ UI.UFrame {
             id: h1
 
             width: parent.width
-            label: "h1. Heading 1"
+            label: qsTr("h1. Heading 1")
 
             anchors.top: longText.bottom
             anchors.left: parent.left
@@ -82,7 +82,7 @@ UI.UFrame {
             id: h2
 
             width: parent.width
-            label: "h2. Heading 2"
+            label: qsTr("h2. Heading 2")
 
             anchors.top: h1.bottom
             anchors.left: parent.left
@@ -95,7 +95,7 @@ UI.UFrame {
             id: h3
             width: parent.width
 
-            label: "h3. Heading 3"
+            label: qsTr("h3. Heading 3")
             anchors.top: h2.bottom
             anchors.left: parent.left
             anchors.topMargin: 5
@@ -107,7 +107,7 @@ UI.UFrame {
             id: h4
             width: parent.width
 
-            label: "h4. Heading 4"
+            label: qsTr("h4. Heading 4")
             anchors.top: h3.bottom
             anchors.left: parent.left
             anchors.topMargin: 5
@@ -119,7 +119,7 @@ UI.UFrame {
             id: h5
             width: parent.width
 
-            label: "h5. Heading 5"
+            label: qsTr("h5. Heading 5")
             anchors.top: h4.bottom
             anchors.left: parent.left
             anchors.topMargin: 5

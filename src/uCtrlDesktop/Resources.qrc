@@ -7,5 +7,7 @@
         <file>Images/icon-uctrl-white.png</file>
         <file>Images/Clock-Icon.png</file>
         <file>uCtrl-small-white.png</file>
+        <file>Languages/uctrl_en.qm</file>
+        <file>Languages/uctrl_fr.qm</file>
     </qresource>
 </RCC>
