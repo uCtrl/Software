@@ -13,7 +13,6 @@ SOURCES += \
     Device/udevicebuilder.cpp \
     Device/udeviceinfo.cpp \
     Device/udevicestateinfo.cpp \
-    Device/udevicesummary.cpp \
     Conditions/ucondition.cpp \
     Conditions/uconditionbuilder.cpp \
     Conditions/uconditiondate.cpp \
@@ -28,8 +27,7 @@ SOURCES += \
     Tasks/utaskbuilderobserver.cpp \
     Utility/uniqueidgenerator.cpp \
     Conditions/uconditionbuilderobserver.cpp \
-    Device/udeviceinfobuilder.cpp \
-    Device/udevicesummarybuilder.cpp
+    Device/udeviceinfobuilder.cpp
 
 HEADERS += \
     uplatform.h \
@@ -38,7 +36,6 @@ HEADERS += \
     Device/udevicebuilder.h \
     Device/udeviceinfo.h \
     Device/udevicestateinfo.h \
-    Device/udevicesummary.h \
     Conditions/ucondition.h \
     Conditions/uconditionbuilder.h \
     Conditions/uconditiondate.h \
@@ -54,5 +51,4 @@ HEADERS += \
     Tasks/utaskbuilderobserver.h \
     Utility/uniqueidgenerator.h \
     Conditions/uconditionbuilderobserver.h \
-    Device/udeviceinfobuilder.h \
-    Device/udevicesummarybuilder.h
+    Device/udeviceinfobuilder.h

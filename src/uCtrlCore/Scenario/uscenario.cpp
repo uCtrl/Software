@@ -50,12 +50,6 @@ void UScenario::FillObject(json::Object& obj) const
     }
 }
 
-std::string UScenario::Serialize() const
-{
-	json::Object obj = ToObject();
-	return json::Serialize(obj);
-}
-
 void UScenario::FillMembers(const json::Object& obj)
 {
     m_id = obj["id"];

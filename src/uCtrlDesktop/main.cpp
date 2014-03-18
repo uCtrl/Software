@@ -27,15 +27,9 @@ void PrintFloat(float number)
     qDebug(str.c_str());
 }
 
-void PrintDeviceSummary(const UDeviceSummary* summary) {
-    qDebug(summary->m_name.c_str());
-}
-
 void PrintDeviceInfo(const UDeviceInfo* info) {
     PrintFloat(info->m_minValue);
     PrintFloat(info->m_maxValue);
-
-    PrintDeviceSummary(info->m_deviceSummary);
 }
 
 void PrintTask(const UTask& task)
@@ -89,6 +83,7 @@ int main(int argc, char *argv[])
     int i=0;
     // Creating Device Object
     UDeviceBuilder deviceBuilder;
+    deviceBuilder.setId(UniqueIdGenerator::GenerateUniqueId());
     deviceBuilder.setName(names[i]);
 
     // Creating Device's informations
@@ -126,23 +121,10 @@ int main(int argc, char *argv[])
 
     scenarioBuilder->notifyScenarioUpdate();
 
-    // Creating Device's summary
-    UDeviceSummaryBuilder* summaryBuilder = infoBuilder->createDeviceSummary();
-    summaryBuilder->setId(i);
-    summaryBuilder->setIp(100 + i);
-    summaryBuilder->setName(names[i]);
-    infoBuilder->setDeviceSummary(summaryBuilder->getDeviceSummary());
+    deviceBuilder.setIp("127.0.0.1");
+    deviceBuilder.setName(names[i]);
 
     deviceBuilder.setDeviceInfo(infoBuilder->getDeviceInfo());
-
-    //device = deviceBuilder.getDevice();
-    //PrintDevice(device);
-
-    /*delete summaryBuilder, infoBuilder, deviceBuilder;
-        summaryBuilder = NULL;
-        infoBuilder = NULL;
-        deviceBuilder = NULL;*/
-    //}
 
     UDeviceModel deviceModel(&deviceBuilder);
     UScenarioModel scenarioModel(scenarioBuilder);

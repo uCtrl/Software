@@ -17,11 +17,11 @@ void UConditionTime::FillObject(json::Object& obj) const
 	UCondition::FillObject(obj);
 }
 
-std::string UConditionTime::Serialize() const
-{
-	json::Object obj = ToObject();
-	return json::Serialize(obj);
-}
+//std::string UConditionTime::Serialize(bool summary) const
+//{
+//	json::Object obj = ToObject();
+//	return json::Serialize(obj);
+//}
 
 void UConditionTime::FillMembers(const json::Object& obj)
 {

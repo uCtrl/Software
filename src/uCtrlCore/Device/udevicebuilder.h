@@ -15,6 +15,9 @@ public:
 
     void setName(const std::string& name) { m_device.m_name = name; }
     void setDeviceInfo(UDeviceInfo* info) { m_device.m_deviceInfo = info; }
+    void setId(int id) { m_device.m_id = id; }
+    void setIp(std::string ip) { m_device.m_ip = ip; }
+
 
     UDeviceInfoBuilder* createDeviceInfo();
 

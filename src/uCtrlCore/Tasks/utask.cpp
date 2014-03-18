@@ -44,12 +44,6 @@ void UTask::FillObject(json::Object& obj) const
 
 }
 
-std::string UTask::Serialize() const
-{
-	json::Object obj = ToObject();
-	return json::Serialize(obj);
-}
-
 void UTask::FillMembers(const json::Object& obj)
 {
     m_id = obj["id"];

@@ -39,12 +39,6 @@ void UDeviceStateInfo::FillObject(json::Object& obj) const
     }
 }
 
-std::string UDeviceStateInfo::Serialize() const
-{
-	json::Object obj = ToObject();
-	return json::Serialize(obj);
-}
-
 void UDeviceStateInfo::FillMembers(const json::Object& obj)
 {
 	UDeviceInfo::FillMembers(obj);

@@ -16,10 +16,6 @@ public:
     void setPrecision(int precision) { m_info->m_precision = precision; }
     void setUnitLabel(const std::string& label) { m_info->m_unitLabel = label; }
     void setType(int type) { m_info->m_type = type; }
-
-    UDeviceSummaryBuilder* createDeviceSummary();
-    void setDeviceSummary(UDeviceSummary* summary) { m_info->m_deviceSummary = summary; }
-
     UDeviceInfo* getDeviceInfo() { return m_info; }
 
 private:

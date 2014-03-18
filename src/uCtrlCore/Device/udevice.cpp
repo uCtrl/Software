@@ -15,11 +15,26 @@ json::Object UDevice::ToObject() const
 	FillObject(obj);
 	return obj;
 }
+json::Object UDevice::ToObjectSummary() const
+{
+    json::Object obj;
+    FillObjectSummary(obj);
+    return obj;
+}
+
+void UDevice::FillObjectSummary(json::Object& obj) const
+{
+    obj["id"] = m_id;
+    obj["name"] = m_name;
+    obj["ip"] = m_ip;
+    obj["deviceInfo"] = m_deviceInfo->ToObject();
+}
 
 void UDevice::FillObject(json::Object& obj) const
 {
     obj["id"] = m_id;
     obj["name"] = m_name;
+    obj["ip"] = m_ip;
     obj["deviceInfo"] = m_deviceInfo->ToObject();
 
     // WARNING : Custom code
@@ -32,12 +47,6 @@ void UDevice::FillObject(json::Object& obj) const
         std::string key = oss.str();
         obj[key] = m_scenarios[i].ToObject();
     }
-}
-
-std::string UDevice::Serialize() const
-{
-	json::Object obj = ToObject();
-	return json::Serialize(obj);
 }
 
 void UDevice::FillMembers(const json::Object& obj)

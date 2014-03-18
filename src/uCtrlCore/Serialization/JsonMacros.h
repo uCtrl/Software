@@ -9,8 +9,13 @@ class NAME PARENT_DECLARATION \
 public:\
     NAME(){}\
     json::Object    ToObject() const;\
+    json::Object    ToObjectSummary() const;\
     void            FillObject(json::Object& obj) const;\
-    std::string     Serialize() const;\
+    void            FillObjectSummary(json::Object& obj) const;\
+    std::string     Serialize(bool summary = false) const {\
+        json::Object obj = summary ? ToObjectSummary() : ToObject();\
+        return json::Serialize(obj);\
+    }\
     void            FillMembers(const json::Object& obj);\
     static NAME     Deserialize(const json::Object& obj);\
     \
