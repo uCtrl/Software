@@ -9,19 +9,6 @@ UDevice::UDevice(const UDevice& device)
     this->m_deviceInfo = device.m_deviceInfo;
 }
 
-json::Object UDevice::ToObject() const
-{
-	json::Object obj;
-	FillObject(obj);
-	return obj;
-}
-json::Object UDevice::ToObjectSummary() const
-{
-    json::Object obj;
-    FillObjectSummary(obj);
-    return obj;
-}
-
 void UDevice::FillObjectSummary(json::Object& obj) const
 {
     obj["id"] = m_id;

@@ -9,14 +9,6 @@ UScenario::UScenario(const UScenario& scenario)
     this->m_tasks = scenario.m_tasks;
 }
 
-json::Object UScenario::ToObject() const
-{
-	json::Object obj;
-	FillObject(obj);
-	return obj;
-}
-
-
 UScenario::~UScenario()
 {
     // TODO: properly delete m_tasks data

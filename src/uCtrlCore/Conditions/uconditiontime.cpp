@@ -5,13 +5,6 @@ UConditionTime::UConditionTime(const UConditionTime& conditionTime)
 {
 }
 
-json::Object UConditionTime::ToObject() const
-{
-	json::Object obj;
-	FillObject(obj);
-	return obj;
-}
-
 void UConditionTime::FillObject(json::Object& obj) const
 {
 	UCondition::FillObject(obj);

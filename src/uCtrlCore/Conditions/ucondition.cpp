@@ -5,14 +5,6 @@ UCondition::UCondition(const UCondition& condition)
 {
     this->m_id = condition.m_id;
 }
-
-json::Object UCondition::ToObject() const
-{
-	json::Object obj;
-	FillObject(obj);
-	return obj;
-}
-
 void UCondition::FillObject(json::Object& obj) const
 {
     obj["id"] = m_id;

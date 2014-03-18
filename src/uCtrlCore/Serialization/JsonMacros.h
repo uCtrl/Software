@@ -3,28 +3,45 @@
 
 #include "json/json.h"
 
-#define BEGIN_DECLARE_JSON_CLASS(NAME, PARENT_DECLARATION, ARGS) \
-class NAME PARENT_DECLARATION \
-{\
-public:\
-    NAME(){}\
-    json::Object    ToObject() const;\
-    json::Object    ToObjectSummary() const;\
-    void            FillObject(json::Object& obj) const;\
-    void            FillObjectSummary(json::Object& obj) const;\
-    std::string     Serialize(bool summary = false) const {\
-        json::Object obj = summary ? ToObjectSummary() : ToObject();\
-        return json::Serialize(obj);\
-    }\
-    void            FillMembers(const json::Object& obj);\
-    static NAME     Deserialize(const json::Object& obj) \
-    {                                                    \
-        NAME o;                                          \
-        o.FillMembers(obj);                              \
-        return o;                                        \
-    }                                                    \
-    \
-\
+#define BEGIN_DECLARE_JSON_CLASS(NAME, PARENT_DECLARATION, ARGS)    \
+class NAME PARENT_DECLARATION                                       \
+{                                                                   \
+public:                                                             \
+    NAME(){}                                                        \
+    json::Object    ToObject() const                                \
+    {                                                               \
+        json::Object obj;                                           \
+        FillObject(obj);                                            \
+        return obj;                                                 \
+    }                                                               \
+                                                                    \
+    json::Object    ToObjectSummary() const                         \
+    {                                                               \
+        json::Object obj;                                           \
+        FillObjectSummary(obj);                                     \
+        return obj;                                                 \
+    }                                                               \
+    void            FillObject(json::Object& obj) const;            \
+    void            FillObjectSummary(json::Object& obj) const;     \
+    std::string     Serialize(bool summary = false) const {         \
+        json::Object obj;                                           \
+        if (summary) {                                              \
+            FillObjectSummary(obj);                                 \
+        }                                                           \
+        else {                                                      \
+            FillObject(obj);                                        \
+        }                                                           \
+                                                                    \
+        return json::Serialize(obj);                                \
+    }                                                               \
+    void            FillMembers(const json::Object& obj);           \
+    static NAME     Deserialize(const json::Object& obj)            \
+    {                                                               \
+        NAME o;                                                     \
+        o.FillMembers(obj);                                         \
+        return o;                                                   \
+    }                                                               \
+                                                                    \
     ARGS
 
 #define END_DECLARE_JSON_CLASS() };

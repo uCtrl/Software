@@ -19,13 +19,6 @@ UTask::~UTask()
     m_conditions.clear();
 }
 
-json::Object UTask::ToObject() const
-{
-	json::Object obj;
-	FillObject(obj);
-	return obj;
-}
-
 void UTask::FillObject(json::Object& obj) const
 {
     obj["id"] = m_id;

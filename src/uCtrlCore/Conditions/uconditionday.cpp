@@ -5,13 +5,6 @@ UConditionDay::UConditionDay(const UConditionDay& conditionDay)
 {
 }
 
-json::Object UConditionDay::ToObject() const
-{
-	json::Object obj;
-	FillObject(obj);
-	return obj;
-}
-
 void UConditionDay::FillObject(json::Object& obj) const
 {
 	UCondition::FillObject(obj);

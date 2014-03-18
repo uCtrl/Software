@@ -9,13 +9,6 @@ UDeviceInfo::UDeviceInfo(const UDeviceInfo& deviceInfo)
     this->m_unitLabel = deviceInfo.m_unitLabel;
 }
 
-json::Object UDeviceInfo::ToObject() const
-{
-	json::Object obj;
-	FillObject(obj);
-	return obj;
-}
-
 void UDeviceInfo::FillObject(json::Object& obj) const
 {
     obj["minValue"] = m_minValue;
