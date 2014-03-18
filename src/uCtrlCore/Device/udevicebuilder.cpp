@@ -11,6 +11,13 @@ UDeviceBuilder::UDeviceBuilder(const UDevice& device)
     m_device = device;
 }
 
+void UDeviceBuilder::loadFromJsonString(std::string data)
+{
+    json::Object obj;
+    obj = json::Deserialize(data);
+    this->m_device = UDevice::Deserialize(obj);
+}
+
 UDeviceInfoBuilder* UDeviceBuilder::createDeviceInfo()
 {
     return new UDeviceInfoBuilder(new UDeviceInfo());

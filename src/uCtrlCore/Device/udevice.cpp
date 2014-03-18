@@ -27,7 +27,7 @@ void UDevice::FillObjectSummary(json::Object& obj) const
     obj["id"] = m_id;
     obj["name"] = m_name;
     obj["ip"] = m_ip;
-    obj["deviceInfo"] = m_deviceInfo->ToObject();
+    obj["deviceInfo"] = m_deviceInfo.ToObject();
 }
 
 void UDevice::FillObject(json::Object& obj) const
@@ -35,7 +35,7 @@ void UDevice::FillObject(json::Object& obj) const
     obj["id"] = m_id;
     obj["name"] = m_name;
     obj["ip"] = m_ip;
-    obj["deviceInfo"] = m_deviceInfo->ToObject();
+    obj["deviceInfo"] = m_deviceInfo.ToObject();
 
     // WARNING : Custom code
     obj["scenarios_size"] = (int) m_scenarios.size();
@@ -65,12 +65,6 @@ void UDevice::FillMembers(const json::Object& obj)
         UScenario scenario = UScenario::Deserialize(obj[key]);
         m_scenarios.push_back(scenario);
     }
-}
 
-UDevice UDevice::Deserialize(const json::Object& obj)
-{
-	UDevice o;
-	o.FillMembers(obj);
-	return o;
+    m_deviceInfo = UDeviceInfo::Deserialize(obj["deviceInfo"]);
 }
-

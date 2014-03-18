@@ -33,11 +33,3 @@ void UDeviceInfo::FillMembers(const json::Object& obj)
     m_unitLabel = obj["unitLabel"].ToString();
     m_type = obj["type"];
 }
-
-UDeviceInfo UDeviceInfo::Deserialize(const json::Object& obj)
-{
-	UDeviceInfo o;
-	o.FillMembers(obj);
-	return o;
-}
-

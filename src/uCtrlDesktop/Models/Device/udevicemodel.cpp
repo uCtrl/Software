@@ -31,7 +31,7 @@ int UDeviceModel::ip() {
 void UDeviceModel::setIp(int newIp) {}
 
 int UDeviceModel::type() {
-    return m_device->m_deviceInfo->m_type;
+    return m_device->m_deviceInfo.m_type;
 }
 
 void UDeviceModel::setType(int newType) {}

@@ -18,21 +18,7 @@ void UCondition::FillObject(json::Object& obj) const
     obj["id"] = m_id;
 }
 
-//std::string UCondition::Serialize(bool summary) const
-//{
-//	json::Object obj = ToObject();
-//	return json::Serialize(obj);
-//}
-
 void UCondition::FillMembers(const json::Object& obj)
 {
     m_id = obj["id"];
 }
-
-UCondition UCondition::Deserialize(const json::Object& obj)
-{
-	UCondition o;
-	o.FillMembers(obj);
-	return o;
-}
-

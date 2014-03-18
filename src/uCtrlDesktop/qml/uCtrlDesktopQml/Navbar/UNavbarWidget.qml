@@ -24,7 +24,7 @@ Rectangle { // NavBar
         anchors.left: parent.left
         anchors.leftMargin: 25
 
-        img: "qrc:///Resources/uCtrl-small-white.png"
+        img: "qrc:///Resources/Images/uCtrl-small-white.png"
     }
 
     UMenu {

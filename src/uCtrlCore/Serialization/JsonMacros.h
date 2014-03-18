@@ -17,7 +17,12 @@ public:\
         return json::Serialize(obj);\
     }\
     void            FillMembers(const json::Object& obj);\
-    static NAME     Deserialize(const json::Object& obj);\
+    static NAME     Deserialize(const json::Object& obj) \
+    {                                                    \
+        NAME o;                                          \
+        o.FillMembers(obj);                              \
+        return o;                                        \
+    }                                                    \
     \
 \
     ARGS

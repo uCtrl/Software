@@ -62,11 +62,3 @@ void UDeviceStateInfo::FillMembers(const json::Object& obj)
         m_valueToNameMap[mapKey] = mapValue;
     }
 }
-
-UDeviceStateInfo UDeviceStateInfo::Deserialize(const json::Object& obj)
-{
-	UDeviceStateInfo o;
-	o.FillMembers(obj);
-	return o;
-}
-

@@ -78,11 +78,3 @@ void UScenario::FillMembers(const json::Object& obj)
         m_conditions.push_back(condition);
     }
 }
-
-UScenario UScenario::Deserialize(const json::Object& obj)
-{
-	UScenario o;
-	o.FillMembers(obj);
-	return o;
-}
-

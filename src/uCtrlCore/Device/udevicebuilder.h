@@ -12,9 +12,10 @@ class UDeviceBuilder : public UScenarioBuilderObserver
 public:
     UDeviceBuilder();
     UDeviceBuilder(const UDevice& device);
+    void loadFromJsonString( std::string json );
 
     void setName(const std::string& name) { m_device.m_name = name; }
-    void setDeviceInfo(UDeviceInfo* info) { m_device.m_deviceInfo = info; }
+    void setDeviceInfo(UDeviceInfo* info) { m_device.m_deviceInfo = *info; }
     void setId(int id) { m_device.m_id = id; }
     void setIp(std::string ip) { m_device.m_ip = ip; }
 

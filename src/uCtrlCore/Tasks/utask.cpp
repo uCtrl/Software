@@ -30,6 +30,7 @@ void UTask::FillObject(json::Object& obj) const
 {
     obj["id"] = m_id;
     obj["name"] = m_name;
+    obj["status"] = m_status;
 
     // WARNING : Custom code
     obj["conditions_size"] = (int) m_conditions.size();
@@ -48,6 +49,7 @@ void UTask::FillMembers(const json::Object& obj)
 {
     m_id = obj["id"];
     m_name = obj["name"].ToString();
+    m_status = obj["status"].ToString();
 
     // WARNING : Custom code
     int m_conditions_size = obj["conditions_size"];
@@ -60,11 +62,4 @@ void UTask::FillMembers(const json::Object& obj)
         UCondition condition = UCondition::Deserialize(obj[key]);
         m_conditions.push_back(condition);
     }
-}
-
-UTask UTask::Deserialize(const json::Object& obj)
-{
-	UTask o;
-	o.FillMembers(obj);
-	return o;
 }
