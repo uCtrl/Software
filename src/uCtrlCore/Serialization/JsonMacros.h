@@ -7,7 +7,7 @@
 class NAME PARENT_DECLARATION                                       \
 {                                                                   \
 public:                                                             \
-    NAME(){}                                                        \
+    NAME();                                                         \
     json::Object    ToObject() const                                \
     {                                                               \
         json::Object obj;                                           \

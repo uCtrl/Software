@@ -1,5 +1,11 @@
 #include "utask.h"
+#include "Utility/uniqueidgenerator.h"
 #include <sstream>
+
+UTask::UTask()
+{
+    this->m_id = UniqueIdGenerator::GenerateUniqueId();
+}
 
 UTask::UTask(const UTask& task)
 {

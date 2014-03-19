@@ -27,7 +27,10 @@ SOURCES += \
     Tasks/utaskbuilderobserver.cpp \
     Utility/uniqueidgenerator.cpp \
     Conditions/uconditionbuilderobserver.cpp \
-    Device/udeviceinfobuilder.cpp
+    Device/udeviceinfobuilder.cpp\
+    Conditions/udate.cpp \
+    Conditions/utime.cpp
+
 
 HEADERS += \
     uplatform.h \
@@ -51,4 +54,6 @@ HEADERS += \
     Tasks/utaskbuilderobserver.h \
     Utility/uniqueidgenerator.h \
     Conditions/uconditionbuilderobserver.h \
-    Device/udeviceinfobuilder.h
+    Device/udeviceinfobuilder.h \
+    Conditions/udate.h \
+    Conditions/utime.h

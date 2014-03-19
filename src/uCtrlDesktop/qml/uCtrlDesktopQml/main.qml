@@ -30,7 +30,7 @@ Rectangle {
     }
 
     // Extern Signals declaration
-    Component.onCompleted: renderComponent(_paths.uHome, "Homepage")
+    Component.onCompleted: renderComponent(_paths.uHome, qsTr("Homepage"))
 
     // Object functions
     function destroyComponent() {

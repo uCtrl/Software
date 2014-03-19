@@ -1,5 +1,9 @@
 #include "udeviceinfo.h"
 
+UDeviceInfo::UDeviceInfo()
+{
+}
+
 UDeviceInfo::UDeviceInfo(const UDeviceInfo& deviceInfo)
 {
     this->m_minValue = deviceInfo.m_minValue;
