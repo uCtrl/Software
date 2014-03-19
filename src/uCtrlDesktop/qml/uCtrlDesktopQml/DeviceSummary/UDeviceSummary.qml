@@ -5,6 +5,7 @@ import "../UI" as UI
 UI.UFrame {
     property variant device: null
 
+    title: qsTr("Configuration")
     anchors.top: parent.top
 
     Device.UHeader {

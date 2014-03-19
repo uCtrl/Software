@@ -10,119 +10,96 @@ import "Statistics" as Stats
 import "DeviceSummary" as Summary
 
 Rectangle {
-    // Singleton declaration
-    UI.UColors {
-        id: colors
-    }
-
     id: main
 
-    // Rectangle properties
-    width: 500
-    height: 800
-    color: "#EEEEEE"
+    // Object properties
+    property variant activeComponent: null
+    property variant activePage: null
 
-    // Reference values
-    property int centered: 83
-    property string activePage: "homepage"
-    property variant deviceConfiguration: null
+    width: 500; height: 800
 
-    signal swap (string page)
-    onSwap: {
-        refreshPage()
-
-        switch (page) {
-        case "homepage":
-            switchHome()
-            break
-        case "summary":
-            switchDeviceSummary()
-            break
-        case "statistics":
-            switchStatistics()
-            break
-        }
-
-        activePage = page
-        if (navigationBar.children[1].isVisible()) {
-            menu(true)
-        }
-    }
+    // Object Signals declaration
+    signal swap (string page, string title, variant model)
+    onSwap: renderComponent(page, title, model)
 
     signal menu (bool visible)
     onMenu: {
         var menuSize = 95
         if (!visible) menuSize *= -1
+        activePage.move(0, menuSize)
+    }
 
-        switch (activePage) {
-        case "homepage":
-            homepage.move(0, menuSize)
-            break
-        case "summary":
-            deviceSummary.move(0, menuSize)
-            break
-        case "statistics":
-            statistics.move(0, menuSize)
-            break
+    // Extern Signals declaration
+    Component.onCompleted: renderComponent(_paths.uHome, qsTr("Homepage"))
+
+    // Object functions
+    function destroyComponent() {
+        if (activeComponent != null) activeComponent.destroy()
+    }
+
+    function displayComponentError() {
+        if (activeComponent.status === Component.Error) {
+
+            // @TODO : Replace with error alert.
+            console.log("Error loading component:", activeComponent.errorString());
         }
     }
 
-    // Functions
-    function refreshPage() {
-        homepage.visible = false
-        deviceSummary.visible = false
-        deviceConfiguration.visible = false
-        statistics.visible = false
+    function destroyPage() {
+        if (activePage != null) activePage.destroy()
     }
 
-    function switchHome() {
-        navigationBar.title = "Accueil"
-        homepage.visible = true
+    function refreshPage(model) {
+        if (activeComponent.status === Component.Ready) {
+            destroyPage()
+            activePage = activeComponent.createObject(main)
+            validatePage(model)
+        } else {
+            displayComponentError()
+        }
     }
 
-    function switchDeviceConfiguration(device) {
-        navigationBar.title = "Configuration"
-        deviceConfiguration.refresh(device)
-        deviceConfiguration.visible = true
+    function renderComponent(path, title, model) {
+        navigationBar.title = title
+        destroyComponent()
+        activeComponent = Qt.createComponent(path)
+        refreshPage(model)
     }
 
-    function switchDeviceSummary() {
-        navigationBar.title = "Liste des appareils"
-        deviceSummary.visible = true
+    function setPageModel(model) {
+        if (model !== undefined) {
+            activePage.bind(model)
+        } else if (activePage.requiredModel) {
+            // @TODO : Replace with error alert.
+            console.log("Error undefined model");
+        }
     }
 
-    function switchStatistics() {
-        navigationBar.title = "Statistics"
-        statistics.visible = true
+    function validatePage(model) {
+        if (activePage == null) {
+            // @TODO : Replace with error alert.
+            console.log("Error creating object");
+        } else {
+            setPageModel(model)
+        }
     }
 
-    function getActivePage() {
-        return activePage
-    }
-
+    // Child objects
     Navbar.UNavbarWidget {
         id: navigationBar
-        title: "Acceuil"
-        z: 1
+        title: "Homepage"
+        z: 1    // Always on top.
     }
 
-    Home.UHome {
-        id: homepage
-        visible: true
+    UI.UColors {
+        id: _colors
     }
 
-    Summary.UDeviceSummary {
-        id: deviceSummary
-        visible: false
+    UI.UPath {
+        id: _paths
     }
 
-    Config.UDeviceConfigurationWidget {
-        id: deviceConfiguration
-        visible: false
-    }
+    // Object states
 
-    Stats.UStatistics {
-        id: statistics
-        visible: false
-    }
+    // Object transitions
 }

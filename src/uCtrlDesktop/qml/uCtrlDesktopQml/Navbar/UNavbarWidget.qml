@@ -7,23 +7,24 @@ Rectangle { // NavBar
     width: parent.width
     height: 40
     anchors.top: parent.top
-    color: colors.uGreen
+    color: _colors.uGreen
 
     function toggleMenu() {
         if (backBtn.isVisible()) backBtn.toggleMenu()
     }
 
-    Rectangle {
+    UI.UImage {
         id: homeBtn
-        x: 20
-        y: 20
-        color:"transparent"
+        width: 60
+        height: 35
 
-        Image {
-            id: homeImg
-            anchors.centerIn: parent
-            source: "qrc:///Resources/Images/icon-uctrl-white.png"
-        }
+        anchors.top: parent.top
+        anchors.topMargin: 3
+
+        anchors.left: parent.left
+        anchors.leftMargin: 25
+
+        img: "qrc:///Resources/uCtrl-small-white.png"
     }
 
     UMenu {
@@ -38,19 +39,18 @@ Rectangle { // NavBar
 
     Rectangle {
         id: navText
-        width: parent.width - backBtn.width - homeBtn.width
+        width: parent.width
         height: parent.height
-        anchors.left: homeBtn.right
+        anchors.left: parent.left
         color:"transparent"
 
-        Text {
-            color: "white"
+        UI.ULabel {
             text: title
-            font.family: "Helvetica neue"
-            font.pointSize: 18
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 5
-            anchors.horizontalCenter: parent.horizontalCenter
+            headerStyle: 1
+
+            Component.onCompleted: color="white"
         }
 
     }

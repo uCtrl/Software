@@ -5,12 +5,11 @@ import "../UI" as UI
 Rectangle {
     property bool showConfig: false
     property bool showInfo: false
-
     property variant device: null
 
     height: 75
     width: parent.width
-    color: colors.uLightGrey
+    color: _colors.uLightGrey
 
     x: 0
     y: 0
@@ -35,11 +34,16 @@ Rectangle {
         iconLabel.text = getImagePath()
     }
 
+    function swapConfig() {
+        main.swap(_paths.uConfig, "Configuration", device)
+    }
+
     UI.UCircle {
         id: iconShadow
+
         height: 50
         width: 50
-        color: colors.uGrey
+        color: _colors.uGrey
 
         anchors.top: parent.top
         anchors.topMargin: 14
@@ -49,6 +53,7 @@ Rectangle {
 
     UI.UCircle {
         id: iconFrame
+
         height: 50
         width: 50
         color: "white"
@@ -61,6 +66,7 @@ Rectangle {
         // To be replaced by an icon
         UI.ULabel {
             id: iconLabel
+
             color: colors.uGreen
             font.pointSize: 15
             anchors.bottom: parent.bottom
@@ -76,6 +82,7 @@ Rectangle {
 
     Rectangle {
         id: textFrame
+
         anchors.left: iconFrame.right
         anchors.leftMargin: 20
         height: parent.height
@@ -84,6 +91,7 @@ Rectangle {
 
         Rectangle {
             id: topTextFrame
+
             anchors.top: parent.top
             color: "transparent"
             width: parent.width
@@ -108,15 +116,22 @@ Rectangle {
                 anchors.top: parent.top
                 anchors.topMargin: 15
 
-                labelText: "I"
+                displayedText: "I"
                 color: colors.uGrey
+                border.color: colors.uGrey
 
                 visible: showInfo
+
+                function execute() {
+                    // @TODO : Display informations
+                    console.log("Display informations")
+                }
             }
         }
 
         Rectangle {
             id: botTextFrame
+
             anchors.bottom: parent.bottom
             anchors.right: parent.right
             color: "transparent"
@@ -142,14 +157,14 @@ Rectangle {
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 15
 
-                labelText: "C"
+                displayedText: "C"
                 color: colors.uGrey
+                border.color: colors.uGrey
 
                 visible: showConfig
 
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: main.switchDeviceConfiguration(device)
+                function execute() {
+                    swapConfig()
                 }
             }
         }

@@ -4,14 +4,10 @@ import "../UI" as UI
 UI.UFrame {
     id: statsFrame
 
-    Text {
-        text: "Hello World !"
-        color: colors.uGreen
+    title: qsTr("Statistics")
 
-        MouseArea {
-            anchors.fill: parent
-            onClicked: swap()
-        }
+    Text {
+        text: qsTr("Hello World !")
+        color: _colors.uGreen
     }
 }
-

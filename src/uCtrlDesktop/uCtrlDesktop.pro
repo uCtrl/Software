@@ -1,3 +1,5 @@
+include( ../uCtrl.pri )
+
 # Add more folders to ship with the application, here
 folder_01.source = qml/uCtrlDesktopQml
 folder_01.target = qml
@@ -34,22 +36,63 @@ INCLUDEPATH += \
 RESOURCES += \
     Resources.qrc
 
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../uCtrlCore/release/ -luCtrlCore
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../uCtrlCore/debug/ -luCtrlCore
-else:unix: LIBS += -L$$OUT_PWD/../uCtrlCore/ -luCtrlCore
+# Translations
+TRANSLATIONS += \
+    Languages/uctrl_en.ts \
+    Languages/uctrl_fr.ts
 
+CONFIG(debug, debug|release) {
+    uCtrlCore_QMAKE_CMD = qmake $$SRC_DIR/uCtrlCore/uCtrlCore.pro -r CONFIG+=debug CONFIG-=release\
+                          CONFIG+=x86_64 CONFIG+=declarative_debug CONFIG+=qml_debug
+} else {
+    uCtrlCore_QMAKE_CMD = qmake $$SRC_DIR/uCtrlCore/uCtrlCore.pro -r CONFIG+=x86_64
+}
+
+win32 { 
+    uCtrlCore_DIR = $$OUT_PWD/../uCtrlCore
+    uCtrlCore_CMD = IF NOT EXIST $$uCtrlCore_DIR MKDIR $$uCtrlCore_DIR && cd $$OUT_PWD/../uCtrlCore && $$uCtrlCore_QMAKE_CMD && mingw32-make
+    uCtrlCore_CMD = $$replace(uCtrlCore_CMD, /, \\)
+    CONFIG(debug, debug|release) {
+        LIBS += -L$$OUT_PWD/../uCtrlCore/debug -luCtrlCore
+        uCtrlCore_TARGET = $$OUT_PWD/../uCtrlCore/debug/libuCtrlCore.a
+    } else {
+        LIBS += -L$$OUT_PWD/../uCtrlCore/release -luCtrlCore
+        uCtrlCore_TARGET = $$OUT_PWD/../uCtrlCore/release/libuCtrlCore.a
+    }
+} else {
+    uCtrlCore_CMD = mkdir -p $$OUT_PWD/../uCtrlCore && cd $$OUT_PWD/../uCtrlCore && $$uCtrlCore_QMAKE_CMD && make
+    LIBS += -L$$OUT_PWD/../uCtrlCore/ -luCtrlCore
+    uCtrlCore_TARGET = $$OUT_PWD/../uCtrlCore/libuCtrlCore.a
+}
+
+uCtrlCore.target     = $$uCtrlCore_TARGET
+uCtrlCore.depends    = $$SRC_DIR/uCtrlCore/uCtrlCore.pro
+uCtrlCore.commands   = $$uCtrlCore_CMD
+
+PRE_TARGETDEPS += $$uCtrlCore_TARGET
+QMAKE_EXTRA_TARGETS += uCtrlCore
 INCLUDEPATH += $$PWD/../uCtrlCore
 DEPENDPATH += $$PWD/../uCtrlCore
 
-win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../uCtrlCore/release/libuCtrlCore.a
-else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../uCtrlCore/debug/libuCtrlCore.a
-else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../uCtrlCore/release/uCtrlCore.lib
-else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../uCtrlCore/debug/uCtrlCore.lib
-else:unix: PRE_TARGETDEPS += $$OUT_PWD/../uCtrlCore/libuCtrlCore.a
-
 !mac:LIBS += -ldns_sd
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/Network/lib/ -ldnss
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/Network/lib/ -ldnssd
-win32:INCLUDEPATH += $$PWD/Network/lib
-win32:DEPENDPATH += $$PWD/Network/lib
+win32 {
+    LIBS += -L$$PWD/Network/lib/ -ldnssd
+    INCLUDEPATH += $$PWD/Network/lib
+    DEPENDPATH += $$PWD/Network/lib
+}
+
+# Rule for regenerating .qm files for translations (missing in qmake
+# default ruleset, ugh!)
+#
+updateqm.input = TRANSLATIONS
+updateqm.output = ${QMAKE_FILE_PATH}/${QMAKE_FILE_BASE}.qm
+updateqm.commands = lrelease ${QMAKE_FILE_IN} -qm ${QMAKE_FILE_OUT}
+updateqm.CONFIG += no_link
+QMAKE_EXTRA_COMPILERS += updateqm
+PRE_TARGETDEPS += compiler_updateqm_make_all
+
+OTHER_FILES += \
+    qml/uCtrlDesktopQml/UI/UPath.qml \
+    Languages/uctrl_en.ts \
+    Languages/uctrl_fr.ts

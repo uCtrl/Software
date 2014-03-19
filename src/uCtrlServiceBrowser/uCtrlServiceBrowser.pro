@@ -12,11 +12,10 @@ SOURCES = \
     ../uCtrlDesktop/Network/bonjourservicebrowser.cpp \
     ../uCtrlDesktop/Network/bonjourserviceresolver.cpp
 
-# install
-INSTALLS += target
-
 !mac:LIBS += -ldns_sd
 
-win32:LIBS += -L$$PWD/../uCtrlDesktop/Network/lib -ldnssd
-win32:INCLUDEPATH += $$PWD/../uCtrlDesktop/Network/lib
-win32:DEPENDPATH += $$PWD/../uCtrlDesktop/Network/lib
+win32 {
+	LIBS += -L$$PWD/../uCtrlDesktop/Network/lib -ldnssd
+	INCLUDEPATH += $$PWD/../uCtrlDesktop/Network/lib
+	DEPENDPATH += $$PWD/../uCtrlDesktop/Network/lib	
+}

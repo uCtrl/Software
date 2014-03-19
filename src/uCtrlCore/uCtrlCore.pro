@@ -60,8 +60,3 @@ HEADERS += \
     Device/udevicesummarybuilder.h \
     Conditions/udate.h \
     Conditions/utime.h
-
-unix {
-    target.path = /usr/lib
-    INSTALLS += target
-}
