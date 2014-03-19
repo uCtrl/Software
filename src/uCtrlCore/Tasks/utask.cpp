@@ -3,10 +3,10 @@
 
 UTask::UTask(const UTask& task)
 {
-    m_id = task.id();
-    m_name = task.name();
-    m_status = task.status();
-    m_conditions = task.conditions();
+    m_id = task.getId();
+    m_name = task.getName();
+    m_status = task.getStatus();
+    m_conditions = task.getConditions();
 }
 
 UTask::UTask(std::string status): m_status(status)

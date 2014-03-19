@@ -25,7 +25,7 @@ int UDeviceModel::id() {
 void UDeviceModel::setId(int newId) {}
 
 int UDeviceModel::ip() {
-    return m_device->id();
+    return m_device->getId();
 }
 
 void UDeviceModel::setIp(int newIp) {}
@@ -57,7 +57,7 @@ QHash<int, QByteArray> UDeviceModel::roleNames() const {
 
 QObject* UDeviceModel::getScenario() const
 {
-    const UScenario* scenario = &m_device->scenarios().at(0);
+    const UScenario* scenario = &m_device->getScenarios().at(0);
     return new UScenarioModel(scenario);
 }
 

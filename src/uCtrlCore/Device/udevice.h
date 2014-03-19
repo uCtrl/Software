@@ -16,10 +16,10 @@ public:
     void setDeviceInfo(UDeviceInfo* deviceInfo);
 
     // accessors
-    int id() const { return m_id; }
-    std::string ip() const { return m_ip; }
-    const std::string& name() const { return m_name; }
-    const std::vector<UScenario>& scenarios() const { return m_scenarios; }
+    int getId() const { return m_id; }
+    std::string getIp() const { return m_ip; }
+    const std::string& getName() const { return m_name; }
+    const std::vector<UScenario>& getScenarios() const { return m_scenarios; }
     const UDeviceInfo* getDeviceInfo() const { return &m_deviceInfo; }
 
     UDeviceInfo m_deviceInfo;

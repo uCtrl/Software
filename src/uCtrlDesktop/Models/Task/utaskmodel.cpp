@@ -16,16 +16,16 @@ void UTaskModel::addCondition(const UCondition* cond)
 }
 
 int UTaskModel::rowCount(const QModelIndex & parent) const {
-    return m_task->conditions().size();
+    return m_task->getConditions().size();
 }
 
 QVariant UTaskModel::data(const QModelIndex & index, int role) const {
-    if (index.row() < 0 || index.row() >= m_task->conditions().size())
+    if (index.row() < 0 || index.row() >= m_task->getConditions().size())
         return QVariant();
 
-    const UCondition* cond = &m_task->conditions().at(index.row());
+    const UCondition* cond = &m_task->getConditions().at(index.row());
     if (role == idRole){
-        return cond->id();
+        return cond->getId();
     }
     return QVariant();
 }
@@ -38,7 +38,7 @@ QHash<int, QByteArray> UTaskModel::roleNames() const {
 
 const UCondition *UTaskModel::getConditionAt(const QString &index) const
 {
-    const UCondition* cond = &m_task->conditions().at(index.toInt());
+    const UCondition* cond = &m_task->getConditions().at(index.toInt());
     if (cond) {
         return cond;
     }

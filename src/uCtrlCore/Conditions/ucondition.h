@@ -8,7 +8,7 @@ BEGIN_DECLARE_JSON_CLASS_ARGS1( UCondition, int, m_id )
 public:
     UCondition( const UCondition& condition );
 
-    int id() const { return m_id; }
+    int getId() const { return m_id; }
 
 END_DECLARE_JSON_CLASS()
 

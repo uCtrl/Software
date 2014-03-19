@@ -28,7 +28,7 @@ UConditionBuilder* UTaskBuilder::editCondition(int conditionId)
 {
     for (int i = 0; i < m_task.m_conditions.size(); ++i)
     {
-        if (m_task.m_conditions[i].id() == conditionId)
+        if (m_task.m_conditions[i].getId() == conditionId)
         {
             UConditionBuilder* conditionBuilder = new UConditionBuilder(this, m_task.m_conditions[i]);
             return conditionBuilder;
@@ -40,7 +40,7 @@ void UTaskBuilder::deleteCondition(int conditionId)
 {
     for (int i = 0; i < m_task.m_conditions.size(); ++i)
     {
-        if (m_task.m_conditions[i].id() == conditionId)
+        if (m_task.m_conditions[i].getId() == conditionId)
         {
             std::vector<UCondition>::iterator iter = m_task.m_conditions.begin() + i;
 
@@ -73,7 +73,7 @@ void UTaskBuilder::onConditionUpdated(const UCondition& updatedCondition)
 {
     for (int i = 0; i < m_task.m_conditions.size(); ++i)
     {
-        if (m_task.m_conditions[i].id() == updatedCondition.id())
+        if (m_task.m_conditions[i].getId() == updatedCondition.getId())
         {
             std::vector<UCondition>::iterator iter = m_task.m_conditions.begin() + i;
 

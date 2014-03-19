@@ -16,7 +16,7 @@ void UDeviceStateInfo::FillObject(json::Object& obj) const
 
     std::map<float, std::string>::const_iterator iter;
     int i = 0;
-    for ( iter = m_valueToNameMap.begin(); iter != m_valueToNameMap.end(); ++iter, ++i)
+    for (iter = m_valueToNameMap.begin(); iter != m_valueToNameMap.end(); ++iter, ++i)
     {
         std::ostringstream oss;
         oss << "valueToNameMap_keys[" << i << "]";
