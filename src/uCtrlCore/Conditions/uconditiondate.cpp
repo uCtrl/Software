@@ -3,6 +3,7 @@
 UConditionDate::UConditionDate(const UConditionDate& conditionDate)
     : UCondition(conditionDate)
 {
+    this->m_conditionType = UEConditionType::Date;
     this->m_date1 = conditionDate.m_date1;
     this->m_date2 = conditionDate.m_date2;
 }

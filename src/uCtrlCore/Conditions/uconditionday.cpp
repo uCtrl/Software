@@ -2,7 +2,8 @@
 
 UConditionDay::UConditionDay(const UConditionDay& conditionDay)
     : UCondition(conditionDay)
-{
+{    
+    this->m_conditionType = UEConditionType::Day;
 }
 
 json::Object UConditionDay::ToObject()

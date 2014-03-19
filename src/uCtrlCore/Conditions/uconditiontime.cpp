@@ -3,6 +3,7 @@
 UConditionTime::UConditionTime(const UConditionTime& conditionTime)
     : UCondition(conditionTime)
 {
+    this->m_conditionType = UEConditionType::Time;
 }
 
 void UConditionTime::setValue1(void* value)

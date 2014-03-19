@@ -29,25 +29,25 @@ UConditionBuilder::UConditionBuilder(UConditionBuilderObserver* conditionBuilder
     : m_conditionBuilderObserver(conditionBuilderObserver)
     , m_isDirty(false)
 {
-    /*
-    switch (conditionType) {
+    switch (condition.getConditionType()) {
     case UEConditionType::Date:
-        m_condition = new UConditionDate(condition);
+        m_condition = new UConditionDate((const UConditionDate)condition);
         break;
     case UEConditionType::Day:
-        m_condition = new UConditionDay(condition);
+        m_condition = new UConditionDay((const UConditionDay)condition);
         break;
     case UEConditionType::Time:
-        m_condition = new UConditionTime(condition);
+        m_condition = new UConditionTime((const UConditionTime)condition);
         break;
     default:
         break;
-    }*/
+    }
 }
 
 UConditionBuilder::~UConditionBuilder()
 {
-
+    delete m_condition;
+    m_condition = NULL;
 }
 
 void UConditionBuilder::setValue1(void* value)
