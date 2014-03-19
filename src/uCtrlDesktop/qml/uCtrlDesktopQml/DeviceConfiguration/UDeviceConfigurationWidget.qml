@@ -7,7 +7,7 @@ UI.UFrame {
     property variant device: null
     property ListModel scenarios: null
 
-    title: "Configuration"
+    title: qsTr("Configuration")
     requiredModel: true
 
     function refresh(newDevice) {
@@ -46,7 +46,7 @@ UI.UFrame {
             anchors.bottomMargin: 7
             width: 96; height: 27
             x: 10
-            displayedText: "Ajouter"
+            displayedText: qsTr("Add")
 
             signal qmlSignal()
         }

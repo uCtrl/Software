@@ -1,6 +1,12 @@
 #include "uscenario.h"
+#include "Utility/uniqueidgenerator.h"
 #include <sstream>
 
+UScenario::UScenario()
+{
+    this->m_id = UniqueIdGenerator::GenerateUniqueId();
+    this->m_name = "Undefined";
+}
 
 UScenario::UScenario(const UScenario& scenario)
 {

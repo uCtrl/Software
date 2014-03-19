@@ -4,10 +4,10 @@ import "../UI" as UI
 UI.UFrame {
     id: statsFrame
 
-    title: "Statistics"
+    title: qsTr("Statistics")
 
     Text {
-        text: "Hello World !"
+        text: qsTr("Hello World !")
         color: _colors.uGreen
     }
 }

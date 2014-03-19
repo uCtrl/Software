@@ -12,6 +12,9 @@
 #include "Device/udevice.h"
 #include "Device/udevicebuilder.h"
 #include "Models/Device/udevicemodel.h"
+#include "Conditions/ucondition.h"
+#include "Conditions/uconditionbuilder.h"
+#include "Conditions/uconditiondate.h"
 #include <QFile>
 #include <QTextStream>
 
@@ -56,3 +59,4 @@ int main(int argc, char *argv[])
 
     return app.exec();
 }
+
