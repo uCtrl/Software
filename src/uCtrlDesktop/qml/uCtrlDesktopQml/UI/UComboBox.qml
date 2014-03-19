@@ -3,7 +3,6 @@ import QtQuick.Controls 1.0
 import QtQuick.Controls.Styles 1.0
 
 ComboBox {
-
     id: comboBox
     width: 100
     height: 30
@@ -13,10 +12,10 @@ ComboBox {
         background: Rectangle {
           id: rectCategory
           anchors.fill: parent
-          color: colors.uGreen
+          color: _colors.uGreen
           radius: 5
           border.width: 1
-          border.color: colors.uDarkGrey
+          border.color: _colors.uDarkGrey
         }
 
         label: Item {
@@ -34,6 +33,7 @@ ComboBox {
                 }
             }
             Rectangle {
+                id: labelContainer
                 anchors.left: parent.left
                 anchors.right: arrow.left
                 height: parent.height
@@ -47,7 +47,5 @@ ComboBox {
                 }
             }
         }
-
-
     }
 }
