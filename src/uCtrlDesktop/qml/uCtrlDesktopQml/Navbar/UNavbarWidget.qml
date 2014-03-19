@@ -7,7 +7,7 @@ Rectangle { // NavBar
     width: parent.width
     height: 40
     anchors.top: parent.top
-    color: colors.uGreen
+    color: _colors.uGreen
 
     function toggleMenu() {
         if (backBtn.isVisible()) backBtn.toggleMenu()
@@ -39,19 +39,18 @@ Rectangle { // NavBar
 
     Rectangle {
         id: navText
-        width: parent.width - backBtn.width - homeBtn.width - 15
+        width: parent.width
         height: parent.height
-        anchors.left: homeBtn.right
+        anchors.left: parent.left
         color:"transparent"
 
-        Text {
-            color: "white"
+        UI.ULabel {
             text: title
-            font.family: "Helvetica neue"
-            font.pointSize: 18
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 5
-            anchors.horizontalCenter: parent.horizontalCenter
+            headerStyle: 1
+
+            Component.onCompleted: color="white"
         }
 
     }

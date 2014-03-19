@@ -10,13 +10,15 @@ Rectangle {
 
     width: parent.width
     height: 30
-    color: colors.uUltraLightGrey
+
+    color: _colors.uUltraLightGrey
 
     UI.ULabel {
         text: scenarioName
         color: colors.uDarkGrey
         font.pointSize: 11
         font.bold: true
+
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
         anchors.leftMargin: 10
