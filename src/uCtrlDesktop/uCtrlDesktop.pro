@@ -36,6 +36,11 @@ INCLUDEPATH += \
 RESOURCES += \
     Resources.qrc
 
+# Translations
+TRANSLATIONS += \
+    Languages/uctrl_en.ts \
+    Languages/uctrl_fr.ts
+
 CONFIG(debug, debug|release) {
     uCtrlCore_QMAKE_CMD = qmake $$SRC_DIR/uCtrlCore/uCtrlCore.pro -r CONFIG+=debug CONFIG-=release\
                           CONFIG+=x86_64 CONFIG+=declarative_debug CONFIG+=qml_debug
@@ -77,5 +82,17 @@ win32 {
     DEPENDPATH += $$PWD/Network/lib
 }
 
+# Rule for regenerating .qm files for translations (missing in qmake
+# default ruleset, ugh!)
+#
+updateqm.input = TRANSLATIONS
+updateqm.output = ${QMAKE_FILE_PATH}/${QMAKE_FILE_BASE}.qm
+updateqm.commands = lrelease ${QMAKE_FILE_IN} -qm ${QMAKE_FILE_OUT}
+updateqm.CONFIG += no_link
+QMAKE_EXTRA_COMPILERS += updateqm
+PRE_TARGETDEPS += compiler_updateqm_make_all
+
 OTHER_FILES += \
     qml/uCtrlDesktopQml/UI/UPath.qml \
+    Languages/uctrl_en.ts \
+    Languages/uctrl_fr.ts
