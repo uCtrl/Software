@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
     QtQuick2ApplicationViewer viewer;
 
     UDeviceBuilder db;
-    LoadDeviceFromFile(db, "JSON.txt");
+    LoadDeviceFromFile(db, ":/Resources/JSON.txt");
     UDeviceModel dm( &db );
 
     QQmlContext *ctxt = viewer.rootContext();
