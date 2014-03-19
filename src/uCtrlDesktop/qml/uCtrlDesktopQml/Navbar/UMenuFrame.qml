@@ -38,7 +38,7 @@ Item {
             id: homePage
 
             y: 5
-            itemLabel: "Homepage"
+            itemLabel: qsTr("Homepage")
             pageName: "Homepage"
             pagePath: _paths.uHome
         }
@@ -47,7 +47,7 @@ Item {
             id: deviceConfiguration
 
             y: 35
-            itemLabel: "Configuration"
+            itemLabel: qsTr("Configuration")
             pageName: "Configuration"
             pagePath: _paths.uSummary
         }
@@ -56,7 +56,7 @@ Item {
             id: statistics
 
             y: 65
-            itemLabel: "Statistics"
+            itemLabel: qsTr("Statistics")
             pageName: "Statistics"
             pagePath: _paths.uStatistics
         }

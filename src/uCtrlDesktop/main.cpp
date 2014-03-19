@@ -1,4 +1,5 @@
 #include <QtGui/QGuiApplication>
+#include <QTranslator>
 #include "qtquick2applicationviewer.h"
 #include <qqmlengine.h>
 #include <qqmlcontext.h>
@@ -14,6 +15,9 @@
 #include "Device/udevicesummary.h"
 #include "Device/udevicesummarybuilder.h"
 #include "Models/Device/udevicemodel.h"
+#include "Conditions/ucondition.h"
+#include "Conditions/uconditionbuilder.h"
+#include "Conditions/uconditiondate.h"
 
 #include <sstream>
 
@@ -65,6 +69,11 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     QtQuick2ApplicationViewer viewer;
 
+    QTranslator translator;
+    if (translator.load(":/Resources/Languages/uctrl_" + QLocale::system().name())) {
+        app.installTranslator(&translator);
+    }
+
     // this is for testing devices
     std::string names[] = {"Temperature", "Infrared", "Motion", "Plug"};
     std::string units[] = {"celcius", "boolean", "boolean", "boolean"};
@@ -98,8 +107,30 @@ int main(int argc, char *argv[])
         UTaskBuilder* taskBuilder = scenarioBuilder->createTask();
         taskBuilder->setName("newTask1");
         taskBuilder->setStatus(status[k]);
-        taskBuilder->notifyTaskUpdate();
 
+        UConditionBuilder* conditionBuilder = taskBuilder->createCondition(UEConditionType::Date);
+
+        UDate date1, date2;
+        date1.m_day = 20;
+        date1.m_month = 4;
+        date1.m_year = 2014;
+        date2.m_day = 27;
+        date2.m_month = 4;
+        date2.m_year = 2014;
+
+        conditionBuilder->setComparisonType(UEComparisonPossible::InBetween);
+        conditionBuilder->setValue1(&date1);
+        conditionBuilder->setValue2(&date2);
+
+        const UConditionDate* conditionDate = (const UConditionDate*)conditionBuilder->getCondition();
+        const UDate& pdate1 = conditionDate->m_date1;
+        const UDate& pdate2 = conditionDate->m_date2;
+
+        conditionBuilder->notifyConditionUpdate();
+        delete conditionBuilder;
+        conditionBuilder = NULL;
+
+        taskBuilder->notifyTaskUpdate();
         delete taskBuilder;
         taskBuilder = NULL;
     }

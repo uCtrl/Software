@@ -1,8 +1,13 @@
 #include "uconditionday.h"
 
+UConditionDay::UConditionDay() : UCondition()
+{
+}
+
 UConditionDay::UConditionDay(const UConditionDay& conditionDay)
     : UCondition(conditionDay)
-{
+{    
+    this->m_conditionType = UEConditionType::Day;
 }
 
 json::Object UConditionDay::ToObject()
@@ -15,6 +20,8 @@ json::Object UConditionDay::ToObject()
 void UConditionDay::FillObject(json::Object& obj)
 {
 	UCondition::FillObject(obj);
+	obj["m_weekDay1"] = m_weekDay1;
+	obj["m_weekDay2"] = m_weekDay2;
 }
 
 std::string UConditionDay::Serialize()
@@ -26,6 +33,8 @@ std::string UConditionDay::Serialize()
 void UConditionDay::FillMembers(const json::Object& obj)
 {
 	UCondition::FillMembers(obj);
+	m_weekDay1 = obj["m_weekDay1"];
+	m_weekDay2 = obj["m_weekDay2"];
 }
 
 UConditionDay UConditionDay::Deserialize(const json::Object& obj)

@@ -7,16 +7,20 @@
 class UConditionBuilder
 {
 public:
-    UConditionBuilder(UConditionBuilderObserver* conditionBuilderObserver);
+    UConditionBuilder(UConditionBuilderObserver* conditionBuilderObserver, UEConditionType::Type conditionType);
     UConditionBuilder(UConditionBuilderObserver* conditionBuilderObserver, const UCondition& condition);
     ~UConditionBuilder();
 
-    const UCondition* getCondition() { return &m_condition; }
+    void setComparisonType(UEComparisonPossible::Type comparisonType) { m_condition->m_currentComparisonType = comparisonType; }
+    void setValue1(void* value);
+    void setValue2(void* value);
+
+    const UCondition* getCondition() { return m_condition; }
     bool isDirty() const { return m_isDirty; }
 
     void notifyConditionUpdate();
 private:
-    UCondition m_condition;
+    UCondition* m_condition;
     UConditionBuilderObserver* m_conditionBuilderObserver;
     bool m_isDirty;
 };

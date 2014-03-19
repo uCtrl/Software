@@ -1,5 +1,11 @@
 #include "udevice.h"
+#include "Utility/uniqueidgenerator.h"
 #include <sstream>
+
+UDevice::UDevice()
+{
+    this->m_id = UniqueIdGenerator::GenerateUniqueId();
+}
 
 UDevice::UDevice(const UDevice& device)
 {

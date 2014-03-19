@@ -19,9 +19,10 @@ UTaskBuilder::~UTaskBuilder()
 {
 }
 
-UConditionBuilder* UTaskBuilder::createCondition()
+UConditionBuilder* UTaskBuilder::createCondition(UEConditionType::Type conditionType)
 {
-    return new UConditionBuilder(this);
+    // TODO fix this
+    return new UConditionBuilder(this, conditionType);
 }
 
 UConditionBuilder* UTaskBuilder::editCondition(int conditionId)

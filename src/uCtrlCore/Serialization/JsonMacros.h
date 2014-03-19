@@ -7,7 +7,7 @@
 class NAME PARENT_DECLARATION \
 {\
 public:\
-    NAME(){}\
+    NAME();\
     json::Object    ToObject();\
     void            FillObject(json::Object& obj);\
     std::string     Serialize();\

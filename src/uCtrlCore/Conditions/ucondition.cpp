@@ -1,5 +1,10 @@
 #include "ucondition.h"
-#include "../Utility/uniqueidgenerator.h"
+#include "Utility/uniqueidgenerator.h"
+
+UCondition::UCondition()
+{
+    this->m_id = UniqueIdGenerator::GenerateUniqueId();
+}
 
 UCondition::UCondition(const UCondition& condition)
 {

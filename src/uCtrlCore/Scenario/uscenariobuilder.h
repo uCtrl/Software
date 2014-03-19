@@ -24,7 +24,7 @@ public:
     void addTask(const UTask& task) { m_scenario.m_tasks.push_back(task); }
     void setName(const std::string& name) { m_scenario.m_name = name; }
 
-    UConditionBuilder* createCondition();
+    UConditionBuilder* createCondition(UEConditionType::Type conditionType);
     UConditionBuilder* editCondition(int conditionId);
     void               deleteCondition(int conditionId);
 
