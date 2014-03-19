@@ -2,10 +2,9 @@
 #define UDEVICEINFO_H
 
 #include "Serialization/JsonMacros.h"
-#include "udevicesummary.h"
 #include <string>
 
-BEGIN_DECLARE_JSON_CLASS_ARGS6(UDeviceInfo, float, m_minValue, float, m_maxValue, int, m_precision, std::string, m_unitLabel, int, m_type, UDeviceSummary*, m_deviceSummary)
+BEGIN_DECLARE_JSON_CLASS_ARGS5(UDeviceInfo, float, m_minValue, float, m_maxValue, int, m_precision, std::string, m_unitLabel, int, m_type)
 
 public:
     UDeviceInfo(const UDeviceInfo& deviceInfo);

@@ -8,7 +8,7 @@
 #include <vector>
 
 
-BEGIN_DECLARE_JSON_CLASS_ARGS3(UDevice, int, m_id, std::string, m_name, std::vector<UScenario>, m_scenarios)
+BEGIN_DECLARE_JSON_CLASS_ARGS4(UDevice, int, m_id, std::string, m_name, std::string, m_ip, std::vector<UScenario>, m_scenarios)
 
 public:
     UDevice(const UDevice& device);
@@ -16,12 +16,13 @@ public:
     void setDeviceInfo(UDeviceInfo* deviceInfo);
 
     // accessors
-    int id() const { return m_id; }
-    const std::string& name() const { return m_name; }
-    const std::vector<UScenario>& scenarios() const { return m_scenarios; }
-    const UDeviceInfo* getDeviceInfo() const { return m_deviceInfo; }
+    int getId() const { return m_id; }
+    std::string getIp() const { return m_ip; }
+    const std::string& getName() const { return m_name; }
+    const std::vector<UScenario>& getScenarios() const { return m_scenarios; }
+    const UDeviceInfo* getDeviceInfo() const { return &m_deviceInfo; }
 
-    UDeviceInfo* m_deviceInfo;
+    UDeviceInfo m_deviceInfo;
 
 END_DECLARE_JSON_CLASS()
 

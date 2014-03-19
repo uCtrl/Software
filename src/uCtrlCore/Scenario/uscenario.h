@@ -14,10 +14,10 @@ public:
     ~UScenario();
 
     // accessors
-    int id() const { return m_id; }
-    const std::string& name() const { return m_name; }
-    const std::vector<UTask>& tasks() const { return m_tasks; }
-    const std::vector<UCondition>& conditions() const { return m_conditions; }
+    int getId() const { return m_id; }
+    const std::string& getName() const { return m_name; }
+    const std::vector<UTask>& getTasks() const { return m_tasks; }
+    const std::vector<UCondition>& getConditions() const { return m_conditions; }
 
 END_DECLARE_JSON_CLASS()
 

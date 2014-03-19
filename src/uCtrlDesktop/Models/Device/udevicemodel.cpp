@@ -19,19 +19,19 @@ QString UDeviceModel::name() {
 void UDeviceModel::setName(QString newName) {}
 
 int UDeviceModel::id() {
-    return m_device->m_deviceInfo->m_deviceSummary->m_id;
+    return this->id();
 }
 
 void UDeviceModel::setId(int newId) {}
 
 int UDeviceModel::ip() {
-    return m_device->m_deviceInfo->m_deviceSummary->m_ip;
+    return m_device->getId();
 }
 
 void UDeviceModel::setIp(int newIp) {}
 
 int UDeviceModel::type() {
-    return m_device->m_deviceInfo->m_type;
+    return m_device->m_deviceInfo.m_type;
 }
 
 void UDeviceModel::setType(int newType) {}
@@ -57,7 +57,7 @@ QHash<int, QByteArray> UDeviceModel::roleNames() const {
 
 QObject* UDeviceModel::getScenario() const
 {
-    const UScenario* scenario = &m_device->scenarios().at(0);
+    const UScenario* scenario = &m_device->getScenarios().at(0);
     return new UScenarioModel(scenario);
 }
 
