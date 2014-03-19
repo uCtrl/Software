@@ -1,5 +1,9 @@
 #include "utime.h"
 
+UTime::UTime()
+{
+}
+
 json::Object UTime::ToObject()
 {
 	json::Object obj;

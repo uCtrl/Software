@@ -1,5 +1,9 @@
 #include "uconditiondate.h"
 
+UConditionDate::UConditionDate() : UCondition()
+{
+}
+
 UConditionDate::UConditionDate(const UConditionDate& conditionDate)
     : UCondition(conditionDate)
 {

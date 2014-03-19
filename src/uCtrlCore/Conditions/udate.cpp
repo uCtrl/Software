@@ -1,5 +1,9 @@
 #include "udate.h"
 
+UDate::UDate()
+{
+}
+
 UDate::UDate(const UDate& date)
 {
     this->m_day = date.m_day;

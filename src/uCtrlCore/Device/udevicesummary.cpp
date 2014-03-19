@@ -1,5 +1,9 @@
 #include "udevicesummary.h"
 
+UDeviceSummary::UDeviceSummary()
+{
+}
+
 UDeviceSummary::UDeviceSummary(const UDeviceSummary& deviceSummary)
 {
     this->m_id = deviceSummary.m_id;
