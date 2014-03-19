@@ -2,8 +2,6 @@
 #define UDEVICEINFOBUILDER_H
 
 #include "udeviceinfo.h"
-#include "udevicesummary.h"
-#include "udevicesummarybuilder.h"
 
 class UDeviceInfoBuilder
 {
