@@ -1,0 +1,43 @@
+{
+   "deviceInfo":{
+      "maxValue":100.000000,
+      "minValue":0.000000,
+      "precision":0,
+      "type":1,
+      "unitLabel":"celcius"
+   },
+   "id":1782103621,
+   "ip":"127.0.0.1",
+   "name":"Temperature",
+   "scenarios[0]":{
+      "conditions_size":0,
+      "id":1782103622,
+      "name":"Semaine",
+      "tasks[0]":{
+         "conditions[0]":{
+            "id":1782103624
+         },
+         "conditions[1]":{
+            "id":1782103625
+         },
+         "conditions_size":2,
+         "id":1782103623,
+         "name":"newTask1",
+         "status": "20%"
+      },
+      "tasks[1]":{
+         "conditions[0]":{
+            "id":1782103627
+         },
+         "conditions[1]":{
+            "id":1782103628
+         },
+         "conditions_size":2,
+         "id":1782103626,
+         "name":"newTask1",
+         "status": "13%"
+      },
+      "tasks_size":2
+   },
+   "scenarios_size":1
+}

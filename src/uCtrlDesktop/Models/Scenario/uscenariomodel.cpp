@@ -37,18 +37,18 @@ QString UScenarioModel::name() {
 void UScenarioModel::setName(QString newName) {}
 
 int UScenarioModel::rowCount(const QModelIndex & parent) const {
-    return m_scenario->tasks().size();
+    return m_scenario->getTasks().size();
 }
 
 QVariant UScenarioModel::data(const QModelIndex & index, int role) const {
-    if (index.row() < 0 || index.row() >= m_scenario->tasks().size())
+    if (index.row() < 0 || index.row() >= m_scenario->getTasks().size())
         return QVariant();
-    const UTask* task = &m_scenario->tasks().at(index.row());
+    const UTask* task = &m_scenario->getTasks().at(index.row());
     if (role == IdRole){
-        return task->id();
+        return task->getId();
     }
     if (role == StatusRole){
-        return task->status().c_str();
+        return task->getStatus().c_str();
     }
     return QVariant();
 }
@@ -62,7 +62,7 @@ QHash<int, QByteArray> UScenarioModel::roleNames() const {
 
 QObject* UScenarioModel::getTaskAt(const QString &index) const
 {
-    const UTask *task = &m_scenario->tasks().at(index.toInt());
+    const UTask *task = &m_scenario->getTasks().at(index.toInt());
     if (task) {
         return new UTaskModel(task);
     }
@@ -72,8 +72,8 @@ QObject* UScenarioModel::getTaskAt(const QString &index) const
 QList<QObject*> UScenarioModel::getTasks() const
 {
     QList<QObject*> list;
-    for (int i=0; i<m_scenario->m_tasks.size(); i++) {
-        list.append(new UTaskModel(&m_scenario->tasks().at(i)));
+    for (int i=0; i< m_scenario->getTasks().size(); i++) {
+        list.append(new UTaskModel(&m_scenario->getTasks().at(i)));
     }
 
     return list;

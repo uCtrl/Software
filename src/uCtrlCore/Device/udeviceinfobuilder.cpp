@@ -8,7 +8,3 @@ UDeviceInfoBuilder::UDeviceInfoBuilder(UDeviceInfo* info)
     : m_info(info)
 {
 }
-
-UDeviceSummaryBuilder* UDeviceInfoBuilder::createDeviceSummary() {
-    return new UDeviceSummaryBuilder(new UDeviceSummary());
-}

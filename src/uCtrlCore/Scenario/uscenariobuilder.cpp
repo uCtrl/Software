@@ -28,7 +28,7 @@ UTaskBuilder* UScenarioBuilder::editTask(int taskId)
 {
     for (int i = 0; i < m_scenario.m_tasks.size(); ++i)
     {
-        if (m_scenario.m_tasks[i].id() == taskId)
+        if (m_scenario.m_tasks[i].getId() == taskId)
         {
             UTaskBuilder* taskBuilder = new UTaskBuilder(this, m_scenario.m_tasks[i]);
             return taskBuilder;
@@ -40,7 +40,7 @@ void UScenarioBuilder::deleteTask(int taskId)
 {
     for (int i = 0; i < m_scenario.m_tasks.size(); ++i)
     {
-        if (m_scenario.m_tasks[i].id() == taskId)
+        if (m_scenario.m_tasks[i].getId() == taskId)
         {
             std::vector<UTask>::iterator iter = m_scenario.m_tasks.begin() + i;
 
@@ -63,7 +63,7 @@ void UScenarioBuilder::onTaskUpdated(const UTask& updatedTask)
 {
     for (int i = 0; i < m_scenario.m_tasks.size(); ++i)
     {
-        if (m_scenario.m_tasks[i].id() == updatedTask.id())
+        if (m_scenario.m_tasks[i].getId() == updatedTask.getId())
         {
             std::vector<UTask>::iterator iter = m_scenario.m_tasks.begin() + i;
 
@@ -78,16 +78,17 @@ void UScenarioBuilder::onTaskUpdated(const UTask& updatedTask)
     m_isDirty = true;
 }
 
-UConditionBuilder* UScenarioBuilder::createCondition()
+UConditionBuilder* UScenarioBuilder::createCondition(UEConditionType::Type conditionType)
 {
-    return new UConditionBuilder(this);
+    // TODO fix this
+    return new UConditionBuilder(this, conditionType);
 }
 
 UConditionBuilder* UScenarioBuilder::editCondition(int conditionId)
 {
     for (int i = 0; i < m_scenario.m_conditions.size(); ++i)
     {
-        if (m_scenario.m_conditions[i].id() == conditionId)
+        if (m_scenario.m_conditions[i].getId() == conditionId)
         {
             UConditionBuilder* conditionBuilder = new UConditionBuilder(this, m_scenario.m_conditions[i]);
             return conditionBuilder;
@@ -99,7 +100,7 @@ void UScenarioBuilder::deleteCondition(int conditionId)
 {
     for (int i = 0; i < m_scenario.m_conditions.size(); ++i)
     {
-        if (m_scenario.m_conditions[i].id() == conditionId)
+        if (m_scenario.m_conditions[i].getId() == conditionId)
         {
             std::vector<UCondition>::iterator iter = m_scenario.m_conditions.begin() + i;
 
@@ -114,7 +115,7 @@ void UScenarioBuilder::onConditionUpdated(const UCondition& updatedCondition)
 {
     for (int i = 0; i < m_scenario.m_conditions.size(); ++i)
     {
-        if (m_scenario.m_conditions[i].id() == updatedCondition.id())
+        if (m_scenario.m_conditions[i].getId() == updatedCondition.getId())
         {
             std::vector<UCondition>::iterator iter = m_scenario.m_conditions.begin() + i;
 

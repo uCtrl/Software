@@ -28,7 +28,6 @@ public:
         IpRole
     };
 
-    //UDeviceModel(QObject *parent = 0);
     UDeviceModel(const UDeviceBuilder* deviceBuilder, QObject *parent = 0);
     ~UDeviceModel();
 
@@ -52,6 +51,8 @@ public:
 
     int type();
     void setType(int);
+
+    const UDevice* device() {return m_device;}
 
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const;
     virtual QVariant data(const QModelIndex &index, int role) const;

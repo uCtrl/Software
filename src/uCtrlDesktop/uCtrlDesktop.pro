@@ -77,9 +77,9 @@ DEPENDPATH += $$PWD/../uCtrlCore
 !mac:LIBS += -ldns_sd
 
 win32 {
-    LIBS += -L$$PWD/Network/lib/ -ldnssd
-    INCLUDEPATH += $$PWD/Network/lib
-    DEPENDPATH += $$PWD/Network/lib
+    LIBS += -L$$PWD/../libs/bonjour-sdk -ldnssd
+    INCLUDEPATH += $$PWD/../libs/bonjour-sdk 
+    DEPENDPATH += $$PWD/../libs/bonjour-sdk 
 }
 
 # Rule for regenerating .qm files for translations (missing in qmake

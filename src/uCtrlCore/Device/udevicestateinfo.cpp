@@ -7,21 +7,14 @@ UDeviceStateInfo::UDeviceStateInfo(const UDeviceStateInfo& deviceStateInfo)
     this->m_valueToNameMap = deviceStateInfo.m_valueToNameMap;
 }
 
-json::Object UDeviceStateInfo::ToObject()
-{
-	json::Object obj;
-	FillObject(obj);
-	return obj;
-}
-
-void UDeviceStateInfo::FillObject(json::Object& obj)
+void UDeviceStateInfo::FillObject(json::Object& obj) const
 {
 	UDeviceInfo::FillObject(obj);
 
     // WARNING : Custom code
     obj["valueToNameMap_size"] = (int)m_valueToNameMap.size();
 
-    std::map<float, std::string>::iterator iter;
+    std::map<float, std::string>::const_iterator iter;
     int i = 0;
     for (iter = m_valueToNameMap.begin(); iter != m_valueToNameMap.end(); ++iter, ++i)
     {
@@ -37,12 +30,6 @@ void UDeviceStateInfo::FillObject(json::Object& obj)
         key = oss.str();
         obj[key] = iter->second;
     }
-}
-
-std::string UDeviceStateInfo::Serialize()
-{
-	json::Object obj = ToObject();
-	return json::Serialize(obj);
 }
 
 void UDeviceStateInfo::FillMembers(const json::Object& obj)
@@ -68,11 +55,3 @@ void UDeviceStateInfo::FillMembers(const json::Object& obj)
         m_valueToNameMap[mapKey] = mapValue;
     }
 }
-
-UDeviceStateInfo UDeviceStateInfo::Deserialize(const json::Object& obj)
-{
-	UDeviceStateInfo o;
-	o.FillMembers(obj);
-	return o;
-}
-

@@ -15,7 +15,7 @@ SOURCES = \
 !mac:LIBS += -ldns_sd
 
 win32 {
-	LIBS += -L$$PWD/../uCtrlDesktop/Network/lib -ldnssd
-	INCLUDEPATH += $$PWD/../uCtrlDesktop/Network/lib
-	DEPENDPATH += $$PWD/../uCtrlDesktop/Network/lib	
+        LIBS += -L$$PWD/../libs/bonjour-sdk -ldnssd
+        INCLUDEPATH += $$PWD/../libs/bonjour-sdk
+        DEPENDPATH += $$PWD/../libs/bonjour-sdk
 }
