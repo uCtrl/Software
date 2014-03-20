@@ -14,4 +14,7 @@ QtObject {
     property color uLightGrey: "#EEEEEE"
     property color uGrey: "#DDDDDD"
     property color uDarkGrey: "#424242"
+
+    // Transparent color
+    property color uTransparent: "transparent"
 }

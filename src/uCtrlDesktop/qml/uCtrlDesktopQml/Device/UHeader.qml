@@ -38,6 +38,10 @@ Rectangle {
         main.swap(_paths.uConfig, "Configuration", device)
     }
 
+    function swapInfo() {
+        main.swap(_paths.uInfo, "Information", device)
+    }
+
     UI.UCircle {
         id: iconShadow
 
@@ -123,8 +127,7 @@ Rectangle {
                 visible: showInfo
 
                 function execute() {
-                    // @TODO : Display informations
-                    console.log("Display informations")
+                    swapInfo()
                 }
             }
         }

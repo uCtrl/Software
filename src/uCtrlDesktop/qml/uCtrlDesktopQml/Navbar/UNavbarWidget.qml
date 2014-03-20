@@ -13,6 +13,10 @@ Rectangle { // NavBar
         if (backBtn.isVisible()) backBtn.toggleMenu()
     }
 
+    function renderInformationMenu(visible) {
+        backBtn.renderInformationMenu(visible)
+    }
+
     UI.UImage {
         id: homeBtn
         width: 60

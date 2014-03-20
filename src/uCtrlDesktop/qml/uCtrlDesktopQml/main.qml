@@ -22,13 +22,6 @@ Rectangle {
     signal swap (string page, string title, variant model)
     onSwap: renderComponent(page, title, model)
 
-    signal menu (bool visible)
-    onMenu: {
-        var menuSize = 95
-        if (!visible) menuSize *= -1
-        activePage.move(0, menuSize)
-    }
-
     // Extern Signals declaration
     Component.onCompleted: renderComponent(_paths.uHome, qsTr("Homepage"))
 
@@ -61,6 +54,8 @@ Rectangle {
 
     function renderComponent(path, title, model) {
         navigationBar.title = title
+        navigationBar.renderInformationMenu((title === "Information"))
+
         destroyComponent()
         activeComponent = Qt.createComponent(path)
         refreshPage(model)
