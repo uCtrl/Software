@@ -7,7 +7,7 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 SOURCES += \
-    uplatform.cpp \
+    Platform/uplatform.cpp \
     usystem.cpp \
     Device/udevice.cpp \
     Device/udevicebuilder.cpp \
@@ -27,13 +27,14 @@ SOURCES += \
     Tasks/utaskbuilderobserver.cpp \
     Utility/uniqueidgenerator.cpp \
     Conditions/uconditionbuilderobserver.cpp \
-    Device/udeviceinfobuilder.cpp\
+    Device/udeviceinfobuilder.cpp \
+    Platform/uplatformbuilder.cpp \
     Conditions/udate.cpp \
-    Conditions/utime.cpp
-
+    Conditions/utime.cpp \
+    usystembuilder.cpp
 
 HEADERS += \
-    uplatform.h \
+    Platform/uplatform.h \
     usystem.h \
     Device/udevice.h \
     Device/udevicebuilder.h \
@@ -55,5 +56,7 @@ HEADERS += \
     Utility/uniqueidgenerator.h \
     Conditions/uconditionbuilderobserver.h \
     Device/udeviceinfobuilder.h \
+    Platform/uplatformbuilder.h \
     Conditions/udate.h \
-    Conditions/utime.h
+    Conditions/utime.h \
+    usystembuilder.h
