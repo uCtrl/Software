@@ -6,14 +6,14 @@ UTime::UTime()
 
 void UTime::FillObject(json::Object& obj) const
 {
-	obj["m_hours"] = m_hours;
-	obj["m_minutes"] = m_minutes;
-	obj["m_seconds"] = m_seconds;
+    obj["m_hours"] = getHours();
+    obj["m_minutes"] = getMinutes();
+    obj["m_seconds"] = getSeconds();
 }
 
 void UTime::FillMembers(const json::Object& obj)
 {
-	m_hours = obj["m_hours"];
-	m_minutes = obj["m_minutes"];
-	m_seconds = obj["m_seconds"];
+    setHours(obj["m_hours"]);
+    setMinutes(obj["m_minutes"]);
+    setSeconds(obj["m_seconds"]);
 }

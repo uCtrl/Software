@@ -4,54 +4,54 @@
 
 UScenario::UScenario()
 {
-    this->m_id = UniqueIdGenerator::GenerateUniqueId();
-    this->m_name = "Undefined";
+    setId(UniqueIdGenerator::GenerateUniqueId());
+    setName("Undefined");
 }
 
 UScenario::UScenario(const UScenario& scenario)
 {
-    this->m_id = scenario.m_id;
-    this->m_name = scenario.m_name;
-    this->m_tasks = scenario.m_tasks;
+    setId(scenario.getId());
+    setName(scenario.getName());
+    setTasks(scenario.getTasks());
 }
 
 UScenario::~UScenario()
 {
     // TODO: properly delete m_tasks data
-    m_tasks.clear();
+    m_Tasks.clear();
 }
 
 void UScenario::FillObject(json::Object& obj) const
 {
-    obj["id"] = m_id;
-    obj["name"] = m_name;
+    obj["id"] = getId();
+    obj["name"] = getName();
 
     // WARNING : Custom code
-    obj["tasks_size"] = (int) m_tasks.size();
-    for (int i = 0; i < m_tasks.size(); i++)
+    obj["tasks_size"] = (int) getTasks().size();
+    for (int i = 0; i < getTasks().size(); i++)
     {
         std::ostringstream oss;
         oss << "tasks[" << i << "]";
 
         std::string key = oss.str();
-        obj[key] = m_tasks[i].ToObject();
+        obj[key] = getTasks()[i].ToObject();
     }
 
-    obj["conditions_size"] = (int) m_conditions.size();
-    for (int i = 0; i < m_conditions.size(); i++)
+    obj["conditions_size"] = (int) getConditions().size();
+    for (int i = 0; i < getConditions().size(); i++)
     {
         std::ostringstream oss;
         oss << "scenarioConditions[" << i << "]";
 
         std::string key = oss.str();
-        obj[key] = m_conditions[i].ToObject();
+        obj[key] = getConditions()[i].ToObject();
     }
 }
 
 void UScenario::FillMembers(const json::Object& obj)
 {
-    m_id = obj["id"];
-    m_name = obj["name"].ToString();
+    setId(obj["id"]);
+    setName(obj["name"].ToString());
 
     // WARNING : Custom code
     int m_tasks_size = obj["tasks_size"];
@@ -62,7 +62,7 @@ void UScenario::FillMembers(const json::Object& obj)
 
         std::string key = oss.str();
         UTask task = UTask::Deserialize(obj[key]);
-        m_tasks.push_back(task);
+        m_Tasks.push_back(task);
     }
 
     int m_conditions_size = obj["conditions_size"];
@@ -73,6 +73,6 @@ void UScenario::FillMembers(const json::Object& obj)
 
         std::string key = oss.str();
         UCondition condition = UCondition::Deserialize(obj[key]);
-        m_conditions.push_back(condition);
+        m_Conditions.push_back(condition);
     }
 }

@@ -3,6 +3,6 @@
 
 #include "Serialization/JsonMacros.h"
 
-DECLARE_JSON_CLASS_ARGS3(UTime, int, m_hours, int, m_minutes, int, m_seconds)
+DECLARE_JSON_CLASS_ARGS3(UTime, int, Hours, int, Minutes, int, Seconds)
 
 #endif // UTIME_H

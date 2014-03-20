@@ -7,16 +7,16 @@ UConditionDate::UConditionDate() : UCondition()
 UConditionDate::UConditionDate(const UConditionDate& conditionDate)
     : UCondition(conditionDate)
 {
-    this->m_conditionType = UEConditionType::Date;
-    this->m_date1 = conditionDate.m_date1;
-    this->m_date2 = conditionDate.m_date2;
+    setConditionType(UEConditionType::Date);
+    setDate1(conditionDate.getDate1());
+    setDate2(conditionDate.getDate2());
 }
 
 int UConditionDate::getComparisonPossible()
 {
     using namespace UEComparisonPossible;
 
-    switch (m_conditionDateType) {
+    switch (getConditionDateType()) {
     case UEConditionDateType::DDMMYYYY:
         return GreaterThan | LesserThan | Equals | InBetween;
     case UEConditionDateType::DDMM:
@@ -31,31 +31,33 @@ int UConditionDate::getComparisonPossible()
 
 void UConditionDate::setValue1(void* value)
 {
-    UDate* date = (UDate*)value;
-    m_date1 = *date;
+    // #???
+    //UDate* date = (UDate*)value;
+    //m_date1 = *date;
 }
 
 void UConditionDate::setValue2(void* value)
 {
-    if (m_currentComparisonType != UEComparisonPossible::InBetween)
-        return;
+    // #???
+    //if (getCurrentComparisonType() != UEComparisonPossible::InBetween)
+    //    return;
 
-    UDate* date = (UDate*)value;
-    m_date2 = *date;
+    //UDate* date = (UDate*)value;
+    //m_date2 = *date;
 }
 
 void UConditionDate::FillObject(json::Object& obj) const
 {
 	UCondition::FillObject(obj);
-    obj["conditionDateType"] = m_conditionDateType;
-    obj["date1"] = m_date1.ToObject();
-    obj["date2"] = m_date2.ToObject();
+    obj["conditionDateType"] = getConditionDateType();
+    obj["date1"] = getDate1().ToObject();
+    obj["date2"] = getDate2().ToObject();
 }
 
 void UConditionDate::FillMembers(const json::Object& obj)
 {
 	UCondition::FillMembers(obj);
-    m_conditionDateType = obj["conditionDateType"];
-    m_date1 = UDate::Deserialize(obj["date1"].ToObject());
-    m_date2 = UDate::Deserialize(obj["date2"].ToObject());
+    m_ConditionDateType = obj["conditionDateType"];
+    m_Date1 = UDate::Deserialize(obj["date1"].ToObject());
+    m_Date2 = UDate::Deserialize(obj["date2"].ToObject());
 }

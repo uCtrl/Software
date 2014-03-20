@@ -24,17 +24,16 @@ namespace UEConditionType
     };
 }
 
-BEGIN_DECLARE_JSON_CLASS_ARGS3( UCondition, int, m_id, int, m_conditionType, int, m_currentComparisonType )
+BEGIN_DECLARE_JSON_CLASS_ARGS3( UCondition, int, Id, int, ConditionType, int, CurrentComparisonType )
 
 public:
     UCondition( const UCondition& condition );
 
-    UEConditionType::Type getConditionType() const { return (UEConditionType::Type)m_conditionType; }
-    int getCurrentComparisonType() const { return m_currentComparisonType; }
+    UEConditionType::Type getUEConditionType() const { return (UEConditionType::Type)m_ConditionType; }
+
     virtual int getComparisonPossible() { return 0; }
     virtual void setValue1(void* value) {}
     virtual void setValue2(void* value) {}
-    int getId() const { return m_id; }
 
 END_DECLARE_JSON_CLASS()
 

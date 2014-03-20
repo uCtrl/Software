@@ -9,12 +9,9 @@
 #include "Models/Scenario/uscenariomodel.h"
 #include "Scenario/uscenario.h"
 #include "Utility/uniqueidgenerator.h"
-#include "Scenario/uscenariobuilder.h"
 #include "Device/udevice.h"
-#include "Device/udevicebuilder.h"
 #include "Models/Device/udevicemodel.h"
 #include "Conditions/ucondition.h"
-#include "Conditions/uconditionbuilder.h"
 #include "Conditions/uconditiondate.h"
 #include <QFile>
 #include <QTextStream>
@@ -32,14 +29,14 @@ void SaveDeviceToFile(const UDevice* device, std::string filename){
     file.close();
 }
 
-void LoadDeviceFromFile( UDeviceBuilder& db, std::string filename){
+void LoadDeviceFromFile(UDevice& /*UDeviceBuilder&*/ db, std::string filename){
 
     QFile f(QString::fromStdString(filename));
     if (f.open(QFile::ReadOnly | QFile::Text)){
         QTextStream in(&f);
         QString str = in.readAll();
         str.remove(QRegExp("[\\n\\t\\r]"));
-        db.loadFromJsonString(str.toStdString());
+        db = UDevice::Deserialize(json::Deserialize(str.toStdString()));
     }
 }
 
@@ -53,9 +50,9 @@ int main(int argc, char *argv[])
         app.installTranslator(&translator);
     }
 
-    UDeviceBuilder db;
-    LoadDeviceFromFile(db, ":/Resources/JSON.txt");
-    UDeviceModel dm( &db );
+    UDevice device;
+    LoadDeviceFromFile(device, ":/Resources/JSON.txt");
+    UDeviceModel dm( &device );
 
     QQmlContext *ctxt = viewer.rootContext();
     ctxt->setContextProperty("myDevice", &dm);

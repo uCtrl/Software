@@ -50,7 +50,11 @@ public:                                                             \
     BEGIN_DECLARE_JSON_CLASS(NAME, PARENT_DECLARATION, ARGS) \
     END_DECLARE_JSON_CLASS()
 
-#define DECLARE_CLASS_ARGS1(ARG1TYPE, ARG1NAME) ARG1TYPE ARG1NAME;
+#define DECLARE_CLASS_ARGS1(ARG1TYPE, ARG1NAME) protected: \
+                                                ARG1TYPE m_##ARG1NAME; \
+                                                public: \
+                                                const ARG1TYPE& get##ARG1NAME() const { return m_##ARG1NAME; } \
+                                                void set##ARG1NAME(const ARG1TYPE& ARG1NAME) { m_##ARG1NAME = ARG1NAME; }
 #define DECLARE_CLASS_ARGS2(ARG1TYPE, ARG1NAME, ARG2TYPE, ARG2NAME) \
     DECLARE_CLASS_ARGS1(ARG1TYPE, ARG1NAME) \
     DECLARE_CLASS_ARGS1(ARG2TYPE, ARG2NAME)

@@ -17,10 +17,10 @@ namespace UEWeekDay
     };
 }
 
-BEGIN_DECLARE_JSON_CHILD_CLASS_ARGS2(UConditionDay, UCondition, int, m_weekDay1, int, m_weekDay2)
+BEGIN_DECLARE_JSON_CHILD_CLASS_ARGS2(UConditionDay, UCondition, int, WeekDay1, int, WeekDay2)
 
 public:
-    UConditionDay(const UCondition& condition) : UCondition(condition) { m_conditionType = UEConditionType::Day; }
+    UConditionDay(const UCondition& condition) : UCondition(condition) { m_ConditionType = UEConditionType::Day; }
     UConditionDay(const UConditionDay& conditionDay);
     int getComparisonPossible() { return UEComparisonPossible::Equals | UEComparisonPossible::InBetween; }
 

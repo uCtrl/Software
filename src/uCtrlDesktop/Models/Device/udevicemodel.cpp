@@ -1,18 +1,18 @@
 #include "udevicemodel.h"
 
-UDeviceModel::UDeviceModel(const UDeviceBuilder* deviceBuilder, QObject *parent)
+UDeviceModel::UDeviceModel(UDevice* device, QObject *parent)
     : QAbstractListModel(parent)
-    , m_deviceBuider(deviceBuilder)
-    , m_device(deviceBuilder->getDevice())
+    , m_device(device)
 {
 }
+
 
 UDeviceModel::~UDeviceModel()
 {
 }
 
 QString UDeviceModel::name() {
-    QString string = QString::fromStdString(m_device->m_name);
+    QString string = QString::fromStdString(m_device->getName());
     return string;
 }
 
@@ -31,7 +31,7 @@ int UDeviceModel::ip() {
 void UDeviceModel::setIp(int newIp) {}
 
 int UDeviceModel::type() {
-    return m_device->m_deviceInfo.m_type;
+    return m_device->getDeviceInfo()->getType();
 }
 
 void UDeviceModel::setType(int newType) {}
