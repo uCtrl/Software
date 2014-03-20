@@ -3,7 +3,6 @@
 
 #include <QAbstractListModel>
 #include "Device/udevice.h"
-#include "Device/udevicebuilder.h"
 #include "../Scenario/uscenariomodel.h"
 
 class UDeviceModel : public QAbstractListModel
@@ -28,11 +27,10 @@ public:
         IpRole
     };
 
-    UDeviceModel(const UDeviceBuilder* deviceBuilder, QObject *parent = 0);
+    UDeviceModel(const UDevice* device, QObject *parent = 0);
     ~UDeviceModel();
 
 private:
-    const UDeviceBuilder* m_deviceBuider;
     const UDevice* m_device;
     const UScenarioModel* m_scenarioModel;
 

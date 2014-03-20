@@ -7,17 +7,11 @@
 #include <string>
 #include <vector>
 
-BEGIN_DECLARE_JSON_CLASS_ARGS4(UScenario, int, m_id, std::string, m_name, std::vector<UTask>, m_tasks, std::vector<UCondition>, m_conditions)
+BEGIN_DECLARE_JSON_CLASS_ARGS4(UScenario, int, Id, std::string, Name, std::vector<UTask>, Tasks, std::vector<UCondition>, Conditions)
 
 public:
     UScenario(const UScenario& scenario);
     ~UScenario();
-
-    // accessors
-    int getId() const { return m_id; }
-    const std::string& getName() const { return m_name; }
-    const std::vector<UTask>& getTasks() const { return m_tasks; }
-    const std::vector<UCondition>& getConditions() const { return m_conditions; }
 
 END_DECLARE_JSON_CLASS()
 

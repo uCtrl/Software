@@ -3,19 +3,19 @@
 
 UCondition::UCondition()
 {
-    this->m_id = UniqueIdGenerator::GenerateUniqueId();
+    setId(UniqueIdGenerator::GenerateUniqueId());
 }
 
 UCondition::UCondition(const UCondition& condition)
 {
-    this->m_id = condition.m_id;
+    setId(condition.getId());
 }
 void UCondition::FillObject(json::Object& obj) const
 {
-    obj["id"] = m_id;
+    obj["id"] = getId();
 }
 
 void UCondition::FillMembers(const json::Object& obj)
 {
-    m_id = obj["id"];
+    setId(obj["id"]);
 }

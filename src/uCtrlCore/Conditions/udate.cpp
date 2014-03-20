@@ -6,22 +6,22 @@ UDate::UDate()
 
 UDate::UDate(const UDate& date)
 {
-    this->m_day = date.m_day;
-    this->m_month = date.m_month;
-    this->m_year = date.m_year;
+    setDay(date.getDay());
+    setMonth(date.getMonth());
+    setYear(date.getYear());
 }
 
 void UDate::FillObject(json::Object& obj) const
 {
-	obj["m_day"] = m_day;
-	obj["m_month"] = m_month;
-	obj["m_year"] = m_year;
+    obj["m_day"] = getDay();
+    obj["m_month"] = getMonth();
+    obj["m_year"] = getYear();
 }
 
 void UDate::FillMembers(const json::Object& obj)
 {
-	m_day = obj["m_day"];
-	m_month = obj["m_month"];
-	m_year = obj["m_year"];
+    setDay(obj["m_day"]);
+    setMonth(obj["m_month"]);
+    setYear(obj["m_year"]);
 }
 

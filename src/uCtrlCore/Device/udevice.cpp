@@ -4,48 +4,48 @@
 
 UDevice::UDevice()
 {
-    this->m_id = UniqueIdGenerator::GenerateUniqueId();
+    setId(UniqueIdGenerator::GenerateUniqueId());
 }
 
 UDevice::UDevice(const UDevice& device)
 {
-    this->m_id = device.m_id;
-    this->m_name = device.m_name;
-    this->m_scenarios = device.m_scenarios;
-    this->m_deviceInfo = device.m_deviceInfo;
+    setId(device.getId());
+    setName(device.getName());
+    setScenarios(device.getScenarios());
+    setDeviceInfo(device.getDeviceInfo());
 }
 
 void UDevice::FillObjectSummary(json::Object& obj) const
 {
-    obj["id"] = m_id;
-    obj["name"] = m_name;
-    obj["ip"] = m_ip;
-    obj["deviceInfo"] = m_deviceInfo.ToObject();
+    obj["id"] = getId();
+    obj["name"] = getName();
+    obj["ip"] = getIp();
+    obj["deviceInfo"] = getDeviceInfo()->ToObject();
 }
 
 void UDevice::FillObject(json::Object& obj) const
 {
-    obj["id"] = m_id;
-    obj["name"] = m_name;
-    obj["ip"] = m_ip;
-    obj["deviceInfo"] = m_deviceInfo.ToObject();
+    obj["id"] = getId();
+    obj["name"] = getName();
+    obj["ip"] = getIp();
+    obj["deviceInfo"] = getDeviceInfo()->ToObject();
 
     // WARNING : Custom code
-    obj["scenarios_size"] = (int) m_scenarios.size();
-    for (int i = 0; i < m_scenarios.size(); i++)
+    obj["scenarios_size"] = (int) getScenarios().size();
+    for (int i = 0; i < getScenarios().size(); i++)
     {
         std::ostringstream oss;
         oss << "scenarios[" << i << "]";
 
         std::string key = oss.str();
-        obj[key] = m_scenarios[i].ToObject();
+        obj[key] = getScenarios()[i].ToObject();
     }
 }
 
 void UDevice::FillMembers(const json::Object& obj)
 {
-    m_id = obj["id"];
-    m_name = obj["name"].ToString();
+    setId(obj["id"]);
+    setName(obj["name"].ToString());
 
     // WARNING : Custom code
     int m_scenarios_size = obj["scenarios_size"];
@@ -56,8 +56,7 @@ void UDevice::FillMembers(const json::Object& obj)
 
         std::string key = oss.str();
         UScenario scenario = UScenario::Deserialize(obj[key]);
-        m_scenarios.push_back(scenario);
+        m_Scenarios.push_back(scenario);
     }
-
-    m_deviceInfo = UDeviceInfo::Deserialize(obj["deviceInfo"]);
+    m_DeviceInfo = UDeviceInfo::Deserialize(obj["deviceInfo"]);
 }

@@ -3,7 +3,7 @@
 
 #include "Serialization/JsonMacros.h"
 
-BEGIN_DECLARE_JSON_CLASS_ARGS3(UDate, int, m_day, int, m_month, int, m_year)
+BEGIN_DECLARE_JSON_CLASS_ARGS3(UDate, int, Day, int, Month, int, Year)
 
 UDate(const UDate& date);
 

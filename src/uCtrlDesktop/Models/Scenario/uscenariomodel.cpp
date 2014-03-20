@@ -14,15 +14,7 @@ UScenarioModel::UScenarioModel(const UScenario* scenario, QObject *parent)
 UScenarioModel::UScenarioModel(const UScenarioModel& scenarioModel, QObject *parent)
     : QAbstractListModel(parent)
 {
-    this->m_scenarioBuilder = scenarioModel.m_scenarioBuilder;
     this->m_scenario = scenarioModel.m_scenario;
-}
-
-UScenarioModel::UScenarioModel(const UScenarioBuilder* scenarioBuilder, QObject *parent)
-    : QAbstractListModel(parent)
-    , m_scenarioBuilder(scenarioBuilder)
-    , m_scenario(scenarioBuilder->getScenario())
-{
 }
 
 UScenarioModel::~UScenarioModel()
@@ -30,7 +22,7 @@ UScenarioModel::~UScenarioModel()
 }
 
 QString UScenarioModel::name() {
-    QString string = QString::fromStdString(m_scenario->m_name);
+    QString string = QString::fromStdString(m_scenario->getName());
     return string;
 }
 

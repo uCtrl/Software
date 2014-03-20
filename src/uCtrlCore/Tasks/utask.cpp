@@ -4,51 +4,51 @@
 
 UTask::UTask()
 {
-    this->m_id = UniqueIdGenerator::GenerateUniqueId();
+    setId(UniqueIdGenerator::GenerateUniqueId());
 }
 
 UTask::UTask(const UTask& task)
 {
-    m_id = task.getId();
-    m_name = task.getName();
-    m_status = task.getStatus();
-    m_conditions = task.getConditions();
+    setId(task.getId());
+    setName(task.getName());
+    setStatus(task.getStatus());
+    setConditions(task.getConditions());
 }
 
-UTask::UTask(std::string status): m_status(status)
+UTask::UTask(std::string status): m_Status(status)
 {
 }
 
 UTask::~UTask()
 {
     // TODO: properly delete m_conditions data
-    m_conditions.clear();
+    m_Conditions.clear();
 }
 
 void UTask::FillObject(json::Object& obj) const
 {
-    obj["id"] = m_id;
-    obj["name"] = m_name;
-    obj["status"] = m_status;
+    obj["id"] = getId();
+    obj["name"] = getName();
+    obj["status"] = getStatus();
 
     // WARNING : Custom code
-    obj["conditions_size"] = (int) m_conditions.size();
-    for (int i = 0; i < m_conditions.size(); i++)
+    obj["conditions_size"] = (int) getConditions().size();
+    for (int i = 0; i < getConditions().size(); i++)
     {
         std::ostringstream oss;
         oss << "conditions[" << i << "]";
 
         std::string key = oss.str();
-        obj[key] = m_conditions[i].ToObject();
+        obj[key] = getConditions()[i].ToObject();
     }
 
 }
 
 void UTask::FillMembers(const json::Object& obj)
 {
-    m_id = obj["id"];
-    m_name = obj["name"].ToString();
-    m_status = obj["status"].ToString();
+    setId(obj["id"]);
+    setName(obj["name"].ToString());
+    setStatus(obj["status"].ToString());
 
     // WARNING : Custom code
     int m_conditions_size = obj["conditions_size"];
@@ -59,6 +59,6 @@ void UTask::FillMembers(const json::Object& obj)
 
         std::string key = oss.str();
         UCondition condition = UCondition::Deserialize(obj[key]);
-        m_conditions.push_back(condition);
+        m_Conditions.push_back(condition);
     }
 }

@@ -14,13 +14,13 @@ namespace UEConditionDateType
     };
 }
 
-BEGIN_DECLARE_JSON_CHILD_CLASS_ARGS3(UConditionDate, UCondition, int, m_conditionDateType, UDate, m_date1, UDate, m_date2)
+BEGIN_DECLARE_JSON_CHILD_CLASS_ARGS3(UConditionDate, UCondition, int, ConditionDateType, UDate, Date1, UDate, Date2)
 
 public:
-    UConditionDate(const UCondition& condition) : UCondition(condition) { m_conditionType = UEConditionType::Date; }
+    UConditionDate(const UCondition& condition) : UCondition(condition) { m_ConditionType = UEConditionType::Date; }
     UConditionDate(const UConditionDate& conditionDate);
     int getComparisonPossible();
-    UEConditionDateType::Type getConditionDateType() { return (UEConditionDateType::Type)m_conditionDateType; }
+    UEConditionDateType::Type getConditionDateType() { return (UEConditionDateType::Type)m_ConditionDateType; }
     void setValue1(void* value);
     void setValue2(void* value);
 
