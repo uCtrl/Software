@@ -1,23 +1,24 @@
 import QtQuick 2.0
+import "../UI" as UI
 
 Rectangle {
-    property string uValue: "UNKNOWN"
-    property string editColorZone: "white"
-    property bool notAcceptInput: true
+    property string textValue: "UNKNOWN"
+    property color editColorZone: _colors.uTransparent
+    property bool editReadOnly: true
     property bool showCursor: false
 
     width: 322
     height: editZone.height
     anchors.verticalCenter: parent.verticalCenter
     anchors.right: parent.right
-    color: "transparent"
+    color: editColorZone
 
     Rectangle {
-        id: infoPaddinIcon
+        id: infoPaddingIcon
         width: 5
         height: parent.height
         anchors.right: editZone.left
-        color: "transparent"
+        color: _colors.uTransparent
     }
 
     Rectangle {
@@ -33,19 +34,21 @@ Rectangle {
             width: parent.width
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
-            text: uValue
+            text: textValue
 
-            readOnly: notAcceptInput
+            readOnly: editReadOnly
             cursorVisible: showCursor
         }
     }
 
-    Image {
+    UI.UImage {
         id: editImage
         anchors.verticalCenter: parent.verticalCenter
-        anchors.right: infoPaddinIcon.left
+        anchors.right: infoPaddingIcon.left
 
-        source: "qrc:///Resources/Images/pencil.svg"
+        width: 16; height: 16
+
+        img: "qrc:///Resources/Images/pencil.svg"
     }
 
     MouseArea {
@@ -58,18 +61,12 @@ Rectangle {
     }
 
     function startStopEdit() {
-        if (editColorZone == "white") {
-            editInput.focus = true;
-            notAcceptInput = false;
-            showCursor = true;
-            editColorZone = "#BBB";
-            color = "#BBB"
+        if (editReadOnly) {
+            editReadOnly = false;
+            editColorZone = _colors.uLightGrey;
         } else {
-            editInput.focus = false;
-            parent.focus = true;
-            showCursor = false;
-            editColorZone = "white";
-            notAcceptInput = true;
+            editColorZone = _colors.uTransparent;
+            editReadOnly = true;
         }
     }
 }

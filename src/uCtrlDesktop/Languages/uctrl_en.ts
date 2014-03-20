@@ -13,6 +13,45 @@
     </message>
 </context>
 <context>
+    <name>UDeviceInfoWidget</name>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name :</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Room :</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type :</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>State :</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MAC address :</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IP address :</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ID  :</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Firmware version :</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>UDeviceSummary</name>
     <message>
         <source>Configuration</source>

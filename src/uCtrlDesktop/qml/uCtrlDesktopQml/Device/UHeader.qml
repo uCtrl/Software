@@ -127,8 +127,6 @@ Rectangle {
                 visible: showInfo
 
                 function execute() {
-                    // @TODO : Display informations
-                    console.log("Display informations")
                     swapInfo()
                 }
             }
