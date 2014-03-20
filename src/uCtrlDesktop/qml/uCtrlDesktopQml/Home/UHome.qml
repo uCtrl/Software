@@ -126,5 +126,9 @@ UI.UFrame {
 
             headerStyle: 5
         }
+
+        UI.UComboBox {
+            id: combo
+        }
     }
 }

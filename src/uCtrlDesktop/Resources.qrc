@@ -10,5 +10,6 @@
         <file>JSON.txt</file>
         <file>Languages/uctrl_en.qm</file>
         <file>Languages/uctrl_fr.qm</file>
+        <file>Images/Combobox-arrow.png</file>
     </qresource>
 </RCC>
