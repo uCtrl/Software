@@ -4,15 +4,10 @@
 #include "Serialization/JsonMacros.h"
 #include "Device/udevice.h"
 
-BEGIN_DECLARE_JSON_CLASS_ARGS4(UPlatform, int, m_id, std::string, m_ip, int, m_port, std::vector<UDevice>, m_devices)
+BEGIN_DECLARE_JSON_CLASS_ARGS4(UPlatform, int, Id, std::string, Ip, int, Port, std::vector<UDevice>, Devices)
 
 public:
     UPlatform(const UPlatform& platform);
-
-    int getId() const { return m_id; }
-    const std::string& getIp() const { return m_ip; }
-    int getPort() const { return m_port; }
-    const std::vector<UDevice>& getAllDevices() const { return m_devices; }
 
 END_DECLARE_JSON_CLASS()
 

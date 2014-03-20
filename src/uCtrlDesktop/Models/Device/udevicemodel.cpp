@@ -1,6 +1,6 @@
 #include "udevicemodel.h"
 
-UDeviceModel::UDeviceModel(UDevice* device, QObject *parent)
+UDeviceModel::UDeviceModel(const UDevice* device, QObject *parent)
     : QAbstractListModel(parent)
     , m_device(device)
 {

@@ -27,7 +27,7 @@ public:
         IpRole
     };
 
-    UDeviceModel(UDevice* device, QObject *parent = 0);
+    UDeviceModel(const UDevice* device, QObject *parent = 0);
     ~UDeviceModel();
 
 private:

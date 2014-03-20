@@ -15,6 +15,7 @@
 #include "Conditions/uconditiondate.h"
 #include <QFile>
 #include <QTextStream>
+#include "System/usystem.h"
 
 #include <sstream>
 
@@ -29,14 +30,14 @@ void SaveDeviceToFile(const UDevice* device, std::string filename){
     file.close();
 }
 
-void LoadDeviceFromFile(UDevice& db, std::string filename){
+void LoadSystemFromFile(USystem& db, std::string filename){
 
     QFile f(QString::fromStdString(filename));
     if (f.open(QFile::ReadOnly | QFile::Text)){
         QTextStream in(&f);
         QString str = in.readAll();
         str.remove(QRegExp("[\\n\\t\\r]"));
-        db = UDevice::Deserialize(json::Deserialize(str.toStdString()));
+        db = USystem::Deserialize(json::Deserialize(str.toStdString()));
     }
 }
 
@@ -50,9 +51,9 @@ int main(int argc, char *argv[])
         app.installTranslator(&translator);
     }
 
-    UDevice device;
-    LoadDeviceFromFile(device, ":/Resources/JSON.txt");
-    UDeviceModel dm( &device );
+    USystem system;
+    LoadSystemFromFile(system, ":/Resources/JSON.txt");
+    UDeviceModel dm( &system.getPlatforms()[0].getDevices()[0] );
 
     QQmlContext *ctxt = viewer.rootContext();
     ctxt->setContextProperty("myDevice", &dm);

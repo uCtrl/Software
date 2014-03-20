@@ -4,13 +4,10 @@
 #include "Serialization/JsonMacros.h"
 #include "Platform/uplatform.h"
 
-BEGIN_DECLARE_JSON_CLASS_ARGS1(USystem, std::vector<UPlatform>, m_platforms)
+BEGIN_DECLARE_JSON_CLASS_ARGS1(USystem, std::vector<UPlatform>, Platforms)
 
 public:
     USystem(const USystem& system);
-
-    const std::vector<UPlatform>& getAllPlatforms() const { return m_platforms; }
-
 
 END_DECLARE_JSON_CLASS()
 
