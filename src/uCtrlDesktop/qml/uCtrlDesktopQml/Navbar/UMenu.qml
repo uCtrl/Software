@@ -8,6 +8,10 @@ Rectangle {
     width: 25
     radius: 5
 
+    function renderInformationMenu(visible) {
+        menuFrame.createInfoMenu(visible)
+    }
+
     function adjustTitle() {
         label.color = menuFrame.visible ? _colors.uGreen : "white"
         menuButton.color = menuFrame.visible ? "white" : _colors.uGreen
@@ -15,7 +19,6 @@ Rectangle {
 
     function toggleMenu() {
         displayMenu(!menuFrame.visible)
-        main.menu(menuFrame.visible)
     }
 
     function displayMenu(status) {
