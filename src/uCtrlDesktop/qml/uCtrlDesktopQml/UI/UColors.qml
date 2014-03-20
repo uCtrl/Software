@@ -6,6 +6,9 @@ QtObject {
     property color uGreen: "#0D9B0D"
     property color uDarkGreen: "#046504"
 
+    // uCtrl's White variation
+    property color uWhite: "white"
+
     // Grey colors
     property color uUltraLightGrey: "#F7F6F6"
     property color uLightGrey: "#EEEEEE"

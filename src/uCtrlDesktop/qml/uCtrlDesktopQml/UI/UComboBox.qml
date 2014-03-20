@@ -39,11 +39,12 @@ ComboBox {
                 height: parent.height
                 color: "transparent"
 
-                Text {
+                ULabel {
                     id: label
                     anchors.centerIn: parent
-                    color: "white"
                     text: control.currentText
+                    headerStyle: 3
+                    Component.onCompleted: color="white"
                 }
             }
         }
