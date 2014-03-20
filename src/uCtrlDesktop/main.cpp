@@ -1,4 +1,5 @@
 #include <QtGui/QGuiApplication>
+#include <QTranslator>
 #include "qtquick2applicationviewer.h"
 #include <qqmlengine.h>
 #include <qqmlcontext.h>
@@ -46,6 +47,11 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
     QtQuick2ApplicationViewer viewer;
+
+    QTranslator translator;
+    if (translator.load(":/Resources/Languages/uctrl_" + QLocale::system().name())) {
+        app.installTranslator(&translator);
+    }
 
     UDeviceBuilder db;
     LoadDeviceFromFile(db, ":/Resources/JSON.txt");

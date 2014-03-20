@@ -32,3 +32,4 @@ Makefile*
 # QtCreator
 
 *.autosave
+*.qm
