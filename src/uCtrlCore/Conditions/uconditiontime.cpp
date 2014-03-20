@@ -12,21 +12,17 @@ UConditionTime::UConditionTime(const UConditionTime& conditionTime)
 
 void UConditionTime::setValue1(void* value)
 {
-    // #???
-    //UTime* time= (UTime*)value;
-    //m_time1 = *time;
+    UTime* time= (UTime*)value;
+    m_Time1 = *time;
 }
 
 void UConditionTime::setValue2(void* value)
 {
-    // #???
-    /*
-    if (m_currentComparisonType != UEComparisonPossible::InBetween)
+    if (getCurrentComparisonType() != UEComparisonPossible::InBetween)
         return;
 
     UTime* time= (UTime*)value;
-    m_time2 = *time;
-    */
+    m_Time2 = *time;
 }
 
 void UConditionTime::FillObject(json::Object& obj) const

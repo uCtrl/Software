@@ -31,19 +31,17 @@ int UConditionDate::getComparisonPossible()
 
 void UConditionDate::setValue1(void* value)
 {
-    // #???
-    //UDate* date = (UDate*)value;
-    //m_date1 = *date;
+    UDate* date = (UDate*)value;
+    m_Date1 = *date;
 }
 
 void UConditionDate::setValue2(void* value)
 {
-    // #???
-    //if (getCurrentComparisonType() != UEComparisonPossible::InBetween)
-    //    return;
+    if (getCurrentComparisonType() != UEComparisonPossible::InBetween)
+        return;
 
-    //UDate* date = (UDate*)value;
-    //m_date2 = *date;
+    UDate* date = (UDate*)value;
+    m_Date2 = *date;
 }
 
 void UConditionDate::FillObject(json::Object& obj) const

@@ -23,13 +23,9 @@ public:
     UScenarioModel(QObject *parent = 0);
     UScenarioModel(const UScenario* scenario, QObject *parent = 0);
     UScenarioModel(const UScenarioModel& scenarioModel, QObject *parent = 0);
-    // #???
-    //UScenarioModel(const UScenarioBuilder* scenarioBuilder, QObject *parent = 0);
     ~UScenarioModel();
 
 private:
-    // #???
-    //const UScenarioBuilder* m_scenarioBuilder;
     const UScenario*        m_scenario;
 
 public:

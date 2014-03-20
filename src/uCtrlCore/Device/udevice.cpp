@@ -4,7 +4,7 @@
 
 UDevice::UDevice()
 {
-    //setId(UniqueIdGenerator::GenerateUniqueId());
+    setId(UniqueIdGenerator::GenerateUniqueId());
 }
 
 UDevice::UDevice(const UDevice& device)
