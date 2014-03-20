@@ -29,7 +29,7 @@ void SaveDeviceToFile(const UDevice* device, std::string filename){
     file.close();
 }
 
-void LoadDeviceFromFile(UDevice& /*UDeviceBuilder&*/ db, std::string filename){
+void LoadDeviceFromFile(UDevice& db, std::string filename){
 
     QFile f(QString::fromStdString(filename));
     if (f.open(QFile::ReadOnly | QFile::Text)){
