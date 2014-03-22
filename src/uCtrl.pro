@@ -5,4 +5,5 @@ CONFIG += ordered
 SUBDIRS += \
     uCtrlCore \
     uCtrlDesktop \
-    uCtrlServiceBrowser
+    uCtrlServiceBrowser \
+    uCtrlTest

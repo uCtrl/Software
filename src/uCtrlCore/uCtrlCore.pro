@@ -21,7 +21,7 @@ SOURCES += \
     Utility/uniqueidgenerator.cpp \
     Conditions/udate.cpp \
     Conditions/utime.cpp \
-    System/usystem.cpp
+    System/usystem.cpp \
 
 HEADERS += \
     Platform/uplatform.h \
