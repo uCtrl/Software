@@ -121,6 +121,7 @@ Item {
 
         Rectangle {
             id: conditionsContainer
+            clip: true
 
             height: 40 * conditionList.count
             width: parent.width - dragger.width
