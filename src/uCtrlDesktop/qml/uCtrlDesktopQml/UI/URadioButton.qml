@@ -70,15 +70,13 @@ RadioButton {
     function getTextColor() {
         switch(state){
         case"ENABLED":
-            return _colors.uGreen // en attendant de trouver du noir
+            return _colors.uGreen
         case"DISABLED":
             return _colors.uLightGrey
         case"ERROR":
             return _colors.uDarkRed
         }
     }
-
-
 
     function execute() {
         console.log(radiobutton.checked)
@@ -89,9 +87,14 @@ RadioButton {
         onReleased: {
             if (radiobutton.state != "DISABLED") {
                 checked = !checked
-            } else {
+            }
+            else {
                 checked = checked
             }
+        }
+
+        onClicked: {
+            enabled = false
         }
 
     }
