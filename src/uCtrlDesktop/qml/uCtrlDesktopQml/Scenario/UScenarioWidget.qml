@@ -3,6 +3,7 @@ import QtQuick 2.0
 Rectangle {
     property string name: "UNKNOWN"
     property ListModel scenario: null
+    clip:true
 
     color: "transparent"
     width: parent.width
@@ -33,6 +34,7 @@ Rectangle {
 
     Rectangle {
         id: scenarioTask
+        clip:true
 
         anchors.top: scenarioHeader.bottom
         anchors.bottom: parent.bottom
