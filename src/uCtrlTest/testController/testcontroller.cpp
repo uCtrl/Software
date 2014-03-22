@@ -22,5 +22,4 @@ void TestController::testCase1()
 }
 
 QTEST_APPLESS_MAIN(TestController)
-
-#include "tst_testcontroller.moc"
+#include "testcontroller.moc"

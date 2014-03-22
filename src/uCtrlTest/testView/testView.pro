@@ -8,12 +8,13 @@ QT       += testlib
 
 QT       -= gui
 
-TARGET = tst_testview
+TARGET = testview
 CONFIG   += console
 CONFIG   -= app_bundle
 
 TEMPLATE = app
 
 
-SOURCES += tst_testview.cpp
+SOURCES += \
+    testview.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"

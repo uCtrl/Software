@@ -22,5 +22,4 @@ void TestView::testCase1()
 }
 
 QTEST_APPLESS_MAIN(TestView)
-
-#include "tst_testview.moc"
+#include "testview.moc"

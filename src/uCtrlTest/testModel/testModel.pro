@@ -8,12 +8,13 @@ QT       += testlib
 
 QT       -= gui
 
-TARGET = tst_testmodel
+TARGET = testmodel
 CONFIG   += console
 CONFIG   -= app_bundle
 
 TEMPLATE = app
 
 
-SOURCES += tst_testmodel.cpp
+SOURCES += \
+    testmodel.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"

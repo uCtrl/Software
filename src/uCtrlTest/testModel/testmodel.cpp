@@ -22,5 +22,4 @@ void TestModel::testCase1()
 }
 
 QTEST_APPLESS_MAIN(TestModel)
-
-#include "tst_testmodel.moc"
+#include "testmodel.moc"
