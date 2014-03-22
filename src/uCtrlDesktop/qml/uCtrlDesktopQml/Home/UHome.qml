@@ -166,5 +166,17 @@ UI.UFrame {
             id: combo
             anchors.top: labelDemo.bottom
         }
+
+//        UI.URadioButton {
+//            id: radio
+//            width: parent.width
+
+//            label: qsTr("RadioButton")
+//            anchors.top: h5.bottom
+//            anchors.left: parent.left
+//            anchors.topMargin: 5
+
+//            headerStyle: 5
+//        }
     }
 }
