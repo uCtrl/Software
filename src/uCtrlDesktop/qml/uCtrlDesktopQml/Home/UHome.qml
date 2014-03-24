@@ -9,14 +9,30 @@ UI.UFrame {
 
     UI.UButton {
         id: firstButton
-
-        displayedText: qsTr("Click me !")
-        width: 96; height: 27; y: 7;
+        anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
+        text: qsTr("Click me !")
 
         function execute() {
-            setDisabled()
+            state="DISABLED"
         }
+    }
+
+    UI.UButton {
+        id: enabledButton
+        anchors.top: firstButton.bottom
+        anchors.left: parent.left
+
+        text: "Enabled button"
+        state: "ENABLED"
+    }
+
+    UI.UButton {
+        id: disabled
+        anchors.left: enabledButton.right
+
+        text: "Disabled button"
+        state: "DISABLED"
     }
 
     Rectangle {

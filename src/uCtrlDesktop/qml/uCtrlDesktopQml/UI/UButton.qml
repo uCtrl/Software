@@ -1,56 +1,57 @@
 import QtQuick 2.0
+import QtQuick.Controls 1.0
+import QtQuick.Controls.Styles 1.0
 
 Rectangle {
-    property string displayedText: "UNKNOWN"
-    property bool enabled: true
+    id: button
 
-    signal click
+    property string text: "UNKNOWN"
+    height: 30
+    width: 100
 
     radius: 5
-    border.width: 1
+    anchors.margins: 4
 
-    ULabel {
-        id: buttonLabel
-        anchors.centerIn: parent
-        font.bold: true
-        label: displayedText
-
-        Component.onCompleted: {
-            applyHeadingStyle(5)
-            centerHorizontally()
-            buttonLabel.color = "white"
-            buttonLabel.font.bold = true
-        }
-    }
-
-    function setDisabled() {
-        enabled = false
-        color = _colors.uLightGrey
-        border.color = _colors.uGrey
-        buttonLabel.color = _colors.uDarkGrey
-    }
-
-    function setEnabled() {
-        enabled = true
-        color = _colors.uGreen
-        border.color = _colors.uDarkGreen
-        buttonLabel.color = "white"
-    }
-
-    Component.onCompleted: { setEnabled() }
-
-    MouseArea {
-        id: defaultArea
-        anchors.fill: parent
-        onClicked: click()
-    }
-
-    onClick: {
-        if (enabled) this.execute()
-    }
+    color: _colors.uGreen
+    state: "NORMAL"
 
     function execute() {
         // @TODO : Change console log for alert
         console.log("Warning execute method not overriden")
     }
+
+    MouseArea {
+        id: mouseArea
+        anchors.fill: parent
+        onClicked: {
+            if (state != "DISABLED") parent.execute()
+        }
+    }
+
+    Text {
+        id: label
+        font.bold: true
+        color: "white"
+        text: button.text
+        anchors.centerIn: parent
+    }
+
+    states: [
+        State {
+            name: "ENABLED"
+            PropertyChanges { target: button; color: _colors.uGreen }
+            PropertyChanges { target: label; color: "white" }
+        },
+        State {
+            name: "DISABLED"
+            PropertyChanges { target: button; color: _colors.uLightGrey }
+            PropertyChanges { target: label; color: _colors.uDarkGrey }
+        }
+    ]
+
+    transitions: [
+        Transition {
+            ColorAnimation { from: _colors.uGreen; to: _colors.uLightGrey; duration: 75 }
+        }
+    ]
 }
