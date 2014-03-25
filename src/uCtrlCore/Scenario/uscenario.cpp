@@ -2,29 +2,30 @@
 #include "Utility/uniqueidgenerator.h"
 #include <sstream>
 
-UScenario::UScenario()
+UScenario::UScenario(QObject* parent)
+    :QAbstractListModel(parent)
 {
     setId(UniqueIdGenerator::GenerateUniqueId());
     setName("Undefined");
 }
 
-UScenario::UScenario(const UScenario& scenario)
+UScenario::UScenario(const UScenario *scenario)
 {
-    setId(scenario.getId());
-    setName(scenario.getName());
-    setTasks(scenario.getTasks());
+    setId(scenario->getId());
+    setName(scenario->getName());
+    setTasks(scenario->getTasks());
 }
 
 UScenario::~UScenario()
 {
     // TODO: properly delete m_tasks data
-    m_Tasks.clear();
+    m_tasks.clear();
 }
 
-void UScenario::FillObject(json::Object& obj) const
+void UScenario::fillObject(json::Object& obj) const
 {
     obj["id"] = getId();
-    obj["name"] = getName();
+    obj["name"] = getName().toStdString();
 
     // WARNING : Custom code
     obj["tasks_size"] = (int) getTasks().size();
@@ -34,24 +35,22 @@ void UScenario::FillObject(json::Object& obj) const
         oss << "tasks[" << i << "]";
 
         std::string key = oss.str();
-        obj[key] = getTasks()[i].ToObject();
-    }
-
-    obj["conditions_size"] = (int) getConditions().size();
-    for (int i = 0; i < getConditions().size(); i++)
-    {
-        std::ostringstream oss;
-        oss << "scenarioConditions[" << i << "]";
-
-        std::string key = oss.str();
-        obj[key] = getConditions()[i].ToObject();
+        obj[key] = getTasks()[i]->ToObject();
     }
 }
 
-void UScenario::FillMembers(const json::Object& obj)
+QObject* UScenario::getTaskAt(int index) const
+{
+    if (index <= getTasks().count()) {
+        return (QObject*) ( getTasks().at(index) );
+    }
+    return 0;
+}
+
+void UScenario::fillMembers(const json::Object& obj)
 {
     setId(obj["id"]);
-    setName(obj["name"].ToString());
+    setName(QString::fromStdString(obj["name"].ToString()));
 
     // WARNING : Custom code
     int m_tasks_size = obj["tasks_size"];
@@ -61,18 +60,8 @@ void UScenario::FillMembers(const json::Object& obj)
         oss << "tasks[" << i << "]";
 
         std::string key = oss.str();
-        UTask task = UTask::Deserialize(obj[key]);
-        m_Tasks.push_back(task);
-    }
-
-    int m_conditions_size = obj["conditions_size"];
-    for (int i = 0 ; i < m_conditions_size; i++)
-    {
-        std::ostringstream oss;
-        oss << "conditions[" << i << "]";
-
-        std::string key = oss.str();
-        UCondition condition = UCondition::Deserialize(obj[key]);
-        m_Conditions.push_back(condition);
+        UTask* task = new UTask();
+        task->deserialize(obj[key]);
+        m_tasks.push_back(task);
     }
 }

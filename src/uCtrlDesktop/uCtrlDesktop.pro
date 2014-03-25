@@ -18,15 +18,13 @@ SOURCES += \
     main.cpp \
     Network/bonjourservicebrowser.cpp \
     Network/bonjourserviceresolver.cpp \
-    Models/Task/utaskmodel.cpp \
-    Models/Scenario/uscenariomodel.cpp
+    Models/Task/utaskmodel.cpp
 
 HEADERS += \
     Network/bonjourrecord.h \
     Network/bonjourservicebrowser.h \
     Network/bonjourserviceresolver.h \
-    Models/Task/utaskmodel.h \
-    Models/Scenario/uscenariomodel.h
+    Models/Task/utaskmodel.h
 
 INCLUDEPATH += \
     qml/uCtrlDesktopQml/

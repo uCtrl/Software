@@ -48,7 +48,7 @@ void UDevice::fillObject(json::Object& obj) const
         oss << "scenarios[" << i << "]";
 
         std::string key = oss.str();
-        obj[key] = getScenarios()[i]->ToObject();
+        obj[key] = getScenarios()[i]->toObject();
     }
 
     // Device Info

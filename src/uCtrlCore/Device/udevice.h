@@ -13,14 +13,14 @@ public:
 
     Q_PROPERTY(QList<UScenario*> scenarios READ getScenarios WRITE setScenarios)
     Q_PROPERTY(int id READ getId WRITE setId)
-    Q_PROPERTY(QString name READ getName WRITE setName)
+    Q_PROPERTY(QString name READ getName WRITE setName NOTIFY nameChanged)
 
     // Device Info
     Q_PROPERTY(float minValue READ getMinValue WRITE setMinValue)
     Q_PROPERTY(float maxValue READ getMaxValue WRITE setMaxValue)
     Q_PROPERTY(int precision READ getPrecision WRITE setPrecision)
     Q_PROPERTY(QString unitLabel READ getUnitLabel WRITE setUnitLabel)
-    Q_PROPERTY(int type READ getType WRITE setType)
+    Q_PROPERTY(int type READ getType WRITE setType NOTIFY typeChanged)
 
     UCTRL_JSON(UDevice)
 

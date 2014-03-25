@@ -24,6 +24,7 @@ Rectangle {
     function refresh(newScenario) {
         scenarioHeader.refresh(newScenario.name)
         taskList.model = newScenario
+        console.log("THE NEW SCENARIO : " + newScenario)
     }
 
     UScenarioHeaderWidget {
