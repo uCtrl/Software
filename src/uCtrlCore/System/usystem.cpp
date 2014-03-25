@@ -22,7 +22,6 @@ int USystem::rowCount(const QModelIndex &parent) const
     return 0;
 }
 
-
 void USystem::fillObjectSummary(json::Object& obj) const
 {
 }
@@ -35,7 +34,7 @@ void USystem::fillObject(json::Object &obj) const
         oss << "platforms [" << i << "]";
 
         std::string key = oss.str();
-        obj[key] = getPlatforms()[i]->ToObject();
+        obj[key] = getPlatforms().at(i)->toObject();
     }
 }
 

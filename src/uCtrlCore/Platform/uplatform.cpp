@@ -1,12 +1,18 @@
 #include "Utility/uniqueidgenerator.h"
 #include "uplatform.h"
+#include "System/usystem.h"
 #include "sstream"
 
-UPlatform::UPlatform()
+UPlatform::UPlatform(QObject* parent)
+    :QAbstractListModel(parent)
 {
     setId(UniqueIdGenerator::GenerateUniqueId());
 }
 
+UPlatform::~UPlatform()
+{
+
+}
 UPlatform::UPlatform(const UPlatform& platform)
 {
     setId(platform.getId());
@@ -15,10 +21,19 @@ UPlatform::UPlatform(const UPlatform& platform)
     setDevices(platform.getDevices());
 }
 
-void UPlatform::FillObject(json::Object &obj) const
+QVariant UPlatform::data(const QModelIndex & index, int role) const {
+    return QVariant();
+}
+
+int UPlatform::rowCount(const QModelIndex &parent) const
+{
+    return 0;
+}
+
+void UPlatform::fillObject(json::Object &obj) const
 {
     obj["id"] = getId();
-    obj["ip"] = getIp();
+    obj["ip"] = getIp().toStdString();
     obj["port"] = getPort();
 
     obj["devices_size"] = (int) getDevices().size();
@@ -28,14 +43,14 @@ void UPlatform::FillObject(json::Object &obj) const
         oss << "devices[" << i << "]";
 
         std::string key = oss.str();
-        obj[key] = getDevices()[i].ToObject();
+        obj[key] = getDevices()[i]->ToObject();
     }
 }
 
-void UPlatform::FillMembers(const json::Object &obj)
+void UPlatform::fillMembers(const json::Object &obj)
 {
     setId(obj["id"]);
-    setIp(obj["ip"].ToString());
+    setIp(QString::fromStdString(obj["ip"].ToString()));
     setPort(obj["port"]);
 
     int m_devices_size = obj["devices_size"];
@@ -45,8 +60,9 @@ void UPlatform::FillMembers(const json::Object &obj)
         oss << "devices[" << i << "]";
 
         std::string key = oss.str();
-        UDevice device = UDevice::Deserialize(obj[key]);
-        m_Devices.push_back(device);
+        UDevice* device = new UDevice();
+        device->deserialize(obj[key]);
+        m_devices.push_back(device);
     }
 }
 

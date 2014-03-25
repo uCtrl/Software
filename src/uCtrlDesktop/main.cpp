@@ -53,10 +53,11 @@ int main(int argc, char *argv[])
 
     USystem system;
     LoadSystemFromFile(system, ":/Resources/JSON.txt");
-    UDeviceModel dm( &system.getPlatforms().first()->getDevices()[0] );
 
     QQmlContext *ctxt = viewer.rootContext();
-    ctxt->setContextProperty("myDevice", &dm);
+//    UDevice* d = system.getPlatforms().first()->getDevices()[0];
+//    UDeviceModel dm = UDeviceModel(d);
+//    ctxt->setContextProperty("myDevice", system.getPlatforms().first()->getDevices()[0]);
 
     viewer.setMainQmlFile(QStringLiteral("qml/uCtrlDesktopQml/main.qml"));
     viewer.showExpanded();
