@@ -20,7 +20,7 @@ public:                                                             \
     }                                                               \
     void            fillObject(json::Object& obj) const;            \
     void            fillObjectSummary(json::Object& obj) const;     \
-    std::string     serialize(bool summary = false) const {         \
+    QString         serialize(bool summary = false) const {         \
         json::Object obj;                                           \
         if (summary) {                                              \
             fillObjectSummary(obj);                                 \
@@ -29,7 +29,7 @@ public:                                                             \
             fillObject(obj);                                        \
         }                                                           \
                                                                     \
-        return json::Serialize(obj);                                \
+        return QString::fromStdString(json::Serialize(obj));        \
     }                                                               \
     void            fillMembers(const json::Object& obj);           \
     void            deserialize(const json::Object& obj)            \

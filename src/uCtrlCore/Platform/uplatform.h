@@ -3,11 +3,12 @@
 
 #include "Serialization/JsonMacros.h"
 #include "Device/udevice.h"
-#include <QList>
 #include <QAbstractListModel>
 
 class UPlatform: public QAbstractListModel
 {
+    Q_OBJECT
+
     Q_PROPERTY(QList<UDevice*> devices READ getDevices WRITE setDevices)
     Q_PROPERTY(int id READ getId WRITE setId)
     Q_PROPERTY(QString ip READ getIp WRITE setIp)

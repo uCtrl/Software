@@ -1,6 +1,5 @@
 #include "Utility/uniqueidgenerator.h"
 #include "uplatform.h"
-#include "System/usystem.h"
 #include "sstream"
 
 UPlatform::UPlatform(QObject* parent)
@@ -43,7 +42,7 @@ void UPlatform::fillObject(json::Object &obj) const
         oss << "devices[" << i << "]";
 
         std::string key = oss.str();
-        obj[key] = getDevices()[i]->ToObject();
+        obj[key] = getDevices()[i]->toObject();
     }
 }
 

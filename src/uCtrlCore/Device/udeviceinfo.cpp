@@ -1,6 +1,7 @@
 #include "udeviceinfo.h"
 
-UDeviceInfo::UDeviceInfo()
+UDeviceInfo::UDeviceInfo(QObject *parent)
+    : QObject(parent)
 {
 }
 
@@ -13,20 +14,20 @@ UDeviceInfo::UDeviceInfo(const UDeviceInfo& deviceInfo)
     setUnitLabel(deviceInfo.getUnitLabel());
 }
 
-void UDeviceInfo::FillObject(json::Object& obj) const
+void UDeviceInfo::fillObject(json::Object& obj) const
 {
     obj["minValue"] = getMinValue();
     obj["maxValue"] = getMaxValue();
     obj["precision"] = getPrecision();
-    obj["unitLabel"] = getUnitLabel();
+    obj["unitLabel"] = getUnitLabel().toStdString();
     obj["type"] = getType();
 }
 
-void UDeviceInfo::FillMembers(const json::Object& obj)
+void UDeviceInfo::fillMembers(const json::Object& obj)
 {
     setMinValue(obj["minValue"]);
     setMaxValue(obj["maxValue"]);
     setPrecision(obj["precision"]);
-    setUnitLabel(obj["unitLabel"].ToString());
+    setUnitLabel(QString::fromStdString(obj["unitLabel"].ToString()));
     setType(obj["type"]);
 }

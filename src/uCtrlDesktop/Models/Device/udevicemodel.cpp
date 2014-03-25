@@ -12,7 +12,7 @@ UDeviceModel::~UDeviceModel()
 }
 
 QString UDeviceModel::name() {
-    QString string = QString::fromStdString(m_device->getName());
+    QString string = m_device->getName();
     return string;
 }
 

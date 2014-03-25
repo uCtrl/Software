@@ -9,7 +9,7 @@ UDeviceStateInfo::UDeviceStateInfo(const UDeviceStateInfo& deviceStateInfo)
 
 void UDeviceStateInfo::FillObject(json::Object& obj) const
 {
-	UDeviceInfo::FillObject(obj);
+//	UDeviceInfo::FillObject(obj);
 
     // WARNING : Custom code
     obj["valueToNameMap_size"] = (int)getValueToNameMap().size();
@@ -34,7 +34,7 @@ void UDeviceStateInfo::FillObject(json::Object& obj) const
 
 void UDeviceStateInfo::FillMembers(const json::Object& obj)
 {
-	UDeviceInfo::FillMembers(obj);
+    //	UDeviceInfo::FillMembers(obj);
 
     // WARNING : Custom code
     int valueToNameMap_size = obj["valueToNameMap_size"];

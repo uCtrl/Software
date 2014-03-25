@@ -10,7 +10,6 @@
 #include "Scenario/uscenario.h"
 #include "Utility/uniqueidgenerator.h"
 #include "Device/udevice.h"
-#include "Models/Device/udevicemodel.h"
 #include "Conditions/ucondition.h"
 #include "Conditions/uconditiondate.h"
 #include <QFile>
@@ -24,7 +23,7 @@ void SaveDeviceToFile(const UDevice* device, std::string filename){
     QFile file(QString::fromStdString(filename));
     file.open(QIODevice::WriteOnly | QIODevice::Text);
     QTextStream out(&file);
-    out << QString::fromStdString(device->Serialize());
+    out << device->serialize();
 
     // optional, as QFile destructor will already do it:
     file.close();
@@ -55,9 +54,8 @@ int main(int argc, char *argv[])
     LoadSystemFromFile(system, ":/Resources/JSON.txt");
 
     QQmlContext *ctxt = viewer.rootContext();
-//    UDevice* d = system.getPlatforms().first()->getDevices()[0];
-//    UDeviceModel dm = UDeviceModel(d);
-//    ctxt->setContextProperty("myDevice", system.getPlatforms().first()->getDevices()[0]);
+    UDevice* d = system.getPlatforms().first()->getDevices()[0];
+    ctxt->setContextProperty("myDevice", d);
 
     viewer.setMainQmlFile(QStringLiteral("qml/uCtrlDesktopQml/main.qml"));
     viewer.showExpanded();

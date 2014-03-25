@@ -9,6 +9,8 @@
 
 class USystem: public QAbstractListModel
 {
+    Q_OBJECT
+
     Q_PROPERTY(QList<UPlatform*> platforms READ getPlatforms WRITE setPlatforms)
     UCTRL_JSON(USystem)
 public:
