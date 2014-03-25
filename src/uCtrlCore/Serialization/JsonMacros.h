@@ -3,6 +3,44 @@
 
 #include "json/json.h"
 
+#define UCTRL_JSON(CLASS_NAME)                                      \
+public:                                                             \
+    json::Object    toObject() const                                \
+    {                                                               \
+        json::Object obj;                                           \
+        fillObject(obj);                                            \
+        return obj;                                                 \
+    }                                                               \
+                                                                    \
+    json::Object    toObjectSummary() const                         \
+    {                                                               \
+        json::Object obj;                                           \
+        fillObjectSummary(obj);                                     \
+        return obj;                                                 \
+    }                                                               \
+    void            fillObject(json::Object& obj) const;            \
+    void            fillObjectSummary(json::Object& obj) const;     \
+    std::string     serialize(bool summary = false) const {         \
+        json::Object obj;                                           \
+        if (summary) {                                              \
+            fillObjectSummary(obj);                                 \
+        }                                                           \
+        else {                                                      \
+            fillObject(obj);                                        \
+        }                                                           \
+                                                                    \
+        return json::Serialize(obj);                                \
+    }                                                               \
+    void            fillMembers(const json::Object& obj);           \
+    void            deserialize(const json::Object& obj)            \
+    {                                                               \
+        this->fillMembers(obj);                                      \
+    }                                                               \
+
+
+
+
+
 #define BEGIN_DECLARE_JSON_CLASS(NAME, PARENT_DECLARATION, ARGS)    \
 class NAME PARENT_DECLARATION                                       \
 {                                                                   \
@@ -41,6 +79,10 @@ public:                                                             \
         o.FillMembers(obj);                                         \
         return o;                                                   \
     }                                                               \
+    void            deserialize(const json::Object& obj)            \
+{                                                               \
+    this->FillMembers(obj);                                      \
+}                                                               \
                                                                     \
     ARGS
 

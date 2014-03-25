@@ -1,31 +1,47 @@
 #include "usystem.h"
 #include "sstream"
 
-USystem::USystem()
+USystem::USystem(QObject *parent)
+    : QAbstractListModel(parent)
 {
 
 }
 
-USystem::USystem(const USystem& system)
+USystem::~USystem()
 {
-    setPlatforms(system.getPlatforms());
+
 }
 
-void USystem::FillObject(json::Object &obj) const
+QVariant USystem::data(const QModelIndex &index, int role) const
 {
-    obj["platforms_size"] = (int) getPlatforms().size();
+    return QVariant();
+}
+
+int USystem::rowCount(const QModelIndex &parent) const
+{
+    return 0;
+}
+
+
+void USystem::fillObjectSummary(json::Object& obj) const
+{
+}
+void USystem::fillObject(json::Object &obj) const
+{
+    obj["platforms_size"] = getPlatforms().size();
     for (int i = 0; i < getPlatforms().size(); i++)
     {
         std::ostringstream oss;
         oss << "platforms [" << i << "]";
 
         std::string key = oss.str();
-        obj[key] = getPlatforms()[i].ToObject();
+        obj[key] = getPlatforms()[i]->ToObject();
     }
 }
 
-void USystem::FillMembers(const json::Object &obj)
+void USystem::fillMembers(const json::Object &obj)
 {
+    m_platforms.clear();
     int m_platforms_size = obj["platforms_size"];
     for (int i = 0; i < m_platforms_size; i++)
     {
@@ -33,7 +49,8 @@ void USystem::FillMembers(const json::Object &obj)
         oss << "platforms[" << i << "]";
 
         std::string key = oss.str();
-        UPlatform platform = UPlatform::Deserialize(obj[key]);
-        m_Platforms.push_back(platform);
+        UPlatform* platform = new UPlatform();
+        platform->deserialize(obj[key]);
+        m_platforms.push_back(platform);
     }
 }

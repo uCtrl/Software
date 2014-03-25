@@ -37,7 +37,7 @@ void LoadSystemFromFile(USystem& db, std::string filename){
         QTextStream in(&f);
         QString str = in.readAll();
         str.remove(QRegExp("[\\n\\t\\r]"));
-        db = USystem::Deserialize(json::Deserialize(str.toStdString()));
+        db.deserialize(json::Deserialize(str.toStdString()));
     }
 }
 
@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
 
     USystem system;
     LoadSystemFromFile(system, ":/Resources/JSON.txt");
-    UDeviceModel dm( &system.getPlatforms()[0].getDevices()[0] );
+    UDeviceModel dm( &system.getPlatforms().first()->getDevices()[0] );
 
     QQmlContext *ctxt = viewer.rootContext();
     ctxt->setContextProperty("myDevice", &dm);
