@@ -2,7 +2,6 @@
 #define UDEVICE_H
 
 #include "Serialization/JsonMacros.h"
-#include "Device/udeviceinfo.h"
 #include <QAbstractListModel>
 #include <Scenario/uscenario.h>
 

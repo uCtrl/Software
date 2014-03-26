@@ -9,7 +9,6 @@ class UTask: public QAbstractListModel
 {
     Q_OBJECT
 
-
     int m_id;
     QList<UCondition*> m_conditions;
     QString m_status;
@@ -20,11 +19,12 @@ public:
     ~UTask();
     UCTRL_JSON(UTask)
     Q_PROPERTY(int id READ getId WRITE setId)
-    Q_PROPERTY(QString status READ getStatus WRITE setStatus)
+    Q_PROPERTY(QString status READ getStatus WRITE setStatus NOTIFY statusChanged)
     Q_PROPERTY(QList<UCondition*> conditions READ getConditions WRITE setConditions)
 
     int getId() const { return m_id; }
     QList<UCondition*> getConditions() const { return m_conditions; }
+    void addCondition(UCondition *cond);
     QString getStatus() const {
         return m_status;
     }
@@ -36,6 +36,8 @@ public slots:
     void setId(int arg) { m_id = arg; }
     void setConditions(QList<UCondition*> arg) { m_conditions = arg; }
     void setStatus(QString arg) { m_status = arg; }
+signals:
+    void statusChanged(QString arg);
 };
 
 #endif // UTASK_H

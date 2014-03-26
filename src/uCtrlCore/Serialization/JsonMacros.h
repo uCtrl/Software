@@ -12,33 +12,17 @@ public:                                                             \
         return obj;                                                 \
     }                                                               \
                                                                     \
-    json::Object    toObjectSummary() const                         \
-    {                                                               \
-        json::Object obj;                                           \
-        fillObjectSummary(obj);                                     \
-        return obj;                                                 \
-    }                                                               \
     void            fillObject(json::Object& obj) const;            \
-    void            fillObjectSummary(json::Object& obj) const;     \
-    QString         serialize(bool summary = false) const {         \
+    QString         serialize() const {                             \
         json::Object obj;                                           \
-        if (summary) {                                              \
-            fillObjectSummary(obj);                                 \
-        }                                                           \
-        else {                                                      \
-            fillObject(obj);                                        \
-        }                                                           \
-                                                                    \
+        fillObject(obj);                                            \
         return QString::fromStdString(json::Serialize(obj));        \
     }                                                               \
     void            fillMembers(const json::Object& obj);           \
     void            deserialize(const json::Object& obj)            \
     {                                                               \
-        this->fillMembers(obj);                                      \
+        this->fillMembers(obj);                                     \
     }                                                               \
-
-
-
 
 
 #define BEGIN_DECLARE_JSON_CLASS(NAME, PARENT_DECLARATION, ARGS)    \

@@ -20,12 +20,6 @@ UDevice::UDevice(const UDevice& device)
     setScenarios(device.getScenarios());
 }
 
-void UDevice::fillObjectSummary(json::Object& obj) const
-{
-    obj["id"] = getId();
-    obj["name"] = getName().toStdString();
-}
-
 void UDevice::fillObject(json::Object& obj) const
 {
     obj["id"] = getId();

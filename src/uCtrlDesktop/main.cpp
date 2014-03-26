@@ -6,17 +6,10 @@
 #include <qqml.h>
 #include <QtQuick/qquickitem.h>
 #include <QtQuick/qquickview.h>
-#include "Models/Scenario/uscenariomodel.h"
-#include "Scenario/uscenario.h"
-#include "Utility/uniqueidgenerator.h"
-#include "Device/udevice.h"
-#include "Conditions/ucondition.h"
-#include "Conditions/uconditiondate.h"
-#include <QFile>
-#include <QTextStream>
 #include "System/usystem.h"
 
-#include <sstream>
+#include <QFile>
+#include <QTextStream>
 
 void SaveDeviceToFile(const UDevice* device, std::string filename){
 
@@ -29,14 +22,14 @@ void SaveDeviceToFile(const UDevice* device, std::string filename){
     file.close();
 }
 
-void LoadSystemFromFile(USystem& db, std::string filename){
+void LoadSystemFromFile(USystem& s, std::string filename){
 
     QFile f(QString::fromStdString(filename));
     if (f.open(QFile::ReadOnly | QFile::Text)){
         QTextStream in(&f);
         QString str = in.readAll();
         str.remove(QRegExp("[\\n\\t\\r]"));
-        db.deserialize(json::Deserialize(str.toStdString()));
+        s.deserialize(json::Deserialize(str.toStdString()));
     }
 }
 

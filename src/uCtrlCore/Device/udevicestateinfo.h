@@ -1,7 +1,6 @@
 #ifndef UDEVICESTATEINFO_H
 #define UDEVICESTATEINFO_H
 
-#include "udeviceinfo.h"
 #include <map>
 #include <string>
 

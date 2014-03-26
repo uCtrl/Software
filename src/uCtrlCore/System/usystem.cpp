@@ -22,9 +22,6 @@ int USystem::rowCount(const QModelIndex &parent) const
     return 0;
 }
 
-void USystem::fillObjectSummary(json::Object& obj) const
-{
-}
 void USystem::fillObject(json::Object &obj) const
 {
     obj["platforms_size"] = getPlatforms().size();

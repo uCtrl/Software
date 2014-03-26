@@ -9,7 +9,6 @@ CONFIG += staticlib
 SOURCES += \
     Platform/uplatform.cpp \
     Device/udevice.cpp \
-    Device/udevicestateinfo.cpp \
     Conditions/ucondition.cpp \
     Conditions/uconditiondate.cpp \
     Conditions/uconditionday.cpp \
@@ -26,7 +25,6 @@ HEADERS += \
     Platform/uplatform.h \
     usystem.h \
     Device/udevice.h \
-    Device/udevicestateinfo.h \
     Conditions/ucondition.h \
     Conditions/uconditiondate.h \
     Conditions/uconditionday.h \

@@ -20,6 +20,11 @@ UTask::~UTask()
     m_conditions.clear();
 }
 
+void UTask::addCondition( UCondition *cond)
+{
+    m_conditions.push_back(cond);
+}
+
 void UTask::fillObject(json::Object& obj) const
 {
     obj["id"] = getId();
