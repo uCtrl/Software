@@ -35,7 +35,7 @@ void UScenario::fillObject(json::Object& obj) const
         oss << "tasks[" << i << "]";
 
         std::string key = oss.str();
-        obj[key] = getTasks()[i]->ToObject();
+        obj[key] = getTasks()[i]->toObject();
     }
 }
 

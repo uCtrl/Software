@@ -36,8 +36,9 @@ public:
     UDevice(const UDevice& device);
     ~UDevice();
 
-    virtual QVariant data(const QModelIndex &index, int role) const;
-    virtual int rowCount(const QModelIndex &parent) const;
+    virtual QVariant data(const QModelIndex &index, int role) const { return QVariant();}
+    virtual int rowCount(const QModelIndex &parent = QModelIndex()) const { return m_scenarios.count();}
+
     QList<UScenario*> getScenarios() const { return m_scenarios; }
 
     // TODO: this should be better handled

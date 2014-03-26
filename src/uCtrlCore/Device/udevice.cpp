@@ -20,15 +20,6 @@ UDevice::UDevice(const UDevice& device)
     setScenarios(device.getScenarios());
 }
 
-QVariant UDevice::data(const QModelIndex & index, int role) const {
-    return QVariant();
-}
-
-int UDevice::rowCount(const QModelIndex &parent) const
-{
-    return 0;
-}
-
 void UDevice::fillObjectSummary(json::Object& obj) const
 {
     obj["id"] = getId();

@@ -24,7 +24,6 @@ Rectangle {
     function refresh(newScenario) {
         scenarioHeader.refresh(newScenario.name)
         taskList.model = newScenario
-        console.log("THE NEW SCENARIO : " + newScenario)
     }
 
     UScenarioHeaderWidget {
@@ -50,9 +49,7 @@ Rectangle {
             anchors.fill: parent
 
             model: scenario
-            delegate: UConfigWidget {
-                status: taskStatus;
-            }
+            delegate: UTaskWidget { }
         }
     }
 }

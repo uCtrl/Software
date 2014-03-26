@@ -2,34 +2,28 @@
 #include "Utility/uniqueidgenerator.h"
 #include <sstream>
 
-UTask::UTask()
+UTask::UTask(QObject* parent)
+    : QAbstractListModel(parent)
 {
     setId(UniqueIdGenerator::GenerateUniqueId());
 }
 
-UTask::UTask(const UTask& task)
+UTask::UTask(const UTask* task)
 {
-    setId(task.getId());
-    setName(task.getName());
-    setStatus(task.getStatus());
-    setConditions(task.getConditions());
-}
-
-UTask::UTask(std::string status): m_Status(status)
-{
+    setId(task->getId());
+    setStatus(task->getStatus());
+    setConditions(task->getConditions());
 }
 
 UTask::~UTask()
 {
-    // TODO: properly delete m_conditions data
-    m_Conditions.clear();
+    m_conditions.clear();
 }
 
-void UTask::FillObject(json::Object& obj) const
+void UTask::fillObject(json::Object& obj) const
 {
     obj["id"] = getId();
-    obj["name"] = getName();
-    obj["status"] = getStatus();
+    obj["status"] = getStatus().toStdString();
 
     // WARNING : Custom code
     obj["conditions_size"] = (int) getConditions().size();
@@ -39,16 +33,15 @@ void UTask::FillObject(json::Object& obj) const
         oss << "conditions[" << i << "]";
 
         std::string key = oss.str();
-        obj[key] = getConditions()[i].ToObject();
+        obj[key] = getConditions()[i]->ToObject();
     }
 
 }
 
-void UTask::FillMembers(const json::Object& obj)
+void UTask::fillMembers(const json::Object& obj)
 {
     setId(obj["id"]);
-    setName(obj["name"].ToString());
-    setStatus(obj["status"].ToString());
+    setStatus(QString::fromStdString(obj["status"].ToString()));
 
     // WARNING : Custom code
     int m_conditions_size = obj["conditions_size"];
@@ -58,7 +51,8 @@ void UTask::FillMembers(const json::Object& obj)
         oss << "conditions[" << i << "]";
 
         std::string key = oss.str();
-        UCondition condition = UCondition::Deserialize(obj[key]);
-        m_Conditions.push_back(condition);
+        UCondition* condition = new UCondition();
+        condition->deserialize(obj[key]);
+        m_conditions.push_back(condition);
     }
 }
