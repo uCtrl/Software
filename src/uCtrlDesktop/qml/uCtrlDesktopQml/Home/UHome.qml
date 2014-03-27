@@ -35,12 +35,21 @@ UI.UFrame {
         }
 
         UI.UButton {
-            id: disabled
+            id: disabledButton
             anchors.top: firstButton.bottom
             anchors.left: enabledButton.right
-            width: 150
+            width: 120
             text: "Disabled button"
             state: "DISABLED"
+        }
+
+        UI.UButton {
+            id: errorButton
+            anchors.top: firstButton.bottom
+            anchors.left: disabledButton.right
+            width: 100
+            text: "Error button"
+            state: "ERROR"
         }
     }
     Rectangle {

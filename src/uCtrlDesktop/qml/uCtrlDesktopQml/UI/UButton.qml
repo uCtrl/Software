@@ -4,7 +4,7 @@ import QtQuick.Controls.Styles 1.0
 
 Rectangle {
     id: button
-    property string penis: "ha"
+
     property string text: "UNKNOWN"
     height: 30
     width: 100
@@ -40,12 +40,17 @@ Rectangle {
         State {
             name: "ENABLED"
             PropertyChanges { target: button; color: _colors.uGreen }
-            PropertyChanges { target: label; color: "white" }
+            PropertyChanges { target: label; color: _colors.uWhite }
         },
         State {
             name: "DISABLED"
             PropertyChanges { target: button; color: _colors.uLightGrey }
             PropertyChanges { target: label; color: _colors.uDarkGrey }
+        },
+        State {
+            name: "ERROR"
+            PropertyChanges { target: button; color: _colors.uDarkRed }
+            PropertyChanges { target: label; color: _colors.uWhite }
         }
     ]
 
