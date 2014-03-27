@@ -4,36 +4,102 @@ import QtQuick.Controls.Styles 1.0
 
 RadioButton {
     id: radiobutton
-    width: 1000
-    height: 35
-
     anchors.margins: 4
-    state: "NORMAL"
-    color: _colors.uWhite
+    state: "ENABLED"
+
+    style: RadioButtonStyle {
+        indicator: UCircle {
+
+            implicitHeight: 18
+            implicitWidth: 18
+
+            color: getBackgroundColor()
+            border.color: getBorderColor()
+            border.width: 1
+
+            Rectangle {
+                visible: control.checked
+                color: getRoundColor()
+                radius: 9
+                anchors.fill: parent
+                anchors.margins: 3
+            }
+        }
+
+        label: Text{
+            id: radiobuttonLabel
+            font.bold: (radiobutton.state == "ERROR")
+            text: control.text
+            color: getTextColor()
+        }
+    }
+
+    function getBackgroundColor() {
+        switch(state){
+            case "ENABLED":
+                return _colors.uWhite
+            case "DISABLED":
+                return _colors.uLightGrey
+            case "ERROR":
+                return _colors.uWhite
+            }
+    }
+
+    function getBorderColor() {
+        switch(state){
+        case "ENABLED":
+            return _colors.uGreen
+        case "DISABLED":
+            return _colors.uLightGrey
+        case "ERROR":
+            return _colors.uDarkRed
+        }
+    }
+
+    function getRoundColor() {
+        switch(state){
+        case "ENABLED":
+            return _colors.uGreen
+        case "DISABLED":
+            return _colors.uLightGrey
+        case "ERROR":
+            return _colors.uWhite
+        }
+    }
+
+    function getTextColor() {
+        switch(state){
+        case"ENABLED":
+            return _colors.uGreen // en attendant de trouver du noir
+        case"DISABLED":
+            return _colors.uLightGrey
+        case"ERROR":
+            return _colors.uDarkRed
+        }
+    }
+
+
 
     function execute() {
-        console.log("I clicked on thie radio button")
+        console.log(radiobutton.checked)
     }
 
     MouseArea {
-        id: mouseArea
         anchors.fill: parent
-
-        onClicked: {
-            if (state != "DISABLED") parent.execute()
+        onReleased: {
+            if (radiobutton.state != "DISABLED") {
+                checked = !checked
+            } else {
+                checked = checked
+            }
         }
+
     }
 
     states: [
-        State {
-            name: "NORMAL"
-            PropertyChanges { target: radiobutton; color: _colors.uWhite }
-        },
-
-        State {
-            name: "DISABLED"
-            PropertyChanges { target: radiobutton; color: _colors.uLightGrey }
-        }
-
+        State { name: "ENABLED" },
+        State { name: "DISABLED" },
+        State { name: "ERROR" }
     ]
 }
+
