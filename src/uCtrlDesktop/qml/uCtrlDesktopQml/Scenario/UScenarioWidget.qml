@@ -5,7 +5,7 @@ Rectangle {
     property ListModel scenario: null
     clip:true
 
-    color: "transparent"
+    color: _colors.uTransparent
     width: parent.width
 
     function getName() {
@@ -41,7 +41,7 @@ Rectangle {
 
         width: parent.width
 
-        color: "transparent"
+        color: _colors.uTransparent
         visible: true
 
         ListView {

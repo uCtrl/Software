@@ -15,7 +15,7 @@ Rectangle {
 
     UI.ULabel {
         text: scenarioName
-        color: colors.uDarkGrey
+        color: _colors.uDarkGrey
         font.pointSize: 11
         font.bold: true
 
@@ -34,6 +34,6 @@ Rectangle {
         anchors.rightMargin: 10
 
         radius: 5
-        color: "transparent"
+        color: _colors.uTransparent
     }
 }

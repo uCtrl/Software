@@ -5,7 +5,7 @@ Rectangle {
     property real rotationDegrees: 0
     property int thickness: 2
 
-    color: "black"
+    color: _colors.uTransparent
     height: thickness
     transformOrigin: Item.Left
     antialiasing: true

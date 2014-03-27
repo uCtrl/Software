@@ -4,5 +4,5 @@ Rectangle {
     width: parent.width
     height: 35
 
-    color: "transparent"
+    color: _colors.uTransparent
 }

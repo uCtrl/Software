@@ -57,7 +57,7 @@ UI.UFrame {
 
         width: parent.width
         height: 250
-        color: "transparent"
+        color: _colors.uTransparent
 
         anchors.top: buttonDemo.bottom
         anchors.left: parent.left

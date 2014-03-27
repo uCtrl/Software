@@ -46,7 +46,7 @@ Rectangle { // NavBar
         width: parent.width
         height: parent.height
         anchors.left: parent.left
-        color:"transparent"
+        color:_colors.uTransparent
 
         UI.ULabel {
             text: title
