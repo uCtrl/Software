@@ -13,8 +13,8 @@ Rectangle {
     }
 
     function adjustTitle() {
-        label.color = menuFrame.visible ? _colors.uGreen : _colors.uWhite
-        menuButton.color = menuFrame.visible ? _colors.uWhite : _colors.uGreen
+        label.color = (menuFrame.visible ? _colors.uGreen : _colors.uWhite)
+        menuButton.color = (menuFrame.visible ? _colors.uWhite : _colors.uGreen)
     }
 
     function toggleMenu() {
