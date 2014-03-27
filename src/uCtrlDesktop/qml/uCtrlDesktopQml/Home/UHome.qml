@@ -7,40 +7,50 @@ UI.UFrame {
     width: parent.width
     height: parent.height
 
-    UI.UButton {
-        id: firstButton
+    Rectangle {
+        id: buttonDemo
+        width: parent.width
+        height: 70
         anchors.top: parent.top
-        anchors.horizontalCenter: parent.horizontalCenter
-        text: qsTr("Click me !")
 
-        function execute() {
-            state="DISABLED"
+        UI.UButton {
+            id: firstButton
+            anchors.top: parent.top
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: qsTr("Click me !")
+
+            function execute() {
+                state="DISABLED"
+            }
+        }
+
+        UI.UButton {
+            id: enabledButton
+            anchors.top: firstButton.bottom
+            anchors.left: parent.left
+            width: 125
+
+            text: "Enabled button"
+            state: "ENABLED"
+        }
+
+        UI.UButton {
+            id: disabled
+            anchors.top: firstButton.bottom
+            anchors.left: enabledButton.right
+            width: 150
+            text: "Disabled button"
+            state: "DISABLED"
         }
     }
-
-    UI.UButton {
-        id: enabledButton
-        anchors.top: firstButton.bottom
-        anchors.left: parent.left
-
-        text: "Enabled button"
-        state: "ENABLED"
-    }
-
-    UI.UButton {
-        id: disabled
-        anchors.left: enabledButton.right
-
-        text: "Disabled button"
-        state: "DISABLED"
-    }
-
     Rectangle {
+        id: labelDemo
+
         width: parent.width
-        height: parent.height - firstButton.height - (7 + 3)
+        height: 250
         color: "transparent"
 
-        anchors.top: firstButton.bottom
+        anchors.top: buttonDemo.bottom
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.margins: 8
@@ -145,6 +155,7 @@ UI.UFrame {
 
         UI.UComboBox {
             id: combo
+            anchors.top: labelDemo.bottom
         }
     }
 }

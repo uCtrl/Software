@@ -4,7 +4,7 @@ import QtQuick.Controls.Styles 1.0
 
 Rectangle {
     id: button
-
+    property string penis: "ha"
     property string text: "UNKNOWN"
     height: 30
     width: 100
