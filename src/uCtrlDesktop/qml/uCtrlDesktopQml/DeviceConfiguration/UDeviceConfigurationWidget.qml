@@ -46,7 +46,7 @@ UI.UFrame {
             anchors.bottomMargin: 7
             width: 96; height: 27
             x: 10
-            displayedText: qsTr("Add")
+            text: qsTr("Add")
 
             signal qmlSignal()
         }

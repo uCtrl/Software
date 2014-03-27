@@ -12,6 +12,9 @@ QtObject {
     // White colors
     property color uWhite: "white"
 
+    // Black colors
+    property color uBlack: "black"
+
     // Grey colors
     property color uUltraLightGrey: "#F7F6F6"
     property color uLightGrey: "#EEEEEE"

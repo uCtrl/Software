@@ -86,7 +86,7 @@ Item {
             UI.UButton {
                 id: toggleBtn
 
-                displayedText: "T"
+                text: "T"
 
                 width: 20
                 height: 20

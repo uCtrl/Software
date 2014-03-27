@@ -120,9 +120,9 @@ Rectangle {
                 anchors.top: parent.top
                 anchors.topMargin: 15
 
-                displayedText: "I"
-                color: colors.uGrey
-                border.color: colors.uGrey
+                text: "I"
+                color: _colors.uGrey
+                border.color: _colors.uGrey
 
                 visible: showInfo
 
@@ -160,9 +160,9 @@ Rectangle {
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 15
 
-                displayedText: "C"
-                color: colors.uGrey
-                border.color: colors.uGrey
+                text: "C"
+                color: _colors.uGrey
+                border.color: _colors.uGrey
 
                 visible: showConfig
 

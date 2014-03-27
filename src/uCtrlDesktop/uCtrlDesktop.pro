@@ -96,4 +96,5 @@ OTHER_FILES += \
     qml/uCtrlDesktopQml/UI/UPath.qml \
     Languages/uctrl_en.ts \
     Languages/uctrl_fr.ts \
-    qml/uCtrlDesktopQml/UI/UComboBox.qml
+    qml/uCtrlDesktopQml/UI/UComboBox.qml \
+    qml/uCtrlDesktopQml/UI/UFontAwesome.qml

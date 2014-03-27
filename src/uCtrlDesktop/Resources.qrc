@@ -12,5 +12,6 @@
         <file>Languages/uctrl_fr.qm</file>
         <file>Images/Combobox-arrow.png</file>
         <file>Images/pencil.svg</file>
+        <file>fontawesome-webfont.ttf</file>
     </qresource>
 </RCC>

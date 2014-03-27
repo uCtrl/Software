@@ -161,10 +161,61 @@ UI.UFrame {
 
             headerStyle: 5
         }
+    }
+
+    Rectangle {
+        id: comboDemo
+        width: parent.width
+        height: 30
+
+        anchors.top: labelDemo.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.margins: 5
 
         UI.UComboBox {
             id: combo
-            anchors.top: labelDemo.bottom
+        }
+    }
+
+    Rectangle {
+        id: checkDemo
+        width: parent.width
+        height: 30
+
+        anchors.top: comboDemo.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.margins: 5
+
+        Rectangle {
+            id: toggledCheckbox
+            anchors.fill: parent
+
+            UI.UCheckbox {
+                id: toggleEnable
+                text: "Toggle me with that button !"
+                anchors.verticalCenter: parent.verticalCenter
+            }
+
+            UI.UButton {
+                id: checkButton
+                anchors.right: parent.right
+                width: 70
+                text: (toggleEnable.state === "ENABLED" ? "Disable" : "Enable")
+
+                function execute() {
+                    toggleEnable.state = (toggleEnable.state === "ENABLED" ? "DISABLED" : "ENABLED")
+                }
+            }
+        }
+
+        UI.UCheckbox {
+            id: errorCheckbox
+            anchors.left: parent.left
+            anchors.top: toggledCheckbox.bottom
+            text: "Error state checkbox"
+            state: "ERROR"
         }
     }
 }
