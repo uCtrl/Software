@@ -13,7 +13,7 @@ Item {
     Rectangle {
         id: activeFrame
 
-        color: "transparent"
+        color: _colors.uTransparent
         height: 25
         width: 25
 

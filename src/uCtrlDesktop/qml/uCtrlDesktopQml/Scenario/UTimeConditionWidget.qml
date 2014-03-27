@@ -16,7 +16,7 @@ UConfigConditionWidget {
         anchors.leftMargin: 30
         anchors.verticalCenter: parent.verticalCenter
 
-        color: "transparent"
+        color: _colors.uTransparent
 
         Rectangle{
             id: clockContainer
@@ -24,7 +24,7 @@ UConfigConditionWidget {
             width: parent.height
             height: parent.height
 
-            color: "transparent"
+            color: _colors.uTransparent
 
             UClock {
                 anchors.left: parent.left
@@ -41,7 +41,7 @@ UConfigConditionWidget {
             anchors.verticalCenter: parent.verticalCenter
 
             text: "Time is later than " + conditionHour + ":" + zeroPad(conditionMinute, 2)
-            color: "black"
+            color: _colors.uBlack
             font.pointSize: 14
 
             function zeroPad(num, numZeros) {

@@ -3,7 +3,7 @@ import QtQuick 2.0
 Rectangle {
     id: menuButton
 
-    color: "transparent"
+    color: _colors.uTransparent
     height: 25
     width: 25
     radius: 5
@@ -13,8 +13,8 @@ Rectangle {
     }
 
     function adjustTitle() {
-        label.color = menuFrame.visible ? _colors.uGreen : "white"
-        menuButton.color = menuFrame.visible ? "white" : _colors.uGreen
+        label.color = menuFrame.visible ? _colors.uGreen : _colors.uWhite
+        menuButton.color = menuFrame.visible ? _colors.uWhite : _colors.uGreen
     }
 
     function toggleMenu() {
@@ -34,7 +34,7 @@ Rectangle {
 
     Text {
         id: label
-        color: "white"
+        color: _colors.uWhite
         text: "M"
         font.family: "Helvetica neue"
         font.pointSize: 18

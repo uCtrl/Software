@@ -44,7 +44,7 @@ Item {
                 text: "Changer l'état pour "
                 anchors.verticalCenter: parent.verticalCenter
                 font.pointSize: 14
-                color: colors.uDarkGrey
+                color: _colors.uDarkGrey
             }
 
             Rectangle {
@@ -79,13 +79,13 @@ Item {
 
                 text: "quand:"
                 font.pointSize: 14
-                color: colors.uDarkGrey
+                color: _colors.uDarkGrey
             }
 
             UI.UButton {
                 id: toggleBtn
 
-                displayedText: "T"
+                text: "T"
 
                 width: 20
                 height: 20
@@ -106,7 +106,7 @@ Item {
             height: parent.height
             width: 40
 
-            color: "transparent"
+            color: _colors.uTransparent
             visible: conditionsContainer.adjustedHeight() > 0
 
             Image {
@@ -128,7 +128,7 @@ Item {
             x:0
             y: taskHeader.height
 
-            color: "transparent"
+            color: _colors.uTransparent
 
             function adjustedHeight(){
                 return visible? height: 0

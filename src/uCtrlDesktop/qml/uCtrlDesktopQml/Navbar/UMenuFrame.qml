@@ -22,7 +22,7 @@ Item {
     }
 
     Rectangle {
-        color: "#0D9B0D"
+        color: _colors.uGreen
         height: menuHeight + 1
         width: main.width
 
@@ -36,7 +36,7 @@ Item {
     Rectangle {
         id: menuFrame
 
-        color: "white"
+        color: _colors.uWhite
         height: menuHeight
         width: main.width
 
