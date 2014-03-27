@@ -2,8 +2,7 @@ import QtQuick 2.0
 import "../UI" as UI
 
 Item {
-    property string status: "UNKNOWN"
-    property int childIndex: index
+    property variant taskModel: taskList.model.getTaskAt(index)
 
     width: parent.width
     height: 40 + conditionsContainer.adjustedHeight()
@@ -64,7 +63,7 @@ Item {
 
                 UI.ULabel {
                     id: stateLabel
-                    text: status
+                    text: taskModel.status
                     anchors.centerIn: parent
                     font.pointSize: 12
                     font.bold: true
@@ -138,7 +137,7 @@ Item {
             ListView {
                 id: conditionList
                 anchors.fill: parent
-                model: taskList.model.getTaskAt(childIndex)
+                model: taskModel
                 spacing:5
                 delegate: UTimeConditionWidget {
                     conditionHour: 15

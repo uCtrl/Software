@@ -6,38 +6,30 @@
 #include <qqml.h>
 #include <QtQuick/qquickitem.h>
 #include <QtQuick/qquickview.h>
-#include "Models/Scenario/uscenariomodel.h"
-#include "Scenario/uscenario.h"
-#include "Utility/uniqueidgenerator.h"
-#include "Device/udevice.h"
-#include "Models/Device/udevicemodel.h"
-#include "Conditions/ucondition.h"
-#include "Conditions/uconditiondate.h"
-#include <QFile>
-#include <QTextStream>
 #include "System/usystem.h"
 
-#include <sstream>
+#include <QFile>
+#include <QTextStream>
 
 void SaveDeviceToFile(const UDevice* device, std::string filename){
 
     QFile file(QString::fromStdString(filename));
     file.open(QIODevice::WriteOnly | QIODevice::Text);
     QTextStream out(&file);
-    out << QString::fromStdString(device->Serialize());
+    out << device->serialize();
 
     // optional, as QFile destructor will already do it:
     file.close();
 }
 
-void LoadSystemFromFile(USystem& db, std::string filename){
+void LoadSystemFromFile(USystem& s, std::string filename){
 
     QFile f(QString::fromStdString(filename));
     if (f.open(QFile::ReadOnly | QFile::Text)){
         QTextStream in(&f);
         QString str = in.readAll();
         str.remove(QRegExp("[\\n\\t\\r]"));
-        db = USystem::Deserialize(json::Deserialize(str.toStdString()));
+        s.deserialize(json::Deserialize(str.toStdString()));
     }
 }
 
@@ -53,10 +45,10 @@ int main(int argc, char *argv[])
 
     USystem system;
     LoadSystemFromFile(system, ":/Resources/JSON.txt");
-    UDeviceModel dm( &system.getPlatforms()[0].getDevices()[0] );
 
     QQmlContext *ctxt = viewer.rootContext();
-    ctxt->setContextProperty("myDevice", &dm);
+    UDevice* d = system.getPlatforms().first()->getDevices()[0];
+    ctxt->setContextProperty("myDevice", d);
 
     viewer.setMainQmlFile(QStringLiteral("qml/uCtrlDesktopQml/main.qml"));
     viewer.showExpanded();

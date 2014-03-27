@@ -49,9 +49,7 @@ Rectangle {
             anchors.fill: parent
 
             model: scenario
-            delegate: UConfigWidget {
-                status: taskStatus;
-            }
+            delegate: UTaskWidget { }
         }
     }
 }

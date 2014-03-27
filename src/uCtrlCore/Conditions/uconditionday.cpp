@@ -4,8 +4,7 @@ UConditionDay::UConditionDay() : UCondition()
 {
 }
 
-UConditionDay::UConditionDay(const UConditionDay& conditionDay)
-    : UCondition(conditionDay)
+UConditionDay::UConditionDay(const UConditionDay& conditionDay) : UCondition(conditionDay)
 {    
     setConditionType(UEConditionType::Day);
 }

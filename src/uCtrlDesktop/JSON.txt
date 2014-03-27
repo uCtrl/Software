@@ -4,13 +4,11 @@
       "ip":"127.0.0.1",
       "port":5000,
       "devices[0]":{   
-         "deviceInfo":{
             "maxValue":100.000000,
             "minValue":0.000000,
             "precision":0,
             "type":1,
-            "unitLabel":"celcius"
-         },
+            "unitLabel":"celcius",
          "id":1782103621,
          "ip":"127.0.0.1",
          "name":"Temperature",   

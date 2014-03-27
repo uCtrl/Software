@@ -17,18 +17,12 @@ INCLUDEPATH += ../uCtrlCore/
 SOURCES += \
     main.cpp \
     Network/bonjourservicebrowser.cpp \
-    Network/bonjourserviceresolver.cpp \
-    Models/Task/utaskmodel.cpp \
-    Models/Scenario/uscenariomodel.cpp \
-    Models/Device/udevicemodel.cpp
+    Network/bonjourserviceresolver.cpp
 
 HEADERS += \
     Network/bonjourrecord.h \
     Network/bonjourservicebrowser.h \
-    Network/bonjourserviceresolver.h \
-    Models/Task/utaskmodel.h \
-    Models/Scenario/uscenariomodel.h \
-    Models/Device/udevicemodel.h
+    Network/bonjourserviceresolver.h
 
 INCLUDEPATH += \
     qml/uCtrlDesktopQml/
@@ -96,4 +90,5 @@ OTHER_FILES += \
     qml/uCtrlDesktopQml/UI/UPath.qml \
     Languages/uctrl_en.ts \
     Languages/uctrl_fr.ts \
-    qml/uCtrlDesktopQml/UI/UComboBox.qml
+    qml/uCtrlDesktopQml/UI/UComboBox.qml \
+    qml/uCtrlDesktopQml/Scenario/UTaskWidget.qml
