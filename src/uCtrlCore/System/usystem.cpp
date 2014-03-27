@@ -1,15 +1,12 @@
 #include "usystem.h"
 #include "sstream"
 
-USystem::USystem(QObject *parent)
-    : QAbstractListModel(parent)
+USystem::USystem(QObject *parent) : QAbstractListModel(parent)
 {
-
 }
 
 USystem::~USystem()
 {
-
 }
 
 QVariant USystem::data(const QModelIndex &index, int role) const

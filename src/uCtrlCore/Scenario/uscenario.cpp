@@ -2,8 +2,7 @@
 #include "Utility/uniqueidgenerator.h"
 #include <sstream>
 
-UScenario::UScenario(QObject* parent)
-    :QAbstractListModel(parent)
+UScenario::UScenario(QObject* parent) : QAbstractListModel(parent)
 {
     setId(UniqueIdGenerator::GenerateUniqueId());
     setName("Undefined");
@@ -60,7 +59,7 @@ void UScenario::fillMembers(const json::Object& obj)
         oss << "tasks[" << i << "]";
 
         std::string key = oss.str();
-        UTask* task = new UTask();
+        UTask* task = new UTask(this);
         task->deserialize(obj[key]);
         m_tasks.push_back(task);
     }

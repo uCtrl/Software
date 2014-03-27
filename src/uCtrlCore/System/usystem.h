@@ -6,18 +6,16 @@
 #include <QList>
 #include <QAbstractListModel>
 
-
-class USystem: public QAbstractListModel
+class USystem : public QAbstractListModel
 {
     Q_OBJECT
+    UCTRL_JSON(USystem)
 
     Q_PROPERTY(QList<UPlatform*> platforms READ getPlatforms WRITE setPlatforms)
-    UCTRL_JSON(USystem)
+
 public:
     USystem(QObject* parent = 0);
-//    USystem(const USystem& system);
     ~USystem();
-
 
     virtual QVariant data(const QModelIndex &index, int role) const;
     virtual int rowCount(const QModelIndex &parent) const;
@@ -29,7 +27,5 @@ public slots:
 
 private:
     QList<UPlatform*> m_platforms;
-
 };
-
 #endif // USYSTEM_H

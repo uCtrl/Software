@@ -4,8 +4,7 @@ UConditionTime::UConditionTime() : UCondition()
 {
 }
 
-UConditionTime::UConditionTime(const UConditionTime& conditionTime)
-    : UCondition(conditionTime)
+UConditionTime::UConditionTime(const UConditionTime& conditionTime) : UCondition(conditionTime)
 {
     setConditionType(UEConditionType::Time);
 }

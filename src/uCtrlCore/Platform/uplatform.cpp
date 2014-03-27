@@ -2,16 +2,23 @@
 #include "uplatform.h"
 #include "sstream"
 
-UPlatform::UPlatform(QObject* parent)
-    :QAbstractListModel(parent)
+UPlatform::UPlatform(QObject* parent) : QAbstractListModel(parent)
 {
     setId(UniqueIdGenerator::GenerateUniqueId());
+}
+
+UPlatform::UPlatform(QObject* parent, const QString& ip, const int port) : QAbstractListModel(parent)
+{
+    setId(UniqueIdGenerator::GenerateUniqueId());
+    setIp(ip);
+    setPort(port);
 }
 
 UPlatform::~UPlatform()
 {
 
 }
+
 UPlatform::UPlatform(const UPlatform& platform)
 {
     setId(platform.getId());
@@ -59,7 +66,7 @@ void UPlatform::fillMembers(const json::Object &obj)
         oss << "devices[" << i << "]";
 
         std::string key = oss.str();
-        UDevice* device = new UDevice();
+        UDevice* device = new UDevice(this);
         device->deserialize(obj[key]);
         m_devices.push_back(device);
     }

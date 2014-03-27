@@ -2,15 +2,13 @@
 #include "Utility/uniqueidgenerator.h"
 #include <sstream>
 
-UDevice::UDevice(QObject* parent)
-    : QAbstractListModel(parent)
+UDevice::UDevice(QObject* parent) : QAbstractListModel(parent)
 {
     setId(UniqueIdGenerator::GenerateUniqueId());
 }
 
 UDevice::~UDevice()
 {
-
 }
 
 UDevice::UDevice(const UDevice& device)
@@ -57,7 +55,7 @@ void UDevice::fillMembers(const json::Object& obj)
         oss << "scenarios[" << i << "]";
 
         std::string key = oss.str();
-        UScenario* scenario = new UScenario();
+        UScenario* scenario = new UScenario(this);
         scenario->deserialize(obj[key]);
         m_scenarios.push_back(scenario);
     }

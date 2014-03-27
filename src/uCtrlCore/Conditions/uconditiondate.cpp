@@ -4,8 +4,7 @@ UConditionDate::UConditionDate() : UCondition()
 {
 }
 
-UConditionDate::UConditionDate(const UConditionDate& conditionDate)
-    : UCondition(conditionDate)
+UConditionDate::UConditionDate(const UConditionDate& conditionDate) : UCondition(conditionDate)
 {
     setConditionType(UEConditionType::Date);
     setDate1(conditionDate.getDate1());
@@ -37,8 +36,7 @@ void UConditionDate::setValue1(void* value)
 
 void UConditionDate::setValue2(void* value)
 {
-    if (getCurrentComparisonType() != UEComparisonPossible::InBetween)
-        return;
+    if (getCurrentComparisonType() != UEComparisonPossible::InBetween) return;
 
     UDate* date = (UDate*)value;
     m_Date2 = *date;
