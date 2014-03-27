@@ -1,14 +1,13 @@
 #ifndef UPLATFORM_H
 #define UPLATFORM_H
 
-#include "Serialization/JsonMacros.h"
+#include "Serialization/jsonserializable.h"
 #include "Device/udevice.h"
 #include <QAbstractListModel>
 
-class UPlatform : public QAbstractListModel
+class UPlatform : public QAbstractListModel, public JsonSerializable
 {
     Q_OBJECT
-    UCTRL_JSON(UPlatform)
 
     Q_PROPERTY(QList<UDevice*> devices READ getDevices WRITE setDevices)
     Q_PROPERTY(int id READ getId WRITE setId)
@@ -16,7 +15,7 @@ class UPlatform : public QAbstractListModel
     Q_PROPERTY(int port READ getPort WRITE setPort)
 
 public:
-    UPlatform(QObject* parent = 0);
+    UPlatform(QObject* parent);
     UPlatform(QObject* parent, const QString& ip, const int port);
     UPlatform(const UPlatform& platform);
     ~UPlatform();
@@ -28,6 +27,9 @@ public:
     QString getIp() const { return m_ip; }
     int getPort() const { return m_port; }
     QList<UDevice*> getDevices() const { return m_devices; }
+
+    void read(const QJsonObject &jsonObj);
+    void write(QJsonObject &jsonObj) const;
 
 public slots:
     void setId(int arg) { m_id = arg; }

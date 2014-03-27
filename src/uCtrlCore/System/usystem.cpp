@@ -1,5 +1,4 @@
 #include "usystem.h"
-#include "sstream"
 
 USystem::USystem(QObject *parent) : QAbstractListModel(parent)
 {
@@ -19,31 +18,26 @@ int USystem::rowCount(const QModelIndex &parent) const
     return 0;
 }
 
-void USystem::fillObject(json::Object &obj) const
+void USystem::read(const QJsonObject &jsonObj)
 {
-    obj["platforms_size"] = getPlatforms().size();
-    for (int i = 0; i < getPlatforms().size(); i++)
+    QJsonArray platformsArray = jsonObj["platforms"].toArray();
+    foreach(QJsonValue platformJson, platformsArray)
     {
-        std::ostringstream oss;
-        oss << "platforms [" << i << "]";
-
-        std::string key = oss.str();
-        obj[key] = getPlatforms().at(i)->toObject();
+        UPlatform* p = new UPlatform(this);
+        p->read(platformJson.toObject());
+        this->m_platforms.append(p);
     }
 }
 
-void USystem::fillMembers(const json::Object &obj)
+void USystem::write(QJsonObject &jsonObj) const
 {
-    m_platforms.clear();
-    int m_platforms_size = obj["platforms_size"];
-    for (int i = 0; i < m_platforms_size; i++)
+    QJsonArray platformsArray;
+    foreach(UPlatform* p, this->m_platforms)
     {
-        std::ostringstream oss;
-        oss << "platforms[" << i << "]";
-
-        std::string key = oss.str();
-        UPlatform* platform = new UPlatform();
-        platform->deserialize(obj[key]);
-        m_platforms.push_back(platform);
+        QJsonObject platformJson;
+        p->write(platformJson);
+        platformsArray.append(platformJson);
     }
+
+    jsonObj["platforms"] = platformsArray;
 }

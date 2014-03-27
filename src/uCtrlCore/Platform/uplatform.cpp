@@ -1,6 +1,5 @@
 #include "Utility/uniqueidgenerator.h"
 #include "uplatform.h"
-#include "sstream"
 
 UPlatform::UPlatform(QObject* parent) : QAbstractListModel(parent)
 {
@@ -16,7 +15,6 @@ UPlatform::UPlatform(QObject* parent, const QString& ip, const int port) : QAbst
 
 UPlatform::~UPlatform()
 {
-
 }
 
 UPlatform::UPlatform(const UPlatform& platform)
@@ -36,39 +34,34 @@ int UPlatform::rowCount(const QModelIndex &parent) const
     return 0;
 }
 
-void UPlatform::fillObject(json::Object &obj) const
+void UPlatform::read(const QJsonObject &jsonObj)
 {
-    obj["id"] = getId();
-    obj["ip"] = getIp().toStdString();
-    obj["port"] = getPort();
+    this->setId(jsonObj["id"].toInt());
+    this->setIp(jsonObj["ip"].toString());
+    this->setPort(jsonObj["port"].toInt());
 
-    obj["devices_size"] = (int) getDevices().size();
-    for (int i = 0; i < getDevices().size(); i++)
+    QJsonArray devicesArray = jsonObj["devices"].toArray();
+    foreach(QJsonValue deviceJson, devicesArray)
     {
-        std::ostringstream oss;
-        oss << "devices[" << i << "]";
-
-        std::string key = oss.str();
-        obj[key] = getDevices()[i]->toObject();
+        UDevice* d = new UDevice(this);
+        d->read(deviceJson.toObject());
+        this->m_devices.append(d);
     }
 }
 
-void UPlatform::fillMembers(const json::Object &obj)
+void UPlatform::write(QJsonObject &jsonObj) const
 {
-    setId(obj["id"]);
-    setIp(QString::fromStdString(obj["ip"].ToString()));
-    setPort(obj["port"]);
+    jsonObj["id"] = getId();
+    jsonObj["ip"] = getIp();
+    jsonObj["port"] = getPort();
 
-    int m_devices_size = obj["devices_size"];
-    for (int i = 0; i < m_devices_size; i++)
+    QJsonArray devicesArray;
+    foreach(UDevice* device, this->m_devices)
     {
-        std::ostringstream oss;
-        oss << "devices[" << i << "]";
-
-        std::string key = oss.str();
-        UDevice* device = new UDevice(this);
-        device->deserialize(obj[key]);
-        m_devices.push_back(device);
+        QJsonObject deviceJson;
+        device->write(deviceJson);
+        devicesArray.append(deviceJson);
     }
-}
 
+    jsonObj["devices"] = devicesArray;
+}

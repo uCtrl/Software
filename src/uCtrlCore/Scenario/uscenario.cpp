@@ -21,23 +21,6 @@ UScenario::~UScenario()
     m_tasks.clear();
 }
 
-void UScenario::fillObject(json::Object& obj) const
-{
-    obj["id"] = getId();
-    obj["name"] = getName().toStdString();
-
-    // WARNING : Custom code
-    obj["tasks_size"] = (int) getTasks().size();
-    for (int i = 0; i < getTasks().size(); i++)
-    {
-        std::ostringstream oss;
-        oss << "tasks[" << i << "]";
-
-        std::string key = oss.str();
-        obj[key] = getTasks()[i]->toObject();
-    }
-}
-
 QObject* UScenario::getTaskAt(int index) const
 {
     if (index <= getTasks().count()) {
@@ -46,21 +29,34 @@ QObject* UScenario::getTaskAt(int index) const
     return 0;
 }
 
-void UScenario::fillMembers(const json::Object& obj)
+void UScenario::read(const QJsonObject &jsonObj)
 {
-    setId(obj["id"]);
-    setName(QString::fromStdString(obj["name"].ToString()));
+    this->setId(jsonObj["id"].toInt());
+    this->setName(jsonObj["name"].toString());
 
-    // WARNING : Custom code
-    int m_tasks_size = obj["tasks_size"];
-    for (int i = 0 ; i < m_tasks_size; i++)
+    QJsonArray tasksArray = jsonObj["tasks"].toArray();
+    foreach(QJsonValue taskJson, tasksArray)
     {
-        std::ostringstream oss;
-        oss << "tasks[" << i << "]";
-
-        std::string key = oss.str();
-        UTask* task = new UTask(this);
-        task->deserialize(obj[key]);
-        m_tasks.push_back(task);
+        UTask* t = new UTask(this);
+        t->read(taskJson.toObject());
+        this->m_tasks.append(t);
     }
 }
+
+void UScenario::write(QJsonObject &jsonObj) const
+{
+    jsonObj["id"] = getId();
+    jsonObj["name"] = getName();
+
+    QJsonArray tasksArray;
+    foreach(UTask* task, this->m_tasks)
+    {
+        QJsonObject taskJson;
+        task->write(taskJson);
+        tasksArray.append(taskJson);
+    }
+
+    jsonObj["tasks"] = tasksArray;
+}
+
+
