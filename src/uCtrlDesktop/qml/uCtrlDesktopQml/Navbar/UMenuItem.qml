@@ -1,13 +1,17 @@
 import QtQuick 2.0
 
-Item {
+Rectangle {
     property string itemLabel: "Unknown"
     property string pageName: "homepage"
     property string pagePath: "."
 
+    width: parent.width
+    height: 30
+
     function swap() {
         parent.toggleMenu()
         main.swap(pagePath, pageName, null)
+        console.log('it me!');
     }
 
     Rectangle {
