@@ -11,7 +11,6 @@ Rectangle {
     function swap() {
         parent.toggleMenu()
         main.swap(pagePath, pageName, null)
-        console.log('it me!');
     }
 
     Rectangle {
