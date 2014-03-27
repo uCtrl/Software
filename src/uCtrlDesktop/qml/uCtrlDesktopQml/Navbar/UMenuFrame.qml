@@ -55,7 +55,7 @@ Item {
 
             y: 5
             itemLabel: qsTr("Homepage")
-            pageName: "Homepage"
+            pageName: qsTr("Homepage")
             pagePath: _paths.uHome
         }
 
@@ -64,7 +64,7 @@ Item {
 
             y: 35
             itemLabel: qsTr("Configuration")
-            pageName: "Configuration"
+            pageName: qsTr("Configuration")
             pagePath: _paths.uSummary
         }
 
@@ -74,7 +74,7 @@ Item {
 
             y: 65
             itemLabel: qsTr("Information")
-            pageName: "Information"
+            pageName: qsTr("Information")
             pagePath: _paths.uInfo
         }
 
@@ -83,7 +83,7 @@ Item {
 
             y: 65
             itemLabel: qsTr("Statistics")
-            pageName: "Statistics"
+            pageName: qsTr("Statistics")
             pagePath: _paths.uStatistics
         }
     }
