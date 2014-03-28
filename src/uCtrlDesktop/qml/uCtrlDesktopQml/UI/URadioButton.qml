@@ -10,8 +10,8 @@ RadioButton {
     style: RadioButtonStyle {
         indicator: UCircle {
 
-            implicitHeight: 18
-            implicitWidth: 18
+            implicitHeight: 10
+            implicitWidth: 10
 
             color: getBackgroundColor()
             border.color: getBorderColor()
@@ -85,18 +85,10 @@ RadioButton {
     MouseArea {
         anchors.fill: parent
         onReleased: {
-            if (radiobutton.state != "DISABLED") {
+            if (radiobutton.state != "DISABLED" && !checked) {
                 checked = !checked
-            }
-            else {
-                checked = checked
-            }
+            }            
         }
-
-        onClicked: {
-            enabled = false
-        }
-
     }
 
     states: [
