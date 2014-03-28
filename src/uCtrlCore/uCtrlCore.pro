@@ -18,13 +18,11 @@ SOURCES += \
 
 HEADERS += \
     Platform/uplatform.h \
-    usystem.h \
+    System/usystem.h \
     Device/udevice.h \
     Conditions/ucondition.h \
     Scenario/uscenario.h \
     Tasks/utask.h \
-    Tasks/utaskbuilder.h \
     Utility/uniqueidgenerator.h \
-    System/usystem.h \
     Serialization/jsonserializable.h \
     Serialization/jsonserializer.h
