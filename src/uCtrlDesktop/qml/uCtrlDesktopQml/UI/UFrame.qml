@@ -2,7 +2,7 @@ import QtQuick 2.0
 
 Rectangle {
     // Default properties
-    property color backgroundColor: "white"
+    property color backgroundColor: _colors.uWhite
     property variant model: null
     property bool requiredModel: false
     property string title: "unknown"

@@ -60,7 +60,7 @@ Rectangle {
 
         height: 50
         width: 50
-        color: "white"
+        color: _colors.uWhite
 
         anchors.top: parent.top
         anchors.topMargin: 13
@@ -71,7 +71,7 @@ Rectangle {
         UI.ULabel {
             id: iconLabel
 
-            color: colors.uGreen
+            color: _colors.uGreen
             font.pointSize: 15
             anchors.bottom: parent.bottom
             anchors.centerIn: parent.Center
@@ -91,13 +91,13 @@ Rectangle {
         anchors.leftMargin: 20
         height: parent.height
         width: parent.width - iconFrame.width - anchors.leftMargin
-        color: "transparent"
+        color: _colors.uTransparent
 
         Rectangle {
             id: topTextFrame
 
             anchors.top: parent.top
-            color: "transparent"
+            color: _colors.uTransparent
             width: parent.width
             height: parent.height/2 - 2
 
@@ -137,7 +137,7 @@ Rectangle {
 
             anchors.bottom: parent.bottom
             anchors.right: parent.right
-            color: "transparent"
+            color: _colors.uTransparent
             width: parent.width
             height: parent.height/2 - 2
 

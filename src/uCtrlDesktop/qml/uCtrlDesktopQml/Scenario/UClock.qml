@@ -8,7 +8,7 @@ Rectangle {
     width: parent.height
     height: parent.height
     radius: width * 0.5
-    color: "white"
+    color: _colors.uWhite
 
     Image {
         anchors.centerIn: parent
@@ -25,7 +25,7 @@ Rectangle {
         anchors.centerIn: parent
         width: 0
         height: 0
-        color: "transparent"
+        color: _colors.uTransparent
 
         UI.ULine {
             id: shortClockHand
@@ -38,7 +38,7 @@ Rectangle {
                 var angle = (regHour / 12.0 * 360) + (clockMinute / 60.0 * 360 / 12.0)  - 90;
                 return angle;
             }
-            color: "#14892C"
+            color: _colors.uDarkGreen
             thickness: 2
         }
         UI.ULine {
@@ -49,7 +49,7 @@ Rectangle {
                 var angle = clockMinute / 60.0 * 360 - 90;
                 return angle;
             }
-            color: "#14892C"
+            color: _colors.uDarkGreen
             thickness: 2
         }
     }

@@ -23,6 +23,7 @@ Rectangle {
     MouseArea {
         id: mouseArea
         anchors.fill: parent
+        z: 100
         onClicked: {
             if (state != "DISABLED") parent.execute()
         }
@@ -31,7 +32,7 @@ Rectangle {
     Text {
         id: label
         font.bold: true
-        color: "white"
+        color: _colors.uWhite
         text: button.text
         anchors.centerIn: parent
     }

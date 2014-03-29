@@ -36,10 +36,7 @@ public:
 
 public slots:
     void setId(int arg) { m_id = arg; }
-    void setName(QString arg)
-    {
-        m_name = arg;
-    }
+    void setName(QString arg) { m_name = arg; }
     void setTasks(QList<UTask*> arg) { m_tasks = arg; }
 
 signals:

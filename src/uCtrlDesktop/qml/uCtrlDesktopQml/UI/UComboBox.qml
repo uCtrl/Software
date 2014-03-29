@@ -25,7 +25,7 @@ ComboBox {
                 width: parent.height
                 height: parent.height
                 anchors.right: parent.right
-                color: "transparent"
+                color: _colors.uTransparent
 
                 UImage {
                     anchors.fill: parent
@@ -37,7 +37,7 @@ ComboBox {
                 anchors.left: parent.left
                 anchors.right: arrow.left
                 height: parent.height
-                color: "transparent"
+                color: _colors.uTransparent
 
                 ULabel {
                     id: label

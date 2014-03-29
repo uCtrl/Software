@@ -1,9 +1,12 @@
 import QtQuick 2.0
 
-Item {
+Rectangle {
     property string itemLabel: "Unknown"
     property string pageName: "homepage"
     property string pagePath: "."
+
+    width: parent.width
+    height: 30
 
     function swap() {
         parent.toggleMenu()
@@ -13,7 +16,7 @@ Item {
     Rectangle {
         id: activeFrame
 
-        color: "transparent"
+        color: _colors.uTransparent
         height: 25
         width: 25
 
