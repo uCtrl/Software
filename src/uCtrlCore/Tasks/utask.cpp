@@ -1,6 +1,5 @@
 #include "utask.h"
 #include "Utility/uniqueidgenerator.h"
-#include <sstream>
 
 UTask::UTask(QObject* parent) : QAbstractListModel(parent)
 {
@@ -24,39 +23,33 @@ void UTask::addCondition( UCondition *cond)
     m_conditions.push_back(cond);
 }
 
-void UTask::fillObject(json::Object& obj) const
+
+void UTask::read(const QJsonObject &jsonObj)
 {
-    obj["id"] = getId();
-    obj["status"] = getStatus().toStdString();
+    this->setId(jsonObj["id"].toInt());
+    this->setStatus(jsonObj["status"].toString());
 
-    // WARNING : Custom code
-    obj["conditions_size"] = (int) getConditions().size();
-    for (int i = 0; i < getConditions().size(); i++)
+    QJsonArray conditionsArray = jsonObj["conditions"].toArray();
+    foreach(QJsonValue conditionJson, conditionsArray)
     {
-        std::ostringstream oss;
-        oss << "conditions[" << i << "]";
-
-        std::string key = oss.str();
-        obj[key] = getConditions()[i]->ToObject();
+        UCondition* c = new UCondition(this);
+        c->read(conditionJson.toObject());
+        this->m_conditions.append(c);
     }
-
 }
 
-void UTask::fillMembers(const json::Object& obj)
+void UTask::write(QJsonObject &jsonObj) const
 {
-    setId(obj["id"]);
-    setStatus(QString::fromStdString(obj["status"].ToString()));
+    jsonObj["id"] = getId();
+    jsonObj["status"] = getStatus();
 
-    // WARNING : Custom code
-    int m_conditions_size = obj["conditions_size"];
-    for (int i = 0 ; i < m_conditions_size; i++)
+    QJsonArray conditionsArray;
+    foreach(UCondition* condition, this->m_conditions)
     {
-        std::ostringstream oss;
-        oss << "conditions[" << i << "]";
-
-        std::string key = oss.str();
-        UCondition* condition = new UCondition();
-        condition->deserialize(obj[key]);
-        m_conditions.push_back(condition);
+        QJsonObject conditionJson;
+        condition->write(conditionJson);
+        conditionsArray.append(conditionJson);
     }
+
+    jsonObj["conditions"] = conditionsArray;
 }

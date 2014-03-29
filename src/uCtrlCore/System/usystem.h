@@ -1,15 +1,15 @@
 #ifndef USYSTEM_H
 #define USYSTEM_H
 
-#include "Serialization/JsonMacros.h"
 #include "Platform/uplatform.h"
-#include <QList>
+#include "Serialization/jsonserializable.h"
 #include <QAbstractListModel>
+#include <QJsonObject>
+#include <QList>
 
-class USystem : public QAbstractListModel
+class USystem : public QAbstractListModel, public JsonSerializable
 {
     Q_OBJECT
-    UCTRL_JSON(USystem)
 
     Q_PROPERTY(QList<UPlatform*> platforms READ getPlatforms WRITE setPlatforms)
 
@@ -21,6 +21,9 @@ public:
     virtual int rowCount(const QModelIndex &parent) const;
 
     QList<UPlatform*> getPlatforms() const { return m_platforms; }
+
+    void read(const QJsonObject &jsonObj);
+    void write(QJsonObject &jsonObj) const;
 
 public slots:
     void setPlatforms(QList<UPlatform*> arg) { m_platforms = arg; }

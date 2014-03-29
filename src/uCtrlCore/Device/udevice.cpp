@@ -18,51 +18,42 @@ UDevice::UDevice(const UDevice& device)
     setScenarios(device.getScenarios());
 }
 
-void UDevice::fillObject(json::Object& obj) const
+void UDevice::read(const QJsonObject &jsonObj)
 {
-    obj["id"] = getId();
-    obj["name"] = getName().toStdString();
+    this->setId(jsonObj["id"].toInt());
+    this->setName(jsonObj["name"].toString());
+    this->setMinValue(jsonObj["minValue"].toDouble());
+    this->setMaxValue(jsonObj["maxValue"].toDouble());
+    this->setPrecision(jsonObj["precision"].toInt());
+    this->setUnitLabel(jsonObj["unitlabel"].toString());
+    this->setType(jsonObj["type"].toInt());
 
-    // WARNING : Custom code
-    obj["scenarios_size"] = (int) getScenarios().size();
-    for (int i = 0; i < getScenarios().size(); i++)
+    QJsonArray scenariosArray = jsonObj["scenarios"].toArray();
+    foreach(QJsonValue scenarioJson, scenariosArray)
     {
-        std::ostringstream oss;
-        oss << "scenarios[" << i << "]";
-
-        std::string key = oss.str();
-        obj[key] = getScenarios()[i]->toObject();
+        UScenario* s = new UScenario(this);
+        s->read(scenarioJson.toObject());
+        this->m_scenarios.append(s);
     }
-
-    // Device Info
-    obj["minValue"] = getMinValue();
-    obj["maxValue"] = getMaxValue();
-    obj["precision"] = getPrecision();
-    obj["unitLabel"] = getUnitLabel().toStdString();
-    obj["type"] = getType();
 }
 
-void UDevice::fillMembers(const json::Object& obj)
+void UDevice::write(QJsonObject &jsonObj) const
 {
-    setId(obj["id"]);
-    setName(QString::fromStdString(obj["name"].ToString()));
+    jsonObj["id"] = getId();
+    jsonObj["name"] = getName();
+    jsonObj["minValue"] = getMinValue();
+    jsonObj["maxValue"] = getMaxValue();
+    jsonObj["precision"] = getPrecision();
+    jsonObj["unitLabel"] = getUnitLabel();
+    jsonObj["type"] = getType();
 
-    // WARNING : Custom code
-    int m_scenarios_size = obj["scenarios_size"];
-    for (int i = 0 ; i < m_scenarios_size; i++)
+    QJsonArray scenariosArray;
+    foreach(UScenario* scenario, this->m_scenarios)
     {
-        std::ostringstream oss;
-        oss << "scenarios[" << i << "]";
-
-        std::string key = oss.str();
-        UScenario* scenario = new UScenario(this);
-        scenario->deserialize(obj[key]);
-        m_scenarios.push_back(scenario);
+        QJsonObject scenarioJson;
+        scenario->write(scenarioJson);
+        scenariosArray.append(scenarioJson);
     }
-    // Device Info
-    setMinValue(obj["minValue"]);
-    setMaxValue(obj["maxValue"]);
-    setPrecision(obj["precision"]);
-    setUnitLabel(QString::fromStdString(obj["unitLabel"].ToString()));
-    setType(obj["type"]);
+
+    jsonObj["scenarios"] = scenariosArray;
 }
