@@ -17,7 +17,7 @@ Rectangle {
 
     function execute() {
         // @TODO : Change console log for alert
-        console.log("Warning execute method not overriden")
+        if (state != "DISABLED") console.log("Warning execute method not overriden")
     }
 
     MouseArea {
