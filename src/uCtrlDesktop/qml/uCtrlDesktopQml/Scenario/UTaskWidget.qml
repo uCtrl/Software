@@ -2,7 +2,7 @@ import QtQuick 2.0
 import "../UI" as UI
 
 Item {
-    property variant taskModel: taskList.model.getTaskAt(index)
+    property var taskModel: taskList.model.getTaskAt(index)
 
     width: parent.width
     height: 40 + conditionsContainer.adjustedHeight()
@@ -85,7 +85,7 @@ Item {
             UI.UButton {
                 id: toggleBtn
 
-                displayedText: "T"
+                text: "T"
 
                 width: 20
                 height: 20
