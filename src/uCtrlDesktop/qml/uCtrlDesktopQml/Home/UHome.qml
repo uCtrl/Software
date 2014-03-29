@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQuick.Controls 1.0
 import "../UI" as UI
 
 UI.UFrame {
@@ -166,5 +167,107 @@ UI.UFrame {
             id: combo
             anchors.top: labelDemo.bottom
         }
+
+        Rectangle {
+            anchors.top: h5.bottom
+            anchors.topMargin: 3
+            width: parent.width
+            height: 50
+
+            ExclusiveGroup { id: firstGroup }
+            UI.URadioButton {
+                id: radio1
+                state: {
+                    if(radio6.checked)
+                        return "DISABLED"
+                    else
+                        return "ENABLED"
+                }
+
+                anchors.top: parent.top
+                exclusiveGroup: firstGroup
+                text: "Radio 1"
+            }
+            UI.URadioButton {
+                id: radio2
+                state: {
+                    if(radio6.checked)
+                        return "DISABLED"
+                    else
+                        return "ENABLED"
+                }
+
+                anchors.top: parent.top
+                anchors.left: radio1.right
+                text: "Radio 2"
+                exclusiveGroup: firstGroup
+            }
+            UI.URadioButton {
+                id: radio3
+                state: {
+                    if(radio6.checked)
+                        return "DISABLED"
+                    else
+                        return "ENABLED"
+                }
+
+                anchors.top: parent.top
+                anchors.left: radio2.right
+                text: "Radio 3"
+                exclusiveGroup: firstGroup
+            }
+
+
+            ExclusiveGroup { id: secondGroup }
+            UI.URadioButton {
+                id: radio4
+                state: {
+                    if(radio5.checked)
+                        return "DISABLED"
+                    else if (radio6.checked)
+                        return "ENABLED"
+                    else
+                        return "ENABLED"
+                }
+
+                anchors.top: radio1.bottom
+                exclusiveGroup: secondGroup
+                text: "Radio 1"
+            }
+            UI.URadioButton {
+                id: radio5
+                state: {
+                    if(radio4.checked)
+                        return "ERROR"
+                    else if (radio6.checked)
+                        return "ENABLED"
+                    else
+                        return "ENABLED"
+                }
+
+                anchors.top: radio1.bottom
+                anchors.left: radio4.right
+                text: "Radio 2"
+                exclusiveGroup: secondGroup
+            }
+            UI.URadioButton {
+                id: radio6
+                state: {
+                    if (radio4.checked)
+                        return "ERROR"
+                    else if (radio5.checked)
+                        return "DISABLED"
+                    else
+                        return "ENABLED"
+                }
+
+                anchors.top: radio1.bottom
+                anchors.left: radio5.right
+                text: "Radio 3"
+                exclusiveGroup: secondGroup
+            }
+
+        }
     }
+
 }
