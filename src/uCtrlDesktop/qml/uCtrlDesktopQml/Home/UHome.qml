@@ -3,7 +3,6 @@ import QtQuick.Controls 1.0
 import "../UI" as UI
 
 UI.UFrame {
-    //title: qsTr("Homepage")
     contentItem: Rectangle {
         width: 1000
         height: 1000

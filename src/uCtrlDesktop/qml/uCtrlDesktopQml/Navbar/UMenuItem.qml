@@ -10,7 +10,7 @@ Rectangle {
     property string path: "."
     property var model: null
 
-    width: 100; height: 70
+    width: 100; height: 90
 
     color: _colors.uTransparent
 
@@ -23,7 +23,7 @@ Rectangle {
             id: icon
 
             anchors.top: parent.top
-            anchors.topMargin: 23
+            anchors.topMargin: 30
             anchors.horizontalCenter: parent.horizontalCenter
 
             iconId: container.icon
