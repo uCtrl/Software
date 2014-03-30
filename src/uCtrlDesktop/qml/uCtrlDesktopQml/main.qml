@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQuick.Controls 1.0
 
 import "UI" as UI
 
@@ -15,10 +16,77 @@ import "Navbar" as Navbar
 Rectangle {
     id: main
 
+    property var activeComponent: null
+    property var activePage: null
+
     // Frame dimension
     width: 900; height: 700
 
-    color: "yellow"
+    color: _colors.uLightGrey
+
+    // Object Signals declaration
+    signal swap (string page, string title, variant model)
+    onSwap: renderComponent(page, title, model)
+
+    // Extern Signals declaration
+    Component.onCompleted: renderComponent(_paths.uHome, qsTr("Homepage"))
+
+    // Object functions
+    function destroyComponent() {
+        if (activeComponent != null) activeComponent.destroy()
+    }
+
+    function displayComponentError() {
+        if (activeComponent.status === Component.Error) {
+
+            // @TODO : Replace with error alert.
+            console.log("Error loading component:", activeComponent.errorString());
+        }
+    }
+
+    function destroyPage() {
+        if (activePage != null) activePage.destroy()
+    }
+
+    function refreshPage(model) {
+        if (activeComponent.status === Component.Ready) {
+            destroyPage()
+            activePage = activeComponent.createObject(main)
+
+            activePage.anchors.top = titlebar.bottom
+            activePage.anchors.bottom = main.bottom
+            activePage.anchors.left = navbar.right
+            activePage.anchors.right = main.right
+
+            validatePage(model)
+        } else {
+            displayComponentError()
+        }
+    }
+
+    function renderComponent(path, title, model) {
+        destroyComponent()
+        activeComponent = Qt.createComponent(path)
+        refreshPage(model)
+    }
+
+    function setPageModel(model) {
+        if (model !== undefined) {
+            activePage.bind(model)
+        } else if (activePage.requiredModel) {
+            // @TODO : Replace with error alert.
+            console.log("Error undefined model");
+        }
+    }
+
+    function validatePage(model) {
+        if (activePage == null) {
+            // @TODO : Replace with error alert.
+            console.log("Error creating object");
+        } else {
+            setPageModel(model)
+        }
+    }
 
     Titlebar.Titlebar {
         id: titlebar
@@ -40,15 +108,19 @@ Rectangle {
         z: 1    // Always on top.
     }
 
-    Rectangle {
-        id: frame
+    ScrollView {
+        id: scrollView
 
-        anchors.left: navbar.right
         anchors.top: titlebar.bottom
-        anchors.bottom: parent.bottom
+        anchors.left: navbar.right
         anchors.right: parent.right
+        anchors.bottom: parent.bottom
 
-        color: _colors.uLightGrey
+        contentItem: Rectangle {
+            id: frame
+
+            color: _colors.uTransparent
+        }
     }
 
     UI.UColors {

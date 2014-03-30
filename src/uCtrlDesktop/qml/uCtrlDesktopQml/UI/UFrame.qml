@@ -1,5 +1,9 @@
 import QtQuick 2.0
+import QtQuick.Controls 1.0
 
-Rectangle {
-    color: "red"
+ScrollView {
+
+    contentItem: Rectangle {
+        color: _colors.uTransparent
+    }
 }
