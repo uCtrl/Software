@@ -4,86 +4,51 @@ import "UI" as UI
 
 import "Navbar" as Navbar
 
-import "DeviceConfiguration" as Config
+/*import "DeviceConfiguration" as Config
 import "Home" as Home
 import "Statistics" as Stats
-import "DeviceSummary" as Summary
+import "DeviceSummary" as Summary*/
+
+import "Titlebar" as Titlebar
+import "Navbar" as Navbar
 
 Rectangle {
     id: main
 
-    // Object properties
-    property variant activeComponent: null
-    property variant activePage: null
+    // Frame dimension
+    width: 900; height: 700
 
-    width: 500; height: 800
+    color: "yellow"
 
-    // Object Signals declaration
-    signal swap (string page, string title, variant model)
-    onSwap: renderComponent(page, title, model)
+    Titlebar.Titlebar {
+        id: titlebar
 
-    // Extern Signals declaration
-    Component.onCompleted: renderComponent(_paths.uHome, qsTr("Homepage"))
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
 
-    // Object functions
-    function destroyComponent() {
-        if (activeComponent != null) activeComponent.destroy()
-    }
-
-    function displayComponentError() {
-        if (activeComponent.status === Component.Error) {
-
-            // @TODO : Replace with error alert.
-            console.log("Error loading component:", activeComponent.errorString());
-        }
-    }
-
-    function destroyPage() {
-        if (activePage != null) activePage.destroy()
-    }
-
-    function refreshPage(model) {
-        if (activeComponent.status === Component.Ready) {
-            destroyPage()
-            activePage = activeComponent.createObject(main)
-            validatePage(model)
-        } else {
-            displayComponentError()
-        }
-    }
-
-    function renderComponent(path, title, model) {
-        navigationBar.title = title
-        navigationBar.renderInformationMenu((title === "Information"))
-
-        destroyComponent()
-        activeComponent = Qt.createComponent(path)
-        refreshPage(model)
-    }
-
-    function setPageModel(model) {
-        if (model !== undefined) {
-            activePage.bind(model)
-        } else if (activePage.requiredModel) {
-            // @TODO : Replace with error alert.
-            console.log("Error undefined model");
-        }
-    }
-
-    function validatePage(model) {
-        if (activePage == null) {
-            // @TODO : Replace with error alert.
-            console.log("Error creating object");
-        } else {
-            setPageModel(model)
-        }
-    }
-
-    // Child objects
-    Navbar.UNavbarWidget {
-        id: navigationBar
-        title: "Homepage"
         z: 1    // Always on top.
+    }
+
+    Navbar.UNavBar {
+        id: navbar
+
+        anchors.top: titlebar.bottom
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+
+        z: 1    // Always on top.
+    }
+
+    Rectangle {
+        id: frame
+
+        anchors.left: navbar.right
+        anchors.top: titlebar.bottom
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+
+        color: _colors.uLightGrey
     }
 
     UI.UColors {
@@ -93,8 +58,4 @@ Rectangle {
     UI.UPath {
         id: _paths
     }
-
-    // Object states
-
-    // Object transitions
 }
