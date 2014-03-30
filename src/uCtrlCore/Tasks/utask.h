@@ -31,7 +31,14 @@ public:
 public slots:
     void setId(int arg) { m_id = arg; }
     void setConditions(QList<UCondition*> arg) { m_conditions = arg; }
-    void setStatus(QString arg) { m_status = arg; }
+
+    void setStatus(QString arg)
+    {
+        if (m_status != arg) {
+            m_status = arg;
+            emit statusChanged(arg);
+        }
+    }
 
 signals:
     void statusChanged(QString arg);

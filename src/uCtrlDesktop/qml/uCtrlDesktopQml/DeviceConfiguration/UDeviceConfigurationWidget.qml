@@ -13,6 +13,7 @@ UI.UFrame {
     function refresh(newDevice) {
         deviceHeader.refresh(newDevice)
         scenarioWidget.refresh(newDevice.getScenario())
+        device = newDevice
     }
 
     Device.UHeader {
@@ -39,7 +40,7 @@ UI.UFrame {
         color: _colors.uUltraLightGrey
 
         UI.UButton {
-            id: simplebutton
+            id: btnAdd
 
             objectName: "btn"
             anchors.bottom: parent.bottom
@@ -48,7 +49,32 @@ UI.UFrame {
             x: 10
             text: qsTr("Add")
 
-            signal qmlSignal()
+            function execute() {
+                var pScenario = device.getScenario()
+                var pTask = pScenario.createTask()
+                pTask.setStatus("Blarg")
+                pScenario.addTask(pTask)
+
+                pTask = pScenario.getTaskAt(0)
+                pTask.setStatus("WORK LOL")
+
+            }
+        }
+
+        UI.UButton {
+            id: btnRemove
+
+            objectName: "btn"
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 7
+            anchors.left: btnAdd.right
+            width: 96; height: 27
+            text: qsTr("Delete")
+
+            function execute() {
+                var pScenario = device.getScenario()
+                pScenario.deleteTaskAt(pScenario.taskCount() - 1)
+            }
         }
     }
 }

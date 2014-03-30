@@ -21,12 +21,35 @@ UScenario::~UScenario()
     m_tasks.clear();
 }
 
-QObject* UScenario::getTaskAt(int index) const
-{
-    if (index <= getTasks().count()) {
-        return (QObject*) ( getTasks().at(index) );
-    }
-    return 0;
+QObject* UScenario::createTask() {
+    return new UTask(this);
+}
+
+void UScenario::addTask(UTask* task) {
+    beginInsertRows(QModelIndex(), rowCount(), rowCount());
+    m_tasks.push_back(task);
+    endInsertRows();
+}
+
+QObject* UScenario::getTaskAt(int index) const {
+    if (index < 0 || index >= taskCount())
+        return 0;
+
+    return (QObject*) ( getTasks().at(index) );
+}
+
+void UScenario::deleteTaskAt(int index) {
+    if (index < 0 || index >= taskCount())
+        return;
+
+    beginRemoveRows(QModelIndex(), index, index);
+
+    QObject* task = getTaskAt(index);
+    delete task;
+    task = NULL;
+    m_tasks.removeAt(index);
+
+    endRemoveRows();
 }
 
 void UScenario::read(const QJsonObject &jsonObj)
