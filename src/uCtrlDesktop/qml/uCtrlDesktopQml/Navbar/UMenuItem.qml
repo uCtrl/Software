@@ -39,7 +39,7 @@ Rectangle {
 
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: icon.bottom
-            anchors.topMargin: 23
+            anchors.topMargin: 30
 
             visible: false  // Only displayed when hovered.
 
