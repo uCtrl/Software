@@ -1,42 +1,23 @@
 import QtQuick 2.0
+import QtQuick.Controls 1.0
 
-Rectangle {
-    // Default properties
-    property color backgroundColor: _colors.uWhite
-    property variant model: null
+ScrollView {
     property bool requiredModel: false
-    property string title: "unknown"
+    property var model: null
 
-    // Default dimensions, anchoring and coloring
-    width: parent.width
-    height: parent.height
-
-    anchors.top: parent.top
-    anchors.topMargin: 40
-    anchors.left: parent.left
-
-    color: backgroundColor
-
-    Component.onCompleted: visible=true
-
-    // Responsive signals
-    signal move(int x, int y)
-    onMove: {
-        for (var i=0; i<children.length;i++) {
-            children[i].x += x
-            children[i].y += y
-        }
+    contentItem: Rectangle {
+        color: _colors.uTransparent
     }
 
-    signal bind(variant newModel)
-    onBind: {
-        if (requiredModel) {
-            model = newModel
-            refresh(model)
-        }
-    }
+   signal bind(variant newModel)
+   onBind: {
+       if (requiredModel) {
+           model = newModel
+           refresh(model)
+       }
+   }
 
-    // FOLLOWING FUNCTIONS MAY BE OVERRIDEN BY FRAME LEAF
-    function refresh() {
-    }
+   // FOLLOWING FUNCTIONS MAY BE OVERRIDEN BY FRAME LEAF
+   function refresh() {
+   }
 }

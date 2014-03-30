@@ -7,19 +7,15 @@ Rectangle {
     property bool showInfo: false
     property variant device: null
 
-    height: 75
-    width: parent.width
+    height: 75; width: 500
     color: _colors.uLightGrey
-
-    x: 0
-    y: 0
 
     function getName() {
         return (device === undefined || device === null ? "UNKNOWN" : device.name)
     }
 
     function getRoom() {
-        return (device === undefined || device === null ? "UNKNOWN" : "UNKNOWN" /*device.room*/)
+        return (device === undefined || device === null ? "UNKNOWN" : "UNKNOWN")
     }
 
     function getImagePath() {
@@ -72,13 +68,9 @@ Rectangle {
             id: iconLabel
 
             color: _colors.uGreen
-            font.pointSize: 15
-            anchors.bottom: parent.bottom
-            anchors.centerIn: parent.Center
-            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.centerIn: parent
 
-            anchors.top: parent.top
-            anchors.topMargin: ((parent.height/2) - height/2) + 4
+            font.pointSize: 15
 
             text: getImagePath()
         }

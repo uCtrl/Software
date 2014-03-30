@@ -1,22 +1,28 @@
 import QtQuick 2.0
+import QtQuick.Controls 1.0
 
 import "UI" as UI
 
 import "Navbar" as Navbar
 
-import "DeviceConfiguration" as Config
+/*import "DeviceConfiguration" as Config
 import "Home" as Home
 import "Statistics" as Stats
-import "DeviceSummary" as Summary
+import "DeviceSummary" as Summary*/
+
+import "Titlebar" as Titlebar
+import "Navbar" as Navbar
 
 Rectangle {
     id: main
 
-    // Object properties
-    property variant activeComponent: null
-    property variant activePage: null
+    property var activeComponent: null
+    property var activePage: null
 
-    width: 500; height: 800
+    // Frame dimension
+    width: 900; height: 700
+
+    color: _colors.uLightGrey
 
     // Object Signals declaration
     signal swap (string page, string title, variant model)
@@ -46,6 +52,12 @@ Rectangle {
         if (activeComponent.status === Component.Ready) {
             destroyPage()
             activePage = activeComponent.createObject(main)
+
+            activePage.anchors.top = titlebar.bottom
+            activePage.anchors.bottom = main.bottom
+            activePage.anchors.left = navbar.right
+            activePage.anchors.right = main.right
+
             validatePage(model)
         } else {
             displayComponentError()
@@ -53,9 +65,6 @@ Rectangle {
     }
 
     function renderComponent(path, title, model) {
-        navigationBar.title = title
-        navigationBar.renderInformationMenu((title === "Information"))
-
         destroyComponent()
         activeComponent = Qt.createComponent(path)
         refreshPage(model)
@@ -79,11 +88,39 @@ Rectangle {
         }
     }
 
-    // Child objects
-    Navbar.UNavbarWidget {
-        id: navigationBar
-        title: "Homepage"
+    Titlebar.Titlebar {
+        id: titlebar
+
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+
         z: 1    // Always on top.
+    }
+
+    Navbar.UNavbar {
+        id: navbar
+
+        anchors.top: titlebar.bottom
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+
+        z: 1    // Always on top.
+    }
+
+    ScrollView {
+        id: scrollView
+
+        anchors.top: titlebar.bottom
+        anchors.left: navbar.right
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+
+        contentItem: Rectangle {
+            id: frame
+
+            color: _colors.uTransparent
+        }
     }
 
     UI.UColors {
@@ -93,8 +130,4 @@ Rectangle {
     UI.UPath {
         id: _paths
     }
-
-    // Object states
-
-    // Object transitions
 }
