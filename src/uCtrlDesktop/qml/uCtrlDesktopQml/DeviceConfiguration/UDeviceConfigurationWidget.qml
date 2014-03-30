@@ -7,7 +7,6 @@ UI.UFrame {
     property variant device: null
     property ListModel scenarios: null
 
-    title: qsTr("Configuration")
     requiredModel: true
 
     function refresh(newDevice) {
@@ -15,40 +14,47 @@ UI.UFrame {
         scenarioWidget.refresh(newDevice.getScenario())
     }
 
-    Device.UHeader {
-        id: deviceHeader
+    contentItem: Rectangle {
+        anchors.top: parent.top
+        anchors.left: parent.left
 
-        device: device
-    }
+        color: _colors.uWhite
+        width: 500; height: 300
 
-    Scenario.UScenarioWidget {
-        id: scenarioWidget
+        Device.UHeader {
+            id: deviceHeader
 
-        anchors.top: deviceHeader.bottom
-        height: parent.height - deviceHeader.height - 80
-        name: "Scenario #1 - Semaine de travail"
-    }
+            device: device
+        }
 
-    Rectangle {
-        id: commandButtons
+        Scenario.UScenarioWidget {
+            id: scenarioWidget
 
-        width: parent.width
-        height: 40
-        anchors.top: scenarioWidget.bottom
+            anchors.top: deviceHeader.bottom
+            name: "Scenario #1 - Semaine de travail"
+        }
 
-        color: _colors.uUltraLightGrey
+        Rectangle {
+            id: commandButtons
 
-        UI.UButton {
-            id: simplebutton
+            width: 500
+            height: 40
+            anchors.top: scenarioWidget.bottom
 
-            objectName: "btn"
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 7
-            width: 96; height: 27
-            x: 10
-            text: qsTr("Add")
+            color: _colors.uUltraLightGrey
 
-            signal qmlSignal()
+            UI.UButton {
+                id: simplebutton
+
+                objectName: "btn"
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 7
+                width: 96; height: 27
+                x: 10
+                text: qsTr("Add")
+
+                signal qmlSignal()
+            }
         }
     }
 }

@@ -3,98 +3,104 @@ import "../UI" as UI
 import "../Device" as Device
 
 UI.UFrame {
-    property variant device: null
-    title: qsTr("Information")
+    property var device: null
+    requiredModel: true
 
-
-    Device.UHeader {
-        id: deviceHeader
-
-        device: device
+    function refresh(newDevice) {
+        device = newDevice
+        deviceHeader.refresh(device)
     }
 
-    Rectangle {
-        width: parent.width
-        anchors.top: deviceHeader.bottom
-        color: _colors.uTransparent
+    contentItem: Rectangle {
+        Device.UHeader {
+            id: deviceHeader
 
-        UDeviceInfoCell {
-            id: nameCase
-            anchors.top: parent.top
-            title: qsTr("Name :")
-
-            UDeviceInfoEdit {
-                textValue: "Left bedside table"
-            }
+            device: device
         }
 
-        UDeviceInfoCell {
-            id: roomCase
-            anchors.top: nameCase.bottom
-            title: qsTr("Room :")
+        Rectangle {
+            width: parent.width
+            anchors.top: deviceHeader.bottom
+            color: _colors.uWhite
 
-            UDeviceInfoEdit {
-                textValue: "Master chamber"
+            UDeviceInfoCell {
+                id: nameCase
+                anchors.top: parent.top
+                title: qsTr("Name :")
+
+                UDeviceInfoEdit {
+                    textValue: "Left bedside table"
+                }
             }
-        }
 
-        UDeviceInfoCell {
-            id: typeCase
-            anchors.top: roomCase.bottom
-            title: qsTr("Type :")
+            UDeviceInfoCell {
+                id: roomCase
+                anchors.top: nameCase.bottom
+                title: qsTr("Room :")
 
-            UDeviceInfoEdit {
-                textValue: "Light"
+                UDeviceInfoEdit {
+                    textValue: "Master chamber"
+                }
             }
-        }
 
-        UDeviceInfoCell {
-            id: stateCase
-            anchors.top: typeCase.bottom
-            title: qsTr("State :")
+            UDeviceInfoCell {
+                id: typeCase
+                anchors.top: roomCase.bottom
+                title: qsTr("Type :")
 
-            UDeviceInfoFixed {
-                textValue: "Close"
+                UDeviceInfoEdit {
+                    textValue: "Light"
+                }
             }
-        }
 
-        UDeviceInfoCell {
-            id: macCase
-            anchors.top: stateCase.bottom
-            title: qsTr("MAC address :")
+            UDeviceInfoCell {
+                id: stateCase
+                anchors.top: typeCase.bottom
+                title: qsTr("State :")
 
-            UDeviceInfoFixed {
-                textValue: "00:11:22:33:44:55:66:77"
+                UDeviceInfoFixed {
+                    textValue: "Close"
+                }
             }
-        }
 
-        UDeviceInfoCell {
-            id: ipCase
-            anchors.top: macCase.bottom
-            title: qsTr("IP address :")
+            UDeviceInfoCell {
+                id: macCase
+                anchors.top: stateCase.bottom
+                title: qsTr("MAC address :")
 
-            UDeviceInfoFixed {
-                textValue: "127.0.0.1"
+                UDeviceInfoFixed {
+                    textValue: "00:11:22:33:44:55:66:77"
+                }
             }
-        }
 
-        UDeviceInfoCell {
-            id: idCase
-            anchors.top: ipCase.bottom
-            title: qsTr("ID  :")
+            UDeviceInfoCell {
+                id: ipCase
+                anchors.top: macCase.bottom
+                title: qsTr("IP address :")
 
-            UDeviceInfoFixed {
-                textValue: "C3PO"
+                UDeviceInfoFixed {
+                    textValue: "127.0.0.1"
+                }
             }
-        }
 
-        UDeviceInfoCell {
-            id: firmwareVCase
-            anchors.top: idCase.bottom
-            title: qsTr("Firmware version :")
+            UDeviceInfoCell {
+                id: idCase
+                anchors.top: ipCase.bottom
+                title: qsTr("ID  :")
 
-            UDeviceInfoFixed {
-                textValue: "0.0.1 Alpha R0"
+                UDeviceInfoFixed {
+                    textValue: "C3PO"
+                }
+            }
+
+            UDeviceInfoCell {
+                id: firmwareVCase
+                anchors.top: idCase.bottom
+                title: qsTr("Firmware version :")
+
+                UDeviceInfoFixed {
+                    textValue: "0.0.1 Alpha R0"
+                }
             }
         }
     }

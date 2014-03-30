@@ -14,6 +14,8 @@ Rectangle {
         icon: "Dashboard"
         label: "Dashboard"
 
+        path: _paths.uHome
+
         anchors.top: parent.top
         anchors.topMargin: 5
 
@@ -24,6 +26,9 @@ Rectangle {
         id: device
         icon: "Wrench"
         label: "Plateforms"
+
+        path: _paths.uSummary
+        model: myDevice
 
         anchors.top: dashboard.bottom
         anchors.topMargin: 5
@@ -36,6 +41,8 @@ Rectangle {
         icon: "BarChart"
         label: "Statistics"
 
+        path: _paths.uStatistics
+
         anchors.top: device.bottom
         anchors.topMargin: 5
 
@@ -46,6 +53,8 @@ Rectangle {
         id: config
         icon: "Cogs"
         label: "Configurations"
+
+        path: _paths.uHome
 
         anchors.top: statistics.bottom
         anchors.topMargin: 5
