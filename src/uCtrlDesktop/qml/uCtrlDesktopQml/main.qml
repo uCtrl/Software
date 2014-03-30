@@ -98,7 +98,7 @@ Rectangle {
         z: 1    // Always on top.
     }
 
-    Navbar.UNavBar {
+    Navbar.UNavbar {
         id: navbar
 
         anchors.top: titlebar.bottom
