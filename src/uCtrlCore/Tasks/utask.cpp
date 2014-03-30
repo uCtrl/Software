@@ -1,7 +1,7 @@
 #include "utask.h"
 #include "Utility/uniqueidgenerator.h"
 
-UTask::UTask(QObject* parent) : QAbstractListModel(parent)
+UTask::UTask(QObject* parent) : QAbstractListModel(parent), m_scenario(parent)
 {
     setId(UniqueIdGenerator::GenerateUniqueId());
 }
