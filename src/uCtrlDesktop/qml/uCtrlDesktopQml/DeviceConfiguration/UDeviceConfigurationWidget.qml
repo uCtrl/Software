@@ -67,8 +67,8 @@ UI.UFrame {
             objectName: "btn"
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 7
+            anchors.left: btnAdd.right
             width: 96; height: 27
-            x: btnAdd.x + btnAdd.width + 10
             text: qsTr("Delete")
 
             function execute() {

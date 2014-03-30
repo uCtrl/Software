@@ -1,14 +1,13 @@
 #ifndef UDEVICE_H
 #define UDEVICE_H
 
-#include "Serialization/JsonMacros.h"
+#include "Serialization/jsonserializable.h"
 #include "Scenario/uscenario.h"
 #include <QAbstractListModel>
 
-class UDevice : public QAbstractListModel
+class UDevice : public QAbstractListModel, public JsonSerializable
 {
     Q_OBJECT
-    UCTRL_JSON(UDevice)
 
     Q_PROPERTY(QList<UScenario*> scenarios READ getScenarios WRITE setScenarios)
     Q_PROPERTY(int id READ getId WRITE setId)
@@ -39,6 +38,9 @@ public:
 
     // TODO: this should be better handled
     Q_INVOKABLE QObject* getScenario() const { return (QObject*) m_scenarios.at(0); }
+
+    void read(const QJsonObject &jsonObj);
+    void write(QJsonObject &jsonObj) const;
 
 signals:
     void nameChanged(QString);

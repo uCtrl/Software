@@ -1,15 +1,14 @@
 #ifndef USCENARIO_H
 #define USCENARIO_H
 
-#include "Serialization/JsonMacros.h"
+#include "Serialization/jsonserializable.h"
 #include "Tasks/utask.h"
 #include "Conditions/ucondition.h"
 #include <QAbstractListModel>
 
-class UScenario : public QAbstractListModel
+class UScenario : public QAbstractListModel, public JsonSerializable
 {
     Q_OBJECT
-    UCTRL_JSON(UScenario)
 
     Q_PROPERTY(int id READ getId WRITE setId)
     Q_PROPERTY(QString name READ getName WRITE setName)
@@ -33,6 +32,9 @@ public:
     Q_INVOKABLE void addTask(UTask* task);
     Q_INVOKABLE QObject* getTaskAt(int index) const;
     Q_INVOKABLE void deleteTaskAt(int index);
+
+    void read(const QJsonObject &jsonObj);
+    void write(QJsonObject &jsonObj) const;
 
 public slots:
     void setId(int arg) { m_id = arg; }

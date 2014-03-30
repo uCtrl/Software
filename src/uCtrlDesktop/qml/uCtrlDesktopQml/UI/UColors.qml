@@ -9,10 +9,10 @@ QtObject {
     // µCtrl's Red variation
     property color uDarkRed: "#FF4940"
 
-    // White
+    // White colors
     property color uWhite: "white"
 
-    // Black
+    // Black colors
     property color uBlack: "black"
 
     // Grey colors

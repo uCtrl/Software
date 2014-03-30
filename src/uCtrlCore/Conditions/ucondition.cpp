@@ -1,21 +1,18 @@
 #include "ucondition.h"
-#include "Utility/uniqueidgenerator.h"
 
-UCondition::UCondition()
-{
-    setId(UniqueIdGenerator::GenerateUniqueId());
-}
+UCondition::UCondition( QObject* parent ) : QAbstractListModel(parent) {}
 
 UCondition::UCondition(const UCondition& condition)
 {
     setId(condition.getId());
 }
-void UCondition::FillObject(json::Object& obj) const
+
+void UCondition::read(const QJsonObject &jsonObj)
 {
-    obj["id"] = getId();
+    this->setId(jsonObj["id"].toInt());
 }
 
-void UCondition::FillMembers(const json::Object& obj)
+void UCondition::write(QJsonObject &jsonObj) const
 {
-    setId(obj["id"]);
+    jsonObj["id"] = getId();
 }

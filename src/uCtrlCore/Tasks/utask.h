@@ -1,14 +1,12 @@
 #ifndef UTASK_H
 #define UTASK_H
 
-#include "Serialization/JsonMacros.h"
 #include "Conditions/ucondition.h"
 #include <QAbstractListModel>
 
 class UTask : public QAbstractListModel
 {
     Q_OBJECT
-    UCTRL_JSON(UTask)
 
     Q_PROPERTY(int id READ getId WRITE setId)
     Q_PROPERTY(QString status READ getStatus WRITE setStatus NOTIFY statusChanged)
@@ -26,6 +24,9 @@ public:
 
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const { return m_conditions.count(); }
     virtual QVariant data(const QModelIndex &index, int role) const { return QVariant(); }
+
+    void read(const QJsonObject &jsonObj);
+    void write(QJsonObject &jsonObj) const;
 
 public slots:
     void setId(int arg) { m_id = arg; }
