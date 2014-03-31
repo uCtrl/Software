@@ -3,14 +3,19 @@ import "../Device" as Device
 import "../UI" as UI
 
 UI.UFrame {
-    property variant device: null
+    property var device: null
 
-    title: qsTr("Configuration")
-    anchors.top: parent.top
+    contentItem: Rectangle {
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
 
-    Device.UHeader {
-        device: myDevice
-        showConfig: true
-        showInfo: true
+        width: parent.width
+
+        Device.UHeader {
+            device: myDevice
+            showConfig: true
+            showInfo: true
+        }
     }
 }

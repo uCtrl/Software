@@ -1,62 +1,115 @@
 import QtQuick 2.0
+import "../UI" as UI
 
 Rectangle {
-    property string itemLabel: "Unknown"
-    property string pageName: "homepage"
-    property string pagePath: "."
+    id: container
 
-    width: parent.width
-    height: 30
+    property string icon: "Ok"
+    property bool showSeparator: true
+    property string label: "UNKNOWN"
+    property string path: "."
+    property var model: null
 
-    function swap() {
-        parent.toggleMenu()
-        main.swap(pagePath, pageName, null)
+    width: 100; height: 90
+
+    color: _colors.uTransparent
+
+    Rectangle {
+
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        UI.UFontAwesome {
+            id: icon
+
+            anchors.top: parent.top
+            anchors.topMargin: 30
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            iconId: container.icon
+            iconSize: 50
+            iconColor: _colors.uGrey
+        }
+
+        UI.ULabel {
+            id: label
+
+            label: container.label
+            headerStyle: 0
+
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: icon.bottom
+            anchors.topMargin: 30
+
+            visible: false  // Only displayed when hovered.
+
+            Component.onCompleted: {
+                font.pixelSize = 14
+                font.bold = true
+                color = _colors.uGrey
+            }
+        }
     }
 
     Rectangle {
-        id: activeFrame
+        id: separator
+
+        visible: showSeparator
+
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
 
         color: _colors.uTransparent
-        height: 25
-        width: 25
 
-        anchors.left: parent.left
-        anchors.leftMargin: 5
+        height: 4
 
-        Text {
-            x: 7
-            text: "x"
-            visible: (main.activePage.title === pageName)
-            color: _colors.uGreen
+        Rectangle {
+            id: darkLine
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: swap()
-            }
+            height: 1
+
+            anchors.top: parent.top
+
+            anchors.left: parent.left
+            anchors.leftMargin: 3
+
+            anchors.right: parent.right
+            anchors.rightMargin: 3
+
+            color: _colors.uBlack
+            opacity: 0.4
+
         }
 
-        MouseArea {
-            anchors.fill: parent
-            onClicked: swap()
-        }
-    }
+        Rectangle {
+            id: ligthLine
 
-    Text {
-        y: 2
+            height: 1
 
-        text: itemLabel
+            anchors.top: darkLine.bottom
 
-        anchors.left: activeFrame.right
-        anchors.leftMargin: 5
+            anchors.left: parent.left
+            anchors.leftMargin: 3
 
-        MouseArea {
-            anchors.fill: parent
-            onClicked: swap()
+            anchors.right: parent.right
+            anchors.rightMargin: 3
+
+            color: _colors.uWhite
+            opacity: 0.1
+
         }
     }
 
     MouseArea {
         anchors.fill: parent
-        onClicked: swap()
+        hoverEnabled: true
+        onHoveredChanged: {
+            label.visible = (containsMouse)
+        }
+
+        onClicked: {
+            main.swap(path, "", model)
+        }
     }
 }

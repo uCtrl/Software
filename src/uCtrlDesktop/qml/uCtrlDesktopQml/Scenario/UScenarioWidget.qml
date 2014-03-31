@@ -5,7 +5,8 @@ Rectangle {
     property ListModel scenario: null
     clip:true
 
-    color: _colors.uTransparent
+    color: _colors.uWhite
+    height: parent.height
     width: parent.width
 
     function getName() {
