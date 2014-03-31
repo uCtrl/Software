@@ -193,6 +193,7 @@ Item {
             id: conditionsContainer
             clip: true
 
+
             height: 40 * conditionList.count
             width: parent.width - dragger.width
 
@@ -210,6 +211,8 @@ Item {
                 anchors.fill: parent
                 model: taskModel
                 spacing:5
+                interactive:false
+
                 delegate: UConfigConditionWidget {
                     UTimeConditionWidget {
                     conditionHour: 15
