@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import "../UI" as UI
+import "../UI/ULabel" as ULabel
 
 
 UConfigConditionWidget {
@@ -33,7 +34,7 @@ UConfigConditionWidget {
                 clockMinute: conditionMinute
             }
         }
-        UI.ULabel {
+        ULabel.Default {
             id: conditionLabel
 
             anchors.left: clockContainer.right

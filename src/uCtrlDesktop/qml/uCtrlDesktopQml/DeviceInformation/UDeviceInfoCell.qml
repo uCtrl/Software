@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import "../UI" as UI
+import "../UI/ULabel" as ULabel
 
 
 Rectangle {
@@ -17,7 +18,7 @@ Rectangle {
         color: _colors.uTransparent
     }
 
-    UI.ULabel {
+    ULabel.Default {
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: infoPaddinLeft.right
         text: title

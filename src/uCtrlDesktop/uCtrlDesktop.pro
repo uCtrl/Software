@@ -94,4 +94,10 @@ OTHER_FILES += \
     qml/uCtrlDesktopQml/Scenario/UTaskWidget.qml \
     qml/uCtrlDesktopQml/UI/UFontAwesome.qml \
     qml/uCtrlDesktopQml/Navbar/UNavbar.qml \
-    qml/uCtrlDesktopQml/UI/UToolTip.qml
+    qml/uCtrlDesktopQml/UI/UToolTip.qml \
+    qml/uCtrlDesktopQml/UI/ULabel/Default.qml \
+    qml/uCtrlDesktopQml/UI/ULabel/Heading1.qml \
+    qml/uCtrlDesktopQml/UI/ULabel/Heading2.qml \
+    qml/uCtrlDesktopQml/UI/ULabel/Heading3.qml \
+    qml/uCtrlDesktopQml/UI/ULabel/Heading4.qml \
+    qml/uCtrlDesktopQml/UI/ULabel/Heading5.qml

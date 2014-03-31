@@ -1,5 +1,7 @@
 import QtQuick 2.0
 
+import "../UI/ULabel" as ULabel
+
 Item {
     property string iconId: "Ok"
     property int iconSize: 16
@@ -222,7 +224,7 @@ Item {
         source: "qrc:///Resources/fontawesome-webfont.ttf"
     }
 
-    Text {
+    ULabel.Default {
         anchors.centerIn: parent
         font.pointSize: iconSize
         font.family: "FontAwesome"

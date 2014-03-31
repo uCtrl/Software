@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import "../UI" as UI
+import "../UI/ULabel" as ULabel
 
 Rectangle {
     property string scenarioName: "UNKNOWN SCENARIO NAME"
@@ -13,7 +14,7 @@ Rectangle {
 
     color: _colors.uUltraLightGrey
 
-    UI.ULabel {
+    ULabel.Default {
         text: scenarioName
         color: _colors.uDarkGrey
         font.pointSize: 11
