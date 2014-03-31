@@ -99,6 +99,23 @@ Item {
             }
 
             UI.UButton {
+                id: deleteBtn
+
+                text: "X"
+
+                width: 20
+                height: 20
+
+                anchors.right: toggleBtn.left
+                anchors.rightMargin: 10
+
+                function execute() {
+                    var pScenario = taskModel.scenario
+                    pScenario.deleteTaskAt(index)
+                }
+            }
+
+            UI.UButton {
                 id: moveDown
 
                 text: "D"
@@ -106,7 +123,7 @@ Item {
                 width: 20
                 height: 20
 
-                anchors.right: toggleBtn.left
+                anchors.right: deleteBtn.left
                 anchors.rightMargin: 10
 
                 function execute() {
