@@ -13,7 +13,9 @@ USystem* USystem::Instance()
 
 void USystem::addPlatform(const QString& ip, const int port)
 {
-    m_platforms.append(new UPlatform(USystem::Instance(), ip, port);
+    UPlatform* platform = new UPlatform(USystem::Instance(), ip, port);
+    m_platforms.append(platform);
+    platform->createSocket();
 }
 
 QVariant USystem::data(const QModelIndex &index, int role) const

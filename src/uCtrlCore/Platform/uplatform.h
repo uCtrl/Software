@@ -50,6 +50,6 @@ private:
     int m_port;
     QList<UDevice*> m_devices;
 
-    USocket* m_usocket;
+    USocket* m_socket;
 };
 #endif // UPLATFORM_H

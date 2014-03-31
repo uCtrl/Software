@@ -22,7 +22,7 @@ UPlatform::UPlatform(const UPlatform& platform)
 
 UPlatform::~UPlatform()
 {
-    delete m_usocket;
+    delete m_socket;
 }
 
 void UPlatform::createSocket()
@@ -30,14 +30,14 @@ void UPlatform::createSocket()
     if(m_ip == NULL || m_port == 0)
         return;
 
-    m_usocket = new USocket(m_ip, m_port);
-    connect(m_usocket, SIGNAL(hostConnected()), this, SLOT(connected()));
-    connect(m_usocket, SIGNAL(received(QString)), this, SLOT(receivedRequest(QString)));
+    m_socket = new USocket(m_ip, m_port);
+    connect(m_socket, SIGNAL(hostConnected()), this, SLOT(connected()));
+    connect(m_socket, SIGNAL(received(QString)), this, SLOT(receivedRequest(QString)));
 }
 
 void UPlatform::connected()
 {
-    m_usocket->write("getAllDevices");
+    m_socket->write("getAllDevices");
 }
 
 void UPlatform::receivedRequest(QString message)
