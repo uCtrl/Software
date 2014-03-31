@@ -7,6 +7,7 @@ UI.UFrame {
         width: 1000
         height: 1000
 
+        // Button demonstrations
         Rectangle {
             id: buttonDemo
             width: parent.width
@@ -51,7 +52,11 @@ UI.UFrame {
                 text: "Error button"
                 state: "ERROR"
             }
+
+            // @TODO : Add UIconButton demonstrations.
         }
+
+        // Label demonstrations
         Rectangle {
             id: labelDemo
 
@@ -163,6 +168,7 @@ UI.UFrame {
             }
         }
 
+        // Combobox demonstration
         Rectangle {
             id: comboDemo
             width: parent.width
@@ -178,6 +184,7 @@ UI.UFrame {
             }
         }
 
+        // Checkbox demonstration
         Rectangle {
             id: checkDemo
             width: parent.width
@@ -219,7 +226,9 @@ UI.UFrame {
             }
         }
 
+        // Radiobutton demonstration
         Rectangle {
+            id: radioDemo
             anchors.top: checkDemo.bottom
             anchors.topMargin: 25
             width: parent.width
@@ -239,6 +248,7 @@ UI.UFrame {
                 exclusiveGroup: firstGroup
                 text: "Radio 1"
             }
+
             UI.URadioButton {
                 id: radio2
                 state: {
@@ -253,6 +263,7 @@ UI.UFrame {
                 text: "Radio 2"
                 exclusiveGroup: firstGroup
             }
+
             UI.URadioButton {
                 id: radio3
                 state: {
@@ -285,6 +296,7 @@ UI.UFrame {
                 exclusiveGroup: secondGroup
                 text: "Radio 1"
             }
+
             UI.URadioButton {
                 id: radio5
                 state: {
@@ -301,6 +313,7 @@ UI.UFrame {
                 text: "Radio 2"
                 exclusiveGroup: secondGroup
             }
+
             UI.URadioButton {
                 id: radio6
                 state: {
@@ -319,5 +332,99 @@ UI.UFrame {
             }
         }
 
+        // Textbox demonstration
+        Rectangle {
+            id: textDemo
+
+            width: parent.width
+            height: 500
+            color: _colors.uTransparent
+
+            anchors.top: radioDemo.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.margins: 8
+
+            UI.ULabel {
+                id: headerText
+
+                anchors.left: parent.left
+
+                label: "Textbox demonstration"
+                headerStyle: 1
+            }
+
+            UI.ULabel {
+                id: tipsSelection
+                anchors.top: headerText.bottom
+                anchors.left: parent.left
+
+                label: "<b>Tips:</b> Also try to select the text for more magic !"
+            }
+
+            // Toggled Textbox (enabled, disabled)
+            UI.UTextbox {
+                id: toggledInput
+
+                anchors.top: tipsSelection.bottom
+                anchors.topMargin: 7
+
+                anchors.left: parent.left
+
+                width: 340
+            }
+
+            UI.UButton {
+                id: inputButton
+
+                anchors.left: toggledInput.right
+                anchors.top: tipsSelection.bottom
+
+                width: 70
+
+                text: (toggledInput.state === "ENABLED" ? "Disable" : "Enable")
+
+                function execute() {
+                    toggledInput.state = (toggledInput.state === "ENABLED" ? "DISABLED" : "ENABLED")
+                }
+            }
+
+            // Toggled Textbox (error, success)
+            UI.UTextbox {
+                id: errorText
+
+                anchors.top: inputButton.bottom
+                anchors.left: parent.left
+
+                width: 204
+
+                text: "Wrong answer !"
+                state: "ERROR"
+            }
+
+            UI.UTextbox {
+                id: successText
+
+                anchors.top: inputButton.bottom
+                anchors.left: errorText.right
+
+                width: 204
+
+                text: "Good answer !"
+                state: "SUCCESS"
+            }
+
+            // Placeholder textbox
+            UI.UTextbox {
+                id: placeholderText
+
+                placeholderText: "Enter some text..."
+
+                anchors.top: successText.bottom
+                anchors.left: parent.left
+
+                width: 412
+            }
+        }
     }
 }
