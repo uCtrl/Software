@@ -17,7 +17,6 @@ Rectangle {
         path: _paths.uHome
 
         anchors.top: parent.top
-        anchors.topMargin: 5
 
         anchors.left: parent.left
     }
@@ -25,13 +24,12 @@ Rectangle {
     UMenuItem {
         id: device
         icon: "Wrench"
-        label: "Plateforms"
+        label: "Platforms"
 
         path: _paths.uSummary
         model: myDevice
 
         anchors.top: dashboard.bottom
-        anchors.topMargin: 5
 
         anchors.left: parent.left
     }
@@ -44,7 +42,6 @@ Rectangle {
         path: _paths.uStatistics
 
         anchors.top: device.bottom
-        anchors.topMargin: 5
 
         anchors.left: parent.left
     }
@@ -57,7 +54,6 @@ Rectangle {
         path: _paths.uHome
 
         anchors.top: statistics.bottom
-        anchors.topMargin: 5
 
         anchors.left: parent.left
 

@@ -93,4 +93,5 @@ OTHER_FILES += \
     qml/uCtrlDesktopQml/UI/UComboBox.qml \
     qml/uCtrlDesktopQml/Scenario/UTaskWidget.qml \
     qml/uCtrlDesktopQml/UI/UFontAwesome.qml \
-    qml/uCtrlDesktopQml/Navbar/UNavbar.qml
+    qml/uCtrlDesktopQml/Navbar/UNavbar.qml \
+    qml/uCtrlDesktopQml/UI/UToolTip.qml
