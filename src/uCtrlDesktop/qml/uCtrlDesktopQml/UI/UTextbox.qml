@@ -52,15 +52,6 @@ TextField {
         }
     }
 
-    function getIconText() {
-        switch (state) {
-            case "SUCCESS":
-                return "Ok"
-            default:
-                return "Remove"
-        }
-    }
-
     function getTextColor() {
         switch (state) {
             case "ENABLED":
