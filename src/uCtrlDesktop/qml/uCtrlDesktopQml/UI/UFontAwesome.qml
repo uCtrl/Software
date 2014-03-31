@@ -218,8 +218,6 @@ Item {
         "UserMd"            : "\uf200",
     }
 
-    //anchors.centerIn: parent
-
     FontLoader {
         source: "qrc:///Resources/fontawesome-webfont.ttf"
     }
