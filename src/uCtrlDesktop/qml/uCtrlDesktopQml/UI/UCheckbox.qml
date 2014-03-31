@@ -23,6 +23,8 @@ CheckBox {
                 visible: control.checked
                 iconId: "Ok"
                 iconColor: getCheckColor()
+                anchors.centerIn: parent
+                iconSize: 12
             }
         }
 
