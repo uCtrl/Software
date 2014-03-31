@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import "../UI" as UI
+import QtQuick.Controls 1.0
 
 Rectangle {
     id: container
@@ -10,45 +11,27 @@ Rectangle {
     property string path: "."
     property var model: null
 
-    width: 100; height: 90
+    width: 100; height: 100
 
     color: _colors.uTransparent
 
-    Rectangle {
+    UI.UFontAwesome {
+        id: icon
 
-        anchors.top: parent.top
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.centerIn: parent
 
-        UI.UFontAwesome {
-            id: icon
+        iconId: container.icon
+        iconSize: 50
+        iconColor: _colors.uGrey
+    }
 
-            anchors.top: parent.top
-            anchors.topMargin: 30
-            anchors.horizontalCenter: parent.horizontalCenter
-
-            iconId: container.icon
-            iconSize: 50
-            iconColor: _colors.uGrey
-        }
-
-        UI.ULabel {
-            id: label
-
-            label: container.label
-            headerStyle: 0
-
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: icon.bottom
-            anchors.topMargin: 30
-
-            visible: false  // Only displayed when hovered.
-
-            Component.onCompleted: {
-                font.pixelSize = 14
-                font.bold = true
-                color = _colors.uGrey
-            }
-        }
+    UI.UToolTip {
+        id: tooltip
+        visible: false
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.left: parent.right
+        text: container.label
+        width: 125
     }
 
     Rectangle {
@@ -102,10 +85,11 @@ Rectangle {
     }
 
     MouseArea {
+        id: mouseArea
         anchors.fill: parent
         hoverEnabled: true
         onHoveredChanged: {
-            label.visible = (containsMouse)
+            tooltip.visible = (containsMouse)
         }
 
         onClicked: {
