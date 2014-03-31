@@ -26,10 +26,9 @@ Rectangle {
         anchors.left: triangle.right
         anchors.verticalCenter: parent.verticalCenter
 
-        ULabel.Default {
+        ULabel.TooltipText {
             text: parent.parent.text
             anchors.centerIn: parent
-            color: _colors.uWhite
         }
     }
 }
