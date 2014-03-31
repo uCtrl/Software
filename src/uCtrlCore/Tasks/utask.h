@@ -26,6 +26,14 @@ public:
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const { return m_conditions.count(); }
     virtual QVariant data(const QModelIndex &index, int role) const { return QVariant(); }
 
+    Q_INVOKABLE int conditionCount() const { return m_conditions.count(); }
+    // TODO : Handle condition type when it's implemented
+    Q_INVOKABLE QObject* createCondition();
+    Q_INVOKABLE void addCondition(UCondition* condition);
+    Q_INVOKABLE QObject* getConditionAt(int index) const;
+    Q_INVOKABLE void deleteConditionAt(int index);
+    Q_INVOKABLE void moveCondition(int indexSource, int indexDestination);
+
     void read(const QJsonObject &jsonObj);
     void write(QJsonObject &jsonObj) const;
 

@@ -18,11 +18,65 @@ UTask::~UTask()
     m_conditions.clear();
 }
 
-void UTask::addCondition( UCondition *cond)
+QObject* UTask::createCondition()
 {
-    m_conditions.push_back(cond);
+    return new UCondition(this);
 }
 
+void UTask::addCondition(UCondition* condition)
+{
+    beginInsertRows(QModelIndex(), rowCount(), rowCount());
+    m_conditions.push_back(condition);
+    endInsertRows();
+}
+
+QObject* UTask::getConditionAt(int index) const
+{
+    if (index < 0 || index >= taskCount())
+        return 0;
+
+    return (QObject*) ( m_conditions.at(index) );
+}
+
+void UTask::deleteConditionAt(int index)
+{
+    if (index < 0 || index >= taskCount())
+        return;
+
+    beginRemoveRows(QModelIndex(), index, index);
+
+    QObject* condition = getConditionAt(index);
+    delete condition;
+    condition = NULL;
+    m_conditions.removeAt(index);
+
+    endRemoveRows();
+}
+
+void UTask::moveCondition(int indexSource, int indexDestination)
+{
+    if (indexDestination < 0 || indexDestination >= m_tasks.size())
+        return;
+
+    if (indexSource < 0 || indexSource >= m_tasks.size())
+        return;
+
+    int sourceFirst = indexSource;
+    int sourceLast = indexSource;
+    int destinationRow = indexDestination;
+
+    if (indexSource < indexDestination) {
+        sourceFirst = indexSource + 1;
+        sourceLast = indexDestination;
+        destinationRow = indexSource;
+    }
+
+    beginMoveRows(QModelIndex(), sourceFirst, sourceLast, QModelIndex(), destinationRow);
+
+    m_conditions.move(indexSource, indexDestination);
+
+    endMoveRows();
+}
 
 void UTask::read(const QJsonObject &jsonObj)
 {
