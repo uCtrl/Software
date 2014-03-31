@@ -224,7 +224,7 @@ Item {
 
     Text {
         anchors.centerIn: parent
-        font.pointSize: parent.iconSize
+        font.pointSize: iconSize
         font.family: "FontAwesome"
         text: icon[iconId]
         color: iconColor
