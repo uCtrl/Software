@@ -17,7 +17,7 @@ void SaveSystemToFile(USystem* s, std::string filename)
     QFile file(QString::fromStdString(filename));
     file.open(QIODevice::WriteOnly | QIODevice::Text);
     QTextStream out(&file);
-    out << JsonSerializer::serialize(s);
+    out << JsonSerializer::serialize(device);
 
     // optional, as QFile destructor will already do it:
     file.close();
@@ -45,11 +45,14 @@ int main(int argc, char *argv[])
     }
 
     USystem* system = new USystem();
-    LoadSystemFromFile(system, ":/Resources/data.json");
+    //LoadSystemFromFile(system, ":/Resources/JSON.txt");
+
+    UPlatform* platform = new UPlatform(system, "127.0.0.1", 5000);
+    platform->createSocket();
 
     QQmlContext *ctxt = viewer.rootContext();
-    UDevice* d = system->getPlatforms().first()->getDevices()[0];
-    ctxt->setContextProperty("myDevice", d);
+    //UDevice* d = system->getPlatforms().first()->getDevices()[0];
+    //ctxt->setContextProperty("myDevice", d);
 
     viewer.setMainQmlFile(QStringLiteral("qml/uCtrlDesktopQml/main.qml"));
     viewer.setMinimumHeight(700);
