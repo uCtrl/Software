@@ -136,7 +136,7 @@ Rectangle {
             USubtitle {
                 anchors.top: parent.top
                 id: subtitleLabel
-                text: getRoom() //device.subtitle
+                text: getRoom()
             }
 
             UI.UButton {
