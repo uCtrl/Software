@@ -2,7 +2,8 @@ import QtQuick 2.0
 import "../UI" as UI
 
 Rectangle {
-    property string textValue: "UNKNOWN"
+    id: deviceInfo
+    property string text: "UNKNOWN"
     property color editColorZone: _colors.uTransparent
     property bool editReadOnly: true
     property bool showCursor: false
@@ -34,7 +35,7 @@ Rectangle {
             width: parent.width
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
-            text: textValue
+            text: deviceInfo.text
 
             readOnly: editReadOnly
             cursorVisible: showCursor

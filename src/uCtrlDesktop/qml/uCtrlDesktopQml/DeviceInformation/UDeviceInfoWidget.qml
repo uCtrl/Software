@@ -29,7 +29,7 @@ UI.UFrame {
                 title: qsTr("Name :")
 
                 UDeviceInfoEdit {
-                    textValue: "Left bedside table"
+                    text: "Left bedside table"
                 }
             }
 
@@ -39,7 +39,7 @@ UI.UFrame {
                 title: qsTr("Room :")
 
                 UDeviceInfoEdit {
-                    textValue: "Master chamber"
+                    text: "Master chamber"
                 }
             }
 
@@ -49,7 +49,7 @@ UI.UFrame {
                 title: qsTr("Type :")
 
                 UDeviceInfoEdit {
-                    textValue: "Light"
+                    text: "Light"
                 }
             }
 
@@ -59,7 +59,7 @@ UI.UFrame {
                 title: qsTr("State :")
 
                 UDeviceInfoFixed {
-                    textValue: "Close"
+                    text: "Close"
                 }
             }
 
@@ -69,7 +69,7 @@ UI.UFrame {
                 title: qsTr("MAC address :")
 
                 UDeviceInfoFixed {
-                    textValue: "00:11:22:33:44:55:66:77"
+                    text: "00:11:22:33:44:55:66:77"
                 }
             }
 
@@ -79,7 +79,7 @@ UI.UFrame {
                 title: qsTr("IP address :")
 
                 UDeviceInfoFixed {
-                    textValue: "127.0.0.1"
+                    text: "127.0.0.1"
                 }
             }
 
@@ -89,7 +89,7 @@ UI.UFrame {
                 title: qsTr("ID  :")
 
                 UDeviceInfoFixed {
-                    textValue: "C3PO"
+                    text: "C3PO"
                 }
             }
 
@@ -99,7 +99,7 @@ UI.UFrame {
                 title: qsTr("Firmware version :")
 
                 UDeviceInfoFixed {
-                    textValue: "0.0.1 Alpha R0"
+                    text: "0.0.1 Alpha R0"
                 }
             }
         }
