@@ -29,6 +29,5 @@ Rectangle {
             anchors.centerIn: parent
             color: "white"
         }
-
     }
 }
