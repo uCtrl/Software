@@ -1,11 +1,19 @@
 #include "usystem.h"
 
-USystem::USystem(QObject *parent) : QAbstractListModel(parent)
+USystem* USystem::m_systemInstance = NULL;
+
+USystem* USystem::Instance()
 {
+    if(!m_systemInstance)
+        m_systemInstance = new USystem();
+
+    return m_systemInstance;
 }
 
-USystem::~USystem()
+
+void USystem::addPlatform(const QString& ip, const int port)
 {
+    m_platforms.append(new UPlatform(USystem::Instance(), ip, port);
 }
 
 QVariant USystem::data(const QModelIndex &index, int role) const

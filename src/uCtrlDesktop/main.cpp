@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
         app.installTranslator(&translator);
     }
 
-    USystem* system = new USystem();
+    USystem* system = USystem::Instance();
     //LoadSystemFromFile(system, ":/Resources/JSON.txt");
 
     UPlatform* platform = new UPlatform(system, "127.0.0.1", 5000);
