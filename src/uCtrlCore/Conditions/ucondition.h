@@ -1,73 +1,55 @@
 #ifndef UCONDITION_H
 #define UCONDITION_H
 
+#include "QAbstractItemModel"
 #include <Serialization/jsonserializable.h>
-#include <QAbstractListModel>
-#include <QObject>
 
-namespace UEComparisonPossible
-{
-    enum Type
-    {
-        GreaterThan = 0x1,
-        LesserThan = 0x2,
-        Equals = 0x4,
-        InBetween = 0x8
-    };
-}
-
-namespace UEConditionType
-{
-    enum Type
-    {
-        Date = 1,
-        Day = 2,
-        Time = 3
-    };
-}
 
 // TODO: Use QDateTime + Clean everything up in here!
-class UCondition : public QAbstractListModel, public JsonSerializable
+class UCondition : public QAbstractItemModel, public JsonSerializable
 {
     Q_OBJECT
+public:
+    Q_ENUMS(UEConditionType)
+    enum class UEConditionType {
+        None = -1,
+        Date = 1,
+        Day,
+        Time
+    };
 
     Q_PROPERTY(int id READ getId WRITE setId)
     Q_PROPERTY(QObject* conditionParent READ getConditionParent)
-    //Q_PROPERTY(UEConditionType::Type conditionType READ getConditionType WRITE setConditionType)
-    //Q_PROPERTY(UEComparisonPossible::Type currentComparaisonType READ getCurrentComparaisonType WRITE setCurrentComparaisonType)
+    Q_PROPERTY(UEConditionType type READ getType WRITE setType)
 
-public:
-    UCondition(QObject* parent);
+    UCondition (QObject* parent, UEConditionType type );
     UCondition(const UCondition& condition);
-
-    //virtual int getComparisonPossible() { return 0; }
-    //virtual void  setValue1(void* value) {}
-    //virtual void setValue2(void* value) {}
-
-    virtual int rowCount(const QModelIndex &parent = QModelIndex()) const { return 1; }
-    virtual QVariant data(const QModelIndex &index, int role) const { return QVariant(); }
+    ~UCondition();
 
     int getId() const { return m_id; }
-    //UEConditionType::Type getConditionType() const { return m_conditionType; }
-    //UEComparisonPossible::Type getCurrentComparaisonType() const { return m_currentComparaisonType; }
-
+    UEConditionType getType() const { return m_type; }
     void read(const QJsonObject &jsonObj);
     void write(QJsonObject &jsonObj) const;
 
-    QObject* getConditionParent() const
-    {
-        return m_conditionParent;
-    }
+    QObject* getConditionParent() const { return m_conditionParent;  }
+    static UCondition* createCondition(QObject* parent, UEConditionType type);
 
 public slots:
     void setId(int arg) { m_id = arg; }
-    //void setConditionType(UEConditionType::Type arg) { m_conditionType = arg; }
-    //void setCurrentComparaisonType(UEComparisonPossible::Type arg) { m_currentComparaisonType = arg; }
+    void setType(UEConditionType arg) { m_type = arg; }
 
 private:
     int m_id;
-    //UEConditionType::Type m_conditionType;
-    //UEComparisonPossible::Type m_currentComparaisonType;
     QObject* m_conditionParent;
+    UEConditionType m_type;
+
+    // QAbstractItemModel interface
+public:
+    QModelIndex index(int row, int column, const QModelIndex &parent) const {return QModelIndex(); }
+    QModelIndex parent(const QModelIndex &child) const{return QModelIndex(); }
+    int rowCount(const QModelIndex &parent) const {return 0; }
+    int columnCount(const QModelIndex &parent) const {return 0; }
+    QVariant data(const QModelIndex &index, int role) const{return QVariant(); }
 };
+
 #endif // UCONDITION_H

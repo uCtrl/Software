@@ -1,59 +1,46 @@
 #include "uconditiondate.h"
 
-UConditionDate::UConditionDate() : UCondition()
+UConditionDate::UConditionDate(QObject *parent, UConditionDate::UEConditionDateType type, QDate *beginDate, QDate *endDate)
+    :UCondition(parent, UEConditionType::Date)
 {
+    setBeginDate(beginDate);
+    setEndDate(endDate);
+    setDateType(type);
 }
 
-UConditionDate::UConditionDate(const UConditionDate& conditionDate) : UCondition(conditionDate)
+UConditionDate::UConditionDate(QObject *parent)
+    :UCondition(parent, UEConditionType::Date)
 {
-    setConditionType(UEConditionType::Date);
-    setDate1(conditionDate.getDate1());
-    setDate2(conditionDate.getDate2());
+    int day = QDate::currentDate().day();
+    int month = QDate::currentDate().month();
+    int year = QDate::currentDate().year();
+    setBeginDate    (new QDate(year, month, day));
+    setEndDate      (new QDate(year, month, day));
+
+    setDateType(UEConditionDateType::DDMMYYYY);
 }
 
-int UConditionDate::getComparisonPossible()
+void UConditionDate::read(const QJsonObject &jsonObj)
 {
-    using namespace UEComparisonPossible;
+    UCondition::read(jsonObj);
 
-    switch (getConditionDateType()) {
-    case UEConditionDateType::DDMMYYYY:
-        return GreaterThan | LesserThan | Equals | InBetween;
-    case UEConditionDateType::DDMM:
-        // TODO : Define if greaterthan and lesserthan makes sense
-        return GreaterThan | LesserThan | Equals | InBetween;
-    case UEConditionDateType::MM:
-        return Equals | InBetween;
-    default:
-        return 0;
-    }
+    QDate tmp = QDate::fromString(jsonObj["beginDate"].toString(), Qt::DateFormat::ISODate);
+    int day =    tmp.day();
+    int month =  tmp.month();
+    int year =   tmp.year();
+    setBeginDate    (new QDate(year, month, day));
+
+    tmp = QDate::fromString(jsonObj["endDate"].toString(), Qt::DateFormat::ISODate);
+    day =    tmp.day();
+    month =  tmp.month();
+    year =   tmp.year();
+    setEndDate    (new QDate(year, month, day));
 }
 
-void UConditionDate::setValue1(void* value)
+void UConditionDate::write(QJsonObject &jsonObj) const
 {
-    UDate* date = (UDate*)value;
-    m_Date1 = *date;
+    UCondition::write(jsonObj);
+    jsonObj["beginDate"] = m_beginDate->toString(Qt::DateFormat::ISODate);
+    jsonObj["endDate"] = m_endDate->toString(Qt::DateFormat::ISODate);
 }
 
-void UConditionDate::setValue2(void* value)
-{
-    if (getCurrentComparisonType() != UEComparisonPossible::InBetween) return;
-
-    UDate* date = (UDate*)value;
-    m_Date2 = *date;
-}
-
-void UConditionDate::FillObject(json::Object& obj) const
-{
-	UCondition::FillObject(obj);
-    obj["conditionDateType"] = getConditionDateType();
-    obj["date1"] = getDate1().ToObject();
-    obj["date2"] = getDate2().ToObject();
-}
-
-void UConditionDate::FillMembers(const json::Object& obj)
-{
-	UCondition::FillMembers(obj);
-    m_ConditionDateType = obj["conditionDateType"];
-    m_Date1 = UDate::Deserialize(obj["date1"].ToObject());
-    m_Date2 = UDate::Deserialize(obj["date2"].ToObject());
-}

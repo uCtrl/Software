@@ -20,7 +20,7 @@ UTask::~UTask()
 
 QObject* UTask::createCondition()
 {
-    return new UCondition(this);
+    return UCondition::createCondition(this, UCondition::UEConditionType::Date);
 }
 
 void UTask::addCondition(UCondition* condition)
@@ -92,7 +92,8 @@ void UTask::read(const QJsonObject &jsonObj)
     QJsonArray conditionsArray = jsonObj["conditions"].toArray();
     foreach(QJsonValue conditionJson, conditionsArray)
     {
-        UCondition* c = new UCondition(this);
+        int conditionType = conditionJson.toObject()["type"].toInt();
+        UCondition* c = UCondition::createCondition(this, (UCondition::UEConditionType) conditionType);
         c->read(conditionJson.toObject());
         this->m_conditions.append(c);
     }
