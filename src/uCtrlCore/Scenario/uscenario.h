@@ -32,6 +32,7 @@ public:
     Q_INVOKABLE void addTask(UTask* task);
     Q_INVOKABLE QObject* getTaskAt(int index) const;
     Q_INVOKABLE void deleteTaskAt(int index);
+    Q_INVOKABLE void moveTask(int indexSource, int indexDestination);
 
     void read(const QJsonObject &jsonObj);
     void write(QJsonObject &jsonObj) const;

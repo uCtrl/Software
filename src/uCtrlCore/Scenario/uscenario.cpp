@@ -52,6 +52,31 @@ void UScenario::deleteTaskAt(int index) {
     endRemoveRows();
 }
 
+void UScenario::moveTask(int indexSource, int indexDestination)
+{
+    if (indexDestination < 0 || indexDestination >= m_tasks.size())
+        return;
+
+    if (indexSource < 0 || indexSource >= m_tasks.size())
+        return;
+
+    int sourceFirst = indexSource;
+    int sourceLast = indexSource;
+    int destinationRow = indexDestination;
+
+    if (indexSource < indexDestination) {
+        sourceFirst = indexSource + 1;
+        sourceLast = indexDestination;
+        destinationRow = indexSource;
+    }
+
+    beginMoveRows(QModelIndex(), sourceFirst, sourceLast, QModelIndex(), destinationRow);
+
+    m_tasks.move(indexSource, indexDestination);
+
+    endMoveRows();
+}
+
 void UScenario::read(const QJsonObject &jsonObj)
 {
     this->setId(jsonObj["id"].toInt());

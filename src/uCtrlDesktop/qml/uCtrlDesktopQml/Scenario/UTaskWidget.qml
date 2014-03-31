@@ -97,6 +97,56 @@ Item {
                     toggleTasks()
                 }
             }
+
+            UI.UButton {
+                id: deleteBtn
+
+                text: "X"
+
+                width: 20
+                height: 20
+
+                anchors.right: toggleBtn.left
+                anchors.rightMargin: 10
+
+                function execute() {
+                    var pScenario = taskModel.scenario
+                    pScenario.deleteTaskAt(index)
+                }
+            }
+
+            UI.UButton {
+                id: moveDown
+
+                text: "D"
+
+                width: 20
+                height: 20
+
+                anchors.right: deleteBtn.left
+                anchors.rightMargin: 10
+
+                function execute() {
+                    var pScenario = taskModel.scenario
+                    pScenario.moveTask(index, index + 1)
+                }
+            }
+
+            UI.UButton {
+                id: moveUp
+
+                text: "U"
+
+                width: 20
+                height: 20
+
+                anchors.right: moveDown.left
+                anchors.rightMargin: 10
+
+                function execute() {
+                    var pScenario = taskModel.scenario
+                    pScenario.moveTask(index, index - 1)                }
+            }
         }
 
         Rectangle {

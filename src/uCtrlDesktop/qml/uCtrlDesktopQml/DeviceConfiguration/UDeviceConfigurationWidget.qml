@@ -22,63 +22,43 @@ UI.UFrame {
         color: _colors.uWhite
         width: 500; height: 300
 
-        Device.UHeader {
-            id: deviceHeader
+    Device.UHeader {
+        id: deviceHeader
 
-            device: device
-        }
+        device: device
+    }
 
-        Scenario.UScenarioWidget {
-            id: scenarioWidget
+    Scenario.UScenarioWidget {
+        id: scenarioWidget
 
-            anchors.top: deviceHeader.bottom
-            name: "Scenario #1 - Semaine de travail"
-        }
+        anchors.top: deviceHeader.bottom
+        name: "Scenario #1 - Semaine de travail"
+    }
 
-        Rectangle {
-            id: commandButtons
+    Rectangle {
+        id: commandButtons
 
             width: 500
-            height: 40
-            anchors.top: scenarioWidget.bottom
+        height: 40
+        anchors.top: scenarioWidget.bottom
 
-            color: _colors.uUltraLightGrey
+        color: _colors.uUltraLightGrey
 
-            UI.UButton {
-                id: btnAdd
+        UI.UButton {
+            id: btnAdd
 
-                objectName: "btn"
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 7
-                width: 96; height: 27
-                x: 10
-                text: qsTr("Add")
-                function execute() {
-                    var pScenario = device.getScenario()
-                    var pTask = pScenario.createTask()
-                    pTask.setStatus("Blarg")
-                    pScenario.addTask(pTask)
-
-                    pTask = pScenario.getTaskAt(0)
-                    pTask.setStatus("WORK LOL")
-
-                }
+            objectName: "btn"
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 7
+            width: 96; height: 27
+            x: 10
+            text: qsTr("Add")
+            function execute() {
+                var pScenario = device.getScenario()
+                var pTask = pScenario.createTask()
+                pTask.setStatus("Undefined")
+                pScenario.addTask(pTask)
             }
-
-            UI.UButton {
-                id: btnRemove
-
-                objectName: "btn"
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 7
-                anchors.left: btnAdd.right
-                width: 96; height: 27
-                text: qsTr("Delete")
-
-                function execute() {
-                    var pScenario = device.getScenario()
-                    pScenario.deleteTaskAt(pScenario.taskCount() - 1)
-                }
 
                 signal qmlSignal()
             }

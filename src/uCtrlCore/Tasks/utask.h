@@ -11,6 +11,7 @@ class UTask : public QAbstractListModel
     Q_PROPERTY(int id READ getId WRITE setId)
     Q_PROPERTY(QString status READ getStatus WRITE setStatus NOTIFY statusChanged)
     Q_PROPERTY(QList<UCondition*> conditions READ getConditions WRITE setConditions)
+    Q_PROPERTY(QObject* scenario READ getScenario)
 
 public:
     UTask( QObject* parent);
@@ -27,6 +28,11 @@ public:
 
     void read(const QJsonObject &jsonObj);
     void write(QJsonObject &jsonObj) const;
+
+    QObject* getScenario() const
+    {
+        return m_scenario;
+    }
 
 public slots:
     void setId(int arg) { m_id = arg; }
@@ -47,6 +53,7 @@ private:
     int m_id;
     QList<UCondition*> m_conditions;
     QString m_status;
+    QObject* m_scenario;
 };
 
 #endif // UTASK_H
