@@ -32,6 +32,7 @@ class UCondition : public QAbstractListModel, public JsonSerializable
     Q_OBJECT
 
     Q_PROPERTY(int id READ getId WRITE setId)
+    Q_PROPERTY(QObject* conditionParent READ getConditionParent)
     //Q_PROPERTY(UEConditionType::Type conditionType READ getConditionType WRITE setConditionType)
     //Q_PROPERTY(UEComparisonPossible::Type currentComparaisonType READ getCurrentComparaisonType WRITE setCurrentComparaisonType)
 
@@ -53,6 +54,11 @@ public:
     void read(const QJsonObject &jsonObj);
     void write(QJsonObject &jsonObj) const;
 
+    QObject* getConditionParent() const
+    {
+        return m_conditionParent;
+    }
+
 public slots:
     void setId(int arg) { m_id = arg; }
     //void setConditionType(UEConditionType::Type arg) { m_conditionType = arg; }
@@ -62,5 +68,6 @@ private:
     int m_id;
     //UEConditionType::Type m_conditionType;
     //UEComparisonPossible::Type m_currentComparaisonType;
+    QObject* m_conditionParent;
 };
 #endif // UCONDITION_H

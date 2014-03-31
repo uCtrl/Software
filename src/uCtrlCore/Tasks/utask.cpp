@@ -28,11 +28,13 @@ void UTask::addCondition(UCondition* condition)
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     m_conditions.push_back(condition);
     endInsertRows();
+
+    emit conditionsChanged(m_conditions);
 }
 
 QObject* UTask::getConditionAt(int index) const
 {
-    if (index < 0 || index >= taskCount())
+    if (index < 0 || index >= conditionCount())
         return 0;
 
     return (QObject*) ( m_conditions.at(index) );
@@ -40,7 +42,7 @@ QObject* UTask::getConditionAt(int index) const
 
 void UTask::deleteConditionAt(int index)
 {
-    if (index < 0 || index >= taskCount())
+    if (index < 0 || index >= conditionCount())
         return;
 
     beginRemoveRows(QModelIndex(), index, index);
@@ -51,14 +53,16 @@ void UTask::deleteConditionAt(int index)
     m_conditions.removeAt(index);
 
     endRemoveRows();
+
+    emit conditionsChanged(m_conditions);
 }
 
 void UTask::moveCondition(int indexSource, int indexDestination)
 {
-    if (indexDestination < 0 || indexDestination >= m_tasks.size())
+    if (indexDestination < 0 || indexDestination >= m_conditions.size())
         return;
 
-    if (indexSource < 0 || indexSource >= m_tasks.size())
+    if (indexSource < 0 || indexSource >= m_conditions.size())
         return;
 
     int sourceFirst = indexSource;
@@ -76,6 +80,8 @@ void UTask::moveCondition(int indexSource, int indexDestination)
     m_conditions.move(indexSource, indexDestination);
 
     endMoveRows();
+
+    emit conditionsChanged(m_conditions);
 }
 
 void UTask::read(const QJsonObject &jsonObj)

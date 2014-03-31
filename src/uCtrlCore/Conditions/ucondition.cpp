@@ -1,6 +1,6 @@
 #include "ucondition.h"
 
-UCondition::UCondition( QObject* parent ) : QAbstractListModel(parent) {}
+UCondition::UCondition( QObject* parent ) : QAbstractListModel(parent), m_conditionParent(parent) {}
 
 UCondition::UCondition(const UCondition& condition)
 {

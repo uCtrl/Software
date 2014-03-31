@@ -29,6 +29,8 @@ void UScenario::addTask(UTask* task) {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     m_tasks.push_back(task);
     endInsertRows();
+
+    emit tasksChanged(m_tasks);
 }
 
 QObject* UScenario::getTaskAt(int index) const {
@@ -50,6 +52,8 @@ void UScenario::deleteTaskAt(int index) {
     m_tasks.removeAt(index);
 
     endRemoveRows();
+
+    emit tasksChanged(m_tasks);
 }
 
 void UScenario::moveTask(int indexSource, int indexDestination)
@@ -75,6 +79,8 @@ void UScenario::moveTask(int indexSource, int indexDestination)
     m_tasks.move(indexSource, indexDestination);
 
     endMoveRows();
+
+    emit tasksChanged(m_tasks);
 }
 
 void UScenario::read(const QJsonObject &jsonObj)
