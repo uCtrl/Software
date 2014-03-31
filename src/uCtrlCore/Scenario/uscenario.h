@@ -10,8 +10,8 @@ class UScenario : public QAbstractListModel, public JsonSerializable
 {
     Q_OBJECT
 
-    Q_PROPERTY(int id READ getId WRITE setId)
-    Q_PROPERTY(QString name READ getName WRITE setName)
+    Q_PROPERTY(int id READ getId WRITE setId NOTIFY idChanged)
+    Q_PROPERTY(QString name READ getName WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(QList<UTask*> tasks READ getTasks WRITE setTasks NOTIFY tasksChanged)
 
 public:
@@ -38,12 +38,37 @@ public:
     void write(QJsonObject &jsonObj) const;
 
 public slots:
-    void setId(int arg) { m_id = arg; }
-    void setName(QString arg) { m_name = arg; }
-    void setTasks(QList<UTask*> arg) { m_tasks = arg; }
+
+    void setId(int arg)
+    {
+        if (m_id != arg) {
+            m_id = arg;
+            emit idChanged(arg);
+        }
+    }
+
+    void setName(QString arg)
+    {
+        if (m_name != arg) {
+            m_name = arg;
+            emit nameChanged(arg);
+        }
+    }
+
+    void setTasks(QList<UTask*> arg)
+    {
+        if (m_tasks != arg) {
+            m_tasks = arg;
+            emit tasksChanged(arg);
+        }
+    }
 
 signals:
     void tasksChanged(QList<UTask*> arg);
+
+    void idChanged(int arg);
+
+    void nameChanged(QString arg);
 
 private:
     int m_id;

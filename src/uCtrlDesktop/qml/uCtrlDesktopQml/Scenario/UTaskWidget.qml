@@ -9,6 +9,7 @@ Item {
 
     function toggleTasks() {
         conditionsContainer.visible = !conditionsContainer.visible
+        toggleBtn.text = conditionsContainer.visible ? "-" : "+"
         height = 40 + conditionsContainer.adjustedHeight()
     }
 
@@ -85,7 +86,7 @@ Item {
             UI.UButton {
                 id: toggleBtn
 
-                text: "T"
+                text: "-"
 
                 width: 20
                 height: 20
@@ -101,7 +102,7 @@ Item {
             UI.UButton {
                 id: deleteBtn
 
-                text: "X"
+                text: "x"
 
                 width: 20
                 height: 20
@@ -147,6 +148,23 @@ Item {
                     var pScenario = taskModel.scenario
                     pScenario.moveTask(index, index - 1)                }
             }
+
+            UI.UButton {
+                id: addConditionBtn
+
+                text: "A"
+
+                width: 20
+                height: 20
+
+                anchors.right: moveUp.left
+                anchors.rightMargin: 10
+
+                function execute() {
+                    var pCondition = taskModel.createCondition()
+                    taskModel.addCondition(pCondition)
+                }
+            }
         }
 
         Rectangle {
@@ -189,9 +207,11 @@ Item {
                 anchors.fill: parent
                 model: taskModel
                 spacing:5
-                delegate: UTimeConditionWidget {
-                    conditionHour: 15
-                    conditionMinute: 00
+                delegate: UConfigConditionWidget {
+                    UTimeConditionWidget {
+                        conditionHour: 15
+                        conditionMinute: 00
+                    }
                 }
             }
         }
