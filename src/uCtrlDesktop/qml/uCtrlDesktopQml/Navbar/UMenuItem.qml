@@ -34,26 +34,6 @@ Rectangle {
         width: 125
     }
 
-/*
-    UI.ULabel {
-        id: label
-
-        label: container.label
-        headerStyle: 0
-
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: icon.bottom
-        anchors.topMargin: 30
-
-        visible: false  // Only displayed when hovered.
-
-        Component.onCompleted: {
-            font.pixelSize = 14
-            font.bold = true
-            color = _colors.uGrey
-        }
-    }*/
-
     Rectangle {
         id: separator
 
