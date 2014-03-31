@@ -371,7 +371,7 @@ UI.UFrame {
 
                 anchors.left: parent.left
 
-                width: 330
+                width: 340
             }
 
             UI.UButton {
@@ -396,8 +396,9 @@ UI.UFrame {
                 anchors.top: inputButton.bottom
                 anchors.left: parent.left
 
-                width: 200
+                width: 204
 
+                text: "Wrong answer !"
                 state: "ERROR"
             }
 
@@ -407,8 +408,9 @@ UI.UFrame {
                 anchors.top: inputButton.bottom
                 anchors.left: errorText.right
 
-                width: 200
+                width: 204
 
+                text: "Good answer !"
                 state: "SUCCESS"
             }
 
@@ -421,18 +423,8 @@ UI.UFrame {
                 anchors.top: successText.bottom
                 anchors.left: parent.left
 
-                width: 405
+                width: 412
             }
-
-            // Alpha textbox    Numeric textbox     Alpha numeric       Password
-
-            // Allow clear textbox
-
-            // Multi-line textbox
-
-            // Multi-line allowResize
-
-            // Left button      Right button
         }
     }
 }

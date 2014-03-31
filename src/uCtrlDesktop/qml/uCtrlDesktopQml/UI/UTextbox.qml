@@ -5,12 +5,14 @@ import QtQuick.Controls.Styles 1.0
 TextField {
     id: field
 
-    state: "ENABLED"
+    property bool allowClear: false
+
+    inputMethodHints: Qt.ImhNone
 
     width: 100; height: 25
-
     anchors.margins: 4
 
+    state: "ENABLED"
     readOnly: (state === "DISABLED")
 
     style: TextFieldStyle {
@@ -39,6 +41,26 @@ TextField {
         }
     }
 
+    function getBorderColor() {
+        switch (state) {
+            case "SUCCESS":
+                return _colors.uGreen
+            case "ERROR":
+                return _colors.uDarkRed
+            default:
+                return _colors.uGrey
+        }
+    }
+
+    function getIconText() {
+        switch (state) {
+            case "SUCCESS":
+                return "Ok"
+            default:
+                return "Remove"
+        }
+    }
+
     function getTextColor() {
         switch (state) {
             case "ENABLED":
@@ -49,17 +71,6 @@ TextField {
                 return _colors.uDarkRed
             case "SUCCESS":
                 return _colors.uGreen
-        }
-    }
-
-    function getBorderColor() {
-        switch (state) {
-            case "SUCCESS":
-                return _colors.uGreen
-            case "ERROR":
-                return _colors.uDarkRed
-            default:
-                return _colors.uGrey
         }
     }
 }
