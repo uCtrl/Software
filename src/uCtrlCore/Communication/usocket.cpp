@@ -11,7 +11,7 @@ USocket::USocket(const QString& ip, const int port) : m_ip(ip), m_port(port)
     connect(m_socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 
     qDebug() << "connecting...";
-    m_socket->connectToHost(m_ip, m_port);
+    m_socket->connectToHost(QHostAddress(m_ip), m_port);
 }
 
 USocket::~USocket()

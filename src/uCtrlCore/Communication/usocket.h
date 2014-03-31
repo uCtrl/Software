@@ -3,6 +3,7 @@
 
 #include "Serialization/jsonserializer.h"
 #include <QAbstractSocket>
+#include <QHostAddress>
 #include <QTcpSocket>
 #include <QObject>
 
