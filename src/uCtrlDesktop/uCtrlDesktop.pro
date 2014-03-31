@@ -92,4 +92,5 @@ OTHER_FILES += \
     Languages/uctrl_fr.ts \
     qml/uCtrlDesktopQml/UI/UComboBox.qml \
     qml/uCtrlDesktopQml/Scenario/UTaskWidget.qml \
-    qml/uCtrlDesktopQml/UI/UFontAwesome.qml
+    qml/uCtrlDesktopQml/UI/UFontAwesome.qml \
+    qml/uCtrlDesktopQml/Navbar/UNavbar.qml

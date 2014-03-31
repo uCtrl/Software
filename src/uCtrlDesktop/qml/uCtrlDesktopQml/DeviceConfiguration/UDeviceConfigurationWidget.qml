@@ -7,7 +7,6 @@ UI.UFrame {
     property variant device: null
     property ListModel scenarios: null
 
-    title: qsTr("Configuration")
     requiredModel: true
 
     function refresh(newDevice) {
@@ -15,6 +14,13 @@ UI.UFrame {
         scenarioWidget.refresh(newDevice.getScenario())
         device = newDevice
     }
+
+    contentItem: Rectangle {
+        anchors.top: parent.top
+        anchors.left: parent.left
+
+        color: _colors.uWhite
+        width: 500; height: 300
 
     Device.UHeader {
         id: deviceHeader
@@ -26,14 +32,13 @@ UI.UFrame {
         id: scenarioWidget
 
         anchors.top: deviceHeader.bottom
-        height: parent.height - deviceHeader.height - 80
         name: "Scenario #1 - Semaine de travail"
     }
 
     Rectangle {
         id: commandButtons
 
-        width: parent.width
+            width: 500
         height: 40
         anchors.top: scenarioWidget.bottom
 
@@ -48,12 +53,14 @@ UI.UFrame {
             width: 96; height: 27
             x: 10
             text: qsTr("Add")
-
             function execute() {
                 var pScenario = device.getScenario()
                 var pTask = pScenario.createTask()
                 pTask.setStatus("Undefined")
                 pScenario.addTask(pTask)
+            }
+
+                signal qmlSignal()
             }
         }
     }
