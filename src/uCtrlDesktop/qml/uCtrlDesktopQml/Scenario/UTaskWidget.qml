@@ -98,10 +98,11 @@ Item {
                 }
             }
 
-            UI.UButton {
+            UI.UIconButton {
                 id: deleteBtn
 
-                text: "X"
+                text: "Remove"
+                iconSize: 12
 
                 width: 20
                 height: 20
@@ -115,10 +116,11 @@ Item {
                 }
             }
 
-            UI.UButton {
+            UI.UIconButton {
                 id: moveDown
 
-                text: "D"
+                text: "ArrowDown"
+                iconSize: 10
 
                 width: 20
                 height: 20
@@ -132,10 +134,11 @@ Item {
                 }
             }
 
-            UI.UButton {
+            UI.UIconButton {
                 id: moveUp
 
-                text: "U"
+                text: "ArrowUp"
+                iconSize: 10
 
                 width: 20
                 height: 20
