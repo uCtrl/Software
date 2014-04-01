@@ -26,35 +26,37 @@ public:
     };
 
     Q_PROPERTY(UEConditionDateType dateType READ getDateType WRITE setDateType )
-    Q_PROPERTY(QDate* beginDate READ getBeginDate WRITE setBeginDate )
-    Q_PROPERTY(QDate* endDate READ getEndDate WRITE setEndDate )
+    Q_PROPERTY(QDate beginDate READ getBeginDate WRITE setBeginDate NOTIFY beginDateChanged )
+    Q_PROPERTY(QDate endDate READ getEndDate WRITE setEndDate  NOTIFY endDateChanged)
     Q_PROPERTY(UEComparisonType comparisonType READ getComparisonType WRITE setComparisonType)
-
-    UConditionDate(QObject* parent, UEConditionDateType type, QDate* beginDate = 0, QDate* endDate = 0);
+    UConditionDate(QObject* parent, UEConditionDateType type, QDate beginDate = QDate(), QDate endDate = QDate());
     UConditionDate(QObject* parent);
 
     UEConditionDateType getDateType() const { return m_dateType;  }
 
-    QDate* getBeginDate() const { return m_beginDate; }
-    QDate* getEndDate() const { return m_endDate; }
+    QDate getBeginDate() const {
+        return m_beginDate; }
+    QDate getEndDate() const { return m_endDate; }
     UEComparisonType getComparisonType() const { return m_comparisonType; }
 
 public slots:
     void setDateType(UEConditionDateType arg) { m_dateType = arg; }
-    void setBeginDate(QDate* arg) { m_beginDate = arg; }
-    void setEndDate(QDate* arg) { m_endDate = arg; }
+    void setBeginDate(QDate arg) { m_beginDate = arg; }
+    void setEndDate(QDate arg) { m_endDate = arg; }
     void setComparisonType(UEComparisonType arg) { m_comparisonType = arg; }
 
 private:
     UEConditionDateType m_dateType;
-    QDate* m_beginDate;
-    QDate* m_endDate;
+    QDate m_beginDate;
+    QDate m_endDate;
     UEComparisonType m_comparisonType;
 
-    // JsonSerializable interface
 public:
     virtual void read(const QJsonObject &jsonObj);
     virtual void write(QJsonObject &jsonObj) const;
+signals:
+    void beginDateChanged(QDate arg);
+    void endDateChanged(QDate arg);
 };
 
 #endif // UCONDITIONDATE_H

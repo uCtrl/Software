@@ -28,6 +28,8 @@ public:
 
     int getId() const { return m_id; }
     UEConditionType getType() const { return m_type; }
+    Q_INVOKABLE QString getTypeName();
+
     void read(const QJsonObject &jsonObj);
     void write(QJsonObject &jsonObj) const;
 

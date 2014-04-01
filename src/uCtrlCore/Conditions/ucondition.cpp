@@ -11,6 +11,22 @@ UCondition::UCondition(QObject *parent, UCondition::UEConditionType type)
 
 UCondition::~UCondition(){}
 
+QString UCondition::getTypeName()
+{
+    switch (m_type) {
+    case UEConditionType::Date:
+        return "Date";
+        break;
+    case UEConditionType::Day:
+        return "Day";
+        break;
+    case UEConditionType::Time: // fallthrough
+    default:
+        return "Time";
+        break;
+    }
+}
+
 UCondition::UCondition(const UCondition& condition)
 {
     setId(condition.getId());
@@ -35,7 +51,7 @@ UCondition *UCondition::createCondition(QObject *parent, UCondition::UECondition
         return new UConditionDate(parent);
         break;
     default:
-        return new UConditionDate(parent);
+        return new UCondition(parent, UEConditionType::None);
         break;
     }
 }
