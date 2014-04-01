@@ -45,6 +45,7 @@ ComboBox {
                     id: label
                     anchors.centerIn: parent
                     text: control.currentText
+                    color: _colors.uWhite
                 }
             }
         }

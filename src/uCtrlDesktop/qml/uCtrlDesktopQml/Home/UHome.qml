@@ -19,12 +19,25 @@ UI.UFrame {
             }
         }
 
+        //Breadcrumbs demonstration
+        Rectangle {
+            id: breadcrumbDemo
+            width: 800
+            height: 100
+            anchors.top: switchDemo.bottom
+            color: _colors.uGreen
+
+            UI.UBreadcrumb {
+
+            }
+        }
+
         // Button demonstrations
         Rectangle {
             id: buttonDemo
             width: parent.width
             height: 70
-            anchors.top: switchDemo.bottom
+            anchors.top: breadcrumbDemo.bottom
 
             UI.UButton {
                 id: firstButton
