@@ -13,7 +13,10 @@ class USystem : public QAbstractListModel, public JsonSerializable
 
     Q_PROPERTY(QList<UPlatform*> platforms READ getPlatforms WRITE setPlatforms)
 
+
 public:
+    Q_INVOKABLE QObject* getPlatformAt(int index) const;
+
     USystem(QObject* parent = 0);
     ~USystem();
 

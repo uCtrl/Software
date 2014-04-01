@@ -9,6 +9,7 @@ UI.UFrame {
 
     function refresh(newSystem) {
         system = newSystem
+        if (system !== null) platformListContainer.refresh(newSystem)
     }
 
     contentItem: Rectangle {
@@ -55,7 +56,7 @@ UI.UFrame {
 
                 state: "ENABLED"
 
-                opacity: 0.9
+                opacity: 0.7
 
                 placeholderText: "Search"
             }
