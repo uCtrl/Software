@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import "../UI" as UI
-
+import "../UI/ULabel" as ULabel
 
 Rectangle {
     property bool showConfig: false
@@ -64,7 +64,7 @@ Rectangle {
         anchors.leftMargin: 20
 
         // To be replaced by an icon
-        UI.ULabel {
+        ULabel.Default {
             id: iconLabel
 
             color: _colors.uGreen
@@ -96,7 +96,7 @@ Rectangle {
             UTitle {
                 id: titleLabel
                 anchors.bottom: parent.bottom
-                labelText: getName()
+                text: getName()
             }
 
             UI.UButton {
@@ -136,7 +136,7 @@ Rectangle {
             USubtitle {
                 anchors.top: parent.top
                 id: subtitleLabel
-                labelText: getRoom() //device.subtitle
+                text: getRoom()
             }
 
             UI.UButton {

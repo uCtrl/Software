@@ -1,5 +1,7 @@
 import QtQuick 2.0
 
+import "../UI/ULabel" as ULabel
+
 Rectangle {
     property string text: "UNKNOWN"
     anchors.leftMargin: 8
@@ -24,10 +26,9 @@ Rectangle {
         anchors.left: triangle.right
         anchors.verticalCenter: parent.verticalCenter
 
-        Text {
+        ULabel.TooltipText {
             text: parent.parent.text
             anchors.centerIn: parent
-            color: "white"
         }
     }
 }

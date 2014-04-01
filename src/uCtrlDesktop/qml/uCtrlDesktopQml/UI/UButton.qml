@@ -2,6 +2,8 @@ import QtQuick 2.0
 import QtQuick.Controls 1.0
 import QtQuick.Controls.Styles 1.0
 
+import "../UI/ULabel" as ULabel
+
 Rectangle {
     id: button
 
@@ -29,7 +31,7 @@ Rectangle {
         }
     }
 
-    Text {
+    ULabel.Default {
         id: label
         font.bold: true
         color: _colors.uWhite

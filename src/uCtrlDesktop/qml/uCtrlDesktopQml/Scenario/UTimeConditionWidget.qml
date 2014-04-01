@@ -1,18 +1,19 @@
 import QtQuick 2.0
 import "../UI" as UI
-
-
+import "../UI/ULabel" as ULabel
 Rectangle{
+
     property real conditionHour : 12
     property real conditionMinute : 15
+
     id: container
 
-        width: parent.width - 30
-        height: parent.height - 5
+    width: parent.width - 30
+    height: parent.height - 5
 
     anchors.left: parent.left
-        anchors.leftMargin: 30
-        anchors.verticalCenter: parent.verticalCenter
+    anchors.leftMargin: 30
+    anchors.verticalCenter: parent.verticalCenter
 
     color: _colors.uTransparent
 
@@ -31,8 +32,7 @@ Rectangle{
             clockMinute: conditionMinute
         }
     }
-
-    UI.ULabel {
+    ULabel.Default {
         id: conditionLabel
 
         anchors.left: clockContainer.right
@@ -55,3 +55,4 @@ Rectangle{
         }
     }
 }
+

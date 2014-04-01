@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import "../UI" as UI
+import "../UI/ULabel" as ULabel
 
 Item {
     property var taskModel: taskList.model.getTaskAt(index)
@@ -40,7 +41,7 @@ Item {
             width: parent.width - anchors.leftMargin
             height: 25
 
-            UI.ULabel {
+            ULabel.Default {
                 id: changeStateLabel
                 text: "Changer l'état pour "
                 anchors.verticalCenter: parent.verticalCenter
@@ -62,7 +63,7 @@ Item {
 
                 radius: 10
 
-                UI.ULabel {
+                ULabel.Default {
                     id: stateLabel
                     text: taskModel.status
                     anchors.centerIn: parent
@@ -71,7 +72,7 @@ Item {
                 }
             }
 
-            UI.ULabel {
+            ULabel.Default {
                 id: stateLabelWhen
 
                 anchors.verticalCenter: parent.verticalCenter

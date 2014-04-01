@@ -91,4 +91,16 @@ PRE_TARGETDEPS += compiler_updateqm_make_all
 OTHER_FILES += \
     qml/uCtrlDesktopQml/UI/UPath.qml \
     Languages/uctrl_en.ts \
-    Languages/uctrl_fr.ts
+    Languages/uctrl_fr.ts \
+    qml/uCtrlDesktopQml/UI/UComboBox.qml \
+    qml/uCtrlDesktopQml/Scenario/UTaskWidget.qml \
+    qml/uCtrlDesktopQml/UI/UFontAwesome.qml \
+    qml/uCtrlDesktopQml/Navbar/UNavbar.qml \
+    qml/uCtrlDesktopQml/UI/UToolTip.qml \
+    qml/uCtrlDesktopQml/UI/ULabel/Default.qml \
+    qml/uCtrlDesktopQml/UI/ULabel/Heading1.qml \
+    qml/uCtrlDesktopQml/UI/ULabel/Heading2.qml \
+    qml/uCtrlDesktopQml/UI/ULabel/Heading3.qml \
+    qml/uCtrlDesktopQml/UI/ULabel/Heading4.qml \
+    qml/uCtrlDesktopQml/UI/ULabel/Heading5.qml \
+    qml/uCtrlDesktopQml/UI/ULabel/TooltipText.qml

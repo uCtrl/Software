@@ -2,6 +2,8 @@ import QtQuick 2.0
 import QtQuick.Controls 1.0
 import QtQuick.Controls.Styles 1.0
 
+import "../UI/ULabel" as ULabel
+
 CheckBox {
     id: checkbox
 
@@ -28,7 +30,7 @@ CheckBox {
             }
         }
 
-        label: Text {
+        label: ULabel.Default {
             id: checkboxLabel
             font.bold: (checkbox.state === "ERROR")
             text: control.text
