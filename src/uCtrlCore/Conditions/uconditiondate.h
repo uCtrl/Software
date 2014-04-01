@@ -37,6 +37,8 @@ public:
 
     QDate* getBeginDate() const { return m_beginDate; }
     QDate* getEndDate() const { return m_endDate; }
+    Q_INVOKABLE QString getBeginDateStr() const { return m_beginDate->toString(Qt::DateFormat::ISODate); }
+    Q_INVOKABLE QString getEndDateStr() const { return m_endDate->toString(Qt::DateFormat::ISODate); }
     UEComparisonType getComparisonType() const { return m_comparisonType; }
 
 public slots:

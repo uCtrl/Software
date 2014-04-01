@@ -35,7 +35,7 @@ UCondition *UCondition::createCondition(QObject *parent, UCondition::UECondition
         return new UConditionDate(parent);
         break;
     default:
-        return new UConditionDate(parent);
+        return new UCondition(parent, UEConditionType::None);
         break;
     }
 }

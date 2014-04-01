@@ -91,9 +91,4 @@ PRE_TARGETDEPS += compiler_updateqm_make_all
 OTHER_FILES += \
     qml/uCtrlDesktopQml/UI/UPath.qml \
     Languages/uctrl_en.ts \
-    Languages/uctrl_fr.ts \
-    qml/uCtrlDesktopQml/UI/UComboBox.qml \
-    qml/uCtrlDesktopQml/Scenario/UTaskWidget.qml \
-    qml/uCtrlDesktopQml/UI/UFontAwesome.qml \
-    qml/uCtrlDesktopQml/Navbar/UNavbar.qml \
-    qml/uCtrlDesktopQml/UI/UToolTip.qml
+    Languages/uctrl_fr.ts

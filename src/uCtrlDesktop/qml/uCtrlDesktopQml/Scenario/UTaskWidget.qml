@@ -149,7 +149,8 @@ Item {
 
                 function execute() {
                     var pScenario = taskModel.scenario
-                    pScenario.moveTask(index, index - 1)                }
+                    pScenario.moveTask(index, index - 1)
+                }
             }
 
             UI.UButton {
@@ -213,13 +214,8 @@ Item {
                 spacing:5
                 interactive:false
 
-                delegate: UConfigConditionWidget {
-                    UTimeConditionWidget {
-                    conditionHour: 15
-                    conditionMinute: 00
-                }
+                delegate: UTaskConditionWidget { }
             }
         }
     }
-}
 }
