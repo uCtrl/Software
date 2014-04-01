@@ -3,6 +3,8 @@
 
 #include "Serialization/jsonserializable.h"
 #include "Device/udevice.h"
+#include "Communication/usocket.h"
+#include <QObject>
 #include <QAbstractListModel>
 
 class UPlatform : public QAbstractListModel, public JsonSerializable
@@ -31,16 +33,23 @@ public:
     void read(const QJsonObject &jsonObj);
     void write(QJsonObject &jsonObj) const;
 
+    void createSocket();
+
 public slots:
     void setId(int arg) { m_id = arg; }
     void setIp(QString arg) { m_ip = arg; }
     void setPort(int arg) { m_port = arg; }
     void setDevices(QList<UDevice*> arg) { m_devices = arg; }
 
+    void connected();
+    void receivedRequest(QString message);
+
 private:
     int m_id;
     QString m_ip;
     int m_port;
     QList<UDevice*> m_devices;
+
+    USocket* m_socket;
 };
 #endif // UPLATFORM_H

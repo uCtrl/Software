@@ -1,5 +1,4 @@
 #include "jsonserializer.h"
-#include <QDebug>
 
 QString JsonSerializer::serialize(JsonSerializable *obj)
 {

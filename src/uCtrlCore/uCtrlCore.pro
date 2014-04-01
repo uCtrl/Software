@@ -15,7 +15,8 @@ SOURCES += \
     Tasks/utask.cpp \
     Utility/uniqueidgenerator.cpp \
     System/usystem.cpp \
-    Serialization/jsonserializer.cpp
+    Serialization/jsonserializer.cpp \
+    Communication/usocket.cpp
 
 HEADERS += \
     Platform/uplatform.h \
@@ -27,4 +28,5 @@ HEADERS += \
     Tasks/utask.h \
     Utility/uniqueidgenerator.h \
     Serialization/jsonserializable.h \
-    Serialization/jsonserializer.h
+    Serialization/jsonserializer.h \
+    Communication/usocket.h

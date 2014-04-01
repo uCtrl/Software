@@ -8,13 +8,8 @@ UPlatform::UPlatform(QObject* parent) : QAbstractListModel(parent)
 
 UPlatform::UPlatform(QObject* parent, const QString& ip, const int port) : QAbstractListModel(parent)
 {
-    setId(UniqueIdGenerator::GenerateUniqueId());
     setIp(ip);
     setPort(port);
-}
-
-UPlatform::~UPlatform()
-{
 }
 
 UPlatform::UPlatform(const UPlatform& platform)
@@ -23,6 +18,32 @@ UPlatform::UPlatform(const UPlatform& platform)
     setIp(platform.getIp());
     setPort(platform.getPort());
     setDevices(platform.getDevices());
+}
+
+UPlatform::~UPlatform()
+{
+    delete m_socket;
+}
+
+void UPlatform::createSocket()
+{
+    if(m_ip == NULL || m_port == 0)
+        return;
+
+    m_socket = new USocket(m_ip, m_port);
+    connect(m_socket, SIGNAL(hostConnected()), this, SLOT(connected()));
+    connect(m_socket, SIGNAL(received(QString)), this, SLOT(receivedRequest(QString)));
+}
+
+void UPlatform::connected()
+{
+    m_socket->write("getAllDevices");
+}
+
+void UPlatform::receivedRequest(QString message)
+{
+    qDebug() << "Received: " << message;
+    JsonSerializer::parse(message, this);
 }
 
 QVariant UPlatform::data(const QModelIndex & index, int role) const {
@@ -37,8 +58,8 @@ int UPlatform::rowCount(const QModelIndex &parent) const
 void UPlatform::read(const QJsonObject &jsonObj)
 {
     this->setId(jsonObj["id"].toInt());
-    this->setIp(jsonObj["ip"].toString());
-    this->setPort(jsonObj["port"].toInt());
+    //this->setIp(jsonObj["ip"].toString());
+    //this->setPort(jsonObj["port"].toInt());
 
     QJsonArray devicesArray = jsonObj["devices"].toArray();
     foreach(QJsonValue deviceJson, devicesArray)
