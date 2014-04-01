@@ -96,6 +96,8 @@ Rectangle {
         anchors.right: parent.right
 
         z: 1    // Always on top.
+
+        breadCrumbLinks: ["Home", "Test dashboard"]
     }
 
     Navbar.UNavbar {
