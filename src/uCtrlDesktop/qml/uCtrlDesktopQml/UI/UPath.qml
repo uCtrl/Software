@@ -8,4 +8,5 @@ QtObject {
     property string uHome: root + "/Home/UHome.qml"
     property string uStatistics: root + "/Statistics/UStatistics.qml"
     property string uSummary: root + "/DeviceSummary/UDeviceSummary.qml"
+    property string uSystem: root + "/System/USystem.qml"
 }

@@ -26,8 +26,8 @@ Rectangle {
         icon: "Wrench"
         label: "Platforms"
 
-        path: _paths.uSummary
-        model: myDevice
+        path: _paths.uSystem
+        model: mySystem
 
         anchors.top: dashboard.bottom
 
