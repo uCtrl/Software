@@ -8,12 +8,23 @@ UI.UFrame {
         width: 1000
         height: 1000
 
+        //Switch demonstration
+        Rectangle {
+            id: switchDemo
+            width: parent.width
+            height: 100
+
+            UI.USwitch {
+
+            }
+        }
+
         // Button demonstrations
         Rectangle {
             id: buttonDemo
             width: parent.width
             height: 70
-            anchors.top: parent.top
+            anchors.top: switchDemo.bottom
 
             UI.UButton {
                 id: firstButton

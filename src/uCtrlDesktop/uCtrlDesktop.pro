@@ -103,4 +103,5 @@ OTHER_FILES += \
     qml/uCtrlDesktopQml/UI/ULabel/Heading3.qml \
     qml/uCtrlDesktopQml/UI/ULabel/Heading4.qml \
     qml/uCtrlDesktopQml/UI/ULabel/Heading5.qml \
-    qml/uCtrlDesktopQml/UI/ULabel/TooltipText.qml
+    qml/uCtrlDesktopQml/UI/ULabel/TooltipText.qml \
+    qml/uCtrlDesktopQml/UI/USwitch.qml

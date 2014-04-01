@@ -1,7 +1,6 @@
 import QtQuick 2.0
 import "../UI" as UI
 
-
 Rectangle{
     id: container
 
