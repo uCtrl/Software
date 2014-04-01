@@ -2,6 +2,8 @@ import QtQuick 2.0
 import QtQuick.Controls 1.0
 import QtQuick.Controls.Styles 1.0
 
+import "../UI/ULabel" as ULabel
+
 ComboBox {
     id: comboBox
     width: 100
@@ -39,12 +41,10 @@ ComboBox {
                 height: parent.height
                 color: _colors.uTransparent
 
-                ULabel {
+                ULabel.Heading3 {
                     id: label
                     anchors.centerIn: parent
                     text: control.currentText
-                    headerStyle: 3
-                    Component.onCompleted: color=_colors.uWhite
                 }
             }
         }
