@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import "../UI" as UI
-
+import "../UI/ULabel" as ULabel
 
 Rectangle{
     id: container
@@ -29,7 +29,7 @@ Rectangle{
         color: _colors.uTransparent
     }
 
-    UI.ULabel {
+    ULabel.Default {
         id: dateLabel
 
         anchors.left: calendar.right
