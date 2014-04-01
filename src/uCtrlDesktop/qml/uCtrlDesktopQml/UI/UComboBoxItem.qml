@@ -4,6 +4,7 @@ import "../UI/ULabel" as ULabel
 
 Rectangle {
     property string value: "UNKNOWN"
+    property string displayedValue: "UNKNOWN"
     property string iconId: "UNKNOWN"
     id: item
     width: parent.width
@@ -33,7 +34,7 @@ Rectangle {
         color: _colors.uTransparent
         ULabel.ComboBoxItemText {
             anchors.verticalCenter: parent.verticalCenter
-            text: item.value
+            text: item.displayedValue
         }
     }
 }

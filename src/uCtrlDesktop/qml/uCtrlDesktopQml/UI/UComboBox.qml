@@ -27,8 +27,9 @@ Rectangle {
                 width: parent.width - 10
                 height: parent.height - 10
                 anchors.centerIn: parent
-                value: "Item #1"
+                value: "1"
                 iconId: "Flag"
+                displayedValue: "Item #1"
             }
         }
 
@@ -61,34 +62,58 @@ Rectangle {
 
     Rectangle {
         id: dropDown
-        height: item1.height + item2.height + item3.height
+        height: 150
         width: parent.width
         anchors.top: parent.bottom
-        color: _colors.uMediumGrey
-        border.color: _colors.uMediumDarkGrey
-        border.width: 1
-        visible: false
+        anchors.topMargin: 10
+        color: _colors.uTransparent
+        visible: true
 
-        UComboBoxItemContainer {
-            id: item1
-            height: combo.height - 4
-            anchors.top: parent.top
-            iconId: "Flag"
-            value: "Item #1"
+        UFontAwesome {
+            id: arrowTop
+            height: 10
+            iconId: "CaretUp"
+            iconSize: 16
+            iconColor: _colors.uMediumGrey
+            anchors.right: parent.right
+            anchors.rightMargin: combo.height / 2
         }
-        UComboBoxItemContainer {
-            id: item2
-            height: combo.height - 4
-            anchors.top: item1.bottom
-            iconId: "Comments"
-            value: "Item #2"
-        }
-        UComboBoxItemContainer {
-            id: item3
-            height: combo.height - 4
-            anchors.top: item2.bottom
-            iconId: "Bolt"
-            value: "Item #3"
+        Rectangle {
+            id: itemAreaContainer
+            anchors.top: arrowTop.bottom
+            width: parent.width
+            height: item1.height + item2.height + item3.height + 10
+            radius: 5
+            color: _colors.uMediumGrey
+
+            Rectangle {
+                id: itemArea
+                width: parent.width - 10
+                height: parent.height - 10
+                anchors.centerIn: parent
+                color: _colors.uTransparent
+
+                UComboBoxItemContainer {
+                    id: item1
+                    value: "1"
+                    displayedValue: "Item #1"
+                    iconId: "Flag"
+                }
+                UComboBoxItemContainer {
+                    id: item2
+                    value: "2"
+                    displayedValue: "Item #2"
+                    iconId: "Bolt"
+                    anchors.top: item1.bottom
+                }
+                UComboBoxItemContainer {
+                    id: item3
+                    value: "3"
+                    displayedValue: "Item #3"
+                    iconId: "Time"
+                    anchors.top: item2.bottom
+                }
+            }
         }
     }
 
