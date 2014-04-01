@@ -22,9 +22,11 @@ private slots:
 
 private:
     UNetworkScanner();
+    bool isLocalAddress(QHostAddress& address);
 
     static UNetworkScanner* m_networkScanner;
     BonjourServiceBrowser* m_bonjourBrowser;
+    QList<QHostAddress> m_localAdresses;
 };
 
 #endif // UNETWORKSCANNER_H

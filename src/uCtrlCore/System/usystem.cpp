@@ -18,6 +18,16 @@ void USystem::addPlatform(const QString& ip, const int port)
     platform->createSocket();
 }
 
+bool USystem::containsPlatform(const QString& ip, const int port)
+{
+    for(int i = 0; i < m_platforms.count(); i++)
+    {
+        if (m_platforms[i]->getIp() == ip && m_platforms[i]->getPort() == port)
+            return true;
+    }
+    return false;
+}
+
 QVariant USystem::data(const QModelIndex &index, int role) const
 {
     return QVariant();

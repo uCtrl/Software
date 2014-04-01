@@ -42,6 +42,7 @@ void UPlatform::connected()
 
 void UPlatform::receivedRequest(QString message)
 {
+    qDebug() << "Received: " << message;
     JsonSerializer::parse(message, this);
 }
 

@@ -18,7 +18,7 @@ void SaveSystemToFile(USystem* s, std::string filename)
     QFile file(QString::fromStdString(filename));
     file.open(QIODevice::WriteOnly | QIODevice::Text);
     QTextStream out(&file);
-    out << JsonSerializer::serialize(device);
+    out << JsonSerializer::serialize(s);
 
     // optional, as QFile destructor will already do it:
     file.close();
@@ -45,11 +45,11 @@ int main(int argc, char *argv[])
         app.installTranslator(&translator);
     }
 
-    //UNetworkScanner* scanner = UNetworkScanner::Instance();
-    //scanner->scanNetwork();
+    UNetworkScanner* scanner = UNetworkScanner::Instance();
+    scanner->scanNetwork();
 
     USystem* system = USystem::Instance();
-    LoadSystemFromFile(system, ":/Resources/JSON.txt");
+    LoadSystemFromFile(system, ":/Resources/data.json");
 
     UPlatform* platform = new UPlatform(system, "127.0.0.1", 5000);
 
@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 
     int ret = app.exec();
 
-    SaveSystemToFile(system, "data.json");
+    //SaveSystemToFile(system, "data.json");
     return ret;
 }
 
