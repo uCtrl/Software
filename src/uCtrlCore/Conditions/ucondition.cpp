@@ -15,16 +15,14 @@ QString UCondition::getTypeName()
 {
     switch (m_type) {
     case UEConditionType::Date:
-        return QString("Date");
+        return "Date";
         break;
     case UEConditionType::Day:
-        return QString("Day");
+        return "Day";
         break;
-    case UEConditionType::Time:
-        return QString("Time");
-        break;
+    case UEConditionType::Time: // fallthrough
     default:
-        return QString("Time");
+        return "Time";
         break;
     }
 }

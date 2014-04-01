@@ -20,7 +20,13 @@ Rectangle{
         width: parent.height
         height: parent.height
 
-        color: _colors.uGreen
+
+        UI.UFontAwesome {
+            iconId: "Calendar"
+            iconSize: 26
+            anchors.centerIn: parent
+        }
+        color: _colors.uTransparent
     }
 
     UI.ULabel {
