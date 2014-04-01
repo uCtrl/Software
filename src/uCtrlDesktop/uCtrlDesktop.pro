@@ -7,6 +7,8 @@ DEPLOYMENTFOLDERS = folder_01
 
 QT += network
 
+CONFIG += c++11
+
 # Please do not modify the following two lines. Required for deployment.
 include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
 qtcAddDeployment()

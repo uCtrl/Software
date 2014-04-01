@@ -12,12 +12,12 @@
 #include <QFile>
 #include <QTextStream>
 
-void SaveDeviceToFile(UDevice* device, std::string filename)
+void SaveSystemToFile(USystem* s, std::string filename)
 {
     QFile file(QString::fromStdString(filename));
     file.open(QIODevice::WriteOnly | QIODevice::Text);
     QTextStream out(&file);
-    out << JsonSerializer::serialize(device);
+    out << JsonSerializer::serialize(s);
 
     // optional, as QFile destructor will already do it:
     file.close();
@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
     }
 
     USystem* system = new USystem();
-    LoadSystemFromFile(system, ":/Resources/JSON.txt");
+    LoadSystemFromFile(system, ":/Resources/data.json");
 
     QQmlContext *ctxt = viewer.rootContext();
     UDevice* d = system->getPlatforms().first()->getDevices()[0];
@@ -56,6 +56,9 @@ int main(int argc, char *argv[])
     viewer.setMinimumWidth(900);
     viewer.showExpanded();
 
-    return app.exec();
+    int ret = app.exec();
+
+    SaveSystemToFile(system, "data.json");
+    return ret;
 }
 
