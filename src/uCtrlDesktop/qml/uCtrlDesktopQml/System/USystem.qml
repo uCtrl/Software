@@ -1,8 +1,9 @@
 import QtQuick 2.0
 import "../UI" as UI
+import "../Platform" as Platform
 
 UI.UFrame {
-    id: frame
+    id: systemFrame
 
     property var system: null
     requiredModel: true
@@ -56,7 +57,7 @@ UI.UFrame {
 
                 state: "ENABLED"
 
-                opacity: 0.7
+                opacity: 0.8
 
                 placeholderText: "Search"
             }
@@ -84,7 +85,7 @@ UI.UFrame {
             height: (systemContainer.height - header.height - 5)
         }
 
-        Rectangle {
+        Platform.UPlatform {
             id: platformInfo
 
             visible: (systemContainer.activePlatform !== null)

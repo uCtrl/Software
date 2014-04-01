@@ -12,10 +12,10 @@ UI.UFrame {
 
         width: parent.width
 
-        /*Device.UHeader {
+        Device.UHeader {
             device: myDevice
             showConfig: true
             showInfo: true
-        }*/
+        }
     }
 }

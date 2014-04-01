@@ -67,5 +67,7 @@ private:
     int m_precision;
     QString m_unitLabel;
     int m_type;
+
 };
+Q_DECLARE_METATYPE(QList<UDevice*>)
 #endif // UDEVICE_H
