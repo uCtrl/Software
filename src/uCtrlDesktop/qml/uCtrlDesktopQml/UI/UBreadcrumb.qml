@@ -3,7 +3,7 @@ import QtQuick 2.0
 import "../UI/ULabel" as ULabel
 
 Item {
-    property variant links: ["Level 1", "Level 2", "Level 3"]
+    property var links: ["Level 1", "Level 2", "Level 3"]
     property int listSpacing: 15
     anchors.fill: parent
 
@@ -12,7 +12,7 @@ Item {
         Rectangle {
             height: parent.height
             color: _colors.uTransparent
-            width: breadcrumbLabel.width + caret.width + listSpacing * 2;
+            width: breadcrumbLabel.width + chevron.width + listSpacing * 2;
             ULabel.Heading4 {
                 id: breadcrumbLabel
                 text: links[links.length - index - 1]
@@ -21,8 +21,8 @@ Item {
                 rotation: 180
             }
             Loader {
-                id: caret
-                sourceComponent: (index === links.length - 1 ? emptyElement : caretElement)
+                id: chevron
+                sourceComponent: (index === links.length - 1 ? emptyElement : chevronElement)
                 anchors.left: breadcrumbLabel.right
                 anchors.leftMargin: listSpacing
                 anchors.verticalCenter: parent.verticalCenter
@@ -35,7 +35,7 @@ Item {
                 }
             }
             Component {
-                id: caretElement
+                id: chevronElement
                 UFontAwesome {
                     iconId: "ChevronRight"
                     iconSize: 10
