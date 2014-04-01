@@ -8,6 +8,7 @@ UI.UFrame {
         width: 1000
         height: 1000
 
+        // Button demonstrations
         Rectangle {
             id: buttonDemo
             width: parent.width
@@ -52,7 +53,11 @@ UI.UFrame {
                 text: "Error button"
                 state: "ERROR"
             }
+
+            // @TODO : Add UIconButton demonstrations.
         }
+
+        // Label demonstrations
         Rectangle {
             id: labelDemo
 
@@ -207,7 +212,9 @@ UI.UFrame {
             }
         }
 
+        // Radiobutton demonstration
         Rectangle {
+            id: radioDemo
             anchors.top: checkDemo.bottom
             anchors.topMargin: 25
             width: parent.width
