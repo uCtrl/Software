@@ -11,6 +11,24 @@ UCondition::UCondition(QObject *parent, UCondition::UEConditionType type)
 
 UCondition::~UCondition(){}
 
+QString UCondition::getTypeName()
+{
+    switch (m_type) {
+    case UEConditionType::Date:
+        return QString("Date");
+        break;
+    case UEConditionType::Day:
+        return QString("Day");
+        break;
+    case UEConditionType::Time:
+        return QString("Time");
+        break;
+    default:
+        return QString("Time");
+        break;
+    }
+}
+
 UCondition::UCondition(const UCondition& condition)
 {
     setId(condition.getId());

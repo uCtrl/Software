@@ -24,14 +24,19 @@ Rectangle{
     }
 
     UI.ULabel {
-        id: conditionLabel
+        id: dateLabel
 
         anchors.left: calendar.right
         anchors.leftMargin: 5
         anchors.verticalCenter: parent.verticalCenter
 
-        text: conditionModel.getBeginDateStr()
+        text: getDate()
         color: _colors.uBlack
         font.pointSize: 14
+
+        function getDate() {
+            var d = conditionModel.beginDate
+            return Qt.formatDate(d, "ddd dd MMM")
+        }
     }
 }
