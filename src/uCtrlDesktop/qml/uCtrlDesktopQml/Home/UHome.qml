@@ -154,7 +154,7 @@ UI.UFrame {
         Rectangle {
             id: comboDemo
             width: parent.width
-            height: 30
+            height: 240
 
             anchors.top: labelDemo.bottom
             anchors.left: parent.left

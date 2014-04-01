@@ -1,52 +1,99 @@
 import QtQuick 2.0
-import QtQuick.Controls 1.0
-import QtQuick.Controls.Styles 1.0
 
-ComboBox {
-    id: comboBox
-    width: 100
-    height: 30
-    model: [ "ON", "90%", "80%", "70%", "60%", "50%", "40%", "30%", "20%", "10%", "OFF" ]
+Rectangle {
 
-    style: ComboBoxStyle {
-        background: Rectangle {
-            id: rectCategory
-            anchors.fill: parent
-            color: _colors.uGreen
-            radius: 5
-            border.width: 1
-            border.color: _colors.uDarkGrey
-        }
+    id: combo
+    width: 250
+    height: 40
+    radius: 5
 
-        label: Item {
-            anchors.fill: parent
-            Rectangle {
-                id: arrow
-                width: parent.height
-                height: parent.height
-                anchors.right: parent.right
-                color: _colors.uTransparent
+    color: _colors.uTransparent
 
-                UImage {
-                    anchors.fill: parent
-                    img: "qrc:///Resources/Images/Combobox-arrow.png"
-                }
-            }
-            Rectangle {
-                id: labelContainer
-                anchors.left: parent.left
-                anchors.right: arrow.left
-                height: parent.height
-                color: _colors.uTransparent
+    Rectangle {
+        id: valueBackground
+        width: parent.width - parent.height / 2
+        height: parent.height
 
-                ULabel {
-                    id: label
-                    anchors.centerIn: parent
-                    text: control.currentText
-                    headerStyle: 3
-                    Component.onCompleted: color=_colors.uWhite
-                }
+        color: _colors.uMediumGrey
+
+        Rectangle {
+            id: valueField
+            width: combo.width - dropDownIcon.width - separator.width
+            height: parent.height
+            color: _colors.uTransparent
+
+            UComboBoxItem {
+                id: value
+                width: parent.width - 10
+                height: parent.height - 10
+                anchors.centerIn: parent
+                value: "Item #1"
+                iconId: "Flag"
             }
         }
+
+        Rectangle {
+            id: separator
+            width: 1
+            height: parent.height - 4
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: valueField.right
+            color: _colors.uMediumDarkGrey
+        }
+    }
+
+    Rectangle {
+        id: dropDownIcon
+        width: parent.height
+        height: parent.height
+        anchors.right: parent.right
+
+        color: _colors.uMediumGrey
+        radius: 5
+
+        UFontAwesome {
+            iconId: "CaretDown"
+            iconColor: _colors.uMediumDarkGrey
+            iconSize: 14
+            anchors.centerIn: parent
+        }
+    }
+
+    Rectangle {
+        id: dropDown
+        height: item1.height + item2.height + item3.height
+        width: parent.width
+        anchors.top: parent.bottom
+        color: _colors.uMediumGrey
+        border.color: _colors.uMediumDarkGrey
+        border.width: 1
+        visible: false
+
+        UComboBoxItemContainer {
+            id: item1
+            height: combo.height - 4
+            anchors.top: parent.top
+            iconId: "Flag"
+            value: "Item #1"
+        }
+        UComboBoxItemContainer {
+            id: item2
+            height: combo.height - 4
+            anchors.top: item1.bottom
+            iconId: "Comments"
+            value: "Item #2"
+        }
+        UComboBoxItemContainer {
+            id: item3
+            height: combo.height - 4
+            anchors.top: item2.bottom
+            iconId: "Bolt"
+            value: "Item #3"
+        }
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: dropDown.visible = !dropDown.visible
     }
 }

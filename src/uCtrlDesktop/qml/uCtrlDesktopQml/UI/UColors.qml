@@ -9,6 +9,9 @@ QtObject {
     // µCtrl's Red variation
     property color uDarkRed: "#FF4940"
 
+    // µCtrl's Blue variation
+    property color uRoyalBlue: "#5FA7FF"
+
     // White colors
     property color uWhite: "white"
 
@@ -19,7 +22,9 @@ QtObject {
     property color uUltraLightGrey: "#F7F6F6"
     property color uLightGrey: "#EDEDED"
     property color uGrey: "#AAAAAA"
-    property color uDarkGrey: "#3C3C3C"
+    property color uMediumGrey: "#DCDCDC"
+    property color uMediumDarkGrey: "#898989"
+    property color uDarkGrey: "#3E3E3E"
 
     // Transparent color
     property color uTransparent: "transparent"
