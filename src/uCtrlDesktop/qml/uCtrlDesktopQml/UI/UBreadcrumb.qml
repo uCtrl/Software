@@ -3,6 +3,8 @@ import QtQuick 2.0
 import "../UI/ULabel" as ULabel
 
 Item {
+    id: breadcrumb
+
     property var links: []
     property var redirectPath: []
     property var redirectModel: []
@@ -46,7 +48,7 @@ Item {
         redirectModel = newModel
     }
 
-    id: breadcrumb
+
     anchors.fill: parent
 
     Component {

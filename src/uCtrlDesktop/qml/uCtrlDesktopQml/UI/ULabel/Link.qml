@@ -1,11 +1,11 @@
 import QtQuick 2.0
 
 Default {
+    id: label
+
     property var redirectPath
     property string state: "ENABLED"
     property var redirectModel
-
-    id: label
 
     MouseArea {
         anchors.fill: parent
