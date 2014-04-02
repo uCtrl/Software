@@ -2,9 +2,6 @@ import QtQuick 2.0
 import "../UI" as UI
 
 Rectangle {
-    property var breadCrumbLinks: ["?"]
-    property var breadCrumbModels: ["?"]
-    property var breadCrumbPaths: ["?"]
 
     function resetBreadcrumb() {
         brdCrumb.resetBreadcrumb()
@@ -38,9 +35,6 @@ Rectangle {
 
         UI.UBreadcrumb {
             id: brdCrumb
-            links: breadCrumbLinks
-            redirectModel: breadCrumbModels
-            redirectPath: breadCrumbPaths
         }
     }
 }

@@ -102,10 +102,6 @@ Rectangle {
         anchors.right: parent.right
 
         z: 1    // Always on top.
-
-        breadCrumbLinks: []
-        breadCrumbModels: []
-        breadCrumbPaths: []
     }
 
     Navbar.UNavbar {
