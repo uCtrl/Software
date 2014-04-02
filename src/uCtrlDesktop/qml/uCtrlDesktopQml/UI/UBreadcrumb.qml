@@ -3,8 +3,50 @@ import QtQuick 2.0
 import "../UI/ULabel" as ULabel
 
 Item {
-    property var links: ["Level 1", "Level 2", "Level 3"]
+    property var links: []
+    property var redirectPath: []
+    property var redirectModel: []
     property int listSpacing: 15
+
+    function resetBreadcrumb() {
+        redirectPath = []
+        redirectModel = []
+        links = []
+    }
+
+    function changeBreadcrumb(path, title, model) {
+        var newLinks = []
+        var newPath = []
+        var newModel = []
+        var append = true;
+        for(var i = 0; i < links.length; i++) {
+            if(redirectPath[i] !== path)
+            {
+                newLinks.push(links[i])
+                newPath.push(redirectPath[i])
+                newModel.push(redirectModel[i])
+            }
+            else {
+                newLinks.push(title)
+                newPath.push(path)
+                newModel.push(model)
+                append = false;
+                break;
+            }
+        }
+        if(append)
+        {
+            newLinks.push(title)
+            newPath.push(path)
+            newModel.push(model)
+        }
+
+        links = newLinks
+        redirectPath = newPath
+        redirectModel = newModel
+    }
+
+    id: breadcrumb
     anchors.fill: parent
 
     Component {
@@ -13,11 +55,14 @@ Item {
             height: parent.height
             color: _colors.uTransparent
             width: breadcrumbLabel.width + chevron.width + listSpacing * 2;
-            ULabel.Heading4 {
+            ULabel.Link {
                 id: breadcrumbLabel
-                text: links[links.length - index - 1]
+                text: breadcrumb.links[breadcrumb.links.length - index - 1]
+                redirectModel: breadcrumb.redirectModel[breadcrumb.links.length - index - 1]
+                redirectPath: breadcrumb.redirectPath[breadcrumb.links.length - index - 1]
                 anchors.verticalCenter: parent.verticalCenter
                 color: _colors.uWhite
+                font.pointSize: 16
                 rotation: 180
             }
             Loader {
