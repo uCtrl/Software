@@ -2,8 +2,11 @@ import QtQuick 2.0
 
 Rectangle {
 
+    property var itemListModel: null
+
     id: combo
-    width: 250
+
+    width: 200
     height: 40
     radius: 5
 
@@ -23,13 +26,13 @@ Rectangle {
             color: _colors.uTransparent
 
             UComboBoxItem {
-                id: value
-                width: parent.width - 10
-                height: parent.height - 10
-                anchors.centerIn: parent
-                value: "1"
-                iconId: "Flag"
-                displayedValue: "Item #1"
+                    id: value
+
+                    width: parent.width - 10
+                    height: parent.height - 10
+                    anchors.centerIn: parent
+
+                    itemData: combo.itemListModel.selectedItem
             }
         }
 
@@ -62,12 +65,13 @@ Rectangle {
 
     Rectangle {
         id: dropDown
+        z:100
         height: 150
         width: parent.width
         anchors.top: parent.bottom
         anchors.topMargin: 10
         color: _colors.uTransparent
-        visible: true
+        visible: false
 
         UFontAwesome {
             id: arrowTop
@@ -82,7 +86,7 @@ Rectangle {
             id: itemAreaContainer
             anchors.top: arrowTop.bottom
             width: parent.width
-            height: item1.height + item2.height + item3.height + 10
+            height: 200
             radius: 5
             color: _colors.uMediumGrey
 
@@ -93,28 +97,36 @@ Rectangle {
                 anchors.centerIn: parent
                 color: _colors.uTransparent
 
-                UComboBoxItemContainer {
-                    id: item1
-                    value: "1"
-                    displayedValue: "Item #1"
-                    iconId: "Flag"
-                }
-                UComboBoxItemContainer {
-                    id: item2
-                    value: "2"
-                    displayedValue: "Item #2"
-                    iconId: "Bolt"
-                    anchors.top: item1.bottom
-                }
-                UComboBoxItemContainer {
-                    id: item3
-                    value: "3"
-                    displayedValue: "Item #3"
-                    iconId: "Time"
-                    anchors.top: item2.bottom
+                ListView {
+                    id: dropDownMenu
+                    anchors.fill: parent
+
+                    model: itemListModel
+                    delegate: UComboBoxItemContainer {
+
+                        itemData: itemListModel.getItemDataAt(index)
+
+                        onItemSelected: {
+                            selectItem(index)
+                        }
+                    }
                 }
             }
         }
+
+    }
+    function selectItem(index) {
+        combo.itemListModel.selectedItem = itemListModel.getItemDataAt(index)
+        value.refresh(combo.itemListModel.selectedItem)
+        dropDown.visible = false
+
+        console.log(index)
+        console.log(combo.itemListModel.selectedItem.value)
+        console.log(combo.itemListModel.selectedItem.displayedValue)
+        console.log(combo.itemListModel.selectedItem.iconId)
+        console.log(value.itemData.value)
+        console.log(value.itemData.displayedValue)
+        console.log(value.itemData.iconId)
     }
 
     MouseArea {

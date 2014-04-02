@@ -2,7 +2,7 @@
 #include "Utility/uniqueidgenerator.h"
 #include <sstream>
 
-UScenario::UScenario(QObject* parent) : QAbstractListModel(parent)
+UScenario::UScenario(QObject* parent) : QAbstractListModel(parent), m_device(parent)
 {
     setId(UniqueIdGenerator::GenerateUniqueId());
     setName("Undefined");

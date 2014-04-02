@@ -25,4 +25,6 @@ HEADERS += \
     Tasks/utask.h \
     Utility/uniqueidgenerator.h \
     Serialization/jsonserializable.h \
-    Serialization/jsonserializer.h
+    Serialization/jsonserializer.h \
+    Models/UComboBoxItemData.h \
+    Models/UComboBoxItemList.h

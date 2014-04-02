@@ -9,7 +9,7 @@
 	         		"id":1782103621,
             		"maxValue":100.000000,
             		"minValue":0.000000,
-            		"precision":0,
+                        "precision":5.0,
             		"type":1,
             		"unitLabel":"celcius",
 	         		"name":"Temperature",

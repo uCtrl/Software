@@ -58,18 +58,27 @@ Item {
                 anchors.leftMargin: 7
                 anchors.rightMargin: 7
 
-                width: stateLabel.width + 15
+                width: selectedComboBoxItem.width + 15
                 height: parent.height - 5
 
                 radius: 10
 
+                UI.UComboBox
+                {
+                    id: selectedComboBoxItem
+
+                    anchors.centerIn: parent
+                    itemListModel: taskModel.scenario.device.getComboBoxItemList()
+                }
+
+                /*
                 ULabel.Default {
                     id: stateLabel
                     text: taskModel.status
                     anchors.centerIn: parent
                     font.pointSize: 12
                     font.bold: true
-                }
+                }*/
             }
 
             ULabel.Default {
