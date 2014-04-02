@@ -13,9 +13,16 @@ QVariant USystem::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
+QObject* USystem::getPlatformAt(int index) const {
+    if (index < 0 || index >= m_platforms.count())
+        return 0;
+
+    return (QObject*) ( getPlatforms().at(index) );
+}
+
 int USystem::rowCount(const QModelIndex &parent) const
 {
-    return 0;
+    return m_platforms.count();
 }
 
 void USystem::read(const QJsonObject &jsonObj)

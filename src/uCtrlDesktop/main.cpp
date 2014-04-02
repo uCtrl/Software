@@ -48,8 +48,7 @@ int main(int argc, char *argv[])
     LoadSystemFromFile(system, ":/Resources/data.json");
 
     QQmlContext *ctxt = viewer.rootContext();
-    UDevice* d = system->getPlatforms().first()->getDevices()[0];
-    ctxt->setContextProperty("myDevice", d);
+    ctxt->setContextProperty("mySystem", system);
 
     viewer.setMainQmlFile(QStringLiteral("qml/uCtrlDesktopQml/main.qml"));
     viewer.setMinimumHeight(700);

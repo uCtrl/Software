@@ -8,7 +8,8 @@ QtObject {
     property color uLightGreen: "#daf2da"
 
     // µCtrl's Red variation
-    property color uDarkRed: "#FF4940"
+    property color uLightRed: "#FFBFBF"
+    property color uDarkRed: "#A60E0E"
 
     // White colors
     property color uWhite: "white"

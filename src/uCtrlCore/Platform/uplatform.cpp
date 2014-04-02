@@ -25,13 +25,20 @@ UPlatform::UPlatform(const UPlatform& platform)
     setDevices(platform.getDevices());
 }
 
+QObject* UPlatform::getDeviceAt(int index) const {
+    if (index < 0 || index >= m_devices.count())
+        return 0;
+
+    return (QObject*) ( getDevices().at(index) );
+}
+
 QVariant UPlatform::data(const QModelIndex & index, int role) const {
     return QVariant();
 }
 
 int UPlatform::rowCount(const QModelIndex &parent) const
 {
-    return 0;
+    return m_devices.count();
 }
 
 void UPlatform::read(const QJsonObject &jsonObj)
@@ -39,6 +46,8 @@ void UPlatform::read(const QJsonObject &jsonObj)
     this->setId(jsonObj["id"].toInt());
     this->setIp(jsonObj["ip"].toString());
     this->setPort(jsonObj["port"].toInt());
+    this->setName(jsonObj["name"].toString());
+    this->setRoom(jsonObj["room"].toString());
 
     QJsonArray devicesArray = jsonObj["devices"].toArray();
     foreach(QJsonValue deviceJson, devicesArray)
