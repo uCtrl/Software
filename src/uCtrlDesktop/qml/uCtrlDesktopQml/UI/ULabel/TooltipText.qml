@@ -2,5 +2,5 @@ import QtQuick 2.0
 
 Default {
     color: _colors.uWhite
-    font.pointSize: 10
+    font.pointSize: 14
 }

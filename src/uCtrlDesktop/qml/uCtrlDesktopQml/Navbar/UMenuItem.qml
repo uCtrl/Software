@@ -15,10 +15,23 @@ Rectangle {
 
     color: _colors.uTransparent
 
+    Rectangle {
+        id: highlight
+
+        anchors.fill: parent
+        anchors.margins: 10
+
+        color: _colors.uGrey
+        opacity: 0.1
+
+        visible: false
+    }
+
     UI.UFontAwesome {
         id: icon
 
         anchors.centerIn: parent
+        anchors.margins: 5
 
         iconId: container.icon
         iconSize: 50
@@ -62,7 +75,6 @@ Rectangle {
 
             color: _colors.uBlack
             opacity: 0.4
-
         }
 
         Rectangle {
@@ -89,7 +101,13 @@ Rectangle {
         anchors.fill: parent
         hoverEnabled: true
         onHoveredChanged: {
-            tooltip.visible = (containsMouse)
+            if (containsMouse)
+                tooltip.startAnimation()
+            else
+                tooltip.stopAnimation()
+
+            highlight.visible = containsMouse
+
         }
 
         onClicked: {
