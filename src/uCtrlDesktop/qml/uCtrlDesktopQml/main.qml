@@ -66,7 +66,13 @@ Rectangle {
         }
     }
 
+    function resetBreadcrumb() {
+        titlebar.resetBreadcrumb()
+    }
+
     function renderComponent(path, title, model) {
+        titlebar.changeBreadcrumb(path, title, model)
+
         destroyComponent()
         activeComponent = Qt.createComponent(path)
         refreshPage(model)
@@ -106,8 +112,6 @@ Rectangle {
         anchors.right: parent.right
 
         z: 1    // Always on top.
-
-        breadCrumbLinks: ["Home", "Test dashboard"]
     }
 
     Navbar.UNavbar {

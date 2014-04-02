@@ -111,7 +111,8 @@ Rectangle {
         }
 
         onClicked: {
-            main.swap(path, "", model)
+            main.resetBreadcrumb()
+            main.swap(path, container.label, model)
         }
     }
 }
