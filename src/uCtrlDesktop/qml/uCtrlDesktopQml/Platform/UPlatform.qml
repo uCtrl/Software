@@ -5,6 +5,7 @@ Rectangle {
     id: container
 
     property var platform: null
+    property bool formVisible : false
 
     function refresh(newPlatform) {
         platform = newPlatform
@@ -17,7 +18,8 @@ Rectangle {
         anchors.top: parent.top
         anchors.topMargin: 13
 
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.left: parent.left
+        anchors.leftMargin: 15
 
         text: (platform !== null ? platform.name : "UNKNOWN")
 
@@ -26,6 +28,64 @@ Rectangle {
             font.bold = true
             color = _colors.uBlack
         }
+    }
+
+    Rectangle {
+        id: editFrame
+
+        width: 40; height: 40
+
+        anchors.right: container.right
+        anchors.rightMargin: 15
+
+        anchors.verticalCenter: platformName.verticalCenter
+
+        visible: !formVisible
+
+        color: _colors.uTransparent
+
+        UI.UFontAwesome {
+            id: editButton
+
+            anchors.centerIn: parent
+
+            iconId: "Pencil"
+            iconSize: 32
+            iconColor: _colors.uGrey
+        }
+    }
+
+    MouseArea {
+        id: editArea
+
+        anchors.fill: editFrame
+        hoverEnabled: true
+
+        onHoveredChanged: {
+            if (containsMouse)
+                editTooltip.startAnimation()
+            else
+                editTooltip.stopAnimation()
+
+        }
+
+        onClicked: { formVisible = !formVisible }
+    }
+
+    UI.UToolTip {
+        id: editTooltip
+
+        visible: false
+
+        anchors.verticalCenter: editFrame.verticalCenter
+
+        anchors.right: editFrame.left
+        anchors.rightMargin: 10
+
+        text: "Edit"
+        width: 75
+
+        arrowRight: true
     }
 
     Rectangle {
@@ -147,7 +207,7 @@ Rectangle {
         anchors.left: parent.left
         anchors.leftMargin: marginSize
 
-        anchors.top: locationLabel.bottom
+        anchors.top: (formVisible ? container.bottom : locationLabel.bottom)
         anchors.topMargin: 20
 
         color: _colors.uLightGrey
@@ -182,5 +242,18 @@ Rectangle {
        anchors.left: parent.left
 
        width: parent.width;
+    }
+
+    // @TODO : Replace with UForm container.
+    Rectangle {
+        id: form
+
+        visible: container.formVisible
+
+        anchors.fill: parent
+
+        color: _colors.uDarkGrey
+
+        opacity: 0.3
     }
 }
