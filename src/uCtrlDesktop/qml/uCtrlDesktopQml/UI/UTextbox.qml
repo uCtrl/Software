@@ -89,6 +89,8 @@ Rectangle {
                 border.width: 1
             }
         }
+
+        Keys.onReleased: parent.text = text
     }
 
     Rectangle {

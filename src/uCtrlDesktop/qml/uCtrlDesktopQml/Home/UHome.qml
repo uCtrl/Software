@@ -6,7 +6,7 @@ import "../UI/ULabel" as ULabel
 UI.UFrame {
     contentItem: Rectangle {
         width: 1000
-        height: 1000
+        height: 2000
 
         //Switch demonstration
         Rectangle {
@@ -346,7 +346,7 @@ UI.UFrame {
             id: textDemo
 
             width: parent.width
-            height: 500
+            height: 200
             color: _colors.uTransparent
 
             anchors.top: radioDemo.bottom
@@ -433,6 +433,62 @@ UI.UFrame {
                 anchors.left: parent.left
 
                 width: 412
+            }
+        }
+
+        // Form demonstration
+        Rectangle {
+            id: formDemo
+
+            width: parent.width
+            height: 200
+
+            anchors.top: textDemo.bottom
+            anchors.left: parent.left
+
+            UI.UForm {
+                id: toggledForm
+
+                anchors.top: formDemo.top
+                anchors.topMargin: 10
+
+                height: 40
+
+                property bool success: true
+
+                UI.UTextbox {
+                    id: toggledText
+
+                    anchors.top: toggledForm.top
+                    anchors.topMargin: 7
+
+                    anchors.left: parent.left
+
+                    width: 340
+
+                    placeholderText: "Must be filled !"
+
+                    state: (text !== "" ? "SUCCESS" : "ERROR")
+                    function validate() {
+                        console.log(text)
+                        return (text !== "")
+                    }
+                }
+            }
+
+            UI.UButton {
+                id: formSave
+
+                anchors.left: toggledForm.left
+
+                anchors.top: toggledForm.bottom
+                anchors.topMargin: 5
+
+                state: (toggledForm.validate() ? "ENABLED" : "ERROR")
+
+                width: 40
+
+                function execute() { state = (toggledForm.validate() ? "ENABLED" : "ERROR") }
             }
         }
     }
