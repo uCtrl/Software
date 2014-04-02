@@ -1,18 +1,31 @@
 import QtQuick 2.0
 import "../UI" as UI
+import "../UI/ULabel" as ULabel
 
 Rectangle {
     id: container
 
-    property var platform: null
-    property bool formVisible : false
+    property var platform: {"name": "UNKNOWN", "room": "UNKNOWN"}
 
     function refresh(newPlatform) {
         platform = newPlatform
-        if (platform !== null) { devicesListContainer.refresh(platform) }
+        if (platform !== null) {
+            devicesListContainer.refresh(platform);
+            form.refresh(platform);
+            refreshLabel()
+        }
     }
 
-    UI.ULabel {
+    function refreshLabel() {
+        locationText.text = platform.room;
+        platformName.text = platform.name;
+    }
+
+    function hideForm() {
+        form.visible = false
+    }
+
+    ULabel.Default {
         id: platformName
 
         anchors.top: parent.top
@@ -21,71 +34,11 @@ Rectangle {
         anchors.left: parent.left
         anchors.leftMargin: 15
 
-        text: (platform !== null ? platform.name : "UNKNOWN")
+        text: ""
 
-        Component.onCompleted: {
-            font.pointSize = 32
-            font.bold = true
-            color = _colors.uBlack
-        }
-    }
-
-    Rectangle {
-        id: editFrame
-
-        width: 40; height: 40
-
-        anchors.right: container.right
-        anchors.rightMargin: 15
-
-        anchors.verticalCenter: platformName.verticalCenter
-
-        visible: !formVisible
-
-        color: _colors.uTransparent
-
-        UI.UFontAwesome {
-            id: editButton
-
-            anchors.centerIn: parent
-
-            iconId: "Pencil"
-            iconSize: 32
-            iconColor: _colors.uGrey
-        }
-    }
-
-    MouseArea {
-        id: editArea
-
-        anchors.fill: editFrame
-        hoverEnabled: true
-
-        onHoveredChanged: {
-            if (containsMouse)
-                editTooltip.startAnimation()
-            else
-                editTooltip.stopAnimation()
-
-        }
-
-        onClicked: { formVisible = !formVisible }
-    }
-
-    UI.UToolTip {
-        id: editTooltip
-
-        visible: false
-
-        anchors.verticalCenter: editFrame.verticalCenter
-
-        anchors.right: editFrame.left
-        anchors.rightMargin: 10
-
-        text: "Edit"
-        width: 75
-
-        arrowRight: true
+        font.pointSize: 32
+        font.bold: true
+        color: _colors.uBlack
     }
 
     Rectangle {
@@ -96,7 +49,7 @@ Rectangle {
 
         color: _colors.uTransparent
 
-        UI.ULabel {
+        ULabel.Default {
 
             text: "Enabled"
 
@@ -105,12 +58,9 @@ Rectangle {
 
             anchors.verticalCenter: parent.verticalCenter
 
-            headerStyle: 0
-            Component.onCompleted: {
-                font.pointSize = 16
-                font.bold = true
-                color = _colors.uGrey
-            }
+            font.pointSize: 16
+            font.bold: true
+            color: _colors.uGrey
         }
     }
 
@@ -126,18 +76,15 @@ Rectangle {
 
         color: _colors.uTransparent
 
-        UI.ULabel {
+        ULabel.Default {
 
             text: "ON"
 
             anchors.verticalCenter: parent.verticalCenter
 
-            headerStyle: 0
-            Component.onCompleted: {
-                font.pointSize = 16
-                font.bold = true
-                color = _colors.uGreen
-            }
+            font.pointSize: 16
+            font.bold: true
+            color: _colors.uGreen
         }
     }
 
@@ -151,7 +98,7 @@ Rectangle {
 
         color: _colors.uTransparent
 
-        UI.ULabel {
+        ULabel.Default {
 
             text: "Location"
 
@@ -160,16 +107,12 @@ Rectangle {
 
             anchors.verticalCenter: parent.verticalCenter
 
-            headerStyle: 0
-            Component.onCompleted: {
-                font.pointSize = 16
-                font.bold = true
-                color = _colors.uGrey
-            }
+            font.pointSize: 16
+            font.bold: true
+            color: _colors.uGrey
         }
     }
 
-    // @TODO : Replace with uSwitch
     Rectangle {
         id: locationStatus
         anchors.top: locationLabel.top
@@ -181,18 +124,16 @@ Rectangle {
 
         color: _colors.uTransparent
 
-        UI.ULabel {
+        ULabel.Default {
+            id: locationText
 
-            text: (container.platform !== null ? container.platform.room : "UNKNOWN")
+            text: ""
 
             anchors.verticalCenter: parent.verticalCenter
 
-            headerStyle: 0
-            Component.onCompleted: {
-                font.pointSize = 16
-                font.bold = true
-                color = _colors.uGreen
-            }
+            font.pointSize: 16
+            font.bold: true
+            color: _colors.uGreen
         }
     }
 
@@ -207,7 +148,7 @@ Rectangle {
         anchors.left: parent.left
         anchors.leftMargin: marginSize
 
-        anchors.top: (formVisible ? container.bottom : locationLabel.bottom)
+        anchors.top: (form.visible ? container.bottom : locationLabel.bottom)
         anchors.topMargin: 20
 
         color: _colors.uLightGrey
@@ -244,16 +185,171 @@ Rectangle {
        width: parent.width;
     }
 
-    // @TODO : Replace with UForm container.
-    Rectangle {
+    UI.UForm {
         id: form
 
-        visible: container.formVisible
+        property var model: container.model
+
+        visible: false
 
         anchors.fill: parent
 
-        color: _colors.uDarkGrey
+        color: _colors.uTransparent
 
-        opacity: 0.3
+        state: (validate() ? "SUCCESS" : "ERROR")
+
+        signal triggered;
+        onTriggered: {
+            if (validate()) {
+                visible = !visible;
+                state = "SUCCESS";
+                saveModel();
+
+                container.refresh(platform);
+                systemFrame.notify();
+            } else {
+                // @TODO : Display error.
+                console.log("Invalid form.");
+                state = "ERROR";
+            }
+        }
+
+        function refresh(newPlatform) {
+            model = newPlatform
+            refreshChildrens();
+        }
+
+        function saveModel() {
+            container.platform.setName(inputName.text);
+            container.platform.setRoom(inputRoom.text);
+        }
+
+        // Form Objects
+        UI.UTextbox {
+            id: inputName
+
+            width: (form.width - (editFrame.width + 38)); height: 35
+
+            anchors.top: form.top
+            anchors.topMargin: 15
+
+            anchors.left: form.left
+            anchors.leftMargin: 12
+
+            placeholderText: "Enter a name"
+
+            state: (validate() ? "SUCCESS" : "ERROR")
+
+            function validate() { return (text !== ""); }
+            function refresh() { text = form.model.name; }
+        }
+
+        UI.USwitch {
+            id: enabledSwitch
+
+            anchors.top: inputName.bottom
+            anchors.topMargin: 3
+
+            anchors.left: form.left
+            anchors.leftMargin: ((parent.width / 4) + 5);
+
+            function validate() { return true; }
+            function refresh() { state = "ON"; }
+        }
+
+        UI.UTextbox {
+            id: inputRoom
+
+            anchors.top: enabledSwitch.bottom
+            anchors.topMargin: 5
+
+            anchors.left: enabledSwitch.left
+            anchors.leftMargin: -2
+
+            anchors.right: inputName.right
+            anchors.rightMargin: 0
+
+            function validate() { return true; }
+            function refresh() { text = form.model.room; }
+        }
+    }
+
+    Rectangle {
+        id: editFrame
+
+        width: 40; height: 40
+
+        radius: 5
+
+        anchors.right: container.right
+        anchors.rightMargin: 15
+
+        anchors.verticalCenter: platformName.verticalCenter
+
+        color: getFrameColor()
+
+        function getFrameColor() {
+            if (form.visible)
+                return (form.state === "ERROR" ? _colors.uDarkRed : _colors.uTransparent)
+            else
+                return _colors.uTransparent
+        }
+
+        UI.UFontAwesome {
+            id: editButton
+
+            anchors.centerIn: parent
+
+            iconId: "Pencil"
+            iconSize: 32
+            iconColor: _colors.uGrey
+
+            visible: (!form.visible)
+        }
+
+        UI.UFontAwesome {
+            id: saveButton
+
+            anchors.centerIn: parent
+
+            iconId: "Save"
+            iconSize: 32
+            iconColor: (form.state === "ERROR" ? _colors.uWhite : _colors.uGreen)
+
+            visible: (form.visible)
+        }
+    }
+
+    UI.UToolTip {
+        id: editTooltip
+
+        visible: false
+
+        anchors.verticalCenter: editFrame.verticalCenter
+
+        anchors.right: editFrame.left
+        anchors.rightMargin: 10
+
+        text: (form.visible ? "Save" : "Edit")
+        width: 75
+
+        arrowRight: true
+    }
+
+    MouseArea {
+        id: editArea
+
+        anchors.fill: editFrame
+        hoverEnabled: true
+
+        onHoveredChanged: {
+            if (containsMouse)
+                editTooltip.startAnimation()
+            else
+                editTooltip.stopAnimation()
+
+        }
+
+        onClicked: { form.triggered() }
     }
 }

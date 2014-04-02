@@ -14,10 +14,18 @@ UI.UFrame {
         if (system !== null) platformListContainer.refresh(newSystem)
     }
 
+    signal notify;
+    onNotify: {
+        refresh(system)
+    }
+
     contentItem: Rectangle {
         id: systemContainer
 
         property var activePlatform: null
+        onActivePlatformChanged: {
+            platformInfo.hideForm();
+        }
 
         property int constSize: 16
         property int separation: 10

@@ -71,6 +71,7 @@ Rectangle {
         width: parent.width; height: parent.height
         anchors.fill: parent
 
+        text: parent.text
         placeholderText: parent.placeholderText
 
         style: TextFieldStyle {

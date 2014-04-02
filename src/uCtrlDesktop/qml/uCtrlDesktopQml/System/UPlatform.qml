@@ -5,6 +5,7 @@ Rectangle {
     id: container
 
     property var platformModel: platformsList.model.getPlatformAt(index)
+    property var system: systemFrame.system
 
     width: parent.width
     height: 60
@@ -33,6 +34,10 @@ Rectangle {
         default:
             return _colors.uDarkGrey
         }
+    }
+
+    function refresh(newPlatformModel) {
+        platformModel = newPlatformModel;
     }
 
     UI.ULabel {
@@ -101,9 +106,12 @@ Rectangle {
                 newPlatform = systemFrame.system.getPlatformAt(index)
             }
 
+            refresh(newPlatform)
             platformsList.currentIndex = newIndex
             systemContainer.activePlatform = newPlatform
             platformInfo.refresh(newPlatform)
         }
     }
+
+    onSystemChanged: refresh(system.getPlatformAt(index));
 }

@@ -9,6 +9,16 @@ Rectangle {
     width: parent.width; height: parent.height
     color: _colors.uTransparent
 
+    function refreshChildrens() {
+        for (var i=0; i<container.children.length; i++) {
+            try {
+                container.children[i].refresh()
+            } catch (err) {
+                console.log("WARNING: Component inserted in a form with no refresh function.")
+            }
+        }
+    }
+
     function validate() {
         var valid = true;
 

@@ -345,8 +345,7 @@ UI.UFrame {
         Rectangle {
             id: textDemo
 
-            width: parent.width
-            height: 200
+            width: parent.width; height: 800
             color: _colors.uTransparent
 
             anchors.top: radioDemo.bottom
@@ -434,6 +433,23 @@ UI.UFrame {
 
                 width: 412
             }
+
+            // Multiline textbox
+            Rectangle {
+                id: multiFrame
+
+                anchors.top: placeholderText.bottom
+
+                width: 300; height: 400;
+
+                UI.UTextbox {
+                    id: multiText
+
+                    anchors.fill: parent
+
+                    clip: true;
+                }
+            }
         }
 
         // Form demonstration
@@ -441,7 +457,7 @@ UI.UFrame {
             id: formDemo
 
             width: parent.width
-            height: 200
+            height: 100
 
             anchors.top: textDemo.bottom
             anchors.left: parent.left
@@ -469,10 +485,23 @@ UI.UFrame {
                     placeholderText: "Must be filled !"
 
                     state: (text !== "" ? "SUCCESS" : "ERROR")
-                    function validate() {
-                        console.log(text)
-                        return (text !== "")
-                    }
+                    function validate() { return (text !== ""); }
+                }
+
+                UI.UCheckbox {
+                    id: toggledFormCheck
+
+                    anchors.left: parent.left
+                    anchors.leftMargin: 5
+
+                    anchors.top: toggledText.bottom
+                    anchors.topMargin: 6
+
+                    text: "Check me !"
+
+                    function validate() { return toggledFormCheck.checked }
+
+                    onCheckedChanged: if (toggledFormCheck.checked) toggledForm.validate()
                 }
             }
 
@@ -486,7 +515,9 @@ UI.UFrame {
 
                 state: (toggledForm.validate() ? "ENABLED" : "ERROR")
 
-                width: 40
+                width: 100
+
+                text: "Valid form"
 
                 function execute() { state = (toggledForm.validate() ? "ENABLED" : "ERROR") }
             }
