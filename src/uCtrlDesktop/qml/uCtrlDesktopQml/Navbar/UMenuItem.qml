@@ -106,7 +106,7 @@ Rectangle {
             else
                 tooltip.stopAnimation()
 
-            highlight.visible = (containsMouse)
+            highlight.visible = containsMouse
 
         }
 
