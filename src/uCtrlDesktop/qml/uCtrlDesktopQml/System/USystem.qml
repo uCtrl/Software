@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import "../UI" as UI
+import "../UI/ULabel" as ULabel
 import "../Platform" as Platform
 
 UI.UFrame {
@@ -60,6 +61,9 @@ UI.UFrame {
                 opacity: 0.8
 
                 placeholderText: "Search"
+
+                fontAwesome: "Search"
+                iconSize: 16
             }
 
             UI.UComboBox {
@@ -116,7 +120,7 @@ UI.UFrame {
 
             color: _colors.uTransparent
 
-            UI.ULabel {
+            ULabel.Default {
                 id: regularText
 
                 text: "Please select a platform"
