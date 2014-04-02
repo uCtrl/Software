@@ -70,7 +70,7 @@ UI.UFrame {
 
                 placeholderText: "Search"
 
-                fontAwesome: "Search"
+                iconId: "Search"
                 iconSize: 16
             }
 

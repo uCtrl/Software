@@ -10,7 +10,7 @@ Rectangle {
     property string placeholderText: ""
     property string text: ""
 
-    property var fontAwesome: null
+    property var iconId: null
     property int iconSize: 10
 
     width: 100; height: 25
@@ -107,13 +107,13 @@ Rectangle {
         anchors.right: field.right
         anchors.rightMargin: 4
 
-        visible: (parent.fontAwesome !== null || parent.state === "SUCCESS" || parent.state === "ERROR")
+        visible: (parent.iconId !== null || parent.state === "SUCCESS" || parent.state === "ERROR")
 
         function getIcon() {
             if (parent.state === "ERROR")
                 return "Remove"
-            else if (parent.fontAwesome !== null)
-                return parent.fontAwesome
+            else if (parent.iconId !== null)
+                return parent.iconId
             else
                 return "Ok"
         }
