@@ -19,12 +19,14 @@ INCLUDEPATH += ../uCtrlCore/
 SOURCES += \
     main.cpp \
     Network/bonjourservicebrowser.cpp \
-    Network/bonjourserviceresolver.cpp
+    Network/bonjourserviceresolver.cpp \
+    Network/unetworkscanner.cpp
 
 HEADERS += \
     Network/bonjourrecord.h \
     Network/bonjourservicebrowser.h \
-    Network/bonjourserviceresolver.h
+    Network/bonjourserviceresolver.h \
+    Network/unetworkscanner.h
 
 INCLUDEPATH += \
     qml/uCtrlDesktopQml/

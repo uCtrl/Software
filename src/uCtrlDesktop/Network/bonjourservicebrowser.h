@@ -19,6 +19,7 @@ public:
 
 signals:
     void currentBonjourRecordsChanged(const QList<BonjourRecord> &list);
+    void newBonjourRecord(const BonjourRecord& bonjourRecord );
     void error(DNSServiceErrorType err);
 
 private slots:

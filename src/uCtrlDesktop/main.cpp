@@ -8,6 +8,7 @@
 #include <QtQuick/qquickview.h>
 #include "System/usystem.h"
 #include "Serialization/jsonserializer.h"
+#include "Network/unetworkscanner.h"
 
 #include <QFile>
 #include <QTextStream>
@@ -44,8 +45,13 @@ int main(int argc, char *argv[])
         app.installTranslator(&translator);
     }
 
-    USystem* system = new USystem();
+    //UNetworkScanner* scanner = UNetworkScanner::Instance();
+    //scanner->scanNetwork();
+
+    USystem* system = USystem::Instance();
     LoadSystemFromFile(system, ":/Resources/data.json");
+
+    UPlatform* platform = new UPlatform(system, "127.0.0.1", 5000);
 
     QQmlContext *ctxt = viewer.rootContext();
     ctxt->setContextProperty("mySystem", system);
@@ -57,7 +63,7 @@ int main(int argc, char *argv[])
 
     int ret = app.exec();
 
-    SaveSystemToFile(system, "data.json");
+    //SaveSystemToFile(system, "data.json");
     return ret;
 }
 

@@ -49,7 +49,10 @@ void BonjourServiceBrowser::bonjourBrowseReply(DNSServiceRef , DNSServiceFlags f
         BonjourRecord bonjourRecord(serviceName, regType, replyDomain);
         if (flags & kDNSServiceFlagsAdd) {
             if (!serviceBrowser->m_bonjourRecords.contains(bonjourRecord))
+            {
                 serviceBrowser->m_bonjourRecords.append(bonjourRecord);
+                emit serviceBrowser->newBonjourRecord(bonjourRecord);
+            }
         } else {
             serviceBrowser->m_bonjourRecords.removeAll(bonjourRecord);
         }
