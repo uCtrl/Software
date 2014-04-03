@@ -8,16 +8,17 @@
 #include <QtQuick/qquickview.h>
 #include "System/usystem.h"
 #include "Serialization/jsonserializer.h"
+#include "Network/unetworkscanner.h"
 
 #include <QFile>
 #include <QTextStream>
 
-void SaveDeviceToFile(UDevice* device, std::string filename)
+void SaveSystemToFile(USystem* s, std::string filename)
 {
     QFile file(QString::fromStdString(filename));
     file.open(QIODevice::WriteOnly | QIODevice::Text);
     QTextStream out(&file);
-    out << JsonSerializer::serialize(device);
+    out << JsonSerializer::serialize(s);
 
     // optional, as QFile destructor will already do it:
     file.close();
@@ -44,18 +45,25 @@ int main(int argc, char *argv[])
         app.installTranslator(&translator);
     }
 
-    USystem* system = new USystem();
-    LoadSystemFromFile(system, ":/Resources/JSON.txt");
+    //UNetworkScanner* scanner = UNetworkScanner::Instance();
+    //scanner->scanNetwork();
+
+    USystem* system = USystem::Instance();
+    LoadSystemFromFile(system, ":/Resources/data.json");
+
+    UPlatform* platform = new UPlatform(system, "127.0.0.1", 5000);
 
     QQmlContext *ctxt = viewer.rootContext();
-    UDevice* d = system->getPlatforms().first()->getDevices()[0];
-    ctxt->setContextProperty("myDevice", d);
+    ctxt->setContextProperty("mySystem", system);
 
     viewer.setMainQmlFile(QStringLiteral("qml/uCtrlDesktopQml/main.qml"));
     viewer.setMinimumHeight(700);
     viewer.setMinimumWidth(900);
     viewer.showExpanded();
 
-    return app.exec();
+    int ret = app.exec();
+
+    //SaveSystemToFile(system, "data.json");
+    return ret;
 }
 

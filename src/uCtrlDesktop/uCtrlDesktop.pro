@@ -7,6 +7,8 @@ DEPLOYMENTFOLDERS = folder_01
 
 QT += network
 
+CONFIG += c++11
+
 # Please do not modify the following two lines. Required for deployment.
 include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
 qtcAddDeployment()
@@ -17,12 +19,14 @@ INCLUDEPATH += ../uCtrlCore/
 SOURCES += \
     main.cpp \
     Network/bonjourservicebrowser.cpp \
-    Network/bonjourserviceresolver.cpp
+    Network/bonjourserviceresolver.cpp \
+    Network/unetworkscanner.cpp
 
 HEADERS += \
     Network/bonjourrecord.h \
     Network/bonjourservicebrowser.h \
-    Network/bonjourserviceresolver.h
+    Network/bonjourserviceresolver.h \
+    Network/unetworkscanner.h
 
 INCLUDEPATH += \
     qml/uCtrlDesktopQml/
@@ -85,24 +89,3 @@ updateqm.commands = lrelease ${QMAKE_FILE_IN} -qm ${QMAKE_FILE_OUT}
 updateqm.CONFIG += no_link
 QMAKE_EXTRA_COMPILERS += updateqm
 PRE_TARGETDEPS += compiler_updateqm_make_all
-
-OTHER_FILES += \
-    qml/uCtrlDesktopQml/UI/UPath.qml \
-    Languages/uctrl_en.ts \
-    Languages/uctrl_fr.ts \
-    qml/uCtrlDesktopQml/UI/UComboBox.qml \
-    qml/uCtrlDesktopQml/Scenario/UTaskWidget.qml \
-    qml/uCtrlDesktopQml/UI/UFontAwesome.qml \
-    qml/uCtrlDesktopQml/Navbar/UNavbar.qml \
-    qml/uCtrlDesktopQml/UI/UToolTip.qml \
-    qml/uCtrlDesktopQml/UI/ULabel/Default.qml \
-    qml/uCtrlDesktopQml/UI/ULabel/Heading1.qml \
-    qml/uCtrlDesktopQml/UI/ULabel/Heading2.qml \
-    qml/uCtrlDesktopQml/UI/ULabel/Heading3.qml \
-    qml/uCtrlDesktopQml/UI/ULabel/Heading4.qml \
-    qml/uCtrlDesktopQml/UI/ULabel/Heading5.qml \
-    qml/uCtrlDesktopQml/UI/ULabel/TooltipText.qml \
-    qml/uCtrlDesktopQml/UI/UComboBoxItem.qml \
-    qml/uCtrlDesktopQml/UI/USeparator.qml \
-    qml/uCtrlDesktopQml/UI/UComboBoxItemContainer.qml \
-    qml/uCtrlDesktopQml/UI/ULabel/ComboBoxItemText.qml

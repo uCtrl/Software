@@ -1,0 +1,136 @@
+{
+    "platforms": [
+        {
+            "devices": [
+                {
+                    "id": 1782103621,
+                    "maxValue": 100,
+                    "minValue": 0,
+                    "name": "Temperature",
+                    "precision": 0,
+                    "scenarios": [
+                        {
+                            "id": 1782103622,
+                            "name": "Semaine",
+                            "tasks": [
+                                {
+                                    "conditions": [
+                                        {
+                                            "beginDate": "2014-03-31",
+                                            "endDate": "2014-03-31",
+                                            "id": 1350245676,
+                                            "type": 1
+                                        },
+                                        { 
+                                            "id": 1350245677,
+                                            "type": 3
+                                        },
+                                        {
+                                            "beginDate": "2014-03-31",
+                                            "endDate": "2014-03-31",
+                                            "id": 1350245678,
+                                            "type": 1
+                                        },
+                                        {
+                                            "id": 1350245681,
+                                            "type": 3
+                                        }
+                                    ],
+                                    "id": 1782103623,
+                                    "status": "20%"
+                                },
+                                {
+                                    "conditions": [
+                                        {
+                                            "beginDate": "2014-03-31",
+                                            "endDate": "2014-03-31",
+                                            "id": 1350245680,
+                                            "type": 1
+                                        }
+                                    ],
+                                    "id": 1782103626,
+                                    "status": "13%"
+                                }
+                            ]
+                        }
+                    ],
+                    "type": 1,
+                    "unitLabel": ""
+                }
+            ],
+            "id": 99934,
+            "ip": "127.0.0.1",
+            "port": 5000,
+            "name": "Televsion Set",
+            "room": "Living room"
+        },
+        {
+            "devices": [
+                {
+                    "id": 1782103621,
+                    "maxValue": 100,
+                    "minValue": 0,
+                    "name": "Temperature",
+                    "precision": 0,
+                    "scenarios": [
+                        {
+                            "id": 1782103622,
+                            "name": "Semaine",
+                            "tasks": [
+                                {
+                                    "conditions": [
+                                        {
+                                            "beginDate": "2014-03-31",
+                                            "endDate": "2014-03-31",
+                                            "id": 1350245676,
+                                            "type": 1
+                                        },
+                                        {
+                                            "beginDate": "2014-03-31",
+                                            "endDate": "2014-03-31",
+                                            "id": 1350245677,
+                                            "type": 1
+                                        },
+                                        {
+                                            "beginDate": "2014-03-31",
+                                            "endDate": "2014-03-31",
+                                            "id": 1350245678,
+                                            "type": 1
+                                        },
+                                        {
+                                            "beginDate": "2014-03-31",
+                                            "endDate": "2014-03-31",
+                                            "id": 1350245681,
+                                            "type": 1
+                                        }
+                                    ],
+                                    "id": 1782103623,
+                                    "status": "20%"
+                                },
+                                {
+                                    "conditions": [
+                                        {
+                                            "beginDate": "2014-03-31",
+                                            "endDate": "2014-03-31",
+                                            "id": 1350245680,
+                                            "type": 1
+                                        }
+                                    ],
+                                    "id": 1782103626,
+                                    "status": "13%"
+                                }
+                            ]
+                        }
+                    ],
+                    "type": 1,
+                    "unitLabel": ""
+                }
+            ],
+            "id": 99934,
+            "ip": "127.0.0.1",
+            "port": 5000,
+            "name": "Sound System",
+            "room": "Alexis' room"
+        }
+    ]
+}

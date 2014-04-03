@@ -16,6 +16,8 @@ import "Navbar" as Navbar
 Rectangle {
     id: main
 
+    property int scrollbarSize: 16
+
     property var activeComponent: null
     property var activePage: null
 
@@ -88,6 +90,14 @@ Rectangle {
         }
     }
 
+    function getAreaWidth() {
+        return main.width - (navbar.width + scrollbarSize)
+    }
+
+    function getAreaHeight() {
+        return main.height - (titlebar.height + scrollbarSize)
+    }
+
     Titlebar.Titlebar {
         id: titlebar
 
@@ -96,6 +106,8 @@ Rectangle {
         anchors.right: parent.right
 
         z: 1    // Always on top.
+
+        breadCrumbLinks: ["Home", "Test dashboard"]
     }
 
     Navbar.UNavbar {
