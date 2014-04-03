@@ -18,7 +18,7 @@ Rectangle {
         width: parent.width - parent.height / 2
         height: parent.height
 
-        color: _colors.uLightGrey
+        color: _colors.uGrey
 
         Rectangle {
             id: valueField
@@ -47,7 +47,7 @@ Rectangle {
             height: parent.height - 4
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: valueField.right
-            color: _colors.uMediumDarkGrey
+            color: _colors.uWhite
         }
     }
 
@@ -57,12 +57,12 @@ Rectangle {
         height: parent.height
         anchors.right: parent.right
 
-        color: _colors.uLightGrey
+        color: _colors.uGrey
         radius: 5
 
         UFontAwesome {
             iconId: "CaretDown"
-            iconColor: _colors.uMediumDarkGrey
+            iconColor: _colors.uWhite
             iconSize: 14
             anchors.centerIn: parent
         }
@@ -76,7 +76,7 @@ Rectangle {
             width: parent.width
             anchors.top: parent.bottom
             anchors.topMargin: 10
-            color: _colors.uLightGrey
+            color: _colors.uTransparent
             visible: false
 
             UFontAwesome {
@@ -84,7 +84,7 @@ Rectangle {
                 height: 10
                 iconId: "CaretUp"
                 iconSize: 16
-                iconColor: _colors.uLightGrey
+                iconColor: _colors.uGrey
                 anchors.top: parent.top
                 anchors.right: parent.right
                 anchors.rightMargin: 10
@@ -93,11 +93,11 @@ Rectangle {
             Rectangle {
                 id: itemAreaContainer
                 anchors.top: arrowTop.bottom
-                width: parent.width - 5
+                width: parent.width
                 anchors.horizontalCenter: parent.horizontalCenter
                 height: 200
                 radius: 5
-                color: _colors.uLightGrey
+                color: _colors.uGrey
 
 
                 Rectangle {
@@ -123,10 +123,7 @@ Rectangle {
                                 dropDownMenu.deselectItem()
                                 dropDownMenu.pComboBoxItemContainer = this
                                 selectItem()
-                                //combo.selectItem(index)
-                                combo.itemListModel.selectedItem = itemListModel.getItemDataAt(index)
-                                valueItem.refresh(combo.itemListModel.selectedItem)
-                                dropDown.visible = false
+                                combo.selectItem(index)
                             }
                         }
 

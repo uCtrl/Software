@@ -51,7 +51,7 @@ Item {
 
             Rectangle {
                 id: stateContainer
-                color: _colors.uLightGrey
+                color: _colors.uGrey
 
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: changeStateLabel.right
@@ -59,7 +59,7 @@ Item {
                 anchors.rightMargin: 7
 
                 width: selectedComboBoxItem.width + 15
-                height: selectedComboBoxItem.height - 5
+                height: selectedComboBoxItem.height
 
                 radius: 10
 

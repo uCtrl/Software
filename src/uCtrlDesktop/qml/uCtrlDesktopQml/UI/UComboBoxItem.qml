@@ -12,17 +12,15 @@ Rectangle {
     color: _colors.uTransparent
 
     function refresh(newItemData) {
-        itemData.value = newItemData.value
-        itemData.iconId = newItemData.iconId
-        itemData.displayedValue = newItemData.displayedValue
 
         itemData = newItemData
 
-        //comboBoxItemIcon.iconId = itemData.iconId
+        // TODO: SUPPORT ICON... BUT FOR NOW, NOPE!
+        comboBoxItemIcon.iconId = itemData.iconId
         comboBoxItemText.text = itemData.displayedValue
     }
 
-    /*
+
     Rectangle {
         id: iconContainer
         width: parent.height
@@ -33,13 +31,13 @@ Rectangle {
         UFontAwesome {
             id: comboBoxItemIcon
 
-            iconId: item.itemData.iconId
+            iconId: item.itemData ? item.itemData.iconId : ""
             iconColor: _colors.uMediumDarkGrey
             iconSize:  14
             anchors.centerIn: parent
         }
     }
-    */
+
 
     Rectangle {
         id: valueContainer

@@ -33,17 +33,11 @@ Rectangle {
                 return
 
             if(containsMouse)
-                container.color = _colors.uGreen
+               container.color = _colors.uDarkGrey
             else
-                container.color = _colors.uTransparent
+               container.color = _colors.uTransparent
         }
         onClicked: {
-            if (mouse.y < item.y + 5)
-                return
-
-            if (mouse.y > (item.y + item.height))
-                return
-
             itemSelected()
         }
     }
@@ -51,7 +45,7 @@ Rectangle {
     function selectItem() {
         isSelected = true
 
-        container.color = _colors.uWhite
+        container.color = _colors.uGreen
     }
 
     function deselectItem() {
