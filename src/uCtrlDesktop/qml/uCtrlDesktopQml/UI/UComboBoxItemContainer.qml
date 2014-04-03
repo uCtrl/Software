@@ -6,6 +6,8 @@ Rectangle {
     property string iconId: itemData ? itemData.iconId : "UNKNOWN"
     property string displayedValue: itemData ? itemData.displayedValue : "UNKNOWN"
 
+    property bool isSelected: false
+
     signal itemSelected
 
     id: container
@@ -24,14 +26,37 @@ Rectangle {
     }
 
     MouseArea {
-        anchors.fill: parent
+        anchors.fill: item
         hoverEnabled: true
         onHoveredChanged: {
+            if (isSelected)
+                return
+
             if(containsMouse)
-                container.color = _colors.uLightGrey
+                container.color = _colors.uGreen
             else
                 container.color = _colors.uTransparent
         }
-        onClicked: itemSelected()
+        onClicked: {
+            if (mouse.y < item.y + 5)
+                return
+
+            if (mouse.y > (item.y + item.height))
+                return
+
+            itemSelected()
+        }
+    }
+
+    function selectItem() {
+        isSelected = true
+
+        container.color = _colors.uWhite
+    }
+
+    function deselectItem() {
+        isSelected = false
+
+        container.color = _colors.uTransparent
     }
 }

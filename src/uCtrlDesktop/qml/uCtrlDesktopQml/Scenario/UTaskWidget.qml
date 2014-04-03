@@ -39,7 +39,7 @@ Item {
             anchors.leftMargin: 10
 
             width: parent.width - anchors.leftMargin
-            height: 25
+            height: 35
 
             ULabel.Default {
                 id: changeStateLabel
@@ -59,7 +59,7 @@ Item {
                 anchors.rightMargin: 7
 
                 width: selectedComboBoxItem.width + 15
-                height: parent.height - 5
+                height: selectedComboBoxItem.height - 5
 
                 radius: 10
 
@@ -70,15 +70,6 @@ Item {
                     anchors.centerIn: parent
                     itemListModel: taskModel.scenario.device.getComboBoxItemList()
                 }
-
-                /*
-                ULabel.Default {
-                    id: stateLabel
-                    text: taskModel.status
-                    anchors.centerIn: parent
-                    font.pointSize: 12
-                    font.bold: true
-                }*/
             }
 
             ULabel.Default {
@@ -203,6 +194,7 @@ Item {
         Rectangle {
             id: conditionsContainer
             clip: true
+            z:-100
 
 
             height: 40 * conditionList.count

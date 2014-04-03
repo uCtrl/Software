@@ -18,7 +18,7 @@ Rectangle {
 
         itemData = newItemData
 
-        comboBoxItemIcon.iconId = itemData.iconId
+        //comboBoxItemIcon.iconId = itemData.iconId
         comboBoxItemText.text = itemData.displayedValue
     }
 
@@ -38,13 +38,12 @@ Rectangle {
             iconSize:  14
             anchors.centerIn: parent
         }
-
     }
     */
 
     Rectangle {
         id: valueContainer
-        width: parent.width - iconContainer.width
+        width: parent.width// - iconContainer.width
         height: parent.height
         anchors.right: parent.right
 

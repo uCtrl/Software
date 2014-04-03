@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQuick.Controls 1.0
 
 Rectangle {
 
@@ -17,7 +18,7 @@ Rectangle {
         width: parent.width - parent.height / 2
         height: parent.height
 
-        color: _colors.uMediumGrey
+        color: _colors.uLightGrey
 
         Rectangle {
             id: valueField
@@ -26,13 +27,17 @@ Rectangle {
             color: _colors.uTransparent
 
             UComboBoxItem {
-                    id: value
+                    id: valueItem
 
                     width: parent.width - 10
                     height: parent.height - 10
                     anchors.centerIn: parent
 
                     itemData: combo.itemListModel.selectedItem
+
+                    Component.onCompleted: {
+                        valueItem.refresh(combo.itemListModel.selectedItem)
+                    }
             }
         }
 
@@ -52,7 +57,7 @@ Rectangle {
         height: parent.height
         anchors.right: parent.right
 
-        color: _colors.uMediumGrey
+        color: _colors.uLightGrey
         radius: 5
 
         UFontAwesome {
@@ -64,73 +69,90 @@ Rectangle {
     }
 
     Rectangle {
-        id: dropDown
-        z:100
-        height: 150
-        width: parent.width
-        anchors.top: parent.bottom
-        anchors.topMargin: 10
-        color: _colors.uTransparent
-        visible: false
-
-        UFontAwesome {
-            id: arrowTop
-            height: 10
-            iconId: "CaretUp"
-            iconSize: 16
-            iconColor: _colors.uMediumGrey
-            anchors.right: parent.right
-            anchors.rightMargin: combo.height / 2
-        }
-        Rectangle {
-            id: itemAreaContainer
-            anchors.top: arrowTop.bottom
+            id: dropDown
+            z:1
+            clip:true
+            height: 250
             width: parent.width
-            height: 200
-            radius: 5
-            color: _colors.uMediumGrey
+            anchors.top: parent.bottom
+            anchors.topMargin: 10
+            color: _colors.uLightGrey
+            visible: false
+
+            UFontAwesome {
+                id: arrowTop
+                height: 10
+                iconId: "CaretUp"
+                iconSize: 16
+                iconColor: _colors.uLightGrey
+                anchors.top: parent.top
+                anchors.right: parent.right
+                anchors.rightMargin: 10
+            }
 
             Rectangle {
-                id: itemArea
-                width: parent.width - 10
-                height: parent.height - 10
-                anchors.centerIn: parent
-                color: _colors.uTransparent
+                id: itemAreaContainer
+                anchors.top: arrowTop.bottom
+                width: parent.width - 5
+                anchors.horizontalCenter: parent.horizontalCenter
+                height: 200
+                radius: 5
+                color: _colors.uLightGrey
 
-                ListView {
-                    id: dropDownMenu
-                    anchors.fill: parent
 
-                    model: itemListModel
-                    delegate: UComboBoxItemContainer {
+                Rectangle {
+                    property int selectedIndex: 0
 
-                        itemData: itemListModel.getItemDataAt(index)
+                    id: itemArea
+                    width: parent.width - 10
+                    height: parent.height - 10
+                    anchors.centerIn: parent
+                    color: _colors.uTransparent
 
-                        onItemSelected: {
-                            selectItem(index)
+                    ListView {
+                        property var pComboBoxItemContainer: null
+
+                        id: dropDownMenu
+                        anchors.fill: parent
+
+                        model: itemListModel
+                        delegate: UComboBoxItemContainer {
+
+                            itemData: itemListModel.getItemDataAt(index)
+                            onItemSelected: {
+                                dropDownMenu.deselectItem()
+                                dropDownMenu.pComboBoxItemContainer = this
+                                selectItem()
+                                //combo.selectItem(index)
+                                combo.itemListModel.selectedItem = itemListModel.getItemDataAt(index)
+                                valueItem.refresh(combo.itemListModel.selectedItem)
+                                dropDown.visible = false
+                            }
+                        }
+
+                        function deselectItem() {
+                            if (pComboBoxItemContainer)
+                                pComboBoxItemContainer.deselectItem()
                         }
                     }
+
                 }
             }
         }
 
-    }
     function selectItem(index) {
         combo.itemListModel.selectedItem = itemListModel.getItemDataAt(index)
-        value.refresh(combo.itemListModel.selectedItem)
+        valueItem.refresh(combo.itemListModel.selectedItem)
         dropDown.visible = false
 
-        console.log(index)
-        console.log(combo.itemListModel.selectedItem.value)
-        console.log(combo.itemListModel.selectedItem.displayedValue)
-        console.log(combo.itemListModel.selectedItem.iconId)
-        console.log(value.itemData.value)
-        console.log(value.itemData.displayedValue)
-        console.log(value.itemData.iconId)
     }
 
     MouseArea {
         anchors.fill: parent
-        onClicked: dropDown.visible = !dropDown.visible
+        onClicked: {
+            dropDown.visible = !dropDown.visible
+        }
+
+
     }
 }
