@@ -2,7 +2,14 @@ import QtQuick 2.0
 import "../UI" as UI
 
 Rectangle {
-    property variant breadCrumbLinks: ["A", "B", "C", "D"]
+
+    function resetBreadcrumb() {
+        brdCrumb.resetBreadcrumb()
+    }
+
+    function changeBreadcrumb(path, title, model) {
+        brdCrumb.changeBreadcrumb(path, title, model)
+    }
 
     id: titlebar
 
@@ -28,7 +35,6 @@ Rectangle {
 
         UI.UBreadcrumb {
             id: brdCrumb
-            links: breadCrumbLinks
         }
     }
 }
