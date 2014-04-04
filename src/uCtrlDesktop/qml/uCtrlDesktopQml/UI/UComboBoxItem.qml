@@ -15,7 +15,6 @@ Rectangle {
 
         itemData = newItemData
 
-        // TODO: SUPPORT ICON... BUT FOR NOW, NOPE!
         comboBoxItemIcon.iconId = itemData.iconId
         comboBoxItemText.text = itemData.displayedValue
     }

@@ -9,7 +9,6 @@ UI.UFrame {
     property variant device: null
     property ListModel scenarios: null
 
-    //anchors.fill: parent
     width: 800
     height: 600
 
