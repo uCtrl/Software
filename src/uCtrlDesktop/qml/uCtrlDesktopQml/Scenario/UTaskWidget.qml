@@ -33,13 +33,14 @@ Item {
 
         Rectangle {
             id: taskHeader
+            z:1
 
             anchors.top: parent.top
             anchors.left: parent.left
             anchors.leftMargin: 10
 
             width: parent.width - anchors.leftMargin
-            height: 35
+            height: 40
 
             ULabel.Default {
                 id: changeStateLabel
@@ -87,6 +88,8 @@ Item {
             UI.UButton {
                 id: toggleBtn
 
+                anchors.verticalCenter: parent.verticalCenter
+
                 text: "-"
 
                 width: 20
@@ -102,6 +105,8 @@ Item {
 
             UI.UIconButton {
                 id: deleteBtn
+
+                anchors.verticalCenter: parent.verticalCenter
 
                 text: "Remove"
                 iconSize: 12
@@ -121,6 +126,8 @@ Item {
             UI.UIconButton {
                 id: moveDown
 
+                anchors.verticalCenter: parent.verticalCenter
+
                 text: "ArrowDown"
                 iconSize: 10
 
@@ -139,6 +146,8 @@ Item {
             UI.UIconButton {
                 id: moveUp
 
+                anchors.verticalCenter: parent.verticalCenter
+
                 text: "ArrowUp"
                 iconSize: 10
 
@@ -156,6 +165,8 @@ Item {
 
             UI.UButton {
                 id: addConditionBtn
+
+                anchors.verticalCenter: parent.verticalCenter
 
                 text: "A"
 
@@ -194,8 +205,6 @@ Item {
         Rectangle {
             id: conditionsContainer
             clip: true
-            z:-100
-
 
             height: 40 * conditionList.count
             width: parent.width - dragger.width

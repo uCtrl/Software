@@ -4,6 +4,7 @@ import QtQuick.Controls 1.0
 Rectangle {
 
     property var itemListModel: null
+    signal selectValue(var selectedItem)
 
     id: combo
 
@@ -70,12 +71,11 @@ Rectangle {
 
     Rectangle {
             id: dropDown
-            z:1
             clip:true
             height: 250
-            width: parent.width
+            width: valueBackground.width + dropDownIcon.width
             anchors.top: parent.bottom
-            anchors.topMargin: 10
+            anchors.horizontalCenter: parent.horizontalCenter
             color: _colors.uTransparent
             visible: false
 
@@ -93,6 +93,7 @@ Rectangle {
             Rectangle {
                 id: itemAreaContainer
                 anchors.top: arrowTop.bottom
+                anchors.topMargin: -2 // Put rectangle on bottom of the caret
                 width: parent.width
                 anchors.horizontalCenter: parent.horizontalCenter
                 height: 200
@@ -114,14 +115,15 @@ Rectangle {
 
                         id: dropDownMenu
                         anchors.fill: parent
+                        boundsBehavior: Flickable.StopAtBounds
 
                         model: itemListModel
                         delegate: UComboBoxItemContainer {
 
                             itemData: itemListModel.getItemDataAt(index)
                             onItemSelected: {
-                                dropDownMenu.deselectItem()
-                                dropDownMenu.pComboBoxItemContainer = this
+                                dropDownMenu.deselectItem() // Deselect the previously selected drop down menu item
+                                dropDownMenu.pComboBoxItemContainer = this // Keep in memory that this one is the current now
                                 selectItem()
                                 combo.selectItem(index)
                             }
@@ -141,7 +143,7 @@ Rectangle {
         combo.itemListModel.selectedItem = itemListModel.getItemDataAt(index)
         valueItem.refresh(combo.itemListModel.selectedItem)
         dropDown.visible = false
-
+        selectValue(combo.itemListModel.selectedItem.value)
     }
 
     MouseArea {
