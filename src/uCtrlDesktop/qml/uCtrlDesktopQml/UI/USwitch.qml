@@ -8,8 +8,8 @@ Rectangle {
     property string status: "ON"
 
     id: container
-    width: 110
-    height: 40
+    width: 70
+    height: 30
     radius: height / 2
     color: _colors.uLightGreen
     state: status

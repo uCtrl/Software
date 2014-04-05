@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import "../UI" as UI
+import "../UI/ULabel" as ULabel
 
 Rectangle {
     id: container
@@ -19,13 +20,13 @@ Rectangle {
 
         anchors.verticalCenter: parent.verticalCenter
 
-        width: 20; height: 20
+        width: 40; height: 40
         radius: 5
 
         color: _colors.uGreen
 
         // @TODO : Replace with proper icon when ready.
-        UI.ULabel {
+        ULabel.Default {
             id: iconLabel
 
             text: deviceModel.type
@@ -33,13 +34,14 @@ Rectangle {
             anchors.centerIn: iconFrame
 
             Component.onCompleted: {
-                font.pixelSize = 16
+                font.pixelSize = 32
+                font.bold = true
                 color = _colors.uWhite
             }
         }
     }
 
-    UI.ULabel {
+    ULabel.Default {
         anchors.left: iconFrame.right
         anchors.leftMargin: 25
 
@@ -47,11 +49,23 @@ Rectangle {
 
         text: deviceModel.name
 
-        headerStyle: 0
         Component.onCompleted: {
             font.pixelSize = 24
             font.bold = true
         }
+    }
+
+    UI.UFontAwesome {
+        id: chevronRight
+
+        anchors.right: container.right
+        anchors.rightMargin: 20
+
+        anchors.verticalCenter: container.verticalCenter
+
+        iconId: "ChevronRight"
+        iconSize: 32
+        iconColor: _colors.uLightGrey
     }
 
     Rectangle {
