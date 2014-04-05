@@ -1,6 +1,7 @@
 import QtQuick 2.0
 
 import ".." as UI
+import "../ULabel" as ULabel
 
 Rectangle {
     id: tab
@@ -10,11 +11,12 @@ Rectangle {
     property string iconId
     property int iconSize
     property int animationTime: 200
+    property string text: ""
     state: "NORMAL"
 
     signal clicked()
 
-    width: parent.height
+    width: 100
     height: parent.height
     color: _colors.uTransparent
 
@@ -53,6 +55,7 @@ Rectangle {
             name: "SELECTED"
             PropertyChanges { target: mainRectangle; color: _colors.uGreen }
             PropertyChanges { target: subRectangle; color: _colors.uGreen }
+            PropertyChanges { target: tabText; font.bold: true }
         },
         State {
             name: "HOVERED"
@@ -109,14 +112,45 @@ Rectangle {
         }
     ]
 
-    UI.UFontAwesome {
-        id: icon
-        iconId: tab.iconId
-        iconSize: tab.iconSize
-        iconColor: _colors.uWhite
-
+    Rectangle {
+        id: contentContainer
+        width: iconContainer.width + textContainer.width
+        height: parent.height
+        color: _colors.uTransparent
         anchors.centerIn: parent
+
+        Rectangle {
+            id: iconContainer
+            width: (iconId === "" ? 0 : 30)
+            height: parent.height
+            color: _colors.uTransparent
+            anchors.verticalCenter: parent.verticalCenter
+
+            UI.UFontAwesome {
+                id: icon
+                iconId: tab.iconId
+                iconSize: tab.iconSize
+                iconColor: _colors.uWhite
+
+                anchors.centerIn: parent
+            }
+        }
+        Rectangle {
+            id: textContainer
+            width: (text === "" ? 0 : tabText.width)
+            height: tabText.height
+            color: _colors.uTransparent
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: iconContainer.right
+
+            ULabel.UTabText {
+                id: tabText
+                text: tab.text
+            }
+        }
     }
+
+
 
     MouseArea {
         anchors.fill: parent
