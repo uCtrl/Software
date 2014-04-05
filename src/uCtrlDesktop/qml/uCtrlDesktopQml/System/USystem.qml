@@ -34,6 +34,7 @@ UI.UFrame {
 
         Rectangle {
             id: header
+            z:1
 
             property int separation: 5
 
@@ -69,11 +70,18 @@ UI.UFrame {
             UI.UComboBox {
                 id: filterCombo
 
+                itemListModel:  [
+                    { value:"0", displayedValue:"Location", iconId:"MapMarker"},
+                    { value:"1", displayedValue:"Status", iconId:"Reorder"},
+                    { value:"2", displayedValue:"Alphabetical", iconId:"SortAlphabetical"},
+                    { value:"3", displayedValue:"Type", iconId:"Tags"}
+                ]
+
                 anchors.left: searchBox.right
                 anchors.leftMargin: header.separation
                 anchors.verticalCenter: header.verticalCenter
 
-                width: 100
+                width: 175
             }
         }
 

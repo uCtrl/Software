@@ -217,6 +217,8 @@ Item {
         "Sitemap"           : "\uf0e8",
         "Umbrella"          : "\uf0e9",
         "Paste"             : "\uf0ea",
+        "LocationArrow"     : "\uf124",
+        "SortAlphabetical"  : "\uf15d",
         "UserMd"            : "\uf200",
         ""                  : "",
     }
