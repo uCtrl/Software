@@ -11,8 +11,6 @@ Rectangle {
     width: parent.width; height: parent.height
     color: _colors.uTransparent
 
-    //state: (isValid ? "SUCCESS" : "ERROR")
-
     function refreshChildren() {
        for (var i=0; i<container.children.length; i++) {
            try {
