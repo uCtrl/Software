@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import "../UI" as UI
+import "../UI/ULabel" as ULabel
 
 Rectangle {
     id: container
@@ -38,9 +39,10 @@ Rectangle {
 
     function refresh(newPlatformModel) {
         platformModel = newPlatformModel;
+        platformTitle.text = container.platformModel.name
     }
 
-    UI.ULabel {
+    ULabel.Default {
         id: platformTitle
 
         anchors.top: container.top
@@ -52,16 +54,12 @@ Rectangle {
         text: container.platformModel.name
         color: getTextColor()
 
-        headerStyle: 0
-        Component.onCompleted: {
-            font.pointSize = 18
-            font.bold = true
-            color = getTextColor()
-        }
+        font.pointSize: 18
+        font.bold: true
     }
 
     // @TODO: Hardcoded value, replace by true last update
-    UI.ULabel {
+    ULabel.Default {
         id: lastUpdate
 
         anchors.top: platformTitle.bottom
@@ -70,11 +68,7 @@ Rectangle {
         text: "3 hours ago"
         color: getTextColor()
 
-        headerStyle: 0
-        Component.onCompleted: {
-            font.pointSize = 12
-            color = getTextColor()
-        }
+        font.pointSize: 12
     }
 
     Rectangle {

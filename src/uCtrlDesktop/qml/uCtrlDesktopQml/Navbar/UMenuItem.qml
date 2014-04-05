@@ -24,7 +24,7 @@ Rectangle {
         color: _colors.uGrey
         opacity: 0.1
 
-        visible: false
+        visible: mouseArea.containsMouse
     }
 
     UI.UFontAwesome {
@@ -100,18 +100,11 @@ Rectangle {
         id: mouseArea
         anchors.fill: parent
         hoverEnabled: true
-        onHoveredChanged: {
-            if (containsMouse)
-                tooltip.startAnimation()
-            else
-                tooltip.stopAnimation()
 
-            highlight.visible = containsMouse
 
-        }
+        onEntered: tooltip.startAnimation()
+        onExited: tooltip.stopAnimation()
 
-        onClicked: {
-            main.swap(path, "", model)
-        }
+        onClicked: main.swap(path, "", model)
     }
 }

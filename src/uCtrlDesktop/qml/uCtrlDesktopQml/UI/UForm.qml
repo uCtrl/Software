@@ -4,34 +4,41 @@ import QtQuick.Controls 1.0
 Rectangle {
     id: container
 
+    property bool isValid: false        // Always start with false value, then updated by children and validate()
+
     anchors.fill: parent
 
     width: parent.width; height: parent.height
     color: _colors.uTransparent
 
-    function refreshChildrens() {
-        for (var i=0; i<container.children.length; i++) {
-            try {
+    //state: (isValid ? "SUCCESS" : "ERROR")
+
+    function refreshChildren() {
+       for (var i=0; i<container.children.length; i++) {
+           try {
                 container.children[i].refresh()
-            } catch (err) {
+            } catch (ignore) {
                 console.log("WARNING: Component inserted in a form with no refresh function.")
             }
         }
     }
 
     function validate() {
-        var valid = true;
+        var valid = true
+        var index = 0
 
-        for (var i=0; i<container.children.length; i++) {
-            if (valid) {
-                try {
-                    valid = container.children[i].validate()
-                } catch (err) {
-                    console.log("WARNING: Component inserted in a form with no validate function.")
-                }
+        while (valid && index<container.children.length) {
+            try {
+                if (valid && container.children[index].isValid !== undefined) valid = container.children[index].isValid
+            } catch (err) {
+                console.log("WARNING: Component inserted in a form with no validate function.")
             }
+
+            index++;
         }
 
-        return valid
+        isValid = valid
     }
+
+    Component.onCompleted: validate()
 }

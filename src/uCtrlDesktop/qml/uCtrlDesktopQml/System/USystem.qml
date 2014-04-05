@@ -17,6 +17,7 @@ UI.UFrame {
     signal notify;
     onNotify: {
         refresh(system)
+        console.log("refreshed !")
     }
 
     contentItem: Rectangle {

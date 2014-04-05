@@ -154,7 +154,7 @@ Rectangle {
         color: _colors.uLightGrey
     }
 
-    UI.ULabel {
+    ULabel.Default {
         id: listIntro
 
         text: "Platform's devices list"
@@ -164,12 +164,9 @@ Rectangle {
 
         anchors.horizontalCenter: parent.horizontalCenter
 
-        headerStyle: 0
-        Component.onCompleted: {
-            font.pixelSize = 16
-            font.underline = true
-            color = _colors.uGrey
-        }
+        font.pixelSize: 16
+        font.underline: true
+        color: _colors.uGrey
     }
 
     UDeviceList {
@@ -196,37 +193,43 @@ Rectangle {
 
         color: _colors.uTransparent
 
-        state: (validate() ? "SUCCESS" : "ERROR")
+        onIsValidChanged: editFrame.refresh()
 
         signal triggered;
         onTriggered: {
-            if (validate()) {
-                visible = !visible;
-                state = "SUCCESS";
-                saveModel();
+            form.validate()
 
-                container.refresh(platform);
-                systemFrame.notify();
-            } else {
-                // @TODO : Display error.
-                console.log("Invalid form.");
-                state = "ERROR";
+            if (!visible) visible = true
+            else {
+                if (isValid) {
+                    saveModel();
+                    visible = !visible
+                } else {
+                    // @TODO : Display error.
+                    console.log("Invalid form.");
+                    state = "ERROR";
+                }
             }
         }
 
         function refresh(newPlatform) {
-            model = newPlatform
-            refreshChildrens();
+            model = newPlatform;
+            refreshChildren();
         }
 
         function saveModel() {
-            container.platform.setName(inputName.text);
-            container.platform.setRoom(inputRoom.text);
+            container.platform.name = inputName.text;
+            container.platform.room = inputRoom.text;
+
+            container.refresh(platform);
+            systemFrame.notify();
         }
 
         // Form Objects
         UI.UTextbox {
             id: inputName
+
+            property bool isValid: (text !== "")
 
             width: (form.width - (editFrame.width + 38)); height: 35
 
@@ -238,9 +241,17 @@ Rectangle {
 
             placeholderText: "Enter a name"
 
-            state: (validate() ? "SUCCESS" : "ERROR")
+            state: (isValid ? "SUCCESS" : "ERROR")
 
-            function validate() { return (text !== ""); }
+            onTextChanged: {
+                isValid = (text !== "")
+
+                if (!isValid) form.isValid = false
+                else form.validate()
+
+                editFrame.refresh()
+            }
+
             function refresh() { text = form.model.name; }
         }
 
@@ -253,7 +264,6 @@ Rectangle {
             anchors.left: form.left
             anchors.leftMargin: ((parent.width / 4) + 5);
 
-            function validate() { return true; }
             function refresh() { state = "ON"; }
         }
 
@@ -269,7 +279,6 @@ Rectangle {
             anchors.right: inputName.right
             anchors.rightMargin: 0
 
-            function validate() { return true; }
             function refresh() { text = form.model.room; }
         }
     }
@@ -286,13 +295,13 @@ Rectangle {
 
         anchors.verticalCenter: platformName.verticalCenter
 
-        color: getFrameColor()
+        color: _colors.uTransparent
 
-        function getFrameColor() {
+        function refresh() {
             if (form.visible)
-                return (form.state === "ERROR" ? _colors.uDarkRed : _colors.uTransparent)
+               color = (form.isValid ? _colors.uTransparent : _colors.uDarkRed)
             else
-                return _colors.uTransparent
+               color = _colors.uTransparent
         }
 
         UI.UFontAwesome {
@@ -314,7 +323,7 @@ Rectangle {
 
             iconId: "Save"
             iconSize: 32
-            iconColor: (form.state === "ERROR" ? _colors.uWhite : _colors.uGreen)
+            iconColor: (form.isValid ? _colors.uGreen : _colors.uWhite)
 
             visible: (form.visible)
         }
@@ -342,13 +351,8 @@ Rectangle {
         anchors.fill: editFrame
         hoverEnabled: true
 
-        onHoveredChanged: {
-            if (containsMouse)
-                editTooltip.startAnimation()
-            else
-                editTooltip.stopAnimation()
-
-        }
+        onEntered: editTooltip.startAnimation()
+        onExited: editTooltip.stopAnimation()
 
         onClicked: { form.triggered() }
     }
