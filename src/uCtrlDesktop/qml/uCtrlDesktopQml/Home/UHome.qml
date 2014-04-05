@@ -19,12 +19,26 @@ UI.UFrame {
             }
         }
 
+        //Tab demonstration
+        Rectangle {
+            id: tabDemo
+            width: parent.width
+            height: 40
+            anchors.top: switchDemo.bottom
+
+            UI.UTabs {
+                icons: ["Flag", "Umbrella", "Time", "Th", "Off", ""]
+                texts: ["Flag", "Bolt", "",     "",   "Off", "Download"]
+                defaultSelected: 2
+            }
+        }
+
         // Button demonstrations
         Rectangle {
             id: buttonDemo
             width: parent.width
             height: 70
-            anchors.top: switchDemo.bottom
+            anchors.top: tabDemo.bottom
 
             UI.UButton {
                 id: firstButton
