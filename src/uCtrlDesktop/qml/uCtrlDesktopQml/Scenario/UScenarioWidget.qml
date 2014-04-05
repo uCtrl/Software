@@ -50,7 +50,9 @@ Rectangle {
             anchors.fill: parent
 
             model: scenario
-            delegate: UTaskWidget {  }
+            delegate: UTaskWidget {
+                z: 100000 - index
+            }
         }
     }
 }

@@ -13,6 +13,7 @@ class UScenario : public QAbstractListModel, public JsonSerializable
     Q_PROPERTY(int id READ getId WRITE setId NOTIFY idChanged)
     Q_PROPERTY(QString name READ getName WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(QList<UTask*> tasks READ getTasks WRITE setTasks NOTIFY tasksChanged)
+    Q_PROPERTY(QObject* device READ getDevice NOTIFY deviceChanged)
 
 public:
     UScenario(QObject *parent);
@@ -36,6 +37,11 @@ public:
 
     void read(const QJsonObject &jsonObj);
     void write(QJsonObject &jsonObj) const;
+
+    QObject* getDevice() const
+    {
+        return m_device;
+    }
 
 public slots:
 
@@ -70,9 +76,12 @@ signals:
 
     void nameChanged(QString arg);
 
+    void deviceChanged(QObject* arg);
+
 private:
     int m_id;
     QString m_name;
     QList<UTask*> m_tasks;
+    QObject* m_device;
 };
 #endif // USCENARIO_H

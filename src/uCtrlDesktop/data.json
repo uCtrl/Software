@@ -7,7 +7,7 @@
                     "maxValue": 100,
                     "minValue": 0,
                     "name": "Temperature",
-                    "precision": 0,
+                    "precision": 5,
                     "scenarios": [
                         {
                             "id": 1782103622,
@@ -71,7 +71,7 @@
                     "maxValue": 100,
                     "minValue": 0,
                     "name": "Temperature",
-                    "precision": 0,
+                    "precision": 2,
                     "scenarios": [
                         {
                             "id": 1782103622,

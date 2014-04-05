@@ -47,53 +47,9 @@ Rectangle {
         width: 125
     }
 
-    Rectangle {
+    UI.USeparator {
         id: separator
-
-        visible: showSeparator
-
         anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-
-        color: _colors.uTransparent
-
-        height: 4
-
-        Rectangle {
-            id: darkLine
-
-            height: 1
-
-            anchors.top: parent.top
-
-            anchors.left: parent.left
-            anchors.leftMargin: 3
-
-            anchors.right: parent.right
-            anchors.rightMargin: 3
-
-            color: _colors.uBlack
-            opacity: 0.4
-        }
-
-        Rectangle {
-            id: ligthLine
-
-            height: 1
-
-            anchors.top: darkLine.bottom
-
-            anchors.left: parent.left
-            anchors.leftMargin: 3
-
-            anchors.right: parent.right
-            anchors.rightMargin: 3
-
-            color: _colors.uWhite
-            opacity: 0.1
-
-        }
     }
 
     MouseArea {

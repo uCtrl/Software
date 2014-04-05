@@ -181,10 +181,11 @@ UI.UFrame {
                 anchors.topMargin: 5
             }
         }
+
         Rectangle {
             id: comboDemo
             width: parent.width
-            height: 30
+            height: 240
 
             anchors.top: labelDemo.bottom
             anchors.left: parent.left
@@ -205,6 +206,7 @@ UI.UFrame {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.margins: 5
+            anchors.topMargin: 25
 
             Rectangle {
                 id: toggledCheckbox

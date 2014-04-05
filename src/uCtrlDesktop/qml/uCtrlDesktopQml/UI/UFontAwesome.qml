@@ -226,10 +226,16 @@ Item {
     }
 
     ULabel.Default {
+        id: labelFontAwesome
+
         anchors.centerIn: parent
         font.pointSize: iconSize
         font.family: "FontAwesome"
         text: icon[iconId]
         color: iconColor
+    }
+
+    function refresh(iconId) {
+        labelFontAwesome.text = icon[iconId]
     }
 }
