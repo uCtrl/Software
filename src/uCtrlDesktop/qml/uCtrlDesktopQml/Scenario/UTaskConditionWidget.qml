@@ -24,9 +24,9 @@ Rectangle {
 
             function getSourceComponent() {
                 var type = conditionModel.getTypeName()
-                if (type == "Date")
+                if (type === "Date")
                     return uDateComponent;
-                if (type == "Time")
+                if (type === "Time")
                     return uTimeComponent;
                 else return;
             }

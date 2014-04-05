@@ -11,7 +11,7 @@ class UTask : public QAbstractListModel
     Q_PROPERTY(int id READ getId WRITE setId NOTIFY idChanged)
     Q_PROPERTY(QString status READ getStatus WRITE setStatus NOTIFY statusChanged)
     Q_PROPERTY(QList<UCondition*> conditions READ getConditions WRITE setConditions NOTIFY conditionsChanged)
-    Q_PROPERTY(QObject* scenario READ getScenario)
+    Q_PROPERTY(QObject* scenario READ getScenario NOTIFY scenarioChanged)
 
 public:
     UTask( QObject* parent);
@@ -70,6 +70,8 @@ signals:
     void idChanged(int arg);
     void statusChanged(QString arg);
     void conditionsChanged(QList<UCondition*> arg);
+
+    void scenarioChanged(QObject* arg);
 
 private:
     int m_id;

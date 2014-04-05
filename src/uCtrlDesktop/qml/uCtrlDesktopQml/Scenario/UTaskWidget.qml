@@ -33,13 +33,14 @@ Item {
 
         Rectangle {
             id: taskHeader
+            z:1
 
             anchors.top: parent.top
             anchors.left: parent.left
             anchors.leftMargin: 10
 
             width: parent.width - anchors.leftMargin
-            height: 25
+            height: 40
 
             ULabel.Default {
                 id: changeStateLabel
@@ -51,24 +52,24 @@ Item {
 
             Rectangle {
                 id: stateContainer
-                color: _colors.uLightGrey
+                color: _colors.uGrey
 
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: changeStateLabel.right
                 anchors.leftMargin: 7
                 anchors.rightMargin: 7
 
-                width: stateLabel.width + 15
-                height: parent.height - 5
+                width: selectedComboBoxItem.width + 15
+                height: selectedComboBoxItem.height
 
                 radius: 10
 
-                ULabel.Default {
-                    id: stateLabel
-                    text: taskModel.status
+                UI.UComboBox
+                {
+                    id: selectedComboBoxItem
+
                     anchors.centerIn: parent
-                    font.pointSize: 12
-                    font.bold: true
+                    itemListModel: taskModel.scenario.device.getComboBoxItemList()
                 }
             }
 
@@ -87,6 +88,8 @@ Item {
             UI.UButton {
                 id: toggleBtn
 
+                anchors.verticalCenter: parent.verticalCenter
+
                 text: "-"
 
                 width: 20
@@ -102,6 +105,8 @@ Item {
 
             UI.UIconButton {
                 id: deleteBtn
+
+                anchors.verticalCenter: parent.verticalCenter
 
                 text: "Remove"
                 iconSize: 12
@@ -121,6 +126,8 @@ Item {
             UI.UIconButton {
                 id: moveDown
 
+                anchors.verticalCenter: parent.verticalCenter
+
                 text: "ArrowDown"
                 iconSize: 10
 
@@ -139,6 +146,8 @@ Item {
             UI.UIconButton {
                 id: moveUp
 
+                anchors.verticalCenter: parent.verticalCenter
+
                 text: "ArrowUp"
                 iconSize: 10
 
@@ -156,6 +165,8 @@ Item {
 
             UI.UButton {
                 id: addConditionBtn
+
+                anchors.verticalCenter: parent.verticalCenter
 
                 text: "A"
 
@@ -194,7 +205,6 @@ Item {
         Rectangle {
             id: conditionsContainer
             clip: true
-
 
             height: 40 * conditionList.count
             width: parent.width - dragger.width

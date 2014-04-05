@@ -29,4 +29,6 @@ HEADERS += \
     Utility/uniqueidgenerator.h \
     Serialization/jsonserializable.h \
     Serialization/jsonserializer.h \
-    Communication/usocket.h
+    Communication/usocket.h \
+    Models/UComboBoxItemData.h \
+    Models/UComboBoxItemList.h

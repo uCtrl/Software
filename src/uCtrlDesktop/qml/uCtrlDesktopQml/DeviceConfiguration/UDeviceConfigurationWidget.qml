@@ -4,8 +4,13 @@ import "../UI" as UI
 import "../Scenario" as Scenario
 
 UI.UFrame {
+    id: deviceConfiguration
+
     property variant device: null
     property ListModel scenarios: null
+
+    width: 800
+    height: 600
 
     requiredModel: true
 
@@ -20,7 +25,8 @@ UI.UFrame {
         anchors.left: parent.left
 
         color: _colors.uWhite
-        width: 500; height: 300
+        width: deviceConfiguration.width
+        height: deviceConfiguration.height
 
     Device.UHeader {
         id: deviceHeader
@@ -38,18 +44,17 @@ UI.UFrame {
     Rectangle {
         id: commandButtons
 
-            width: 500
+        width: parent.width
         height: 40
-        anchors.top: scenarioWidget.bottom
 
+        anchors.bottom: parent.bottom
         color: _colors.uUltraLightGrey
 
         UI.UButton {
             id: btnAdd
 
+            anchors.verticalCenter: commandButtons.verticalCenter
             objectName: "btn"
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 7
             width: 96; height: 27
             x: 10
             text: qsTr("Add")
