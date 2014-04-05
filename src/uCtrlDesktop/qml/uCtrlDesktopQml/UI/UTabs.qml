@@ -1,5 +1,7 @@
 import QtQuick 2.0
 
+import "../UI/UTabs" as Tab
+
 Rectangle {
     id: tabs
 
@@ -19,10 +21,11 @@ Rectangle {
         anchors.fill: parent
         delegate: tab
         orientation: ListView.Horizontal
+        interactive: false
     }
     Component {
         id: tab
-        UTab {
+        Tab.UTabItem {
             isFirst: (index == 0)
             isLast: (index == icons.length - 1)
             iconId: icons[index]

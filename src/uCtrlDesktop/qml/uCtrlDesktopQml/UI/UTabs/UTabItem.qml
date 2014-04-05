@@ -1,5 +1,7 @@
 import QtQuick 2.0
 
+import ".." as UI
+
 Rectangle {
     id: tab
 
@@ -107,7 +109,7 @@ Rectangle {
         }
     ]
 
-    UFontAwesome {
+    UI.UFontAwesome {
         id: icon
         iconId: tab.iconId
         iconSize: tab.iconSize
