@@ -60,6 +60,10 @@ UI.UFrame {
                 opacity: 0.8
 
                 placeholderText: "Search"
+
+                onTextChanged: {
+                    platformListContainer.setFilter(searchBox.text)
+                }
             }
 
             UI.UComboBox {
