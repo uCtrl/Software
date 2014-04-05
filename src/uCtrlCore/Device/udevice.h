@@ -3,7 +3,6 @@
 
 #include "Serialization/jsonserializable.h"
 #include "Scenario/uscenario.h"
-#include "Models/UComboBoxItemList.h"
 #include <QAbstractListModel>
 
 class UDevice : public QAbstractListModel, public JsonSerializable
@@ -39,7 +38,6 @@ public:
 
     // TODO: this should be better handled
     Q_INVOKABLE QObject* getScenario() const { return (QObject*) m_scenarios.at(0); }
-    Q_INVOKABLE QObject* getComboBoxItemList();
 
     void read(const QJsonObject &jsonObj);
     void write(QJsonObject &jsonObj) const;

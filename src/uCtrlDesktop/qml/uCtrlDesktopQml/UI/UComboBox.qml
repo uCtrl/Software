@@ -3,7 +3,16 @@ import QtQuick.Controls 1.0
 
 Rectangle {
 
-    property var itemListModel: null
+    property var itemListModel: [
+                                    { value:"0", displayedValue:"Sleep", iconId:"Ok"},
+                                    { value:"1", displayedValue:"Hibernate", iconId:"Search"},
+                                    { value:"2", displayedValue:"Shut Down", iconId:"ChevronLeft"},
+                                    { value:"3", displayedValue:"Restart", iconId:"Trash"},
+                                    { value:"4", displayedValue:"Start", iconId:"Bolt"}
+                                ]
+    property var selectedItem: itemListModel[0]
+    z:1000
+
     signal selectValue(var selectedItem)
 
     id: combo
@@ -34,10 +43,10 @@ Rectangle {
                     height: parent.height - 10
                     anchors.centerIn: parent
 
-                    itemData: combo.itemListModel.selectedItem
+                    itemData: itemListModel[0]
 
                     Component.onCompleted: {
-                        valueItem.refresh(combo.itemListModel.selectedItem)
+                        valueItem.refresh(itemListModel[0])
                     }
             }
         }
@@ -72,7 +81,7 @@ Rectangle {
     Rectangle {
             id: dropDown
             clip:true
-            height: 250
+            height: (itemListModel.length <=5 ? itemListModel.length*45 : 225)
             width: valueBackground.width + dropDownIcon.width
             anchors.top: parent.bottom
             anchors.horizontalCenter: parent.horizontalCenter
@@ -96,7 +105,7 @@ Rectangle {
                 anchors.topMargin: -2 // Put rectangle on bottom of the caret
                 width: parent.width
                 anchors.horizontalCenter: parent.horizontalCenter
-                height: 200
+                height: dropDown.height * 0.95
                 radius: 5
                 color: _colors.uGrey
 
@@ -115,12 +124,11 @@ Rectangle {
 
                         id: dropDownMenu
                         anchors.fill: parent
-                        boundsBehavior: Flickable.StopAtBounds
 
                         model: itemListModel
                         delegate: UComboBoxItemContainer {
 
-                            itemData: itemListModel.getItemDataAt(index)
+                            itemData: itemListModel[index]
                             onItemSelected: {
                                 dropDownMenu.deselectItem() // Deselect the previously selected drop down menu item
                                 dropDownMenu.pComboBoxItemContainer = this // Keep in memory that this one is the current now
@@ -140,10 +148,10 @@ Rectangle {
         }
 
     function selectItem(index) {
-        combo.itemListModel.selectedItem = itemListModel.getItemDataAt(index)
-        valueItem.refresh(combo.itemListModel.selectedItem)
+        selectedItem = itemListModel[index]
+        valueItem.refresh(selectedItem)
         dropDown.visible = false
-        selectValue(combo.itemListModel.selectedItem.value)
+        selectValue(selectedItem.value)
     }
 
     MouseArea {

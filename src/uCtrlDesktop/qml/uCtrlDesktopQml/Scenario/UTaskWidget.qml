@@ -69,7 +69,7 @@ Item {
                     id: selectedComboBoxItem
 
                     anchors.centerIn: parent
-                    itemListModel: taskModel.scenario.device.getComboBoxItemList()
+                    //itemListModel: taskModel.scenario.device.getComboBoxItemList()
                 }
             }
 

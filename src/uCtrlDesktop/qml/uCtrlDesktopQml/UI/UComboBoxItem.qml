@@ -15,14 +15,14 @@ Rectangle {
 
         itemData = newItemData
 
-        comboBoxItemIcon.iconId = itemData.iconId
+        comboBoxItemIcon.refresh(itemData.iconId)
         comboBoxItemText.text = itemData.displayedValue
     }
 
 
     Rectangle {
         id: iconContainer
-        width: parent.height
+        width: itemData.iconId === "" ? 0 : parent.height
         height: parent.height
 
         color: _colors.uTransparent
@@ -31,7 +31,7 @@ Rectangle {
             id: comboBoxItemIcon
 
             iconId: item.itemData ? item.itemData.iconId : ""
-            iconColor: _colors.uMediumDarkGrey
+            iconColor: _colors.uWhite
             iconSize:  14
             anchors.centerIn: parent
         }
@@ -40,8 +40,9 @@ Rectangle {
 
     Rectangle {
         id: valueContainer
-        width: parent.width// - iconContainer.width
+        width: parent.width - iconContainer.width
         height: parent.height
+        anchors.left: iconContainer.right
         anchors.right: parent.right
 
         color: _colors.uTransparent

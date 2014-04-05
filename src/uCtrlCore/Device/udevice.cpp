@@ -11,24 +11,6 @@ UDevice::~UDevice()
 {
 }
 
-QObject* UDevice::getComboBoxItemList()
-{
-    QList<UComboBoxItemData*> comboBoxItemDatas;
-
-    for (float i = m_minValue; i < m_maxValue; i += m_precision)
-    {
-        UComboBoxItemData* tmpComboBoxItemData = new UComboBoxItemData();
-        tmpComboBoxItemData->setValue(QString::number(i, 'f', 1));
-        // TODO : Create an optional map where we can set displayed value text for each device
-        tmpComboBoxItemData->setDisplayedValue(QString::number(i, 'f', 1));
-        tmpComboBoxItemData->setIconId("");
-
-        comboBoxItemDatas.push_back(tmpComboBoxItemData);
-    }
-
-    return new UComboBoxItemList(comboBoxItemDatas);
-}
-
 UDevice::UDevice(const UDevice& device)
 {
     setId(device.getId());
