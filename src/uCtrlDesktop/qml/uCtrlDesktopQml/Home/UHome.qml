@@ -23,11 +23,12 @@ UI.UFrame {
         Rectangle {
             id: tabDemo
             width: parent.width
-            height: 100
+            height: 40
             anchors.top: switchDemo.bottom
 
             UI.UTabs {
-                icons: ["Flag", "Bolt", "Time", "Th", "Off", "Download"]
+                icons: ["Flag", "Umbrella", "Time", "Th", "Off", ""]
+                texts: ["Flag", "Bolt", "",     "",   "Off", "Download"]
                 defaultSelected: 2
             }
         }

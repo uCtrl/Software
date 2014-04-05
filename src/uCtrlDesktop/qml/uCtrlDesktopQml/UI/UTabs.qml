@@ -6,12 +6,12 @@ Rectangle {
     id: tabs
 
     property var icons: []
+    property var texts: []
     property var selectedTab
     property int iconSize : 16
     property int defaultSelected: 0
-
-    width: 200
-    height: 40
+    width: parent.width
+    height: parent.height
 
     color: _colors.uTransparent
 
@@ -26,9 +26,11 @@ Rectangle {
     Component {
         id: tab
         Tab.UTabItem {
+            width: tabs.width / icons.length
             isFirst: (index == 0)
             isLast: (index == icons.length - 1)
             iconId: icons[index]
+            text: texts[index]
             iconSize: tabs.iconSize
             onClicked: {
                 if(selectedTab !== undefined)

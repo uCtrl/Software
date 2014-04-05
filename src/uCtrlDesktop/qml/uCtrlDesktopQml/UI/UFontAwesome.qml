@@ -215,9 +215,10 @@ Item {
         "CommentsAlt"       : "\uf0e6",
         "Bolt"              : "\uf0e7",
         "Sitemap"           : "\uf0e8",
-        "Unbrella"          : "\uf0e9",
+        "Umbrella"          : "\uf0e9",
         "Paste"             : "\uf0ea",
         "UserMd"            : "\uf200",
+        ""                  : "",
     }
 
     FontLoader {
