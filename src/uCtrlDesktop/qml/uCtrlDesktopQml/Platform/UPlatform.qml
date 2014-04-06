@@ -1,42 +1,40 @@
 import QtQuick 2.0
 import "../UI" as UI
+import "../UI/ULabel" as ULabel
 
 Rectangle {
     id: container
 
-    property var platform: null
+    property var platform: {"name": "UNKNOWN", "room": "UNKNOWN"}
 
     function refresh(newPlatform) {
         platform = newPlatform
-        if (platform !== null) { devicesListContainer.refresh(platform) }
+        if (platform !== null) {
+            devicesListContainer.refresh(platform);
+            form.refresh(platform);
+            refreshLabel()
+        }
     }
 
-    UI.ULabel {
-        id: platformName
+    function refreshLabel() {
+        locationText.text = platform.room;
+        platformName.text = platform.name;
+    }
 
-        anchors.top: parent.top
-        anchors.topMargin: 13
-
-        anchors.horizontalCenter: parent.horizontalCenter
-
-        text: (platform !== null ? platform.name : "UNKNOWN")
-
-        Component.onCompleted: {
-            font.pointSize = 32
-            font.bold = true
-            color = _colors.uBlack
-        }
+    function hideForm() {
+        form.visible = false
     }
 
     Rectangle {
         id: enabledLabel
-        anchors.top: platformName.bottom
+        anchors.top: container.top
+        anchors.topMargin: (platformName.height + 15)
 
         width: (parent.width / 4); height: 30
 
         color: _colors.uTransparent
 
-        UI.ULabel {
+        ULabel.Default {
 
             text: "Enabled"
 
@@ -45,39 +43,9 @@ Rectangle {
 
             anchors.verticalCenter: parent.verticalCenter
 
-            headerStyle: 0
-            Component.onCompleted: {
-                font.pointSize = 16
-                font.bold = true
-                color = _colors.uGrey
-            }
-        }
-    }
-
-    // @TODO : Replace with uSwitch
-    Rectangle {
-        id: enabledStatus
-        anchors.top: enabledLabel.top
-
-        anchors.left: enabledLabel.right
-        anchors.leftMargin: 5
-
-        width: (((parent.width / 4) * 3) - 5); height: 30
-
-        color: _colors.uTransparent
-
-        UI.ULabel {
-
-            text: "ON"
-
-            anchors.verticalCenter: parent.verticalCenter
-
-            headerStyle: 0
-            Component.onCompleted: {
-                font.pointSize = 16
-                font.bold = true
-                color = _colors.uGreen
-            }
+            font.pointSize: 16
+            font.bold: true
+            color: _colors.uGrey
         }
     }
 
@@ -91,7 +59,7 @@ Rectangle {
 
         color: _colors.uTransparent
 
-        UI.ULabel {
+        ULabel.Default {
 
             text: "Location"
 
@@ -100,38 +68,81 @@ Rectangle {
 
             anchors.verticalCenter: parent.verticalCenter
 
-            headerStyle: 0
-            Component.onCompleted: {
-                font.pointSize = 16
-                font.bold = true
-                color = _colors.uGrey
-            }
+            font.pointSize: 16
+            font.bold: true
+            color: _colors.uGrey
         }
     }
 
-    // @TODO : Replace with uSwitch
     Rectangle {
-        id: locationStatus
-        anchors.top: locationLabel.top
+        id: info
 
-        anchors.left: locationLabel.right
-        anchors.leftMargin: 5
+        visible: (!form.visible)
 
-        width: (((parent.width / 4) * 3) - 5); height: 30
+        anchors.fill: parent
 
         color: _colors.uTransparent
 
-        UI.ULabel {
+        ULabel.Default {
+            id: platformName
 
-            text: (container.platform !== null ? container.platform.room : "UNKNOWN")
+            anchors.top: parent.top
+            anchors.topMargin: 13
 
-            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+            anchors.leftMargin: 15
 
-            headerStyle: 0
-            Component.onCompleted: {
-                font.pointSize = 16
-                font.bold = true
-                color = _colors.uGreen
+            text: ""
+
+            font.pointSize: 32
+            font.bold: true
+            color: _colors.uBlack
+        }
+
+        Rectangle {
+            id: enabledStatus
+            anchors.top: platformName.bottom
+
+            anchors.left: parent.left
+            anchors.leftMargin: (enabledLabel.width + 10)
+
+            width: (((parent.width / 4) * 3) - 5); height: 30
+
+            color: _colors.uTransparent
+
+            ULabel.Default {
+
+                text: "ON"
+
+                anchors.verticalCenter: parent.verticalCenter
+
+                font.pointSize: 16
+                font.bold: true
+                color: _colors.uGreen
+            }
+        }
+
+        Rectangle {
+            id: locationStatus
+            anchors.top: enabledStatus.bottom
+
+            anchors.left: parent.left
+            anchors.leftMargin: (locationLabel.width + 10)
+
+            width: (((parent.width / 4) * 3) - 5); height: 30
+
+            color: _colors.uTransparent
+
+            ULabel.Default {
+                id: locationText
+
+                text: ""
+
+                anchors.verticalCenter: parent.verticalCenter
+
+                font.pointSize: 16
+                font.bold: true
+                color: _colors.uGreen
             }
         }
     }
@@ -147,13 +158,13 @@ Rectangle {
         anchors.left: parent.left
         anchors.leftMargin: marginSize
 
-        anchors.top: locationLabel.bottom
+        anchors.top: (form.visible ? container.bottom : info.bottom)
         anchors.topMargin: 20
 
         color: _colors.uLightGrey
     }
 
-    UI.ULabel {
+    ULabel.Default {
         id: listIntro
 
         text: "Platform's devices list"
@@ -163,12 +174,9 @@ Rectangle {
 
         anchors.horizontalCenter: parent.horizontalCenter
 
-        headerStyle: 0
-        Component.onCompleted: {
-            font.pixelSize = 16
-            font.underline = true
-            color = _colors.uGrey
-        }
+        font.pixelSize: 16
+        font.underline: true
+        color: _colors.uGrey
     }
 
     UDeviceList {
@@ -182,5 +190,181 @@ Rectangle {
        anchors.left: parent.left
 
        width: parent.width;
+    }
+
+    UI.UForm {
+        id: form
+
+        property var model: container.model
+
+        visible: false
+
+        anchors.fill: parent
+
+        color: _colors.uTransparent
+
+        onIsValidChanged: editFrame.refresh()
+
+        signal triggered;
+        onTriggered: {
+            form.validate()
+
+            if (!visible) visible = true
+            else {
+                if (isValid) {
+                    saveModel();
+                    visible = !visible
+                } else {
+                    // @TODO : Display error.
+                    console.log("Invalid form.");
+                    state = "ERROR";
+                }
+            }
+        }
+
+        function refresh(newPlatform) {
+            model = newPlatform;
+            refreshChildren();
+        }
+
+        function saveModel() {
+            container.platform.name = inputName.text;
+            container.platform.room = inputRoom.text;
+
+            container.refresh(platform);
+            systemFrame.notify();
+        }
+
+        // Form Objects
+        UI.UTextbox {
+            id: inputName
+
+            property bool isValid: (text !== "")
+
+            width: (form.width - (editFrame.width + 38)); height: 35
+
+            anchors.top: form.top
+            anchors.topMargin: 15
+
+            anchors.left: form.left
+            anchors.leftMargin: 12
+
+            placeholderText: "Enter a name"
+
+            state: (isValid ? "SUCCESS" : "ERROR")
+
+            onTextChanged: {
+                isValid = (text !== "")
+
+                if (!isValid) form.isValid = false
+                else form.validate()
+
+                editFrame.refresh()
+            }
+
+            function refresh() { text = form.model.name; }
+        }
+
+        UI.USwitch {
+            id: enabledSwitch
+
+            anchors.top: inputName.bottom
+            anchors.topMargin: 3
+
+            anchors.left: form.left
+            anchors.leftMargin: ((parent.width / 4) + 5);
+
+            function refresh() { state = "ON"; }
+        }
+
+        UI.UTextbox {
+            id: inputRoom
+
+            anchors.top: enabledSwitch.bottom
+            anchors.topMargin: 5
+
+            anchors.left: enabledSwitch.left
+            anchors.leftMargin: -2
+
+            anchors.right: inputName.right
+            anchors.rightMargin: 0
+
+            function refresh() { text = form.model.room; }
+        }
+    }
+
+    Rectangle {
+        id: editFrame
+
+        width: 40; height: 40
+
+        radius: 5
+
+        anchors.top: container.top
+        anchors.topMargin: 20
+
+        anchors.right: container.right
+        anchors.rightMargin: 15
+
+        color: _colors.uTransparent
+
+        function refresh() {
+            if (form.visible)
+               color = (form.isValid ? _colors.uTransparent : _colors.uDarkRed)
+            else
+               color = _colors.uTransparent
+        }
+
+        UI.UFontAwesome {
+            id: editButton
+
+            anchors.centerIn: parent
+
+            iconId: "Pencil"
+            iconSize: 32
+            iconColor: _colors.uGrey
+
+            visible: (!form.visible)
+        }
+
+        UI.UFontAwesome {
+            id: saveButton
+
+            anchors.centerIn: parent
+
+            iconId: "Save"
+            iconSize: 32
+            iconColor: (form.isValid ? _colors.uGreen : _colors.uWhite)
+
+            visible: (form.visible)
+        }
+    }
+
+    UI.UToolTip {
+        id: editTooltip
+
+        visible: false
+
+        anchors.verticalCenter: editFrame.verticalCenter
+
+        anchors.right: editFrame.left
+        anchors.rightMargin: 10
+
+        text: (form.visible ? "Save" : "Edit")
+        width: 75
+
+        arrowRight: true
+    }
+
+    MouseArea {
+        id: editArea
+
+        anchors.fill: editFrame
+        hoverEnabled: true
+
+        onEntered: editTooltip.startAnimation()
+        onExited: editTooltip.stopAnimation()
+
+        onClicked: { form.triggered() }
     }
 }

@@ -6,7 +6,7 @@ import "../UI/ULabel" as ULabel
 UI.UFrame {
     contentItem: Rectangle {
         width: 1000
-        height: 1000
+        height: 2000
 
         //Switch demonstration
         Rectangle {
@@ -307,6 +307,7 @@ UI.UFrame {
                 exclusiveGroup: secondGroup
                 text: "Radio 1"
             }
+
             UI.URadioButton {
                 id: radio5
                 state: {
@@ -323,6 +324,7 @@ UI.UFrame {
                 text: "Radio 2"
                 exclusiveGroup: secondGroup
             }
+
             UI.URadioButton {
                 id: radio6
                 state: {
@@ -338,6 +340,188 @@ UI.UFrame {
                 anchors.left: radio5.right
                 text: "Radio 3"
                 exclusiveGroup: secondGroup
+            }
+        }
+
+        // Textbox demonstration
+        Rectangle {
+            id: textDemo
+
+            width: parent.width; height: 800
+            color: _colors.uTransparent
+
+            anchors.top: radioDemo.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.margins: 8
+
+            ULabel.Heading1 {
+                id: headerText
+
+                anchors.left: parent.left
+
+                text: "Textbox demonstration"
+            }
+
+            ULabel.Default {
+                id: tipsSelection
+
+                anchors.top: headerText.bottom
+                anchors.left: parent.left
+
+                text: "<b>Tips:</b> Also try to select the text for more magic !"
+            }
+
+            // Toggled Textbox (enabled, disabled)
+            UI.UTextbox {
+                id: toggledInput
+
+                anchors.top: tipsSelection.bottom
+                anchors.topMargin: 7
+
+                anchors.left: parent.left
+
+                width: 340
+            }
+
+            UI.UButton {
+                id: inputButton
+
+                anchors.left: toggledInput.right
+                anchors.top: tipsSelection.bottom
+
+                width: 70
+
+                text: (toggledInput.state === "ENABLED" ? "Disable" : "Enable")
+
+                function execute() {
+                    toggledInput.state = (toggledInput.state === "ENABLED" ? "DISABLED" : "ENABLED")
+                }
+            }
+
+            // Toggled Textbox (error, success)
+            UI.UTextbox {
+                id: errorText
+
+                anchors.top: inputButton.bottom
+                anchors.left: parent.left
+
+                width: 204
+
+                text: "Wrong answer !"
+                state: "ERROR"
+            }
+
+            UI.UTextbox {
+                id: successText
+
+                anchors.top: inputButton.bottom
+                anchors.left: errorText.right
+
+                width: 204
+
+                text: "Good answer !"
+                state: "SUCCESS"
+            }
+
+            // Placeholder textbox
+            UI.UTextbox {
+                id: placeholderText
+
+                placeholderText: "Enter some text..."
+
+                anchors.top: successText.bottom
+                anchors.left: parent.left
+
+                width: 412
+            }
+
+            // Multiline textbox
+            Rectangle {
+                id: multiFrame
+
+                anchors.top: placeholderText.bottom
+
+                width: 300; height: 400;
+
+                UI.UTextbox {
+                    id: multiText
+
+                    anchors.fill: parent
+
+                    clip: true;
+                }
+            }
+        }
+
+        // Form demonstration
+        Rectangle {
+            id: formDemo
+
+            width: parent.width
+            height: 100
+
+            anchors.top: textDemo.bottom
+            anchors.left: parent.left
+
+            UI.UForm {
+                id: toggledForm
+
+                anchors.top: formDemo.top
+                anchors.topMargin: 10
+
+                height: 40
+
+                property bool success: true
+
+                UI.UTextbox {
+                    id: toggledText
+
+                    anchors.top: toggledForm.top
+                    anchors.topMargin: 7
+
+                    anchors.left: parent.left
+
+                    width: 340
+
+                    placeholderText: "Must be filled !"
+
+                    state: (text !== "" ? "SUCCESS" : "ERROR")
+                    function validate() { return (text !== ""); }
+                }
+
+                UI.UCheckbox {
+                    id: toggledFormCheck
+
+                    anchors.left: parent.left
+                    anchors.leftMargin: 5
+
+                    anchors.top: toggledText.bottom
+                    anchors.topMargin: 6
+
+                    text: "Check me !"
+
+                    function validate() { return toggledFormCheck.checked }
+
+                    onCheckedChanged: if (toggledFormCheck.checked) toggledForm.validate()
+                }
+            }
+
+            UI.UButton {
+                id: formSave
+
+                anchors.left: toggledForm.left
+
+                anchors.top: toggledForm.bottom
+                anchors.topMargin: 5
+
+                state: (toggledForm.validate() ? "ENABLED" : "ERROR")
+
+                width: 100
+
+                text: "Valid form"
+
+                function execute() { state = (toggledForm.validate() ? "ENABLED" : "ERROR") }
             }
         }
     }
