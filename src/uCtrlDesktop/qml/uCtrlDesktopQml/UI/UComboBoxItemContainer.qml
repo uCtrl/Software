@@ -7,7 +7,7 @@ Rectangle {
     property string value: itemData ? itemData.value : "UNKNOWN"
     property string iconId: itemData ? itemData.iconId : "UNKNOWN"
     property string displayedValue: itemData ? itemData.displayedValue : "UNKNOWN"
-    property int animationTime: 200
+    property int animationTime: 100
 
     width: parent.width
     height: 40
@@ -18,47 +18,22 @@ Rectangle {
         State {
             name: "NORMAL"
             PropertyChanges { target: container; color: _colors.uTransparent }
-        },
-        State {
-            name: "SELECTED"
-            PropertyChanges { target: container; color: _colors.uGreen }
+            PropertyChanges { target: item; textColor: _colors.uDarkGrey }
         },
         State {
             name: "HOVERED"
             PropertyChanges { target: container; color: _colors.uGrey }
-        }
-    ]
-
-    transitions: [
-        Transition {
-            from: "NORMAL"
-            to: "HOVERED"
-            ColorAnimation { target: container; duration: animationTime; easing.type: Easing.Linear }
+            PropertyChanges { target: item; textColor: _colors.uLightGrey }
         },
-        Transition {
-            from: "NORMAL"
-            to: "SELECTED"
-            ColorAnimation { target: container; duration: animationTime; easing.type: Easing.Linear }
+        State {
+            name: "SELECTED"
+            PropertyChanges { target: container; color: _colors.uGreen }
+            PropertyChanges { target: item; textColor: _colors.uWhite }
         },
-        Transition {
-            from: "HOVERED"
-            to: "NORMAL"
-            ColorAnimation { target: container; duration: animationTime; easing.type: Easing.Linear }
-        },
-        Transition {
-            from: "HOVERED"
-            to: "SELECTED"
-            ColorAnimation { target: container; duration: animationTime; easing.type: Easing.Linear }
-        },
-        Transition {
-            from: "SELECTED"
-            to: "HOVERED"
-            ColorAnimation { target: container; duration: animationTime; easing.type: Easing.Linear }
-        },
-        Transition {
-            from: "SELECTED"
-            to: "NORMAL"
-            ColorAnimation { target: container; duration: animationTime; easing.type: Easing.Linear }
+        State {
+            name: "HOVERED SELECTED"
+            PropertyChanges { target: container; color: _colors.uDarkGreen }
+            PropertyChanges { target: item; textColor: _colors.uWhite }
         }
     ]
 
@@ -77,16 +52,18 @@ Rectangle {
         anchors.fill: item
         hoverEnabled: true
         onEntered: {
-            if (container.state === "SELECTED")
-                return
-
-            container.state = "HOVERED"
+            if (container.state === "HOVERED SELECTED" || container.state === "SELECTED") {
+                container.state = "HOVERED SELECTED"
+            } else {
+                container.state = "HOVERED"
+            }
         }
         onExited: {
-            if (container.state === "SELECTED")
-                return
-
-            container.state = "NORMAL"
+            if (container.state === "HOVERED SELECTED" || container.state === "SELECTED") {
+                container.state = "SELECTED"
+            } else {
+                container.state = "NORMAL"
+            }
         }
         onClicked: {
             itemSelected()

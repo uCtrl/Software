@@ -20,7 +20,6 @@ Rectangle {
         radius: height / 2
         anchors.right: container.right
         anchors.rightMargin: container.height / 2 - height / 2
-        color: _colors.uDarkGreen
         anchors.verticalCenter: parent.verticalCenter
     }
 
@@ -74,7 +73,7 @@ Rectangle {
     states: [
         State {
             name: "ON"
-            PropertyChanges { target: circle; color: _colors.uDarkGreen }
+            PropertyChanges { target: circle; color: _colors.uGreen }
             PropertyChanges { target: container; color: _colors.uLightGreen }
             PropertyChanges { target: onLabel; opacity: 1 }
             PropertyChanges { target: offLabel; opacity: 0 }
