@@ -22,6 +22,8 @@ UI.UFrame {
     contentItem: Rectangle {
         id: systemContainer
 
+        z: 2
+
         property var activePlatform: null
         onActivePlatformChanged: {
             platformInfo.hideForm();
@@ -66,22 +68,12 @@ UI.UFrame {
 
                 state: "ENABLED"
 
-                opacity: 0.8
+                opacity: 0.5
 
                 placeholderText: "Search"
 
                 iconId: "Search"
                 iconSize: 16
-            }
-
-            UI.UComboBox {
-                id: filterCombo
-
-                anchors.left: searchBox.right
-                anchors.leftMargin: header.separation
-                anchors.verticalCenter: header.verticalCenter
-
-                width: 100
             }
         }
 
@@ -135,12 +127,21 @@ UI.UFrame {
 
                 anchors.centerIn: pleaseSelectPlatform
 
-                Component.onCompleted: {
-                    font.pointSize = 28
-                    font.bold = true
-                    color = _colors.uGrey
-                }
+                font.pointSize: 28
+                font.bold: true
+                color: _colors.uGrey
             }
+        }
+
+        UI.UComboBox {
+            id: filterCombo
+
+            anchors.left: header.left
+            anchors.leftMargin: (searchBox.width + header.separation)
+
+            anchors.verticalCenter: header.verticalCenter
+
+            width: 135; height: 30
         }
     }
 }

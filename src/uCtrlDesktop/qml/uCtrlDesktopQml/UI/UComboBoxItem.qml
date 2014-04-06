@@ -31,7 +31,7 @@ Rectangle {
             id: comboBoxItemIcon
 
             iconId: item.itemData ? item.itemData.iconId : ""
-            iconColor: _colors.uWhite
+            iconColor: _colors.uDarkGrey
             iconSize:  14
             anchors.centerIn: parent
         }

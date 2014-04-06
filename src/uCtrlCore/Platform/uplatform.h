@@ -12,9 +12,9 @@ class UPlatform : public QAbstractListModel, public JsonSerializable
     Q_OBJECT
 
     Q_PROPERTY(QString name READ getName WRITE setName NOTIFY nameChanged)
-    Q_PROPERTY(int id READ getId WRITE setId)
-    Q_PROPERTY(QString ip READ getIp WRITE setIp)
-    Q_PROPERTY(int port READ getPort WRITE setPort)
+    Q_PROPERTY(int id READ getId WRITE setId NOTIFY idChanged)
+    Q_PROPERTY(QString ip READ getIp WRITE setIp NOTIFY ipChanged)
+    Q_PROPERTY(int port READ getPort WRITE setPort NOTIFY portChanged)
     Q_PROPERTY(QString room READ getRoom WRITE setRoom NOTIFY roomChanged)
     Q_PROPERTY(QList<UDevice*> devices READ getDevices WRITE setDevices)
 
@@ -55,6 +55,9 @@ public slots:
 signals:
     void nameChanged(QString arg);
     void roomChanged(QString arg);
+    void idChanged(int arg);
+    void ipChanged(QString arg);
+    void portChanged(int arg);
 
 private:
     int m_id;

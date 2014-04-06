@@ -26,18 +26,14 @@ Rectangle {
         color: _colors.uGreen
 
         // @TODO : Replace with proper icon when ready.
-        ULabel.Default {
+        UI.UFontAwesome {
             id: iconLabel
-
-            text: deviceModel.type
 
             anchors.centerIn: iconFrame
 
-            Component.onCompleted: {
-                font.pixelSize = 32
-                font.bold = true
-                color = _colors.uWhite
-            }
+            iconId: "Bolt"
+            iconSize: 32
+            iconColor: _colors.uWhite
         }
     }
 

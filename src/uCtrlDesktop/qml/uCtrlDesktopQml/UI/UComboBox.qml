@@ -28,36 +28,29 @@ Rectangle {
         width: parent.width - parent.height / 2
         height: parent.height
 
-        color: _colors.uGrey
+        color: _colors.uMediumLightGrey
+
+        radius: 5
 
         Rectangle {
             id: valueField
-            width: combo.width - dropDownIcon.width - separator.width
+            width: combo.width - dropDownIcon.width
             height: parent.height
             color: _colors.uTransparent
 
             UComboBoxItem {
-                    id: valueItem
+                id: valueItem
 
-                    width: parent.width - 10
-                    height: parent.height - 10
-                    anchors.centerIn: parent
+                width: parent.width - 10
+                height: parent.height - 10
+                anchors.centerIn: parent
 
-                    itemData: itemListModel[0]
+                itemData: itemListModel[0]
 
-                    Component.onCompleted: {
-                        valueItem.refresh(itemListModel[0])
-                    }
+                Component.onCompleted: {
+                    valueItem.refresh(itemListModel[0])
+                }
             }
-        }
-
-        Rectangle {
-            id: separator
-            width: 1
-            height: parent.height - 4
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.left: valueField.right
-            color: _colors.uWhite
         }
     }
 
@@ -67,12 +60,14 @@ Rectangle {
         height: parent.height
         anchors.right: parent.right
 
-        color: _colors.uGrey
+        color: _colors.uMediumLightGrey
         radius: 5
 
         UFontAwesome {
+            id: arrowDown
+
             iconId: "CaretDown"
-            iconColor: _colors.uWhite
+            iconColor: _colors.uDarkGrey
             iconSize: 14
             anchors.centerIn: parent
         }
@@ -80,34 +75,42 @@ Rectangle {
 
     Rectangle {
             id: dropDown
+
             clip:true
+
             height: (itemListModel.length <=5 ? itemListModel.length*45 : 225)
             width: valueBackground.width + dropDownIcon.width
+
             anchors.top: parent.bottom
             anchors.horizontalCenter: parent.horizontalCenter
+
             color: _colors.uTransparent
             visible: false
 
             UFontAwesome {
                 id: arrowTop
+
                 height: 10
                 iconId: "CaretUp"
                 iconSize: 16
-                iconColor: _colors.uGrey
+                iconColor: _colors.uMediumLightGrey
+
                 anchors.top: parent.top
+
                 anchors.right: parent.right
-                anchors.rightMargin: 10
+                anchors.rightMargin: 22
             }
 
             Rectangle {
                 id: itemAreaContainer
-                anchors.top: arrowTop.bottom
-                anchors.topMargin: -2 // Put rectangle on bottom of the caret
+                anchors.top: arrowTop.top
+                anchors.topMargin: 7
+
                 width: parent.width
                 anchors.horizontalCenter: parent.horizontalCenter
                 height: dropDown.height * 0.95
                 radius: 5
-                color: _colors.uGrey
+                color: _colors.uMediumLightGrey
 
 
                 Rectangle {
@@ -159,7 +162,5 @@ Rectangle {
         onClicked: {
             dropDown.visible = !dropDown.visible
         }
-
-
     }
 }
