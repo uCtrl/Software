@@ -26,6 +26,7 @@ Rectangle {
         height: parent.height
 
         color: _colors.uMediumLightGrey
+        radius: 5
 
         Rectangle {
             id: valueField
