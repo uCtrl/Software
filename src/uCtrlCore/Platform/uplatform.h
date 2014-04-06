@@ -11,15 +11,16 @@ class UPlatform : public QAbstractListModel, public JsonSerializable
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString name READ getName WRITE setName NOTIFY nameChanged)
-    Q_PROPERTY(int id READ getId WRITE setId NOTIFY idChanged)
-    Q_PROPERTY(QString ip READ getIp WRITE setIp NOTIFY ipChanged)
-    Q_PROPERTY(int port READ getPort WRITE setPort NOTIFY portChanged)
-    Q_PROPERTY(QString room READ getRoom WRITE setRoom NOTIFY roomChanged)
+    Q_PROPERTY(QString      name READ getName WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(int          id READ getId WRITE setId NOTIFY idChanged)
+    Q_PROPERTY(QString      ip READ getIp WRITE setIp NOTIFY ipChanged)
+    Q_PROPERTY(int          port READ getPort WRITE setPort NOTIFY portChanged)
+    Q_PROPERTY(QString      room READ getRoom WRITE setRoom NOTIFY roomChanged)
     Q_PROPERTY(QList<UDevice*> devices READ getDevices WRITE setDevices)
 
 public:
     Q_INVOKABLE QObject* getDeviceAt(int index) const;
+    Q_PROPERTY(QString      enabled READ getEnabled WRITE setEnabled NOTIFY enabledChanged)
 
     UPlatform(QObject* parent);
     UPlatform(QObject* parent, const QString& ip, const int port);
@@ -35,6 +36,9 @@ public:
     int getPort() const { return m_port; }
     QList<UDevice*> getDevices() const { return m_devices; }
     QString getRoom() const { return m_room; }
+    QString getEnabled() const {
+        return m_enabled;
+    }
 
     void read(const QJsonObject &jsonObj);
     void write(QJsonObject &jsonObj) const;
@@ -52,12 +56,16 @@ public slots:
     void connected();
     void receivedRequest(QString message);
 
+    void setEnabled(QString arg);
+
 signals:
     void nameChanged(QString arg);
     void roomChanged(QString arg);
     void idChanged(int arg);
     void ipChanged(QString arg);
     void portChanged(int arg);
+
+    void enabledChanged(QString arg);
 
 private:
     int m_id;
@@ -67,5 +75,6 @@ private:
     QList<UDevice*> m_devices;
     QString m_room;
     USocket* m_socket;
+    QString m_enabled;
 };
 #endif // UPLATFORM_H

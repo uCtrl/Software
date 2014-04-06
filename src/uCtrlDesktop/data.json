@@ -21,7 +21,7 @@
                                             "id": 1350245676,
                                             "type": 1
                                         },
-                                        { 
+                                        {
                                             "id": 1350245677,
                                             "type": 3
                                         },
@@ -113,10 +113,11 @@
                     "unitLabel": ""
                 }
             ],
+            "enabled": "ON",
             "id": 99934,
             "ip": "127.0.0.1",
             "port": 5000,
-            "name": "Televsion Set",
+            "name": "Television Set",
             "room": "Living room"
         },
         {
@@ -181,6 +182,7 @@
                     "unitLabel": ""
                 }
             ],
+            "enabled": "OFF",
             "id": 99934,
             "ip": "127.0.0.1",
             "port": 5000,
