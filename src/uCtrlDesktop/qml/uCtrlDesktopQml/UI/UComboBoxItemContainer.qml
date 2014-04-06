@@ -33,7 +33,7 @@ Rectangle {
                 return
 
             if(containsMouse)
-               container.color = _colors.uDarkGrey
+               container.color = _colors.uGrey
             else
                container.color = _colors.uTransparent
         }

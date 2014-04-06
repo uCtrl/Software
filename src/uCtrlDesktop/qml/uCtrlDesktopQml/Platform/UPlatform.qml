@@ -5,7 +5,7 @@ import "../UI/ULabel" as ULabel
 Rectangle {
     id: container
 
-    property var platform: {"name": "UNKNOWN", "room": "UNKNOWN"}
+    property var platform: {"name": "UNKNOWN", "room": "UNKNOWN", "ip": "255.255.255.255", "id": 0, "port": 0}
 
     function refresh(newPlatform) {
         platform = newPlatform
@@ -19,6 +19,9 @@ Rectangle {
     function refreshLabel() {
         locationText.text = platform.room;
         platformName.text = platform.name;
+        ipValue.text = platform.ip;
+        idValue.text = platform.id;
+        portValue.text = platform.port;
     }
 
     function hideForm() {
@@ -79,7 +82,11 @@ Rectangle {
 
         visible: (!form.visible)
 
-        anchors.fill: parent
+        anchors.top: container.top
+        anchors.left: container.left
+        anchors.right: container.right
+
+        height: (container.height / 4)
 
         color: _colors.uTransparent
 
@@ -147,10 +154,220 @@ Rectangle {
         }
     }
 
-    Rectangle {
-        property int marginSize: 3
+    UI.UFontAwesome {
+        id: networkIcon
 
+        iconId: "Globe"
+        iconSize: 16
+        iconColor: _colors.uMediumLightGrey
+
+        anchors.top: info.bottom
+
+        anchors.left: container.left
+        anchors.leftMargin: 25
+
+        opacity: 0.8
+    }
+
+    ULabel.Default {
+        id: showMoreInformations
+
+        visible: true
+
+        text: updateText()
+
+        anchors.top: networkIcon.top
+        anchors.topMargin: -5
+
+        anchors.left: networkIcon.right
+        anchors.leftMargin: 10
+
+        color: _colors.uGrey
+
+        font.pointSize: 12
+
+        opacity: 0.8
+
+        function updateText() {
+            text = (advancedInformation.visible ? "Hide network information" : "Show network information")
+        }
+
+        MouseArea {
+            anchors.fill: parent;
+            onClicked: {
+                advancedInformation.visible = !advancedInformation.visible;
+                showMoreInformations.updateText();
+            }
+        }
+    }
+
+
+
+    Rectangle {
+        id: advancedInformation
+
+        anchors.top: showMoreInformations.bottom
+        anchors.topMargin: 5
+
+        anchors.left: parent.left
+
+        width: parent.width; height: 110;
+
+        visible: false
+
+        color: _colors.uTransparent
+
+        Rectangle {
+            id: ipLabel
+
+            anchors.top: advancedInformation.top
+
+            width: (parent.width / 4); height: 30
+
+            color: _colors.uTransparent
+
+            ULabel.Default {
+
+                text: "IP Adress"
+
+                anchors.left: parent.left
+                anchors.leftMargin: 15
+
+                anchors.verticalCenter: parent.verticalCenter
+
+                font.pointSize: 16
+                font.bold: true
+                color: _colors.uGrey
+            }
+        }
+
+        Rectangle {
+            id: ipContainer
+            anchors.top: ipLabel.top
+
+            anchors.left: parent.left
+            anchors.leftMargin: (enabledLabel.width + 10)
+
+            width: (((parent.width / 4) * 3) - 5); height: 30
+
+            color: _colors.uTransparent
+
+            ULabel.Default {
+                id: ipValue
+
+                text: platform.ip
+
+                anchors.verticalCenter: parent.verticalCenter
+
+                font.pointSize: 16
+                font.bold: true
+                color: _colors.uGreen
+            }
+        }
+
+        Rectangle {
+            id: idLabel
+
+            anchors.top: ipLabel.bottom
+            anchors.topMargin: 4
+
+            width: (parent.width / 4); height: 30
+
+            color: _colors.uTransparent
+
+            ULabel.Default {
+
+                text: "Identifier"
+
+                anchors.left: parent.left
+                anchors.leftMargin: 15
+
+                anchors.verticalCenter: parent.verticalCenter
+
+                font.pointSize: 16
+                font.bold: true
+                color: _colors.uGrey
+            }
+        }
+
+        Rectangle {
+            id: idContainer
+            anchors.top: idLabel.top
+
+            anchors.left: parent.left
+            anchors.leftMargin: (enabledLabel.width + 10)
+
+            width: (((parent.width / 4) * 3) - 5); height: 30
+
+            color: _colors.uTransparent
+
+            ULabel.Default {
+                id: idValue
+
+                text: platform.id
+
+                anchors.verticalCenter: parent.verticalCenter
+
+                font.pointSize: 16
+                font.bold: true
+                color: _colors.uGreen
+            }
+        }
+
+        Rectangle {
+            id: portLabel
+
+            anchors.top: idLabel.bottom
+            anchors.topMargin: 4
+
+            width: (parent.width / 4); height: 30
+
+            color: _colors.uTransparent
+
+            ULabel.Default {
+
+                text: "Port"
+
+                anchors.left: parent.left
+                anchors.leftMargin: 15
+
+                anchors.verticalCenter: parent.verticalCenter
+
+                font.pointSize: 16
+                font.bold: true
+                color: _colors.uGrey
+            }
+        }
+
+        Rectangle {
+            id: portContainer
+            anchors.top: portLabel.top
+
+            anchors.left: parent.left
+            anchors.leftMargin: (enabledLabel.width + 10)
+
+            width: (((parent.width / 4) * 3) - 5); height: 30
+
+            color: _colors.uTransparent
+
+            ULabel.Default {
+                id: portValue
+
+                text: platform.port
+
+                anchors.verticalCenter: parent.verticalCenter
+
+                font.pointSize: 16
+                font.bold: true
+                color: _colors.uGreen
+            }
+        }
+    }
+
+    Rectangle {
         id: bottomLine
+
+        property int marginSize: 3
 
         width: parent.width - (marginSize *2)
         height: 1
@@ -158,31 +375,16 @@ Rectangle {
         anchors.left: parent.left
         anchors.leftMargin: marginSize
 
-        anchors.top: (form.visible ? container.bottom : info.bottom)
+        anchors.top: (form.visible ? container.bottom : (advancedInformation.visible ? advancedInformation.bottom : showMoreInformations.bottom))
         anchors.topMargin: 20
 
         color: _colors.uLightGrey
     }
 
-    ULabel.Default {
-        id: listIntro
-
-        text: "Platform's devices list"
-
-        anchors.top: bottomLine.bottom
-        anchors.topMargin: 15
-
-        anchors.horizontalCenter: parent.horizontalCenter
-
-        font.pixelSize: 16
-        font.underline: true
-        color: _colors.uGrey
-    }
-
     UDeviceList {
        id: devicesListContainer
 
-       anchors.top: listIntro.bottom
+       anchors.top: bottomLine.bottom
        anchors.topMargin: 4
 
        anchors.bottom: parent.bottom

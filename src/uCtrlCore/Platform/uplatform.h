@@ -55,11 +55,8 @@ public slots:
 signals:
     void nameChanged(QString arg);
     void roomChanged(QString arg);
-
     void idChanged(int arg);
-
     void ipChanged(QString arg);
-
     void portChanged(int arg);
 
 private:

@@ -22,6 +22,8 @@ UI.UFrame {
     contentItem: Rectangle {
         id: systemContainer
 
+        z: 2
+
         property var activePlatform: null
         onActivePlatformChanged: {
             platformInfo.hideForm();
@@ -67,7 +69,7 @@ UI.UFrame {
 
                 state: "ENABLED"
 
-                opacity: 0.8
+                opacity: 0.5
 
                 placeholderText: "Search"
 
@@ -77,23 +79,6 @@ UI.UFrame {
                 onTextChanged: {
                     platformListContainer.setFilter(searchBox.text)
                 }
-            }
-
-            UI.UComboBox {
-                id: filterCombo
-
-                itemListModel:  [
-                    { value:"0", displayedValue:"Location", iconId:"MapMarker"},
-                    { value:"1", displayedValue:"Status", iconId:"Reorder"},
-                    { value:"2", displayedValue:"Alphabetical", iconId:"SortAlphabetical"},
-                    { value:"3", displayedValue:"Type", iconId:"Tags"}
-                ]
-
-                anchors.left: searchBox.right
-                anchors.leftMargin: header.separation
-                anchors.verticalCenter: header.verticalCenter
-
-                width: 175
             }
         }
 
@@ -147,12 +132,21 @@ UI.UFrame {
 
                 anchors.centerIn: pleaseSelectPlatform
 
-                Component.onCompleted: {
-                    font.pointSize = 28
-                    font.bold = true
-                    color = _colors.uGrey
-                }
+                font.pointSize: 28
+                font.bold: true
+                color: _colors.uGrey
             }
+        }
+
+        UI.UComboBox {
+            id: filterCombo
+
+            anchors.left: header.left
+            anchors.leftMargin: (searchBox.width + header.separation)
+
+            anchors.verticalCenter: header.verticalCenter
+
+            width: 135; height: 30
         }
     }
 }
