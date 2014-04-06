@@ -2,7 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 1.0
 
 Rectangle {
-
+    id: combo
     property var itemListModel: [
                                     { value:"0", displayedValue:"Sleep", iconId:"Ok"},
                                     { value:"1", displayedValue:"Hibernate", iconId:"Search"},
@@ -12,14 +12,11 @@ Rectangle {
                                 ]
     property var selectedItem: itemListModel[0]
     z:1000
-
     signal selectValue(var selectedItem)
-
-    id: combo
+    property int itemDisplayedBeforeScroll: 10
 
     width: 200
     height: 40
-    radius: 5
 
     color: _colors.uTransparent
 
@@ -30,8 +27,6 @@ Rectangle {
 
         color: _colors.uMediumLightGrey
 
-        radius: 5
-
         Rectangle {
             id: valueField
             width: combo.width - dropDownIcon.width
@@ -39,17 +34,17 @@ Rectangle {
             color: _colors.uTransparent
 
             UComboBoxItem {
-                id: valueItem
+                    id: valueItem
 
-                width: parent.width - 10
-                height: parent.height - 10
-                anchors.centerIn: parent
+                    width: parent.width - 10
+                    height: parent.height - 10
+                    anchors.centerIn: parent
 
-                itemData: itemListModel[0]
+                    itemData: itemListModel[0]
 
-                Component.onCompleted: {
-                    valueItem.refresh(itemListModel[0])
-                }
+                    Component.onCompleted: {
+                        valueItem.refresh(itemListModel[0])
+                    }
             }
         }
     }
@@ -75,37 +70,31 @@ Rectangle {
 
     Rectangle {
             id: dropDown
-
             clip:true
-
-            height: (itemListModel.length <=5 ? itemListModel.length*45 : 225)
-            width: valueBackground.width + dropDownIcon.width
-
+            height: (itemListModel.length <= itemDisplayedBeforeScroll ? itemListModel.length*45 : itemDisplayedBeforeScroll * 45)
+            width: combo.width
             anchors.top: parent.bottom
+            anchors.topMargin: 5
             anchors.horizontalCenter: parent.horizontalCenter
-
             color: _colors.uTransparent
             visible: false
 
             UFontAwesome {
                 id: arrowTop
-
                 height: 10
                 iconId: "CaretUp"
                 iconSize: 16
                 iconColor: _colors.uMediumLightGrey
 
                 anchors.top: parent.top
-
                 anchors.right: parent.right
-                anchors.rightMargin: 22
+                anchors.rightMargin: dropDownIcon.width / 2
             }
 
             Rectangle {
                 id: itemAreaContainer
-                anchors.top: arrowTop.top
-                anchors.topMargin: 7
-
+                anchors.top: arrowTop.bottom
+                anchors.topMargin: -2 // Put rectangle on bottom of the caret
                 width: parent.width
                 anchors.horizontalCenter: parent.horizontalCenter
                 height: dropDown.height * 0.95
@@ -127,6 +116,7 @@ Rectangle {
 
                         id: dropDownMenu
                         anchors.fill: parent
+                        interactive: itemListModel.length > itemDisplayedBeforeScroll
 
                         model: itemListModel
                         delegate: UComboBoxItemContainer {

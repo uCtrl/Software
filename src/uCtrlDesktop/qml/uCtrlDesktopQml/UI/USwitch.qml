@@ -5,14 +5,13 @@ import "../UI/ULabel" as ULabel
 Rectangle {
     property int borderRadius: 5
     property int animationTime: 200
-    property string status: "ON"
+    state: "ON"
 
     id: container
     width: 70
     height: 30
     radius: height / 2
     color: _colors.uLightGreen
-    state: status
 
     Rectangle {
         id: circle

@@ -1,20 +1,68 @@
 import QtQuick 2.0
 
 Rectangle {
+    id: container
+
     property var itemData: null
     property string value: itemData ? itemData.value : "UNKNOWN"
     property string iconId: itemData ? itemData.iconId : "UNKNOWN"
     property string displayedValue: itemData ? itemData.displayedValue : "UNKNOWN"
+    property int animationTime: 200
 
-    property bool isSelected: false
-
-    signal itemSelected
-
-    id: container
     width: parent.width
     height: 40
-    color: _colors.uTransparent
     radius: 5
+    state: "NORMAL"
+
+    states: [
+        State {
+            name: "NORMAL"
+            PropertyChanges { target: container; color: _colors.uTransparent }
+        },
+        State {
+            name: "SELECTED"
+            PropertyChanges { target: container; color: _colors.uGreen }
+        },
+        State {
+            name: "HOVERED"
+            PropertyChanges { target: container; color: _colors.uGrey }
+        }
+    ]
+
+    transitions: [
+        Transition {
+            from: "NORMAL"
+            to: "HOVERED"
+            ColorAnimation { target: container; duration: animationTime; easing.type: Easing.Linear }
+        },
+        Transition {
+            from: "NORMAL"
+            to: "SELECTED"
+            ColorAnimation { target: container; duration: animationTime; easing.type: Easing.Linear }
+        },
+        Transition {
+            from: "HOVERED"
+            to: "NORMAL"
+            ColorAnimation { target: container; duration: animationTime; easing.type: Easing.Linear }
+        },
+        Transition {
+            from: "HOVERED"
+            to: "SELECTED"
+            ColorAnimation { target: container; duration: animationTime; easing.type: Easing.Linear }
+        },
+        Transition {
+            from: "SELECTED"
+            to: "HOVERED"
+            ColorAnimation { target: container; duration: animationTime; easing.type: Easing.Linear }
+        },
+        Transition {
+            from: "SELECTED"
+            to: "NORMAL"
+            ColorAnimation { target: container; duration: animationTime; easing.type: Easing.Linear }
+        }
+    ]
+
+    signal itemSelected
 
     UComboBoxItem {
         id: item
@@ -28,14 +76,17 @@ Rectangle {
     MouseArea {
         anchors.fill: item
         hoverEnabled: true
-        onHoveredChanged: {
-            if (isSelected)
+        onEntered: {
+            if (container.state === "SELECTED")
                 return
 
-            if(containsMouse)
-               container.color = _colors.uGrey
-            else
-               container.color = _colors.uTransparent
+            container.state = "HOVERED"
+        }
+        onExited: {
+            if (container.state === "SELECTED")
+                return
+
+            container.state = "NORMAL"
         }
         onClicked: {
             itemSelected()
@@ -43,14 +94,10 @@ Rectangle {
     }
 
     function selectItem() {
-        isSelected = true
-
-        container.color = _colors.uGreen
+        container.state = "SELECTED"
     }
 
     function deselectItem() {
-        isSelected = false
-
-        container.color = _colors.uTransparent
+        container.state = "NORMAL"
     }
 }
