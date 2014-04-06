@@ -75,38 +75,6 @@ Rectangle {
 
     transitions: [
         Transition {
-            from: "NORMAL"
-            to: "HOVERED"
-            ColorAnimation { target: mainRectangle; duration: animationTime }
-            ColorAnimation { target: subRectangle; duration: animationTime }
-        },
-        Transition {
-            from: "NORMAL"
-            to: "SELECTED"
-            ColorAnimation { target: mainRectangle; duration: animationTime }
-            ColorAnimation { target: subRectangle; duration: animationTime }
-        },
-        Transition {
-            from: "HOVERED"
-            to: "NORMAL"
-            ColorAnimation { target: mainRectangle; duration: animationTime }
-            ColorAnimation { target: subRectangle; duration: animationTime }
-        },
-        Transition {
-            from: "HOVERED"
-            to: "SELECTED"
-            ColorAnimation { target: mainRectangle; duration: animationTime }
-            ColorAnimation { target: subRectangle; duration: animationTime }
-        },
-        Transition {
-            from: "SELECTED"
-            to: "HOVERED"
-            ColorAnimation { target: mainRectangle; duration: animationTime }
-            ColorAnimation { target: subRectangle; duration: animationTime }
-        },
-        Transition {
-            from: "SELECTED"
-            to: "NORMAL"
             ColorAnimation { target: mainRectangle; duration: animationTime }
             ColorAnimation { target: subRectangle; duration: animationTime }
         }
