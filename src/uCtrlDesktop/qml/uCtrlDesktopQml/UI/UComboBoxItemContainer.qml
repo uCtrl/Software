@@ -1,20 +1,43 @@
 import QtQuick 2.0
 
 Rectangle {
+    id: container
+
     property var itemData: null
     property string value: itemData ? itemData.value : "UNKNOWN"
     property string iconId: itemData ? itemData.iconId : "UNKNOWN"
     property string displayedValue: itemData ? itemData.displayedValue : "UNKNOWN"
+    property int animationTime: 100
 
-    property bool isSelected: false
-
-    signal itemSelected
-
-    id: container
     width: parent.width
     height: 40
-    color: _colors.uTransparent
     radius: 5
+    state: "NORMAL"
+
+    states: [
+        State {
+            name: "NORMAL"
+            PropertyChanges { target: container; color: _colors.uTransparent }
+            PropertyChanges { target: item; textColor: _colors.uDarkGrey }
+        },
+        State {
+            name: "HOVERED"
+            PropertyChanges { target: container; color: _colors.uGrey }
+            PropertyChanges { target: item; textColor: _colors.uLightGrey }
+        },
+        State {
+            name: "SELECTED"
+            PropertyChanges { target: container; color: _colors.uGreen }
+            PropertyChanges { target: item; textColor: _colors.uWhite }
+        },
+        State {
+            name: "HOVERED SELECTED"
+            PropertyChanges { target: container; color: _colors.uDarkGreen }
+            PropertyChanges { target: item; textColor: _colors.uWhite }
+        }
+    ]
+
+    signal itemSelected
 
     UComboBoxItem {
         id: item
@@ -28,14 +51,19 @@ Rectangle {
     MouseArea {
         anchors.fill: item
         hoverEnabled: true
-        onHoveredChanged: {
-            if (isSelected)
-                return
-
-            if(containsMouse)
-               container.color = _colors.uGrey
-            else
-               container.color = _colors.uTransparent
+        onEntered: {
+            if (container.state === "HOVERED SELECTED" || container.state === "SELECTED") {
+                container.state = "HOVERED SELECTED"
+            } else {
+                container.state = "HOVERED"
+            }
+        }
+        onExited: {
+            if (container.state === "HOVERED SELECTED" || container.state === "SELECTED") {
+                container.state = "SELECTED"
+            } else {
+                container.state = "NORMAL"
+            }
         }
         onClicked: {
             itemSelected()
@@ -43,14 +71,10 @@ Rectangle {
     }
 
     function selectItem() {
-        isSelected = true
-
-        container.color = _colors.uGreen
+        container.state = "SELECTED"
     }
 
     function deselectItem() {
-        isSelected = false
-
-        container.color = _colors.uTransparent
+        container.state = "NORMAL"
     }
 }
