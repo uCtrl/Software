@@ -17,31 +17,31 @@ class UPlatform : public QAbstractListModel, public JsonSerializable
     Q_PROPERTY(int          port READ getPort WRITE setPort NOTIFY portChanged)
     Q_PROPERTY(QString      room READ getRoom WRITE setRoom NOTIFY roomChanged)
     Q_PROPERTY(QList<UDevice*> devices READ getDevices WRITE setDevices)
+    Q_PROPERTY(QString      enabled READ getEnabled WRITE setEnabled NOTIFY enabledChanged)
 
 public:
-    Q_INVOKABLE QObject* getDeviceAt(int index) const;
-    Q_PROPERTY(QString      enabled READ getEnabled WRITE setEnabled NOTIFY enabledChanged)
 
     UPlatform(QObject* parent);
     UPlatform(QObject* parent, const QString& ip, const int port);
     UPlatform(const UPlatform& platform);
     ~UPlatform();
 
+    // QAbstractListModel
     virtual QVariant data(const QModelIndex &index, int role) const;
     virtual int rowCount(const QModelIndex &parent) const;
 
-    int getId() const { return m_id; }
-    QString getIp() const { return m_ip; }
-    QString getName() const { return m_name; }
-    int getPort() const { return m_port; }
-    QList<UDevice*> getDevices() const { return m_devices; }
-    QString getRoom() const { return m_room; }
-    QString getEnabled() const {
-        return m_enabled;
-    }
-
+    // JsonSerializable
     void read(const QJsonObject &jsonObj);
     void write(QJsonObject &jsonObj) const;
+
+    int             getId() const { return m_id; }
+    QString         getIp() const { return m_ip; }
+    QString         getName() const { return m_name; }
+    int             getPort() const { return m_port; }
+    QList<UDevice*> getDevices() const { return m_devices; }
+    Q_INVOKABLE QObject* getDeviceAt(int index) const;
+    QString         getRoom() const { return m_room; }
+    QString         getEnabled() const { return m_enabled; }
 
     void createSocket();
 
@@ -52,11 +52,16 @@ public slots:
     void setDevices(QList<UDevice*> arg) { m_devices = arg; }
     void setName(QString arg) { m_name = arg; }
     void setRoom(QString arg) { m_room = arg; }
+    void setEnabled(QString arg)
+    {
+        if (m_enabled != arg) {
+            m_enabled = arg;
+            emit enabledChanged(arg);
+        }
+    }
 
     void connected();
     void receivedRequest(QString message);
-
-    void setEnabled(QString arg);
 
 signals:
     void nameChanged(QString arg);
@@ -64,7 +69,6 @@ signals:
     void idChanged(int arg);
     void ipChanged(QString arg);
     void portChanged(int arg);
-
     void enabledChanged(QString arg);
 
 private:

@@ -46,14 +46,6 @@ void UPlatform::receivedRequest(QString message)
     JsonSerializer::parse(message, this);
 }
 
-void UPlatform::setEnabled(QString arg)
-{
-    if (m_enabled != arg) {
-        m_enabled = arg;
-        emit enabledChanged(arg);
-    }
-}
-
 QObject* UPlatform::getDeviceAt(int index) const {
     if (index < 0 || index >= m_devices.count())
         return 0;
@@ -73,8 +65,8 @@ int UPlatform::rowCount(const QModelIndex &parent) const
 void UPlatform::read(const QJsonObject &jsonObj)
 {
     this->setId(jsonObj["id"].toInt());
-    //this->setIp(jsonObj["ip"].toString());
-    //this->setPort(jsonObj["port"].toInt());
+    this->setIp(jsonObj["ip"].toString());
+    this->setPort(jsonObj["port"].toInt());
     this->setName(jsonObj["name"].toString());
     this->setRoom(jsonObj["room"].toString());
     this->setEnabled(jsonObj["enabled"].toString());

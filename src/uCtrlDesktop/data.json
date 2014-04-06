@@ -116,7 +116,7 @@
             "enabled": "ON",
             "id": 99934,
             "ip": "127.0.0.1",
-            "port": 5000,
+            "port": 80,
             "name": "Television Set",
             "room": "Living room"
         },
@@ -184,7 +184,7 @@
             ],
             "enabled": "OFF",
             "id": 99934,
-            "ip": "127.0.0.1",
+            "ip": "127.0.0.2",
             "port": 5000,
             "name": "Sound System",
             "room": "Alexis' room"
