@@ -435,23 +435,6 @@ UI.UFrame {
 
                 width: 412
             }
-
-            // Multiline textbox
-            Rectangle {
-                id: multiFrame
-
-                anchors.top: placeholderText.bottom
-
-                width: 300; height: 400;
-
-                UI.UTextbox {
-                    id: multiText
-
-                    anchors.fill: parent
-
-                    clip: true;
-                }
-            }
         }
 
         // Form demonstration
