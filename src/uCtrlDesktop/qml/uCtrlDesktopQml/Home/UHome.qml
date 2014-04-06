@@ -79,7 +79,25 @@ UI.UFrame {
                 state: "ERROR"
             }
 
-            // @TODO : Add UIconButton demonstrations.
+            UI.UButton {
+                id: iconButton
+                anchors.top: firstButton.bottom
+                anchors.left: errorButton.right
+                width: 150
+                iconId: "Time"
+                text: ""
+                state: "ENABLED"
+            }
+
+            UI.UButton {
+                id: iconAndTextButton
+                anchors.top: firstButton.bottom
+                anchors.left: iconButton.right
+                width: 200
+                iconId: "Time"
+                text: "Time"
+                state: "ENABLED"
+            }
         }
 
         // Label demonstrations
