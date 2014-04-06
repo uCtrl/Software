@@ -25,25 +25,10 @@ Rectangle {
         form.visible = false
     }
 
-    ULabel.Default {
-        id: platformName
-
-        anchors.top: parent.top
-        anchors.topMargin: 13
-
-        anchors.left: parent.left
-        anchors.leftMargin: 15
-
-        text: ""
-
-        font.pointSize: 32
-        font.bold: true
-        color: _colors.uBlack
-    }
-
     Rectangle {
         id: enabledLabel
-        anchors.top: platformName.bottom
+        anchors.top: container.top
+        anchors.topMargin: (platformName.height + 15)
 
         width: (parent.width / 4); height: 30
 
@@ -61,30 +46,6 @@ Rectangle {
             font.pointSize: 16
             font.bold: true
             color: _colors.uGrey
-        }
-    }
-
-    // @TODO : Replace with uSwitch
-    Rectangle {
-        id: enabledStatus
-        anchors.top: enabledLabel.top
-
-        anchors.left: enabledLabel.right
-        anchors.leftMargin: 5
-
-        width: (((parent.width / 4) * 3) - 5); height: 30
-
-        color: _colors.uTransparent
-
-        ULabel.Default {
-
-            text: "ON"
-
-            anchors.verticalCenter: parent.verticalCenter
-
-            font.pointSize: 16
-            font.bold: true
-            color: _colors.uGreen
         }
     }
 
@@ -114,26 +75,75 @@ Rectangle {
     }
 
     Rectangle {
-        id: locationStatus
-        anchors.top: locationLabel.top
+        id: info
 
-        anchors.left: locationLabel.right
-        anchors.leftMargin: 5
+        visible: (!form.visible)
 
-        width: (((parent.width / 4) * 3) - 5); height: 30
+        anchors.fill: parent
 
         color: _colors.uTransparent
 
         ULabel.Default {
-            id: locationText
+            id: platformName
+
+            anchors.top: parent.top
+            anchors.topMargin: 13
+
+            anchors.left: parent.left
+            anchors.leftMargin: 15
 
             text: ""
 
-            anchors.verticalCenter: parent.verticalCenter
-
-            font.pointSize: 16
+            font.pointSize: 32
             font.bold: true
-            color: _colors.uGreen
+            color: _colors.uBlack
+        }
+
+        Rectangle {
+            id: enabledStatus
+            anchors.top: platformName.bottom
+
+            anchors.left: parent.left
+            anchors.leftMargin: (enabledLabel.width + 10)
+
+            width: (((parent.width / 4) * 3) - 5); height: 30
+
+            color: _colors.uTransparent
+
+            ULabel.Default {
+
+                text: "ON"
+
+                anchors.verticalCenter: parent.verticalCenter
+
+                font.pointSize: 16
+                font.bold: true
+                color: _colors.uGreen
+            }
+        }
+
+        Rectangle {
+            id: locationStatus
+            anchors.top: enabledStatus.bottom
+
+            anchors.left: parent.left
+            anchors.leftMargin: (locationLabel.width + 10)
+
+            width: (((parent.width / 4) * 3) - 5); height: 30
+
+            color: _colors.uTransparent
+
+            ULabel.Default {
+                id: locationText
+
+                text: ""
+
+                anchors.verticalCenter: parent.verticalCenter
+
+                font.pointSize: 16
+                font.bold: true
+                color: _colors.uGreen
+            }
         }
     }
 
@@ -148,7 +158,7 @@ Rectangle {
         anchors.left: parent.left
         anchors.leftMargin: marginSize
 
-        anchors.top: (form.visible ? container.bottom : locationLabel.bottom)
+        anchors.top: (form.visible ? container.bottom : info.bottom)
         anchors.topMargin: 20
 
         color: _colors.uLightGrey
@@ -290,10 +300,11 @@ Rectangle {
 
         radius: 5
 
+        anchors.top: container.top
+        anchors.topMargin: 20
+
         anchors.right: container.right
         anchors.rightMargin: 15
-
-        anchors.verticalCenter: platformName.verticalCenter
 
         color: _colors.uTransparent
 
