@@ -44,7 +44,7 @@ Item {
 
             ULabel.Default {
                 id: changeStateLabel
-                text: "Changer l'état pour "
+                text: "Set to"
                 anchors.verticalCenter: parent.verticalCenter
                 font.pointSize: 14
                 color: _colors.uDarkGrey
@@ -52,25 +52,66 @@ Item {
 
             Rectangle {
                 id: stateContainer
-                color: _colors.uGrey
+                color: _colors.uTransparent
 
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: changeStateLabel.right
-                anchors.leftMargin: 7
-                anchors.rightMargin: 7
 
-                width: selectedComboBoxItem.width + 15
-                height: selectedComboBoxItem.height
+                width: statusTaskLoader.width + 15
+                height: statusTaskLoader.height
 
                 radius: 10
 
-                UI.UComboBox
-                {
-                    id: selectedComboBoxItem
+                Loader {
+                    id: statusTaskLoader
+                    sourceComponent: getSourceComponent()
 
-                    anchors.centerIn: parent
-                    //itemListModel: taskModel.scenario.device.getComboBoxItemList()
+                    function getSourceComponent() {
+                        if (taskModel.scenario.device.isTriggerValue) {
+                            return statusComboBox
+                        }
+
+                        return statusTextBox
+                    }
+
+                    Component {
+                        id: statusComboBox
+
+                        UI.UComboBox
+                        {
+                            anchors.centerIn: parent
+                            width: 100
+
+                            itemListModel: [
+                                { value:"0", displayedValue: "OFF", iconId:"" },
+                                { value:"1", displayedValue: "ON", iconId:"" },
+                            ]
+
+                            onSelectValue: {
+                                setTaskStatus(newValue)
+                            }
+                        }
+                    }
+
+                    // TODO: Validate stuff with min max values + format with precision??
+                    Component {
+                        id: statusTextBox
+
+                        UI.UTextbox {
+                            width: 100
+
+                            onTextChanged: {
+                                statusTaskLoader.setTaskStatus(text)
+                            }
+                        }
+                    }
+
+                    function setTaskStatus(newStatus) {
+                        taskModel.status = newStatus
+                    }
                 }
+
+
             }
 
             ULabel.Default {
@@ -78,9 +119,8 @@ Item {
 
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: stateContainer.right
-                anchors.leftMargin: 5
 
-                text: "quand:"
+                text: taskModel.scenario.device.unitLabel + " when"
                 font.pointSize: 14
                 color: _colors.uDarkGrey
             }

@@ -55,7 +55,8 @@
                         }
                     ],
                     "type": 1,
-                    "unitLabel": ""
+                    "unitLabel": "°C",
+                    "isTriggerValue": false
                 },
                 {
                     "id": 1782103621,
@@ -110,7 +111,8 @@
                         }
                     ],
                     "type": 1,
-                    "unitLabel": ""
+                    "unitLabel": "°C",
+                    "isTriggerValue": true
                 }
             ],
             "id": 99934,

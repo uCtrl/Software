@@ -27,6 +27,7 @@ void UDevice::read(const QJsonObject &jsonObj)
     this->setPrecision(jsonObj["precision"].toInt());
     this->setUnitLabel(jsonObj["unitlabel"].toString());
     this->setType(jsonObj["type"].toInt());
+    this->setIsTriggerValue(jsonObj["isTriggerValue"].toBool());
 
     QJsonArray scenariosArray = jsonObj["scenarios"].toArray();
     foreach(QJsonValue scenarioJson, scenariosArray)
@@ -46,6 +47,7 @@ void UDevice::write(QJsonObject &jsonObj) const
     jsonObj["precision"] = getPrecision();
     jsonObj["unitLabel"] = getUnitLabel();
     jsonObj["type"] = getType();
+    jsonObj["isTriggerValue"] = isTriggerValue();
 
     QJsonArray scenariosArray;
     foreach(UScenario* scenario, this->m_scenarios)
