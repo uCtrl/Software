@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import "../UI" as UI
+import "../UI/ULabel" as ULabel
 import "../Platform" as Platform
 
 UI.UFrame {
@@ -13,10 +14,18 @@ UI.UFrame {
         if (system !== null) platformListContainer.refresh(newSystem)
     }
 
+    signal notify;
+    onNotify: {
+        refresh(system)
+    }
+
     contentItem: Rectangle {
         id: systemContainer
 
         property var activePlatform: null
+        onActivePlatformChanged: {
+            platformInfo.hideForm();
+        }
 
         property int constSize: 16
         property int separation: 10
@@ -61,6 +70,9 @@ UI.UFrame {
                 opacity: 0.8
 
                 placeholderText: "Search"
+
+                iconId: "Search"
+                iconSize: 16
 
                 onTextChanged: {
                     platformListContainer.setFilter(searchBox.text)
@@ -128,7 +140,7 @@ UI.UFrame {
 
             color: _colors.uTransparent
 
-            UI.ULabel {
+            ULabel.Default {
                 id: regularText
 
                 text: "Please select a platform"

@@ -6,7 +6,7 @@
                     "id": 1782103621,
                     "maxValue": 100,
                     "minValue": 0,
-                    "name": "Temperature",
+                    "name": "Temperature A",
                     "precision": 5,
                     "scenarios": [
                         {
@@ -22,6 +22,61 @@
                                             "type": 1
                                         },
                                         { 
+                                            "id": 1350245677,
+                                            "type": 3
+                                        },
+                                        {
+                                            "beginDate": "2014-03-31",
+                                            "endDate": "2014-03-31",
+                                            "id": 1350245678,
+                                            "type": 1
+                                        },
+                                        {
+                                            "id": 1350245681,
+                                            "type": 3
+                                        }
+                                    ],
+                                    "id": 1782103623,
+                                    "status": "20%"
+                                },
+                                {
+                                    "conditions": [
+                                        {
+                                            "beginDate": "2014-03-31",
+                                            "endDate": "2014-03-31",
+                                            "id": 1350245680,
+                                            "type": 1
+                                        }
+                                    ],
+                                    "id": 1782103626,
+                                    "status": "13%"
+                                }
+                            ]
+                        }
+                    ],
+                    "type": 1,
+                    "unitLabel": ""
+                },
+                {
+                    "id": 1782103621,
+                    "maxValue": 100,
+                    "minValue": 0,
+                    "name": "Temperature 1",
+                    "precision": 0,
+                    "scenarios": [
+                        {
+                            "id": 1782103622,
+                            "name": "Semaine",
+                            "tasks": [
+                                {
+                                    "conditions": [
+                                        {
+                                            "beginDate": "2014-03-31",
+                                            "endDate": "2014-03-31",
+                                            "id": 1350245676,
+                                            "type": 1
+                                        },
+                                        {
                                             "id": 1350245677,
                                             "type": 3
                                         },

@@ -1,10 +1,12 @@
 import QtQuick 2.0
 import "../UI" as UI
+import "../UI/ULabel" as ULabel
 
 Rectangle {
     id: container
 
     property var platformModel: platformsList.model.getPlatformAt(index)
+    property var system: systemFrame.system
 
     width: parent.width
     height: 60
@@ -35,7 +37,12 @@ Rectangle {
         }
     }
 
-    UI.ULabel {
+    function refresh(newPlatformModel) {
+        platformModel = newPlatformModel;
+        platformTitle.text = container.platformModel.name
+    }
+
+    ULabel.Default {
         id: platformTitle
 
         anchors.top: container.top
@@ -47,16 +54,12 @@ Rectangle {
         text: container.platformModel.name
         color: getTextColor()
 
-        headerStyle: 0
-        Component.onCompleted: {
-            font.pointSize = 18
-            font.bold = true
-            color = getTextColor()
-        }
+        font.pointSize: 18
+        font.bold: true
     }
 
     // @TODO: Hardcoded value, replace by true last update
-    UI.ULabel {
+    ULabel.Default {
         id: lastUpdate
 
         anchors.top: platformTitle.bottom
@@ -65,11 +68,7 @@ Rectangle {
         text: "3 hours ago"
         color: getTextColor()
 
-        headerStyle: 0
-        Component.onCompleted: {
-            font.pointSize = 12
-            color = getTextColor()
-        }
+        font.pointSize: 12
     }
 
     Rectangle {
@@ -101,9 +100,12 @@ Rectangle {
                 newPlatform = systemFrame.system.getPlatformAt(index)
             }
 
+            refresh(newPlatform)
             platformsList.currentIndex = newIndex
             systemContainer.activePlatform = newPlatform
             platformInfo.refresh(newPlatform)
         }
     }
+
+    onSystemChanged: refresh(system.getPlatformAt(index));
 }
