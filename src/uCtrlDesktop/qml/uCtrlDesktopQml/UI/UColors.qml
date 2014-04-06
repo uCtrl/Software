@@ -3,12 +3,15 @@ import QtQuick 2.0
 QtObject {
 
     // µCtrl's Green variation
+    property color uLightGreen: "#DAF2DA"
+    property color uMediumLightGreen: "#0DBE0D"
     property color uGreen: "#0D9B0D"
     property color uDarkGreen: "#0D740D"
-    property color uLightGreen: "#DAF2DA"
+
 
     // µCtrl's Red variation
     property color uLightRed: "#FFBFBF"
+    property color uRed: "#D90E0E"
     property color uDarkRed: "#A60E0E"
 
     // White colors

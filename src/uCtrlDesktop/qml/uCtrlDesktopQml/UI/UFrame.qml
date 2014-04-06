@@ -4,6 +4,7 @@ import QtQuick.Controls 1.0
 ScrollView {
     property bool requiredModel: false
     property var model: null
+    property int frameMarginSize: 16
 
     contentItem: Rectangle {
         color: _colors.uTransparent
