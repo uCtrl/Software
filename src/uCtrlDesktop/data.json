@@ -21,7 +21,7 @@
                                             "id": 1350245676,
                                             "type": 1
                                         },
-                                        { 
+                                        {
                                             "id": 1350245677,
                                             "type": 3
                                         },
@@ -115,10 +115,11 @@
                     "isTriggerValue": true
                 }
             ],
+            "enabled": "ON",
             "id": 99934,
             "ip": "127.0.0.1",
-            "port": 5000,
-            "name": "Televsion Set",
+            "port": 80,
+            "name": "Television Set",
             "room": "Living room"
         },
         {
@@ -183,8 +184,9 @@
                     "unitLabel": "%"
                 }
             ],
+            "enabled": "OFF",
             "id": 99934,
-            "ip": "127.0.0.1",
+            "ip": "127.0.0.2",
             "port": 5000,
             "name": "Sound System",
             "room": "Alexis' room"
