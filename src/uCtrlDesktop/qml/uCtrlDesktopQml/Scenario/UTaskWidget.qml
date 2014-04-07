@@ -103,12 +103,12 @@ Item {
                 }
             }
 
-            UI.UIconButton {
+            UI.UButton {
                 id: deleteBtn
 
                 anchors.verticalCenter: parent.verticalCenter
 
-                text: "Remove"
+                iconId: "Remove"
                 iconSize: 12
 
                 width: 20
@@ -123,12 +123,12 @@ Item {
                 }
             }
 
-            UI.UIconButton {
+            UI.UButton {
                 id: moveDown
 
                 anchors.verticalCenter: parent.verticalCenter
 
-                text: "ArrowDown"
+                iconId: "ArrowDown"
                 iconSize: 10
 
                 width: 20
@@ -143,12 +143,12 @@ Item {
                 }
             }
 
-            UI.UIconButton {
+            UI.UButton {
                 id: moveUp
 
                 anchors.verticalCenter: parent.verticalCenter
 
-                text: "ArrowUp"
+                iconId: "ArrowUp"
                 iconSize: 10
 
                 width: 20
