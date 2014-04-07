@@ -25,6 +25,10 @@ Rectangle {
         }
     }
 
+    function changeSaveButtonState(newValue){
+        saveButton.state = newValue ? "ENABLED" : "DISABLED"
+    }
+
     UButton {
         id: cancelButton
         iconId: "Remove"

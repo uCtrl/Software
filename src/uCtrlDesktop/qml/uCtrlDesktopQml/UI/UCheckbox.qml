@@ -41,8 +41,7 @@ Rectangle {
         anchors.fill: parent
         onReleased: {
             if (checkbox.state != "DISABLED") {
-                checked = !checked
-                checkbox.checkedChanged()
+                checkbox.checked = !checkbox.checked
             }
         }
     }

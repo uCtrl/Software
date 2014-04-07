@@ -499,8 +499,12 @@ UI.UFrame {
                     placeholderText: "Must be filled !"
 
                     state: (validate() ? "SUCCESS" : "ERROR")
-                    function validate() { return (text !== ""); }
-                    onTextChanged: toggledForm.validate()
+                    function validate() {
+                        return (text !== "");
+                    }
+                    onTextChanged: {
+                        toggledForm.validate()
+                    }
                 }
 
                 UI.UCheckbox {
@@ -514,13 +518,17 @@ UI.UFrame {
 
                     text: "Check me !"
 
-                    function validate() { return toggledFormCheck.checked }
+                    function validate() {
+                        return toggledFormCheck.checked
+                    }
                     state: (validate() ? "SUCCESS" : "ERROR")
-                    onCheckedChanged: toggledForm.validate()
+                    onCheckedChanged: {
+                        toggledForm.validate()
+                    }
                 }
 
                 onAfterValidate: {
-                    formSave.saveEnabled = isValid
+                    formSave.changeSaveButtonState(isValid)
                 }
             }
 
@@ -542,7 +550,6 @@ UI.UFrame {
                     toggledText.text = ""
                     toggledFormCheck.checked = false
                     saveLabel.text = "Form canceled"
-                    saveEnabled = false
                     toggledForm.validate()
                 }
             }
