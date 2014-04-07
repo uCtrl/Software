@@ -25,7 +25,7 @@ void UDevice::read(const QJsonObject &jsonObj)
     this->setMinValue(jsonObj["minValue"].toDouble());
     this->setMaxValue(jsonObj["maxValue"].toDouble());
     this->setPrecision(jsonObj["precision"].toInt());
-    this->setUnitLabel(jsonObj["unitlabel"].toString());
+    this->setUnitLabel(jsonObj["unitLabel"].toString());
     this->setType(jsonObj["type"].toInt());
     this->setIsTriggerValue(jsonObj["isTriggerValue"].toBool());
 

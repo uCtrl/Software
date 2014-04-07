@@ -56,6 +56,7 @@ Item {
 
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: changeStateLabel.right
+                anchors.leftMargin: 15
 
                 width: statusTaskLoader.width + 15
                 height: statusTaskLoader.height
@@ -77,18 +78,13 @@ Item {
                     Component {
                         id: statusComboBox
 
-                        UI.UComboBox
+                        UI.USwitch
                         {
                             anchors.centerIn: parent
-                            width: 100
+                            state: taskModel.status
 
-                            itemListModel: [
-                                { value:"0", displayedValue: "OFF", iconId:"" },
-                                { value:"1", displayedValue: "ON", iconId:"" },
-                            ]
-
-                            onSelectValue: {
-                                setTaskStatus(newValue)
+                            onStateChanged: {
+                                setTaskStatus(state)
                             }
                         }
                     }
@@ -99,6 +95,7 @@ Item {
 
                         UI.UTextbox {
                             width: 100
+                            text: taskModel.status
 
                             onTextChanged: {
                                 statusTaskLoader.setTaskStatus(text)
@@ -110,8 +107,6 @@ Item {
                         taskModel.status = newStatus
                     }
                 }
-
-
             }
 
             ULabel.Default {
@@ -123,6 +118,8 @@ Item {
                 text: taskModel.scenario.device.unitLabel + " when"
                 font.pointSize: 14
                 color: _colors.uDarkGrey
+
+                Component.onCompleted: text = taskModel.scenario.device.unitLabel + " when"
             }
 
             UI.UButton {

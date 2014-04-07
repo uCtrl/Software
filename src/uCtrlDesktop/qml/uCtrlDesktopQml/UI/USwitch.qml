@@ -5,6 +5,7 @@ import "../UI/ULabel" as ULabel
 Rectangle {
     property int borderRadius: 5
     property int animationTime: 200
+
     state: "ON"
 
     id: container
@@ -67,6 +68,8 @@ Rectangle {
             else {
                 container.state = "ON"
             }
+
+            stateChanged(container.state)
         }
     }
 

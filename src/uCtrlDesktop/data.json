@@ -37,7 +37,7 @@
                                         }
                                     ],
                                     "id": 1782103623,
-                                    "status": "20%"
+                                    "status": "21"
                                 },
                                 {
                                     "conditions": [
@@ -49,20 +49,20 @@
                                         }
                                     ],
                                     "id": 1782103626,
-                                    "status": "13%"
+                                    "status": "13"
                                 }
                             ]
                         }
                     ],
                     "type": 1,
-                    "unitLabel": "°C",
+                    "unitLabel": "\u00B0C",
                     "isTriggerValue": false
                 },
                 {
                     "id": 1782103621,
-                    "maxValue": 100,
+                    "maxValue": 1,
                     "minValue": 0,
-                    "name": "Temperature 1",
+                    "name": "Light",
                     "precision": 0,
                     "scenarios": [
                         {
@@ -93,7 +93,7 @@
                                         }
                                     ],
                                     "id": 1782103623,
-                                    "status": "20%"
+                                    "status": "ON"
                                 },
                                 {
                                     "conditions": [
@@ -105,13 +105,13 @@
                                         }
                                     ],
                                     "id": 1782103626,
-                                    "status": "13%"
+                                    "status": "OFF"
                                 }
                             ]
                         }
                     ],
-                    "type": 1,
-                    "unitLabel": "°C",
+                    "type": 2,
+                    "unitLabel": "\u00B0C",
                     "isTriggerValue": true
                 }
             ],
@@ -127,8 +127,8 @@
                     "id": 1782103621,
                     "maxValue": 100,
                     "minValue": 0,
-                    "name": "Temperature",
-                    "precision": 2,
+                    "name": "Dimmer Light",
+                    "precision": 1,
                     "scenarios": [
                         {
                             "id": 1782103622,
@@ -162,7 +162,7 @@
                                         }
                                     ],
                                     "id": 1782103623,
-                                    "status": "20%"
+                                    "status": "60"
                                 },
                                 {
                                     "conditions": [
@@ -174,13 +174,13 @@
                                         }
                                     ],
                                     "id": 1782103626,
-                                    "status": "13%"
+                                    "status": "30"
                                 }
                             ]
                         }
                     ],
                     "type": 1,
-                    "unitLabel": ""
+                    "unitLabel": "%"
                 }
             ],
             "id": 99934,
