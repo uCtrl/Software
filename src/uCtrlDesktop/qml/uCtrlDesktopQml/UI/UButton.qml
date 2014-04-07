@@ -16,16 +16,17 @@ Rectangle {
 
     height: 30
     width: 100
-
     radius: 5
-    anchors.margins: 4
 
     color: _colors.uGreen
-    state: "NORMAL"
+    state: "ENABLED"
 
+    signal clicked
     function execute() {
         // @TODO : Change console log for alert
-        if (state != "DISABLED") console.log("Warning execute method not overriden")
+        if (state != "DISABLED") {
+            button.clicked()
+        }
     }
 
     MouseArea {

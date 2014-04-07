@@ -46,8 +46,10 @@ UI.UFrame {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: qsTr("Click me !")
 
-                function execute() {
-                    state="DISABLED"
+                anchors.margins: 4
+
+                onClicked: {
+                    state = "DISABLED"
                 }
             }
 
@@ -59,6 +61,8 @@ UI.UFrame {
 
                 text: "Enabled button"
                 state: "ENABLED"
+
+                anchors.margins: 4
             }
 
             UI.UButton {
@@ -68,6 +72,8 @@ UI.UFrame {
                 width: 150
                 text: "Disabled button"
                 state: "DISABLED"
+
+                anchors.margins: 4
             }
 
             UI.UButton {
@@ -77,6 +83,8 @@ UI.UFrame {
                 width: 150
                 text: "Error button"
                 state: "ERROR"
+
+                anchors.margins: 4
             }
 
             UI.UButton {
@@ -87,6 +95,8 @@ UI.UFrame {
                 iconId: "Time"
                 text: ""
                 state: "ENABLED"
+
+                anchors.margins: 4
             }
 
             UI.UButton {
@@ -97,6 +107,8 @@ UI.UFrame {
                 iconId: "Time"
                 text: "Time"
                 state: "ENABLED"
+
+                anchors.margins: 4
             }
         }
 
@@ -365,7 +377,7 @@ UI.UFrame {
         Rectangle {
             id: textDemo
 
-            width: parent.width; height: 800
+            width: parent.width; height: 300
             color: _colors.uTransparent
 
             anchors.top: radioDemo.bottom
@@ -460,10 +472,9 @@ UI.UFrame {
             id: formDemo
 
             width: parent.width
-            height: 100
+            height: 120
 
             anchors.top: textDemo.bottom
-            anchors.left: parent.left
 
             UI.UForm {
                 id: toggledForm
@@ -487,8 +498,13 @@ UI.UFrame {
 
                     placeholderText: "Must be filled !"
 
-                    state: (text !== "" ? "SUCCESS" : "ERROR")
-                    function validate() { return (text !== ""); }
+                    state: (validate() ? "SUCCESS" : "ERROR")
+                    function validate() {
+                        return (text !== "");
+                    }
+                    onTextChanged: {
+                        toggledForm.validate()
+                    }
                 }
 
                 UI.UCheckbox {
@@ -502,27 +518,45 @@ UI.UFrame {
 
                     text: "Check me !"
 
-                    function validate() { return toggledFormCheck.checked }
+                    function validate() {
+                        return toggledFormCheck.checked
+                    }
+                    state: (validate() ? "SUCCESS" : "ERROR")
+                    onCheckedChanged: {
+                        toggledForm.validate()
+                    }
+                }
 
-                    onCheckedChanged: if (toggledFormCheck.checked) toggledForm.validate()
+                onAfterValidate: {
+                    formSave.changeSaveButtonState(isValid)
                 }
             }
 
-            UI.UButton {
+            UI.USaveCancel {
                 id: formSave
 
                 anchors.left: toggledForm.left
+                anchors.bottom: toggledForm.bottom
 
-                anchors.top: toggledForm.bottom
-                anchors.topMargin: 5
+                saveEnabled: false
 
-                state: (toggledForm.validate() ? "ENABLED" : "ERROR")
+                onSave: {
+                    if(toggledForm.validate())
+                        saveLabel.text = "Form saved"
+                    else
+                        saveLabel.text = "Form cannot be saved :("
+                }
+                onCancel: {
+                    toggledText.text = ""
+                    toggledFormCheck.checked = false
+                    saveLabel.text = "Form canceled"
+                    toggledForm.validate()
+                }
+            }
 
-                width: 100
-
-                text: "Valid form"
-
-                function execute() { state = (toggledForm.validate() ? "ENABLED" : "ERROR") }
+            ULabel.Default {
+                id: saveLabel
+                anchors.bottom: formSave.top
             }
         }
     }
