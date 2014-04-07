@@ -184,30 +184,11 @@ Item {
         }
 
         Rectangle {
-            id: dragger
-
-            anchors.right: parent.right
-            height: parent.height
-            width: 40
-
-            color: _colors.uTransparent
-            visible: conditionsContainer.adjustedHeight() > 0
-
-            Image {
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: parent.left
-                height: 30
-                width: 30
-                source: "qrc:///Resources/Images/drag.png"
-            }
-        }
-
-        Rectangle {
             id: conditionsContainer
             clip: true
 
             height: 40 * conditionList.count
-            width: parent.width - dragger.width
+            width: parent.width
 
             x:0
             y: taskHeader.height

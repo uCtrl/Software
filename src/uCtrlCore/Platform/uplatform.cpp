@@ -65,10 +65,11 @@ int UPlatform::rowCount(const QModelIndex &parent) const
 void UPlatform::read(const QJsonObject &jsonObj)
 {
     this->setId(jsonObj["id"].toInt());
-    //this->setIp(jsonObj["ip"].toString());
-    //this->setPort(jsonObj["port"].toInt());
+    this->setIp(jsonObj["ip"].toString());
+    this->setPort(jsonObj["port"].toInt());
     this->setName(jsonObj["name"].toString());
     this->setRoom(jsonObj["room"].toString());
+    this->setEnabled(jsonObj["enabled"].toString());
 
     QJsonArray devicesArray = jsonObj["devices"].toArray();
     foreach(QJsonValue deviceJson, devicesArray)
@@ -84,6 +85,9 @@ void UPlatform::write(QJsonObject &jsonObj) const
     jsonObj["id"] = getId();
     jsonObj["ip"] = getIp();
     jsonObj["port"] = getPort();
+    jsonObj["enabled"] = getEnabled();
+    jsonObj["name"] = getName();
+    jsonObj["room"] = getRoom();
 
     QJsonArray devicesArray;
     foreach(UDevice* device, this->m_devices)

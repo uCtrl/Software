@@ -22,6 +22,7 @@ Rectangle {
         ipValue.text = platform.ip;
         idValue.text = platform.id;
         portValue.text = platform.port;
+        enabledStatusLabel.text = platform.enabled;
     }
 
     function hideForm() {
@@ -118,7 +119,7 @@ Rectangle {
             color: _colors.uTransparent
 
             ULabel.Default {
-
+                id: enabledStatusLabel
                 text: "ON"
 
                 anchors.verticalCenter: parent.verticalCenter
@@ -382,16 +383,16 @@ Rectangle {
     }
 
     UDeviceList {
-       id: devicesListContainer
+        id: devicesListContainer
 
-       anchors.top: bottomLine.bottom
-       anchors.topMargin: 4
+        anchors.top: bottomLine.bottom
+        anchors.topMargin: 4
 
-       anchors.bottom: parent.bottom
+        anchors.bottom: parent.bottom
 
-       anchors.left: parent.left
+        anchors.left: parent.left
 
-       width: parent.width;
+        width: parent.width;
     }
 
     UI.UForm {
@@ -432,6 +433,7 @@ Rectangle {
         function saveModel() {
             container.platform.name = inputName.text;
             container.platform.room = inputRoom.text;
+            container.platform.enabled = enabledSwitch.state;
 
             container.refresh(platform);
             systemFrame.notify();
@@ -476,7 +478,7 @@ Rectangle {
             anchors.left: form.left
             anchors.leftMargin: ((parent.width / 4) + 5);
 
-            function refresh() { state = "ON"; }
+            function refresh() { state = form.model.enabled; }
         }
 
         UI.UTextbox {
@@ -512,9 +514,9 @@ Rectangle {
 
         function refresh() {
             if (form.visible)
-               color = (form.isValid ? _colors.uTransparent : _colors.uDarkRed)
+                color = (form.isValid ? _colors.uTransparent : _colors.uDarkRed)
             else
-               color = _colors.uTransparent
+                color = _colors.uTransparent
         }
 
         UI.UFontAwesome {
