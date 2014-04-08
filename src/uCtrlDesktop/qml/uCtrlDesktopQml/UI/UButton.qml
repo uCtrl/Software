@@ -13,6 +13,12 @@ Rectangle {
     property color buttonColor: _colors.uGreen
     property color buttonHoveredColor: _colors.uMediumLightGreen
     property color buttonTextColor : _colors.uWhite
+    property color buttonDisabledColor : _colors.uLightGrey
+    property color buttonDisabledTextColor : _colors.uDarkGrey
+    property color buttonErrorColor : _colors.uDarkRed
+    property color buttonErrorHoveredColor : _colors.uRed
+    property color buttonErrorTextColor : _colors.uWhite
+
 
     height: 30
     width: 100
@@ -21,7 +27,7 @@ Rectangle {
     anchors.margins: 4
 
     color: _colors.uGreen
-    state: "NORMAL"
+    state: "ENABLED"
 
     function execute() {
         // @TODO : Change console log for alert
@@ -91,21 +97,21 @@ Rectangle {
         },
         State {
             name: "DISABLED"
-            PropertyChanges { target: button; color: _colors.uLightGrey }
-            PropertyChanges { target: label; color: _colors.uDarkGrey }
-            PropertyChanges { target: icon; iconColor: _colors.uDarkGrey }
+            PropertyChanges { target: button; color: buttonDisabledColor }
+            PropertyChanges { target: label; color: buttonDisabledTextColor }
+            PropertyChanges { target: icon; iconColor: buttonDisabledTextColor }
         },
         State {
             name: "ERROR"
-            PropertyChanges { target: button; color: _colors.uDarkRed }
-            PropertyChanges { target: label; color: _colors.uWhite }
-            PropertyChanges { target: icon; iconColor: _colors.uWhite }
+            PropertyChanges { target: button; color: buttonErrorColor }
+            PropertyChanges { target: label; color: buttonErrorTextColor }
+            PropertyChanges { target: icon; iconColor: buttonErrorTextColor }
         },
         State {
             name: "ERROR HOVERED"
-            PropertyChanges { target: button; color: _colors.uRed }
-            PropertyChanges { target: label; color: _colors.uWhite }
-            PropertyChanges { target: icon; iconColor: _colors.uWhite }
+            PropertyChanges { target: button; color: buttonErrorHoveredColor }
+            PropertyChanges { target: label; color: buttonErrorTextColor }
+            PropertyChanges { target: icon; iconColor: buttonErrorTextColor }
         }
     ]
 }

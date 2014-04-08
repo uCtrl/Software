@@ -4,15 +4,13 @@ import "../UI/ULabel" as ULabel
 
 Item {
     property var taskModel: taskList.model.getTaskAt(index)
+    property bool isEditMode: false
+    property bool showButtons: false
+
+    id: taskWidget
 
     width: parent.width
     height: 40 + conditionsContainer.adjustedHeight()
-
-    function toggleTasks() {
-        conditionsContainer.visible = !conditionsContainer.visible
-        toggleBtn.text = conditionsContainer.visible ? "-" : "+"
-        height = 40 + conditionsContainer.adjustedHeight()
-    }
 
     Rectangle {
         id: shadow
@@ -122,103 +120,141 @@ Item {
                 Component.onCompleted: text = taskModel.scenario.device.unitLabel + " when"
             }
 
-            UI.UButton {
-                id: toggleBtn
-
-                anchors.verticalCenter: parent.verticalCenter
-
-                text: "-"
-
-                width: 20
-                height: 20
-
+            Loader {
+                anchors.verticalCenter: changeStateLabel.verticalCenter
                 anchors.right: parent.right
-                anchors.rightMargin: 10
+                sourceComponent: getSourceComponent()
 
-                function execute() {
-                    toggleTasks()
+                function getSourceComponent() {
+                    if (showButtons && !isEditMode)
+                        return taskButtons
+
+                    if (isEditMode)
+                        return taskEditButtons
+
+                    return emptyTaskButtonsComponent
                 }
             }
 
-            UI.UIconButton {
-                id: deleteBtn
+            Component {
+                id: emptyTaskButtonsComponent
 
-                anchors.verticalCenter: parent.verticalCenter
-
-                text: "Remove"
-                iconSize: 12
-
-                width: 20
-                height: 20
-
-                anchors.right: toggleBtn.left
-                anchors.rightMargin: 10
-
-                function execute() {
-                    var pScenario = taskModel.scenario
-                    pScenario.deleteTaskAt(index)
+                Rectangle {
+                    width:0
+                    height:0
                 }
             }
 
-            UI.UIconButton {
-                id: moveDown
+            Component {
+                id: taskButtons
 
-                anchors.verticalCenter: parent.verticalCenter
+                Rectangle {
+                    anchors.verticalCenter: changeStateLabel.verticalCenter
+                    anchors.right: parent.right
 
-                text: "ArrowDown"
-                iconSize: 10
+                    UI.UButton {
+                        id: editTaskButton
 
-                width: 20
-                height: 20
+                        buttonColor: _colors.uWhite
+                        buttonHoveredColor: _colors.uMediumLightGrey
+                        buttonTextColor : _colors.uBlack
 
-                anchors.right: deleteBtn.left
-                anchors.rightMargin: 10
+                        anchors.verticalCenter: parent.verticalCenter
 
-                function execute() {
-                    var pScenario = taskModel.scenario
-                    pScenario.moveTask(index, index + 1)
-                }
-            }
+                        iconId: "Pencil"
+                        iconSize: 12
 
-            UI.UIconButton {
-                id: moveUp
+                        width: 20
+                        height: 20
 
-                anchors.verticalCenter: parent.verticalCenter
+                        anchors.right: moveUp.left
+                        anchors.rightMargin: 10
 
-                text: "ArrowUp"
-                iconSize: 10
+                        function execute() {
+                            var pCondition = taskModel.createCondition()
+                            taskModel.addCondition(pCondition)
+                        }
+                    }
 
-                width: 20
-                height: 20
+                    UI.UButton {
+                        id: moveUp
 
-                anchors.right: moveDown.left
-                anchors.rightMargin: 10
+                        buttonColor: _colors.uWhite
+                        buttonHoveredColor: _colors.uMediumLightGrey
+                        buttonTextColor : _colors.uBlack
+                        buttonDisabledColor: _colors.uWhite
+                        buttonDisabledTextColor: _colors.uMediumLightGrey
 
-                function execute() {
-                    var pScenario = taskModel.scenario
-                    pScenario.moveTask(index, index - 1)
-                }
-            }
+                        anchors.verticalCenter: parent.verticalCenter
 
-            UI.UButton {
-                id: addConditionBtn
+                        iconId: "Upload"
+                        iconSize: 12
 
-                anchors.verticalCenter: parent.verticalCenter
+                        width: 20
+                        height: 20
 
-                text: "A"
+                        anchors.right: moveDown.left
+                        anchors.rightMargin: 10
 
-                width: 20
-                height: 20
+                        function execute() {
+                            var pScenario = taskModel.scenario
+                            pScenario.moveTask(index, index - 1)
+                        }
+                    }
 
-                anchors.right: moveUp.left
-                anchors.rightMargin: 10
 
-                function execute() {
-                    var pCondition = taskModel.createCondition()
-                    taskModel.addCondition(pCondition)
+                    UI.UButton {
+                        id: moveDown
+
+                        buttonColor: _colors.uWhite
+                        buttonHoveredColor: _colors.uMediumLightGrey
+                        buttonTextColor : _colors.uBlack
+
+                        anchors.verticalCenter: parent.verticalCenter
+
+                        iconId: "Download"
+                        iconSize: 12
+
+                        width: 20
+                        height: 20
+
+                        anchors.right: deleteBtn.left
+                        anchors.rightMargin: 10
+
+                        function execute() {
+                            var pScenario = taskModel.scenario
+                            pScenario.moveTask(index, index + 1)
+                        }
+                    }
+
+                    UI.UButton {
+                        id: deleteBtn
+
+                        buttonColor: _colors.uWhite
+                        buttonHoveredColor: _colors.uMediumLightGrey
+                        buttonTextColor : _colors.uBlack
+
+                        anchors.verticalCenter: parent.verticalCenter
+
+                        iconId: "Remove"
+                        iconSize: 12
+
+                        width: 20
+                        height: 20
+
+                        anchors.right: parent.right
+                        anchors.rightMargin: 10
+
+                        function execute() {
+                            var pScenario = taskModel.scenario
+                            pScenario.deleteTaskAt(index)
+                        }
+                    }
                 }
             }
         }
+
+
 
         Rectangle {
             id: conditionsContainer
