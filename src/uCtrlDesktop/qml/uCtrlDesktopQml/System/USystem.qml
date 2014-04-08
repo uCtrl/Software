@@ -19,7 +19,6 @@ UI.UFrame {
         refresh(system)
     }
 
-
     contentItem: Rectangle {
         id: systemContainer
 
@@ -55,7 +54,9 @@ UI.UFrame {
                     var platform = {
                         "name": data.name,
                         "room": data.room,
-                        "reference": data
+                        "reference": data,
+                        "alphabet": data.name[0],
+                        "type": data.type
                     }
 
                    systemPlatforms.append(platform);
@@ -118,6 +119,8 @@ UI.UFrame {
 
             width: ((systemContainer.width/2) - systemContainer.separation)
             height: (systemContainer.height - header.height - 5)
+
+            section: filterCombo.selectedItem.value
         }
 
         Platform.UPlatform {
@@ -173,6 +176,18 @@ UI.UFrame {
             anchors.verticalCenter: header.verticalCenter
 
             width: 135; height: 30
+
+            itemListModel: [
+                                { value: "room",     displayedValue: "Location",     iconId: "MapMarker"},
+                            //  { value: "update",     displayedValue: "Last Updated", iconId: "Calendar"},     // Not in model yet
+                            //  { value: "status",     displayedValue: "Status",       iconId: "Magnet"},       // Not in model yet
+                            //  { value: "type",     displayedValue: "Device type",  iconId: "Magnet"}          // Not in platform model yet, still exists in device.
+                                { value: "alphabet", displayedValue: "Name",         iconId: "Font"}
+                            ]
+
+            onSelectedItemChanged:{
+                platformListContainer.section = selectedItem.value
+            }
         }
 
         Component.onCompleted: { loadPlatforms() }
