@@ -11,6 +11,8 @@ Rectangle {
     width: parent.width; height: parent.height
     color: _colors.uTransparent
 
+    signal afterValidate
+
     function refreshChildren() {
        for (var i=0; i<container.children.length; i++) {
            try {
@@ -23,19 +25,18 @@ Rectangle {
 
     function validate() {
         var valid = true
-        var index = 0
-
-        while (valid && index<container.children.length) {
+        for(var i = 0; i < container.children.length; i++) {
             try {
-                if (valid && container.children[index].isValid !== undefined) valid = container.children[index].isValid
+                valid &= container.children[i].validate()
             } catch (err) {
                 console.log("WARNING: Component inserted in a form with no validate function.")
             }
-
-            index++;
         }
 
         isValid = valid
+        container.afterValidate()
+
+        return valid
     }
 
     Component.onCompleted: validate()

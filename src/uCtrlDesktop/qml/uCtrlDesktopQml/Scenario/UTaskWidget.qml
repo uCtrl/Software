@@ -4,8 +4,8 @@ import "../UI/ULabel" as ULabel
 
 Item {
     property var taskModel: taskList.model.getTaskAt(index)
-    property bool isEditMode: false
-    property bool showButtons: false
+    property bool isEditMode: true
+    property bool showButtons: true
 
     id: taskWidget
 
@@ -146,12 +146,21 @@ Item {
             }
 
             Component {
+                id: taskEditButtons
+
+                UI.USaveCancel {
+                    height: changeStateLabel.height
+                    width: height*2.5
+
+                    onSave: save()
+                    onCancel: isEditMode = false
+                }
+            }
+
+            Component {
                 id: taskButtons
 
                 Rectangle {
-                    anchors.verticalCenter: changeStateLabel.verticalCenter
-                    anchors.right: parent.right
-
                     UI.UButton {
                         id: editTaskButton
 
@@ -171,8 +180,7 @@ Item {
                         anchors.rightMargin: 10
 
                         function execute() {
-                            var pCondition = taskModel.createCondition()
-                            taskModel.addCondition(pCondition)
+                            isEditMode = true
                         }
                     }
 
@@ -254,8 +262,6 @@ Item {
             }
         }
 
-
-
         Rectangle {
             id: conditionsContainer
             clip: true
@@ -279,7 +285,8 @@ Item {
                 spacing:5
                 interactive:false
 
-                delegate: UTaskConditionWidget { }
+                delegate: UTaskConditionWidget {
+                }
             }
         }
     }
