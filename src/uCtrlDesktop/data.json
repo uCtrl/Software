@@ -50,6 +50,12 @@
                                     ],
                                     "id": 1782103626,
                                     "status": "13"
+                                },
+                                {
+                                    "conditions": [
+                                    ],
+                                    "id": 1782103628,
+                                    "status": "0"
                                 }
                             ]
                         }
@@ -105,13 +111,19 @@
                                         }
                                     ],
                                     "id": 1782103626,
+                                    "status": "ON"
+                                },
+                                {
+                                    "conditions": [
+                                    ],
+                                    "id": 1782103626,
                                     "status": "OFF"
                                 }
                             ]
                         }
                     ],
                     "type": 2,
-                    "unitLabel": "\u00B0C",
+                    "unitLabel": "",
                     "isTriggerValue": true
                 }
             ],
@@ -176,6 +188,12 @@
                                     ],
                                     "id": 1782103626,
                                     "status": "30"
+                                },
+                                {
+                                    "conditions": [
+                                    ],
+                                    "id": 1782103627,
+                                    "status": "0"
                                 }
                             ]
                         }

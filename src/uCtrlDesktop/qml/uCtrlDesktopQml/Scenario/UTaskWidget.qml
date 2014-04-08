@@ -4,8 +4,11 @@ import "../UI/ULabel" as ULabel
 
 Item {
     property var taskModel: taskList.model.getTaskAt(index)
-    property bool isEditMode: true
+    property bool isEditMode: false
     property bool showButtons: true
+
+    property bool canMoveUp: !(index === 0 || index === taskList.count - 1)
+    property bool canMoveDown: !(index === taskList.count - 1 || index === taskList.count - 2)
 
     id: taskWidget
 
@@ -61,48 +64,68 @@ Item {
 
                 radius: 10
 
+                property string tmpValue: taskModel.status
+
                 Loader {
                     id: statusTaskLoader
                     sourceComponent: getSourceComponent()
 
                     function getSourceComponent() {
+                        if (!isEditMode)
+                            return statusLabel
+
                         if (taskModel.scenario.device.isTriggerValue) {
                             return statusComboBox
                         }
 
                         return statusTextBox
                     }
+                }
 
-                    Component {
-                        id: statusComboBox
+                Component {
+                    id: statusLabel
 
-                        UI.USwitch
-                        {
-                            anchors.centerIn: parent
-                            state: taskModel.status
+                    Rectangle {
+                        width: 100
+                        height: changeStateLabel.height
+                        radius: 5
+                        color: _colors.uGreen
 
-                            onStateChanged: {
-                                setTaskStatus(state)
-                            }
-                        }
-                    }
-
-                    // TODO: Validate stuff with min max values + format with precision??
-                    Component {
-                        id: statusTextBox
-
-                        UI.UTextbox {
-                            width: 100
+                        ULabel.Heading3 {
                             text: taskModel.status
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            anchors.verticalCenter: parent.verticalCenter
 
-                            onTextChanged: {
-                                statusTaskLoader.setTaskStatus(text)
-                            }
+                            color: _colors.uWhite
                         }
                     }
+                }
 
-                    function setTaskStatus(newStatus) {
-                        taskModel.status = newStatus
+                Component {
+                    id: statusComboBox
+
+                    UI.USwitch
+                    {
+                        anchors.centerIn: parent
+                        state: taskModel.status
+
+                        onStateChanged: {
+                            stateContainer.tmpValue = state
+                        }
+                    }
+                }
+
+                // TODO: Validate stuff with min max values + format with precision??
+                Component {
+                    id: statusTextBox
+
+                    UI.UTextbox {
+                        width: 100
+                        text: taskModel.status
+
+                        onTextChanged: {
+                            stateContainer.tmpValue = text
+                        }
                     }
                 }
             }
@@ -113,11 +136,16 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: stateContainer.right
 
-                text: taskModel.scenario.device.unitLabel + " when"
+                text: getText()
                 font.pointSize: 14
                 color: _colors.uDarkGrey
 
-                Component.onCompleted: text = taskModel.scenario.device.unitLabel + " when"
+                function getText() {
+                    if (index == taskList.count - 1)
+                        return taskModel.scenario.device.unitLabel + " otherwise"
+
+                    return taskModel.scenario.device.unitLabel + " when"
+                }
             }
 
             Loader {
@@ -152,8 +180,18 @@ Item {
                     height: changeStateLabel.height
                     width: height*2.5
 
-                    onSave: save()
-                    onCancel: isEditMode = false
+                    onSave: saveTask()
+                    onCancel: cancelEditTask()
+
+                    function saveTask() {
+                        taskModel.status = stateContainer.tmpValue
+                        isEditMode = false
+                    }
+
+                    function cancelEditTask() {
+                        stateContainer.tmpValue = taskModel.status
+                        isEditMode = false
+                    }
                 }
             }
 
@@ -205,6 +243,9 @@ Item {
                         anchors.rightMargin: 10
 
                         function execute() {
+                            if (!canMoveUp)
+                                return
+
                             var pScenario = taskModel.scenario
                             pScenario.moveTask(index, index - 1)
                         }
@@ -217,6 +258,9 @@ Item {
                         buttonColor: _colors.uWhite
                         buttonHoveredColor: _colors.uMediumLightGrey
                         buttonTextColor : _colors.uBlack
+                        buttonDisabledColor: _colors.uWhite
+                        buttonDisabledTextColor: _colors.uMediumLightGrey
+
 
                         anchors.verticalCenter: parent.verticalCenter
 
@@ -230,6 +274,9 @@ Item {
                         anchors.rightMargin: 10
 
                         function execute() {
+                            if (!canMoveDown)
+                                return
+
                             var pScenario = taskModel.scenario
                             pScenario.moveTask(index, index + 1)
                         }
@@ -241,6 +288,8 @@ Item {
                         buttonColor: _colors.uWhite
                         buttonHoveredColor: _colors.uMediumLightGrey
                         buttonTextColor : _colors.uBlack
+                        buttonDisabledColor: _colors.uWhite
+                        buttonDisabledTextColor: _colors.uMediumLightGrey
 
                         anchors.verticalCenter: parent.verticalCenter
 
@@ -256,6 +305,11 @@ Item {
                         function execute() {
                             var pScenario = taskModel.scenario
                             pScenario.deleteTaskAt(index)
+                        }
+
+                        Component.onCompleted: {
+                            if (index === taskList.count - 1)
+                                state = "DISABLED"
                         }
                     }
                 }
