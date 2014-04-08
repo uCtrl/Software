@@ -9,6 +9,7 @@ Rectangle {
 
     function refresh(newPlatform) {
         platform = newPlatform
+
         if (platform !== null) {
             devicesListContainer.refresh(platform);
             form.refresh(platform);
@@ -200,8 +201,6 @@ Rectangle {
             }
         }
     }
-
-
 
     Rectangle {
         id: advancedInformation

@@ -19,6 +19,7 @@ UI.UFrame {
         refresh(system)
     }
 
+
     contentItem: Rectangle {
         id: systemContainer
 
@@ -42,6 +43,31 @@ UI.UFrame {
         height: (scrollView.height - (constSize *2))
 
         color: _colors.uTransparent
+
+        function loadPlatforms() {
+            var otherPlatforms = true
+            var index = 0;
+
+            while(otherPlatforms) {
+                var data = mySystem.getPlatformAt(index);
+
+                if (data !== null) {
+                    var platform = {
+                        "name": data.name,
+                        "room": data.room,
+                        "reference": data
+                    }
+
+                   systemPlatforms.append(platform);
+
+                    index++;
+                } else {
+                    otherPlatforms = false
+                }
+            }
+        }
+
+        ListModel { id: systemPlatforms }
 
         Rectangle {
             id: header
@@ -148,5 +174,7 @@ UI.UFrame {
 
             width: 135; height: 30
         }
+
+        Component.onCompleted: { loadPlatforms() }
     }
 }

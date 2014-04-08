@@ -3,8 +3,9 @@ import QtQuick 2.0
 Rectangle {
     id: list
 
-    property var platforms: null
+    property var platforms: null //systemFrame.platforms
     property string filterValue: ""
+    property string section: "room"
 
     clip: true
 
@@ -13,7 +14,7 @@ Rectangle {
     color: _colors.uWhite
 
     function refresh(newPlatformsList) {
-        platforms = newPlatformsList
+        //platforms = newPlatformsList
     }
 
     function setFilter(filter) {
@@ -22,72 +23,95 @@ Rectangle {
 
     ListView {
         id: platformsList
+
         anchors.fill: parent
 
+        model: systemPlatforms
+
+
         highlight: Rectangle {
-            id: highlightBar
+            id: highlighter
 
-            visible: (systemContainer.activePlatform !== null)
+            visible: true
 
-            width: list.width; height: 60
+            width: parent.width; height: 60;
 
             color: _colors.uUltraLightGrey
 
             y: (platformsList.currentItem === null ? -1 : platformsList.currentItem.y);
             Behavior on y { SpringAnimation { spring: 1; damping: 0.1 } }
+
+            Component.onCompleted: z=2
         }
+
         highlightFollowsCurrentItem: false
 
-        model: platforms
-        delegate: Loader {
-            sourceComponent: getSourceComponent()
+        delegate: UPlatform {
+            id: repeated
 
-            function getSourceComponent() {
-                var platform = platforms.getPlatformAt(index)
-                if (systemContainer.activePlatform === platform)
-                    platformsList.currentIndex = index
+            platformModel: reference
 
-                if (list.filterValue === "")
-                    return platformContainer
+            width: platformsList.width
 
-                if (sourceContainsFilter(platform.name, filterValue)
-                    || sourceContainsFilter(toString(platform.id), filterValue)
-                    || sourceContainsFilter(platform.ip, filterValue)
-                    || sourceContainsFilter(toString(platform.port), filterValue)
-                    || sourceContainsFilter(platform.room, filterValue))
-                    return platformContainer
+            Component.onCompleted:{ z=3; }
+        }
 
-                if (systemContainer.activePlatform === platform)
-                    platformsList.currentIndex = -1
+        section.property: "room"
+        section.criteria: ViewSection.FullString
+        section.delegate: Rectangle {
+            id: header
 
-                return emptyComponent
+            property bool showChildren: true
+
+            width: parent.width; height: 24;
+
+            color: _colors.uGreen
+
+            Text {
+                id: room
+
+                text: section
+                color: "white"
+
+                anchors.left: parent.left
+                anchors.leftMargin: 5
+
+                anchors.verticalCenter: parent.verticalCenter
             }
 
-            function sourceContainsFilter (source, filter) {
-                return source.toLowerCase().indexOf(filter.toLowerCase()) !== -1
+            MouseArea {
+                id: headerArea
+
+                anchors.fill: parent
+
+                onClicked: header.showChildren = !header.showChildren
             }
+        }
 
-            Component {
-                id: platformContainer
-
-                UPlatform {
-                    platformModel: platforms.getPlatformAt(index)
-                    width: platformsList.width
-                }
-            }
-
-            Component {
-                id: emptyComponent
-
-                Rectangle {
-                    width: 0
-                    height: 0
-                }
-            }
-        }       
+        onModelChanged:{
+            section.property = list.section
+            section.criteria = ViewSection.FullString
+        }
     }
 
     Component.onCompleted: {
-        platformsList.currentIndex = -1
+        platformsList.currentIndex = 0
+    }
+
+    Rectangle {
+        id: test
+
+        height: 20; width: 20
+
+        anchors.centerIn: parent
+
+        color: _colors.uDarkRed
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked:{
+                platformsList.section.property = (platformsList.section.property == "status" ? "room" : "status")
+            }
+        }
     }
 }
