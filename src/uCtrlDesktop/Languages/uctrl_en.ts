@@ -4,20 +4,12 @@
 <context>
     <name>UDeviceConfigurationWidget</name>
     <message>
-        <source>Configuration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>UDeviceInfoWidget</name>
-    <message>
-        <source>Information</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Name :</source>
         <translation type="unfinished"></translation>
@@ -52,24 +44,13 @@
     </message>
 </context>
 <context>
-    <name>UDeviceSummary</name>
-    <message>
-        <source>Configuration</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>UHome</name>
     <message>
         <source>Homepage</source>
-        <translation type="unfinished">Homepage</translation>
+        <translation type="obsolete">Homepage</translation>
     </message>
     <message>
         <source>Click me !</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hello, I am &lt;b&gt;bold&lt;/b&gt; !</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -92,30 +73,37 @@
         <source>h5. Heading 5</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Hello, I am &lt;b&gt;a default bold text&lt;/b&gt; !</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UMenuFrame</name>
     <message>
         <source>Homepage</source>
-        <translation>Homepage</translation>
-    </message>
-    <message>
-        <source>Configuration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Homepage</translation>
     </message>
 </context>
 <context>
     <name>UStatistics</name>
     <message>
-        <source>Statistics</source>
+        <source>Hello World !</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UTaskWidget</name>
+    <message>
+        <source>Set to</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Hello World !</source>
+        <source>otherwise</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>when</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -45,7 +45,7 @@ Item {
 
             ULabel.Default {
                 id: changeStateLabel
-                text: "Set to"
+                text: qsTr("Set to")
                 anchors.verticalCenter: parent.verticalCenter
                 font.pointSize: 14
                 color: _colors.uDarkGrey
@@ -142,9 +142,9 @@ Item {
 
                 function getText() {
                     if (index == taskList.count - 1)
-                        return taskModel.scenario.device.unitLabel + " otherwise"
+                        return taskModel.scenario.device.unitLabel + " " + qsTr("otherwise")
 
-                    return taskModel.scenario.device.unitLabel + " when"
+                    return taskModel.scenario.device.unitLabel + " " + qsTr("when")
                 }
             }
 
