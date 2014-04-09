@@ -2,8 +2,10 @@ import QtQuick 2.0
 
 Rectangle {
     id: saveCancel
-    width: 90
+    width: saveButton.width + cancelButton.width + 5
     height: 30
+
+    color: _colors.uTransparent
 
     property bool saveEnabled: true
 

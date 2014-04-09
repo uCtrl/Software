@@ -484,6 +484,8 @@ UI.UFrame {
 
                 height: 40
 
+                controlsToValidate: [toggledText, toggledFormCheck]
+
                 property bool success: true
 
                 UI.UTextbox {

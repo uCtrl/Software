@@ -64,7 +64,7 @@ Rectangle {
     function startStopEdit() {
         if (editReadOnly) {
             editReadOnly = false;
-            editColorZone = _colors.uLightGrey;
+            editColorZone = _colors.uWhite;
         } else {
             editColorZone = _colors.uTransparent;
             editReadOnly = true;

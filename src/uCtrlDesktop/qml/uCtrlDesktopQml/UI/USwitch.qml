@@ -5,6 +5,7 @@ import "../UI/ULabel" as ULabel
 Rectangle {
     property int borderRadius: 5
     property int animationTime: 200
+
     state: "ON"
 
     id: container
@@ -12,6 +13,8 @@ Rectangle {
     height: 30
     radius: height / 2
     color: _colors.uLightGreen
+
+    clip: true
 
     Rectangle {
         id: circle
@@ -67,6 +70,8 @@ Rectangle {
             else {
                 container.state = "ON"
             }
+
+            stateChanged(container.state)
         }
     }
 
@@ -102,7 +107,7 @@ Rectangle {
             ColorAnimation { target: circle; duration: animationTime }
             ColorAnimation { target: container; duration: animationTime }
             PropertyAnimation { target: offLabel; property: "opacity"; duration: animationTime }
-            PropertyAnimation { target: onLabel; property: "opacity"; duration: animationTime / 2 }
+            PropertyAnimation { target: onLabel; property: "opacity"; duration: animationTime }
             PropertyAnimation { target: circle; property: "anchors.rightMargin"; duration: animationTime; easing { type: Easing.InOutQuad } }
         },
         Transition {
@@ -110,7 +115,7 @@ Rectangle {
             to: "ON"
             ColorAnimation { target: circle; duration: animationTime }
             ColorAnimation { target: container; duration: animationTime }
-            PropertyAnimation { target: offLabel; property: "opacity"; duration: animationTime / 2 }
+            PropertyAnimation { target: offLabel; property: "opacity"; duration: animationTime }
             PropertyAnimation { target: onLabel; property: "opacity"; duration: animationTime }
             PropertyAnimation { target: circle; property: "anchors.rightMargin"; duration: animationTime; easing { type: Easing.InOutQuad } }
         }

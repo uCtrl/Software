@@ -4,102 +4,50 @@ import "../Device" as Device
 
 UI.UFrame {
     property var device: null
+
+    id: infoDevide
     requiredModel: true
 
     function refresh(newDevice) {
-        device = newDevice
-        deviceHeader.refresh(device)
+        infoDevide.device = newDevice
+        deviceHeader.refresh(infoDevide.device)
     }
 
     contentItem: Rectangle {
+        anchors.top: parent.top
+        anchors.left: parent.left
+
+        color: _colors.uLightGrey
+        width: infoDevide.width;
+        height: infoDevide.height
+
         Device.UHeader {
             id: deviceHeader
 
-            device: device
+            device: infoDevide.device
         }
 
         Rectangle {
-            width: parent.width
+            clip:true
+
             anchors.top: deviceHeader.bottom
-            color: _colors.uWhite
+            anchors.bottom: parent.bottom
 
-            UDeviceInfoCell {
-                id: nameCase
-                anchors.top: parent.top
-                title: qsTr("Name :")
+            width: parent.width
 
-                UDeviceInfoEdit {
-                    text: "Left bedside table"
-                }
-            }
+            color: _colors.uTransparent
+            visible: true
 
-            UDeviceInfoCell {
-                id: roomCase
-                anchors.top: nameCase.bottom
-                title: qsTr("Room :")
+            ListView {
+                id: infoList
+                anchors.fill: parent
 
-                UDeviceInfoEdit {
-                    text: "Master chamber"
-                }
-            }
+                model: infoDevide.device ? infoDevide.device.getDeviceInfo() : null
 
-            UDeviceInfoCell {
-                id: typeCase
-                anchors.top: roomCase.bottom
-                title: qsTr("Type :")
-
-                UDeviceInfoEdit {
-                    text: "Light"
-                }
-            }
-
-            UDeviceInfoCell {
-                id: stateCase
-                anchors.top: typeCase.bottom
-                title: qsTr("State :")
-
-                UDeviceInfoFixed {
-                    text: "Close"
-                }
-            }
-
-            UDeviceInfoCell {
-                id: macCase
-                anchors.top: stateCase.bottom
-                title: qsTr("MAC address :")
-
-                UDeviceInfoFixed {
-                    text: "00:11:22:33:44:55:66:77"
-                }
-            }
-
-            UDeviceInfoCell {
-                id: ipCase
-                anchors.top: macCase.bottom
-                title: qsTr("IP address :")
-
-                UDeviceInfoFixed {
-                    text: "127.0.0.1"
-                }
-            }
-
-            UDeviceInfoCell {
-                id: idCase
-                anchors.top: ipCase.bottom
-                title: qsTr("ID  :")
-
-                UDeviceInfoFixed {
-                    text: "C3PO"
-                }
-            }
-
-            UDeviceInfoCell {
-                id: firmwareVCase
-                anchors.top: idCase.bottom
-                title: qsTr("Firmware version :")
-
-                UDeviceInfoFixed {
-                    text: "0.0.1 Alpha R0"
+                delegate: UDeviceInfoCell {
+                    title: infoDevide.device.getDeviceInfo().getDeviceInfoFieldsKeys()[index]
+                    value: infoDevide.device.getDeviceInfo().getDeviceInfoFields()[title]["value"]
+                    isEditable: infoDevide.device.getDeviceInfo().getDeviceInfoFields()[title]["isEditable"]
                 }
             }
         }

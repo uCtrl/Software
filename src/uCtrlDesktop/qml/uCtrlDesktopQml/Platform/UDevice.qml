@@ -90,4 +90,37 @@ Rectangle {
             main.swap(_paths.uConfig, "", deviceModel)
         }
     }
+
+    Rectangle {
+        id: informationRight
+        anchors.right: chevronRight.left
+        anchors.rightMargin: 40
+
+        height: parent.height
+        width: 40
+
+        anchors.verticalCenter: container.verticalCenter
+
+        color: _colors.uTransparent
+
+        UI.UFontAwesome {
+            id: informationIconRight
+
+            anchors.fill: parent
+
+            iconId: "InfoSign"
+            iconSize: 32
+            iconColor: _colors.uGreen
+        }
+
+        MouseArea {
+            anchors.fill: parent
+
+            cursorShape: "PointingHandCursor"
+
+            onClicked: {
+                main.swap(_paths.uInfo, "", deviceModel)
+            }
+        }
+    }
 }
