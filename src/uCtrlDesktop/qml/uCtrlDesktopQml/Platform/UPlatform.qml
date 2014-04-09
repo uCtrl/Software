@@ -5,28 +5,138 @@ import "../UI/ULabel" as ULabel
 Rectangle {
     id: container
 
-    property var platform: {"name": "UNKNOWN", "room": "UNKNOWN", "ip": "255.255.255.255", "id": 0, "port": 0}
+    property var platform: {"enabled": "ON", "name": "UNKNOWN", "room": "UNKNOWN", "ip": "255.255.255.255", "id": 0, "port": 0}
+    property bool isEditing : false
+
+    function startEditing() {
+        isEditing = true
+
+        platformNameTextBox.text = platform.name
+        locationTextbox.text = platform.room
+    }
+
+    function saveEditing() {
+        isEditing = false
+
+        container.platform.name = platformNameTextBox.text;
+        container.platform.room = locationTextbox.text;
+        container.platform.enabled = enabledSwitch.state;
+
+        container.refresh(platform);
+        systemFrame.notify();
+    }
+
+    function cancelEditing() {
+        isEditing = false
+    }
 
     function refresh(newPlatform) {
         platform = newPlatform
         if (platform !== null) {
             devicesListContainer.refresh(platform);
-            form.refresh(platform);
-            refreshLabel()
+            cancelEditing()
+            refreshData()
         }
     }
 
-    function refreshLabel() {
-        locationText.text = platform.room;
-        platformName.text = platform.name;
-        ipValue.text = platform.ip;
-        idValue.text = platform.id;
-        portValue.text = platform.port;
-        enabledStatusLabel.text = platform.enabled;
+    function refreshData() {
+        platformName.text = platform.name
+        enabledStatusLabel.text = platform.enabled
+        locationText.text = platform.room
     }
 
-    function hideForm() {
-        form.visible = false
+    UI.UForm {
+        id: platformValidator
+        controlsToValidate: [ platformNameTextBox ]
+
+        onAfterValidate: {
+            saveCancelPlatform.changeSaveButtonState(isValid)
+        }
+    }
+
+    Rectangle {
+        id: info
+
+        anchors.top: parent.top
+        anchors.left: parent.left
+
+        width: parent.width
+        height: 50
+
+        color: _colors.uTransparent
+
+        ULabel.Default {
+            id: platformName
+
+            anchors.verticalCenter: parent.verticalCenter
+
+            anchors.left: parent.left
+            anchors.leftMargin: 15
+
+            visible: !isEditing
+
+            text: ""
+
+            font.pointSize: 24
+            font.bold: true
+            color: _colors.uBlack
+        }
+
+        UI.UButton {
+            iconId: "Pencil"
+            iconSize: 24
+
+            anchors.right: parent.right
+            anchors.rightMargin: 15
+            anchors.verticalCenter: parent.verticalCenter
+            width: 30
+            height: 30
+
+            visible: !isEditing
+
+            buttonTextColor: _colors.uBlack
+            buttonColor: _colors.uTransparent
+            buttonHoveredColor: _colors.uGrey
+
+            onClicked: {
+                startEditing()
+            }
+        }
+
+        UI.UTextbox {
+            id: platformNameTextBox
+
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+            anchors.leftMargin: 15
+            anchors.right: saveCancelPlatform.left
+            anchors.rightMargin: 15
+
+            height: 30
+            placeholderText: "Enter a platform name"
+
+            visible: isEditing
+
+            function validate() {
+                return text !== ""
+            }
+
+            state: (validate() ? "SUCCESS" : "ERROR")
+            onTextChanged: { platformValidator.validate() }
+        }
+
+        UI.USaveCancel {
+            id: saveCancelPlatform
+
+            visible: isEditing
+
+            anchors.right: parent.right
+            anchors.rightMargin: 15
+
+            anchors.verticalCenter: parent.verticalCenter
+            onSave: { saveEditing() }
+            onCancel: { cancelEditing() }
+        }
     }
 
     Rectangle {
@@ -34,13 +144,15 @@ Rectangle {
         anchors.top: container.top
         anchors.topMargin: (platformName.height + 15)
 
-        width: (parent.width / 4); height: 30
+        width: parent.width; height: 30
 
         color: _colors.uTransparent
 
         ULabel.Default {
-
+            id: enabledTitle
             text: "Enabled"
+
+            width: 100
 
             anchors.left: parent.left
             anchors.leftMargin: 15
@@ -50,6 +162,30 @@ Rectangle {
             font.pointSize: 16
             font.bold: true
             color: _colors.uGrey
+        }
+
+        ULabel.Default {
+            id: enabledStatusLabel
+            text: "ON"
+
+            anchors.left: enabledTitle.right
+            anchors.verticalCenter: parent.verticalCenter
+
+            visible: !isEditing
+
+            font.pointSize: 16
+            font.bold: true
+            color: _colors.uGreen
+        }
+
+        UI.USwitch {
+            id: enabledSwitch
+            state: platform.enabled
+
+            anchors.left: enabledTitle.right
+            anchors.verticalCenter: parent.verticalCenter
+
+            visible: isEditing
         }
     }
 
@@ -59,13 +195,15 @@ Rectangle {
         anchors.top: enabledLabel.bottom
         anchors.topMargin: 5
 
-        width: (parent.width / 4); height: 30
+        width: parent.width; height: 30
 
         color: _colors.uTransparent
 
         ULabel.Default {
-
+            id: locationTitle
             text: "Location"
+
+            width: 100
 
             anchors.left: parent.left
             anchors.leftMargin: 15
@@ -76,143 +214,100 @@ Rectangle {
             font.bold: true
             color: _colors.uGrey
         }
-    }
-
-    Rectangle {
-        id: info
-
-        visible: (!form.visible)
-
-        anchors.top: container.top
-        anchors.left: container.left
-        anchors.right: container.right
-
-        height: (container.height / 4)
-
-        color: _colors.uTransparent
 
         ULabel.Default {
-            id: platformName
-
-            anchors.top: parent.top
-            anchors.topMargin: 13
-
-            anchors.left: parent.left
-            anchors.leftMargin: 15
+            id: locationText
 
             text: ""
 
-            font.pointSize: 32
+            visible: !isEditing
+
+            anchors.left: locationTitle.right
+            anchors.verticalCenter: parent.verticalCenter
+
+            font.pointSize: 16
             font.bold: true
-            color: _colors.uBlack
+            color: _colors.uGreen
         }
 
-        Rectangle {
-            id: enabledStatus
-            anchors.top: platformName.bottom
+        UI.UTextbox {
+            id: locationTextbox
 
-            anchors.left: parent.left
-            anchors.leftMargin: (enabledLabel.width + 10)
+            anchors.left: locationTitle.right
+            anchors.leftMargin: -1
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: parent.right
+            anchors.rightMargin: 15
 
-            width: (((parent.width / 4) * 3) - 5); height: 30
+            height: 30
 
-            color: _colors.uTransparent
-
-            ULabel.Default {
-                id: enabledStatusLabel
-                text: "ON"
-
-                anchors.verticalCenter: parent.verticalCenter
-
-                font.pointSize: 16
-                font.bold: true
-                color: _colors.uGreen
-            }
-        }
-
-        Rectangle {
-            id: locationStatus
-            anchors.top: enabledStatus.bottom
-
-            anchors.left: parent.left
-            anchors.leftMargin: (locationLabel.width + 10)
-
-            width: (((parent.width / 4) * 3) - 5); height: 30
-
-            color: _colors.uTransparent
-
-            ULabel.Default {
-                id: locationText
-
-                text: ""
-
-                anchors.verticalCenter: parent.verticalCenter
-
-                font.pointSize: 16
-                font.bold: true
-                color: _colors.uGreen
-            }
+            visible: isEditing
+            placeholderText: "Enter a location"
         }
     }
 
-    UI.UFontAwesome {
-        id: networkIcon
+    Rectangle {
+        id: networkInformation
 
-        iconId: "Globe"
-        iconSize: 16
-        iconColor: _colors.uMediumLightGrey
+        width: parent.width
+        height: 30
 
-        anchors.top: info.bottom
+        anchors.top: locationLabel.bottom
+        anchors.topMargin: 5
 
-        anchors.left: container.left
-        anchors.leftMargin: 25
+        UI.UFontAwesome {
+            id: networkIcon
 
-        opacity: 0.8
-    }
+            anchors.left: parent.left
+            anchors.leftMargin: 25
 
-    ULabel.Default {
-        id: showMoreInformations
+            iconId: "Globe"
+            iconSize: 16
+            iconColor: _colors.uMediumLightGrey
 
-        visible: true
+            anchors.verticalCenter: parent.verticalCenter
+        }
 
-        text: updateText()
+        ULabel.Default {
+            id: showMoreInformation
 
-        anchors.top: networkIcon.top
-        anchors.topMargin: -5
+            visible: true
 
-        anchors.left: networkIcon.right
-        anchors.leftMargin: 10
+            text: updateText()
 
-        color: _colors.uGrey
+            anchors.verticalCenter: parent.verticalCenter
 
-        font.pointSize: 12
+            anchors.left: networkIcon.right
+            anchors.leftMargin: 15
 
-        opacity: 0.8
+            color: _colors.uGrey
 
-        function updateText() {
-            text = (advancedInformation.visible ? "Hide network information" : "Show network information")
+            font.pointSize: 12
+
+            function updateText() {
+                text = (advancedInformation.visible ? "Hide network information" : "Show network information")
+            }
         }
 
         MouseArea {
             anchors.fill: parent;
             onClicked: {
                 advancedInformation.visible = !advancedInformation.visible;
-                showMoreInformations.updateText();
+                showMoreInformation.updateText();
             }
         }
     }
 
-
-
     Rectangle {
         id: advancedInformation
 
-        anchors.top: showMoreInformations.bottom
+        anchors.top: networkInformation.bottom
         anchors.topMargin: 5
 
         anchors.left: parent.left
 
-        width: parent.width; height: 110;
+        width: parent.width
+        height: (visible ? 110 : 0)
 
         visible: false
 
@@ -223,13 +318,15 @@ Rectangle {
 
             anchors.top: advancedInformation.top
 
-            width: (parent.width / 4); height: 30
+            width: parent.width; height: 30
 
             color: _colors.uTransparent
 
             ULabel.Default {
-
+                id: ipTitle
                 text: "IP Adress"
+
+                width: 100
 
                 anchors.left: parent.left
                 anchors.leftMargin: 15
@@ -240,24 +337,13 @@ Rectangle {
                 font.bold: true
                 color: _colors.uGrey
             }
-        }
-
-        Rectangle {
-            id: ipContainer
-            anchors.top: ipLabel.top
-
-            anchors.left: parent.left
-            anchors.leftMargin: (enabledLabel.width + 10)
-
-            width: (((parent.width / 4) * 3) - 5); height: 30
-
-            color: _colors.uTransparent
 
             ULabel.Default {
                 id: ipValue
 
                 text: platform.ip
 
+                anchors.left: ipTitle.right
                 anchors.verticalCenter: parent.verticalCenter
 
                 font.pointSize: 16
@@ -272,14 +358,14 @@ Rectangle {
             anchors.top: ipLabel.bottom
             anchors.topMargin: 4
 
-            width: (parent.width / 4); height: 30
+            width: parent.width; height: 30
 
             color: _colors.uTransparent
 
             ULabel.Default {
-
+                id: idTitle
                 text: "Identifier"
-
+                width: 100
                 anchors.left: parent.left
                 anchors.leftMargin: 15
 
@@ -289,24 +375,13 @@ Rectangle {
                 font.bold: true
                 color: _colors.uGrey
             }
-        }
-
-        Rectangle {
-            id: idContainer
-            anchors.top: idLabel.top
-
-            anchors.left: parent.left
-            anchors.leftMargin: (enabledLabel.width + 10)
-
-            width: (((parent.width / 4) * 3) - 5); height: 30
-
-            color: _colors.uTransparent
 
             ULabel.Default {
                 id: idValue
 
                 text: platform.id
 
+                anchors.left: idTitle.right
                 anchors.verticalCenter: parent.verticalCenter
 
                 font.pointSize: 16
@@ -326,9 +401,9 @@ Rectangle {
             color: _colors.uTransparent
 
             ULabel.Default {
-
+                id: portTitle
                 text: "Port"
-
+                width: 100
                 anchors.left: parent.left
                 anchors.leftMargin: 15
 
@@ -338,24 +413,12 @@ Rectangle {
                 font.bold: true
                 color: _colors.uGrey
             }
-        }
-
-        Rectangle {
-            id: portContainer
-            anchors.top: portLabel.top
-
-            anchors.left: parent.left
-            anchors.leftMargin: (enabledLabel.width + 10)
-
-            width: (((parent.width / 4) * 3) - 5); height: 30
-
-            color: _colors.uTransparent
 
             ULabel.Default {
                 id: portValue
 
                 text: platform.port
-
+                anchors.left: portTitle.right
                 anchors.verticalCenter: parent.verticalCenter
 
                 font.pointSize: 16
@@ -376,8 +439,8 @@ Rectangle {
         anchors.left: parent.left
         anchors.leftMargin: marginSize
 
-        anchors.top: (form.visible ? container.bottom : (advancedInformation.visible ? advancedInformation.bottom : showMoreInformations.bottom))
-        anchors.topMargin: 20
+        anchors.top: advancedInformation.bottom
+        anchors.topMargin: 10
 
         color: _colors.uLightGrey
     }
@@ -394,7 +457,7 @@ Rectangle {
 
         width: parent.width;
     }
-
+    /*
     UI.UForm {
         id: form
 
@@ -496,79 +559,5 @@ Rectangle {
             function refresh() { text = form.model.room; }
         }
     }
-
-    Rectangle {
-        id: editFrame
-
-        width: 40; height: 40
-
-        radius: 5
-
-        anchors.top: container.top
-        anchors.topMargin: 20
-
-        anchors.right: container.right
-        anchors.rightMargin: 15
-
-        color: _colors.uTransparent
-
-        function refresh() {
-            if (form.visible)
-                color = (form.isValid ? _colors.uTransparent : _colors.uDarkRed)
-            else
-                color = _colors.uTransparent
-        }
-
-        UI.UFontAwesome {
-            id: editButton
-
-            anchors.centerIn: parent
-
-            iconId: "Pencil"
-            iconSize: 32
-            iconColor: _colors.uGrey
-
-            visible: (!form.visible)
-        }
-
-        UI.UFontAwesome {
-            id: saveButton
-
-            anchors.centerIn: parent
-
-            iconId: "Save"
-            iconSize: 32
-            iconColor: (form.isValid ? _colors.uGreen : _colors.uWhite)
-
-            visible: (form.visible)
-        }
-    }
-
-    UI.UToolTip {
-        id: editTooltip
-
-        visible: false
-
-        anchors.verticalCenter: editFrame.verticalCenter
-
-        anchors.right: editFrame.left
-        anchors.rightMargin: 10
-
-        text: (form.visible ? "Save" : "Edit")
-        width: 75
-
-        arrowRight: true
-    }
-
-    MouseArea {
-        id: editArea
-
-        anchors.fill: editFrame
-        hoverEnabled: true
-
-        onEntered: editTooltip.startAnimation()
-        onExited: editTooltip.stopAnimation()
-
-        onClicked: { form.triggered() }
-    }
+    */
 }

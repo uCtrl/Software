@@ -54,7 +54,7 @@ Rectangle {
         text: container.platformModel.name
         color: getTextColor()
 
-        font.pointSize: 18
+        font.pointSize: 16
         font.bold: true
     }
 
