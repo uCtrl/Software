@@ -102,7 +102,7 @@ Item {
                 }
 
                 Component {
-                    id: statusComboBox
+                    id: statusSwitch
 
                     UI.USwitch
                     {
