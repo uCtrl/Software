@@ -75,7 +75,7 @@ Item {
                             return statusLabel
 
                         if (taskModel.scenario.device.isTriggerValue) {
-                            return statusComboBox
+                            return statusSwitch
                         }
 
                         return statusTextBox
