@@ -49,7 +49,7 @@ UI.UFrame {
                 anchors.margins: 4
 
                 onClicked: {
-                    state = "DISABLED"
+                    state="DISABLED"
                 }
             }
 

@@ -135,8 +135,8 @@ UI.UFrame {
                 font.pointSize: 28
                 font.bold: true
                 color: _colors.uGrey
+                }
             }
-        }
 
         UI.UComboBox {
             id: filterCombo
