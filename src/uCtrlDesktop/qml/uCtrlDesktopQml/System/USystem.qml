@@ -26,7 +26,7 @@ UI.UFrame {
 
         property var activePlatform: null
         onActivePlatformChanged: {
-            platformInfo.hideForm();
+            platformInfo.isEditing = false
         }
 
         property int constSize: 16
