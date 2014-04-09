@@ -16,6 +16,7 @@ SOURCES += \
     Utility/uniqueidgenerator.cpp \
     System/usystem.cpp \
     Serialization/jsonserializer.cpp \
+    Device/udeviceinfo.cpp \
     Communication/usocket.cpp
 
 HEADERS += \
@@ -29,4 +30,5 @@ HEADERS += \
     Utility/uniqueidgenerator.h \
     Serialization/jsonserializable.h \
     Serialization/jsonserializer.h \
+    Device/udeviceinfo.h \
     Communication/usocket.h

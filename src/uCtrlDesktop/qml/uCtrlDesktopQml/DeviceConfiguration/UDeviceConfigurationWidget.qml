@@ -46,6 +46,7 @@ UI.UFrame {
 
         width: parent.width
         height: 40
+        anchors.top: scenarioWidget.bottom
 
         anchors.bottom: parent.bottom
         color: _colors.uUltraLightGrey
