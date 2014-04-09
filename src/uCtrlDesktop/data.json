@@ -37,7 +37,7 @@
                                         }
                                     ],
                                     "id": 1782103623,
-                                    "status": "20%"
+                                    "status": "21"
                                 },
                                 {
                                     "conditions": [
@@ -49,19 +49,26 @@
                                         }
                                     ],
                                     "id": 1782103626,
-                                    "status": "13%"
+                                    "status": "13"
+                                },
+                                {
+                                    "conditions": [
+                                    ],
+                                    "id": 1782103628,
+                                    "status": "0"
                                 }
                             ]
                         }
                     ],
                     "type": 1,
-                    "unitLabel": ""
+                    "unitLabel": "\u00B0C",
+                    "isTriggerValue": false
                 },
                 {
                     "id": 1782103621,
-                    "maxValue": 100,
+                    "maxValue": 1,
                     "minValue": 0,
-                    "name": "Temperature 1",
+                    "name": "Light",
                     "precision": 0,
                     "scenarios": [
                         {
@@ -92,7 +99,7 @@
                                         }
                                     ],
                                     "id": 1782103623,
-                                    "status": "20%"
+                                    "status": "ON"
                                 },
                                 {
                                     "conditions": [
@@ -104,13 +111,20 @@
                                         }
                                     ],
                                     "id": 1782103626,
-                                    "status": "13%"
+                                    "status": "ON"
+                                },
+                                {
+                                    "conditions": [
+                                    ],
+                                    "id": 1782103626,
+                                    "status": "OFF"
                                 }
                             ]
                         }
                     ],
-                    "type": 1,
-                    "unitLabel": ""
+                    "type": 2,
+                    "unitLabel": "",
+                    "isTriggerValue": true
                 }
             ],
             "enabled": "ON",
@@ -126,8 +140,8 @@
                     "id": 1782103621,
                     "maxValue": 100,
                     "minValue": 0,
-                    "name": "Temperature",
-                    "precision": 2,
+                    "name": "Dimmer Light",
+                    "precision": 1,
                     "scenarios": [
                         {
                             "id": 1782103622,
@@ -161,7 +175,7 @@
                                         }
                                     ],
                                     "id": 1782103623,
-                                    "status": "20%"
+                                    "status": "60"
                                 },
                                 {
                                     "conditions": [
@@ -173,13 +187,19 @@
                                         }
                                     ],
                                     "id": 1782103626,
-                                    "status": "13%"
+                                    "status": "30"
+                                },
+                                {
+                                    "conditions": [
+                                    ],
+                                    "id": 1782103627,
+                                    "status": "0"
                                 }
                             ]
                         }
                     ],
                     "type": 1,
-                    "unitLabel": ""
+                    "unitLabel": "%"
                 }
             ],
             "enabled": "OFF",

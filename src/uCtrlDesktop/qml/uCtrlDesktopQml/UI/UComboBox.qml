@@ -12,7 +12,7 @@ Rectangle {
                                 ]
     property var selectedItem: itemListModel[0]
     z:1000
-    signal selectValue(var selectedItem)
+    signal selectValue(var newValue)
     property int itemDisplayedBeforeScroll: 10
 
     width: 200
