@@ -13,6 +13,8 @@
 #include <QFile>
 #include <QTextStream>
 
+#include <QtQml>
+
 void SaveSystemToFile(USystem* s, std::string filename)
 {
     QFile file(QString::fromStdString(filename));
@@ -44,6 +46,8 @@ int main(int argc, char *argv[])
     if (translator.load(":/Resources/Languages/uctrl_" + QLocale::system().name())) {
         app.installTranslator(&translator);
     }
+
+    qmlRegisterType<UCondition>("ConditionEnums", 1, 0, "UEComparisonType");
 
     //UNetworkScanner* scanner = UNetworkScanner::Instance();
     //scanner->scanNetwork();

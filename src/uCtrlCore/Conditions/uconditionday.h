@@ -16,7 +16,7 @@ namespace UEWeekDay
         Saturday
     };
 }
-
+/*
 BEGIN_DECLARE_JSON_CHILD_CLASS_ARGS2(UConditionDay, UCondition, int, WeekDay1, int, WeekDay2)
 
 public:
@@ -27,5 +27,5 @@ public:
     // TODO Set values
 
 END_DECLARE_JSON_CLASS()
-
+*/
 #endif // UCONDITIONDAY_H

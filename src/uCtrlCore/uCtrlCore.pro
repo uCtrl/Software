@@ -16,7 +16,9 @@ SOURCES += \
     Utility/uniqueidgenerator.cpp \
     System/usystem.cpp \
     Serialization/jsonserializer.cpp \
-    Communication/usocket.cpp
+    Communication/usocket.cpp \
+    Conditions/uconditionday.cpp \
+    Conditions/uconditiontime.cpp
 
 HEADERS += \
     Platform/uplatform.h \
@@ -29,4 +31,6 @@ HEADERS += \
     Utility/uniqueidgenerator.h \
     Serialization/jsonserializable.h \
     Serialization/jsonserializer.h \
-    Communication/usocket.h
+    Communication/usocket.h \
+    Conditions/uconditionday.h \
+    Conditions/uconditiontime.h

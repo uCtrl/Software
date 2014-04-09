@@ -186,6 +186,8 @@ Item {
                     function saveTask() {
                         taskModel.status = stateContainer.tmpValue
                         isEditMode = false
+
+                        conditionList.saveConditions()
                     }
 
                     function cancelEditTask() {
@@ -318,8 +320,6 @@ Item {
 
         Rectangle {
             id: conditionsContainer
-            clip: true
-
             height: 40 * conditionList.count
             width: parent.width
 
@@ -340,6 +340,15 @@ Item {
                 interactive:false
 
                 delegate: UTaskConditionWidget {
+                    z: 100000 - index
+                    isEditMode: taskWidget.isEditMode
+                }
+
+                function saveConditions() {
+                    for(var i = 0; i < taskModel.conditionCount(); i++) {
+                        conditionList.currentIndex = i
+                        conditionList.currentItem.saveCondition()
+                    }
                 }
             }
         }
