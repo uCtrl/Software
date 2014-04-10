@@ -10,11 +10,13 @@ Rectangle {
     property string placeholderText: ""
     property string text: ""
 
-    property var iconId: null
-    property int iconSize: 10
+    property string iconId: ""
+    property int iconSize: 8
 
     width: 100; height: 25
     anchors.margins: 4
+
+    color: _colors.uTransparent
 
     state: "ENABLED"
 
@@ -68,7 +70,6 @@ Rectangle {
         state: parent.state
         readOnly: (state === "DISABLED")
 
-        width: parent.width; height: parent.height
         anchors.fill: parent
 
         text: parent.text
@@ -94,6 +95,10 @@ Rectangle {
         Keys.onReleased: parent.text = text
     }
 
+    onStateChanged: {
+        icon.refresh(iconFrame.getIcon())
+    }
+
     Rectangle {
         id: iconFrame
 
@@ -107,23 +112,23 @@ Rectangle {
         anchors.right: field.right
         anchors.rightMargin: 4
 
-        visible: (parent.iconId !== null || parent.state === "SUCCESS" || parent.state === "ERROR")
+        visible: (parent.iconId !== null || container.state === "SUCCESS" || container.state === "ERROR")
 
         function getIcon() {
             if (parent.state === "ERROR")
                 return "Remove"
-            else if (parent.iconId !== null)
-                return parent.iconId
-            else
+            else if (container.iconId !== "")
+                return container.iconId
+            else if(parent.state === "SUCCESS")
                 return "Ok"
+            else
+                return ""
         }
 
         UI.UFontAwesome {
             id: icon
 
             anchors.centerIn: parent
-
-            iconId: parent.getIcon()
             iconSize: container.iconSize
             iconColor: (container.state === "SUCCESS" || container.state === "ERROR" ? _colors.uWhite : _colors.uGrey)
         }

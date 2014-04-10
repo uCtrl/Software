@@ -24,8 +24,9 @@ Rectangle{
 
     function saveCondition() {
         setComparisonTypeValue(timeComparisonType.tmpValue)
-        conditionModel.setBeginTimeAsString(beginTime.tmpValue)
-        conditionModel.setEndTimeAsString(endTime.tmpValue)
+
+        conditionModel.beginTime = beginTime.tmpValue
+        conditionModel.endTime = endTime.tmpValue
 
         updateConditionView()
     }

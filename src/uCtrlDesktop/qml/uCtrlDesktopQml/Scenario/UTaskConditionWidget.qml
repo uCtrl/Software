@@ -71,10 +71,7 @@ Rectangle {
                         updateConditionView()
                     }
                 }
-
             }
-
-
         }
 
         Component {

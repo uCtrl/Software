@@ -54,7 +54,10 @@ public slots:
 
     void setComparisonType(UEComparisonType arg)
     {
-        m_comparisonType = arg;
+        if (m_comparisonType != arg) {
+            m_comparisonType = arg;
+            emit comparisonTypeChanged(arg);
+        }
     }
 
 private:
@@ -72,10 +75,7 @@ public:
     int columnCount(const QModelIndex &parent) const {return 0; }
     QVariant data(const QModelIndex &index, int role) const{return QVariant(); }
 
-    UEComparisonType getComparisonType() const
-    {
-        return m_comparisonType;
-    }
+    UEComparisonType getComparisonType() const { return m_comparisonType; }
 signals:
     void comparisonTypeChanged(UEComparisonType arg);
 };

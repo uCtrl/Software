@@ -22,21 +22,22 @@ public:
         return m_endTime;
     }
 
-    void read(const QJsonObject &jsonObj);
-    void write(QJsonObject &jsonObj) const;
-
-public slots:
-    Q_INVOKABLE void setBeginTimeAsString(QString arg)
+    Q_INVOKABLE void setBeginTime(QString arg)
     {
         QTime newTime = QTime::fromString(arg, "hh:mm");
         setBeginTime(newTime);
     }
 
-    Q_INVOKABLE void setEndTimeAsString(QString arg)
+    Q_INVOKABLE void setEndTime(QString arg)
     {
         QTime newTime = QTime::fromString(arg, "hh:mm");
         setEndTime(newTime);
     }
+
+    void read(const QJsonObject &jsonObj);
+    void write(QJsonObject &jsonObj) const;
+
+public slots:
 
     void setBeginTime(QTime arg)
     {

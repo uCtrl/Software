@@ -27,6 +27,8 @@ void UDevice::read(const QJsonObject &jsonObj)
     this->setPrecision(jsonObj["precision"].toInt());
     this->setUnitLabel(jsonObj["unitLabel"].toString());
     this->setType(jsonObj["type"].toInt());
+    this->setMac(jsonObj["mac"].toString());
+    this->setFirmwareVersion(jsonObj["firmwareVersion"].toString());
     this->setIsTriggerValue(jsonObj["isTriggerValue"].toBool());
 
     QJsonArray scenariosArray = jsonObj["scenarios"].toArray();
@@ -47,6 +49,8 @@ void UDevice::write(QJsonObject &jsonObj) const
     jsonObj["precision"] = getPrecision();
     jsonObj["unitLabel"] = getUnitLabel();
     jsonObj["type"] = getType();
+    jsonObj["mac"] = getMac();
+    jsonObj["firmwareVersion"] = getFirmwareVersion();
     jsonObj["isTriggerValue"] = isTriggerValue();
 
     QJsonArray scenariosArray;

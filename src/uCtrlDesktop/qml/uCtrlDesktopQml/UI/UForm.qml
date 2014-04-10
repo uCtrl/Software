@@ -5,18 +5,20 @@ Rectangle {
     id: container
 
     property bool isValid: false        // Always start with false value, then updated by children and validate()
+    property var controlsToValidate : []
 
     anchors.fill: parent
 
-    width: parent.width; height: parent.height
+    width: 0
+    height: 0
     color: _colors.uTransparent
 
     signal afterValidate
 
     function refreshChildren() {
-       for (var i=0; i<container.children.length; i++) {
+       for (var i=0; i< controlsToValidate.length; i++) {
            try {
-                container.children[i].refresh()
+                controlsToValidate[i].refresh()
             } catch (ignore) {
                 console.log("WARNING: Component inserted in a form with no refresh function.")
             }
@@ -25,9 +27,9 @@ Rectangle {
 
     function validate() {
         var valid = true
-        for(var i = 0; i < container.children.length; i++) {
+        for(var i = 0; i < controlsToValidate.length; i++) {
             try {
-                valid &= container.children[i].validate()
+                valid &= controlsToValidate[i].validate()
             } catch (err) {
                 console.log("WARNING: Component inserted in a form with no validate function.")
             }

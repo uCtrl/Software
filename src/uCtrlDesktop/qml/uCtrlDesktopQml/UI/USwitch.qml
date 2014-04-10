@@ -14,6 +14,8 @@ Rectangle {
     radius: height / 2
     color: _colors.uLightGreen
 
+    clip: true
+
     Rectangle {
         id: circle
         width: container.height - borderRadius * 2
@@ -105,7 +107,7 @@ Rectangle {
             ColorAnimation { target: circle; duration: animationTime }
             ColorAnimation { target: container; duration: animationTime }
             PropertyAnimation { target: offLabel; property: "opacity"; duration: animationTime }
-            PropertyAnimation { target: onLabel; property: "opacity"; duration: animationTime / 2 }
+            PropertyAnimation { target: onLabel; property: "opacity"; duration: animationTime }
             PropertyAnimation { target: circle; property: "anchors.rightMargin"; duration: animationTime; easing { type: Easing.InOutQuad } }
         },
         Transition {
@@ -113,7 +115,7 @@ Rectangle {
             to: "ON"
             ColorAnimation { target: circle; duration: animationTime }
             ColorAnimation { target: container; duration: animationTime }
-            PropertyAnimation { target: offLabel; property: "opacity"; duration: animationTime / 2 }
+            PropertyAnimation { target: offLabel; property: "opacity"; duration: animationTime }
             PropertyAnimation { target: onLabel; property: "opacity"; duration: animationTime }
             PropertyAnimation { target: circle; property: "anchors.rightMargin"; duration: animationTime; easing { type: Easing.InOutQuad } }
         }

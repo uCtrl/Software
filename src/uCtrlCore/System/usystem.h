@@ -11,12 +11,11 @@ class USystem : public QAbstractListModel, public JsonSerializable
 {
     Q_OBJECT
 
-    Q_PROPERTY(QList<UPlatform*> platforms READ getPlatforms WRITE setPlatforms)
-
 public:
     static USystem* Instance();  
 
     Q_INVOKABLE QObject* getPlatformAt(int index) const;
+    Q_PROPERTY(QList<UPlatform*> platforms READ getPlatforms WRITE setPlatforms NOTIFY platformsChanged)
  
     virtual QVariant data(const QModelIndex &index, int role) const;
     virtual int rowCount(const QModelIndex &parent) const;
@@ -30,6 +29,9 @@ public:
 
 public slots:
     void setPlatforms(QList<UPlatform*> arg) { m_platforms = arg; }
+
+signals:
+    void platformsChanged(QList<UPlatform*> arg);
 
 private:
     USystem(){}

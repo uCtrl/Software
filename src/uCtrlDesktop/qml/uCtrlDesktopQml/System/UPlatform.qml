@@ -5,7 +5,7 @@ import "../UI/ULabel" as ULabel
 Rectangle {
     id: container
 
-    property var platformModel: platformsList.model.getPlatformAt(index)
+    property var platformModel: null //platformsList.model.getPlatformAt(index)
     property var system: systemFrame.system
 
     width: parent.width
@@ -54,7 +54,7 @@ Rectangle {
         text: container.platformModel.name
         color: getTextColor()
 
-        font.pointSize: 18
+        font.pointSize: 16
         font.bold: true
     }
 
@@ -107,5 +107,5 @@ Rectangle {
         }
     }
 
-    onSystemChanged: refresh(system.getPlatformAt(index));
+    onSystemChanged: if (system !== null) refresh(system.getPlatformAt(index));
 }
