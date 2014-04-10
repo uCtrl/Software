@@ -57,8 +57,7 @@
                                     "status": "13"
                                 },
                                 {
-                                    "conditions": [
-                                    ],
+                  "conditions": [],
                                     "id": 1782103628,
                                     "status": "0"
                                 }
@@ -66,7 +65,7 @@
                         }
                     ],
                     "type": 1,
-                    "unitLabel": "\u00B0C",
+          "unitLabel": "°C",
                     "isTriggerValue": false
                 },
                 {
@@ -119,8 +118,7 @@
                                     "status": "ON"
                                 },
                                 {
-                                    "conditions": [
-                                    ],
+                  "conditions": [],
                                     "id": 1782103626,
                                     "status": "OFF"
                                 }
@@ -135,7 +133,7 @@
             "enabled": "ON",
             "id": 99934,
             "ip": "127.0.0.1",
-            "port": 80,
+      "port": 5000,
             "name": "Television Set",
             "room": "Living room"
         },
@@ -195,8 +193,7 @@
                                     "status": "30"
                                 },
                                 {
-                                    "conditions": [
-                                    ],
+                  "conditions": [],
                                     "id": 1782103627,
                                     "status": "0"
                                 }
@@ -209,8 +206,8 @@
             ],
             "enabled": "OFF",
             "id": 99934,
-            "ip": "127.0.0.2",
-            "port": 5000,
+      "ip": "127.0.0.1",
+      "port": 5001,
             "name": "Sound System",
             "room": "Alexis' room"
         }

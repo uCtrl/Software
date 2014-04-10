@@ -48,14 +48,15 @@ int main(int argc, char *argv[])
     }
 
     qmlRegisterType<UCondition>("ConditionEnums", 1, 0, "UEComparisonType");
+    
+USystem* system = USystem::Instance();
 
+    // SIMULATOR SECTION
     //UNetworkScanner* scanner = UNetworkScanner::Instance();
     //scanner->scanNetwork();
 
-    USystem* system = USystem::Instance();
+    // LOCAL FILE SECTION
     LoadSystemFromFile(system, ":/Resources/data.json");
-
-    UPlatform* platform = new UPlatform(system, "127.0.0.1", 5000);
 
     QQmlContext *ctxt = viewer.rootContext();
     ctxt->setContextProperty("mySystem", system);
@@ -65,9 +66,6 @@ int main(int argc, char *argv[])
     viewer.setMinimumWidth(900);
     viewer.showExpanded();
 
-    int ret = app.exec();
-
-    //SaveSystemToFile(system, "data.json");
-    return ret;
+    return app.exec();
 }
 

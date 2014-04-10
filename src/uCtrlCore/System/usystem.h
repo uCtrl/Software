@@ -3,6 +3,7 @@
 
 #include "Platform/uplatform.h"
 #include "Serialization/jsonserializable.h"
+#include "Communication/ucommunicationhandler.h"
 #include <QAbstractListModel>
 #include <QJsonObject>
 #include <QList>
