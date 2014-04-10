@@ -2,14 +2,14 @@
 #define UCONDITIONTIME_H
 
 #include "ucondition.h"
-#include <QTime>
+#include <QDateTime>
 
 class UConditionTime : public UCondition {
     Q_OBJECT
 
 public:
     Q_PROPERTY(QTime beginTime READ getBeginTime WRITE setBeginTime NOTIFY beginTimeChanged)
-    Q_PROPERTY(QTime endTime READ getEndTime WRITE setEndTime  NOTIFY endTimeChanged)
+    Q_PROPERTY(QTime endTime READ getEndTime WRITE setEndTime NOTIFY endTimeChanged)
 
     UConditionTime(QObject* parent, QTime beginTime = QTime::currentTime(), QTime endTime = QTime::currentTime());
 
@@ -26,6 +26,18 @@ public:
     void write(QJsonObject &jsonObj) const;
 
 public slots:
+    Q_INVOKABLE void setBeginTimeAsString(QString arg)
+    {
+        QTime newTime = QTime::fromString(arg, "hh:mm");
+        setBeginTime(newTime);
+    }
+
+    Q_INVOKABLE void setEndTimeAsString(QString arg)
+    {
+        QTime newTime = QTime::fromString(arg, "hh:mm");
+        setEndTime(newTime);
+    }
+
     void setBeginTime(QTime arg)
     {
         if (m_beginTime != arg) {
@@ -33,6 +45,7 @@ public slots:
             emit beginTimeChanged(arg);
         }
     }
+
     void setEndTime(QTime arg)
     {
         if (m_endTime != arg) {

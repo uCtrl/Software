@@ -16,6 +16,10 @@ Rectangle {
         conditionLoader.saveCondition()
     }
 
+    function cancelEditCondition() {
+        conditionLoader.cancelEditCondition()
+    }
+
     Rectangle {
         id: conditionContent
         anchors.right: deleteBtn.left
@@ -25,6 +29,7 @@ Rectangle {
 
         Loader {
             property var saveConditionFunc: function(){}
+            property var cancelEditConditionFunc: function(){}
 
             id: conditionLoader
 
@@ -41,9 +46,11 @@ Rectangle {
             }
 
             function saveCondition() {
-                //sourceComponent.saveCondition()
                 saveConditionFunc()
-                //sourceComponent.saveCondition()
+            }
+
+            function cancelEditCondition() {
+                cancelEditConditionFunc()
             }
         }
 
@@ -58,6 +65,10 @@ Rectangle {
                 Component.onCompleted: {
                     conditionLoader.saveConditionFunc = function() {
                         saveCondition()
+                    }
+
+                    conditionLoader.cancelEditConditionFunc = function() {
+                        updateConditionView()
                     }
                 }
 

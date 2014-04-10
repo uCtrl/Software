@@ -22,6 +22,6 @@ void UConditionTime::read(const QJsonObject &jsonObj)
 void UConditionTime::write(QJsonObject &jsonObj) const
 {
     UCondition::write(jsonObj);
-    jsonObj["beginTime"] = m_beginTime.toString();
-    jsonObj["endTime"] = m_endTime.toString();
+    jsonObj["beginTime"] = m_beginTime.toString("hh:mm");
+    jsonObj["endTime"] = m_endTime.toString("hh:mm");
 }

@@ -6,8 +6,10 @@ import "../UI/ULabel" as ULabel
 Rectangle{
 
     property var timeCondition: null
-    property real conditionHour : 12
-    property real conditionMinute : 15
+
+    property var updateBeginTimeFunc: function(){}
+    property var updateEndTimeFunc: function(){}
+    property var updateComparisonTypeFunc: function(){}
 
     id: container
 
@@ -21,12 +23,18 @@ Rectangle{
     color: _colors.uTransparent
 
     function saveCondition() {
-        setComparisonTypeValue(timeConditionType.tmpValue)
+        setComparisonTypeValue(timeComparisonType.tmpValue)
+        conditionModel.setBeginTimeAsString(beginTime.tmpValue)
+        conditionModel.setEndTimeAsString(endTime.tmpValue)
 
-        console.log(beginTime.tmpValue)
-        console.log(endTime.tmpValue)
-        conditionModel.beginTime = beginTime.tmpValue
-        conditionModel.endTime = endTime.tmpValue
+        updateConditionView()
+    }
+
+    function updateConditionView() {
+        timeComparisonType.updateComparisonType()
+        beginTime.updateBeginTime()
+        endTime.updateEndTime()
+        conditionTimeToLabel.updateText()
     }
 
     function getComparisonTypeValue() {
@@ -73,12 +81,16 @@ Rectangle{
     Loader {
         property string tmpValue: getComparisonTypeValue()
 
-        id: timeConditionType
+        id: timeComparisonType
 
         anchors.left: timeConditionIcon.right
         anchors.verticalCenter: timeConditionIcon.verticalCenter
 
         sourceComponent: isEditMode ? timeConditionTypeDropdown : timeConditionTypeLabel
+
+        function updateComparisonType() {
+            updateComparisonTypeFunc()
+        }
     }
 
     Component {
@@ -94,7 +106,17 @@ Rectangle{
             ]
 
             onSelectValue: {
-                timeConditionType.tmpValue = selectedItem.value
+                timeComparisonType.tmpValue = selectedItem.value
+                conditionTimeToLabel.updateText()
+            }
+
+            Component.onCompleted: {
+                var comparisonTypeValue = getComparisonTypeValue()
+                for (var i = 0; i < itemListModel.length; i++) {
+                    if (itemListModel[i].value === comparisonTypeValue) {
+                        selectItem(i)
+                    }
+                }
             }
         }
     }
@@ -106,6 +128,13 @@ Rectangle{
             width: 100
 
             text: getComparisonTypeValue()
+
+            Component.onCompleted: {
+                updateComparisonTypeFunc = function() {
+                    text = getComparisonTypeValue()
+                    timeComparisonType.tmpValue = text
+                }
+            }
         }
     }
 
@@ -115,11 +144,15 @@ Rectangle{
         id: beginTime
         height: parent.height
 
-        anchors.left: timeConditionType.right
-        anchors.verticalCenter: timeConditionType.verticalCenter
+        anchors.left: timeComparisonType.right
+        anchors.verticalCenter: timeComparisonType.verticalCenter
         anchors.leftMargin: 5
 
         sourceComponent: isEditMode ? editableBeginTime : readonlyBeginTime
+
+        function updateBeginTime() {
+            updateBeginTimeFunc()
+        }
     }
 
     Component {
@@ -152,6 +185,12 @@ Rectangle{
                 anchors.verticalCenter: parent.verticalCenter
 
                 color: _colors.uWhite
+
+                Component.onCompleted: {
+                    updateBeginTimeFunc = function() {
+                        text = Qt.formatTime(conditionModel.beginTime, "hh:mm")
+                    }
+                }
             }
         }
     }
@@ -165,20 +204,22 @@ Rectangle{
         anchors.verticalCenter: beginTime.verticalCenter
 
         text: getText()
-        width: 50
+        width: 15
+
+        function updateText() {
+            text = getText()
+        }
 
         function getText() {
-            switch (conditionModel.comparisonType) {
-            case UEComparisonType.InBetween:
-                return "to"
-            default:
+            if (timeComparisonType.tmpValue !== "From")
                 return ""
-            }
+
+            return "to"
         }
     }
 
     Loader {
-        property string tmpValue: conditionModel.endTime
+        property string tmpValue: Qt.formatTime(conditionModel.endTime, "hh:mm")
 
         id: endTime
 
@@ -191,14 +232,17 @@ Rectangle{
         sourceComponent: getSourceComponent()
 
         function getSourceComponent() {
-            console.log(conditionModel.comparisonType)
-            if (conditionModel.comparisonType !== UEComparisonType.InBetween)
+            if (timeComparisonType.tmpValue !== "From")
                 return emptyEndTime
 
             if (isEditMode)
                 return editableEndTime
 
             return readonlyEndTime
+        }
+
+        function updateEndTime() {
+            updateEndTimeFunc()
         }
     }
 
@@ -232,6 +276,13 @@ Rectangle{
                 anchors.verticalCenter: parent.verticalCenter
 
                 color: _colors.uWhite
+
+                Component.onCompleted: {
+                    updateEndTimeFunc = function() {
+                        if (conditionModel)
+                            text = Qt.formatTime(conditionModel.endTime, "hh:mm")
+                    }
+                }
             }
         }
     }

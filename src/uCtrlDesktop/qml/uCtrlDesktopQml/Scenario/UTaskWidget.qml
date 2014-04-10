@@ -193,6 +193,8 @@ Item {
                     function cancelEditTask() {
                         stateContainer.tmpValue = taskModel.status
                         isEditMode = false
+
+                        conditionList.cancelEditConditions()
                     }
                 }
             }
@@ -348,6 +350,13 @@ Item {
                     for(var i = 0; i < taskModel.conditionCount(); i++) {
                         conditionList.currentIndex = i
                         conditionList.currentItem.saveCondition()
+                    }
+                }
+
+                function cancelEditConditions() {
+                    for(var i = 0; i < taskModel.conditionCount(); i++) {
+                        conditionList.currentIndex = i
+                        conditionList.currentItem.cancelEditCondition()
                     }
                 }
             }
