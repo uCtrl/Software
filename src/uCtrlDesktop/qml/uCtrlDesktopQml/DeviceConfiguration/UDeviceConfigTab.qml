@@ -7,6 +7,8 @@ Rectangle {
     id: configTab
     anchors.fill: parent
 
+    property bool isEditing: false
+
     property var device
     property var selectedScenario
 
@@ -17,6 +19,16 @@ Rectangle {
         selectedScenario = device.getScenarioAt(0)
 
         scenarioWindow.refresh(selectedScenario)
+    }
+
+    function startEditing() {
+        isEditing = true
+
+        textboxScenarioTitle.text = selectedScenario.name
+    }
+
+    function stopEditing() {
+        isEditing = false
     }
 
     color: _colors.uTransparent

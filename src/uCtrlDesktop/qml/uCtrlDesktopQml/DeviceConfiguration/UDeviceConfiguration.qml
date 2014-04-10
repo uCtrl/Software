@@ -4,7 +4,6 @@ import "../DeviceInformation" as Info
 
 UI.UFrame {
     id: deviceConfig
-    property bool isEditing: false
 
     requiredModel: true
 
@@ -14,16 +13,6 @@ UI.UFrame {
         device = newDevice
         deviceTab.refresh(device)
         info.refresh(device)
-    }
-
-    function startEditing() {
-        isEditing = true
-
-        textboxScenarioTitle.text = selectedScenario.name
-    }
-
-    function stopEditing() {
-        isEditing = false
     }
 
     contentItem: Rectangle {

@@ -275,6 +275,8 @@ Rectangle {
 
             text: updateText()
 
+            width: 200
+
             anchors.verticalCenter: parent.verticalCenter
 
             anchors.left: networkIcon.right
@@ -287,6 +289,30 @@ Rectangle {
             function updateText() {
                 text = (advancedInformation.visible ? "Hide network information" : "Show network information")
             }
+        }
+
+        UI.UFontAwesome {
+            id: showMoreInformationIcon
+
+            anchors.left: showMoreInformation.right
+            anchors.verticalCenter: parent.verticalCenter
+            iconId: "CaretDown"
+            iconColor: _colors.uGrey
+            iconSize: 12
+
+            visible: !advancedInformation.visible
+        }
+
+        UI.UFontAwesome {
+            id: hideMoreInformationIcon
+
+            anchors.left: showMoreInformation.right
+            anchors.verticalCenter: parent.verticalCenter
+            iconId: "CaretUp"
+            iconColor: _colors.uGrey
+            iconSize: 12
+
+            visible: advancedInformation.visible
         }
 
         MouseArea {
@@ -449,7 +475,6 @@ Rectangle {
         id: devicesListContainer
 
         anchors.top: bottomLine.bottom
-        anchors.topMargin: 4
 
         anchors.bottom: parent.bottom
 

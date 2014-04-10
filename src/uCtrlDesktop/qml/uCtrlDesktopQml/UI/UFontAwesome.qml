@@ -238,10 +238,6 @@ Item {
     }
 
     function refresh(iconId) {
-        try {
-            labelFontAwesome.text = icon[iconId]
-        } catch(err) {
-
-        }
+        labelFontAwesome.text = icon[iconId]
     }
 }
