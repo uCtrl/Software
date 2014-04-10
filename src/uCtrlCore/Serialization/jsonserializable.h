@@ -1,10 +1,12 @@
 #ifndef JSONSERIALIZABLE_H
 #define JSONSERIALIZABLE_H
 
-#include <QJsonObject>
+#include "Serialization/jsonreadable.h"
+#include "Serialization/jsonwritable.h"
+
 #include <QJsonArray>
 
-class JsonSerializable
+class JsonSerializable : public JsonReadable, public JsonWritable
 {
 public:
     virtual void read(const QJsonObject &jsonObj) = 0;

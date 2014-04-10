@@ -1,68 +1,64 @@
+var fs = require('fs');
 var net = require('net');
 var mdns = require('mdns2');
+var extend = require('util')._extend;
 
-port = 5000;
-
-devices = {
-  "id": 234234,
-  "devices": [
-    {
-      "id": 345658,
-      "maxValue": 100.000000,
-      "minValue": 0.000000,
-      "precision": 0,
-      "type": 1,
-      "unitLabel": "celcius",
-      "name": "Temperature",
-      "scenarios": [
-        {
-          "id": 1782103622,
-          "name": "Semaine",
-          "tasks": [
-            {
-              "id": 1782103623,
-              "name": "newTask1",
-              "status": "20%",
-              "conditions": [
-                {
-                  "id": 1782103624
-                }
-              ]
-            },
-            {
-              "id": 1782103626,
-              "name": "newTask1",
-              "status": "13%",
-              "conditions": [
-                {
-                  "id": 1782103624
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
+var requests = {
+  Ping: 1,
+  Pong: 2,
+  GetPlatformRequest: 3,
+  GetPlatformResponse: 4
 };
 
-// advertise server
-var ad = mdns.createAdvertisement(new mdns.ServiceType(['uctrl', 'tcp']), port)
-ad.start();
+var buildRequest = function (type, platform) {
+  var message = {};  
+  if (type == requests.GetPlatformRequest) {
+    message["platform"] = extend({}, platform);
+  }
+  message["messageType"] = type + 1;
+  message["status"] = true;
+  message["error"] = "";
+  
+  return message;
+};
 
-// Start a TCP Server
-net.createServer(function (socket) {
+// Create servers
+var createServer = function (platform) {
 
-  // Handle incoming messages from clients.
-	socket.on('data', function (data) {
-		console.log(socket.remoteAddress + ">" + data);
-  	socket.write(JSON.stringify(devices));
-  });
- 
-	socket.on('end', function () {
-  	console.log("Connection ended");
-	});
- 
-}).listen(port);
- 
-console.log("Server running on port " + port + "\n");
+  // advertise server
+  var ad = mdns.createAdvertisement(new mdns.ServiceType(['uctrl', 'tcp']), platform.port)
+  ad.start();
+
+  // Start a TCP Server
+  net.createServer(function (socket) {
+
+    // Handle incoming messages from clients.
+    socket.on('data', function (data) {
+      console.log(socket.remoteAddress + ":" + socket.localPort + ">" + data);
+
+      data = JSON.parse(data);
+      socket.write(JSON.stringify(buildRequest(parseInt(data.messageType, 10), platform)));
+    });
+   
+    socket.on('error', function (err) {
+      if(err.code == "ECONNRESET") console.log("Connection ended furiously");
+    }); 
+
+    socket.on('end', function () {
+      console.log("Connection ended");
+    }); 
+  }).listen(platform.port);
+   
+  console.log("Server running on port " + platform.port + "\n");  
+};
+
+
+// System parsing
+var system;
+fs.readFile('../uCtrlDesktop/data.json', 'utf8', function (err,data) {
+  if (err) {
+    return console.log(err);
+  }
+  system = JSON.parse(data);
+  system.platforms.forEach(createServer);
+});

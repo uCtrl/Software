@@ -45,13 +45,14 @@ int main(int argc, char *argv[])
         app.installTranslator(&translator);
     }
 
-    //UNetworkScanner* scanner = UNetworkScanner::Instance();
-    //scanner->scanNetwork();
-
     USystem* system = USystem::Instance();
-    LoadSystemFromFile(system, ":/Resources/data.json");
 
-    UPlatform* platform = new UPlatform(system, "127.0.0.1", 5000);
+    // SIMULATOR SECTION
+    // UNetworkScanner* scanner = UNetworkScanner::Instance();
+    // scanner->scanNetwork();
+
+    // LOCAL FILE SECTION
+    LoadSystemFromFile(system, ":/Resources/data.json");
 
     QQmlContext *ctxt = viewer.rootContext();
     ctxt->setContextProperty("mySystem", system);
@@ -61,9 +62,6 @@ int main(int argc, char *argv[])
     viewer.setMinimumWidth(900);
     viewer.showExpanded();
 
-    int ret = app.exec();
-
-    //SaveSystemToFile(system, "data.json");
-    return ret;
+    return app.exec();
 }
 
