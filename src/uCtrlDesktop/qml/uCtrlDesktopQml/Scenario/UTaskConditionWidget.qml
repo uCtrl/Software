@@ -5,11 +5,20 @@ import "../UI" as UI
 Rectangle {
     property var conditionModel: taskModel.getConditionAt(index)
     property bool isConditionOfTask: true
+    property bool isEditMode: false
 
     width: parent.width
     height: 35
 
     color: _colors.uTransparent
+
+    function saveCondition() {
+        conditionLoader.saveCondition()
+    }
+
+    function cancelEditCondition() {
+        conditionLoader.cancelEditCondition()
+    }
 
     Rectangle {
         id: conditionContent
@@ -19,6 +28,11 @@ Rectangle {
         height: parent.height
 
         Loader {
+            property var saveConditionFunc: function(){}
+            property var cancelEditConditionFunc: function(){}
+
+            id: conditionLoader
+
             anchors.fill: parent
             sourceComponent: getSourceComponent()
 
@@ -30,16 +44,40 @@ Rectangle {
                     return uTimeComponent;
                 else return;
             }
+
+            function saveCondition() {
+                saveConditionFunc()
+            }
+
+            function cancelEditCondition() {
+                cancelEditConditionFunc()
+            }
         }
 
         Component {
             id: uTimeComponent
-            UTimeConditionWidget { }
+
+            UTimeConditionWidget {
+                id: uTimeConditionWidget
+
+                timeCondition: conditionModel
+
+                Component.onCompleted: {
+                    conditionLoader.saveConditionFunc = function() {
+                        saveCondition()
+                    }
+
+                    conditionLoader.cancelEditConditionFunc = function() {
+                        updateConditionView()
+                    }
+                }
+            }
         }
 
         Component {
             id: uDateComponent
-            UDateConditionWidget { }
+            UDateConditionWidget {
+            }
         }
     }
 

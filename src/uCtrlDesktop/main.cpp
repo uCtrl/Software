@@ -13,6 +13,8 @@
 #include <QFile>
 #include <QTextStream>
 
+#include <QtQml>
+
 void SaveSystemToFile(USystem* s, std::string filename)
 {
     QFile file(QString::fromStdString(filename));
@@ -45,11 +47,13 @@ int main(int argc, char *argv[])
         app.installTranslator(&translator);
     }
 
-    USystem* system = USystem::Instance();
+    qmlRegisterType<UCondition>("ConditionEnums", 1, 0, "UEComparisonType");
+    
+USystem* system = USystem::Instance();
 
     // SIMULATOR SECTION
-    // UNetworkScanner* scanner = UNetworkScanner::Instance();
-    // scanner->scanNetwork();
+    //UNetworkScanner* scanner = UNetworkScanner::Instance();
+    //scanner->scanNetwork();
 
     // LOCAL FILE SECTION
     LoadSystemFromFile(system, ":/Resources/data.json");

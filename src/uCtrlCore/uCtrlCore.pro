@@ -19,7 +19,9 @@ SOURCES += \
     Serialization/jsonserializer.cpp \
     Communication/ucommunicationhandler.cpp \
     Communication/Responses/getplatformresponse.cpp \
-    Communication/Requests/getplatformrequest.cpp
+    Communication/Requests/getplatformrequest.cpp \
+    Conditions/uconditiontime.cpp
+
 
 HEADERS += \
     Platform/uplatform.h \
@@ -40,4 +42,5 @@ HEADERS += \
     Communication/Responses/getplatformresponse.h \
     Communication/Requests/getplatformrequest.h \
     Communication/Responses/uresponse.h \
-    Communication/Requests/urequest.h
+    Communication/Requests/urequest.h \
+    Conditions/uconditiontime.h

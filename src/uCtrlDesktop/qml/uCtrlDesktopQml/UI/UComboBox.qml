@@ -43,10 +43,6 @@ Rectangle {
 
                     itemData: itemListModel[0]
                     textColor: _colors.uDarkGrey
-
-                    Component.onCompleted: {
-                        valueItem.refresh(itemListModel[0])
-                    }
             }
         }
     }

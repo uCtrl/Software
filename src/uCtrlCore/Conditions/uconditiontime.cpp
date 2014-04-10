@@ -1,39 +1,27 @@
 #include "uconditiontime.h"
 
-UConditionTime::UConditionTime() : UCondition()
+UConditionTime::UConditionTime(QObject* parent, QTime beginTime, QTime endTime)
+    : UCondition(parent, UEConditionType::Time)
 {
+    setBeginTime(beginTime);
+    setEndTime(endTime);
 }
 
-UConditionTime::UConditionTime(const UConditionTime& conditionTime) : UCondition(conditionTime)
+void UConditionTime::read(const QJsonObject &jsonObj)
 {
-    setConditionType(UEConditionType::Time);
+    UCondition::read(jsonObj);
+
+    QString beginTimeStr = jsonObj["beginTime"].toString();
+    QTime tmp = QTime::fromString(beginTimeStr, "hh:mm");
+    setBeginTime(tmp);
+
+    tmp = QTime::fromString(jsonObj["endTime"].toString(), "hh:mm");
+    setEndTime(tmp);
 }
 
-void UConditionTime::setValue1(void* value)
+void UConditionTime::write(QJsonObject &jsonObj) const
 {
-    UTime* time= (UTime*)value;
-    m_Time1 = *time;
-}
-
-void UConditionTime::setValue2(void* value)
-{
-    if (getCurrentComparisonType() != UEComparisonPossible::InBetween)
-        return;
-
-    UTime* time= (UTime*)value;
-    m_Time2 = *time;
-}
-
-void UConditionTime::FillObject(json::Object& obj) const
-{
-	UCondition::FillObject(obj);
-    obj["time1"] = getTime1().ToObject();
-    obj["time2"] = getTime2().ToObject();
-}
-
-void UConditionTime::FillMembers(const json::Object& obj)
-{
-	UCondition::FillMembers(obj);
-    m_Time1 = UTime::Deserialize(obj["time1"].ToObject());
-    m_Time2 = UTime::Deserialize(obj["time2"].ToObject());
+    UCondition::write(jsonObj);
+    jsonObj["beginTime"] = m_beginTime.toString("hh:mm");
+    jsonObj["endTime"] = m_endTime.toString("hh:mm");
 }

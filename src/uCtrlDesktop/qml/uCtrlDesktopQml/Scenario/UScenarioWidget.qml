@@ -51,7 +51,7 @@ Rectangle {
 
             model: scenario
             delegate: UTaskWidget {
-                z: 100000 - index
+                z: 10000 - index
             }
         }
     }
