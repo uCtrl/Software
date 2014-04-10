@@ -32,6 +32,7 @@ Rectangle {
 
     function refresh(newPlatform) {
         platform = newPlatform
+
         if (platform !== null) {
             devicesListContainer.refresh(platform);
             cancelEditing()
