@@ -15,6 +15,7 @@ Rectangle {
         label: "Dashboard"
 
         path: _paths.uHome
+        title: _paths.uHomeTitle
 
         anchors.top: parent.top
 
@@ -27,6 +28,7 @@ Rectangle {
         label: "Platforms"
 
         path: _paths.uSystem
+        title: _paths.uSystemTitle
         model: mySystem
 
         anchors.top: dashboard.bottom
@@ -40,7 +42,7 @@ Rectangle {
         label: "Statistics"
 
         path: _paths.uStatistics
-
+        title: _paths.uStatisticsTitle
         anchors.top: device.bottom
 
         anchors.left: parent.left
@@ -52,6 +54,7 @@ Rectangle {
         label: "Configurations"
 
         path: _paths.uHome
+        title: _paths.uHomeTitle
 
         anchors.top: statistics.bottom
 

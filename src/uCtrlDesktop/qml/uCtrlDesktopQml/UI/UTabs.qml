@@ -4,12 +4,15 @@ import "../UI/UTabs" as Tab
 
 Rectangle {
     id: tabs
-
+    property var ids: []
     property var icons: []
     property var texts: []
     property var selectedTab
     property int iconSize : 16
     property int defaultSelected: 0
+
+    signal changeTab(string tabId)
+
     width: parent.width
     height: parent.height
 
@@ -31,11 +34,14 @@ Rectangle {
             isLast: (index == icons.length - 1)
             iconId: icons[index]
             text: texts[index]
+            identifier: tabs.ids[index]
             iconSize: tabs.iconSize
             onClicked: {
                 if(selectedTab !== undefined)
                     selectedTab.deselect()
                 selectedTab = this
+
+                changeTab(identifier)
             }
             Component.onCompleted: {
                 if(index == defaultSelected) {

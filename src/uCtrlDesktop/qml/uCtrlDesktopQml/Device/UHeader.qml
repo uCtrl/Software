@@ -30,14 +30,6 @@ Rectangle {
         iconLabel.text = getImagePath()
     }
 
-    function swapConfig() {
-        main.swap(_paths.uConfig, "Configuration", device)
-    }
-
-    function swapInfo() {
-        main.swap(_paths.uInfo, "Information", device)
-    }
-
     UI.UCircle {
         id: iconShadow
 

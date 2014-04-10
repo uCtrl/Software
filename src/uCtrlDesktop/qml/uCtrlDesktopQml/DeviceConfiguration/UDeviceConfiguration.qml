@@ -1,9 +1,30 @@
 import QtQuick 2.0
 import "../UI" as UI
-import "../Scenario" as Scenario
+import "../DeviceInformation" as Info
 
 UI.UFrame {
     id: deviceConfig
+    property bool isEditing: false
+
+    requiredModel: true
+
+    property var device
+
+    function refresh(newDevice) {
+        device = newDevice
+        deviceTab.refresh(device)
+        info.refresh(device)
+    }
+
+    function startEditing() {
+        isEditing = true
+
+        textboxScenarioTitle.text = selectedScenario.name
+    }
+
+    function stopEditing() {
+        isEditing = false
+    }
 
     contentItem: Rectangle {
         id: page
@@ -18,6 +39,7 @@ UI.UFrame {
         height: (scrollView.height - (frameMarginSize *2))
 
         color: _colors.uTransparent
+
         Rectangle {
             id: backButtonContainer
             width: parent.width
@@ -29,6 +51,10 @@ UI.UFrame {
                 text: "< Back to Platform"
                 width: 150
                 anchors.verticalCenter: parent.verticalCenter
+
+                onClicked: {
+                    main.swap(_paths.uSystem, _paths.uSystemTitle, mySystem)
+                }
             }
         }
         Rectangle {
@@ -48,20 +74,35 @@ UI.UFrame {
                 color: _colors.uTransparent
 
                 Rectangle {
-                    id: descriptionContainer
-                    width: parent.width * 0.5
+                    id: leftWindow
+                    width: parent.width * 0.5 - 10
                     height: parent.height
                     color: _colors.uTransparent
 
                     Rectangle {
-                        color: _colors.uLightGrey
-                        height: parent.height
-                        width: 2
-                        anchors.right: parent.right
+                        id: infoWindow
+
+                        anchors.fill: parent
+
+                        color: _colors.uTransparent
+
+                        Info.UDeviceInfoWidget {
+                            id: info
+
+                            anchors.fill: parent
+                        }
                     }
                 }
+
                 Rectangle {
-                    id: configurationContainer
+                    color: _colors.uLightGrey
+                    height: parent.height
+                    width: 2
+                    anchors.right: rightWindow.left
+                }
+
+                Rectangle {
+                    id: rightWindow
                     width: parent.width * 0.5
                     height: parent.height
                     anchors.right: parent.right
@@ -80,79 +121,33 @@ UI.UFrame {
                             height: 40
                             anchors.centerIn: parent
 
-                            icons: ["Off", "Time", "BarChart"]
-                            texts: ["", "", ""]
+                            icons: ["Off",    "Time",    "BarChart"]
+                            texts: ["",       "",        ""]
+                            ids:   ["Config", "History", "Statistics"]
                         }
                     }
+
                     Rectangle {
-                        id: scenarioContainer
-                        width: editButton.width + deleteButton.width + combo.width + 10
-                        height: 40
-                        color: _colors.uTransparent
-                        anchors.horizontalCenter: parent.horizontalCenter
+                        id: content
+                        width: parent.width
+
                         anchors.top: tabsContainer.bottom
                         anchors.topMargin: 20
 
-                        UI.UComboBox {
-                            id: combo
-                            width: 400
-                            height: 40
-                            anchors.verticalCenter: parent.verticalCenter
-                            anchors.left: parent.left
-                            itemListModel: [
-                                                { value:"0", displayedValue:"Regular work schedule", iconId:""},
-                                                { value:"1", displayedValue:"Weekend schedule", iconId:""},
-                                                { value:"2", displayedValue:"Special day schedule", iconId:""},
-                                                { value:"3", displayedValue:"Jif schedule", iconId:""}
-                                            ]
-                        }
-                        UI.UButton {
-                            id: editButton
-                            width: 40
-                            height: 40
-                            iconId: "Pencil"
-                            anchors.verticalCenter: parent.verticalCenter
-                            anchors.left: combo.right
-                            anchors.leftMargin: 5
+                        anchors.left: parent.left
+                        anchors.leftMargin: 10
 
-                        }
-                        UI.UButton {
-                            id: deleteButton
-                            width: 40
-                            height: 40
-                            iconId: "Trash"
-                            anchors.verticalCenter: parent.verticalCenter
-                            anchors.left: editButton.right
-                            anchors.leftMargin: 5
-
-                            buttonColor: _colors.uDarkRed
-                            buttonHoveredColor: _colors.uRed
-                        }
-
-                        z: 2
-                    }
-
-                    Rectangle {
-                        id: tabsContentContainer
-                        color: _colors.uTransparent
-                        width: parent.width
-                        anchors.top: scenarioContainer.bottom
+                        anchors.right: parent.right
                         anchors.bottom: parent.bottom
-                        anchors.topMargin: 20
 
-                        Scenario.UTaskWidget {
-                            anchors.fill: parent
+                        color: _colors.uTransparent
+
+                        UDeviceConfigTab {
+                            id: deviceTab
                         }
                     }
                 }
-
             }
         }
-    }
-
-
-
-
-    function refresh(newDevice) {
     }
 }

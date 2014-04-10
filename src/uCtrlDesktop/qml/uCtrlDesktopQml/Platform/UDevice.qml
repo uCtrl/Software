@@ -87,7 +87,7 @@ Rectangle {
         onHoveredChanged: color = (containsMouse ? _colors.uUltraLightGrey : _colors.uTransparent)
 
         onClicked: {
-            main.swap(_paths.uConfig, "", deviceModel)
+            main.swap(_paths.uConfig, deviceModel.name, deviceModel)
         }
     }
 
@@ -102,25 +102,5 @@ Rectangle {
         anchors.verticalCenter: container.verticalCenter
 
         color: _colors.uTransparent
-
-        UI.UFontAwesome {
-            id: informationIconRight
-
-            anchors.fill: parent
-
-            iconId: "InfoSign"
-            iconSize: 32
-            iconColor: _colors.uGreen
-        }
-
-        MouseArea {
-            anchors.fill: parent
-
-            cursorShape: "PointingHandCursor"
-
-            onClicked: {
-                main.swap(_paths.uInfo, "", deviceModel)
-            }
-        }
     }
 }

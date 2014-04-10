@@ -5,7 +5,7 @@ import "../ULabel" as ULabel
 
 Rectangle {
     id: tab
-
+    property string identifier: "0"
     property bool isFirst: true
     property bool isLast: false
     property string iconId

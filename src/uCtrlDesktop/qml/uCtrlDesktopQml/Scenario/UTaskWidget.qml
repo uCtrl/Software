@@ -5,7 +5,7 @@ import "../UI/ULabel" as ULabel
 Item {
     property var taskModel: taskList.model.getTaskAt(index)
     property bool isEditMode: false
-    property bool showButtons: true
+    property bool showButtons: false
 
     property bool canMoveUp: !(index === 0 || index === taskList.count - 1)
     property bool canMoveDown: !(index === taskList.count - 1 || index === taskList.count - 2)

@@ -1,8 +1,9 @@
 import QtQuick 2.0
 
 Rectangle {
-    property string name: "UNKNOWN"
-    property ListModel scenario: null
+    id: scenarioWidget
+    property var scenario: null
+    property bool isEditMode: false
     clip:true
 
     color: _colors.uWhite
@@ -30,7 +31,6 @@ Rectangle {
     UScenarioHeaderWidget {
         id: scenarioHeader
         anchors.top: parent.top
-        scenarioName: name
     }
 
     Rectangle {
@@ -52,6 +52,7 @@ Rectangle {
             model: scenario
             delegate: UTaskWidget {
                 z: 100000 - index
+                showButtons: scenarioWidget.isEditMode
             }
         }
     }

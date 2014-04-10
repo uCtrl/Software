@@ -44,7 +44,8 @@ public:
     QList<UScenario*> getScenarios() const { return m_scenarios; }
 
     // TODO: this should be better handled
-    Q_INVOKABLE QObject* getScenario() const { return (QObject*) m_scenarios.at(0); }
+    Q_INVOKABLE int getScenarioCount() const { return m_scenarios.count(); }
+    Q_INVOKABLE QObject* getScenarioAt(int index) const { return (QObject*) m_scenarios.at(index); }
 
     void read(const QJsonObject &jsonObj);
     void write(QJsonObject &jsonObj) const;

@@ -46,10 +46,14 @@ Rectangle {
     UI.UButton {
         id: deleteBtn
 
-        text: "x"
+        iconId: "Remove"
+        iconSize: 16
 
-        width: 20
-        height: 20
+        buttonColor: _colors.uDarkRed
+        buttonHoveredColor: _colors.uRed
+
+        width: 30
+        height: 30
 
         anchors.verticalCenter: parent.verticalCenter
         anchors.right: parent.right

@@ -29,6 +29,7 @@ UI.UFrame {
             UI.UTabs {
                 icons: ["Flag", "Umbrella", "Time", "Th", "Off", ""]
                 texts: ["Flag", "Bolt", "",     "",   "Off", "Download"]
+                ids: ["", "", "", "", "", ""]
                 defaultSelected: 2
             }
         }
