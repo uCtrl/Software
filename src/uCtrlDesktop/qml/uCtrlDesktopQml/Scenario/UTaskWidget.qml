@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import ConditionEnums 1.0
 import "../UI" as UI
 import "../UI/ULabel" as ULabel
 
@@ -6,22 +7,19 @@ Item {
     property var taskModel: taskList.model.getTaskAt(index)
     property bool isEditMode: false
     property bool showButtons: true
+    property bool isAddingCondition: false
 
     property bool canMoveUp: !(index === 0 || index === taskList.count - 1)
     property bool canMoveDown: !(index === taskList.count - 1 || index === taskList.count - 2)
 
+    Component.onDestruction: {
+        conditionList.cancelEditConditions()
+    }
+
     id: taskWidget
 
     width: parent.width
-    height: 40 + conditionsContainer.adjustedHeight()
-
-    Rectangle {
-        id: shadow
-
-        width: parent.width
-        height: parent.height +1
-        color: _colors.uUltraLightGrey
-    }
+    height: 70 + conditionsContainer.adjustedHeight() + addTaskComboBox.height
 
     Rectangle {
         id: scenarioFrame
@@ -195,6 +193,7 @@ Item {
                         isEditMode = false
 
                         conditionList.cancelEditConditions()
+                        isAddingCondition = false
                     }
                 }
             }
@@ -321,6 +320,8 @@ Item {
         }
 
         Rectangle {
+            z:2
+
             id: conditionsContainer
             height: 40 * conditionList.count
             width: parent.width
@@ -341,6 +342,8 @@ Item {
                 spacing:5
                 interactive:false
 
+                property var newConditions: []
+
                 delegate: UTaskConditionWidget {
                     z: 100000 - index
                     isEditMode: taskWidget.isEditMode
@@ -351,13 +354,108 @@ Item {
                         conditionList.currentIndex = i
                         conditionList.currentItem.saveCondition()
                     }
+
+                    newConditions = []
                 }
 
                 function cancelEditConditions() {
-                    for(var i = 0; i < taskModel.conditionCount(); i++) {
+                    var count = taskModel.conditionCount()
+
+                    for(var i = count - 1; i >= 0 ; i--) {
                         conditionList.currentIndex = i
+
+                        if (newConditions.indexOf(conditionList.model.getConditionAt(i)) !== -1) {
+                            taskModel.deleteConditionAt(i)
+                            continue
+                        }
+
                         conditionList.currentItem.cancelEditCondition()
                     }
+                }
+            }
+        }
+
+        Rectangle {
+            z:1
+            id: addTaskComboBox
+
+            anchors.top: conditionsContainer.bottom
+            anchors.left: conditionsContainer.left
+            anchors.leftMargin: 30
+
+            width: conditionsContainer.width
+            height: isAddingCondition ? 30 : 0
+
+            visible: isAddingCondition && isEditMode
+
+            UI.UComboBox {
+                height: parent.height
+
+                itemListModel: [
+                    { value:"", displayedValue:"Select condition type", iconId:"" },
+                    { value:"Time", displayedValue:"  Time", iconId:"Time"},
+                    { value:"Date", displayedValue:"  Date", iconId:"Calendar"}
+                ]
+
+                selectedItem: { "value":"", "displayedValue":"Select condition type", "iconId":"" }
+
+                onSelectValue: {
+                    if (newValue === "")
+                        return
+
+                    createCondition(newValue)
+                    selectItem(0)
+                }
+
+                function createCondition(newValue) {
+                    var newCondition
+
+                    switch(newValue) {
+                    case "Time":
+                        newCondition = taskModel.createCondition(UEConditionType.Time)
+                        break
+                    case "Date":
+                        newCondition = taskModel.createCondition(UEConditionType.Date)
+                        break
+                    default:
+                        return
+                    }
+
+                    taskModel.addCondition(newCondition)
+                    conditionList.newConditions.push(newCondition)
+                    isAddingCondition = false
+                }
+            }
+        }
+
+        Rectangle {
+            anchors.top: conditionsContainer.bottom
+            anchors.left: conditionsContainer.left
+            anchors.leftMargin: 27
+
+            width: conditionsContainer.width
+            height: 30
+
+            visible: !isAddingCondition && isEditMode
+
+            UI.UButton {
+                anchors.topMargin: 5
+                anchors.bottomMargin: 5
+
+                width: 125
+                height: 20
+
+                iconId: "PlusSign"
+                iconSize: 16
+
+                buttonColor: _colors.uWhite
+                buttonTextColor: _colors.uGreen
+                buttonHoveredColor: _colors.uMediumLightGrey
+
+                text: "Add condition"
+
+                onClicked: {
+                    isAddingCondition = true
                 }
             }
         }

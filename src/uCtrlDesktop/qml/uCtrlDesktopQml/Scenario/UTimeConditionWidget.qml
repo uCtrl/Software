@@ -47,7 +47,7 @@ Rectangle{
         case UEComparisonType.InBetween:
             return "From"
         default:
-            console.log("WRONG TIME CONDITION TYPE")
+            return ""
         }
     }
 
@@ -99,6 +99,7 @@ Rectangle{
 
         UI.UComboBox {
             width: 100
+            height: 30
 
             itemListModel: [
                 { value:"From", displayedValue:"From", iconId:""},

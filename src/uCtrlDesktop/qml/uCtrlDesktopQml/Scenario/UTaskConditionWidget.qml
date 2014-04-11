@@ -84,14 +84,20 @@ Rectangle {
     UI.UButton {
         id: deleteBtn
 
-        text: "x"
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.right: parent.right
+        anchors.rightMargin: 10
 
         width: 20
         height: 20
 
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.right: parent.right
-        anchors.rightMargin: 10
+        buttonColor: _colors.uWhite
+        buttonHoveredColor: _colors.uMediumLightGrey
+        buttonTextColor : _colors.uBlack
+
+        visible: isEditMode
+        iconId: "Remove"
+        iconSize: 12
 
         function execute() {
             if (isConditionOfTask) {
