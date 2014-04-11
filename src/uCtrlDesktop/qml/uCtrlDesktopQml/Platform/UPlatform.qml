@@ -5,7 +5,7 @@ import "../UI/ULabel" as ULabel
 Rectangle {
     id: container
 
-    property var platform: {"enabled": "ON", "name": "UNKNOWN", "room": "UNKNOWN", "ip": "255.255.255.255", "id": 0, "port": 0, "firmwareVersion": "1.0.1.2342"}
+    property var platform: {"enabled": "ON", "name": "UNKNOWN", "room": "UNKNOWN", "ip": "UNKNOWN", "id": "UNKOWN", "port": "UNKNOWN", "firmwareVersion": "UNKNOWN"}
     property bool isEditing : false
     property int animationTime: 500
 
@@ -52,6 +52,7 @@ Rectangle {
 
     function refresh(newPlatform) {
         platform = newPlatform
+
         if (platform !== null) {
             devicesListContainer.refresh(platform);
             cancelEditing()

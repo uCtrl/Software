@@ -45,12 +45,8 @@ Rectangle {
                     height: parent.height - 10
                     anchors.centerIn: parent
 
-                    itemData: itemListModel[0]
+                    itemData: selectedItem
                     textColor: _colors.uDarkGrey
-
-                    Component.onCompleted: {
-                        valueItem.refresh(itemListModel[0])
-                    }
             }
         }
     }

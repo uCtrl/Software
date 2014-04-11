@@ -1,9 +1,10 @@
 #include "ucondition.h"
 #include "Utility/uniqueidgenerator.h"
 #include "uconditiondate.h"
+#include "uconditiontime.h"
 
 UCondition::UCondition(QObject *parent, UCondition::UEConditionType type)
-    :QAbstractItemModel(parent), m_conditionParent(parent)
+    :QAbstractItemModel(parent), m_conditionParent(parent), m_comparisonType(UEComparisonType::InBetween)
 {
     setId(UniqueIdGenerator::GenerateUniqueId());
     setType(type);
@@ -35,6 +36,7 @@ UCondition::UCondition(const UCondition& condition)
 void UCondition::read(const QJsonObject &jsonObj)
 {
     this->setId(jsonObj["id"].toInt());
+    this->setComparisonType((UEComparisonType)jsonObj["comparisonType"].toInt());
     // Type should be set by Ucondition::createCondition, when calling a sub-class constructor.
 }
 
@@ -42,16 +44,17 @@ void UCondition::write(QJsonObject &jsonObj) const
 {
     jsonObj["id"] = getId();
     jsonObj["type"] = (int) getType();
+    jsonObj["comparisonType"] = (int) getComparisonType();
 }
 
-UCondition *UCondition::createCondition(QObject *parent, UCondition::UEConditionType type)
+UCondition* UCondition::createCondition(QObject *parent, UCondition::UEConditionType type)
 {
     switch(type){
     case UEConditionType::Date:
         return new UConditionDate(parent);
-        break;
+    case UEConditionType::Time:
+        return new UConditionTime(parent);
     default:
         return new UCondition(parent, UEConditionType::None);
-        break;
     }
 }

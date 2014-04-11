@@ -7,7 +7,7 @@
 class JsonSerializer
 {
 public:
-   static QString serialize(JsonSerializable *obj);
-   static void parse(const QString &json, JsonSerializable *jsonSerializable);
+   static QString serialize(JsonWritable* obj);
+   static void parse(const QString& json, JsonReadable* jsonSerializable);
 };
 #endif // JSONSERIALIZER_H

@@ -3,7 +3,6 @@
 
 #include "Serialization/jsonserializable.h"
 #include "Device/udevice.h"
-#include "Communication/usocket.h"
 #include <QObject>
 #include <QAbstractListModel>
 
@@ -21,7 +20,6 @@ class UPlatform : public QAbstractListModel, public JsonSerializable
     Q_PROPERTY(QString      firmwareVersion READ getFirmwareVersion WRITE setFirmwareVersion)
 
 public:
-
     UPlatform(QObject* parent);
     UPlatform(QObject* parent, const QString& ip, const int port);
     UPlatform(const UPlatform& platform);
@@ -31,21 +29,19 @@ public:
     virtual QVariant data(const QModelIndex &index, int role) const;
     virtual int rowCount(const QModelIndex &parent) const;
 
+    int             getId() const { return m_id; }
+    QString         getIp() const { return m_ip; }
+    QString         getName() const { return m_name; }
+    int             getPort() const { return m_port; }
+    QList<UDevice*> getDevices() const { return m_devices; }
+    Q_INVOKABLE QObject* getDeviceAt(int index) const;
+    QString         getRoom() const { return m_room; }
+    QString         getEnabled() const { return m_enabled; }
+    QString         getFirmwareVersion() const { return m_firmwareVersion; }
+
     // JsonSerializable
     void read(const QJsonObject &jsonObj);
     void write(QJsonObject &jsonObj) const;
-
-    int                     getId() const { return m_id; }
-    QString                 getIp() const { return m_ip; }
-    QString                 getName() const { return m_name; }
-    int                     getPort() const { return m_port; }
-    QList<UDevice*>         getDevices() const { return m_devices; }
-    Q_INVOKABLE QObject*    getDeviceAt(int index) const;
-    QString                 getRoom() const { return m_room; }
-    QString                 getEnabled() const { return m_enabled; }
-    QString                 getFirmwareVersion() const { return m_firmwareVersion; }
-
-    void createSocket();
 
 public slots:
     void setId(int arg) { m_id = arg; }
@@ -63,9 +59,6 @@ public slots:
     }
     void setFirmwareVersion(QString arg) { m_firmwareVersion = arg; }
 
-    void connected();
-    void receivedRequest(QString message);
-
 signals:
     void nameChanged(QString arg);
     void roomChanged(QString arg);
@@ -81,7 +74,6 @@ private:
     int m_port;
     QList<UDevice*> m_devices;
     QString m_room;
-    USocket* m_socket;
     QString m_enabled;
     QString m_firmwareVersion;
 };

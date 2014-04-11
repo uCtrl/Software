@@ -1,5 +1,5 @@
 #include "uconditionday.h"
-
+/*
 UConditionDay::UConditionDay() : UCondition()
 {
 }
@@ -22,3 +22,4 @@ void UConditionDay::FillMembers(const json::Object& obj)
     setWeekDay1(obj["weekDay1"]);
     setWeekDay2(obj["weekDay2"]);
 }
+*/

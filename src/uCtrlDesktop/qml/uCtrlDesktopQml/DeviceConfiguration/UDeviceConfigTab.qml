@@ -11,7 +11,6 @@ Rectangle {
 
     property var device
     property var selectedScenario
-
     function refresh(newDevice) {
         device = newDevice
 

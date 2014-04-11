@@ -25,6 +25,9 @@
                                             "type": 1
                                         },
                                         {
+                                            "beginTime": "08:00",
+                                            "endTime": "17:00",
+                                            "comparisonType": 8,
                                             "id": 1350245677,
                                             "type": 3
                                         },
@@ -35,6 +38,8 @@
                                             "type": 1
                                         },
                                         {
+                                            "beginTime": "19:00",
+                                            "comparisonType": 1,
                                             "id": 1350245681,
                                             "type": 3
                                         }

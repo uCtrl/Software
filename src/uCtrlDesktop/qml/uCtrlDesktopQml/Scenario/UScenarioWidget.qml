@@ -2,9 +2,10 @@ import QtQuick 2.0
 
 Rectangle {
     id: scenarioWidget
-    property var scenario: null
-    property bool isEditMode: false
+    property string name: "UNKNOWN"
+    property var scenario
     clip:true
+    property bool isEditMode: false
 
     color: _colors.uWhite
     height: parent.height

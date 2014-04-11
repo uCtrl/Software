@@ -22,28 +22,6 @@ UPlatform::UPlatform(const UPlatform& platform)
 
 UPlatform::~UPlatform()
 {
-    delete m_socket;
-}
-
-void UPlatform::createSocket()
-{
-    if(m_ip == NULL || m_port == 0)
-        return;
-
-    m_socket = new USocket(m_ip, m_port);
-    connect(m_socket, SIGNAL(hostConnected()), this, SLOT(connected()));
-    connect(m_socket, SIGNAL(received(QString)), this, SLOT(receivedRequest(QString)));
-}
-
-void UPlatform::connected()
-{
-    m_socket->write("getAllDevices");
-}
-
-void UPlatform::receivedRequest(QString message)
-{
-    qDebug() << "Received: " << message;
-    JsonSerializer::parse(message, this);
 }
 
 QObject* UPlatform::getDeviceAt(int index) const {
@@ -65,11 +43,11 @@ int UPlatform::rowCount(const QModelIndex &parent) const
 void UPlatform::read(const QJsonObject &jsonObj)
 {
     this->setId(jsonObj["id"].toInt());
-    this->setIp(jsonObj["ip"].toString());
-    this->setPort(jsonObj["port"].toInt());
     this->setName(jsonObj["name"].toString());
     this->setRoom(jsonObj["room"].toString());
     this->setEnabled(jsonObj["enabled"].toString());
+    this->setIp(jsonObj["ip"].toString());
+    this->setPort(jsonObj["port"].toInt());
     this->setFirmwareVersion(jsonObj["firmwareVersion"].toString());
 
     QJsonArray devicesArray = jsonObj["devices"].toArray();
@@ -84,12 +62,12 @@ void UPlatform::read(const QJsonObject &jsonObj)
 void UPlatform::write(QJsonObject &jsonObj) const
 {
     jsonObj["id"] = getId();
-    jsonObj["ip"] = getIp();
-    jsonObj["port"] = getPort();
     jsonObj["enabled"] = getEnabled();
     jsonObj["name"] = getName();
     jsonObj["room"] = getRoom();
     jsonObj["firmwareVersion"] = getFirmwareVersion();
+    jsonObj["ip"] = getIp();
+    jsonObj["port"] = getPort();
 
     QJsonArray devicesArray;
     foreach(UDevice* device, this->m_devices)

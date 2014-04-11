@@ -5,6 +5,7 @@ Rectangle {
 
     property var platforms: null
     property string filterValue: ""
+    property string section: "room"
 
     clip: true
 
@@ -22,30 +23,53 @@ Rectangle {
 
     ListView {
         id: platformsList
+
         anchors.fill: parent
 
+        model: systemPlatforms
+
         highlight: Rectangle {
-            id: highlightBar
+            id: highlighter
+
+            width: parent.width; height: 60;
+
+            color: _colors.uLightGrey
+            opacity: 0.6
 
             visible: (systemContainer.activePlatform !== null)
-
-            width: list.width; height: 60
-
-            color: _colors.uUltraLightGrey
 
             y: (platformsList.currentItem === null ? -1 : platformsList.currentItem.y);
             Behavior on y { SpringAnimation { spring: 1; damping: 0.1 } }
         }
+
         highlightFollowsCurrentItem: false
 
-        model: platforms
         delegate: Loader {
             sourceComponent: getSourceComponent()
 
+            Component {
+                id: platformContainer
+
+                UPlatform {
+                    platformModel: reference
+                    width: platformsList.width
+                }
+            }
+
+            Component {
+                id: emptyComponent
+
+                Rectangle { width: 0; height: 0 }
+            }
+
+            function sourceContainsFilter (source, filter) {
+                return source.toLowerCase().indexOf(filter.toLowerCase()) !== -1
+            }
+
             function getSourceComponent() {
-                var platform = platforms.getPlatformAt(index)
-                if (systemContainer.activePlatform === platform)
-                    platformsList.currentIndex = index
+                var platform = mySystem.getPlatformAt(index)
+
+                if (systemContainer.activePlatform === platform) platformsList.currentIndex = index
 
                 if (list.filterValue === "")
                     return platformContainer
@@ -63,31 +87,49 @@ Rectangle {
                 return emptyComponent
             }
 
-            function sourceContainsFilter (source, filter) {
-                return source.toLowerCase().indexOf(filter.toLowerCase()) !== -1
+        }
+
+        section.property: list.section
+        section.criteria: ViewSection.FullString
+        section.delegate: Rectangle {
+            id: header
+
+            property bool showChildren: true
+
+            width: parent.width; height: 24;
+
+            color: _colors.uGreen
+
+            Text {
+                id: room
+
+                text: section
+                color: "white"
+
+                anchors.left: parent.left
+                anchors.leftMargin: 5
+
+                anchors.verticalCenter: parent.verticalCenter
             }
 
-            Component {
-                id: platformContainer
+            MouseArea {
+                id: headerArea
 
-                UPlatform {
-                    platformModel: platforms.getPlatformAt(index)
-                    width: platformsList.width
-                }
+                anchors.fill: parent
+
+                onClicked: header.showChildren = !header.showChildren
             }
+        }
 
-            Component {
-                id: emptyComponent
-
-                Rectangle {
-                    width: 0
-                    height: 0
-                }
-            }
-        }       
+        onModelChanged:{
+            section.property = list.section
+            section.criteria = ViewSection.FullString
+        }
     }
 
     Component.onCompleted: {
-        platformsList.currentIndex = -1
+        platformsList.currentIndex = 0
     }
+
+    onSectionChanged: platformsList.section.property = section;
 }
