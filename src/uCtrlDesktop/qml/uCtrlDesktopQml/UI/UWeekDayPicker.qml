@@ -34,15 +34,32 @@ Rectangle {
     }
 
     function updateDisplay() {
-        summaryLabel.text = (sundayCheckbox.checked ? "Sunday " : "") +
-                            (mondayCheckbox.checked ? "Monday " : "") +
-                            (tuesdayCheckbox.checked ? "Tuesday " : "") +
-                            (wednesdayCheckbox.checked ? "Wednesday " : "") +
-                            (thursdayCheckbox.checked ? "Thursday " : "") +
-                            (fridayCheckbox.checked ? "Friday " : "") +
-                            (saturdayCheckbox.checked ? "Saturday" : "")
-        if(summaryLabel.text === "") {
+        var valuesToAdd = []
+
+        if(sundayCheckbox.checked)
+            valuesToAdd.push("Sunday")
+        if(mondayCheckbox.checked)
+            valuesToAdd.push("Monday")
+        if(tuesdayCheckbox.checked)
+            valuesToAdd.push("Tuesday")
+        if(wednesdayCheckbox.checked)
+            valuesToAdd.push("Wednesday")
+        if(thursdayCheckbox.checked)
+            valuesToAdd.push("Thursday")
+        if(fridayCheckbox.checked)
+            valuesToAdd.push("Friday")
+        if(saturdayCheckbox.checked)
+            valuesToAdd.push("Saturday")
+
+        if(valuesToAdd.length == 0) {
             summaryLabel.text = "-"
+        } else {
+            summaryLabel.text = valuesToAdd[0]
+            for(var i = 1; i < valuesToAdd.length - 1; i++) {
+                summaryLabel.text += ", " + valuesToAdd[i]
+            }
+            if(valuesToAdd.length > 1)
+                summaryLabel.text += " and " + valuesToAdd[valuesToAdd.length - 1]
         }
     }
 
