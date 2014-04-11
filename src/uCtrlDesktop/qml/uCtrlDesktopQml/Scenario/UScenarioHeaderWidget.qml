@@ -3,10 +3,8 @@ import "../UI" as UI
 import "../UI/ULabel" as ULabel
 
 Rectangle {
-    property string scenarioName: "UNKNOWN SCENARIO NAME"
-
     function refresh(newName) {
-        scenarioName = newName
+        scenarioNameLabel.text = newName
     }
 
     width: parent.width
@@ -15,7 +13,7 @@ Rectangle {
     color: _colors.uUltraLightGrey
 
     ULabel.Default {
-        text: scenarioName
+        id: scenarioNameLabel
         color: _colors.uDarkGrey
         font.pointSize: 11
         font.bold: true
@@ -23,18 +21,5 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
         anchors.leftMargin: 10
-    }
-
-    Rectangle {
-        height: 20
-        width: 25
-
-        anchors.top: parent.top
-        anchors.topMargin: 5
-        anchors.right: parent.right
-        anchors.rightMargin: 10
-
-        radius: 5
-        color: _colors.uTransparent
     }
 }

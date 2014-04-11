@@ -22,7 +22,7 @@ Rectangle {
     property var activePage: null
 
     // Frame dimension
-    width: 900; height: 700
+    width: 1600; height: 900
 
     color: _colors.uLightGrey
 

@@ -17,6 +17,7 @@ class UPlatform : public QAbstractListModel, public JsonSerializable
     Q_PROPERTY(QString      room READ getRoom WRITE setRoom NOTIFY roomChanged)
     Q_PROPERTY(QList<UDevice*> devices READ getDevices WRITE setDevices)
     Q_PROPERTY(QString      enabled READ getEnabled WRITE setEnabled NOTIFY enabledChanged)
+    Q_PROPERTY(QString      firmwareVersion READ getFirmwareVersion WRITE setFirmwareVersion)
 
 public:
     UPlatform(QObject* parent);
@@ -36,6 +37,7 @@ public:
     Q_INVOKABLE QObject* getDeviceAt(int index) const;
     QString         getRoom() const { return m_room; }
     QString         getEnabled() const { return m_enabled; }
+    QString         getFirmwareVersion() const { return m_firmwareVersion; }
 
     // JsonSerializable
     void read(const QJsonObject &jsonObj);
@@ -55,6 +57,7 @@ public slots:
             emit enabledChanged(arg);
         }
     }
+    void setFirmwareVersion(QString arg) { m_firmwareVersion = arg; }
 
 signals:
     void nameChanged(QString arg);
@@ -72,5 +75,6 @@ private:
     QList<UDevice*> m_devices;
     QString m_room;
     QString m_enabled;
+    QString m_firmwareVersion;
 };
 #endif // UPLATFORM_H

@@ -9,6 +9,7 @@ Rectangle {
     property bool showSeparator: true
     property string label: "UNKNOWN"
     property string path: "."
+    property string title: ""
     property var model: null
 
     width: 100; height: 100
@@ -63,7 +64,7 @@ Rectangle {
 
         onClicked: {
             main.resetBreadcrumb()
-            main.swap(path, container.label, model)
+            main.swap(path, title, model)
         }
     }
 }

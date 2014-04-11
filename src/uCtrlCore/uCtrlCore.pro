@@ -9,7 +9,6 @@ CONFIG += staticlib c++11
 SOURCES += \
     Platform/uplatform.cpp \
     Device/udevice.cpp \
-    Device/udeviceinfo.cpp \
     Conditions/ucondition.cpp \
     Conditions/uconditiondate.cpp \
     Scenario/uscenario.cpp \
@@ -27,7 +26,6 @@ HEADERS += \
     Platform/uplatform.h \
     System/usystem.h \
     Device/udevice.h \
-    Device/udeviceinfo.h \
     Conditions/ucondition.h \
     Conditions/uconditiondate.h \
     Scenario/uscenario.h \

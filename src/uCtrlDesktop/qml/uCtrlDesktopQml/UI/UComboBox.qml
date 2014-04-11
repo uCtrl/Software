@@ -10,7 +10,11 @@ Rectangle {
                                     { value:"3", displayedValue:"Restart", iconId:"Trash"},
                                     { value:"4", displayedValue:"Start", iconId:"Bolt"}
                                 ]
-    property var selectedItem: itemListModel[0]
+    onItemListModelChanged: {
+        combo.selectItem(0)
+    }
+
+    property var selectedItem
     z:1000
     signal selectValue(var newValue)
     property int itemDisplayedBeforeScroll: 10
@@ -69,7 +73,7 @@ Rectangle {
     Rectangle {
             id: dropDown
             clip:true
-            height: (itemListModel.length <= itemDisplayedBeforeScroll ? itemListModel.length*45 : itemDisplayedBeforeScroll * 45)
+            height: (itemListModel.length <= itemDisplayedBeforeScroll ? itemListModel.length * 45  + 10 : itemDisplayedBeforeScroll * 45)
             width: combo.width
             anchors.top: parent.bottom
             anchors.topMargin: 5
@@ -95,10 +99,9 @@ Rectangle {
                 anchors.topMargin: -2 // Put rectangle on bottom of the caret
                 width: parent.width
                 anchors.horizontalCenter: parent.horizontalCenter
-                height: dropDown.height * 0.95
+                height: dropDown.height - 10
                 radius: 5
                 color: _colors.uMediumLightGrey
-
 
                 Rectangle {
                     property int selectedIndex: 0

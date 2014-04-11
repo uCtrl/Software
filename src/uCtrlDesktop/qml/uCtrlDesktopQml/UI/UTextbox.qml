@@ -13,8 +13,8 @@ Rectangle {
     property string iconId: ""
     property int iconSize: 8
 
-    width: 100; height: 25
-    anchors.margins: 4
+    width: 100
+    height: 25
 
     color: _colors.uTransparent
 
@@ -47,7 +47,7 @@ Rectangle {
             case "ERROR":
                 return _colors.uDarkRed
             default:
-                return _colors.uWhite
+                return _colors.uTransparent
         }
     }
 

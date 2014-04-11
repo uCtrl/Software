@@ -9,7 +9,7 @@ Rectangle {
     state: "ON"
 
     id: container
-    width: 70
+    width: 80
     height: 30
     radius: height / 2
     color: _colors.uLightGreen

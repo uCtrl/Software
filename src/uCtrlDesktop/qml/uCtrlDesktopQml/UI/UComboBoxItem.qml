@@ -13,9 +13,7 @@ Rectangle {
     color: _colors.uTransparent
 
     function refresh(newItemData) {
-
         itemData = newItemData
-
         comboBoxItemIcon.refresh(itemData.iconId)
         comboBoxItemText.text = itemData.displayedValue
     }

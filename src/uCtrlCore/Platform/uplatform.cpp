@@ -46,6 +46,9 @@ void UPlatform::read(const QJsonObject &jsonObj)
     this->setName(jsonObj["name"].toString());
     this->setRoom(jsonObj["room"].toString());
     this->setEnabled(jsonObj["enabled"].toString());
+    this->setIp(jsonObj["ip"].toString());
+    this->setPort(jsonObj["port"].toInt());
+    this->setFirmwareVersion(jsonObj["firmwareVersion"].toString());
 
     QJsonArray devicesArray = jsonObj["devices"].toArray();
     foreach(QJsonValue deviceJson, devicesArray)
@@ -62,6 +65,9 @@ void UPlatform::write(QJsonObject &jsonObj) const
     jsonObj["enabled"] = getEnabled();
     jsonObj["name"] = getName();
     jsonObj["room"] = getRoom();
+    jsonObj["firmwareVersion"] = getFirmwareVersion();
+    jsonObj["ip"] = getIp();
+    jsonObj["port"] = getPort();
 
     QJsonArray devicesArray;
     foreach(UDevice* device, this->m_devices)

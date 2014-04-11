@@ -5,8 +5,28 @@ import "../UI/ULabel" as ULabel
 Rectangle {
     id: container
 
-    property var platform: {"enabled": "ON", "name": "UNKNOWN", "room": "UNKNOWN", "ip": "255.255.255.255", "id": 0, "port": 0}
+    property var platform: {"enabled": "ON", "name": "UNKNOWN", "room": "UNKNOWN", "ip": "UNKNOWN", "id": "UNKOWN", "port": "UNKNOWN", "firmwareVersion": "UNKNOWN"}
     property bool isEditing : false
+    property int animationTime: 500
+
+    state: "HideAdvanced"
+
+    states : [
+        State {
+            name: "ShowAdvanced"
+            PropertyChanges { target: advancedInformation; height: 40 * 4 }
+        },
+        State {
+            name: "HideAdvanced"
+            PropertyChanges { target: advancedInformation; height: 0 }
+        }
+    ]
+
+    transitions: [
+        Transition {
+            PropertyAnimation { target: advancedInformation; duration: animationTime; property: "height"; easing.type: Easing.InOutQuad }
+        }
+    ]
 
     function startEditing() {
         isEditing = true
@@ -44,6 +64,10 @@ Rectangle {
         platformName.text = platform.name
         enabledStatusLabel.text = platform.enabled
         locationText.text = platform.room
+        idValue.text = platform.id
+        ipValue.text = platform.ip
+        portValue.text = platform.port
+        firmwareValue.text = platform.firmwareVersion
     }
 
     UI.UForm {
@@ -142,30 +166,20 @@ Rectangle {
 
     Rectangle {
         id: enabledLabel
-        anchors.top: container.top
-        anchors.topMargin: (platformName.height + 15)
+        anchors.top: info.bottom
+        anchors.topMargin: 10
 
-        width: parent.width; height: 30
+        width: parent.width
+        height: 30
 
         color: _colors.uTransparent
 
-        ULabel.Default {
+        ULabel.UInfoTitle {
             id: enabledTitle
             text: "Enabled"
-
-            width: 100
-
-            anchors.left: parent.left
-            anchors.leftMargin: 15
-
-            anchors.verticalCenter: parent.verticalCenter
-
-            font.pointSize: 16
-            font.bold: true
-            color: _colors.uGrey
         }
 
-        ULabel.Default {
+        ULabel.UInfoBoundedLabel {
             id: enabledStatusLabel
             text: "ON"
 
@@ -173,10 +187,6 @@ Rectangle {
             anchors.verticalCenter: parent.verticalCenter
 
             visible: !isEditing
-
-            font.pointSize: 16
-            font.bold: true
-            color: _colors.uGreen
         }
 
         UI.USwitch {
@@ -194,46 +204,26 @@ Rectangle {
         id: locationLabel
 
         anchors.top: enabledLabel.bottom
-        anchors.topMargin: 5
+        anchors.topMargin: 10
 
         width: parent.width; height: 30
 
         color: _colors.uTransparent
 
-        ULabel.Default {
+        ULabel.UInfoTitle {
             id: locationTitle
             text: "Location"
-
-            width: 100
-
-            anchors.left: parent.left
-            anchors.leftMargin: 15
-
-            anchors.verticalCenter: parent.verticalCenter
-
-            font.pointSize: 16
-            font.bold: true
-            color: _colors.uGrey
         }
 
-        ULabel.Default {
+        ULabel.UInfoLabel {
             id: locationText
-
             text: ""
-
             visible: !isEditing
-
             anchors.left: locationTitle.right
-            anchors.verticalCenter: parent.verticalCenter
-
-            font.pointSize: 16
-            font.bold: true
-            color: _colors.uGreen
         }
 
         UI.UTextbox {
             id: locationTextbox
-
             anchors.left: locationTitle.right
             anchors.leftMargin: -1
             anchors.verticalCenter: parent.verticalCenter
@@ -248,183 +238,106 @@ Rectangle {
     }
 
     Rectangle {
-        id: networkInformation
-
-        width: parent.width
-        height: 30
-
-        anchors.top: locationLabel.bottom
-        anchors.topMargin: 5
-
-        UI.UFontAwesome {
-            id: networkIcon
-
-            anchors.left: parent.left
-            anchors.leftMargin: 25
-
-            iconId: "Globe"
-            iconSize: 16
-            iconColor: _colors.uMediumLightGrey
-
-            anchors.verticalCenter: parent.verticalCenter
-        }
-
-        ULabel.Default {
-            id: showMoreInformation
-
-            visible: true
-
-            text: updateText()
-
-            anchors.verticalCenter: parent.verticalCenter
-
-            anchors.left: networkIcon.right
-            anchors.leftMargin: 15
-
-            color: _colors.uGrey
-
-            font.pointSize: 12
-
-            function updateText() {
-                text = (advancedInformation.visible ? "Hide network information" : "Show network information")
-            }
-        }
-
-        MouseArea {
-            anchors.fill: parent;
-            onClicked: {
-                advancedInformation.visible = !advancedInformation.visible;
-                showMoreInformation.updateText();
-            }
-        }
-    }
-
-    Rectangle {
         id: advancedInformation
 
-        anchors.top: networkInformation.bottom
-        anchors.topMargin: 5
+        anchors.top: locationLabel.bottom
 
         anchors.left: parent.left
 
         width: parent.width
-        height: (visible ? 110 : 0)
-
-        visible: false
+        clip: true
 
         color: _colors.uTransparent
 
         Rectangle {
-            id: ipLabel
+            id: idLabel
 
             anchors.top: advancedInformation.top
+            anchors.topMargin: 10
 
-            width: parent.width; height: 30
+            width: parent.width
+            height: 30
 
             color: _colors.uTransparent
 
-            ULabel.Default {
-                id: ipTitle
-                text: "IP Adress"
-
-                width: 100
-
-                anchors.left: parent.left
-                anchors.leftMargin: 15
-
-                anchors.verticalCenter: parent.verticalCenter
-
-                font.pointSize: 16
-                font.bold: true
-                color: _colors.uGrey
+            ULabel.UInfoTitle {
+                id: idTitle
+                text: "Id"
             }
 
-            ULabel.Default {
-                id: ipValue
-
-                text: platform.ip
-
-                anchors.left: ipTitle.right
-                anchors.verticalCenter: parent.verticalCenter
-
-                font.pointSize: 16
-                font.bold: true
-                color: _colors.uGreen
+            ULabel.UInfoLabel {
+                id: idValue
+                text: platform.id
+                anchors.left: idTitle.right
             }
         }
 
         Rectangle {
-            id: idLabel
+            id: ipLabel
 
-            anchors.top: ipLabel.bottom
-            anchors.topMargin: 4
+            anchors.top: idLabel.bottom
+            anchors.topMargin: 10
 
-            width: parent.width; height: 30
+            width: parent.width
+            height: 30
 
             color: _colors.uTransparent
 
-            ULabel.Default {
-                id: idTitle
-                text: "Identifier"
-                width: 100
-                anchors.left: parent.left
-                anchors.leftMargin: 15
-
-                anchors.verticalCenter: parent.verticalCenter
-
-                font.pointSize: 16
-                font.bold: true
-                color: _colors.uGrey
+            ULabel.UInfoTitle {
+                id: ipTitle
+                text: "Ip address"
             }
 
-            ULabel.Default {
-                id: idValue
-
-                text: platform.id
-
-                anchors.left: idTitle.right
-                anchors.verticalCenter: parent.verticalCenter
-
-                font.pointSize: 16
-                font.bold: true
-                color: _colors.uGreen
+            ULabel.UInfoLabel {
+                id: ipValue
+                text: platform.ip
+                anchors.left: ipTitle.right
             }
         }
 
         Rectangle {
             id: portLabel
 
-            anchors.top: idLabel.bottom
-            anchors.topMargin: 4
+            anchors.top: ipLabel.bottom
+            anchors.topMargin: 10
 
-            width: (parent.width / 4); height: 30
+            width: parent.width
+            height: 30
 
             color: _colors.uTransparent
 
-            ULabel.Default {
+            ULabel.UInfoTitle {
                 id: portTitle
                 text: "Port"
-                width: 100
-                anchors.left: parent.left
-                anchors.leftMargin: 15
-
-                anchors.verticalCenter: parent.verticalCenter
-
-                font.pointSize: 16
-                font.bold: true
-                color: _colors.uGrey
             }
 
-            ULabel.Default {
+            ULabel.UInfoLabel {
                 id: portValue
-
                 text: platform.port
                 anchors.left: portTitle.right
-                anchors.verticalCenter: parent.verticalCenter
+            }
+        }
 
-                font.pointSize: 16
-                font.bold: true
-                color: _colors.uGreen
+        Rectangle {
+            id: firmwareLabel
+
+            anchors.top: portLabel.bottom
+            anchors.topMargin: 10
+
+            width: parent.width
+            height: 30
+
+            color: _colors.uTransparent
+
+            ULabel.UInfoTitle {
+                id: firmwareTitle
+                text: "Firmware version"
+            }
+
+            ULabel.UInfoLabel {
+                id: firmwareValue
+                text: platform.firmwareVersion
+                anchors.left: firmwareTitle.right
             }
         }
     }
@@ -450,12 +363,42 @@ Rectangle {
         id: devicesListContainer
 
         anchors.top: bottomLine.bottom
-        anchors.topMargin: 4
 
         anchors.bottom: parent.bottom
 
         anchors.left: parent.left
 
         width: parent.width;
+    }
+
+    UI.UButton {
+        id: showAdvancedInfo
+
+        anchors.left: parent.left
+        anchors.leftMargin: 10
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 10
+
+        width: 210
+        height: 30
+
+        text: "Show advanced information"
+
+        iconId: "Globe"
+        iconSize: 12
+
+        buttonColor: _colors.uTransparent
+        buttonTextColor: _colors.uGrey
+        buttonHoveredColor: _colors.uTransparent
+
+        onClicked: {
+            if(container.state === "HideAdvanced") {
+                container.state = "ShowAdvanced"
+                showAdvancedInfo.changeText("Hide advanced information")
+            } else {
+                container.state = "HideAdvanced"
+                showAdvancedInfo.changeText("Show advanced information")
+            }
+        }
     }
 }
