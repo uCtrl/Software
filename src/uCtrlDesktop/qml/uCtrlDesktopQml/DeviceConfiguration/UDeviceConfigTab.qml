@@ -62,7 +62,7 @@ Rectangle {
 
             onSelectValue: {
                 if(newValue === "add") {
-                } else if(typeof(device) !== "undefined"){
+                } else if(typeof(device) !== "undefined") {
                     var intValue = parseInt(newValue)
                     selectedScenario = device.getScenarioAt(intValue)
                     scenarioWindow.refresh(selectedScenario)

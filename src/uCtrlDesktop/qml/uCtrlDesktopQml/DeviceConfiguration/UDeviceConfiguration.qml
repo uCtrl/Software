@@ -75,7 +75,7 @@ UI.UFrame {
 
                         color: _colors.uTransparent
 
-                        Info.UDeviceInfoWidget {
+                        Info.UInfo {
                             id: info
 
                             anchors.fill: parent

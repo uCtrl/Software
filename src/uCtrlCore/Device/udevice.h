@@ -18,9 +18,10 @@ class UDevice : public QAbstractListModel, public JsonSerializable
     Q_PROPERTY(int precision READ getPrecision WRITE setPrecision NOTIFY precisionChanged)
     Q_PROPERTY(QString unitLabel READ getUnitLabel WRITE setUnitLabel NOTIFY unitLabelChanged)
     Q_PROPERTY(int type READ getType WRITE setType NOTIFY typeChanged)
-    Q_PROPERTY(QString mac READ getMac WRITE setMac)
-    Q_PROPERTY(QString firmwareVersion READ getFirmwareVersion WRITE setFirmwareVersion)
     Q_PROPERTY(bool isTriggerValue READ isTriggerValue WRITE setIsTriggerValue NOTIFY isTriggerValueChanged)
+    Q_PROPERTY(QString description READ getDescription WRITE setDescription NOTIFY descriptionChanged)
+    Q_PROPERTY(QString enabled READ getEnabled WRITE setEnabled NOTIFY enabledChanged)
+    Q_PROPERTY(float status READ getStatus WRITE setStatus NOTIFY statusChanged)
 
 public:
     UDevice(QObject* parent);
@@ -37,9 +38,10 @@ public:
     int getPrecision() const { return m_precision; }
     QString getUnitLabel() const { return m_unitLabel; }
     int getType() const { return m_type; }
-    QString getMac() const { return m_mac; }
-    QString getFirmwareVersion() const { return m_firmwareVersion; }
     bool isTriggerValue() const { return m_isTriggerValue; }
+    QString getDescription() const { return m_description; }
+    QString getEnabled() const { return m_enabled; }
+    float getStatus() const { return m_status; }
 
     QList<UScenario*> getScenarios() const { return m_scenarios; }
 
@@ -50,22 +52,6 @@ public:
     void read(const QJsonObject &jsonObj);
     void write(QJsonObject &jsonObj) const;
 
-    Q_INVOKABLE QObject* getDeviceInfo() {
-        UDeviceInfo* deviceInfo = new UDeviceInfo();
-
-        deviceInfo->setId(m_id);
-        deviceInfo->setName(m_name);
-        deviceInfo->setMinValue(m_minValue);
-        deviceInfo->setMaxValue(m_maxValue);
-        deviceInfo->setPrecision(m_precision);
-        deviceInfo->setUnitLabel(m_unitLabel);
-        deviceInfo->setType(m_type);
-        deviceInfo->setMac(m_mac);
-        deviceInfo->setFirmwareVersion(m_firmwareVersion);
-
-        return deviceInfo;
-    }
-
 signals:
     void idChanged(int arg);
     void nameChanged(QString arg);
@@ -75,6 +61,9 @@ signals:
     void unitLabelChanged(QString arg);
     void typeChanged(int arg);
     void isTriggerValueChanged(bool arg);
+    void descriptionChanged(QString arg);
+    void enabledChanged(QString arg);
+    void statusChanged(float arg);
 
 public slots:
     void setScenarios(QList<UScenario*> arg) { m_scenarios = arg; }
@@ -84,6 +73,22 @@ public slots:
         if (m_id != arg) {
             m_id = arg;
             emit idChanged(arg);
+        }
+    }
+
+    void setEnabled(QString arg)
+    {
+        if(m_enabled != arg) {
+            m_enabled = arg;
+            emit enabledChanged(arg);
+        }
+    }
+
+    void setDescription(QString arg)
+    {
+        if(m_description != arg) {
+            m_description = arg;
+            emit descriptionChanged(arg);
         }
     }
 
@@ -143,17 +148,11 @@ public slots:
         }
     }
 
-    void setMac(QString arg)
+    void setStatus(float arg)
     {
-        if (m_mac != arg) {
-            m_mac = arg;
-        }
-    }
-
-    void setFirmwareVersion(QString arg)
-    {
-        if (m_firmwareVersion != arg) {
-            m_firmwareVersion = arg;
+        if(m_status != arg) {
+            m_status = arg;
+            emit statusChanged(arg);
         }
     }
 
@@ -166,9 +165,10 @@ private:
     int m_precision;
     QString m_unitLabel;
     int m_type;
-    QString m_mac;
-    QString m_firmwareVersion;
     bool m_isTriggerValue;
+    QString m_description;
+    QString m_enabled;
+    float m_status;
 };
 Q_DECLARE_METATYPE(QList<UDevice*>)
 #endif // UDEVICE_H

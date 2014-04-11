@@ -18,6 +18,7 @@ class UPlatform : public QAbstractListModel, public JsonSerializable
     Q_PROPERTY(QString      room READ getRoom WRITE setRoom NOTIFY roomChanged)
     Q_PROPERTY(QList<UDevice*> devices READ getDevices WRITE setDevices)
     Q_PROPERTY(QString      enabled READ getEnabled WRITE setEnabled NOTIFY enabledChanged)
+    Q_PROPERTY(QString      firmwareVersion READ getFirmwareVersion WRITE setFirmwareVersion)
 
 public:
 
@@ -34,14 +35,15 @@ public:
     void read(const QJsonObject &jsonObj);
     void write(QJsonObject &jsonObj) const;
 
-    int             getId() const { return m_id; }
-    QString         getIp() const { return m_ip; }
-    QString         getName() const { return m_name; }
-    int             getPort() const { return m_port; }
-    QList<UDevice*> getDevices() const { return m_devices; }
-    Q_INVOKABLE QObject* getDeviceAt(int index) const;
-    QString         getRoom() const { return m_room; }
-    QString         getEnabled() const { return m_enabled; }
+    int                     getId() const { return m_id; }
+    QString                 getIp() const { return m_ip; }
+    QString                 getName() const { return m_name; }
+    int                     getPort() const { return m_port; }
+    QList<UDevice*>         getDevices() const { return m_devices; }
+    Q_INVOKABLE QObject*    getDeviceAt(int index) const;
+    QString                 getRoom() const { return m_room; }
+    QString                 getEnabled() const { return m_enabled; }
+    QString                 getFirmwareVersion() const { return m_firmwareVersion; }
 
     void createSocket();
 
@@ -59,6 +61,7 @@ public slots:
             emit enabledChanged(arg);
         }
     }
+    void setFirmwareVersion(QString arg) { m_firmwareVersion = arg; }
 
     void connected();
     void receivedRequest(QString message);
@@ -80,5 +83,6 @@ private:
     QString m_room;
     USocket* m_socket;
     QString m_enabled;
+    QString m_firmwareVersion;
 };
 #endif // UPLATFORM_H

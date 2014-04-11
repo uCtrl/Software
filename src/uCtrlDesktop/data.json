@@ -3,11 +3,14 @@
         {
             "devices": [
                 {
-                    "id": 1782103621,
+                    "id": 147852369,
                     "maxValue": 100,
-                    "minValue": 0,
+                    "minValue": 25,
                     "name": "Temperature A",
                     "precision": 5,
+                    "description": "A random description, which is pretty long I'll say. I don't know what to say...",
+                    "status": 25.75,
+                    "enabled": "ON",
                     "scenarios": [
                         {
                             "id": 1782103622,
@@ -102,7 +105,8 @@
                     ],
                     "type": 1,
                     "unitLabel": "\u00B0C",
-                    "isTriggerValue": false
+                    "isTriggerValue": false,
+                    "enabled": "ON"
                 },
                 {
                     "id": 1782103621,
@@ -110,6 +114,7 @@
                     "minValue": 0,
                     "name": "Light",
                     "precision": 0,
+                    "description": "A random description, which is pretty long I'll say. Not too bad",
                     "scenarios": [
                         {
                             "id": 1782103622,
@@ -167,12 +172,13 @@
                     "isTriggerValue": true
                 }
             ],
+            "firmwareVersion": "1.0.0.1234",
+            "id": 123456879,
+            "name": "Platform #1",
+            "port": 23489,
+            "room": "Bedroom",
             "enabled": "ON",
-            "id": 99934,
-            "ip": "127.0.0.1",
-            "port": 80,
-            "name": "Television Set",
-            "room": "Living room"
+            "ip": "238.195.255.102"
         },
         {
             "devices": [
@@ -182,6 +188,7 @@
                     "minValue": 0,
                     "name": "Dimmer Light",
                     "precision": 1,
+                    "description": "A random description, which is pretty long I'll say. Give me a break!",
                     "scenarios": [
                         {
                             "id": 1782103622,
@@ -242,12 +249,13 @@
                     "unitLabel": "%"
                 }
             ],
+            "firmwareVersion": "1.0.0.2225",
+            "id": 157257547,
+            "name": "My other platform",
+            "port": 41256,
+            "room": "Kitchen",
             "enabled": "OFF",
-            "id": 99934,
-            "ip": "127.0.0.2",
-            "port": 5000,
-            "name": "Sound System",
-            "room": "Alexis' room"
+            "ip": "238.22.145.44"
         }
     ]
 }
