@@ -47,7 +47,7 @@ Rectangle {
             case "ERROR":
                 return _colors.uDarkRed
             default:
-                return _colors.uWhite
+                return _colors.uTransparent
         }
     }
 

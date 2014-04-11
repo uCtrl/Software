@@ -3,7 +3,6 @@
 
 #include "Serialization/jsonserializable.h"
 #include "Scenario/uscenario.h"
-#include "Device/udeviceinfo.h"
 #include <QAbstractListModel>
 
 class UDevice : public QAbstractListModel, public JsonSerializable
