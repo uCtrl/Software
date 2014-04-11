@@ -12,10 +12,26 @@ UI.UFrame {
         Rectangle {
             id: switchDemo
             width: parent.width
-            height: 100
+            height: 500
 
             UI.USwitch {
+                id: swDemo
 
+                anchors.top: parent.top
+                anchors.topMargin: 15
+
+                anchors.left: parent.left
+                anchors.leftMargin: 15
+            }
+
+            UI.UWeekDayPicker {
+                id: weekDayPicker
+
+                anchors.top: swDemo.bottom
+                anchors.topMargin: 15
+
+                anchors.left: parent.left
+                anchors.leftMargin: 15
             }
         }
 

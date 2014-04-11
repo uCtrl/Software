@@ -7,11 +7,21 @@ import "../UI/ULabel" as ULabel
 Rectangle {
     id: checkbox
 
-    property string text: "UNKNOWN"
+    property string text: ""
     property bool checked: false
     state: "ENABLED"
-    width: 100
+    width: checkContainer.width + (text === "" ? 0 : (checkboxLabel.width + 5))
     height: 20
+
+    property color checkedLabelColor : _colors.uBlack
+    property color checkedIconColor : _colors.uBlack
+    property color checkedContainerColor: _colors.uWhite
+    property color checkedContainerBorderColor: _colors.uBlack
+
+    property color uncheckedLabelColor : _colors.uBlack
+    property color uncheckedIconColor : _colors.uBlack
+    property color uncheckedContainerColor: _colors.uWhite
+    property color uncheckedContainerBorderColor: _colors.uBlack
 
     Rectangle {
         id: checkContainer
@@ -49,11 +59,11 @@ Rectangle {
     states: [
         State {
             name: "ENABLED"
-            PropertyChanges { target: checkboxLabel; color: _colors.uBlack }
+            PropertyChanges { target: checkboxLabel; color: (checkbox.checked ? checkedLabelColor : uncheckedLabelColor) }
             PropertyChanges { target: checkboxLabel; font.bold: false }
-            PropertyChanges { target: checkBoxIcon; iconColor: _colors.uBlack }
-            PropertyChanges { target: checkContainer; color: _colors.uWhite }
-            PropertyChanges { target: checkContainer; border.color: _colors.uBlack }
+            PropertyChanges { target: checkBoxIcon; iconColor: (checkbox.checked ? checkedIconColor : uncheckedIconColor) }
+            PropertyChanges { target: checkContainer; color: (checkbox.checked ? checkedContainerColor : uncheckedContainerColor) }
+            PropertyChanges { target: checkContainer; border.color: (checkbox.checked ? checkedContainerBorderColor : uncheckedContainerBorderColor) }
         },
         State {
             name: "DISABLED"
