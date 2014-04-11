@@ -4,7 +4,7 @@
 #include "uconditiontime.h"
 
 UCondition::UCondition(QObject *parent, UCondition::UEConditionType type)
-    :QAbstractItemModel(parent), m_conditionParent(parent)
+    :QAbstractItemModel(parent), m_conditionParent(parent), m_comparisonType(UEComparisonType::InBetween)
 {
     setId(UniqueIdGenerator::GenerateUniqueId());
     setType(type);

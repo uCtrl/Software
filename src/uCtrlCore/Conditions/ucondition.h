@@ -33,7 +33,7 @@ public:
     Q_PROPERTY(UEConditionType type READ getType WRITE setType)
     Q_PROPERTY(UEComparisonType comparisonType READ getComparisonType WRITE setComparisonType NOTIFY comparisonTypeChanged)
 
-    UCondition(){}
+    UCondition() : m_comparisonType(UEComparisonType::InBetween){}
     UCondition (QObject* parent, UEConditionType type );
     UCondition(const UCondition& condition);
     ~UCondition();

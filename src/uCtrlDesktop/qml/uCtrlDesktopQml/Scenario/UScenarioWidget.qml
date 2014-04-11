@@ -35,7 +35,6 @@ Rectangle {
 
     Rectangle {
         id: scenarioTask
-        clip:true
 
         anchors.top: scenarioHeader.bottom
         anchors.bottom: parent.bottom

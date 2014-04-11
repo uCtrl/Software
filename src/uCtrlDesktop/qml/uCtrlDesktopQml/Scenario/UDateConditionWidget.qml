@@ -23,7 +23,7 @@ Rectangle{
 
         UI.UFontAwesome {
             iconId: "Calendar"
-            iconSize: 26
+            iconSize: 16
             anchors.centerIn: parent
         }
         color: _colors.uTransparent

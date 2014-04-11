@@ -47,9 +47,10 @@ int main(int argc, char *argv[])
         app.installTranslator(&translator);
     }
 
+    qmlRegisterType<UCondition>("ConditionEnums", 1, 0, "UEConditionType");
     qmlRegisterType<UCondition>("ConditionEnums", 1, 0, "UEComparisonType");
     
-USystem* system = USystem::Instance();
+    USystem* system = USystem::Instance();
 
     // SIMULATOR SECTION
     //UNetworkScanner* scanner = UNetworkScanner::Instance();

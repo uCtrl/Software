@@ -18,9 +18,9 @@ UTask::~UTask()
     m_conditions.clear();
 }
 
-QObject* UTask::createCondition()
+QObject* UTask::createCondition(int conditionType)
 {
-    return UCondition::createCondition(this, UCondition::UEConditionType::Date);
+    return UCondition::createCondition(this, (UCondition::UEConditionType)conditionType);
 }
 
 void UTask::addCondition(UCondition* condition)
