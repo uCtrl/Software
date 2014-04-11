@@ -388,8 +388,9 @@ Item {
 
                 itemListModel: [
                     { value:"", displayedValue:"Select condition type", iconId:"" },
+                    { value:"Date", displayedValue:"  Date", iconId:"Calendar"},
                     { value:"Time", displayedValue:"  Time", iconId:"Time"},
-                    { value:"Date", displayedValue:"  Date", iconId:"Calendar"}
+                    { value:"Weekdays", displayedValue:"  Week Days", iconId:"CalendarEmpty"}
                 ]
 
                 selectedItem: { "value":"", "displayedValue":"Select condition type", "iconId":"" }
@@ -411,6 +412,9 @@ Item {
                         break
                     case "Date":
                         newCondition = taskModel.createCondition(UEConditionType.Date)
+                        break
+                    case "Weekdays":
+                        newCondition = taskModel.createCondition(UEConditionType.Day)
                         break
                     default:
                         return

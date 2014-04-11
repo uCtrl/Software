@@ -9,6 +9,7 @@
 #include "System/usystem.h"
 #include "Serialization/jsonserializer.h"
 #include "Network/unetworkscanner.h"
+#include "Conditions/uconditionweekday.h"
 
 #include <QFile>
 #include <QTextStream>
@@ -49,6 +50,7 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<UCondition>("ConditionEnums", 1, 0, "UEConditionType");
     qmlRegisterType<UCondition>("ConditionEnums", 1, 0, "UEComparisonType");
+    qmlRegisterType<UConditionWeekday>("ConditionEnums", 1, 0, "UEWeekday");
     
     USystem* system = USystem::Instance();
 

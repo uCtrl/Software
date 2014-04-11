@@ -19,7 +19,8 @@ SOURCES += \
     Communication/ucommunicationhandler.cpp \
     Communication/Responses/getplatformresponse.cpp \
     Communication/Requests/getplatformrequest.cpp \
-    Conditions/uconditiontime.cpp
+    Conditions/uconditiontime.cpp \
+    Conditions/uconditionweekday.cpp
 
 
 HEADERS += \
@@ -41,4 +42,5 @@ HEADERS += \
     Communication/Requests/getplatformrequest.h \
     Communication/Responses/uresponse.h \
     Communication/Requests/urequest.h \
-    Conditions/uconditiontime.h
+    Conditions/uconditiontime.h \
+    Conditions/uconditionweekday.h

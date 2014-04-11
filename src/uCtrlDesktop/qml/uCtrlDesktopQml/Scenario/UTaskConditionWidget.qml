@@ -39,9 +39,11 @@ Rectangle {
             function getSourceComponent() {
                 var type = conditionModel.getTypeName()
                 if (type === "Date")
-                    return uDateComponent;
+                    return uDateComponent
                 if (type === "Time")
-                    return uTimeComponent;
+                    return uTimeComponent
+                if (type === "Day")
+                    return uWeekdayComponent
                 else return;
             }
 
@@ -77,6 +79,25 @@ Rectangle {
         Component {
             id: uDateComponent
             UDateConditionWidget {
+            }
+        }
+
+        Component {
+            id: uWeekdayComponent
+            UWeekdayConditionWidget {
+                id: uWeekdayConditionWidget
+
+                weekDayCondition: conditionModel
+
+                Component.onCompleted: {
+                    conditionLoader.saveConditionFunc = function() {
+                        saveCondition()
+                    }
+
+                    conditionLoader.cancelEditConditionFunc = function() {
+                        cancelEditCondition()
+                    }
+                }
             }
         }
     }
