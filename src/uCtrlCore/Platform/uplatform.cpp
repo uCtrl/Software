@@ -31,6 +31,19 @@ QObject* UPlatform::getDeviceAt(int index) const {
     return (QObject*) ( getDevices().at(index) );
 }
 
+QDateTime UPlatform::getLastUpdate() const
+{
+    QDateTime time;
+    for (int i=0;i<m_devices.count(); i++) {
+        UDevice device = getDeviceAt(i);
+        if (device.getLastUpdate() > time) {
+            time = device.getLastUpdate();
+        }
+    }
+
+    return time;
+}
+
 QVariant UPlatform::data(const QModelIndex & index, int role) const {
     return QVariant();
 }

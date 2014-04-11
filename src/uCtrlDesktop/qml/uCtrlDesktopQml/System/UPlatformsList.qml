@@ -3,7 +3,7 @@ import QtQuick 2.0
 Rectangle {
     id: list
 
-    property var platforms: null
+    //property var platforms: null
     property string filterValue: ""
     property string section: "room"
 
@@ -13,9 +13,11 @@ Rectangle {
 
     color: _colors.uWhite
 
-    function refresh(newPlatformsList) {
+    /*function refresh(newPlatformsList) {
         platforms = newPlatformsList
-    }
+
+        console.log(platforms);
+    }*/
 
     function setFilter(filter) {
         filterValue = filter
