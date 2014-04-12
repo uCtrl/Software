@@ -13,6 +13,8 @@ Rectangle {
     property string iconId: ""
     property int iconSize: 8
 
+    property int textAlignment: TextInput.AlignLeft
+
     width: 100
     height: 25
 
@@ -75,10 +77,14 @@ Rectangle {
         text: parent.text
         placeholderText: parent.placeholderText
 
+        horizontalAlignment: container.textAlignment
+
         style: TextFieldStyle {
             textColor: getTextColor()
             selectedTextColor: _colors.uWhite
             selectionColor: getBorderColor()
+
+
 
             background: Rectangle {
                 color: getBackgroundColor()
