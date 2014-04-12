@@ -18,6 +18,43 @@ UDevice::UDevice(const UDevice& device)
     setScenarios(device.getScenarios());
 }
 
+QObject* UDevice::createScenario() {
+    UScenario* newScenario = new UScenario(this);
+    UTask* otherwiseTask = (UTask*)newScenario->createTask();
+    newScenario->addTask(otherwiseTask);
+    return newScenario;
+}
+
+void UDevice::addScenario(UScenario* scenario) {
+    beginInsertRows(QModelIndex(), rowCount(), rowCount());
+    m_scenarios.push_back(scenario);
+    endInsertRows();
+
+    emit scenariosChanged(m_scenarios);
+}
+
+void UDevice::updateScenarioAt(int index, UScenario* scenario) {
+    m_scenarios.replace(index, scenario);
+
+    emit scenariosChanged(m_scenarios);
+}
+
+void UDevice::deleteScenarioAt(int index) {
+    if (index < 0 || index >= getScenarioCount())
+        return;
+
+    beginRemoveRows(QModelIndex(), index, index);
+
+    QObject* scenario = getScenarioAt(index);
+    delete scenario;
+    scenario = NULL;
+    m_scenarios.removeAt(index);
+
+    endRemoveRows();
+
+    emit scenariosChanged(m_scenarios);
+}
+
 void UDevice::read(const QJsonObject &jsonObj)
 {
     this->setId(jsonObj["id"].toInt());

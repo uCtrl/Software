@@ -22,6 +22,7 @@ public:
 
     UConditionDate(QObject* parent, UEConditionDateType type, QDate beginDate = QDate(), QDate endDate = QDate());
     UConditionDate(QObject* parent);
+    UConditionDate(QObject* parent, UConditionDate* conditionDate);
 
     UEConditionDateType getDateType() const { return m_dateType;  }
     QDate getBeginDate() const { return m_beginDate; }

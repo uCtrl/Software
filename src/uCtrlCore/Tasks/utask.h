@@ -11,11 +11,11 @@ class UTask : public QAbstractListModel
     Q_PROPERTY(int id READ getId WRITE setId NOTIFY idChanged)
     Q_PROPERTY(QString status READ getStatus WRITE setStatus NOTIFY statusChanged)
     Q_PROPERTY(QList<UCondition*> conditions READ getConditions WRITE setConditions NOTIFY conditionsChanged)
-    Q_PROPERTY(QObject* scenario READ getScenario NOTIFY scenarioChanged)
+    Q_PROPERTY(QObject* scenario READ getScenario WRITE setScenario NOTIFY scenarioChanged)
 
 public:
     UTask( QObject* parent);
-    UTask( const UTask* task );
+    UTask( QObject* parent, UTask* task );
     ~UTask();
 
     int getId() const { return m_id; }
@@ -24,7 +24,9 @@ public:
 
     QList<UCondition*> getConditions() const { return m_conditions; }
 
-    QObject* getScenario() const { return m_scenario;}
+    QObject* getScenario() const {
+        return m_scenario;
+    }
 
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const { return m_conditions.count(); }
     virtual QVariant data(const QModelIndex &index, int role) const { return QVariant(); }
@@ -36,6 +38,7 @@ public:
     Q_INVOKABLE QObject* getConditionAt(int index) const;
     Q_INVOKABLE void deleteConditionAt(int index);
     Q_INVOKABLE void moveCondition(int indexSource, int indexDestination);
+    QList<UCondition*> copyConditions();
 
     void read(const QJsonObject &jsonObj);
     void write(QJsonObject &jsonObj) const;
@@ -64,6 +67,14 @@ public slots:
             m_conditions = arg;
             emit conditionsChanged(arg);
         }
+    }
+
+    void setScenario(QObject* arg)
+    {
+        //if (m_scenario != arg) {
+            m_scenario = arg;
+            emit scenarioChanged(arg);
+        //}
     }
 
 signals:

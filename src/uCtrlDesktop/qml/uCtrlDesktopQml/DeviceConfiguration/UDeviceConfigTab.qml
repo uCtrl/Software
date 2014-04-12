@@ -20,14 +20,41 @@ Rectangle {
         scenarioWindow.refresh(selectedScenario)
     }
 
+    function saveScenario() {
+        isEditing = false
+
+        selectedScenario.name = textboxScenarioTitle.text
+
+        var i
+        if(comboScenario.newScenario !== null) {
+            device.addScenario(scenarioWindow.scenarioModel)
+            i = device.getScenarioCount() - 1
+            comboScenario.newScenario = null
+        }
+        else {
+            i = parseInt(comboScenario.selectedItem.value)
+            selectedScenario.updateScenario(scenarioWindow.scenarioModel)
+        }
+
+        comboScenario.itemListModel = comboScenario.getItemListModel()
+        comboScenario.selectItem(i)
+    }
+
     function startEditing() {
         isEditing = true
 
         textboxScenarioTitle.text = selectedScenario.name
+        scenarioWindow.refresh(selectedScenario.copyScenario())
     }
 
     function stopEditing() {
         isEditing = false
+
+        if (comboScenario.newScenario !== null) {
+            comboScenario.newScenario = null
+            comboScenario.selectItem(0)
+        }
+        scenarioWindow.refresh(selectedScenario)
     }
 
     color: _colors.uTransparent
@@ -50,6 +77,8 @@ Rectangle {
         }
 
         UI.UComboBox {
+            property var newScenario: null
+
             id: comboScenario
             height: 40
             anchors.verticalCenter: parent.verticalCenter
@@ -61,6 +90,11 @@ Rectangle {
 
             onSelectValue: {
                 if(newValue === "add") {
+                    newScenario = device.createScenario()
+                    newScenario.name = "New Scenario"
+                    selectedScenario = newScenario
+                    scenarioWindow.refresh(selectedScenario)
+                    startEditing()
                 } else if(typeof(device) !== "undefined") {
                     var intValue = parseInt(newValue)
                     selectedScenario = device.getScenarioAt(intValue)
@@ -78,6 +112,7 @@ Rectangle {
                 return scenarioComboModel
             }
         }
+
         UI.UTextbox {
             id: textboxScenarioTitle
 
@@ -111,10 +146,13 @@ Rectangle {
             anchors.right: parent.right
 
             onSave: {
-
+                scenarioWindow.saveTasks()
+                saveScenario()
+                stopEditing()
             }
 
             onCancel: {
+                scenarioWindow.cancelEditTasks()
                 stopEditing()
             }
         }
@@ -149,6 +187,14 @@ Rectangle {
             buttonHoveredColor: _colors.uRed
 
             visible: !isEditing
+
+            onClicked: {
+                var i = parseInt(comboScenario.selectedItem.value)
+                device.deleteScenarioAt(i)
+
+                comboScenario.itemListModel = comboScenario.getItemListModel()
+                comboScenario.selectItem(0)
+            }
         }
 
         z: 2
@@ -167,8 +213,6 @@ Rectangle {
 
             width: parent.width
             height: parent.height
-
-            scenario: selectedScenario
 
             isEditMode: isEditing
         }
