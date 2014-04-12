@@ -30,7 +30,8 @@ Rectangle {
     }
 
     function refresh(newScenario) {
-        taskList.model = newScenario
+        scenario = newScenario
+        taskList.model = scenario
     }
 
     Rectangle {

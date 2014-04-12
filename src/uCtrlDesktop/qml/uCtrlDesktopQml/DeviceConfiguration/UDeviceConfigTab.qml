@@ -21,6 +21,7 @@ Rectangle {
     }
 
     function saveScenario() {
+        selectedScenario.updateScenario(scenarioWindow.scenario)
         selectedScenario.name = textboxScenarioTitle.text
 
         var i
@@ -33,22 +34,26 @@ Rectangle {
             i = parseInt(comboScenario.selectedItem.value)
         }
 
+        isEditing = false
+
         comboScenario.itemListModel = comboScenario.getItemListModel()
         comboScenario.selectItem(i)
-
-        isEditing = false
     }
 
     function startEditing() {
         isEditing = true
 
         textboxScenarioTitle.text = selectedScenario.name
+        scenarioWindow.refresh(selectedScenario.copyScenario())
     }
 
     function stopEditing() {
         if (comboScenario.newScenario != null) {
             comboScenario.newScenario = null
             comboScenario.selectItem(0)
+        }
+        else {
+            scenarioWindow.refresh(selectedScenario)
         }
 
         isEditing = false
