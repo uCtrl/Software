@@ -25,20 +25,14 @@ Rectangle {
     }
 
     function refresh(newScenario) {
-        scenarioHeader.refresh(newScenario.name)
         taskList.model = newScenario
-    }
-
-    UScenarioHeaderWidget {
-        id: scenarioHeader
-        anchors.top: parent.top
     }
 
     Rectangle {
         id: scenarioTask
         clip:true
 
-        anchors.top: scenarioHeader.bottom
+        anchors.top: parent.top
         anchors.bottom: parent.bottom
 
         width: parent.width
