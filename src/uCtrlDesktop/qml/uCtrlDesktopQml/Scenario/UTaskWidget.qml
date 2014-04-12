@@ -184,11 +184,16 @@ Item {
                     function saveTask() {
                         taskModel.status = stateContainer.tmpValue
                         isEditMode = false
+
+                        conditionList.saveConditions()
                     }
 
                     function cancelEditTask() {
                         stateContainer.tmpValue = taskModel.status
                         isEditMode = false
+
+                        conditionList.cancelEditConditions()
+                        isAddingCondition = false
                     }
                 }
             }

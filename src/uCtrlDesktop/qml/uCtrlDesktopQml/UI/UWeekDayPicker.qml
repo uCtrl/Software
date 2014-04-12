@@ -33,36 +33,53 @@ Rectangle {
         updateDisplay()
     }
 
+    function getText() {
+        console.log(summaryLabel.text)
+        return summaryLabel.text
+    }
+
     function updateDisplay() {
-        var valuesToAdd = []
+        switch(value) {
+            case 0:
+                summaryLabel.text = "-"
+                break
+            case UEWeekday.Sunday | UEWeekday.Saturday:
+                summaryLabel.text = "Weekend days"
+                break
+            case UEWeekday.Monday | UEWeekday.Tuesday | UEWeekday.Wednesday | UEWeekday.Thursday | UEWeekday.Friday:
+                summaryLabel.text = "Weekdays"
+                break
+            case UEWeekday.Monday | UEWeekday.Tuesday | UEWeekday.Wednesday | UEWeekday.Thursday | UEWeekday.Friday | UEWeekday.Saturday | UEWeekday.Sunday:
+                summaryLabel.text = "Everyday"
+                break
+            default:
+                var valuesToAdd = []
 
-        if(sundayCheckbox.checked)
-            valuesToAdd.push("sunday")
-        if(mondayCheckbox.checked)
-            valuesToAdd.push("monday")
-        if(tuesdayCheckbox.checked)
-            valuesToAdd.push("tuesday")
-        if(wednesdayCheckbox.checked)
-            valuesToAdd.push("wednesday")
-        if(thursdayCheckbox.checked)
-            valuesToAdd.push("thursday")
-        if(fridayCheckbox.checked)
-            valuesToAdd.push("friday")
-        if(saturdayCheckbox.checked)
-            valuesToAdd.push("saturday")
+                if(sundayCheckbox.checked)
+                    valuesToAdd.push("sunday")
+                if(mondayCheckbox.checked)
+                    valuesToAdd.push("monday")
+                if(tuesdayCheckbox.checked)
+                    valuesToAdd.push("tuesday")
+                if(wednesdayCheckbox.checked)
+                    valuesToAdd.push("wednesday")
+                if(thursdayCheckbox.checked)
+                    valuesToAdd.push("thursday")
+                if(fridayCheckbox.checked)
+                    valuesToAdd.push("friday")
+                if(saturdayCheckbox.checked)
+                    valuesToAdd.push("saturday")
 
-        if(valuesToAdd.length == 0) {
-            summaryLabel.text = "-"
-        } else {
-            summaryLabel.text = valuesToAdd[0]
-            for(var i = 1; i < valuesToAdd.length - 1; i++) {
-                summaryLabel.text += ", " + valuesToAdd[i]
-            }
-            if(valuesToAdd.length > 1)
-                summaryLabel.text += " and " + valuesToAdd[valuesToAdd.length - 1]
+                summaryLabel.text = valuesToAdd[0]
+                for(var i = 1; i < valuesToAdd.length - 1; i++) {
+                    summaryLabel.text += ", " + valuesToAdd[i]
+                }
+                if(valuesToAdd.length > 1)
+                    summaryLabel.text += " and " + valuesToAdd[valuesToAdd.length - 1]
 
-            //Capitalize first letter
-            summaryLabel.text = summaryLabel.text.charAt(0).toUpperCase() + summaryLabel.text.slice(1)
+                //Capitalize first letter
+                summaryLabel.text = summaryLabel.text.charAt(0).toUpperCase() + summaryLabel.text.slice(1)
+                break;
         }
     }
 

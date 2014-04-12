@@ -15,14 +15,16 @@ Item {
     anchors.leftMargin: 30
     anchors.verticalCenter: parent.verticalCenter
 
+    property bool isEditMode: false
+
     function saveCondition() {
-        // TODO : SET THE VALUE BITCH
-        // weekDayCondition.selectedWeekdays = YOURSHITTYWIDGET.selectedWeekdays.value // FLAGS, SEE uconditionweekday.h
+        console.log("Savecondition")
+        weekDayCondition.selectedWeekdays = weekDayPicker.value
+        weekDayLabel.text = weekDayPicker.getText()
     }
 
     function cancelEditCondition() {
-        // TODO : RESET THE VALUE BITCH
-        // YOURSHITTYWIDGET.selectedWeekdays.text = weekDayCondition.selectedWeekdays
+        weekDayPicker.value = weekDayCondition.selectedWeekdays
     }
 
     UI.UFontAwesome {
@@ -38,10 +40,34 @@ Item {
     }
 
     ULabel.Default {
-        width: 100
+        id: onLabel
 
         text: "On"
+        anchors.left: weekdayIcon.right
+        anchors.leftMargin: 10
+
+        anchors.verticalCenter: parent.verticalCenter
     }
 
-    // TODO: put your shit here
+    UI.UWeekDayPicker {
+        id: weekDayPicker
+
+        anchors.left: onLabel.right
+        anchors.leftMargin: 10
+
+        anchors.verticalCenter: parent.verticalCenter
+
+        visible: isEditMode
+    }
+
+    ULabel.Default {
+        id: weekDayLabel
+
+        anchors.left: onLabel.right
+        anchors.leftMargin: 10
+
+        anchors.verticalCenter: parent.verticalCenter
+
+        visible: !isEditMode
+    }
 }

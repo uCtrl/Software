@@ -3,6 +3,8 @@ import QtQuick 2.0
 import "../UI" as UI
 
 Rectangle {
+    id: container
+
     property var conditionModel: taskModel.getConditionAt(index)
     property bool isConditionOfTask: true
     property bool isEditMode: false
@@ -62,6 +64,8 @@ Rectangle {
             UTimeConditionWidget {
                 id: uTimeConditionWidget
 
+                isEditMode: container.isEditMode
+
                 timeCondition: conditionModel
 
                 Component.onCompleted: {
@@ -79,6 +83,7 @@ Rectangle {
         Component {
             id: uDateComponent
             UDateConditionWidget {
+                isEditMode: container.isEditMode
             }
         }
 
@@ -88,9 +93,11 @@ Rectangle {
                 id: uWeekdayConditionWidget
 
                 weekDayCondition: conditionModel
+                isEditMode: container.isEditMode
 
                 Component.onCompleted: {
                     conditionLoader.saveConditionFunc = function() {
+                        console.log("SWAG")
                         saveCondition()
                     }
 
