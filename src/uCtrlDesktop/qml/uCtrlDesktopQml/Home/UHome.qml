@@ -42,6 +42,15 @@ UI.UFrame {
                 anchors.left: parent.left
                 anchors.leftMargin: 15
             }
+
+            UI.UTimePicker {
+                id: timePicker
+                anchors.top: datePicker.bottom
+                anchors.topMargin: 15
+
+                anchors.left: parent.left
+                anchors.leftMargin: 15
+            }
         }
 
         //Tab demonstration
