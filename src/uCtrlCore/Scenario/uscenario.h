@@ -5,6 +5,9 @@
 #include "Tasks/utask.h"
 #include "Conditions/ucondition.h"
 #include <QAbstractListModel>
+#include "Device/udevice.h"
+
+class UDevice;
 
 class UScenario : public QAbstractListModel, public JsonSerializable
 {

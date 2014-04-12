@@ -12,8 +12,14 @@ Item {
     property bool canMoveUp: !(index === 0 || index === taskList.count - 1)
     property bool canMoveDown: !(index === taskList.count - 1 || index === taskList.count - 2)
 
+    property var cancelEditTaskFunc: function(){}
+
     Component.onDestruction: {
         conditionList.cancelEditConditions()
+    }
+
+    function cancelEditTask() {
+        cancelEditTaskFunc()
     }
 
     id: taskWidget
@@ -186,6 +192,11 @@ Item {
                         isEditMode = false
 
                         conditionList.saveConditions()
+                    }
+
+
+                    Component.onCompleted: {
+                        cancelEditTaskFunc = cancelEditTask
                     }
 
                     function cancelEditTask() {

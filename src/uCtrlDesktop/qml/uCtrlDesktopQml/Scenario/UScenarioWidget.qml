@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import "../UI" as UI
 
 Rectangle {
     id: scenarioWidget
@@ -10,6 +11,10 @@ Rectangle {
     color: _colors.uWhite
     height: parent.height
     width: parent.width
+
+    function cancelEditTasks() {
+        taskList.cancelEditTasks()
+    }
 
     function getName() {
         return (device === undefined || device === null ? "UNKNOWN" : device.name)
@@ -33,7 +38,7 @@ Rectangle {
         clip:true
 
         anchors.top: parent.top
-        anchors.bottom: parent.bottom
+        anchors.bottom: addTaskButton.top
 
         width: parent.width
 
@@ -41,6 +46,8 @@ Rectangle {
         visible: true
 
         ListView {
+            property var newTasks: []
+
             id: taskList
             anchors.fill: parent
 
@@ -49,6 +56,39 @@ Rectangle {
                 z: 100000 - index
                 showButtons: scenarioWidget.isEditMode
             }
+
+            function cancelEditTasks() {
+                var count = scenario.taskCount()
+
+                for(var i = count - 1; i >= 0 ; i--) {
+                    taskList.currentIndex = i
+
+                    if (newTasks.indexOf(taskList.model.getTaskAt(i)) !== -1) {
+                        scenario.deleteTaskAt(i)
+                        continue
+                    }
+
+                    taskList.currentItem.cancelEditTask()
+                }
+
+                newTasks = []
+            }
+        }
+    }
+
+    UI.UButton {
+        id: addTaskButton
+
+        anchors.bottom: parent.bottom
+
+        text: "Add task"
+        visible: isEditMode
+
+        onClicked: {
+            var newTask = scenario.createTask()
+
+            scenario.addTask(newTask)
+            taskList.newTasks.push(newTask)
         }
     }
 }

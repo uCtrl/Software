@@ -22,13 +22,27 @@ UScenario::~UScenario()
 }
 
 QObject* UScenario::createTask() {
-    return new UTask(this);
+    UDevice* myDevice = (UDevice*)getDevice();
+    UTask* newTask = new UTask(this);
+
+    newTask->setStatus(myDevice->isTriggerValue() ? "OFF" : QString::number((myDevice->getMinValue() + myDevice->getMaxValue()) / 2));
+    return newTask;
 }
 
+// Insert the task before the last one (else task)
 void UScenario::addTask(UTask* task) {
-    beginInsertRows(QModelIndex(), rowCount(), rowCount());
-    m_tasks.push_back(task);
-    endInsertRows();
+    if (m_tasks.length() == 0) {
+        beginInsertRows(QModelIndex(), rowCount(), rowCount());
+        m_tasks.push_back(task);
+        endInsertRows();
+    }
+    else {
+        beginInsertRows(QModelIndex(), rowCount() - 1, rowCount() - 1);
+        m_tasks.insert(m_tasks.length() - 1, task);
+        endInsertRows();
+    }
+
+
 
     emit tasksChanged(m_tasks);
 }
