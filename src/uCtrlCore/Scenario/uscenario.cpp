@@ -8,7 +8,7 @@ UScenario::UScenario(QObject* parent) : QAbstractListModel(parent), m_device(par
     setName("Undefined");
 }
 
-UScenario::UScenario(const UScenario *scenario) : QAbstractListModel(scenario->getDevice())
+UScenario::UScenario(UScenario *scenario) : QAbstractListModel(scenario->getDevice())
 {
     setId(scenario->getId());
     setName(scenario->getName());
@@ -22,19 +22,18 @@ UScenario::~UScenario()
     m_tasks.clear();
 }
 
-QList<UTask*> UScenario::copyTasks() const {
-    QList<UTask*> tasksCopy;
-    for (int i = 0; i < m_tasks.length(); i++) {
-        tasksCopy.push_back(new UTask(m_tasks.at(i)));
-    }
-    return tasksCopy;
+void UScenario::updateScenario(UScenario* scenario) {
+    setId(scenario->getId());
+    setName(scenario->getName());
+    setTasks(scenario->copyTasks());
 }
 
-void UScenario::updateScenario(QObject* scenario) {
-    UScenario* updatingScenario = (UScenario*)scenario;
-    setId(updatingScenario->getId());
-    setName(updatingScenario->getName());
-    setTasks(updatingScenario->getTasks());
+QList<UTask*> UScenario::copyTasks() {
+    QList<UTask*> tasksCopy;
+    for (int i = 0; i < m_tasks.length(); i++) {
+        tasksCopy.push_back(new UTask(this, m_tasks.at(i)));
+    }
+    return tasksCopy;
 }
 
 QObject* UScenario::createTask() {

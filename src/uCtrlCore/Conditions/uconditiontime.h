@@ -12,7 +12,7 @@ public:
     Q_PROPERTY(QTime endTime READ getEndTime WRITE setEndTime NOTIFY endTimeChanged)
 
     UConditionTime(QObject* parent, QTime beginTime = QTime::currentTime(), QTime endTime = QTime::currentTime());
-    UConditionTime(const UConditionTime* conditionTime);
+    UConditionTime(QObject* parent, UConditionTime* conditionTime);
 
     QTime getBeginTime() const
     {

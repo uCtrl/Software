@@ -4,13 +4,17 @@ import "../UI" as UI
 Rectangle {
     id: scenarioWidget
     property string name: "UNKNOWN"
-    property var scenario
+    property var scenarioModel
     clip:true
     property bool isEditMode: false
 
     color: _colors.uWhite
     height: parent.height
     width: parent.width
+
+    function saveTasks() {
+        taskList.saveTasks()
+    }
 
     function cancelEditTasks() {
         taskList.cancelEditTasks()
@@ -30,8 +34,7 @@ Rectangle {
     }
 
     function refresh(newScenario) {
-        scenario = newScenario
-        taskList.model = scenario
+        scenarioModel = newScenario
     }
 
     Rectangle {
@@ -52,20 +55,30 @@ Rectangle {
             id: taskList
             anchors.fill: parent
 
-            model: scenario
+            model: scenarioModel
             delegate: UTaskWidget {
                 z: 100000 - index
                 showButtons: scenarioWidget.isEditMode
+                taskModel: scenarioModel.getTaskAt(index)
+
+                Component.onCompleted: {
+                    taskModel.scenario = scenarioModel
+                }
+            }
+
+            function saveTasks() {
+                newTasks = []
+                cancelEditTasks()
             }
 
             function cancelEditTasks() {
-                var count = scenario.taskCount()
+                var count = scenarioModel.taskCount()
 
                 for(var i = count - 1; i >= 0 ; i--) {
                     taskList.currentIndex = i
 
-                    if (newTasks.indexOf(taskList.model.getTaskAt(i)) !== -1) {
-                        scenario.deleteTaskAt(i)
+                    if (newTasks.indexOf(model.getTaskAt(i)) !== -1) {
+                        scenarioModel.deleteTaskAt(i)
                         continue
                     }
 
@@ -86,9 +99,9 @@ Rectangle {
         visible: isEditMode
 
         onClicked: {
-            var newTask = scenario.createTask()
+            var newTask = scenarioModel.createTask()
 
-            scenario.addTask(newTask)
+            scenarioModel.addTask(newTask)
             taskList.newTasks.push(newTask)
         }
     }

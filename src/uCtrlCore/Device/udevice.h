@@ -49,6 +49,7 @@ public:
     Q_INVOKABLE QObject* createScenario();
     Q_INVOKABLE void addScenario(UScenario* scenario);
     Q_INVOKABLE void deleteScenarioAt(int index);
+    Q_INVOKABLE void updateScenarioAt(int index, UScenario* scenario);
 
     // TODO: this should be better handled
     Q_INVOKABLE int getScenarioCount() const { return m_scenarios.count(); }

@@ -7,8 +7,8 @@ UConditionTime::UConditionTime(QObject* parent, QTime beginTime, QTime endTime)
     setEndTime(endTime);
 }
 
-UConditionTime::UConditionTime(const UConditionTime* conditionTime)
-    : UCondition(conditionTime)
+UConditionTime::UConditionTime(QObject* parent, UConditionTime* conditionTime)
+    : UCondition(parent, conditionTime)
 {
     setBeginTime(conditionTime->getBeginTime());
     setEndTime(conditionTime->getEndTime());

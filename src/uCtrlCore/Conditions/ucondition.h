@@ -35,7 +35,7 @@ public:
 
     UCondition() : m_comparisonType(UEComparisonType::InBetween){}
     UCondition (QObject* parent, UEConditionType type );
-    UCondition(const UCondition* condition);
+    UCondition(QObject* parent, UCondition* condition);
     ~UCondition();
 
     int getId() const { return m_id; }
@@ -47,7 +47,7 @@ public:
 
     QObject* getConditionParent() const { return m_conditionParent;  }
     static UCondition* createCondition(QObject* parent, UEConditionType type);
-    UCondition* copyCondition() const;
+    UCondition* copyCondition(QObject* parent);
 
 public slots:
     void setId(int arg) { m_id = arg; }

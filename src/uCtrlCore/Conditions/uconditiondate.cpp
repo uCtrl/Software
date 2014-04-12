@@ -17,8 +17,8 @@ UConditionDate::UConditionDate(QObject *parent)
     setDateType(UEConditionDateType::DDMMYYYY);
 }
 
-UConditionDate::UConditionDate(const UConditionDate* conditionDate)
-    : UCondition(conditionDate)
+UConditionDate::UConditionDate(QObject* parent, UConditionDate* conditionDate)
+    : UCondition(parent, conditionDate)
 {
     setBeginDate    (conditionDate->getBeginDate());
     setEndDate      (conditionDate->getEndDate());

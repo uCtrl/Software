@@ -21,20 +21,20 @@ Rectangle {
     }
 
     function saveScenario() {
-        selectedScenario.updateScenario(scenarioWindow.scenario)
+        isEditing = false
+
         selectedScenario.name = textboxScenarioTitle.text
 
         var i
         if(comboScenario.newScenario !== null) {
-            device.addScenario(selectedScenario)
+            device.addScenario(scenarioWindow.scenarioModel)
             i = device.getScenarioCount() - 1
             comboScenario.newScenario = null
         }
         else {
             i = parseInt(comboScenario.selectedItem.value)
+            selectedScenario.updateScenario(scenarioWindow.scenarioModel)
         }
-
-        isEditing = false
 
         comboScenario.itemListModel = comboScenario.getItemListModel()
         comboScenario.selectItem(i)
@@ -48,15 +48,13 @@ Rectangle {
     }
 
     function stopEditing() {
-        if (comboScenario.newScenario != null) {
+        isEditing = false
+
+        if (comboScenario.newScenario !== null) {
             comboScenario.newScenario = null
             comboScenario.selectItem(0)
         }
-        else {
-            scenarioWindow.refresh(selectedScenario)
-        }
-
-        isEditing = false
+        scenarioWindow.refresh(selectedScenario)
     }
 
     color: _colors.uTransparent
@@ -148,13 +146,14 @@ Rectangle {
             anchors.right: parent.right
 
             onSave: {
+                scenarioWindow.saveTasks()
                 saveScenario()
-                scenarioWindow.cancelEditTasks()
+                stopEditing()
             }
 
             onCancel: {
-                stopEditing()
                 scenarioWindow.cancelEditTasks()
+                stopEditing()
             }
         }
 
@@ -214,8 +213,6 @@ Rectangle {
 
             width: parent.width
             height: parent.height
-
-            scenario: selectedScenario
 
             isEditMode: isEditing
         }

@@ -7,8 +7,8 @@ UConditionWeekday::UConditionWeekday(QObject* parent, int selectedWeekdays)
     setComparisonType(UEComparisonType::Equals);
 }
 
-UConditionWeekday::UConditionWeekday(const UConditionWeekday* conditionWeekday)
-    : UCondition(conditionWeekday)
+UConditionWeekday::UConditionWeekday(QObject* parent, UConditionWeekday* conditionWeekday)
+    : UCondition(parent, conditionWeekday)
 {
     setSelectedWeekdays(conditionWeekday->getSelectedWeekdays());
 }

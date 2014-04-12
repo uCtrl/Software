@@ -200,6 +200,9 @@ Item {
                     }
 
                     function cancelEditTask() {
+                        if(!isEditMode)
+                            return
+
                         stateContainer.tmpValue = taskModel.status
                         isEditMode = false
 
@@ -451,7 +454,7 @@ Item {
             width: conditionsContainer.width
             height: 30
 
-            visible: !isAddingCondition && isEditMode
+            visible: !isAddingCondition && isEditMode && !(index == taskList.count - 1)
 
             UI.UButton {
                 anchors.topMargin: 5
