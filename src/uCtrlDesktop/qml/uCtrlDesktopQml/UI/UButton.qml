@@ -13,11 +13,13 @@ Rectangle {
     property color buttonColor: _colors.uGreen
     property color buttonHoveredColor: _colors.uMediumLightGreen
     property color buttonTextColor : _colors.uWhite
+    property color buttonHoveredTextColor : buttonTextColor
     property color buttonDisabledColor : _colors.uLightGrey
     property color buttonDisabledTextColor : _colors.uDarkGrey
     property color buttonErrorColor : _colors.uDarkRed
     property color buttonErrorHoveredColor : _colors.uRed
     property color buttonErrorTextColor : _colors.uWhite
+    property bool bold: true
 
 
     height: 30
@@ -81,7 +83,7 @@ Rectangle {
 
         ULabel.Default {
             id: label
-            font.bold: true
+            font.bold: button.bold
             color: _colors.uWhite
             text: button.text
             anchors.left: icon.right
@@ -99,8 +101,8 @@ Rectangle {
         State {
             name: "HOVERED"
             PropertyChanges { target: button; color: buttonHoveredColor }
-            PropertyChanges { target: label; color: buttonTextColor }
-            PropertyChanges { target: icon; iconColor: buttonTextColor }
+            PropertyChanges { target: label; color: buttonHoveredTextColor }
+            PropertyChanges { target: icon; iconColor: buttonHoveredTextColor }
         },
         State {
             name: "DISABLED"

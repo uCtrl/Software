@@ -33,6 +33,15 @@ UI.UFrame {
                 anchors.left: parent.left
                 anchors.leftMargin: 15
             }
+
+            UI.UDatePicker {
+                id: datePicker
+                anchors.top: weekDayPicker.bottom
+                anchors.topMargin: 15
+
+                anchors.left: parent.left
+                anchors.leftMargin: 15
+            }
         }
 
         //Tab demonstration
