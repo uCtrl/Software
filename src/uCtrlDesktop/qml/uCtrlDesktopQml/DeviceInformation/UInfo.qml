@@ -50,6 +50,21 @@ Rectangle {
         descriptionLabel.text = deviceInfoModel.description
     }
 
+    function saveData() {
+        deviceInfoModel.enabled = enabledSwitch.state
+        deviceInfoModel.name = deviceNameTextbox.text
+
+        deviceInfoModel.minValue = minValueTextbox.text
+        deviceInfoModel.maxValue = maxValueTextbox.text
+        deviceInfoModel.precision = precisionTextbox.text
+        deviceInfoModel.unitLabel = unitLabelTextbox.text
+        deviceInfoModel.description = descriptionTextbox.text
+
+        refreshData()
+
+        isEditing = false
+    }
+
     function startEditing() {
         isEditing = true
 
@@ -148,6 +163,10 @@ Rectangle {
             height: 30
 
             visible: isEditing
+
+            onSave: {
+                saveData()
+            }
 
             onCancel: {
                 cancelEditing()
