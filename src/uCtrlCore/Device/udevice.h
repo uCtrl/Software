@@ -5,11 +5,13 @@
 #include "Scenario/uscenario.h"
 #include <QAbstractListModel>
 
+class UScenario;
+
 class UDevice : public QAbstractListModel, public JsonSerializable
 {
     Q_OBJECT
 
-    Q_PROPERTY(QList<UScenario*> scenarios READ getScenarios WRITE setScenarios)
+    Q_PROPERTY(QList<UScenario*> scenarios READ getScenarios WRITE setScenarios NOTIFY scenariosChanged)
     Q_PROPERTY(int id READ getId WRITE setId NOTIFY idChanged)
     Q_PROPERTY(QString name READ getName WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(float minValue READ getMinValue WRITE setMinValue NOTIFY minValueChanged)
@@ -44,6 +46,10 @@ public:
 
     QList<UScenario*> getScenarios() const { return m_scenarios; }
 
+    Q_INVOKABLE QObject* createScenario();
+    Q_INVOKABLE void addScenario(UScenario* scenario);
+    Q_INVOKABLE void deleteScenarioAt(int index);
+
     // TODO: this should be better handled
     Q_INVOKABLE int getScenarioCount() const { return m_scenarios.count(); }
     Q_INVOKABLE QObject* getScenarioAt(int index) const { return (QObject*) m_scenarios.at(index); }
@@ -63,6 +69,8 @@ signals:
     void descriptionChanged(QString arg);
     void enabledChanged(QString arg);
     void statusChanged(float arg);
+
+    void scenariosChanged(QList<UScenario*> arg);
 
 public slots:
     void setScenarios(QList<UScenario*> arg) { m_scenarios = arg; }

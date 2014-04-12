@@ -36,6 +36,7 @@ public:
     Q_INVOKABLE QObject* getConditionAt(int index) const;
     Q_INVOKABLE void deleteConditionAt(int index);
     Q_INVOKABLE void moveCondition(int indexSource, int indexDestination);
+    QList<UCondition*> copyConditions() const;
 
     void read(const QJsonObject &jsonObj);
     void write(QJsonObject &jsonObj) const;

@@ -5,6 +5,9 @@
 #include "Tasks/utask.h"
 #include "Conditions/ucondition.h"
 #include <QAbstractListModel>
+#include "Device/udevice.h"
+
+class UDevice;
 
 class UScenario : public QAbstractListModel, public JsonSerializable
 {
@@ -34,6 +37,9 @@ public:
     Q_INVOKABLE QObject* getTaskAt(int index) const;
     Q_INVOKABLE void deleteTaskAt(int index);
     Q_INVOKABLE void moveTask(int indexSource, int indexDestination);
+    Q_INVOKABLE QObject* copyScenario() { return new UScenario(this); }
+    Q_INVOKABLE void updateScenario(QObject* scenario);
+    QList<UTask*> copyTasks() const;
 
     void read(const QJsonObject &jsonObj);
     void write(QJsonObject &jsonObj) const;

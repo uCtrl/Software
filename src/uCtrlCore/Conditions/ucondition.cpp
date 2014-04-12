@@ -29,9 +29,12 @@ QString UCondition::getTypeName()
     }
 }
 
-UCondition::UCondition(const UCondition& condition)
+UCondition::UCondition(const UCondition* condition)
 {
-    setId(condition.getId());
+    setId(condition->getId());
+    setComparisonType(condition->getComparisonType());
+    m_type = condition->getType();
+    m_conditionParent = condition->getConditionParent();
 }
 
 void UCondition::read(const QJsonObject &jsonObj)
@@ -59,5 +62,18 @@ UCondition* UCondition::createCondition(QObject *parent, UCondition::UECondition
         return new UConditionWeekday(parent, 0);
     default:
         return new UCondition(parent, UEConditionType::None);
+    }
+}
+
+UCondition* UCondition::copyCondition() const {
+    switch(getType()){
+    case UEConditionType::Date:
+        return new UConditionDate((const UConditionDate*)this);
+    case UEConditionType::Time:
+        return new UConditionTime((const UConditionTime*)this);
+    case UEConditionType::Day:
+        return new UConditionWeekday((const UConditionWeekday*)this);
+    default:
+        return 0;
     }
 }

@@ -6,16 +6,26 @@ UTask::UTask(QObject* parent) : QAbstractListModel(parent), m_scenario(parent)
     setId(UniqueIdGenerator::GenerateUniqueId());
 }
 
-UTask::UTask(const UTask* task)
+UTask::UTask(const UTask* task) : QAbstractListModel(task->getScenario())
 {
     setId(task->getId());
     setStatus(task->getStatus());
-    setConditions(task->getConditions());
+    setConditions(task->copyConditions());
+    m_scenario = task->getScenario();
 }
 
 UTask::~UTask()
 {
     m_conditions.clear();
+}
+
+QList<UCondition*> UTask::copyConditions() const {
+    QList<UCondition*> conditionsCopy;
+    for (int i = 0; i < m_conditions.length(); i++) {
+        UCondition* tmpCondition = m_conditions.at(i);
+        conditionsCopy.push_back(tmpCondition->copyCondition());
+    }
+    return conditionsCopy;
 }
 
 QObject* UTask::createCondition(int conditionType)
