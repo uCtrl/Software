@@ -18,13 +18,14 @@ Item {
     property bool isEditMode: false
 
     function saveCondition() {
-        console.log("Savecondition")
         weekDayCondition.selectedWeekdays = weekDayPicker.value
+        weekDayPicker.closeDropDown()
         weekDayLabel.text = weekDayPicker.getText()
     }
 
     function cancelEditCondition() {
         weekDayPicker.value = weekDayCondition.selectedWeekdays
+        weekDayPicker.closeDropDown()
     }
 
     UI.UFontAwesome {

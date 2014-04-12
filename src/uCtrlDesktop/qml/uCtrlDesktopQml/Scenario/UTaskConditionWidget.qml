@@ -97,7 +97,6 @@ Rectangle {
 
                 Component.onCompleted: {
                     conditionLoader.saveConditionFunc = function() {
-                        console.log("SWAG")
                         saveCondition()
                     }
 

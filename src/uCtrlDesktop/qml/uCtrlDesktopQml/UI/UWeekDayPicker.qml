@@ -34,8 +34,11 @@ Rectangle {
     }
 
     function getText() {
-        console.log(summaryLabel.text)
         return summaryLabel.text
+    }
+
+    function closeDropDown() {
+        dropDownContainer.visible = false
     }
 
     function updateDisplay() {
@@ -56,19 +59,19 @@ Rectangle {
                 var valuesToAdd = []
 
                 if(sundayCheckbox.checked)
-                    valuesToAdd.push("sunday")
+                    valuesToAdd.push("Sunday")
                 if(mondayCheckbox.checked)
-                    valuesToAdd.push("monday")
+                    valuesToAdd.push("Monday")
                 if(tuesdayCheckbox.checked)
-                    valuesToAdd.push("tuesday")
+                    valuesToAdd.push("Tuesday")
                 if(wednesdayCheckbox.checked)
-                    valuesToAdd.push("wednesday")
+                    valuesToAdd.push("Wednesday")
                 if(thursdayCheckbox.checked)
-                    valuesToAdd.push("thursday")
+                    valuesToAdd.push("Thursday")
                 if(fridayCheckbox.checked)
-                    valuesToAdd.push("friday")
+                    valuesToAdd.push("Friday")
                 if(saturdayCheckbox.checked)
-                    valuesToAdd.push("saturday")
+                    valuesToAdd.push("Saturday")
 
                 summaryLabel.text = valuesToAdd[0]
                 for(var i = 1; i < valuesToAdd.length - 1; i++) {
@@ -145,7 +148,7 @@ Rectangle {
 
             iconSize: 24
             iconId: "CaretUp"
-            iconColor: _colors.uGreen
+            iconColor: _colors.uGrey
         }
 
         Rectangle {
@@ -156,7 +159,7 @@ Rectangle {
             height: dropDownContent.height + 10
             radius: 5
 
-            color: _colors.uGreen
+            color: _colors.uGrey
 
             Rectangle {
                 id: dropDownContent
@@ -291,8 +294,8 @@ Rectangle {
                             anchors.centerIn: parent
 
                             checkedIconColor: _colors.uWhite
-                            checkedContainerBorderColor: _colors.uGreen
-                            checkedContainerColor: _colors.uGreen
+                            checkedContainerBorderColor: _colors.uGrey
+                            checkedContainerColor: _colors.uGrey
 
                             onCheckedChanged: weekDayPicker.computeValue()
                         }
@@ -311,8 +314,8 @@ Rectangle {
                             anchors.centerIn: parent
 
                             checkedIconColor: _colors.uWhite
-                            checkedContainerBorderColor: _colors.uGreen
-                            checkedContainerColor: _colors.uGreen
+                            checkedContainerBorderColor: _colors.uGrey
+                            checkedContainerColor: _colors.uGrey
 
                             onCheckedChanged: weekDayPicker.computeValue()
                         }
@@ -331,8 +334,8 @@ Rectangle {
                             anchors.centerIn: parent
 
                             checkedIconColor: _colors.uWhite
-                            checkedContainerBorderColor: _colors.uGreen
-                            checkedContainerColor: _colors.uGreen
+                            checkedContainerBorderColor: _colors.uGrey
+                            checkedContainerColor: _colors.uGrey
 
                             onCheckedChanged: weekDayPicker.computeValue()
                         }
@@ -351,8 +354,8 @@ Rectangle {
                             anchors.centerIn: parent
 
                             checkedIconColor: _colors.uWhite
-                            checkedContainerBorderColor: _colors.uGreen
-                            checkedContainerColor: _colors.uGreen
+                            checkedContainerBorderColor: _colors.uGrey
+                            checkedContainerColor: _colors.uGrey
 
                             onCheckedChanged: weekDayPicker.computeValue()
                         }
@@ -371,8 +374,8 @@ Rectangle {
                             anchors.centerIn: parent
 
                             checkedIconColor: _colors.uWhite
-                            checkedContainerBorderColor: _colors.uGreen
-                            checkedContainerColor: _colors.uGreen
+                            checkedContainerBorderColor: _colors.uGrey
+                            checkedContainerColor: _colors.uGrey
 
                             onCheckedChanged: weekDayPicker.computeValue()
                         }
@@ -391,8 +394,8 @@ Rectangle {
                             anchors.centerIn: parent
 
                             checkedIconColor: _colors.uWhite
-                            checkedContainerBorderColor: _colors.uGreen
-                            checkedContainerColor: _colors.uGreen
+                            checkedContainerBorderColor: _colors.uGrey
+                            checkedContainerColor: _colors.uGrey
 
                             onCheckedChanged: weekDayPicker.computeValue()
                         }
@@ -411,8 +414,8 @@ Rectangle {
                             anchors.centerIn: parent
 
                             checkedIconColor: _colors.uWhite
-                            checkedContainerBorderColor: _colors.uGreen
-                            checkedContainerColor: _colors.uGreen
+                            checkedContainerBorderColor: _colors.uGrey
+                            checkedContainerColor: _colors.uGrey
 
                             onCheckedChanged: weekDayPicker.computeValue()
                         }
