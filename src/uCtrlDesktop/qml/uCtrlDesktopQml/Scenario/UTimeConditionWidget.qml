@@ -11,6 +11,8 @@ Rectangle{
     property var updateEndTimeFunc: function(){}
     property var updateComparisonTypeFunc: function(){}
 
+    property bool isEditMode: false
+
     id: container
 
     width: parent.width - 30
@@ -127,7 +129,6 @@ Rectangle{
         id: timeConditionTypeLabel
 
         ULabel.Default {
-            width: 100
 
             text: getComparisonTypeValue()
 

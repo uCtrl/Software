@@ -14,6 +14,8 @@ Rectangle{
 
     color: _colors.uTransparent
 
+    property bool isEditMode: false
+
     Rectangle{
         id: calendar
 

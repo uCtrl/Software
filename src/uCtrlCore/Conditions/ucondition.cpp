@@ -2,6 +2,7 @@
 #include "Utility/uniqueidgenerator.h"
 #include "uconditiondate.h"
 #include "uconditiontime.h"
+#include "uconditionweekday.h"
 
 UCondition::UCondition(QObject *parent, UCondition::UEConditionType type)
     :QAbstractItemModel(parent), m_conditionParent(parent), m_comparisonType(UEComparisonType::InBetween)
@@ -54,6 +55,8 @@ UCondition* UCondition::createCondition(QObject *parent, UCondition::UECondition
         return new UConditionDate(parent);
     case UEConditionType::Time:
         return new UConditionTime(parent);
+    case UEConditionType::Day:
+        return new UConditionWeekday(parent, 0);
     default:
         return new UCondition(parent, UEConditionType::None);
     }
