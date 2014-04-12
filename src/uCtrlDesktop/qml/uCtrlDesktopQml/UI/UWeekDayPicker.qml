@@ -37,19 +37,19 @@ Rectangle {
         var valuesToAdd = []
 
         if(sundayCheckbox.checked)
-            valuesToAdd.push("Sunday")
+            valuesToAdd.push("sunday")
         if(mondayCheckbox.checked)
-            valuesToAdd.push("Monday")
+            valuesToAdd.push("monday")
         if(tuesdayCheckbox.checked)
-            valuesToAdd.push("Tuesday")
+            valuesToAdd.push("tuesday")
         if(wednesdayCheckbox.checked)
-            valuesToAdd.push("Wednesday")
+            valuesToAdd.push("wednesday")
         if(thursdayCheckbox.checked)
-            valuesToAdd.push("Thursday")
+            valuesToAdd.push("thursday")
         if(fridayCheckbox.checked)
-            valuesToAdd.push("Friday")
+            valuesToAdd.push("friday")
         if(saturdayCheckbox.checked)
-            valuesToAdd.push("Saturday")
+            valuesToAdd.push("saturday")
 
         if(valuesToAdd.length == 0) {
             summaryLabel.text = "-"
@@ -60,6 +60,9 @@ Rectangle {
             }
             if(valuesToAdd.length > 1)
                 summaryLabel.text += " and " + valuesToAdd[valuesToAdd.length - 1]
+
+            //Capitalize first letter
+            summaryLabel.text = summaryLabel.text.charAt(0).toUpperCase() + summaryLabel.text.slice(1)
         }
     }
 
