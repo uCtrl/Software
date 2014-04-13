@@ -45,6 +45,9 @@ UI.UFrame {
 
             UI.UTimePicker {
                 id: timePicker
+
+                currentValue: "13:35"
+
                 anchors.top: datePicker.bottom
                 anchors.topMargin: 15
 

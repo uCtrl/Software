@@ -7,16 +7,14 @@ Rectangle{
 
     property var timeCondition: null
 
-    property var updateBeginTimeFunc: function(){}
-    property var updateEndTimeFunc: function(){}
-    property var updateComparisonTypeFunc: function(){}
-
     property bool isEditMode: false
 
     id: container
 
     width: parent.width - 30
     height: parent.height - 5
+
+    state: UEComparisonType.InBetween.toString()
 
     anchors.left: parent.left
     anchors.leftMargin: 30
@@ -25,61 +23,208 @@ Rectangle{
     color: _colors.uTransparent
 
     function saveCondition() {
-        setComparisonTypeValue(timeComparisonType.tmpValue)
+        conditionModel.comparisonType = parseInt(container.state)
 
-        conditionModel.beginTime = beginTime.tmpValue
-        conditionModel.endTime = endTime.tmpValue
+        switch(container.state) {
+            case UEComparisonType.InBetween.toString():
+                conditionModel.beginTime = fromStartDatePicker.currentValue
+                conditionModel.endTime = fromEndDatePicker.currentValue
+                break
+            case UEComparisonType.LesserThan.toString():
+                conditionModel.beginTime = beforeStartDatePicker.currentValue
+                conditionModel.endTime = "00:00"
+                break
+            case UEComparisonType.GreaterThan.toString():
+                conditionModel.beginTime = afterStartDatePicker.currentValue
+                conditionModel.endTime = "00:00"
+                break
+            case UEComparisonType.Not.toString():
+                conditionModel.beginTime = notStartDatePicker.currentValue
+                conditionModel.endTime = notEndDatePicker.currentValue
+                break
+        }
 
         updateConditionView()
     }
 
     function updateConditionView() {
-        timeComparisonType.updateComparisonType()
-        beginTime.updateBeginTime()
-        endTime.updateEndTime()
-        conditionTimeToLabel.updateText()
-    }
+        container.state = conditionModel.comparisonType.toString()
+        comboSelect.selectItemByValue(container.state)
 
-    function getComparisonTypeValue() {
-        switch (conditionModel.comparisonType) {
-        case UEComparisonType.GreaterThan:
-            return "After"
-        case UEComparisonType.LesserThan:
-            return "Before"
-        case UEComparisonType.InBetween:
-            return "From"
-        default:
-            return ""
+        var beginTime = Qt.formatTime(conditionModel.beginTime, "HH:mm")
+        var endTime = Qt.formatTime(conditionModel.endTime, "HH:mm")
+
+        fromStartDatePicker.setCurrentValue(beginTime)
+        fromEndDatePicker.setCurrentValue(endTime)
+
+        beforeStartDatePicker.setCurrentValue(beginTime)
+
+        afterStartDatePicker.setCurrentValue(beginTime)
+
+        notStartDatePicker.setCurrentValue(beginTime)
+        notEndDatePicker.setCurrentValue(endTime)
+
+        switch(container.state) {
+            case UEComparisonType.InBetween.toString():
+                timeLabel.text = "Between " + beginTime + " and " + endTime
+                break
+            case UEComparisonType.LesserThan.toString():
+                timeLabel.text = "Before " + beginTime
+                break
+            case UEComparisonType.GreaterThan.toString():
+                timeLabel.text = "After " + beginTime
+                break
+            case UEComparisonType.Not.toString():
+                timeLabel.text = "Not between " + beginTime + " and " + endTime
+                break
         }
     }
 
-    function setComparisonTypeValue(typeValue) {
-        switch (typeValue) {
-        case "After":
-            conditionModel.comparisonType = UEComparisonType.GreaterThan
-            break;
-        case "Before":
-            conditionModel.comparisonType = UEComparisonType.LesserThan
-            break;
-        case "From":
-            conditionModel.comparisonType = UEComparisonType.InBetween
-            break;
-        default:
-            break;
-        }
+    Component.onCompleted: {
+        updateConditionView()
     }
 
     UI.UFontAwesome {
         id: timeConditionIcon
 
-        width: parent.height
-        height: parent.height
+        width: 30
+        anchors.verticalCenter: parent.verticalCenter
 
         iconId: "Time"
         iconSize: 16
         iconColor: _colors.uBlack
         anchors.left: parent.left
     }
+
+    Rectangle {
+        id: readOnlyContent
+        anchors.left: timeConditionIcon.right
+        anchors.right: parent.right
+        height: parent.height
+        visible: !isEditMode
+
+        color: _colors.uTransparent
+
+        ULabel.Default {
+            id: timeLabel
+            anchors.verticalCenter: parent.verticalCenter
+        }
+    }
+
+    Rectangle {
+        id: editContent
+
+        anchors.left: timeConditionIcon.right
+        anchors.right: parent.right
+        height: parent.height
+        visible: isEditMode
+
+        color: _colors.uTransparent
+
+        UI.UComboBox {
+            id: comboSelect
+            width: 130
+            height: 30
+            anchors.verticalCenter: parent.verticalCenter
+
+            itemListModel: [
+                { value:UEComparisonType.InBetween.toString(), displayedValue:"Between", iconId:""},
+                { value:UEComparisonType.LesserThan.toString(), displayedValue:"Before", iconId:""},
+                { value:UEComparisonType.GreaterThan.toString(), displayedValue:"After", iconId:""},
+                { value:UEComparisonType.Not.toString(), displayedValue:"Not Between", iconId:""}
+            ]
+
+            onSelectValue: {
+                container.state = selectedItem.value
+            }
+        }
+
+        Rectangle {
+            id: content
+            anchors.left: comboSelect.right
+            anchors.leftMargin: 5
+            anchors.right: parent.right
+            height: parent.height
+
+            color: _colors.uTransparent
+
+            Rectangle {
+                id: fromContent
+                anchors.fill: parent
+                color: _colors.uTransparent
+                visible: container.state === UEComparisonType.InBetween.toString()
+
+                UI.UTimePicker {
+                    id: fromStartDatePicker
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                ULabel.Default {
+                    id: fromAndLabel
+                    text: "and"
+                    anchors.left: fromStartDatePicker.right
+                    anchors.leftMargin: 5
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                UI.UTimePicker {
+                    id: fromEndDatePicker
+                    anchors.left: fromAndLabel.right
+                    anchors.leftMargin: 5
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+            }
+            Rectangle {
+                id: beforeContent
+                anchors.fill: parent
+                color: _colors.uTransparent
+                visible: container.state === UEComparisonType.LesserThan.toString()
+
+                UI.UTimePicker {
+                    id: beforeStartDatePicker
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+            }
+            Rectangle {
+                id: afterContent
+                anchors.fill: parent
+                color: _colors.uTransparent
+                visible: container.state === UEComparisonType.GreaterThan.toString()
+
+                UI.UTimePicker {
+                    id: afterStartDatePicker
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+            }
+            Rectangle {
+                id: notContent
+                anchors.fill: parent
+                color: _colors.uTransparent
+                visible: container.state === UEComparisonType.Not.toString()
+
+                UI.UTimePicker {
+                    id: notStartDatePicker
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                ULabel.Default {
+                    id: notAndLabel
+                    text: "and"
+                    anchors.left: notStartDatePicker.right
+                    anchors.leftMargin: 5
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                UI.UTimePicker {
+                    id: notEndDatePicker
+                    anchors.left: notAndLabel.right
+                    anchors.leftMargin: 5
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+            }
+        }
+    }
+    /*
 
     Loader {
         property string tmpValue: getComparisonTypeValue()
@@ -93,35 +238,6 @@ Rectangle{
 
         function updateComparisonType() {
             updateComparisonTypeFunc()
-        }
-    }
-
-    Component {
-        id: timeConditionTypeDropdown
-
-        UI.UComboBox {
-            width: 100
-            height: 30
-
-            itemListModel: [
-                { value:"From", displayedValue:"From", iconId:""},
-                { value:"Before", displayedValue:"Before", iconId:""},
-                { value:"After", displayedValue:"After", iconId:""}
-            ]
-
-            onSelectValue: {
-                timeComparisonType.tmpValue = selectedItem.value
-                conditionTimeToLabel.updateText()
-            }
-
-            Component.onCompleted: {
-                var comparisonTypeValue = getComparisonTypeValue()
-                for (var i = 0; i < itemListModel.length; i++) {
-                    if (itemListModel[i].value === comparisonTypeValue) {
-                        selectItem(i)
-                    }
-                }
-            }
         }
     }
 
@@ -298,5 +414,7 @@ Rectangle{
             height: 0
         }
     }
+
+    */
 }
 

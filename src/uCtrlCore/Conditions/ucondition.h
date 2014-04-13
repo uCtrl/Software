@@ -25,7 +25,8 @@ public:
         GreaterThan = 0x1,
         LesserThan = 0x2,
         Equals = 0x4,
-        InBetween = 0x8
+        InBetween = 0x8,
+        Not = 0x16,
     };
 
     Q_PROPERTY(int id READ getId WRITE setId)

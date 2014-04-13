@@ -73,7 +73,7 @@ Rectangle {
     Rectangle {
             id: dropDown
             clip:true
-            height: (itemListModel.length <= itemDisplayedBeforeScroll ? itemListModel.length * 45  + 10 : itemDisplayedBeforeScroll * 45)
+            height: (itemListModel.length <= itemDisplayedBeforeScroll ? itemListModel.length * 45 : itemDisplayedBeforeScroll * 45)
             width: combo.width
             anchors.top: parent.bottom
             anchors.topMargin: 5
@@ -146,6 +146,15 @@ Rectangle {
         valueItem.refresh(selectedItem)
         dropDown.visible = false
         selectValue(selectedItem.value)
+    }
+
+    function selectItemByValue(value) {
+        for (var i = 0; i < itemListModel.length; i++) {
+            if (itemListModel[i].value === value) {
+                selectItem(i)
+                break
+            }
+        }
     }
 
     MouseArea {
