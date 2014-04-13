@@ -19,18 +19,16 @@ Rectangle {
 
     radius: 5
 
-    onValueChanged: checkSelected()
+    Component.onCompleted: checkSelected()
 
     function checkSelected() {
-        sundayCheckbox.checked = (value & UEWeekday.Sunday) == UEWeekday.Sunday
-        saturdayCheckbox.checked = (value & UEWeekday.Saturday) == UEWeekday.Saturday
-        fridayCheckbox.checked = (value & UEWeekday.Friday) == UEWeekday.Friday
-        thursdayCheckbox.checked = (value & UEWeekday.Thursday) == UEWeekday.Thursday
-        wednesdayCheckbox.checked = (value & UEWeekday.Wednesday) == UEWeekday.Wednesday
-        tuesdayCheckbox.checked = (value & UEWeekday.Tuesday) == UEWeekday.Tuesday
-        mondayCheckbox.checked = (value & UEWeekday.Monday) == UEWeekday.Monday
-
-        updateDisplay()
+        sundayCheckbox.checked = (value & UEWeekday.Sunday) === UEWeekday.Sunday
+        saturdayCheckbox.checked = (value & UEWeekday.Saturday) === UEWeekday.Saturday
+        fridayCheckbox.checked = (value & UEWeekday.Friday) === UEWeekday.Friday
+        thursdayCheckbox.checked = (value & UEWeekday.Thursday) === UEWeekday.Thursday
+        wednesdayCheckbox.checked = (value & UEWeekday.Wednesday) === UEWeekday.Wednesday
+        tuesdayCheckbox.checked = (value & UEWeekday.Tuesday) === UEWeekday.Tuesday
+        mondayCheckbox.checked = (value & UEWeekday.Monday) === UEWeekday.Monday
     }
 
     function getText() {
@@ -42,7 +40,8 @@ Rectangle {
     }
 
     function updateDisplay() {
-        switch(value) {
+        var tmpValue = computeValue()
+        switch(tmpValue) {
             case 0:
                 summaryLabel.text = "-"
                 break
@@ -84,10 +83,11 @@ Rectangle {
                 summaryLabel.text = summaryLabel.text.charAt(0).toUpperCase() + summaryLabel.text.slice(1)
                 break;
         }
+        value = tmpValue
     }
 
     function computeValue() {
-        weekDayPicker.value = (mondayCheckbox.checked ? UEWeekday.Monday : 0) +
+        return (mondayCheckbox.checked ? UEWeekday.Monday : 0) +
                               (tuesdayCheckbox.checked ? UEWeekday.Tuesday : 0) +
                               (wednesdayCheckbox.checked ? UEWeekday.Wednesday : 0) +
                               (thursdayCheckbox.checked ? UEWeekday.Thursday : 0) +
@@ -297,7 +297,10 @@ Rectangle {
                             checkedContainerBorderColor: _colors.uGrey
                             checkedContainerColor: _colors.uGrey
 
-                            onCheckedChanged: weekDayPicker.computeValue()
+                            onCheckedChanged: {
+                                if (visible)
+                                    weekDayPicker.updateDisplay()
+                            }
                         }
                     }
                     Rectangle {
@@ -317,7 +320,10 @@ Rectangle {
                             checkedContainerBorderColor: _colors.uGrey
                             checkedContainerColor: _colors.uGrey
 
-                            onCheckedChanged: weekDayPicker.computeValue()
+                            onCheckedChanged: {
+                                if (visible)
+                                    weekDayPicker.updateDisplay()
+                            }
                         }
                     }
                     Rectangle {
@@ -337,7 +343,10 @@ Rectangle {
                             checkedContainerBorderColor: _colors.uGrey
                             checkedContainerColor: _colors.uGrey
 
-                            onCheckedChanged: weekDayPicker.computeValue()
+                            onCheckedChanged: {
+                                if (visible)
+                                    weekDayPicker.updateDisplay()
+                            }
                         }
                     }
                     Rectangle {
@@ -357,7 +366,10 @@ Rectangle {
                             checkedContainerBorderColor: _colors.uGrey
                             checkedContainerColor: _colors.uGrey
 
-                            onCheckedChanged: weekDayPicker.computeValue()
+                            onCheckedChanged: {
+                                if (visible)
+                                    weekDayPicker.updateDisplay()
+                            }
                         }
                     }
                     Rectangle {
@@ -377,7 +389,10 @@ Rectangle {
                             checkedContainerBorderColor: _colors.uGrey
                             checkedContainerColor: _colors.uGrey
 
-                            onCheckedChanged: weekDayPicker.computeValue()
+                            onCheckedChanged: {
+                                if (visible)
+                                    weekDayPicker.updateDisplay()
+                            }
                         }
                     }
                     Rectangle {
@@ -397,7 +412,10 @@ Rectangle {
                             checkedContainerBorderColor: _colors.uGrey
                             checkedContainerColor: _colors.uGrey
 
-                            onCheckedChanged: weekDayPicker.computeValue()
+                            onCheckedChanged: {
+                                if (visible)
+                                    weekDayPicker.updateDisplay()
+                            }
                         }
                     }
                     Rectangle {
@@ -417,7 +435,10 @@ Rectangle {
                             checkedContainerBorderColor: _colors.uGrey
                             checkedContainerColor: _colors.uGrey
 
-                            onCheckedChanged: weekDayPicker.computeValue()
+                            onCheckedChanged: {
+                                if (visible)
+                                    weekDayPicker.updateDisplay()
+                            }
                         }
                     }
                 }

@@ -71,10 +71,11 @@ public slots:
 
     void setScenario(QObject* arg)
     {
-        //if (m_scenario != arg) {
+        if (m_scenario != arg) {
             m_scenario = arg;
+            this->setParent(arg);
             emit scenarioChanged(arg);
-        //}
+        }
     }
 
 signals:

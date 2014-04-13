@@ -24,6 +24,10 @@ Item {
     }
 
     function cancelEditCondition() {
+        if (!isEditMode) {
+            return
+        }
+
         weekDayPicker.value = weekDayCondition.selectedWeekdays
         weekDayPicker.closeDropDown()
     }
@@ -58,6 +62,13 @@ Item {
 
         anchors.verticalCenter: parent.verticalCenter
 
+        value: weekDayCondition.selectedWeekdays
+
+        Component.onCompleted: {
+            updateDisplay()
+            weekDayLabel.text = getText()
+        }
+
         visible: isEditMode
     }
 
@@ -68,6 +79,8 @@ Item {
         anchors.leftMargin: 10
 
         anchors.verticalCenter: parent.verticalCenter
+
+        text: weekDayPicker.getText()
 
         visible: !isEditMode
     }
