@@ -18,6 +18,7 @@ class UPlatform : public QAbstractListModel, public JsonSerializable
     Q_PROPERTY(QList<UDevice*> devices READ getDevices WRITE setDevices)
     Q_PROPERTY(QString      enabled READ getEnabled WRITE setEnabled NOTIFY enabledChanged)
     Q_PROPERTY(QString      firmwareVersion READ getFirmwareVersion WRITE setFirmwareVersion)
+    Q_PROPERTY(QDateTime    lastUpdate READ getLastUpdate NOTIFY updateChanged)
 
 public:
     UPlatform(QObject* parent);
@@ -38,6 +39,7 @@ public:
     QString         getRoom() const { return m_room; }
     QString         getEnabled() const { return m_enabled; }
     QString         getFirmwareVersion() const { return m_firmwareVersion; }
+    QDateTime       getLastUpdate() const;
 
     // JsonSerializable
     void read(const QJsonObject &jsonObj);
@@ -66,6 +68,7 @@ signals:
     void ipChanged(QString arg);
     void portChanged(int arg);
     void enabledChanged(QString arg);
+    void updateChanged(QDateTime arg);
 
 private:
     int m_id;

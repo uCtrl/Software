@@ -5,10 +5,12 @@
 UDevice::UDevice(QObject* parent) : QAbstractListModel(parent)
 {
     setId(UniqueIdGenerator::GenerateUniqueId());
+    setLastUpdate(QDateTime::currentDateTime());
 }
 
 UDevice::~UDevice()
 {
+    setLastUpdate(QDateTime::currentDateTime());
 }
 
 UDevice::UDevice(const UDevice& device)
@@ -16,6 +18,7 @@ UDevice::UDevice(const UDevice& device)
     setId(device.getId());
     setName(device.getName());
     setScenarios(device.getScenarios());
+    setLastUpdate(QDateTime::currentDateTime());
 }
 
 QObject* UDevice::createScenario() {
@@ -68,6 +71,7 @@ void UDevice::read(const QJsonObject &jsonObj)
     this->setEnabled(jsonObj["enabled"].toString());
     this->setDescription(jsonObj["description"].toString());
     this->setStatus((float)jsonObj["status"].toDouble());
+    this->setLastUpdate(QDateTime::currentDateTime());
 
     QJsonArray scenariosArray = jsonObj["scenarios"].toArray();
     foreach(QJsonValue scenarioJson, scenariosArray)

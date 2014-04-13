@@ -5,7 +5,7 @@ import "../UI/ULabel" as ULabel
 Rectangle {
     id: container
 
-    property var platformModel: null //platformsList.model.getPlatformAt(index)
+    property var platformModel: null
     property var system: systemFrame.system
 
     width: parent.width
@@ -42,6 +42,24 @@ Rectangle {
         platformTitle.text = container.platformModel.name
     }
 
+    function getLastUpdate(platform) {
+        if (platform !== null) {
+            var time = platform.lastUpdate;
+            var currentTime = new Date();
+
+            // @TODO: Replace with alert display.
+            if (Qt.formatDate(time) > Qt.formatDate(currentTime)) console.log("An error occured.");
+            else if (Qt.formatDate(time) === Qt.formatDate(currentTime)) return "Updated a second ago.";
+            else if (currentTime.getMinutes()-1 === time.getMinutes()) return "Updated a minute ago.";
+            else if (currentTime.getHours()-1 === time.getHours()) return "Updated last hour.";
+            else if (currentTime.getDate() === time.getDate()) return "Updated earlier today.";
+            else if (currentTime.getDate()-1 === time.getDate()) return "Updated yesterday.";
+            else if (currentTime.getMonth() === time.getMonth()) return "Updated " + (currentTime.getDate() - time.getDate()) + " days ago.";
+            else if (currentTime.getMonth()-1 === time.getMonth()) return "Last month.";
+            else if (currentTime.getYear()-1 === time.getYear()) return "Last year.";
+        }
+    }
+
     ULabel.Default {
         id: platformTitle
 
@@ -65,7 +83,7 @@ Rectangle {
         anchors.top: platformTitle.bottom
         anchors.left: platformTitle.left
 
-        text: "3 hours ago"
+        text: getLastUpdate(platformModel)
         color: getTextColor()
 
         font.pointSize: 12

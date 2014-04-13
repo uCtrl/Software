@@ -4,6 +4,7 @@
 #include "Serialization/jsonserializable.h"
 #include "Scenario/uscenario.h"
 #include <QAbstractListModel>
+#include <QDateTime>
 
 class UScenario;
 
@@ -23,6 +24,7 @@ class UDevice : public QAbstractListModel, public JsonSerializable
     Q_PROPERTY(QString description READ getDescription WRITE setDescription NOTIFY descriptionChanged)
     Q_PROPERTY(QString enabled READ getEnabled WRITE setEnabled NOTIFY enabledChanged)
     Q_PROPERTY(float status READ getStatus WRITE setStatus NOTIFY statusChanged)
+    Q_PROPERTY(QDateTime lastUpdate READ getLastUpdate WRITE setLastUpdate NOTIFY updateChanged)
 
 public:
     UDevice(QObject* parent);
@@ -43,6 +45,7 @@ public:
     QString getDescription() const { return m_description; }
     QString getEnabled() const { return m_enabled; }
     float getStatus() const { return m_status; }
+    QDateTime getLastUpdate() const { return m_lastUpdate; }
 
     QList<UScenario*> getScenarios() const { return m_scenarios; }
 
@@ -70,6 +73,7 @@ signals:
     void descriptionChanged(QString arg);
     void enabledChanged(QString arg);
     void statusChanged(float arg);
+    void updateChanged(QDateTime arg);
 
     void scenariosChanged(QList<UScenario*> arg);
 
@@ -164,6 +168,13 @@ public slots:
         }
     }
 
+    void setLastUpdate(QDateTime arg) {
+        if (m_lastUpdate != arg) {
+            m_lastUpdate = arg;
+            emit updateChanged(arg);
+        }
+    }
+
 private:
     int m_id;
     QString m_name;
@@ -177,6 +188,7 @@ private:
     QString m_description;
     QString m_enabled;
     float m_status;
+    QDateTime m_lastUpdate;
 };
 Q_DECLARE_METATYPE(QList<UDevice*>)
 #endif // UDEVICE_H
