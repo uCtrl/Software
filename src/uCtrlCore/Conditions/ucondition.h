@@ -4,6 +4,8 @@
 #include "QAbstractItemModel"
 #include <Serialization/jsonserializable.h>
 
+
+// TODO: Use QDateTime + Clean everything up in here!
 class UCondition : public QAbstractItemModel, public JsonSerializable
 {
     Q_OBJECT
@@ -28,7 +30,7 @@ public:
     };
 
     Q_PROPERTY(int id READ getId WRITE setId)
-    Q_PROPERTY(QObject* conditionParent READ getConditionParent)
+    Q_PROPERTY(QObject* conditionParent READ getConditionParent WRITE setConditionParent NOTIFY conditionParentChanged)
     Q_PROPERTY(UEConditionType type READ getType WRITE setType NOTIFY typeChanged)
     Q_PROPERTY(UEComparisonType comparisonType READ getComparisonType WRITE setComparisonType NOTIFY comparisonTypeChanged)
 
@@ -66,6 +68,14 @@ public slots:
         }
     }
 
+    void setConditionParent(QObject* arg)
+    {
+        if (m_conditionParent != arg) {
+            m_conditionParent = arg;
+            setParent(arg);
+            emit conditionParentChanged(arg);
+        }
+    }
 
 private:
     int m_id;
@@ -82,8 +92,9 @@ public:
 
     UEComparisonType getComparisonType() const { return m_comparisonType; }
 signals:
-    void comparisonTypeChanged(UEComparisonType arg);
     void typeChanged(UEConditionType arg);
+    void comparisonTypeChanged(UEComparisonType arg);
+    void conditionParentChanged(QObject* arg);
 };
 
 #endif // UCONDITION_H

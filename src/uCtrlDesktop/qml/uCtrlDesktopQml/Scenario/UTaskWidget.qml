@@ -361,6 +361,10 @@ Item {
                 delegate: UTaskConditionWidget {
                     z: 100000 - index
                     isEditMode: taskWidget.isEditMode
+
+                    Component.onCompleted: {
+                        conditionModel.conditionParent = taskModel
+                    }
                 }
 
                 function saveConditions() {
