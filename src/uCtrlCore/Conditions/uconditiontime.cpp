@@ -7,6 +7,13 @@ UConditionTime::UConditionTime(QObject* parent, QTime beginTime, QTime endTime)
     setEndTime(endTime);
 }
 
+UConditionTime::UConditionTime(QObject* parent, UConditionTime* conditionTime)
+    : UCondition(parent, conditionTime)
+{
+    setBeginTime(conditionTime->getBeginTime());
+    setEndTime(conditionTime->getEndTime());
+}
+
 void UConditionTime::read(const QJsonObject &jsonObj)
 {
     UCondition::read(jsonObj);

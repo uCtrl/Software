@@ -17,6 +17,15 @@ UConditionDate::UConditionDate(QObject *parent)
     setDateType(UEConditionDateType::DDMMYYYY);
 }
 
+UConditionDate::UConditionDate(QObject* parent, UConditionDate* conditionDate)
+    : UCondition(parent, conditionDate)
+{
+    setBeginDate    (conditionDate->getBeginDate());
+    setEndDate      (conditionDate->getEndDate());
+
+    setDateType(conditionDate->getDateType());
+}
+
 void UConditionDate::read(const QJsonObject &jsonObj)
 {
     UCondition::read(jsonObj);

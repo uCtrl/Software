@@ -12,8 +12,14 @@ Item {
     property bool canMoveUp: !(index === 0 || index === taskList.count - 1)
     property bool canMoveDown: !(index === taskList.count - 1 || index === taskList.count - 2)
 
+    property var cancelEditTaskFunc: function(){}
+
     Component.onDestruction: {
         conditionList.cancelEditConditions()
+    }
+
+    function cancelEditTask() {
+        cancelEditTaskFunc()
     }
 
     id: taskWidget
@@ -188,7 +194,15 @@ Item {
                         conditionList.saveConditions()
                     }
 
+
+                    Component.onCompleted: {
+                        cancelEditTaskFunc = cancelEditTask
+                    }
+
                     function cancelEditTask() {
+                        if(!isEditMode)
+                            return
+
                         stateContainer.tmpValue = taskModel.status
                         isEditMode = false
 
@@ -440,7 +454,7 @@ Item {
             width: conditionsContainer.width
             height: 30
 
-            visible: !isAddingCondition && isEditMode
+            visible: !isAddingCondition && isEditMode && !(index == taskList.count - 1)
 
             UI.UButton {
                 anchors.topMargin: 5

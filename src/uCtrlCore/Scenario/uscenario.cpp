@@ -8,11 +8,12 @@ UScenario::UScenario(QObject* parent) : QAbstractListModel(parent), m_device(par
     setName("Undefined");
 }
 
-UScenario::UScenario(const UScenario *scenario)
+UScenario::UScenario(UScenario *scenario) : QAbstractListModel(scenario->getDevice())
 {
     setId(scenario->getId());
     setName(scenario->getName());
-    setTasks(scenario->getTasks());
+    setTasks(scenario->copyTasks());
+    m_device = scenario->getDevice();
 }
 
 UScenario::~UScenario()
@@ -21,14 +22,42 @@ UScenario::~UScenario()
     m_tasks.clear();
 }
 
-QObject* UScenario::createTask() {
-    return new UTask(this);
+void UScenario::updateScenario(UScenario* scenario) {
+    setId(scenario->getId());
+    setName(scenario->getName());
+    setTasks(scenario->copyTasks());
 }
 
+QList<UTask*> UScenario::copyTasks() {
+    QList<UTask*> tasksCopy;
+    for (int i = 0; i < m_tasks.length(); i++) {
+        tasksCopy.push_back(new UTask(this, m_tasks.at(i)));
+    }
+    return tasksCopy;
+}
+
+QObject* UScenario::createTask() {
+    UDevice* myDevice = (UDevice*)getDevice();
+    UTask* newTask = new UTask(this);
+
+    newTask->setStatus(myDevice->isTriggerValue() ? "OFF" : QString::number((myDevice->getMinValue() + myDevice->getMaxValue()) / 2));
+    return newTask;
+}
+
+// Insert the task before the last one (else task)
 void UScenario::addTask(UTask* task) {
-    beginInsertRows(QModelIndex(), rowCount(), rowCount());
-    m_tasks.push_back(task);
-    endInsertRows();
+    if (m_tasks.length() == 0) {
+        beginInsertRows(QModelIndex(), rowCount(), rowCount());
+        m_tasks.push_back(task);
+        endInsertRows();
+    }
+    else {
+        beginInsertRows(QModelIndex(), rowCount() - 1, rowCount() - 1);
+        m_tasks.insert(m_tasks.length() - 1, task);
+        endInsertRows();
+    }
+
+
 
     emit tasksChanged(m_tasks);
 }

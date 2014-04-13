@@ -5,10 +5,12 @@
 UDevice::UDevice(QObject* parent) : QAbstractListModel(parent)
 {
     setId(UniqueIdGenerator::GenerateUniqueId());
+    setLastUpdate(QDateTime::currentDateTime());
 }
 
 UDevice::~UDevice()
 {
+    setLastUpdate(QDateTime::currentDateTime());
 }
 
 UDevice::UDevice(const UDevice& device)
@@ -16,6 +18,44 @@ UDevice::UDevice(const UDevice& device)
     setId(device.getId());
     setName(device.getName());
     setScenarios(device.getScenarios());
+    setLastUpdate(QDateTime::currentDateTime());
+}
+
+QObject* UDevice::createScenario() {
+    UScenario* newScenario = new UScenario(this);
+    UTask* otherwiseTask = (UTask*)newScenario->createTask();
+    newScenario->addTask(otherwiseTask);
+    return newScenario;
+}
+
+void UDevice::addScenario(UScenario* scenario) {
+    beginInsertRows(QModelIndex(), rowCount(), rowCount());
+    m_scenarios.push_back(scenario);
+    endInsertRows();
+
+    emit scenariosChanged(m_scenarios);
+}
+
+void UDevice::updateScenarioAt(int index, UScenario* scenario) {
+    m_scenarios.replace(index, scenario);
+
+    emit scenariosChanged(m_scenarios);
+}
+
+void UDevice::deleteScenarioAt(int index) {
+    if (index < 0 || index >= getScenarioCount())
+        return;
+
+    beginRemoveRows(QModelIndex(), index, index);
+
+    QObject* scenario = getScenarioAt(index);
+    delete scenario;
+    scenario = NULL;
+    m_scenarios.removeAt(index);
+
+    endRemoveRows();
+
+    emit scenariosChanged(m_scenarios);
 }
 
 void UDevice::read(const QJsonObject &jsonObj)
@@ -31,6 +71,7 @@ void UDevice::read(const QJsonObject &jsonObj)
     this->setEnabled(jsonObj["enabled"].toString());
     this->setDescription(jsonObj["description"].toString());
     this->setStatus((float)jsonObj["status"].toDouble());
+    this->setLastUpdate(QDateTime::currentDateTime());
 
     QJsonArray scenariosArray = jsonObj["scenarios"].toArray();
     foreach(QJsonValue scenarioJson, scenariosArray)

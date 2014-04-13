@@ -11,7 +11,6 @@ UI.UFrame {
 
     function refresh(newSystem) {
         system = newSystem
-        if (system !== null) platformListContainer.refresh(newSystem)
     }
 
     signal notify;

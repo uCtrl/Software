@@ -25,6 +25,7 @@ public:
 
     UConditionWeekday() { setComparisonType(UEComparisonType::Equals);}
     UConditionWeekday(QObject* parent, int selectedWeekdays = 0);
+    UConditionWeekday(QObject* parent, UConditionWeekday* conditionWeekday);
 
     int getSelectedWeekdays() const { return m_selectedWeekdays; }
 

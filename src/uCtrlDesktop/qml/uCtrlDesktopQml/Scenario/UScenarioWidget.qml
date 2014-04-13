@@ -1,15 +1,24 @@
 import QtQuick 2.0
+import "../UI" as UI
 
 Rectangle {
     id: scenarioWidget
     property string name: "UNKNOWN"
-    property var scenario
+    property var scenarioModel
     clip:true
     property bool isEditMode: false
 
     color: _colors.uWhite
     height: parent.height
     width: parent.width
+
+    function saveTasks() {
+        taskList.saveTasks()
+    }
+
+    function cancelEditTasks() {
+        taskList.cancelEditTasks()
+    }
 
     function getName() {
         return (device === undefined || device === null ? "UNKNOWN" : device.name)
@@ -25,7 +34,7 @@ Rectangle {
     }
 
     function refresh(newScenario) {
-        taskList.model = newScenario
+        scenarioModel = newScenario
     }
 
     Rectangle {
@@ -33,7 +42,7 @@ Rectangle {
         clip:true
 
         anchors.top: parent.top
-        anchors.bottom: parent.bottom
+        anchors.bottom: addTaskButton.top
 
         width: parent.width
 
@@ -41,14 +50,59 @@ Rectangle {
         visible: true
 
         ListView {
+            property var newTasks: []
+
             id: taskList
             anchors.fill: parent
 
-            model: scenario
+            model: scenarioModel
             delegate: UTaskWidget {
                 z: 100000 - index
                 showButtons: scenarioWidget.isEditMode
+                taskModel: scenarioModel.getTaskAt(index)
+
+                Component.onCompleted: {
+                    taskModel.scenario = scenarioModel
+                }
             }
+
+            function saveTasks() {
+                newTasks = []
+                cancelEditTasks()
+            }
+
+            function cancelEditTasks() {
+                var count = scenarioModel.taskCount()
+
+                for(var i = count - 1; i >= 0 ; i--) {
+                    taskList.currentIndex = i
+
+                    if (newTasks.indexOf(model.getTaskAt(i)) !== -1) {
+                        scenarioModel.deleteTaskAt(i)
+                        continue
+                    }
+
+                    taskList.currentItem.cancelEditTask()
+                }
+
+                newTasks = []
+            }
+        }
+    }
+
+    UI.UButton {
+        id: addTaskButton
+
+        anchors.bottom: parent.bottom
+
+        text: "Add task"
+        visible: isEditMode
+
+        onClicked: {
+            var newTask = scenarioModel.createTask()
+
+            scenarioModel.addTask(newTask)
+            taskList.newTasks.push(newTask)
         }
     }
 }

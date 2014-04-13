@@ -74,7 +74,6 @@ Rectangle {
                     }
 
                     conditionLoader.cancelEditConditionFunc = function() {
-                        console.log("CANCEL CONDITION")
                         updateConditionView()
                     }
                 }
