@@ -4,8 +4,6 @@
 #include "QAbstractItemModel"
 #include <Serialization/jsonserializable.h>
 
-
-// TODO: Use QDateTime + Clean everything up in here!
 class UCondition : public QAbstractItemModel, public JsonSerializable
 {
     Q_OBJECT
@@ -17,7 +15,8 @@ public:
         None = -1,
         Date = 1,
         Day,
-        Time
+        Time,
+        Device
     };
 
     enum class UEComparisonType: int {
@@ -30,7 +29,7 @@ public:
 
     Q_PROPERTY(int id READ getId WRITE setId)
     Q_PROPERTY(QObject* conditionParent READ getConditionParent)
-    Q_PROPERTY(UEConditionType type READ getType WRITE setType)
+    Q_PROPERTY(UEConditionType type READ getType WRITE setType NOTIFY typeChanged)
     Q_PROPERTY(UEComparisonType comparisonType READ getComparisonType WRITE setComparisonType NOTIFY comparisonTypeChanged)
 
     UCondition() : m_comparisonType(UEComparisonType::InBetween){}
@@ -40,7 +39,6 @@ public:
 
     int getId() const { return m_id; }
     UEConditionType getType() const { return m_type; }
-    Q_INVOKABLE QString getTypeName();
 
     void read(const QJsonObject &jsonObj);
     void write(QJsonObject &jsonObj) const;
@@ -51,7 +49,14 @@ public:
 
 public slots:
     void setId(int arg) { m_id = arg; }
-    void setType(UEConditionType arg) { m_type = arg; }
+
+    void setType(UEConditionType arg)
+    {
+        if (m_type != arg) {
+            m_type = arg;
+            emit typeChanged(arg);
+        }
+    }
 
     void setComparisonType(UEComparisonType arg)
     {
@@ -61,12 +66,11 @@ public slots:
         }
     }
 
+
 private:
     int m_id;
     QObject* m_conditionParent;
     UEConditionType m_type;
-
-    // QAbstractItemModel interface
     UEComparisonType m_comparisonType;
 
 public:
@@ -79,6 +83,7 @@ public:
     UEComparisonType getComparisonType() const { return m_comparisonType; }
 signals:
     void comparisonTypeChanged(UEComparisonType arg);
+    void typeChanged(UEConditionType arg);
 };
 
 #endif // UCONDITION_H

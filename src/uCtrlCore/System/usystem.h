@@ -7,6 +7,7 @@
 #include <QAbstractListModel>
 #include <QJsonObject>
 #include <QList>
+#include "Conditions/uconditiondevice.h"
 
 class USystem : public QAbstractListModel, public JsonSerializable
 {
@@ -24,6 +25,7 @@ public:
     QList<UPlatform*> getPlatforms() const { return m_platforms; }
     void addPlatform(const QString& ip, const int port);
     bool containsPlatform(const QString& ip, const int port);
+    QObject* getAllDevicesByType(UConditionDevice::UEDeviceType deviceType);
 
     void read(const QJsonObject &jsonObj);
     void write(QJsonObject &jsonObj) const;

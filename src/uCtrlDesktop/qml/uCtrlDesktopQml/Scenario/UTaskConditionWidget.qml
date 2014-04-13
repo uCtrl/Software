@@ -1,6 +1,7 @@
 import QtQuick 2.0
 
 import "../UI" as UI
+import ConditionEnums 1.0
 
 Rectangle {
     id: container
@@ -39,14 +40,18 @@ Rectangle {
             sourceComponent: getSourceComponent()
 
             function getSourceComponent() {
-                var type = conditionModel.getTypeName()
-                if (type === "Date")
+                switch(conditionModel.type) {
+                case UEConditionType.Date:
                     return uDateComponent
-                if (type === "Time")
+                case UEConditionType.Time:
                     return uTimeComponent
-                if (type === "Day")
+                case UEConditionType.Day:
                     return uWeekdayComponent
-                else return;
+                case UEConditionType.Device:
+                    return uDeviceComponent
+                default:
+                    return
+                }
             }
 
             function saveCondition() {
@@ -93,6 +98,26 @@ Rectangle {
                 id: uWeekdayConditionWidget
 
                 weekDayCondition: conditionModel
+                isEditMode: container.isEditMode
+
+                Component.onCompleted: {
+                    conditionLoader.saveConditionFunc = function() {
+                        saveCondition()
+                    }
+
+                    conditionLoader.cancelEditConditionFunc = function() {
+                        cancelEditCondition()
+                    }
+                }
+            }
+        }
+
+        Component {
+            id: uDeviceComponent
+            UDeviceConditionWidget {
+                id: uDeviceConditionWidget
+
+                deviceCondition: conditionModel
                 isEditMode: container.isEditMode
 
                 Component.onCompleted: {

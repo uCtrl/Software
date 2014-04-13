@@ -1,5 +1,7 @@
 #include "utask.h"
 #include "Utility/uniqueidgenerator.h"
+#include "Conditions/uconditiondevice.h"
+#include "System/usystem.h"
 
 UTask::UTask(QObject* parent) : QAbstractListModel(parent), m_scenario(parent)
 {
@@ -92,6 +94,12 @@ void UTask::moveCondition(int indexSource, int indexDestination)
     endMoveRows();
 
     emit conditionsChanged(m_conditions);
+}
+
+QObject* UTask::getAllDevicesByType(int deviceType) {
+    UConditionDevice::UEDeviceType conditionDeviceType = (UConditionDevice::UEDeviceType)deviceType;
+
+    return USystem::Instance()->getAllDevicesByType(conditionDeviceType);
 }
 
 void UTask::read(const QJsonObject &jsonObj)

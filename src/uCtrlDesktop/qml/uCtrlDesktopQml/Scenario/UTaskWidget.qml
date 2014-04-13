@@ -407,9 +407,10 @@ Item {
 
                 itemListModel: [
                     { value:"", displayedValue:"Select condition type", iconId:"" },
-                    { value:"Date", displayedValue:"  Date", iconId:"Calendar"},
-                    { value:"Time", displayedValue:"  Time", iconId:"Time"},
-                    { value:"Weekdays", displayedValue:"  Week Days", iconId:"CalendarEmpty"}
+                    { value:UEConditionType.Date, displayedValue:"  Date", iconId:"Calendar"},
+                    { value:UEConditionType.Time, displayedValue:"  Time", iconId:"Time"},
+                    { value:UEConditionType.Day, displayedValue:"  Week Days", iconId:"CalendarEmpty"},
+                    { value:UEConditionType.Device, displayedValue:"  Devices", iconId:"EyeOpen"}
                 ]
 
                 selectedItem: { "value":"", "displayedValue":"Select condition type", "iconId":"" }
@@ -423,21 +424,10 @@ Item {
                 }
 
                 function createCondition(newValue) {
-                    var newCondition
+                    if (newValue === "")
+                            return
 
-                    switch(newValue) {
-                    case "Time":
-                        newCondition = taskModel.createCondition(UEConditionType.Time)
-                        break
-                    case "Date":
-                        newCondition = taskModel.createCondition(UEConditionType.Date)
-                        break
-                    case "Weekdays":
-                        newCondition = taskModel.createCondition(UEConditionType.Day)
-                        break
-                    default:
-                        return
-                    }
+                    var newCondition = taskModel.createCondition(newValue)
 
                     taskModel.addCondition(newCondition)
                     conditionList.newConditions.push(newCondition)

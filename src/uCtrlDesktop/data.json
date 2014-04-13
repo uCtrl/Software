@@ -42,6 +42,12 @@
                                             "comparisonType": 1,
                                             "id": 1350245681,
                                             "type": 3
+                                        },
+                                        {
+                                            "comparisonType": 1,
+                                            "deviceType": 3,
+                                            "id": 1350245682,
+                                            "type": 4
                                         }
                                     ],
                                     "id": 1782103623,
@@ -108,7 +114,7 @@
                             ]
                         }
                     ],
-                    "type": 1,
+                    "type": 0,
                     "unitLabel": "\u00B0C",
                     "isTriggerValue": false,
                     "enabled": "ON"
@@ -172,7 +178,7 @@
                             ]
                         }
                     ],
-                    "type": 2,
+                    "type": 3,
                     "unitLabel": "",
                     "isTriggerValue": true
                 }
@@ -191,7 +197,7 @@
                     "id": 1782103621,
                     "maxValue": 100,
                     "minValue": 0,
-                    "name": "Dimmer Light",
+                    "name": "Temperature B",
                     "precision": 1,
                     "description": "A random description, which is pretty long I'll say. Give me a break!",
                     "scenarios": [
@@ -250,7 +256,7 @@
                             ]
                         }
                     ],
-                    "type": 1,
+                    "type": 0,
                     "unitLabel": "%"
                 }
             ],

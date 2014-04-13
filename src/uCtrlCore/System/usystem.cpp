@@ -1,4 +1,5 @@
 #include "usystem.h"
+#include "Device/udevicelist.h"
 
 USystem* USystem::m_systemInstance = NULL;
 
@@ -43,6 +44,25 @@ QObject* USystem::getPlatformAt(int index) const {
 int USystem::rowCount(const QModelIndex &parent) const
 {
     return m_platforms.count();
+}
+
+QObject* USystem::getAllDevicesByType(UConditionDevice::UEDeviceType deviceType) {
+    UDeviceList* deviceList = new UDeviceList();
+
+    QList<UDevice*> actualDeviceList;
+    for (int i = 0; i < m_platforms.length(); i++) {
+        UPlatform* platform = m_platforms.at(i);
+
+        QList<UDevice*> tmpDeviceList = platform->getDevices();
+        for (int j = 0; j < tmpDeviceList.length(); j++) {
+            UDevice* tmpDevice = tmpDeviceList.at(j);
+
+            if (tmpDevice->getType() == (int)deviceType)
+                actualDeviceList.push_back(tmpDevice);
+        }
+    }
+    deviceList->setDevices(actualDeviceList);
+    return deviceList;
 }
 
 void USystem::read(const QJsonObject &jsonObj)
