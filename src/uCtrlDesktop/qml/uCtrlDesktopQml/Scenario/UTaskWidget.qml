@@ -9,10 +9,21 @@ Item {
     property bool showButtons: true
     property bool isAddingCondition: false
 
-    property bool canMoveUp: !(index === 0 || index === taskList.count - 1)
-    property bool canMoveDown: !(index === taskList.count - 1 || index === taskList.count - 2)
+    function canMoveUp() {
+        return !(index === 0 || index === taskList.count - 1)
+    }
+    function canMoveDown() {
+        return !(index === taskList.count - 1 || index === taskList.count - 2)
+    }
 
     property var cancelEditTaskFunc: function(){}
+
+    property bool isOtherwiseTask : false
+
+    Component.onCompleted: {
+        isOtherwiseTask = (index == taskList.count - 1)
+        stateLabelWhen.text = (isOtherwiseTask ? "otherwise" : "when:")
+    }
 
     Component.onDestruction: {
         conditionList.cancelEditConditions()
@@ -61,9 +72,9 @@ Item {
 
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: changeStateLabel.right
-                anchors.leftMargin: 15
+                anchors.leftMargin: 5
 
-                width: statusTaskLoader.width + 15
+                width: statusTaskLoader.width + 5
                 height: statusTaskLoader.height
 
                 radius: 10
@@ -76,7 +87,7 @@ Item {
 
                     function getSourceComponent() {
                         if (!isEditMode)
-                            return statusLabel
+                            return statusLabelContainer
 
                         if (taskModel.scenario.device.isTriggerValue) {
                             return statusSwitch
@@ -87,21 +98,13 @@ Item {
                 }
 
                 Component {
-                    id: statusLabel
+                    id: statusLabelContainer
 
-                    Rectangle {
-                        width: 100
+                    ULabel.UInfoBoundedLabel {
+                        id: statusLabel
                         height: changeStateLabel.height
-                        radius: 5
-                        color: _colors.uGreen
 
-                        ULabel.Heading3 {
-                            text: taskModel.status
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.verticalCenter: parent.verticalCenter
-
-                            color: _colors.uWhite
-                        }
+                        text: taskModel.status + " " + taskModel.scenario.device.unitLabel
                     }
                 }
 
@@ -140,16 +143,8 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: stateContainer.right
 
-                text: getText()
                 font.pointSize: 14
                 color: _colors.uDarkGrey
-
-                function getText() {
-                    if (index == taskList.count - 1)
-                        return taskModel.scenario.device.unitLabel + " " + qsTr("otherwise")
-
-                    return taskModel.scenario.device.unitLabel + " " + qsTr("when")
-                }
             }
 
             Loader {
@@ -171,7 +166,7 @@ Item {
             Component {
                 id: emptyTaskButtonsComponent
 
-                Rectangle {
+            Rectangle {
                     width:0
                     height:0
                 }
@@ -214,12 +209,13 @@ Item {
 
             Component {
                 id: taskButtons
-
                 Rectangle {
+                    anchors.fill: parent
+
                     UI.UButton {
                         id: editTaskButton
 
-                        buttonColor: _colors.uWhite
+                        buttonColor: _colors.uTransparent
                         buttonHoveredColor: _colors.uMediumLightGrey
                         buttonTextColor : _colors.uBlack
 
@@ -234,7 +230,7 @@ Item {
                         anchors.right: moveUp.left
                         anchors.rightMargin: 10
 
-                        function execute() {
+                        onClicked: {
                             isEditMode = true
                         }
                     }
@@ -242,10 +238,10 @@ Item {
                     UI.UButton {
                         id: moveUp
 
-                        buttonColor: _colors.uWhite
+                        buttonColor: _colors.uTransparent
                         buttonHoveredColor: _colors.uMediumLightGrey
                         buttonTextColor : _colors.uBlack
-                        buttonDisabledColor: _colors.uWhite
+                        buttonDisabledColor: _colors.uTransparent
                         buttonDisabledTextColor: _colors.uMediumLightGrey
 
                         anchors.verticalCenter: parent.verticalCenter
@@ -253,14 +249,16 @@ Item {
                         iconId: "Upload"
                         iconSize: 12
 
+                        state: isOtherwiseTask ? "DISABLED" : "ENABLED"
+
                         width: 20
                         height: 20
 
                         anchors.right: moveDown.left
                         anchors.rightMargin: 10
 
-                        function execute() {
-                            if (!canMoveUp)
+                        onClicked: {
+                            if(!canMoveUp())
                                 return
 
                             var pScenario = taskModel.scenario
@@ -272,17 +270,18 @@ Item {
                     UI.UButton {
                         id: moveDown
 
-                        buttonColor: _colors.uWhite
+                        buttonColor: _colors.uTransparent
                         buttonHoveredColor: _colors.uMediumLightGrey
                         buttonTextColor : _colors.uBlack
-                        buttonDisabledColor: _colors.uWhite
+                        buttonDisabledColor: _colors.uTransparent
                         buttonDisabledTextColor: _colors.uMediumLightGrey
-
 
                         anchors.verticalCenter: parent.verticalCenter
 
                         iconId: "Download"
                         iconSize: 12
+
+                        state: isOtherwiseTask ? "DISABLED" : "ENABLED"
 
                         width: 20
                         height: 20
@@ -290,8 +289,8 @@ Item {
                         anchors.right: deleteBtn.left
                         anchors.rightMargin: 10
 
-                        function execute() {
-                            if (!canMoveDown)
+                        onClicked: {
+                            if(!canMoveDown())
                                 return
 
                             var pScenario = taskModel.scenario
@@ -302,13 +301,14 @@ Item {
                     UI.UButton {
                         id: deleteBtn
 
-                        buttonColor: _colors.uWhite
+                        buttonColor: _colors.uTransparent
                         buttonHoveredColor: _colors.uMediumLightGrey
                         buttonTextColor : _colors.uBlack
-                        buttonDisabledColor: _colors.uWhite
+                        buttonDisabledColor: _colors.uTransparent
                         buttonDisabledTextColor: _colors.uMediumLightGrey
 
                         anchors.verticalCenter: parent.verticalCenter
+                        anchors.right: parent.right
 
                         iconId: "Remove"
                         iconSize: 12
@@ -316,18 +316,46 @@ Item {
                         width: 20
                         height: 20
 
-                        anchors.right: parent.right
-                        anchors.rightMargin: 10
+                        state: isOtherwiseTask ? "DISABLED" : "ENABLED"
 
-                        function execute() {
+                        onClicked: {
                             var pScenario = taskModel.scenario
                             pScenario.deleteTaskAt(index)
                         }
+                    }
+                }
+            }
 
-                        Component.onCompleted: {
-                            if (index === taskList.count - 1)
-                                state = "DISABLED"
-                        }
+            Component {
+                id: taskSaveButtons
+
+                UI.USaveCancel {
+                    height: changeStateLabel.height
+
+                    onSave: saveTask()
+                    onCancel: cancelEditTask()
+
+                    function saveTask() {
+                        taskModel.status = stateContainer.tmpValue
+                        isEditMode = false
+
+                        conditionList.saveConditions()
+                    }
+
+
+                    Component.onCompleted: {
+                        cancelEditTaskFunc = cancelEditTask
+                    }
+
+                    function cancelEditTask() {
+                        if(!isEditMode)
+                            return
+
+                        stateContainer.tmpValue = taskModel.status
+                        isEditMode = false
+
+                        conditionList.cancelEditConditions()
+                        isAddingCondition = false
                     }
                 }
             }
@@ -410,10 +438,10 @@ Item {
                 height: parent.height
 
                 itemListModel: [
-                    { value:"", displayedValue:"Select condition type", iconId:"" },
-                    { value:"Date", displayedValue:"  Date", iconId:"Calendar"},
-                    { value:"Time", displayedValue:"  Time", iconId:"Time"},
-                    { value:"Weekdays", displayedValue:"  Week Days", iconId:"CalendarEmpty"}
+                    { value:"",         displayedValue:"Select condition type", iconId:"" },
+                    { value:"Date",     displayedValue:"Date",                  iconId:"Calendar"},
+                    { value:"Time",     displayedValue:"Time",                  iconId:"Time"},
+                    { value:"Weekdays", displayedValue:"Week Days",             iconId:"CalendarEmpty"}
                 ]
 
                 selectedItem: { "value":"", "displayedValue":"Select condition type", "iconId":"" }
