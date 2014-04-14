@@ -40,7 +40,7 @@ public:
     Q_INVOKABLE void moveCondition(int indexSource, int indexDestination);
     QList<UCondition*> copyConditions();
 
-    Q_INVOKABLE QObject* getAllDevicesByType(int deviceType);
+    Q_INVOKABLE QObject* getAllDevices();
 
     void read(const QJsonObject &jsonObj);
     void write(QJsonObject &jsonObj) const;

@@ -8,6 +8,7 @@ class UConditionDevice : public UCondition
     Q_OBJECT
 
     Q_PROPERTY(UEDeviceType deviceType READ getDeviceType WRITE setDeviceType NOTIFY deviceTypeChanged)
+    Q_PROPERTY(int deviceId READ getDeviceId WRITE setDeviceId NOTIFY deviceIdChanged)
 
     Q_ENUMS(UEDeviceType)
 
@@ -21,13 +22,18 @@ public:
     };
 
     UConditionDevice() {}
-    UConditionDevice(QObject* parent) : UCondition(parent, UEConditionType::Device) {}
+    UConditionDevice(QObject* parent) : UCondition(parent, UEConditionType::Device), m_deviceId(-1) {}
     UConditionDevice(QObject *parent, UConditionDevice* conditionDevice);
 
     UEDeviceType getDeviceType() const { return m_deviceType; }
 
     virtual void read(const QJsonObject &jsonObj);
     virtual void write(QJsonObject &jsonObj) const;
+    int getDeviceId() const
+    {
+        return m_deviceId;
+    }
+
 public slots:
     void setDeviceType(UEDeviceType arg)
     {
@@ -36,11 +42,21 @@ public slots:
             emit deviceTypeChanged(arg);
         }
     }
+    void setDeviceId(int arg)
+    {
+        if (m_deviceId != arg) {
+            m_deviceId = arg;
+            emit deviceIdChanged(arg);
+        }
+    }
+
 signals:
     void deviceTypeChanged(UEDeviceType arg);
+    void deviceIdChanged(int arg);
 
 private:
     UEDeviceType m_deviceType;
+    int m_deviceId;
 };
 
 #endif // UCONDITIONDEVICE_H

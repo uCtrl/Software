@@ -187,6 +187,10 @@ UI.UFrame {
             onSelectedItemChanged:{
                 platformListContainer.section = selectedItem.value
             }
+
+            Component.onCompleted: {
+                selectItem(0)
+            }
         }
 
         Component.onCompleted: { loadPlatforms() }

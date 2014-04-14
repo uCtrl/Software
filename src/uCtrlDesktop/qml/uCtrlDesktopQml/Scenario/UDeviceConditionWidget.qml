@@ -46,10 +46,6 @@ Rectangle {
 
     property bool isEditMode: false
 
-    onIsEditModeChanged: {
-        console.log("edit mode changed")
-    }
-
     anchors.left: parent.left
     anchors.leftMargin: 30
     anchors.verticalCenter: parent.verticalCenter
@@ -57,12 +53,36 @@ Rectangle {
     width: parent.width - 30
     height: parent.height - 5
 
-    function saveCondition() {
+    function updateDisplay() {
+        deviceTypeComboBox.reset()
+        deviceComboBox.reset()
 
+        if (deviceTypeComboBox.selectedItem !== undefined) {
+            deviceTypeLabel.text = deviceTypeComboBox.selectedItem.displayedValue
+            deviceNameLabel.text = deviceComboBox.selectedItem.value !== -1 ? deviceComboBox.selectedItem.displayedValue : ""
+        }
+    }
+
+    function saveCondition() {
+        deviceCondition.deviceId = deviceComboBox.selectedItem.value
+        deviceCondition.deviceType = deviceTypeComboBox.selectedItem.value
+
+        updateDisplay()
+    }
+
+    Component.onCompleted: {
+        console.log("COMPONENT COMPLETED")
+        console.log("type: " + deviceCondition.type)
+        console.log("id:" + deviceCondition.id)
+        updateDisplay()
     }
 
     function cancelEditCondition() {
+        if (!isEditMode)
+            return
 
+        deviceTypeComboBox.reset()
+        deviceComboBox.reset()
     }
 
     UI.UFontAwesome {
@@ -79,7 +99,9 @@ Rectangle {
     }
 
     ULabel.Default {
-        text: getText()
+        id: deviceTypeLabel
+
+        //text: getText()
 
         anchors.verticalCenter: deviceIcon.verticalCenter
         anchors.left: deviceIcon.right
@@ -96,6 +118,10 @@ Rectangle {
                 }
             }
         }
+
+        function reset() {
+            text = getText()
+        }
     }
 
     UI.UComboBox {
@@ -109,7 +135,11 @@ Rectangle {
 
         visible: isEditMode
 
-        itemListModel: getItemListModel()
+        //itemListModel: getItemListModel()
+        //selectedItem: getSelectedItem()
+        onSelectedItemChanged: {
+            deviceComboBox.reset()
+        }
 
         function getItemListModel() {
             var deviceTypeList = []
@@ -121,18 +151,44 @@ Rectangle {
             return deviceTypeList
         }
 
-        Component.onCompleted: {
-            // TODO changed for select by value of Harmel
+        function selectDeviceType() {
             for (var i = 0; i < deviceTypeUtility.length; i++) {
                 if (deviceCondition.deviceType === deviceTypeUtility[i].type) {
                     selectItem(i)
-                    break
+                    return
                 }
             }
+
+            setSelectedItem({"value":-1, "displayedValue":"Select a type", "iconId":""})
+        }
+
+        function reset() {
+            itemListModel = getItemListModel()
+            selectDeviceType()
+        }
+    }
+
+    ULabel.Default {
+        id: deviceNameLabel
+
+        //text: getText()
+
+        anchors.verticalCenter: deviceTypeComboBox.verticalCenter
+        anchors.left: deviceTypeComboBox.right
+
+        visible: !isEditMode
+
+        function getText() {
+            if (deviceComboBox.selectedItem.value === -1)
+                return ""
+
+            return deviceComboBox.selectedItem.displayedValue
         }
     }
 
     UI.UComboBox {
+        id: deviceComboBox
+
         anchors.verticalCenter: deviceTypeComboBox.verticalCenter
         anchors.left: deviceTypeComboBox.right
         anchors.leftMargin: 10
@@ -142,22 +198,41 @@ Rectangle {
 
         visible: isEditMode
 
-        itemListModel: getItemListModel()
+        //itemListModel: getItemListModel()
 
         function getItemListModel() {
-            var deviceList = taskModel.getAllDevicesByType(deviceTypeComboBox.selectedItem.value)
+            var deviceList = taskModel.getAllDevices()
             var deviceByTypeList = []
 
+            console.log("DEVICE COMBO BOX")
             for (var i = 0; i < deviceList.getDeviceCount(); i++) {
                 var device = deviceList.getDeviceAt(i)
-                deviceByTypeList.push({"value":device.id, "displayedValue":device.name, "iconId":""})
+
+                console.log(device.id)
+                if (taskModel.scenario.device.id === device.id)
+                    continue
+
+                if (deviceTypeComboBox.selectedItem.value === device.type)
+                    deviceByTypeList.push({"value":device.id, "displayedValue":device.name, "iconId":""})
             }
-/*
-            if (deviceByTypeList.length === 0) {
-                selectedItem = {"value":"", "displayedValue":"", "iconId":""}
-            }
-*/
+
             return deviceByTypeList
+        }
+
+        function selectDevice() {
+            for (var i = 0; i < itemListModel.length; i++) {
+                if (itemListModel[i].value === deviceCondition.deviceId) {
+                    selectItem(i)
+                    return
+                }
+            }
+
+            setSelectedItem({"value":-1, "displayedValue":"Select a device", "iconId":""})
+        }
+
+        function reset() {
+            itemListModel = getItemListModel()
+            selectDevice()
         }
     }
 }

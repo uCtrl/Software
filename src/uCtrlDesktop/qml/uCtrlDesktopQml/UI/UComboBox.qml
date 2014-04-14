@@ -10,9 +10,6 @@ Rectangle {
                                     { value:"3", displayedValue:"Restart", iconId:"Trash"},
                                     { value:"4", displayedValue:"Start", iconId:"Bolt"}
                                 ]
-    onItemListModelChanged: {
-        combo.selectItem(0)
-    }
 
     property var selectedItem
     z:1000
@@ -148,10 +145,18 @@ Rectangle {
         selectValue(selectedItem.value)
     }
 
+    function setSelectedItem(newSelectedItem) {
+        selectedItem = newSelectedItem
+        valueItem.refresh(selectedItem)
+        dropDown.visible = false
+        selectValue(selectedItem.value)
+    }
+
     MouseArea {
         anchors.fill: parent
         onClicked: {
-            dropDown.visible = !dropDown.visible
+            if (itemListModel && itemListModel.length > 0)
+                dropDown.visible = !dropDown.visible
         }
     }
 }

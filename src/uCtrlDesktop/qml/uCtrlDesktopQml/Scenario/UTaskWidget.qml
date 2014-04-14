@@ -410,7 +410,6 @@ Item {
                 height: parent.height
 
                 itemListModel: [
-                    { value:"", displayedValue:"Select condition type", iconId:"" },
                     { value:UEConditionType.Date, displayedValue:"  Date", iconId:"Calendar"},
                     { value:UEConditionType.Time, displayedValue:"  Time", iconId:"Time"},
                     { value:UEConditionType.Day, displayedValue:"  Week Days", iconId:"CalendarEmpty"},

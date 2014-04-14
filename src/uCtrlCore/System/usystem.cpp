@@ -46,7 +46,7 @@ int USystem::rowCount(const QModelIndex &parent) const
     return m_platforms.count();
 }
 
-QObject* USystem::getAllDevicesByType(UConditionDevice::UEDeviceType deviceType) {
+QObject* USystem::getAllDevices() {
     UDeviceList* deviceList = new UDeviceList();
 
     QList<UDevice*> actualDeviceList;
@@ -56,9 +56,7 @@ QObject* USystem::getAllDevicesByType(UConditionDevice::UEDeviceType deviceType)
         QList<UDevice*> tmpDeviceList = platform->getDevices();
         for (int j = 0; j < tmpDeviceList.length(); j++) {
             UDevice* tmpDevice = tmpDeviceList.at(j);
-
-            if (tmpDevice->getType() == (int)deviceType)
-                actualDeviceList.push_back(tmpDevice);
+            actualDeviceList.push_back(tmpDevice);
         }
     }
     deviceList->setDevices(actualDeviceList);

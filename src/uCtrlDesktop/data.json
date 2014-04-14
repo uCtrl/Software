@@ -3,7 +3,7 @@
         {
             "devices": [
                 {
-                    "id": 147852369,
+                    "id": 1,
                     "maxValue": 100,
                     "minValue": 25,
                     "name": "Temperature A",
@@ -120,7 +120,7 @@
                     "enabled": "ON"
                 },
                 {
-                    "id": 1782103621,
+                    "id": 2,
                     "maxValue": 1,
                     "minValue": 0,
                     "name": "Light",
@@ -194,7 +194,7 @@
         {
             "devices": [
                 {
-                    "id": 1782103621,
+                    "id": 3,
                     "maxValue": 100,
                     "minValue": 0,
                     "name": "Temperature B",
