@@ -194,7 +194,6 @@ Item {
                         conditionList.saveConditions()
                     }
 
-
                     Component.onCompleted: {
                         cancelEditTaskFunc = cancelEditTask
                     }
@@ -423,7 +422,7 @@ Item {
                         return
 
                     createCondition(newValue)
-                    selectItem(0)
+                    setSelectedItem({ "value":"", "displayedValue":"Select condition type", "iconId":"" })
                 }
 
                 function createCondition(newValue) {

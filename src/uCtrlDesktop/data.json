@@ -44,7 +44,8 @@
                                             "type": 3
                                         },
                                         {
-                                            "comparisonType": 1,
+                                            "comparisonType": 4,
+                                            "deviceId": 2,
                                             "deviceType": 3,
                                             "id": 1350245682,
                                             "type": 4
@@ -123,7 +124,7 @@
                     "id": 2,
                     "maxValue": 1,
                     "minValue": 0,
-                    "name": "Light",
+                    "name": "Light A",
                     "precision": 0,
                     "description": "A random description, which is pretty long I'll say. Not too bad",
                     "scenarios": [

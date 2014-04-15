@@ -1,10 +1,12 @@
 #include "uconditiondevice.h"
 
 UConditionDevice::UConditionDevice(QObject *parent, UConditionDevice* conditionDevice)
-    : UCondition(parent, UEConditionType::Device)
+    : UCondition(parent, conditionDevice)
 {
     setDeviceType(conditionDevice->getDeviceType());
     setDeviceId(conditionDevice->getDeviceId());
+    setBeginValue(conditionDevice->getBeginValue());
+    setEndValue(conditionDevice->getEndValue());
 }
 
 void UConditionDevice::read(const QJsonObject &jsonObj) {
@@ -12,6 +14,8 @@ void UConditionDevice::read(const QJsonObject &jsonObj) {
 
     setDeviceType((UEDeviceType)jsonObj["deviceType"].toInt());
     setDeviceId(jsonObj["deviceId"].toInt());
+    setBeginValue(jsonObj["beginValue"].toDouble());
+    setBeginValue(jsonObj["endValue"].toDouble());
 }
 
 void UConditionDevice::write(QJsonObject &jsonObj) const {
@@ -19,4 +23,6 @@ void UConditionDevice::write(QJsonObject &jsonObj) const {
 
     jsonObj["deviceType"] = (int)getDeviceType();
     jsonObj["deviceId"] = getDeviceId();
+    jsonObj["beginValue"] = getBeginValue();
+    jsonObj["endValue"] = getEndValue();
 }
