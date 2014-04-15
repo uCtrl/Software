@@ -6,11 +6,13 @@ Rectangle {
     id: container
 
     property string icon: "Ok"
+    property color iconColor: _colors.uGrey
     property bool showSeparator: true
     property string label: "UNKNOWN"
     property string path: "."
     property string title: ""
     property var model: null
+    property string name: ""
 
     width: 100; height: 100
 
@@ -36,7 +38,7 @@ Rectangle {
 
         iconId: container.icon
         iconSize: 50
-        iconColor: _colors.uGrey
+        iconColor: container.iconColor
     }
 
     UI.UToolTip {
@@ -64,6 +66,7 @@ Rectangle {
 
         onClicked: {
             main.resetBreadcrumb()
+            main.highlightNavbar(name)
             main.swap(path, title, model)
         }
     }
