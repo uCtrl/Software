@@ -60,34 +60,45 @@ Rectangle {
         }
     }
 
-    ULabel.Default {
-        id: platformTitle
+    Rectangle {
+        id: platformSummaryContainer
 
-        anchors.top: container.top
-        anchors.topMargin: 13
+        anchors.verticalCenter: parent.verticalCenter
 
-        anchors.left: container.left
-        anchors.leftMargin: 20
+        width: parent.width
+        height: platformTitle.height + lastUpdate.height
 
-        text: container.platformModel.name
-        color: getTextColor()
+        color: parent.color
 
-        font.pointSize: 16
-        font.bold: true
+        ULabel.Default {
+            id: platformTitle
+
+            anchors.top: parent.top
+            anchors.left: platformSummaryContainer.left
+            anchors.leftMargin: 20
+
+
+            text: container.platformModel.name
+            color: getTextColor()
+
+            font.pointSize: 16
+            font.bold: true
+        }
+
+        ULabel.Default {
+            id: lastUpdate
+
+            anchors.top: platformTitle.bottom
+            anchors.left: platformSummaryContainer.left
+            anchors.leftMargin: 20
+
+            text: getLastUpdate(platformModel)
+            color: getTextColor()
+
+            font.pointSize: 12
+        }
     }
 
-    // @TODO: Hardcoded value, replace by true last update
-    ULabel.Default {
-        id: lastUpdate
-
-        anchors.top: platformTitle.bottom
-        anchors.left: platformTitle.left
-
-        text: getLastUpdate(platformModel)
-        color: getTextColor()
-
-        font.pointSize: 12
-    }
 
     Rectangle {
         property int marginSize: 3
