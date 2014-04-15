@@ -1,6 +1,7 @@
 import QtQuick 2.0
 
 Rectangle {
+    id: numberSelector
     width: 100
     height: 100
 
@@ -11,6 +12,9 @@ Rectangle {
     property int maxValue: 100
     property int offsetPerClick : 1
     property bool fireTextChangedEvent : true
+
+    signal overflow
+    signal underflow
 
     Component.onCompleted: {
         changeValue(currentValue, true)
@@ -27,16 +31,26 @@ Rectangle {
         return formattedValue
     }
 
+    function addOffset() {
+        changeValue(currentValue + offsetPerClick, true)
+    }
+    function removeOffset() {
+        changeValue(currentValue - offsetPerClick, true)
+    }
+
     function changeValue(newValue, formatText) {
         if(!isNaN(newValue)) {
             currentValue = newValue
 
             fireTextChangedEvent = false
 
-            if(currentValue > maxValue)
+            if(currentValue > maxValue) {
                 currentValue = minValue
-            else if(currentValue < minValue)
+                numberSelector.overflow()
+            } else if(currentValue < minValue) {
                 currentValue = maxValue
+                numberSelector.underflow()
+            }
 
             var valueFormatted = ""
             if(formatText) {

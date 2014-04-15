@@ -105,7 +105,7 @@ Rectangle {
 
         UFontAwesome {
             id: icon
-            iconId: "Calendar"
+            iconId: "CalendarEmpty"
             iconSize: 10
             iconColor: _colors.uGrey
 

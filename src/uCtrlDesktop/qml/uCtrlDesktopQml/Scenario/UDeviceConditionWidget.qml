@@ -129,7 +129,7 @@ Rectangle {
     UI.UFontAwesome {
         id: deviceIcon
 
-        width: parent.height
+        width: 30
         height: parent.height
 
         iconId: "QuestionSign"

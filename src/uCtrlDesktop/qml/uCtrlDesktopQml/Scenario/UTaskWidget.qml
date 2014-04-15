@@ -8,9 +8,10 @@ Item {
     property bool isEditMode: false
     property bool showButtons: true
     property bool isAddingCondition: false
+    property bool isOtherwiseTask: index === taskList.count - 1
 
-    property bool canMoveUp: !(index === 0 || index === taskList.count - 1)
-    property bool canMoveDown: !(index === taskList.count - 1 || index === taskList.count - 2)
+    function canMoveUp() { return !(index === 0 || index === taskList.count - 1) }
+    function canMoveDown() { return !(index === taskList.count - 1 || index === taskList.count - 2) }
 
     property var cancelEditTaskFunc: function(){}
 
@@ -63,20 +64,19 @@ Item {
                 anchors.left: changeStateLabel.right
                 anchors.leftMargin: 15
 
+                property var tmpValue
+
                 width: statusTaskLoader.width + 15
                 height: statusTaskLoader.height
 
                 radius: 10
-
-                property string tmpValue: taskModel.status
-
                 Loader {
                     id: statusTaskLoader
                     sourceComponent: getSourceComponent()
 
                     function getSourceComponent() {
                         if (!isEditMode)
-                            return statusLabel
+                            return emptyComponent
 
                         if (taskModel.scenario.device.isTriggerValue) {
                             return statusSwitch
@@ -87,21 +87,27 @@ Item {
                 }
 
                 Component {
-                    id: statusLabel
+                    id: emptyComponent
 
                     Rectangle {
-                        width: 100
-                        height: changeStateLabel.height
-                        radius: 5
-                        color: _colors.uGreen
+                        width: statusLabelContainer.width
+                        height: statusLabelContainer.height
+                        color: _colors.uTransparent
+                        visible: false
+                    }
+                }
 
-                        ULabel.Heading3 {
-                            text: taskModel.status
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.verticalCenter: parent.verticalCenter
+                Rectangle {
+                    id: statusLabelContainer
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: statusLabel.width
+                    height: statusLabel.height
+                    visible: !isEditMode
+                    color: _colors.uTransparent
 
-                            color: _colors.uWhite
-                        }
+                    ULabel.UInfoBoundedLabel {
+                        id: statusLabel
+                        text: taskModel.status + " " + taskModel.scenario.device.unitLabel
                     }
                 }
 
@@ -124,7 +130,7 @@ Item {
                     id: statusTextBox
 
                     UI.UTextbox {
-                        width: 100
+                        width: 75
                         text: taskModel.status
 
                         onTextChanged: {
@@ -146,9 +152,9 @@ Item {
 
                 function getText() {
                     if (index == taskList.count - 1)
-                        return taskModel.scenario.device.unitLabel + " " + qsTr("otherwise")
+                        return qsTr("otherwise")
 
-                    return taskModel.scenario.device.unitLabel + " " + qsTr("when")
+                    return qsTr("when:")
                 }
             }
 
@@ -182,13 +188,13 @@ Item {
 
                 UI.USaveCancel {
                     height: changeStateLabel.height
-                    width: height*2.5
 
                     onSave: saveTask()
                     onCancel: cancelEditTask()
 
                     function saveTask() {
                         taskModel.status = stateContainer.tmpValue
+                        statusLabel.changeText(taskModel.status + " " + taskModel.scenario.device.unitLabel)
                         isEditMode = false
 
                         conditionList.saveConditions()
@@ -213,120 +219,160 @@ Item {
 
             Component {
                 id: taskButtons
-
                 Rectangle {
-                    UI.UButton {
-                        id: editTaskButton
+                    color: _colors.uTransparent
+                    width: 200
+                    height: 30
 
-                        buttonColor: _colors.uWhite
-                        buttonHoveredColor: _colors.uMediumLightGrey
-                        buttonTextColor : _colors.uBlack
+                    Rectangle {
+                        color: _colors.uTransparent
+                        anchors.fill: parent
 
-                        anchors.verticalCenter: parent.verticalCenter
+                        UI.UButton {
+                            id: editTaskButton
 
-                        iconId: "Pencil"
-                        iconSize: 12
+                            buttonColor: _colors.uTransparent
+                            buttonHoveredColor: _colors.uMediumLightGrey
+                            buttonTextColor : _colors.uBlack
 
-                        width: 20
-                        height: 20
+                            anchors.verticalCenter: parent.verticalCenter
 
-                        anchors.right: moveUp.left
-                        anchors.rightMargin: 10
+                            iconId: "Pencil"
+                            iconSize: 12
 
-                        function execute() {
-                            isEditMode = true
+                            width: 20
+                            height: 20
+
+                            anchors.right: moveUp.left
+                            anchors.rightMargin: 10
+
+                            onClicked: {
+                                isEditMode = true
+                            }
+                        }
+
+                        UI.UButton {
+                            id: moveUp
+
+                            buttonColor: _colors.uTransparent
+                            buttonHoveredColor: _colors.uMediumLightGrey
+                            buttonTextColor : _colors.uBlack
+                            buttonDisabledColor: _colors.uTransparent
+                            buttonDisabledTextColor: _colors.uMediumLightGrey
+
+                            anchors.verticalCenter: parent.verticalCenter
+
+                            iconId: "Upload"
+                            iconSize: 12
+
+                            state: isOtherwiseTask ? "DISABLED" : "ENABLED"
+
+                            width: 20
+                            height: 20
+
+                            anchors.right: moveDown.left
+                            anchors.rightMargin: 10
+
+                            onClicked: {
+                                if(!canMoveUp())
+                                    return
+
+                                var pScenario = taskModel.scenario
+                                pScenario.moveTask(index, index - 1)
+                            }
+                        }
+
+
+                        UI.UButton {
+                            id: moveDown
+
+                            buttonColor: _colors.uTransparent
+                            buttonHoveredColor: _colors.uMediumLightGrey
+                            buttonTextColor : _colors.uBlack
+                            buttonDisabledColor: _colors.uTransparent
+                            buttonDisabledTextColor: _colors.uMediumLightGrey
+
+                            anchors.verticalCenter: parent.verticalCenter
+
+                            iconId: "Download"
+                            iconSize: 12
+
+                            state: isOtherwiseTask ? "DISABLED" : "ENABLED"
+
+                            width: 20
+                            height: 20
+
+                            anchors.right: deleteBtn.left
+                            anchors.rightMargin: 10
+
+                            onClicked: {
+                                if(!canMoveDown())
+                                    return
+
+                                var pScenario = taskModel.scenario
+                                pScenario.moveTask(index, index + 1)
+                            }
+                        }
+
+                        UI.UButton {
+                            id: deleteBtn
+
+                            buttonColor: _colors.uTransparent
+                            buttonHoveredColor: _colors.uMediumLightGrey
+                            buttonTextColor : _colors.uBlack
+                            buttonDisabledColor: _colors.uTransparent
+                            buttonDisabledTextColor: _colors.uMediumLightGrey
+
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.right: parent.right
+
+                            iconId: "Remove"
+                            iconSize: 12
+
+                            width: 20
+                            height: 20
+
+                            state: isOtherwiseTask ? "DISABLED" : "ENABLED"
+
+                            onClicked: {
+                                var pScenario = taskModel.scenario
+                                pScenario.deleteTaskAt(index)
+                            }
                         }
                     }
+                }
+            }
 
-                    UI.UButton {
-                        id: moveUp
+            Component {
+                id: taskSaveButtons
 
-                        buttonColor: _colors.uWhite
-                        buttonHoveredColor: _colors.uMediumLightGrey
-                        buttonTextColor : _colors.uBlack
-                        buttonDisabledColor: _colors.uWhite
-                        buttonDisabledTextColor: _colors.uMediumLightGrey
+                UI.USaveCancel {
+                    height: changeStateLabel.height
 
-                        anchors.verticalCenter: parent.verticalCenter
+                    onSave: saveTask()
+                    onCancel: cancelEditTask()
 
-                        iconId: "Upload"
-                        iconSize: 12
+                    function saveTask() {
+                        taskModel.status = stateContainer.tmpValue
+                        isEditMode = false
 
-                        width: 20
-                        height: 20
-
-                        anchors.right: moveDown.left
-                        anchors.rightMargin: 10
-
-                        function execute() {
-                            if (!canMoveUp)
-                                return
-
-                            var pScenario = taskModel.scenario
-                            pScenario.moveTask(index, index - 1)
-                        }
+                        conditionList.saveConditions()
                     }
 
 
-                    UI.UButton {
-                        id: moveDown
-
-                        buttonColor: _colors.uWhite
-                        buttonHoveredColor: _colors.uMediumLightGrey
-                        buttonTextColor : _colors.uBlack
-                        buttonDisabledColor: _colors.uWhite
-                        buttonDisabledTextColor: _colors.uMediumLightGrey
-
-
-                        anchors.verticalCenter: parent.verticalCenter
-
-                        iconId: "Download"
-                        iconSize: 12
-
-                        width: 20
-                        height: 20
-
-                        anchors.right: deleteBtn.left
-                        anchors.rightMargin: 10
-
-                        function execute() {
-                            if (!canMoveDown)
-                                return
-
-                            var pScenario = taskModel.scenario
-                            pScenario.moveTask(index, index + 1)
-                        }
+                    Component.onCompleted: {
+                        cancelEditTaskFunc = cancelEditTask
                     }
 
-                    UI.UButton {
-                        id: deleteBtn
+                    function cancelEditTask() {
+                        if(!isEditMode)
+                            return
 
-                        buttonColor: _colors.uWhite
-                        buttonHoveredColor: _colors.uMediumLightGrey
-                        buttonTextColor : _colors.uBlack
-                        buttonDisabledColor: _colors.uWhite
-                        buttonDisabledTextColor: _colors.uMediumLightGrey
+                        stateContainer.tmpValue = taskModel.status
+                        isEditMode = false
 
-                        anchors.verticalCenter: parent.verticalCenter
-
-                        iconId: "Remove"
-                        iconSize: 12
-
-                        width: 20
-                        height: 20
-
-                        anchors.right: parent.right
-                        anchors.rightMargin: 10
-
-                        function execute() {
-                            var pScenario = taskModel.scenario
-                            pScenario.deleteTaskAt(index)
-                        }
-
-                        Component.onCompleted: {
-                            if (index === taskList.count - 1)
-                                state = "DISABLED"
-                        }
+                        conditionList.cancelEditConditions()
+                        isAddingCondition = false
                     }
                 }
             }
@@ -427,7 +473,7 @@ Item {
 
                 function createCondition(newValue) {
                     if (newValue === "")
-                            return
+                        return
 
                     var newCondition = taskModel.createCondition(newValue)
 

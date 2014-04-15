@@ -17,7 +17,20 @@ Rectangle {
     state: "ENABLED"
     property string currentValue: "12:00"
 
+    function setCurrentValue(newValue) {
+        currentValue = newValue
+        analyzeValue()
+    }
+
     Component.onCompleted: {
+        analyzeValue()
+    }
+
+    function analyzeValue()
+    {
+        var str = currentValue.split(":")
+        hourSelector.changeValue(parseInt(str[0]))
+        minuteSelector.changeValue(parseInt(str[1]))
         computeValue()
     }
 
@@ -117,7 +130,7 @@ Rectangle {
                         minValue: 0
                         maxValue: 23
 
-                         onCurrentValueChanged: computeValue()
+                        onCurrentValueChanged: computeValue()
                     }
                     Rectangle {
                         id: colonSeparatorContainer
@@ -146,6 +159,13 @@ Rectangle {
                         offsetPerClick: 5
 
                         onCurrentValueChanged: computeValue()
+
+                        onOverflow: {
+                            hourSelector.addOffset()
+                        }
+                        onUnderflow: {
+                            hourSelector.removeOffset()
+                        }
                     }
 
                 }
