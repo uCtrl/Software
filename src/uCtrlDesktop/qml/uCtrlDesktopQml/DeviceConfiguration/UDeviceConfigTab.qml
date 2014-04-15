@@ -23,7 +23,7 @@ Rectangle {
     function saveScenario() {
         isEditing = false
 
-        selectedScenario.name = textboxScenarioTitle.text
+        scenarioWindow.scenarioModel.name = textboxScenarioTitle.text
 
         var i
         if(comboScenario.newScenario !== null) {
@@ -150,7 +150,7 @@ Rectangle {
             onSave: {
                 scenarioWindow.saveTasks()
                 saveScenario()
-                stopEditing()
+                //stopEditing()
             }
 
             onCancel: {
