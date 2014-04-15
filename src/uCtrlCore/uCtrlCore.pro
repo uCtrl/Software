@@ -20,7 +20,9 @@ SOURCES += \
     Communication/Responses/getplatformresponse.cpp \
     Communication/Requests/getplatformrequest.cpp \
     Conditions/uconditiontime.cpp \
-    Conditions/uconditionweekday.cpp
+    Conditions/uconditionweekday.cpp \
+    Conditions/uconditiondevice.cpp \
+    Device/udevicelist.cpp
 
 
 HEADERS += \
@@ -43,4 +45,6 @@ HEADERS += \
     Communication/Responses/uresponse.h \
     Communication/Requests/urequest.h \
     Conditions/uconditiontime.h \
-    Conditions/uconditionweekday.h
+    Conditions/uconditionweekday.h \
+    Conditions/uconditiondevice.h \
+    Device/udevicelist.h

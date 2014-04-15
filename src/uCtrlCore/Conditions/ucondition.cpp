@@ -3,6 +3,7 @@
 #include "uconditiondate.h"
 #include "uconditiontime.h"
 #include "uconditionweekday.h"
+#include "uconditiondevice.h"
 
 UCondition::UCondition(QObject *parent, UCondition::UEConditionType type)
     :QAbstractItemModel(parent), m_conditionParent(parent), m_comparisonType(UEComparisonType::InBetween)
@@ -20,22 +21,6 @@ UCondition::UCondition(QObject* parent, UCondition* condition)
 }
 
 UCondition::~UCondition(){}
-
-QString UCondition::getTypeName()
-{
-    switch (m_type) {
-    case UEConditionType::Date:
-        return "Date";
-        break;
-    case UEConditionType::Day:
-        return "Day";
-        break;
-    case UEConditionType::Time: // fallthrough
-    default:
-        return "Time";
-        break;
-    }
-}
 
 void UCondition::read(const QJsonObject &jsonObj)
 {
@@ -60,6 +45,8 @@ UCondition* UCondition::createCondition(QObject *parent, UCondition::UECondition
         return new UConditionTime(parent);
     case UEConditionType::Day:
         return new UConditionWeekday(parent, 0);
+    case UEConditionType::Device:
+        return new UConditionDevice(parent);
     default:
         return new UCondition(parent, UEConditionType::None);
     }
@@ -73,6 +60,8 @@ UCondition* UCondition::copyCondition(QObject* parent) {
         return new UConditionTime(parent, (UConditionTime*)this);
     case UEConditionType::Day:
         return new UConditionWeekday(parent, (UConditionWeekday*)this);
+    case UEConditionType::Device:
+        return new UConditionDevice(parent, (UConditionDevice*)this);
     default:
         return 0;
     }

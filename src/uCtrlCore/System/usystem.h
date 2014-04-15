@@ -24,6 +24,7 @@ public:
     QList<UPlatform*> getPlatforms() const { return m_platforms; }
     void addPlatform(const QString& ip, const int port);
     bool containsPlatform(const QString& ip, const int port);
+    QObject* getAllDevices();
 
     void read(const QJsonObject &jsonObj);
     void write(QJsonObject &jsonObj) const;

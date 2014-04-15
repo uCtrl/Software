@@ -115,6 +115,8 @@ Rectangle{
             }
 
             Component.onCompleted: {
+                selectItem(0)
+
                 var comparisonTypeValue = getComparisonTypeValue()
                 for (var i = 0; i < itemListModel.length; i++) {
                     if (itemListModel[i].value === comparisonTypeValue) {
