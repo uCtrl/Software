@@ -15,6 +15,7 @@ Rectangle {
     state: UEComparisonType.InBetween.toString()
 
     property var setWidgetTime
+    property var saveWidgetTime
 
     anchors.left: parent.left
     anchors.leftMargin: 30
@@ -24,25 +25,7 @@ Rectangle {
 
     function saveCondition() {
         conditionModel.comparisonType = parseInt(container.state)
-
-        switch(container.state) {
-        case UEComparisonType.InBetween.toString():
-            conditionModel.beginTime = fromStartDatePicker.currentValue
-            conditionModel.endTime = fromEndDatePicker.currentValue
-            break
-        case UEComparisonType.LesserThan.toString():
-            conditionModel.beginTime = beforeStartDatePicker.currentValue
-            conditionModel.endTime = "00:00"
-            break
-        case UEComparisonType.GreaterThan.toString():
-            conditionModel.beginTime = afterStartDatePicker.currentValue
-            conditionModel.endTime = "00:00"
-            break
-        case UEComparisonType.Not.toString():
-            conditionModel.beginTime = notStartDatePicker.currentValue
-            conditionModel.endTime = notEndDatePicker.currentValue
-            break
-        }
+        saveWidgetTime()
 
         updateConditionView()
     }
@@ -57,18 +40,18 @@ Rectangle {
         setWidgetTime(beginTime, endTime)
 
         switch(container.state) {
-        case UEComparisonType.InBetween.toString():
-            timeLabel.text = "Between " + beginTime + " and " + endTime
-            break
-        case UEComparisonType.LesserThan.toString():
-            timeLabel.text = "Before " + beginTime
-            break
-        case UEComparisonType.GreaterThan.toString():
-            timeLabel.text = "After " + beginTime
-            break
-        case UEComparisonType.Not.toString():
-            timeLabel.text = "Not between " + beginTime + " and " + endTime
-            break
+            case UEComparisonType.InBetween.toString():
+                timeLabel.text = "Between " + beginTime + " and " + endTime
+                break
+            case UEComparisonType.LesserThan.toString():
+                timeLabel.text = "Before " + beginTime
+                break
+            case UEComparisonType.GreaterThan.toString():
+                timeLabel.text = "After " + beginTime
+                break
+            case UEComparisonType.Not.toString():
+                timeLabel.text = "Not between " + beginTime + " and " + endTime
+                break
         }
     }
 
@@ -128,7 +111,6 @@ Rectangle {
 
             onSelectValue: {
                 container.state = selectedItem.value
-                console.log("New value: ", container.state)
             }
 
             Component.onCompleted: {
@@ -179,8 +161,16 @@ Rectangle {
                 fromEndDatePicker.setCurrentValue(endTime)
             }
 
+            function saveTimes() {
+                conditionModel.beginTime = fromStartDatePicker.currentValue
+                conditionModel.endTime = fromEndDatePicker.currentValue
+            }
+
             Component.onCompleted: {
                 container.setWidgetTime = setTimes
+                container.saveWidgetTime = saveTimes
+
+                setTimes(Qt.formatTime(conditionModel.beginTime, "HH:mm"), Qt.formatTime(conditionModel.endTime, "HH:mm"))
             }
 
             UI.UTimePicker {
@@ -217,8 +207,16 @@ Rectangle {
                 beforeStartDatePicker.setCurrentValue(beginTime)
             }
 
+            function saveTimes() {
+                conditionModel.beginTime = beforeStartDatePicker.currentValue
+                conditionModel.endTime = "00:00"
+            }
+
             Component.onCompleted: {
                 container.setWidgetTime = setTimes
+                container.saveWidgetTime = saveTimes
+
+                setTimes(Qt.formatTime(conditionModel.beginTime, "HH:mm"), Qt.formatTime(conditionModel.endTime, "HH:mm"))
             }
 
             UI.UTimePicker {
@@ -241,8 +239,16 @@ Rectangle {
                 afterStartDatePicker.setCurrentValue(beginTime)
             }
 
+            function saveTimes() {
+                conditionModel.beginTime = afterStartDatePicker.currentValue
+                conditionModel.endTime = "00:00"
+            }
+
             Component.onCompleted: {
                 container.setWidgetTime = setTimes
+                container.saveWidgetTime = saveTimes
+
+                setTimes(Qt.formatTime(conditionModel.beginTime, "HH:mm"), Qt.formatTime(conditionModel.endTime, "HH:mm"))
             }
 
             UI.UTimePicker {
@@ -266,8 +272,16 @@ Rectangle {
                 notEndDatePicker.setCurrentValue(endTime)
             }
 
+            function saveTimes() {
+                conditionModel.beginTime = notStartDatePicker.currentValue
+                conditionModel.endTime = notEndDatePicker.currentValue
+            }
+
             Component.onCompleted: {
                 container.setWidgetTime = setTimes
+                container.saveWidgetTime = saveTimes
+
+                setTimes(Qt.formatTime(conditionModel.beginTime, "HH:mm"), Qt.formatTime(conditionModel.endTime, "HH:mm"))
             }
 
             UI.UTimePicker {
@@ -290,13 +304,6 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter
 
                 color: _colors.uWhite
-
-                Component.onCompleted: {
-                    updateEndTimeFunc = function() {
-                        if (conditionModel)
-                            text = Qt.formatTime(conditionModel.endTime, "hh:mm")
-                    }
-                }
             }
         }
     }

@@ -10,8 +10,8 @@ Item {
     property bool isAddingCondition: false
     property bool isOtherwiseTask: index === taskList.count - 1
 
-    property bool canMoveUp: !(index === 0 || index === taskList.count - 1)
-    property bool canMoveDown: !(index === taskList.count - 1 || index === taskList.count - 2)
+    function canMoveUp() { return !(index === 0 || index === taskList.count - 1) }
+    function canMoveDown() { return !(index === taskList.count - 1 || index === taskList.count - 2) }
 
     property var cancelEditTaskFunc: function(){}
 
@@ -64,20 +64,19 @@ Item {
                 anchors.left: changeStateLabel.right
                 anchors.leftMargin: 15
 
+                property var tmpValue
+
                 width: statusTaskLoader.width + 15
                 height: statusTaskLoader.height
 
                 radius: 10
-
-                property string tmpValue: taskModel.status
-
                 Loader {
                     id: statusTaskLoader
                     sourceComponent: getSourceComponent()
 
                     function getSourceComponent() {
                         if (!isEditMode)
-                            return statusLabel
+                            return emptyComponent
 
                         if (taskModel.scenario.device.isTriggerValue) {
                             return statusSwitch
@@ -88,21 +87,27 @@ Item {
                 }
 
                 Component {
-                    id: statusLabel
+                    id: emptyComponent
 
                     Rectangle {
-                        width: 100
-                        height: changeStateLabel.height
-                        radius: 5
-                        color: _colors.uGreen
+                        width: statusLabelContainer.width
+                        height: statusLabelContainer.height
+                        color: _colors.uTransparent
+                        visible: false
+                    }
+                }
 
-                        ULabel.Heading3 {
-                            text: taskModel.status
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.verticalCenter: parent.verticalCenter
+                Rectangle {
+                    id: statusLabelContainer
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: statusLabel.width
+                    height: statusLabel.height
+                    visible: !isEditMode
+                    color: _colors.uTransparent
 
-                            color: _colors.uWhite
-                        }
+                    ULabel.UInfoBoundedLabel {
+                        id: statusLabel
+                        text: taskModel.status + " " + taskModel.scenario.device.unitLabel
                     }
                 }
 
@@ -125,7 +130,7 @@ Item {
                     id: statusTextBox
 
                     UI.UTextbox {
-                        width: 100
+                        width: 75
                         text: taskModel.status
 
                         onTextChanged: {
@@ -147,9 +152,9 @@ Item {
 
                 function getText() {
                     if (index == taskList.count - 1)
-                        return taskModel.scenario.device.unitLabel + " " + qsTr("otherwise")
+                        return qsTr("otherwise")
 
-                    return taskModel.scenario.device.unitLabel + " " + qsTr("when")
+                    return qsTr("when:")
                 }
             }
 
@@ -183,14 +188,13 @@ Item {
 
                 UI.USaveCancel {
                     height: changeStateLabel.height
-                    width: height*2.5
 
                     onSave: saveTask()
                     onCancel: cancelEditTask()
 
                     function saveTask() {
                         taskModel.status = stateContainer.tmpValue
-                        statusLabel.text = taskModel.status + " " + taskModel.scenario.device.unitLabel
+                        statusLabel.changeText(taskModel.status + " " + taskModel.scenario.device.unitLabel)
                         isEditMode = false
 
                         conditionList.saveConditions()
@@ -216,9 +220,14 @@ Item {
             Component {
                 id: taskButtons
                 Rectangle {
-                    anchors.fill: parent
+                    color: _colors.uTransparent
+                    width: 200
+                    height: 30
 
                     Rectangle {
+                        color: _colors.uTransparent
+                        anchors.fill: parent
+
                         UI.UButton {
                             id: editTaskButton
 

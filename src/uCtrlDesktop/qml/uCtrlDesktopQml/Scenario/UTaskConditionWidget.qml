@@ -87,6 +87,16 @@ Rectangle {
             id: uDateComponent
             UDateConditionWidget {
                 isEditMode: container.isEditMode
+
+                Component.onCompleted: {
+                    conditionLoader.saveConditionFunc = function() {
+                        saveCondition()
+                    }
+
+                    conditionLoader.cancelEditConditionFunc = function() {
+                        updateConditionView()
+                    }
+                }
             }
         }
 
