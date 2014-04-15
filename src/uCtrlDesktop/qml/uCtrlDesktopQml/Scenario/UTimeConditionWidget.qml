@@ -5,8 +5,6 @@ import "../UI/ULabel" as ULabel
 
 Rectangle{
 
-    property var timeCondition: null
-
     property bool isEditMode: false
 
     id: container
@@ -15,6 +13,8 @@ Rectangle{
     height: parent.height - 5
 
     state: UEComparisonType.InBetween.toString()
+
+    property var setWidgetTime
 
     anchors.left: parent.left
     anchors.leftMargin: 30
@@ -54,15 +54,7 @@ Rectangle{
         var beginTime = Qt.formatTime(conditionModel.beginTime, "HH:mm")
         var endTime = Qt.formatTime(conditionModel.endTime, "HH:mm")
 
-        fromStartDatePicker.setCurrentValue(beginTime)
-        fromEndDatePicker.setCurrentValue(endTime)
-
-        beforeStartDatePicker.setCurrentValue(beginTime)
-
-        afterStartDatePicker.setCurrentValue(beginTime)
-
-        notStartDatePicker.setCurrentValue(beginTime)
-        notEndDatePicker.setCurrentValue(endTime)
+        setWidgetTime(beginTime, endTime)
 
         switch(container.state) {
             case UEComparisonType.InBetween.toString():
@@ -136,6 +128,7 @@ Rectangle{
 
             onSelectValue: {
                 container.state = selectedItem.value
+                console.log("New value: ", container.state)
             }
         }
 
@@ -148,273 +141,152 @@ Rectangle{
 
             color: _colors.uTransparent
 
-            Rectangle {
-                id: fromContent
+            Loader {
+                id: contentLoader
                 anchors.fill: parent
-                color: _colors.uTransparent
-                visible: container.state === UEComparisonType.InBetween.toString()
 
-                UI.UTimePicker {
-                    id: fromStartDatePicker
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-
-                ULabel.Default {
-                    id: fromAndLabel
-                    text: "and"
-                    anchors.left: fromStartDatePicker.right
-                    anchors.leftMargin: 5
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-
-                UI.UTimePicker {
-                    id: fromEndDatePicker
-                    anchors.left: fromAndLabel.right
-                    anchors.leftMargin: 5
-                    anchors.verticalCenter: parent.verticalCenter
+                sourceComponent: {
+                    switch(container.state) {
+                        case UEComparisonType.InBetween.toString():
+                            return fromContentContainer
+                        case UEComparisonType.LesserThan.toString():
+                            return beforeContentContainer
+                        case UEComparisonType.GreaterThan.toString():
+                            return afterContentContainer
+                        case UEComparisonType.Not.toString():
+                            return notContentContainer
+                    }
                 }
             }
-            Rectangle {
-                id: beforeContent
-                anchors.fill: parent
-                color: _colors.uTransparent
-                visible: container.state === UEComparisonType.LesserThan.toString()
 
-                UI.UTimePicker {
-                    id: beforeStartDatePicker
-                    anchors.verticalCenter: parent.verticalCenter
+            Component {
+                id: fromContentContainer
+
+                Rectangle {
+                    id: fromContent
+                    anchors.fill: parent
+                    color: _colors.uTransparent
+                    visible: container.state === UEComparisonType.InBetween.toString()
+
+                    function setTimes(beginTime, endTime) {
+                        fromStartDatePicker.setCurrentValue(beginTime)
+                        fromEndDatePicker.setCurrentValue(endTime)
+                    }
+
+                    Component.onCompleted: {
+                        container.setWidgetTime = setTimes
+                    }
+
+
+                    UI.UTimePicker {
+                        id: fromStartDatePicker
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+
+                    ULabel.Default {
+                        id: fromAndLabel
+                        text: "and"
+                        anchors.left: fromStartDatePicker.right
+                        anchors.leftMargin: 5
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+
+                    UI.UTimePicker {
+                        id: fromEndDatePicker
+                        anchors.left: fromAndLabel.right
+                        anchors.leftMargin: 5
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
                 }
             }
-            Rectangle {
-                id: afterContent
-                anchors.fill: parent
-                color: _colors.uTransparent
-                visible: container.state === UEComparisonType.GreaterThan.toString()
+            Component {
+                id: beforeContentContainer
 
-                UI.UTimePicker {
-                    id: afterStartDatePicker
-                    anchors.verticalCenter: parent.verticalCenter
+                Rectangle {
+                    id: beforeContent
+                    anchors.fill: parent
+                    color: _colors.uTransparent
+                    visible: container.state === UEComparisonType.LesserThan.toString()
+
+                    function setTimes(beginTime, endTime) {
+                        beforeStartDatePicker.setCurrentValue(beginTime)
+                    }
+
+                    Component.onCompleted: {
+                        container.setWidgetTime = setTimes
+                    }
+
+                    UI.UTimePicker {
+                        id: beforeStartDatePicker
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
                 }
             }
-            Rectangle {
-                id: notContent
-                anchors.fill: parent
-                color: _colors.uTransparent
-                visible: container.state === UEComparisonType.Not.toString()
 
-                UI.UTimePicker {
-                    id: notStartDatePicker
-                    anchors.verticalCenter: parent.verticalCenter
-                }
+            Component {
+                id: afterContentContainer
 
-                ULabel.Default {
-                    id: notAndLabel
-                    text: "and"
-                    anchors.left: notStartDatePicker.right
-                    anchors.leftMargin: 5
-                    anchors.verticalCenter: parent.verticalCenter
-                }
+                Rectangle {
+                    id: afterContent
+                    anchors.fill: parent
+                    color: _colors.uTransparent
+                    visible: container.state === UEComparisonType.GreaterThan.toString()
 
-                UI.UTimePicker {
-                    id: notEndDatePicker
-                    anchors.left: notAndLabel.right
-                    anchors.leftMargin: 5
-                    anchors.verticalCenter: parent.verticalCenter
+                    function setTimes(beginTime, endTime) {
+                        afterStartDatePicker.setCurrentValue(beginTime)
+                    }
+
+                    Component.onCompleted: {
+                        container.setWidgetTime = setTimes
+                    }
+
+                    UI.UTimePicker {
+                        id: afterStartDatePicker
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
                 }
             }
-        }
-    }
-    /*
 
-    Loader {
-        property string tmpValue: getComparisonTypeValue()
+            Component {
+                id: notContentContainer
 
-        id: timeComparisonType
+                Rectangle {
+                    id: notContent
+                    anchors.fill: parent
+                    color: _colors.uTransparent
+                    visible: container.state === UEComparisonType.Not.toString()
 
-        anchors.left: timeConditionIcon.right
-        anchors.verticalCenter: timeConditionIcon.verticalCenter
+                    function setTimes(beginTime, endTime) {
+                        notStartDatePicker.setCurrentValue(beginTime)
+                        notEndDatePicker.setCurrentValue(endTime)
+                    }
 
-        sourceComponent: isEditMode ? timeConditionTypeDropdown : timeConditionTypeLabel
+                    Component.onCompleted: {
+                        container.setWidgetTime = setTimes
+                    }
 
-        function updateComparisonType() {
-            updateComparisonTypeFunc()
-        }
-    }
+                    UI.UTimePicker {
+                        id: notStartDatePicker
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
 
-    Component {
-        id: timeConditionTypeLabel
+                    ULabel.Default {
+                        id: notAndLabel
+                        text: "and"
+                        anchors.left: notStartDatePicker.right
+                        anchors.leftMargin: 5
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
 
-        ULabel.Default {
-
-            text: getComparisonTypeValue()
-
-            Component.onCompleted: {
-                updateComparisonTypeFunc = function() {
-                    text = getComparisonTypeValue()
-                    timeComparisonType.tmpValue = text
-                }
-            }
-        }
-    }
-
-    Loader {
-        property string tmpValue: Qt.formatTime(conditionModel.beginTime, "hh:mm")
-
-        id: beginTime
-        height: parent.height
-
-        anchors.left: timeComparisonType.right
-        anchors.verticalCenter: timeComparisonType.verticalCenter
-        anchors.leftMargin: 5
-
-        sourceComponent: isEditMode ? editableBeginTime : readonlyBeginTime
-
-        function updateBeginTime() {
-            updateBeginTimeFunc()
-        }
-    }
-
-    Component {
-        id: editableBeginTime
-
-        UI.UTextbox {
-            width: 100
-            height: parent ? parent.height : 0
-
-            text: Qt.formatTime(conditionModel.beginTime, "hh:mm")
-
-            onTextChanged: {
-                beginTime.tmpValue = text
-            }
-        }
-    }
-
-    Component {
-        id: readonlyBeginTime
-
-        Rectangle {
-            width: 100
-            height: parent ? parent.height : 0
-            radius: 5
-            color: _colors.uGreen
-
-            ULabel.Heading3 {
-                text: Qt.formatTime(conditionModel.beginTime, "hh:mm")
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-
-                color: _colors.uWhite
-
-                Component.onCompleted: {
-                    updateBeginTimeFunc = function() {
-                        text = Qt.formatTime(conditionModel.beginTime, "hh:mm")
+                    UI.UTimePicker {
+                        id: notEndDatePicker
+                        anchors.left: notAndLabel.right
+                        anchors.leftMargin: 5
+                        anchors.verticalCenter: parent.verticalCenter
                     }
                 }
             }
         }
     }
-
-    ULabel.Default {
-
-        id: conditionTimeToLabel
-
-        anchors.left: beginTime.right
-        anchors.leftMargin: 5
-        anchors.verticalCenter: beginTime.verticalCenter
-
-        text: getText()
-        width: 15
-
-        function updateText() {
-            text = getText()
-        }
-
-        function getText() {
-            if (timeComparisonType.tmpValue !== "From")
-                return ""
-
-            return "to"
-        }
-    }
-
-    Loader {
-        property string tmpValue: Qt.formatTime(conditionModel.endTime, "hh:mm")
-
-        id: endTime
-
-        anchors.left: conditionTimeToLabel.right
-        anchors.leftMargin: 5
-        anchors.verticalCenter: beginTime.verticalCenter
-
-        height: parent.height
-
-        sourceComponent: getSourceComponent()
-
-        function getSourceComponent() {
-            if (timeComparisonType.tmpValue !== "From")
-                return emptyEndTime
-
-            if (isEditMode)
-                return editableEndTime
-
-            return readonlyEndTime
-        }
-
-        function updateEndTime() {
-            updateEndTimeFunc()
-        }
-    }
-
-    Component {
-        id: editableEndTime
-
-        UI.UTextbox {
-            width: 100
-            height: parent ? parent.height : 0
-
-            text: Qt.formatTime(conditionModel.endTime, "hh:mm")
-
-            onTextChanged: {
-                endTime.tmpValue = text
-            }
-        }
-    }
-
-    Component {
-        id: readonlyEndTime
-
-        Rectangle {
-            width: 100
-            height: parent ? parent.height : 0
-            radius: 5
-            color: _colors.uGreen
-
-            ULabel.Heading3 {
-                text: Qt.formatTime(conditionModel.endTime, "hh:mm")
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-
-                color: _colors.uWhite
-
-                Component.onCompleted: {
-                    updateEndTimeFunc = function() {
-                        if (conditionModel)
-                            text = Qt.formatTime(conditionModel.endTime, "hh:mm")
-                    }
-                }
-            }
-        }
-    }
-
-    Component {
-        id: emptyEndTime
-
-        Rectangle {
-            width: 0
-            height: 0
-        }
-    }
-
-    */
 }
 

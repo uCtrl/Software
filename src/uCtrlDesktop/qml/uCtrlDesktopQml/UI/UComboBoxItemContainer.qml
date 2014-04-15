@@ -66,6 +66,7 @@ Rectangle {
             }
         }
         onClicked: {
+            console.log("Combo clicked")
             itemSelected()
         }
     }

@@ -23,6 +23,7 @@ Item {
     Component.onCompleted: {
         isOtherwiseTask = (index == taskList.count - 1)
         stateLabelWhen.text = (isOtherwiseTask ? "otherwise" : "when:")
+        statusLabel.text = taskModel.status + " " + taskModel.scenario.device.unitLabel
     }
 
     Component.onDestruction: {
@@ -31,6 +32,7 @@ Item {
 
     function cancelEditTask() {
         cancelEditTaskFunc()
+        statusLabel.text = taskModel.status + " " + taskModel.scenario.device.unitLabel
     }
 
     id: taskWidget
@@ -87,7 +89,7 @@ Item {
 
                     function getSourceComponent() {
                         if (!isEditMode)
-                            return statusLabelContainer
+                            return emptyComponent
 
                         if (taskModel.scenario.device.isTriggerValue) {
                             return statusSwitch
@@ -97,14 +99,29 @@ Item {
                     }
                 }
 
-                Component {
+                Rectangle {
                     id: statusLabelContainer
+                    visible: !isEditMode
+
+                    width: statusLabel.width
+                    height: statusLabel.height
+
+                    color: _colors.uTransparent
 
                     ULabel.UInfoBoundedLabel {
                         id: statusLabel
                         height: changeStateLabel.height
 
-                        text: taskModel.status + " " + taskModel.scenario.device.unitLabel
+                        //text: taskModel.status + " " + taskModel.scenario.device.unitLabel
+                    }
+                }
+
+                Component {
+                    id: emptyComponent
+
+                    Rectangle {
+                        width: statusLabelContainer.width
+                        height: statusLabelContainer.height
                     }
                 }
 
@@ -184,6 +201,7 @@ Item {
 
                     function saveTask() {
                         taskModel.status = stateContainer.tmpValue
+                        statusLabel.text = taskModel.status + " " + taskModel.scenario.device.unitLabel
                         isEditMode = false
 
                         conditionList.saveConditions()

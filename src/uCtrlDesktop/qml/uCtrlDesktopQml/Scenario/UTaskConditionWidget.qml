@@ -66,8 +66,6 @@ Rectangle {
 
                 isEditMode: container.isEditMode
 
-                timeCondition: conditionModel
-
                 Component.onCompleted: {
                     conditionLoader.saveConditionFunc = function() {
                         saveCondition()
