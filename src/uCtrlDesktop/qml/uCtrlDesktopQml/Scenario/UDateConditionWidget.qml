@@ -24,7 +24,6 @@ Rectangle {
     color: _colors.uTransparent
 
     function saveCondition() {
-        console.log("Comparison type saved: ", container.state)
         conditionModel.comparisonType = parseInt(container.state)
         saveWidgetDate()
 
@@ -54,8 +53,6 @@ Rectangle {
                 dateLabel.text = "Not between " + beginDate.toLocaleDateString() + " and " + endDate.toLocaleDateString()
                 break
         }
-        console.log("State ", container.state)
-        console.log("DateLabel ", dateLabel.text)
     }
 
     Component.onCompleted: {
