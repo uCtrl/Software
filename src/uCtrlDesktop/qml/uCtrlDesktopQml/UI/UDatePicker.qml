@@ -17,6 +17,8 @@ Rectangle {
 
     state: "ENABLED"
 
+    property string debugName: "UNKNOWN"
+
     radius: 5
 
     property var datePickerModel: []
@@ -27,15 +29,21 @@ Rectangle {
     property int currentMonthDisplayed
     property int currentYearDiplayed
 
+    property bool isComponentCompleted: false
+
     onSelectedDateChanged: {
-        summaryLabel.text = selectedDate.toLocaleDateString()
-        changeMonth(selectedDate.getMonth(), selectedDate.getFullYear())
-        dropDownContainer.visible = false
+        if(isComponentCompleted) {
+            summaryLabel.text = selectedDate.toLocaleDateString()
+            changeMonth(selectedDate.getMonth(), selectedDate.getFullYear())
+            dropDownContainer.visible = false
+        }
     }
 
     Component.onCompleted: {
         summaryLabel.text = selectedDate.toLocaleDateString()
         changeMonth(selectedDate.getMonth(), selectedDate.getFullYear())
+
+        isComponentCompleted = true
     }
 
     function changeMonth(newMonth, newYear) {
