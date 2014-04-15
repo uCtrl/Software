@@ -74,6 +74,8 @@ UI.UFrame {
                         text: "Configure platforms"
 
                         onClicked: {
+                            main.resetBreadcrumb()
+                            main.highlightNavbar("Configuration")
                             main.swap(_paths.uSystem, _paths.uSystemTitle, mySystem)
                         }
                     }
@@ -91,6 +93,8 @@ UI.UFrame {
                         text: "View usage statistics"
 
                         onClicked: {
+                            main.resetBreadcrumb()
+                            main.highlightNavbar("Statistics")
                             main.swap(_paths.uStatistics, _paths.uStatisticsTitle, "")
                         }
                     }
@@ -108,6 +112,8 @@ UI.UFrame {
                         text: "Change user settings"
 
                         onClicked: {
+                            main.resetBreadcrumb()
+                            main.highlightNavbar("Settings")
                             main.swap(_paths.uHome, _paths.uHomeTitle, "")
                         }
                     }

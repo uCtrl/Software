@@ -77,7 +77,6 @@ Rectangle {
             anchors.left: platformSummaryContainer.left
             anchors.leftMargin: 20
 
-
             text: container.platformModel.name
             color: getTextColor()
 

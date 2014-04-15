@@ -31,7 +31,10 @@ Rectangle {
     onSwap: renderComponent(page, title, model)
 
     // Extern Signals declaration
-    Component.onCompleted: renderComponent(_paths.uLandingPage, _paths.uLandingPageTitle)
+    Component.onCompleted: {
+        renderComponent(_paths.uLandingPage, _paths.uLandingPageTitle)
+        highlightNavbar("Home")
+    }
 
     // Object functions
     function destroyComponent() {
@@ -102,6 +105,11 @@ Rectangle {
 
     function getAreaHeight() {
         return main.height - (titlebar.height + scrollbarSize)
+    }
+
+    function highlightNavbar(buttonNameToHighlight) {
+        navbar.resetButtonHighlight()
+        navbar.highlightButton(buttonNameToHighlight)
     }
 
     Titlebar.Titlebar {
