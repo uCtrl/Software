@@ -109,6 +109,8 @@ Rectangle {
                 }
 
                 scenarioComboModel.push({"value":"add", "displayedValue":"Add a new scenario", "iconId":"Plus" })
+
+                selectedItem = scenarioComboModel[0]
                 return scenarioComboModel
             }
         }

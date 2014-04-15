@@ -1,17 +1,10 @@
 <RCC>
     <qresource prefix="/Resources">
-        <file>Images/uCtrl-Icon.png</file>
-        <file>Images/Back.png</file>
-        <file>Images/light_icon.png</file>
-        <file>Images/drag.png</file>
-        <file>Images/icon-uctrl-white.png</file>
-        <file>Images/Clock-Icon.png</file>
-        <file>Images/uCtrl-small-white.png</file>
         <file>data.json</file>
         <file>Languages/uctrl_en.qm</file>
         <file>Languages/uctrl_fr.qm</file>
-        <file>Images/Combobox-arrow.png</file>
-        <file>Images/pencil.svg</file>
         <file>fontawesome-webfont.ttf</file>
+        <file>Images/uCtrl-Icon.png</file>
+        <file>Images/uCtrl-small-white.png</file>
     </qresource>
 </RCC>

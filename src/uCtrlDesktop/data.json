@@ -3,7 +3,7 @@
         {
             "devices": [
                 {
-                    "id": 147852369,
+                    "id": 1,
                     "maxValue": 100,
                     "minValue": 25,
                     "name": "Temperature A",
@@ -42,6 +42,13 @@
                                             "comparisonType": 1,
                                             "id": 1350245681,
                                             "type": 3
+                                        },
+                                        {
+                                            "comparisonType": 4,
+                                            "deviceId": 2,
+                                            "deviceType": 3,
+                                            "id": 1350245682,
+                                            "type": 4
                                         }
                                     ],
                                     "id": 1782103623,
@@ -108,16 +115,16 @@
                             ]
                         }
                     ],
-                    "type": 1,
+                    "type": 0,
                     "unitLabel": "\u00B0C",
                     "isTriggerValue": false,
                     "enabled": "ON"
                 },
                 {
-                    "id": 1782103621,
+                    "id": 2,
                     "maxValue": 1,
                     "minValue": 0,
-                    "name": "Light",
+                    "name": "Light A",
                     "precision": 0,
                     "description": "A random description, which is pretty long I'll say. Not too bad",
                     "scenarios": [
@@ -172,7 +179,7 @@
                             ]
                         }
                     ],
-                    "type": 2,
+                    "type": 3,
                     "unitLabel": "",
                     "isTriggerValue": true
                 }
@@ -188,10 +195,10 @@
         {
             "devices": [
                 {
-                    "id": 1782103621,
+                    "id": 3,
                     "maxValue": 100,
                     "minValue": 0,
-                    "name": "Dimmer Light",
+                    "name": "Temperature B",
                     "precision": 1,
                     "description": "A random description, which is pretty long I'll say. Give me a break!",
                     "scenarios": [
@@ -250,7 +257,7 @@
                             ]
                         }
                     ],
-                    "type": 1,
+                    "type": 0,
                     "unitLabel": "%"
                 }
             ],

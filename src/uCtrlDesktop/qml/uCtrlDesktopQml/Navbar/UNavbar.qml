@@ -14,8 +14,8 @@ Rectangle {
         icon: "Dashboard"
         label: "Dashboard"
 
-        path: _paths.uHome
-        title: _paths.uHomeTitle
+        path: _paths.uLandingPage
+        title: _paths.uLandingPageTitle
 
         anchors.top: parent.top
 

@@ -262,6 +262,10 @@ UI.UFrame {
 
             UI.UComboBox {
                 id: combo
+
+                Component.onCompleted: {
+                    selectItem(0)
+                }
             }
         }
 
