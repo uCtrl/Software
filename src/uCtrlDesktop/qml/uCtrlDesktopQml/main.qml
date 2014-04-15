@@ -31,7 +31,7 @@ Rectangle {
     onSwap: renderComponent(page, title, model)
 
     // Extern Signals declaration
-    Component.onCompleted: renderComponent(_paths.uHome, qsTr("Homepage"))
+    Component.onCompleted: renderComponent(_paths.uLandingPage, _paths.uLandingPageTitle)
 
     // Object functions
     function destroyComponent() {
