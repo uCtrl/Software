@@ -78,10 +78,6 @@ RadioButton {
         }
     }
 
-    function execute() {
-        console.log(radiobutton.checked)
-    }
-
     MouseArea {
         anchors.fill: parent
         onReleased: {

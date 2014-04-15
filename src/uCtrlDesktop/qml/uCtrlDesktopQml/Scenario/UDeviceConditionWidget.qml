@@ -471,7 +471,6 @@ Rectangle {
 
         function reset() {
             text = getUnitLabel()
-            console.log(text)
         }
     }
 }
