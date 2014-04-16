@@ -21,7 +21,6 @@ class UPlatform : public QAbstractListModel, public JsonSerializable
     Q_PROPERTY(QDateTime    lastUpdate READ getLastUpdate NOTIFY updateChanged)
 
 public:
-
     UPlatform() {}
     UPlatform(QObject* parent);
     UPlatform(QObject* parent, const QString& ip, const int port);
