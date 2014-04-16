@@ -27,6 +27,7 @@ class UDevice : public QAbstractListModel, public JsonSerializable
     Q_PROPERTY(QDateTime lastUpdate READ getLastUpdate WRITE setLastUpdate NOTIFY updateChanged)
 
 public:
+    UDevice() {}
     UDevice(QObject* parent);
     UDevice(const UDevice& device);
     ~UDevice();
