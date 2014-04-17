@@ -12,7 +12,7 @@ Rectangle {
     width: parent.width - 30
     height: parent.height - 5
 
-    state: UEComparisonType.InBetween.toString()
+    //state: UEComparisonType.InBetween.toString()
 
     property var setWidgetDate
     property var saveWidgetDate
@@ -111,10 +111,6 @@ Rectangle {
 
             onSelectValue: {
                 container.state = selectedItem.value
-            }
-
-            Component.onCompleted: {
-                selectItem(0)
             }
         }
 
