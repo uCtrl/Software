@@ -1,3 +1,6 @@
 [submodule "common"]
 	path = common
 	url = git@github.com:uCtrl/common.git
+[submodule "src/uCtrlDesktop/qml/jbQuick/Charts"]
+	path = src/uCtrlDesktop/qml/jbQuick/Charts
+	url = git://github.com/jwintz/qchart.js.git
