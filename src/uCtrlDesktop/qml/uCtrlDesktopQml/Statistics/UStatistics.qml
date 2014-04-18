@@ -5,21 +5,13 @@ import "../../jbQuick/Charts" as Charts
 
 UI.UFrame {
     id: statsFrame
+    height: parent.height
+    width: parent.width
 
     contentItem: Rectangle {
-        /*
-        ULabel.Default {
-            text: qsTr("Hello World !")
-            color: _colors.uGreen
-        }*/
-/*
-        Charts.Chart {
-
-            chartType: BAR
-        }*/
-
         Charts.QChartGallery {
-
+            height: statsFrame.height
+            width: statsFrame.width
         }
     }
 }
