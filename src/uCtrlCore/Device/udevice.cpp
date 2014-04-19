@@ -42,6 +42,11 @@ void UDevice::updateScenarioAt(int index, UScenario* scenario) {
     emit scenariosChanged(m_scenarios);
 }
 
+void UDevice::saveScenarios()
+{
+    emit save();
+}
+
 void UDevice::deleteScenarioAt(int index) {
     if (index < 0 || index >= getScenarioCount())
         return;

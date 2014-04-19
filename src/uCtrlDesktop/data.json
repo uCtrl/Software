@@ -1,248 +1,260 @@
 {
-    "platforms": [
+  "platforms": [
+    {
+      "devices": [
         {
-            "devices": [
+          "id": 3,
+          "maxValue": 100,
+          "minValue": 0,
+          "name": "Temperature B",
+          "precision": 1,
+          "description": "A random description, which is pretty long I'll say. Give me a break!",
+          "scenarios": [
+            {
+              "id": 1782103622,
+              "name": "Semaine",
+              "tasks": [
                 {
-                    "id": 1,
-                    "maxValue": 100,
-                    "minValue": 25,
-                    "name": "Temperature A",
-                    "precision": 5,
-                    "description": "A random description, which is pretty long I'll say. I don't know what to say...",
-                    "status": 25.75,
-                    "enabled": "ON",
-                    "scenarios": [
-                        {
-                            "id": 1782103622,
-                            "name": "Semaine",
-                            "tasks": [
-                                {
-                                    "conditions": [
-                                        {
-                                            "beginDate": "2014-03-31",
-                                            "endDate": "2014-03-31",
-                                            "id": 1350245676,
-                                            "type": 1,
-                                            "comparisonType": 2
-                                        },
-                                        {
-                                            "beginTime": "08:00",
-                                            "endTime": "17:00",
-                                            "comparisonType": 8,
-                                            "id": 1350245677,
-                                            "type": 3
-                                        },
-                                        {
-                                            "beginTime": "19:00",
-                                            "comparisonType": 1,
-                                            "id": 1350245681,
-                                            "type": 3
-                                        },
-                                        {
-                                            "comparisonType": 4,
-                                            "deviceId": 2,
-                                            "deviceType": 3,
-                                            "id": 1350245682,
-                                            "type": 4
-                                        }
-                                    ],
-                                    "id": 1782103623,
-                                    "status": "21"
-                                },
-                                {
-                                    "id": 1782103626,
-                                    "status": "13"
-                                },
-                                {
-                                    "conditions": [
-                                    ],
-                                    "id": 1782103628,
-                                    "status": "0"
-                                }
-                            ]
-                        },
-                        {
-                            "id": 123456789,
-                            "name": "Fin de semaine",
-                            "tasks": [
-                                {
-                                    "conditions": [
-                                        {
-                                            "id": 1350245677,
-                                            "type": 3
-                                        }
-                                    ],
-                                    "id": 1782103226,
-                                    "status": "21"
-                                },
-                                {
-                                    "conditions": [
-                                    ],
-                                    "id": 1782103626,
-                                    "status": "13"
-                                },
-                                {
-                                    "conditions": [
-                                    ],
-                                    "id": 1782103628,
-                                    "status": "0"
-                                }
-                            ]
-                        }
-                    ],
-                    "type": 0,
-                    "unitLabel": "\u00B0C",
-                    "isTriggerValue": false,
-                    "enabled": "ON"
+                  "conditions": [
+                    {
+                      "beginDate": "2014-03-31",
+                      "endDate": "2014-03-31",
+                      "id": 1350245676,
+                      "type": 1
+                    },
+                    {
+                      "beginDate": "2014-03-31",
+                      "endDate": "2014-03-31",
+                      "id": 1350245677,
+                      "type": 1
+                    },
+                    {
+                      "beginDate": "2014-03-31",
+                      "endDate": "2014-03-31",
+                      "id": 1350245678,
+                      "type": 1
+                    },
+                    {
+                      "beginDate": "2014-03-31",
+                      "endDate": "2014-03-31",
+                      "id": 1350245681,
+                      "type": 1
+                    }
+                  ],
+                  "id": 1782103623,
+                  "status": "60"
                 },
                 {
-                    "id": 2,
-                    "maxValue": 1,
-                    "minValue": 0,
-                    "name": "Light A",
-                    "precision": 0,
-                    "description": "A random description, which is pretty long I'll say. Not too bad",
-                    "scenarios": [
-                        {
-                            "id": 1782103622,
-                            "name": "Semaine",
-                            "tasks": [
-                                {
-                                    "conditions": [
-                                        {
-                                            "beginDate": "2014-03-31",
-                                            "endDate": "2014-03-31",
-                                            "id": 1350245676,
-                                            "type": 1
-                                        },
-                                        {
-                                            "id": 1350245677,
-                                            "type": 3
-                                        },
-                                        {
-                                            "beginDate": "2014-03-31",
-                                            "endDate": "2014-03-31",
-                                            "id": 1350245678,
-                                            "type": 1
-                                        },
-                                        {
-                                            "id": 1350245681,
-                                            "type": 3
-                                        }
-                                    ],
-                                    "id": 1782103623,
-                                    "status": "ON"
-                                },
-                                {
-                                    "conditions": [
-                                        {
-                                            "beginDate": "2014-03-31",
-                                            "endDate": "2014-03-31",
-                                            "id": 1350245680,
-                                            "type": 1
-                                        }
-                                    ],
-                                    "id": 1782103626,
-                                    "status": "ON"
-                                },
-                                {
-                                    "conditions": [
-                                    ],
-                                    "id": 1782103626,
-                                    "status": "OFF"
-                                }
-                            ]
-                        }
-                    ],
-                    "type": 3,
-                    "unitLabel": "",
-                    "isTriggerValue": true
+                  "conditions": [
+                    {
+                      "beginDate": "2014-03-31",
+                      "endDate": "2014-03-31",
+                      "id": 1350245680,
+                      "type": 1
+                    }
+                  ],
+                  "id": 1782103626,
+                  "status": "30"
+                },
+                {
+                  "conditions": [],
+                  "id": 1782103627,
+                  "status": "0"
                 }
-            ],
-            "firmwareVersion": "1.0.0.1234",
-            "id": 123456879,
-            "name": "Platform #1",
-            "port": 23489,
-            "room": "Bedroom",
-            "enabled": "ON",
-            "ip": "238.195.255.102"
+              ]
+            }
+          ],
+          "type": 0,
+          "unitLabel": "%"
+        }
+      ],
+      "firmwareVersion": "1.0.0.2225",
+      "id": 157257547,
+      "name": "My other platform",
+      "port": 5000,
+      "room": "Kitchen",
+      "enabled": "OFF",
+      "ip": "127.0.0.1"
+    },
+    {
+      "devices": [
+        {
+          "description": "A random description, which is pretty long I'll say. I don't know what to say...",
+          "enabled": "ON",
+          "id": 1,
+          "isTriggerValue": false,
+          "maxValue": 100,
+          "minValue": 25,
+          "name": "Temperature A",
+          "precision": 5,
+          "scenarios": [
+            {
+              "id": 1782103622,
+              "name": "Semaine",
+              "tasks": [
+                {
+                  "conditions": [
+                    {
+                      "beginDate": "2014-03-31",
+                      "comparisonType": 2,
+                      "endDate": "2014-03-31",
+                      "id": 1350245676,
+                      "type": 1
+                    },
+                    {
+                      "beginTime": "08:00",
+                      "comparisonType": 8,
+                      "endTime": "17:00",
+                      "id": 1350245677,
+                      "type": 3
+                    },
+                    {
+                      "beginTime": "19:00",
+                      "comparisonType": 1,
+                      "endTime": "",
+                      "id": 1350245681,
+                      "type": 3
+                    },
+                    {
+                      "beginValue": 0,
+                      "comparisonType": 4,
+                      "deviceId": 2,
+                      "deviceType": 3,
+                      "endValue": 0,
+                      "id": 1350245682,
+                      "type": 4
+                    }
+                  ],
+                  "id": 1782103623,
+                  "status": "21"
+                },
+                {
+                  "conditions": [],
+                  "id": 1782103626,
+                  "status": "13"
+                },
+                {
+                  "conditions": [],
+                  "id": 1782103628,
+                  "status": "0"
+                }
+              ]
+            },
+            {
+              "id": 123456789,
+              "name": "Fin de semaine",
+              "tasks": [
+                {
+                  "conditions": [
+                    {
+                      "beginTime": "",
+                      "comparisonType": 0,
+                      "endTime": "",
+                      "id": 1350245677,
+                      "type": 3
+                    }
+                  ],
+                  "id": 1782103226,
+                  "status": "21"
+                },
+                {
+                  "conditions": [],
+                  "id": 1782103626,
+                  "status": "13"
+                },
+                {
+                  "conditions": [],
+                  "id": 1782103628,
+                  "status": "0"
+                }
+              ]
+            }
+          ],
+          "status": 25.75,
+          "type": 0,
+          "unitLabel": "°C"
         },
         {
-            "devices": [
+          "description": "A random description, which is pretty long I'll say. Not too bad",
+          "enabled": "",
+          "id": 2,
+          "isTriggerValue": true,
+          "maxValue": 1,
+          "minValue": 0,
+          "name": "Light A",
+          "precision": 0,
+          "scenarios": [
+            {
+              "id": 1782103622,
+              "name": "Semaine",
+              "tasks": [
                 {
-                    "id": 3,
-                    "maxValue": 100,
-                    "minValue": 0,
-                    "name": "Temperature B",
-                    "precision": 1,
-                    "description": "A random description, which is pretty long I'll say. Give me a break!",
-                    "scenarios": [
-                        {
-                            "id": 1782103622,
-                            "name": "Semaine",
-                            "tasks": [
-                                {
-                                    "conditions": [
-                                        {
-                                            "beginDate": "2014-03-31",
-                                            "endDate": "2014-03-31",
-                                            "id": 1350245676,
-                                            "type": 1
-                                        },
-                                        {
-                                            "beginDate": "2014-03-31",
-                                            "endDate": "2014-03-31",
-                                            "id": 1350245677,
-                                            "type": 1
-                                        },
-                                        {
-                                            "beginDate": "2014-03-31",
-                                            "endDate": "2014-03-31",
-                                            "id": 1350245678,
-                                            "type": 1
-                                        },
-                                        {
-                                            "beginDate": "2014-03-31",
-                                            "endDate": "2014-03-31",
-                                            "id": 1350245681,
-                                            "type": 1
-                                        }
-                                    ],
-                                    "id": 1782103623,
-                                    "status": "60"
-                                },
-                                {
-                                    "conditions": [
-                                        {
-                                            "beginDate": "2014-03-31",
-                                            "endDate": "2014-03-31",
-                                            "id": 1350245680,
-                                            "type": 1
-                                        }
-                                    ],
-                                    "id": 1782103626,
-                                    "status": "30"
-                                },
-                                {
-                                    "conditions": [
-                                    ],
-                                    "id": 1782103627,
-                                    "status": "0"
-                                }
-                            ]
-                        }
-                    ],
-                    "type": 0,
-                    "unitLabel": "%"
+                  "conditions": [
+                    {
+                      "beginDate": "2014-03-31",
+                      "comparisonType": 0,
+                      "endDate": "2014-03-31",
+                      "id": 1350245676,
+                      "type": 1
+                    },
+                    {
+                      "beginTime": "",
+                      "comparisonType": 0,
+                      "endTime": "",
+                      "id": 1350245677,
+                      "type": 3
+                    },
+                    {
+                      "beginDate": "2014-03-31",
+                      "comparisonType": 0,
+                      "endDate": "2014-03-31",
+                      "id": 1350245678,
+                      "type": 1
+                    },
+                    {
+                      "beginTime": "",
+                      "comparisonType": 0,
+                      "endTime": "",
+                      "id": 1350245681,
+                      "type": 3
+                    }
+                  ],
+                  "id": 1782103623,
+                  "status": "ON"
+                },
+                {
+                  "conditions": [
+                    {
+                      "beginDate": "2014-03-31",
+                      "comparisonType": 0,
+                      "endDate": "2014-03-31",
+                      "id": 1350245680,
+                      "type": 1
+                    }
+                  ],
+                  "id": 1782103626,
+                  "status": "ON"
+                },
+                {
+                  "conditions": [],
+                  "id": 1782103626,
+                  "status": "OFF"
                 }
-            ],
-            "firmwareVersion": "1.0.0.2225",
-            "id": 157257547,
-            "name": "My other platform",
-            "port": 41256,
-            "room": "Kitchen",
-            "enabled": "OFF",
-            "ip": "238.22.145.44"
+              ]
+            }
+          ],
+          "status": 0,
+          "type": 3,
+          "unitLabel": ""
         }
-    ]
+      ],
+      "enabled": "ON",
+      "firmwareVersion": "1.0.0.1234",
+      "id": 123456879,
+      "ip": "127.0.0.1",
+      "name": "Platform #1",
+      "port": 5001,
+      "room": "Bedroom"
+    }
+  ]
 }

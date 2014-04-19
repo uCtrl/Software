@@ -159,7 +159,10 @@ Rectangle {
             anchors.rightMargin: 15
 
             anchors.verticalCenter: parent.verticalCenter
-            onSave: { saveEditing() }
+            onSave: {
+                saveEditing()
+                platform.save()
+            }
             onCancel: { cancelEditing() }
         }
     }

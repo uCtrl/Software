@@ -61,6 +61,8 @@ public slots:
     }
     void setFirmwareVersion(QString arg) { m_firmwareVersion = arg; }
 
+    void save();
+
 signals:
     void nameChanged(QString arg);
     void roomChanged(QString arg);
@@ -69,6 +71,7 @@ signals:
     void portChanged(int arg);
     void enabledChanged(QString arg);
     void updateChanged(QDateTime arg);
+    void savePlatform();
 
 private:
     int m_id;

@@ -151,6 +151,7 @@ Rectangle {
                 scenarioWindow.saveTasks()
                 saveScenario()
                 //stopEditing()
+                model.saveScenarios()
             }
 
             onCancel: {

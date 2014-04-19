@@ -6,6 +6,8 @@
 #include "Communication/uemessagetype.h"
 #include "Communication/Requests/getplatformrequest.h"
 #include "Communication/Responses/getplatformresponse.h"
+#include "Communication/Requests/saveplatformrequest.h"
+#include "Communication/Responses/saveplatformresponse.h"
 
 #include <QAbstractSocket>
 #include <QHostAddress>
@@ -28,6 +30,8 @@ private slots:
     void disconnected();
     void readyRead();
     void destroy();
+
+    void sendSavePlatform();
 
 private:
     void readMessage(QString& message);
