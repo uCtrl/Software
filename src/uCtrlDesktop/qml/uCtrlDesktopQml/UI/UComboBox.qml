@@ -27,7 +27,7 @@ Rectangle {
         height: parent.height
 
         color: _colors.uMediumLightGrey
-        radius: 5
+        radius: radiusSize
 
         Rectangle {
             id: valueField
@@ -43,7 +43,7 @@ Rectangle {
                     anchors.centerIn: parent
 
                     itemData: selectedItem
-                    textColor: _colors.uDarkGrey
+                    textColor: _colors.uMediumDarkGrey
             }
         }
     }
@@ -55,13 +55,13 @@ Rectangle {
         anchors.right: parent.right
 
         color: _colors.uMediumLightGrey
-        radius: 5
+        radius: radiusSize
 
         UFontAwesome {
             id: arrowDown
 
             iconId: "CaretDown"
-            iconColor: _colors.uDarkGrey
+            iconColor: _colors.uMediumDarkGrey
             iconSize: 14
             anchors.centerIn: parent
         }
@@ -70,7 +70,7 @@ Rectangle {
     Rectangle {
             id: dropDown
             clip:true
-            height: (itemListModel.length <= itemDisplayedBeforeScroll ? itemListModel.length * 45 : itemDisplayedBeforeScroll * 45)
+            height: 20 + (itemListModel.length <= itemDisplayedBeforeScroll ? itemListModel.length * 32 : itemDisplayedBeforeScroll * 32)
             width: combo.width
             anchors.top: parent.bottom
             anchors.topMargin: 5
@@ -97,7 +97,7 @@ Rectangle {
                 width: parent.width
                 anchors.horizontalCenter: parent.horizontalCenter
                 height: dropDown.height - 10
-                radius: 5
+                radius: radiusSize
                 color: _colors.uMediumLightGrey
 
                 Rectangle {
@@ -163,6 +163,7 @@ Rectangle {
 
     MouseArea {
         anchors.fill: parent
+        cursorShape: Qt.PointingHandCursor
         onClicked: {
             dropDown.visible = !dropDown.visible
         }

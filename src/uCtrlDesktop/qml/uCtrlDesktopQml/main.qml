@@ -21,8 +21,10 @@ Rectangle {
     property var activeComponent: null
     property var activePage: null
 
+    property int radiusSize: 2
+
     // Frame dimension
-    width: 1600; height: 900
+    width: 1000; height: 650
 
     color: _colors.uLightGrey
 
@@ -111,6 +113,13 @@ Rectangle {
         navbar.resetButtonHighlight()
         navbar.highlightButton(buttonNameToHighlight)
     }
+
+    FontLoader { id: latoBold;          source: "qrc:///Resources/Fonts/Lato-Bold.ttf" }
+    FontLoader { id: latoBoldItalic;    source: "qrc:///Resources/Fonts/Lato-BoldItalic.ttf" }
+    FontLoader { id: latoItalic;        source: "qrc:///Resources/Fonts/Lato-Italic.ttf" }
+    FontLoader { id: latoLight;         source: "qrc:///Resources/Fonts/Lato-Light.ttf" }
+    FontLoader { id: latoLightItalic;   source: "qrc:///Resources/Fonts/Lato-LightItalic.ttf" }
+    FontLoader { id: latoRegular;       source: "qrc:///Resources/Fonts/Lato-Regular.ttf" }
 
     Titlebar.Titlebar {
         id: titlebar

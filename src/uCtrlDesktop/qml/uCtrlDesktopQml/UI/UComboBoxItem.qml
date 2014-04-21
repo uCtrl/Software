@@ -20,7 +20,7 @@ Rectangle {
 
     Rectangle {
         id: iconContainer
-        width: itemData.iconId === "" ? 0 : parent.height
+        width: itemData.iconId === "" ? 0 : 22
         height: parent.height
 
         color: _colors.uTransparent
@@ -40,14 +40,18 @@ Rectangle {
         width: parent.width - iconContainer.width
         height: parent.height
         anchors.left: iconContainer.right
+        anchors.leftMargin: 5
         anchors.right: parent.right
 
         color: _colors.uTransparent
         ULabel.ComboBoxItemText {
             id: comboBoxItemText
 
+            height: parent.height
             anchors.verticalCenter: parent.verticalCenter
             text: item.itemData.displayedValue
+            verticalAlignment: Text.AlignVCenter
+
             color: textColor
         }
     }

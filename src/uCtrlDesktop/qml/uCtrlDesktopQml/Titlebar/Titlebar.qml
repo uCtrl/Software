@@ -14,19 +14,19 @@ Rectangle {
     id: titlebar
 
     color: _colors.uGreen
-    height: 75
+    height: 65
 
     UI.UImage {
         id: homeBtn
-        width: 100
-        height: 50
+        width: 80
+        height: 45
 
         anchors.verticalCenter: parent.verticalCenter
 
         anchors.left: parent.left
-        anchors.leftMargin: 25
+        anchors.leftMargin: 12
 
-        img: "qrc:///Resources/Images/uCtrl-small-white.png"
+        img: "qrc:///Resources/Images/uCtrl-white.svg"
     }
 
     Rectangle {

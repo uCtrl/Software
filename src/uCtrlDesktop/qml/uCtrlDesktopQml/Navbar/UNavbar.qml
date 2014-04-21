@@ -4,14 +4,24 @@ import "../UI" as UI
 Rectangle {
     id: navbar
 
-    width: 100
+    width: 61
 
     color: _colors.uDarkGrey
+
+    Rectangle {
+        height: parent.width
+        width: 1
+        color: _colors.uDarkerGray
+
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+    }
 
     // Menu component
     UMenuItem {
         id: dashboard
-        icon: "Dashboard"
+        icon: "meter"
         label: "Dashboard"
         name: "Home"
 
@@ -25,7 +35,7 @@ Rectangle {
 
     UMenuItem {
         id: device
-        icon: "Wrench"
+        icon: "settings"
         label: "Platforms"
         name: "Configuration"
 
@@ -40,7 +50,7 @@ Rectangle {
 
     UMenuItem {
         id: statistics
-        icon: "BarChart"
+        icon: "bars"
         label: "Statistics"
         name: "Statistics"
 
@@ -53,7 +63,7 @@ Rectangle {
 
     UMenuItem {
         id: config
-        icon: "Cogs"
+        icon: "cog2"
         label: "Configurations"
         name: "Settings"
 
@@ -68,33 +78,25 @@ Rectangle {
     }
 
     function resetButtonHighlight() {
-        dashboard.color = _colors.uTransparent
-        dashboard.iconColor = _colors.uGrey
-        device.color = _colors.uTransparent
-        device.iconColor = _colors.uGrey
-        statistics.color = _colors.uTransparent
-        statistics.iconColor = _colors.uGrey
-        config.color = _colors.uTransparent
-        config.iconColor = _colors.uGrey
+        dashboard.state = ""
+        device.state = ""
+        statistics.state = ""
+        config.state = ""
     }
 
     function highlightButton(buttonNameToHighlight) {
         switch(buttonNameToHighlight) {
         case "Home":
-            dashboard.color = _colors.uLightGrey
-            dashboard.iconColor = _colors.uDarkGrey
+            dashboard.state = "ACTIVE"
             break
         case "Configuration":
-            device.color = _colors.uLightGrey
-            device.iconColor = _colors.uDarkGrey
+            device.state = "ACTIVE"
             break
         case "Statistics":
-            statistics.color = _colors.uLightGrey
-            statistics.iconColor = _colors.uDarkGrey
+            statistics.state = "ACTIVE"
             break
         case "Settings":
-            config.color = _colors.uLightGrey
-            config.iconColor = _colors.uDarkGrey
+            config.state = "ACTIVE"
             break
         }
     }

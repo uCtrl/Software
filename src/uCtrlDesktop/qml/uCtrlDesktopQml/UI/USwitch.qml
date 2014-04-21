@@ -9,8 +9,8 @@ Rectangle {
     state: "ON"
 
     id: container
-    width: 80
-    height: 30
+    width: 65
+    height: 27
     radius: height / 2
     color: _colors.uLightGreen
 
@@ -39,6 +39,7 @@ Rectangle {
             anchors.centerIn: parent
             color: _colors.uGreen
             font.bold: true
+            font.pointSize: 12
         }
     }
 
@@ -57,11 +58,13 @@ Rectangle {
             color: _colors.uWhite
             opacity: 0
             font.bold: true
+            font.pointSize: 12
         }
     }
 
     MouseArea {
         anchors.fill: parent
+        cursorShape: Qt.PointingHandCursor
 
         onClicked: {
             if(container.state === "ON") {

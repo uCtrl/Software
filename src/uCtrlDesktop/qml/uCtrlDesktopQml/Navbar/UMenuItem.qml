@@ -5,7 +5,7 @@ import QtQuick.Controls 1.0
 Rectangle {
     id: container
 
-    property string icon: "Ok"
+    property string icon: "flag"
     property color iconColor: _colors.uGrey
     property bool showSeparator: true
     property string label: "UNKNOWN"
@@ -14,21 +14,9 @@ Rectangle {
     property var model: null
     property string name: ""
 
-    width: 100; height: 100
+    width: 60; height: 58
 
-    color: _colors.uTransparent
-
-    Rectangle {
-        id: highlight
-
-        anchors.fill: parent
-        anchors.margins: 10
-
-        color: _colors.uGrey
-        opacity: 0.1
-
-        visible: mouseArea.containsMouse
-    }
+    color: _colors.uDarkGrey
 
     UI.UFontAwesome {
         id: icon
@@ -37,13 +25,13 @@ Rectangle {
         anchors.margins: 5
 
         iconId: container.icon
-        iconSize: 50
-        iconColor: container.iconColor
+        iconSize: 33
+        iconColor: _colors.uGrey
     }
 
     UI.UToolTip {
         id: tooltip
-        visible: false
+        state: "HIDDEN"
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.right
         text: container.label
@@ -60,14 +48,46 @@ Rectangle {
         anchors.fill: parent
         hoverEnabled: true
 
-
-        onEntered: tooltip.startAnimation()
-        onExited: tooltip.stopAnimation()
+        onEntered: {
+            tooltip.startAnimation()
+            if(container.state == "")
+                container.state = "HOVER"
+        }
+        onExited: {
+            tooltip.stopAnimation()
+            if(container.state == "HOVER")
+                container.state = ""
+        }
 
         onClicked: {
-            main.resetBreadcrumb()
-            main.highlightNavbar(name)
-            main.swap(path, title, model)
+            if(container.state != "DISABLED") {
+                main.resetBreadcrumb()
+                main.highlightNavbar(name)
+                main.swap(path, container.label, model)
+            }
         }
+    }
+
+    states: [
+        State {
+            name: "ACTIVE"
+            PropertyChanges { target: icon; iconColor: _colors.uWhite }
+            PropertyChanges { target: container; color: _colors.uDarkGreyHover }
+        },
+        State {
+            name: "HOVER"
+            PropertyChanges { target: mouseArea; cursorShape: Qt.PointingHandCursor }
+            PropertyChanges { target: icon; iconColor: _colors.uMediumLightGrey }
+            PropertyChanges { target: container; color: _colors.uDarkGreyHover }
+        },
+        State {
+            name: "DISABLED"
+            PropertyChanges { target: icon; iconColor: _colors.uMediumDarkGrey }
+            PropertyChanges { target: container; color: _colors.uDarkerGray }
+        }
+    ]
+
+    transitions: Transition {
+        ColorAnimation { duration: 75 }
     }
 }

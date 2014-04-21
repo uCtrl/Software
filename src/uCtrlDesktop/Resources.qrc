@@ -3,8 +3,20 @@
         <file>data.json</file>
         <file>Languages/uctrl_en.qm</file>
         <file>Languages/uctrl_fr.qm</file>
-        <file>fontawesome-webfont.ttf</file>
+        <file>Fonts/fontawesome-webfont.ttf</file>
+        <file>Fonts/icomoon.ttf</file>
+        <file>Fonts/Lato-Black.ttf</file>
+        <file>Fonts/Lato-BlackItalic.ttf</file>
+        <file>Fonts/Lato-Bold.ttf</file>
+        <file>Fonts/Lato-BoldItalic.ttf</file>
+        <file>Fonts/Lato-Hairline.ttf</file>
+        <file>Fonts/Lato-HairlineItalic.ttf</file>
+        <file>Fonts/Lato-Italic.ttf</file>
+        <file>Fonts/Lato-Light.ttf</file>
+        <file>Fonts/Lato-LightItalic.ttf</file>
+        <file>Fonts/Lato-Regular.ttf</file>
         <file>Images/uCtrl-Icon.png</file>
-        <file>Images/uCtrl-small-white.png</file>
+        <file>Images/uCtrl-white.svg</file>
+        <file>Images/uCtrl.svg</file>
     </qresource>
 </RCC>

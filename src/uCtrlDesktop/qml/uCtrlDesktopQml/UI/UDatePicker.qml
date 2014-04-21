@@ -19,7 +19,7 @@ Rectangle {
 
     property string debugName: "UNKNOWN"
 
-    radius: 5
+    radius: radiusSize
 
     property var datePickerModel: []
 
@@ -136,7 +136,7 @@ Rectangle {
             anchors.top: dropDownArrow.bottom
             width: calendarArea.width + 10
             height: calendarArea.height + 45
-            radius: 5
+            radius: radiusSize
 
             color: _colors.uGrey
 
@@ -360,7 +360,7 @@ Rectangle {
                                                        (selectedDate.getDate() - 1 === datePickerModel[index].date))
 
                             color: isSelected ? _colors.uGreen : _colors.uTransparent
-                            radius: 5
+                            radius: radiusSize
 
                             UButton {
                                 anchors.fill: parent

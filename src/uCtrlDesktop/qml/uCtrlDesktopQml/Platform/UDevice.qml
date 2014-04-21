@@ -8,7 +8,7 @@ Rectangle {
     property var deviceModel: devicesList.model.getDeviceAt(index)
 
     width: parent.width
-    height: 60
+    height: 50
 
     color: _colors.uTransparent
 
@@ -16,12 +16,13 @@ Rectangle {
         id: iconFrame
 
         anchors.left: parent.left
-        anchors.leftMargin: 15
+        anchors.leftMargin: 10
 
         anchors.verticalCenter: parent.verticalCenter
 
-        width: 40; height: 40
-        radius: 5
+        width: 32
+        height: 32
+        radius: radiusSize
 
         color: _colors.uGreen
 
@@ -32,21 +33,22 @@ Rectangle {
             anchors.centerIn: iconFrame
 
             iconId: "Bolt"
-            iconSize: 32
+            iconSize: 24
             iconColor: _colors.uWhite
         }
     }
 
     ULabel.Default {
         anchors.left: iconFrame.right
-        anchors.leftMargin: 25
+        anchors.leftMargin: 10
 
         anchors.verticalCenter: parent.verticalCenter
+        verticalAlignment: Text.AlignVCenter
 
         text: deviceModel.name
 
         Component.onCompleted: {
-            font.pixelSize = 24
+            font.pixelSize = 18
             font.bold = true
         }
     }
@@ -55,26 +57,22 @@ Rectangle {
         id: chevronRight
 
         anchors.right: container.right
-        anchors.rightMargin: 20
+        anchors.rightMargin: 15
 
         anchors.verticalCenter: container.verticalCenter
 
         iconId: "ChevronRight"
-        iconSize: 32
-        iconColor: _colors.uLightGrey
+        iconSize: 22
+        iconColor: _colors.uMediumLightGrey
     }
 
     Rectangle {
-        property int marginSize: 3
-
         id: bottomLine
 
-        width: parent.width - (marginSize *2)
+        width: parent.width
         height: 1
 
         anchors.left: parent.left
-        anchors.leftMargin: marginSize
-
         anchors.top: parent.bottom
 
         color: _colors.uLightGrey
@@ -82,9 +80,10 @@ Rectangle {
 
     MouseArea {
         anchors.fill: parent
+        cursorShape: Qt.PointingHandCursor
 
         hoverEnabled: true
-        onHoveredChanged: color = (containsMouse ? _colors.uUltraLightGrey : _colors.uTransparent)
+        onHoveredChanged: color = (containsMouse ? _colors.uLightGrey : _colors.uTransparent)
 
         onClicked: {
             main.swap(_paths.uConfig, deviceModel.name, deviceModel)
@@ -94,7 +93,7 @@ Rectangle {
     Rectangle {
         id: informationRight
         anchors.right: chevronRight.left
-        anchors.rightMargin: 40
+        anchors.rightMargin: 25
 
         height: parent.height
         width: 40

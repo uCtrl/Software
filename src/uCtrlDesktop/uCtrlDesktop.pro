@@ -92,3 +92,7 @@ updateqm.commands = lrelease ${QMAKE_FILE_IN} -qm ${QMAKE_FILE_OUT}
 updateqm.CONFIG += no_link
 QMAKE_EXTRA_COMPILERS += updateqm
 PRE_TARGETDEPS += compiler_updateqm_make_all
+
+OTHER_FILES += \
+    Languages/uctrl_en.ts \
+    Languages/uctrl_fr.ts

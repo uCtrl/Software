@@ -23,7 +23,7 @@ Rectangle {
     Rectangle {
         id: mainRectangle
         anchors.fill: parent
-        radius: 5
+        radius: radiusSize
     }
 
     Rectangle {
@@ -141,7 +141,7 @@ Rectangle {
             width: tab.width
             height: tab.height
             color: _colors.uMediumLightGrey
-            radius: 5
+            radius: radiusSize
             Rectangle {
                 id: area2
                 width: tab.width / 2

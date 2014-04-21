@@ -24,7 +24,7 @@ Rectangle {
 
     height: 30
     width: 100
-    radius: 5
+    radius: radiusSize
 
     color: _colors.uGreen
     state: "ENABLED"
@@ -47,7 +47,6 @@ Rectangle {
         z: 100
         hoverEnabled: true
 
-        cursorShape: (button.state !== "DISABLED" ? (containsMouse ? Qt.PointingHandCursor : Qt.ArrowCursor) : Qt.ArrowCursor);
         onEntered: {
             if(button.state === "ENABLED")
                 button.state = "HOVERED"
@@ -100,6 +99,7 @@ Rectangle {
         },
         State {
             name: "HOVERED"
+            PropertyChanges { target: mouseArea; cursorShape: Qt.PointingHandCursor }
             PropertyChanges { target: button; color: buttonHoveredColor }
             PropertyChanges { target: label; color: buttonHoveredTextColor }
             PropertyChanges { target: icon; iconColor: buttonHoveredTextColor }

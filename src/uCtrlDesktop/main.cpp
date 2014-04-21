@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
     ctxt->setContextProperty("mySystem", system);
 
     viewer.setMainQmlFile(QStringLiteral("qml/uCtrlDesktopQml/main.qml"));
-    viewer.setMinimumHeight(700);
+    viewer.setMinimumHeight(650);
     viewer.setMinimumWidth(900);
     viewer.showExpanded();
 

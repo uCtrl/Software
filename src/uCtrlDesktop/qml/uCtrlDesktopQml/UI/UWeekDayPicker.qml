@@ -17,7 +17,7 @@ Rectangle {
     state: "ENABLED"
     property int value: 0
 
-    radius: 5
+    radius: radiusSize
 
     Component.onCompleted: checkSelected()
 
@@ -157,7 +157,7 @@ Rectangle {
             anchors.top: dropDownArrow.bottom
             width: dropDownContent.width + 10
             height: dropDownContent.height + 10
-            radius: 5
+            radius: radiusSize
 
             color: _colors.uGrey
 

@@ -39,7 +39,7 @@ Rectangle {
         summaryLabel.text = currentValue
     }
 
-    radius: 5
+    radius: radiusSize
 
     Rectangle {
         id: iconContainer
@@ -102,7 +102,7 @@ Rectangle {
             anchors.top: dropDownArrow.bottom
             width: dropDownContent.width + 10
             height: dropDownContent.height + 10
-            radius: 5
+            radius: radiusSize
 
             color: _colors.uGrey
 
