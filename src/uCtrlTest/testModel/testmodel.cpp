@@ -22,9 +22,9 @@ public:
 private Q_SLOTS:
 
     //Slots
-    void testUSystemSlots();
-    void testUPlatformSlots();
-    void testUDeviceSlots();
+    void testSystemSlots();
+    void testPlatformSlots();
+    void testDeviceSlots();
     void testScenarioSlots();
     void testTaskSlots();
     void testConditionSlots();
@@ -39,7 +39,7 @@ TestModel::TestModel()
 
 //Public slots tests section
 
-void TestModel::testUSystemSlots()
+void TestModel::testSystemSlots()
 {
     USystem* system = USystem::Instance();
     QList<UPlatform*> list = system->getPlatforms();
@@ -47,7 +47,7 @@ void TestModel::testUSystemSlots()
     QCOMPARE(system->getPlatforms(), list);
 }
 
-void TestModel::testUPlatformSlots()
+void TestModel::testPlatformSlots()
 {
     UPlatform* platform = new UPlatform();
     QList<UDevice*> list = platform->getDevices();
@@ -69,7 +69,7 @@ void TestModel::testUPlatformSlots()
     QCOMPARE(platform->getFirmwareVersion(), QString("1.0.1"));
 }
 
-void TestModel::testUDeviceSlots()
+void TestModel::testDeviceSlots()
 {
     UDevice* device = new UDevice();
     QDateTime date = QDateTime();
