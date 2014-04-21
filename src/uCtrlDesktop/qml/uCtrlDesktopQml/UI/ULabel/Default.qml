@@ -2,7 +2,7 @@ import QtQuick 2.0
 
 Text {
     id: dflt
-    font.family: "Calibri"
+    font.family: "Lato"
     font.pointSize: 12
     wrapMode: Text.WordWrap
     color: _colors.uBlack

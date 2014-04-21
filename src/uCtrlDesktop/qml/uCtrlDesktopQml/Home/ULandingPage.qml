@@ -43,7 +43,7 @@ UI.UFrame {
                 }
 
                 UI.UImage {
-                    img: "qrc:///Resources/Images/uCtrl-Icon.png"
+                    img: "qrc:///Resources/Images/uCtrl.svg"
 
                     width: 150
                     height: 150

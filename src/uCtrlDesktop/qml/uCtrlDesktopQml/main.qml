@@ -112,6 +112,13 @@ Rectangle {
         navbar.highlightButton(buttonNameToHighlight)
     }
 
+    FontLoader { id: latoBold;          source: "qrc:///Resources/Fonts/Lato-Bold.ttf" }
+    FontLoader { id: latoBoldItalic;    source: "qrc:///Resources/Fonts/Lato-BoldItalic.ttf" }
+    FontLoader { id: latoItalic;        source: "qrc:///Resources/Fonts/Lato-Italic.ttf" }
+    FontLoader { id: latoLight;         source: "qrc:///Resources/Fonts/Lato-Light.ttf" }
+    FontLoader { id: latoLightItalic;   source: "qrc:///Resources/Fonts/Lato-LightItalic.ttf" }
+    FontLoader { id: latoRegular;       source: "qrc:///Resources/Fonts/Lato-Regular.ttf" }
+
     Titlebar.Titlebar {
         id: titlebar
 
