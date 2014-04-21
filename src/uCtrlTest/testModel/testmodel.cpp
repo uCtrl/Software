@@ -37,7 +37,7 @@ TestModel::TestModel()
 {
 }
 
-//Seriallization test section
+//Serialization test section
 
 void TestModel::testUPlatformJson()
 {
