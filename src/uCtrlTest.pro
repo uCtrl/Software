@@ -3,6 +3,5 @@ TEMPLATE = subdirs
 CONFIG += ordered
 
 SUBDIRS += \
-    testController \
-    testModel \
-    testView
+    uCtrlCore \
+    uCtrlTest/uCtrlTest.pro

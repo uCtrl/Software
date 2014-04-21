@@ -20,6 +20,7 @@ public:
     Q_PROPERTY(QDate beginDate READ getBeginDate WRITE setBeginDate NOTIFY beginDateChanged )
     Q_PROPERTY(QDate endDate READ getEndDate WRITE setEndDate  NOTIFY endDateChanged)
 
+    UConditionDate() {}
     UConditionDate(QObject* parent, UEConditionDateType type, QDate beginDate = QDate(), QDate endDate = QDate());
     UConditionDate(QObject* parent);
     UConditionDate(QObject* parent, UConditionDate* conditionDate);
