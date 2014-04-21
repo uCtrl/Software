@@ -21,94 +21,86 @@ public:
 
 private Q_SLOTS:
 
-    //Json
-    void testUPlatformJson();
-    void testUDeviceJson();
-    void testScenarioJson();
-    void testTaskJson();
-    void testConditionJson();
-    void testConditionDateJson();
-    void testConditionTimeJson();
-    void testConditionWeekDayJson();
-
+    //Slots
+    void testUSystemSlots();
+    void testUPlatformSlots();
+    void testUDeviceSlots();
+    void testScenarioSlots();
+    void testTaskSlots();
+    void testConditionSlots();
+    void testConditionDateSlots();
+    void testConditionTimeSlots();
+    void testConditionWeekDaySlots();
 };
 
 TestModel::TestModel()
 {
 }
 
-//Serialization test section
+//Public slots tests section
 
-void TestModel::testUPlatformJson()
+void TestModel::testUSystemSlots()
+{
+    USystem* system = USystem::Instance();
+    QList<UPlatform*> list = system->getPlatforms();
+    system->setPlatforms(list);
+    QCOMPARE(system->getPlatforms(), list);
+}
+
+void TestModel::testUPlatformSlots()
 {
     UPlatform* platform = new UPlatform();
     QList<UDevice*> list = platform->getDevices();
-    platform->setId(23);
+    platform->setId(-23);
     platform->setIp("127.0.0.1");
-    platform->setPort(5000);
+    platform->setPort(-5000);
     platform->setDevices(list);
     platform->setName("Platform");
     platform->setRoom("Room");
-    platform->setEnabled("true");
+    platform->setEnabled("True");
     platform->setFirmwareVersion("1.0.1");
-
-    QString json = JsonSerializer::serialize(platform);
-
-    UPlatform* parsePlatform = new UPlatform();
-    JsonSerializer::parse(json, parsePlatform);
-
-    QCOMPARE(platform->getId(), parsePlatform->getId());
-    QCOMPARE(platform->getIp(), parsePlatform->getIp());
-    QCOMPARE(platform->getPort(), parsePlatform->getPort());
-    QCOMPARE(platform->getDevices(), parsePlatform->getDevices());
-    QCOMPARE(platform->getName(), parsePlatform->getName());
-    QCOMPARE(platform->getRoom(), parsePlatform->getRoom());
-    QCOMPARE(platform->getEnabled(), parsePlatform->getEnabled());
-    QCOMPARE(platform->getFirmwareVersion(), parsePlatform->getFirmwareVersion());
-    QCOMPARE(list.count(), 0);
+    QCOMPARE(platform->getId() , -23);
+    QCOMPARE(platform->getIp(), QString("127.0.0.1"));
+    QCOMPARE(platform->getPort(), -5000);
+    QCOMPARE(platform->getDevices(), list);
+    QCOMPARE(platform->getName(), QString("Platform"));
+    QCOMPARE(platform->getRoom(), QString("Room"));
+    QCOMPARE(platform->getEnabled(), QString("True"));
+    QCOMPARE(platform->getFirmwareVersion(), QString("1.0.1"));
 }
 
-void TestModel::testUDeviceJson()
+void TestModel::testUDeviceSlots()
 {
     UDevice* device = new UDevice();
     QDateTime date = QDateTime();
     device->setId(3);
     device->setName("Light");
-    device->setMinValue(0.0);
-    device->setMaxValue(3.0);
-    device->setPrecision(1);
-    device->setUnitLabel("°C");
-    device->setType(34);
+    device->setMinValue(2.0);
+    device->setMaxValue(4.0);
+    device->setPrecision(5);
+    device->setUnitLabel("");
+    device->setType(3);
     device->setIsTriggerValue(true);
-    device->setDescription("Room light");
+    device->setDescription("Description");
     device->setEnabled("Enabled");
-    device->setStatus(3.0);
+    device->setStatus(5.0);
     device->setLastUpdate(date);
 
-    QString json = JsonSerializer::serialize(device);
-
-    UDevice* parseDevice = new UDevice();
-    JsonSerializer::parse(json, parseDevice);
-
-    QList<UScenario*> list = device->getScenarios();
-
-    QCOMPARE(device->getId(), parseDevice->getId());
-    QCOMPARE(device->getName(), parseDevice->getName());
-    QCOMPARE(device->getMinValue(), parseDevice->getMinValue());
-    QCOMPARE(device->getMaxValue(), parseDevice->getMaxValue());
-    QCOMPARE(device->getPrecision(), parseDevice->getPrecision());
-    QCOMPARE(device->getUnitLabel(), parseDevice->getUnitLabel());
-    QCOMPARE(device->getType(), parseDevice->getType());
-    QCOMPARE(device->isTriggerValue(), device->isTriggerValue());
-    QCOMPARE(device->getDescription(), device->getDescription());
-    QCOMPARE(device->getEnabled(), parseDevice->getEnabled());
-    QCOMPARE(device->getStatus(), device->getStatus());
-    QCOMPARE(device->getLastUpdate(), device->getLastUpdate());
-    QCOMPARE(device->getScenarios(), parseDevice->getScenarios());
-    QCOMPARE(list.count(), 0);
+    QCOMPARE(device->getId(), 3);
+    QCOMPARE(device->getName(), QString("Light"));
+    QCOMPARE(device->getMinValue(), 2.0);
+    QCOMPARE(device->getMaxValue(), 4.0);
+    QCOMPARE(device->getPrecision(), 5);
+    QCOMPARE(device->getUnitLabel(), QString(""));
+    QCOMPARE(device->getType(), 3);
+    QCOMPARE(device->isTriggerValue(), true);
+    QCOMPARE(device->getDescription(), QString("Description"));
+    QCOMPARE(device->getEnabled(), QString("Enabled"));
+    QCOMPARE(device->getStatus(), 5.0);
+    QCOMPARE(device->getLastUpdate(), date);
 }
 
-void TestModel::testScenarioJson()
+void TestModel::testScenarioSlots()
 {
     UScenario* scenario = new UScenario();
     QList<UTask*> list = scenario->getTasks();
@@ -116,36 +108,26 @@ void TestModel::testScenarioJson()
     scenario->setName("Travail");
     scenario->setTasks(list);
 
-    QString json = JsonSerializer::serialize(scenario);
-    UScenario* parseScenario = new UScenario();
-    JsonSerializer::parse(json, parseScenario);
-
-    QCOMPARE(scenario->getId(), parseScenario->getId());
-    QCOMPARE(scenario->getName(), parseScenario->getName());
-    QCOMPARE(scenario->getTasks(), parseScenario->getTasks());
-    QCOMPARE(list.count(), 0);
+    QCOMPARE(scenario->getId(), 3);
+    QCOMPARE(scenario->getName(), QString("Travail"));
+    QCOMPARE(scenario->getTasks(), list);
 }
 
-void TestModel::testTaskJson()
+void TestModel::testTaskSlots()
 {
     UTask* task = new UTask();
     QList<UCondition*> list = task->getConditions();
-    task->setId(6);
-    task->setStatus("ENABLED");
+    task->setId(3);
+    task->setStatus("Enabled");
     task->setConditions(list);
-
-    QString json = JsonSerializer::serialize(task);
-    UTask* parseTask = new UTask();
-    JsonSerializer::parse(json, parseTask);
-
-    QCOMPARE(task->getId(), parseTask->getId());
-    QCOMPARE(task->getStatus(), parseTask->getStatus());
-    QCOMPARE(task->getConditions(), parseTask->getConditions());
-    QCOMPARE(list.count(), 0);
+    QCOMPARE(task->getId(), 3);
+    QCOMPARE(task->getStatus(), QString("Enabled"));
+    QCOMPARE(task->getConditions(), list);
 }
 
-void TestModel::testConditionJson()
+void TestModel::testConditionSlots()
 {
+    //TODO : test setConditionParent
     UCondition* condition = new UCondition();
     UCondition::UEConditionType conditionType;
     UCondition::UEComparisonType comparisonType;
@@ -153,47 +135,31 @@ void TestModel::testConditionJson()
     condition->setType(conditionType);
     condition->setComparisonType(comparisonType);
 
-    QString json = JsonSerializer::serialize(condition);
-    UCondition* parseCondition = new UCondition();
-    parseCondition->setType(conditionType);
-    parseCondition->setComparisonType(comparisonType);
-    JsonSerializer::parse(json, parseCondition);
-
-    QCOMPARE(condition->getId(), parseCondition->getId());
-    QCOMPARE(condition->getType(), parseCondition->getType());
-    QCOMPARE(condition->getComparisonType(), parseCondition->getComparisonType());
+    QCOMPARE(condition->getId(), 56);
+    QCOMPARE(condition->getType(), conditionType);
+    QCOMPARE(condition->getComparisonType(), comparisonType);
 }
 
-void TestModel::testConditionDateJson()
+void TestModel::testConditionDateSlots()
 {
-    //WIP
     UConditionDate* conditionDate = new UConditionDate();
     UConditionDate::UEConditionDateType dateType;
     QDate beginDate = QDate();
     QDate endDate = QDate();
 
-    beginDate.currentDate();
-    endDate.setDate(2014,05,31);
+    beginDate.setDate(2014,04,16);
+    endDate.setDate(2014,04,17);
 
     conditionDate->setDateType(dateType);
     conditionDate->setBeginDate(beginDate);
     conditionDate->setEndDate(endDate);
 
-    QString json = JsonSerializer::serialize(conditionDate);
-
-    UConditionDate* parseConditionDate = new UConditionDate();
-    parseConditionDate->setDateType(dateType);
-    parseConditionDate->setBeginDate(beginDate);
-    parseConditionDate->setEndDate(endDate);
-
-    JsonSerializer::parse(json, parseConditionDate);
-
-    QCOMPARE(conditionDate->getDateType(), parseConditionDate->getDateType());
-    QCOMPARE(conditionDate->getBeginDate(), parseConditionDate->getBeginDate());
-    QCOMPARE(conditionDate->getEndDate(), parseConditionDate->getEndDate());    
+    QCOMPARE(conditionDate->getDateType(), dateType);
+    QCOMPARE(conditionDate->getBeginDate(), beginDate);
+    QCOMPARE(conditionDate->getEndDate(), endDate);
 }
 
-void TestModel::testConditionTimeJson()
+void TestModel::testConditionTimeSlots()
 {
     UConditionTime* conditionTime = new UConditionTime();
     QTime beginTime = QTime();
@@ -205,33 +171,18 @@ void TestModel::testConditionTimeJson()
     conditionTime->setBeginTime(beginTime);
     conditionTime->setEndTime(endTime);
 
-    QString json = JsonSerializer::serialize(conditionTime);
-
-    UConditionTime* parseConditionTime = new UConditionTime();
-    parseConditionTime->setBeginTime(beginTime);
-    parseConditionTime->setEndTime(endTime);
-
-    JsonSerializer::parse(json, parseConditionTime);
-
-    QCOMPARE(conditionTime->getBeginTime(), parseConditionTime->getBeginTime());
-    QCOMPARE(conditionTime->getEndTime(), parseConditionTime->getEndTime());
+    QCOMPARE(conditionTime->getBeginTime(), beginTime);
+    QCOMPARE(conditionTime->getEndTime(), endTime);
 }
 
-void TestModel::testConditionWeekDayJson()
+void TestModel::testConditionWeekDaySlots()
 {
     UConditionWeekday* conditionWeekDay = new UConditionWeekday();
     UCondition::UEComparisonType comparisonType;
 
     conditionWeekDay->setComparisonType(comparisonType);
 
-    QString json = JsonSerializer::serialize(conditionWeekDay);
-
-    UConditionWeekday* parseConditionWeekDay = new UConditionWeekday();
-    parseConditionWeekDay->setComparisonType(comparisonType);
-
-    JsonSerializer::parse(json, parseConditionWeekDay);
-
-    QCOMPARE(conditionWeekDay->getComparisonType(), parseConditionWeekDay->getComparisonType());
+    QCOMPARE(conditionWeekDay->getComparisonType(), comparisonType);
 }
 
 QTEST_APPLESS_MAIN(TestModel)
