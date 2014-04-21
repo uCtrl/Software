@@ -11,6 +11,7 @@ public:
     Q_PROPERTY(QTime beginTime READ getBeginTime WRITE setBeginTime NOTIFY beginTimeChanged)
     Q_PROPERTY(QTime endTime READ getEndTime WRITE setEndTime NOTIFY endTimeChanged)
 
+    UConditionTime() {}
     UConditionTime(QObject* parent, QTime beginTime = QTime::currentTime(), QTime endTime = QTime::currentTime());
     UConditionTime(QObject* parent, UConditionTime* conditionTime);
 

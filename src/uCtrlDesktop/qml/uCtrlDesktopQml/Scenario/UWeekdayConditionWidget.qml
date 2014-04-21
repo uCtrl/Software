@@ -12,7 +12,7 @@ Item {
     height: parent.height - 5
 
     anchors.left: parent.left
-    anchors.leftMargin: 30
+    anchors.leftMargin: 28
     anchors.verticalCenter: parent.verticalCenter
 
     property bool isEditMode: false
@@ -49,7 +49,6 @@ Item {
 
         text: "On"
         anchors.left: weekdayIcon.right
-        anchors.leftMargin: 10
 
         anchors.verticalCenter: parent.verticalCenter
     }
@@ -58,7 +57,7 @@ Item {
         id: weekDayPicker
 
         anchors.left: onLabel.right
-        anchors.leftMargin: 10
+        anchors.leftMargin: 5
 
         anchors.verticalCenter: parent.verticalCenter
 
@@ -76,7 +75,7 @@ Item {
         id: weekDayLabel
 
         anchors.left: onLabel.right
-        anchors.leftMargin: 10
+        anchors.leftMargin: 5
 
         anchors.verticalCenter: parent.verticalCenter
 

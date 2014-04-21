@@ -5,6 +5,7 @@ UCommunicationHandler::UCommunicationHandler(UPlatform* platform)
     m_platform = platform;
 
     connect(m_platform, SIGNAL(destroyed()), this, SLOT(destroy()));
+    connect(m_platform, SIGNAL(savePlatform()), this, SLOT(sendSavePlatform()));
 
     m_socket = new QTcpSocket(this);
 
@@ -63,10 +64,23 @@ void UCommunicationHandler::readMessage(QString& message)
         response.read(json);
         break;
     }
+    case UEMessageType::SavePlatformResponse:
+    {
+        qDebug() << "Save Platform response...";
+        SavePlatformResponse response;
+        response.read(json);
+        break;
+    }
     default:
         qDebug() << "Unknown message type...";
         break;
     }
+}
+
+void UCommunicationHandler::sendSavePlatform()
+{
+    SavePlatformRequest request(m_platform);
+    this->write(JsonSerializer::serialize(&request));
 }
 
 void UCommunicationHandler::displayError(QAbstractSocket::SocketError socketError)

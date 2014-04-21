@@ -21,6 +21,7 @@ class UPlatform : public QAbstractListModel, public JsonSerializable
     Q_PROPERTY(QDateTime    lastUpdate READ getLastUpdate NOTIFY updateChanged)
 
 public:
+    UPlatform() {}
     UPlatform(QObject* parent);
     UPlatform(QObject* parent, const QString& ip, const int port);
     UPlatform(const UPlatform& platform);
@@ -61,6 +62,8 @@ public slots:
     }
     void setFirmwareVersion(QString arg) { m_firmwareVersion = arg; }
 
+    void save();
+
 signals:
     void nameChanged(QString arg);
     void roomChanged(QString arg);
@@ -69,6 +72,7 @@ signals:
     void portChanged(int arg);
     void enabledChanged(QString arg);
     void updateChanged(QDateTime arg);
+    void savePlatform();
 
 private:
     int m_id;

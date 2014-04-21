@@ -4,7 +4,7 @@
 #include "Conditions/ucondition.h"
 #include <QAbstractListModel>
 
-class UTask : public QAbstractListModel
+class UTask : public QAbstractListModel, public JsonSerializable
 {
     Q_OBJECT
 
@@ -14,6 +14,7 @@ class UTask : public QAbstractListModel
     Q_PROPERTY(QObject* scenario READ getScenario WRITE setScenario NOTIFY scenarioChanged)
 
 public:
+    UTask() {}
     UTask( QObject* parent);
     UTask( QObject* parent, UTask* task );
     ~UTask();

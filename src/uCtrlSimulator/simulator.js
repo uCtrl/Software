@@ -1,18 +1,44 @@
+require('array.prototype.find');
+
 var fs = require('fs');
 var net = require('net');
 var mdns = require('mdns2');
 var extend = require('util')._extend;
 
-var requests = {
+var filePath = '../uCtrlDesktop/data.json';
+
+var messages = {
   Ping: 1,
   Pong: 2,
   GetPlatformRequest: 3,
-  GetPlatformResponse: 4
+  GetPlatformResponse: 4,
+  SavePlatformRequest: 5,
+  SavePlatformResponse: 6
 };
 
-var buildRequest = function (type, platform) {
+var system;
+
+var savePlatform = function(oldPlatform, newPlatform) {
+  var indexOfPlatform = system.platforms.indexOf(system.platforms.find(
+    function(element, index, array){
+      return element.id === oldPlatform.id;
+    }
+  ));
+
+  if(indexOfPlatform !== -1 ) {
+    system.platforms.splice(indexOfPlatform, 1);
+    system.platforms.push(newPlatform);
+    var systemString = JSON.stringify(system, null, 2);
+    fs.writeFile(filePath, systemString, function (err) {
+      if (err) return console.log(err);
+      console.log('File saved!');
+    });
+  }
+};
+
+var buildResponse = function (type, platform) {
   var message = {};  
-  if (type == requests.GetPlatformRequest) {
+  if (type === messages.GetPlatformRequest) {
     message["platform"] = extend({}, platform);
   }
   message["messageType"] = type + 1;
@@ -37,7 +63,15 @@ var createServer = function (platform) {
       console.log(socket.remoteAddress + ":" + socket.localPort + ">" + data);
 
       data = JSON.parse(data);
-      socket.write(JSON.stringify(buildRequest(parseInt(data.messageType, 10), platform)));
+
+      var messageType = parseInt(data.messageType, 10);
+
+      if(messageType === messages.SavePlatformRequest) {
+        savePlatform(platform, data.platform);
+        platform = data.platform;
+      }
+
+      socket.write(JSON.stringify(buildResponse(messageType, platform)));
     });
    
     socket.on('error', function (err) {
@@ -52,10 +86,8 @@ var createServer = function (platform) {
   console.log("Server running on port " + platform.port + "\n");  
 };
 
-
 // System parsing
-var system;
-fs.readFile('../uCtrlDesktop/data.json', 'utf8', function (err,data) {
+fs.readFile(filePath, 'utf8', function (err,data) {
   if (err) {
     return console.log(err);
   }

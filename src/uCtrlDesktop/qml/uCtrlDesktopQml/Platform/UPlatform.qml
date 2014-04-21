@@ -7,7 +7,7 @@ Rectangle {
 
     property var platform: {"enabled": "ON", "name": "UNKNOWN", "room": "UNKNOWN", "ip": "UNKNOWN", "id": "UNKOWN", "port": "UNKNOWN", "firmwareVersion": "UNKNOWN"}
     property bool isEditing : false
-    property int animationTime: 350
+    property int animationTime: 500
 
     state: "HideAdvanced"
 
@@ -74,7 +74,6 @@ Rectangle {
         id: containerPadding
         anchors.fill: parent
         anchors.margins: 20
-        //color: _colors.uGreen
 
         UI.UForm {
             id: platformValidator

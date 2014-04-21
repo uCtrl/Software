@@ -19,6 +19,7 @@ class UScenario : public QAbstractListModel, public JsonSerializable
     Q_PROPERTY(QObject* device READ getDevice NOTIFY deviceChanged)
 
 public:
+    UScenario() {}
     UScenario(QObject *parent);
     UScenario(UScenario* scenario);
     ~UScenario();

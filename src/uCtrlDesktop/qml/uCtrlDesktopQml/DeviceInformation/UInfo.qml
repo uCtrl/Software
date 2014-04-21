@@ -166,6 +166,7 @@ Rectangle {
 
             onSave: {
                 saveData()
+                deviceInfoModel.saveScenarios()
             }
 
             onCancel: {
