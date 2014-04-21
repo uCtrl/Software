@@ -29,8 +29,8 @@ Rectangle {
     function analyzeValue()
     {
         var str = currentValue.split(":")
-        hourSelector.changeValue(parseInt(str[0]))
-        minuteSelector.changeValue(parseInt(str[1]))
+        hourSelector.changeValue(parseInt(str[0]), true)
+        minuteSelector.changeValue(parseInt(str[1]), true)
         computeValue()
     }
 
