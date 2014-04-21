@@ -4,6 +4,8 @@
         <file>Languages/uctrl_en.qm</file>
         <file>Languages/uctrl_fr.qm</file>
         <file>fontawesome-webfont.ttf</file>
+        <file>Images/uctrl.icns</file>
+        <file>Images/uctrl.ico</file>
         <file>Images/uCtrl-Icon.png</file>
         <file>Images/uCtrl-small-white.png</file>
     </qresource>
