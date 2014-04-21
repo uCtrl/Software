@@ -11,6 +11,8 @@ DEPLOYMENTFOLDERS = folder_01 \
 QT += network
 
 CONFIG += c++11
+RC_ICONS = Images/uctrl.ico
+ICON = Images/uctrl.icns
 
 # Please do not modify the following two lines. Required for deployment.
 include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
