@@ -44,6 +44,12 @@ QDateTime UPlatform::getLastUpdate() const
     return time;
 }
 
+
+void UPlatform::save()
+{
+    emit savePlatform();
+}
+
 QVariant UPlatform::data(const QModelIndex & index, int role) const {
     return QVariant();
 }
@@ -69,6 +75,7 @@ void UPlatform::read(const QJsonObject &jsonObj)
         UDevice* d = new UDevice(this);
         d->read(deviceJson.toObject());
         this->m_devices.append(d);
+        connect(d, SIGNAL(save()), this, SLOT(save()));
     }
 }
 

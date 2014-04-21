@@ -53,6 +53,7 @@ public:
     Q_INVOKABLE void addScenario(UScenario* scenario);
     Q_INVOKABLE void deleteScenarioAt(int index);
     Q_INVOKABLE void updateScenarioAt(int index, UScenario* scenario);
+    Q_INVOKABLE void saveScenarios();
 
     // TODO: this should be better handled
     Q_INVOKABLE int getScenarioCount() const { return m_scenarios.count(); }
@@ -76,6 +77,8 @@ signals:
     void updateChanged(QDateTime arg);
 
     void scenariosChanged(QList<UScenario*> arg);
+
+    void save();
 
 public slots:
     void setScenarios(QList<UScenario*> arg) { m_scenarios = arg; }
