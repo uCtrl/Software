@@ -27,7 +27,7 @@
                     ],
                     "status": "ON",
                     "type": 1,
-                    "unitLabel": " "
+                    "unitLabel": ""
                 },
                 {
                     "description": "Light near my bed",
@@ -113,7 +113,7 @@
                     ],
                     "status": "ON",
                     "type": 3,
-                    "unitLabel": " "
+                    "unitLabel": ""
                 }
             ],
             "enabled": "ON",
@@ -144,14 +144,14 @@
                                     "conditions": [
                                     ],
                                     "id": 1782103628,
-                                    "status": "OFF"
+                                    "status": "18"
                                 }
                             ]
                         }
                     ],
                     "status": 21,
                     "type": 0,
-                    "unitLabel": "°C"
+                    "unitLabel": "K"
                 },
                 {
                     "description": "Toaster plug!",
@@ -229,7 +229,7 @@
                     ],
                     "status": "OFF",
                     "type": 4,
-                    "unitLabel": " "
+                    "unitLabel": ""
                 }
             ],
             "enabled": "ON",
