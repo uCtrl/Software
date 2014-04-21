@@ -4,6 +4,4 @@ CONFIG += ordered
 
 SUBDIRS += \
     uCtrlCore \
-    uCtrlTest/testController \
-    uCtrlTest/testModel \
-    uCtrlTest/testView
+    uCtrlTest/uCtrlTest.pro
