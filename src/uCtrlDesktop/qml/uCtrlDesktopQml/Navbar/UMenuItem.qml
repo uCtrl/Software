@@ -5,30 +5,18 @@ import QtQuick.Controls 1.0
 Rectangle {
     id: container
 
-    property string icon: "Ok"
-    property color iconColor: _colors.uGrey
+    property string icon: "flag"
     property bool showSeparator: true
     property string label: "UNKNOWN"
     property string path: "."
     property string title: ""
     property var model: null
     property string name: ""
+    state: "NORMAL"
 
     width: 100; height: 100
 
-    color: _colors.uTransparent
-
-    Rectangle {
-        id: highlight
-
-        anchors.fill: parent
-        anchors.margins: 10
-
-        color: _colors.uGrey
-        opacity: 0.1
-
-        visible: mouseArea.containsMouse
-    }
+    color: _colors.uRed
 
     UI.UFontAwesome {
         id: icon
@@ -37,8 +25,7 @@ Rectangle {
         anchors.margins: 5
 
         iconId: container.icon
-        iconSize: 50
-        iconColor: container.iconColor
+        iconSize: 40
     }
 
     UI.UToolTip {
@@ -47,7 +34,7 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.right
         text: container.label
-        width: 125
+        width: 150
     }
 
     UI.USeparator {
@@ -60,9 +47,17 @@ Rectangle {
         anchors.fill: parent
         hoverEnabled: true
 
-
-        onEntered: tooltip.startAnimation()
-        onExited: tooltip.stopAnimation()
+        cursorShape: (container.state !== "DISABLED" ? (containsMouse ? Qt.PointingHandCursor : Qt.ArrowCursor) : Qt.ArrowCursor)
+        onEntered: {
+            tooltip.startAnimation()
+            if(container.state === "NORMAL")
+                container.state = "HOVER"
+        }
+        onExited: {
+            tooltip.stopAnimation()
+            if(container.state === "HOVER")
+                container.state = "NORMAL"
+        }
 
         onClicked: {
             main.resetBreadcrumb()
@@ -70,4 +65,27 @@ Rectangle {
             main.swap(path, title, model)
         }
     }
+
+    states: [
+        State {
+            name: "NORMAL"
+            PropertyChanges { target: icon; iconColor: _colors.uGrey }
+            PropertyChanges { target: container; color: _colors.uDarkGrey }
+        },
+        State {
+            name: "SELECTED"
+            PropertyChanges { target: icon; iconColor: _colors.uDarkGrey }
+            PropertyChanges { target: container; color: _colors.uLightGrey }
+        },
+        State {
+            name: "HOVER"
+            PropertyChanges { target: icon; iconColor: _colors.uMediumLightGrey }
+            PropertyChanges { target: container; color: _colors.uMediumDarkGrey }
+        },
+        State {
+            name: "DISABLED"
+            PropertyChanges { target: icon; iconColor: _colors.uMediumDarkGrey }
+            PropertyChanges { target: container; color: _colors.uDarkerGray }
+        }
+    ]
 }

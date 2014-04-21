@@ -19,5 +19,4 @@ Rectangle {
 
         fillMode: Image.PreserveAspectFit
     }
-
 }

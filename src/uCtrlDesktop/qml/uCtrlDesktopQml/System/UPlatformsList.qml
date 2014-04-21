@@ -34,7 +34,7 @@ Rectangle {
             visible: (systemContainer.activePlatform !== null)
 
             y: (platformsList.currentItem === null ? -1 : platformsList.currentItem.y);
-            Behavior on y { SpringAnimation { spring: 1; damping: 0.1 } }
+            Behavior on y { SpringAnimation { spring: 3; damping: 0.1; mass: 0.3 } }
         }
 
         highlightFollowsCurrentItem: false

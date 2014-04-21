@@ -174,7 +174,7 @@ UI.UFrame {
 
             anchors.verticalCenter: header.verticalCenter
 
-            width: 135; height: 30
+            width: 200; height: 30
 
             itemListModel: [
                                 { value: "room",     displayedValue: "Location",     iconId: "MapMarker"},

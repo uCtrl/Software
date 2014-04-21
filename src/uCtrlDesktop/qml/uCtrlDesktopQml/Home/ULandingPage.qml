@@ -70,8 +70,8 @@ UI.UFrame {
 
                     ULargeButton {
                         id: configureButton
-                        iconId: "Wrench"
-                        text: "Configure platforms"
+                        iconId: "settings"
+                        text: "Configure Platforms"
 
                         onClicked: {
                             main.resetBreadcrumb()
@@ -89,8 +89,8 @@ UI.UFrame {
 
                     ULargeButton {
                         id: statisticsButton
-                        iconId: "BarChart"
-                        text: "View usage statistics"
+                        iconId: "bars"
+                        text: "View Usage Statistics"
 
                         onClicked: {
                             main.resetBreadcrumb()
@@ -108,8 +108,8 @@ UI.UFrame {
 
                     ULargeButton {
                         id: userPreferenceButton
-                        iconId: "Cogs"
-                        text: "Change user settings"
+                        iconId: "cog2"
+                        text: "Change User Settings"
 
                         onClicked: {
                             main.resetBreadcrumb()
