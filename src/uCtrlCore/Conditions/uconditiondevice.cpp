@@ -15,7 +15,7 @@ void UConditionDevice::read(const QJsonObject &jsonObj) {
     setDeviceType((UEDeviceType)jsonObj["deviceType"].toInt());
     setDeviceId(jsonObj["deviceId"].toInt());
     setBeginValue(jsonObj["beginValue"].toDouble());
-    setBeginValue(jsonObj["endValue"].toDouble());
+    setEndValue(jsonObj["endValue"].toDouble());
 }
 
 void UConditionDevice::write(QJsonObject &jsonObj) const {

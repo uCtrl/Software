@@ -71,6 +71,8 @@ int main(int argc, char *argv[])
     viewer.setMinimumWidth(900);
     viewer.showExpanded();
 
-    return app.exec();
+    int ret = app.exec();
+    //SaveSystemToFile(system, "newdata.json");
+    return ret;
 }
 
