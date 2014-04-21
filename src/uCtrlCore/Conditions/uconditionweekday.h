@@ -29,6 +29,9 @@ public:
 
     int getSelectedWeekdays() const { return m_selectedWeekdays; }
 
+    virtual void read(const QJsonObject &jsonObj);
+    virtual void write(QJsonObject &jsonObj) const;
+
 public slots:
     void setSelectedWeekdays(int arg)
     {

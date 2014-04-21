@@ -12,3 +12,15 @@ UConditionWeekday::UConditionWeekday(QObject* parent, UConditionWeekday* conditi
 {
     setSelectedWeekdays(conditionWeekday->getSelectedWeekdays());
 }
+
+void UConditionWeekday::read(const QJsonObject &jsonObj) {
+    UCondition::read(jsonObj);
+
+    setSelectedWeekdays(jsonObj["selectedWeekdays"].toInt());
+}
+
+void UConditionWeekday::write(QJsonObject &jsonObj) const {
+    UCondition::write(jsonObj);
+
+    jsonObj["selectedWeekdays"] = getSelectedWeekdays();
+}
