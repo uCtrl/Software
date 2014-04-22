@@ -47,7 +47,7 @@ Rectangle {
         z: 100
         hoverEnabled: true
 
-        cursorShape: (button.state !== "DISABLED" ? (containsMouse ? Qt.PointingHandCursor : Qt.ArrowCursor) : Qt.ArrowCursor);
+        cursorShape: (button.state !== "DISABLED" ? (containsMouse ? Qt.PointingHandCursor : Qt.ArrowCursor) : Qt.ArrowCursor)
         onEntered: {
             if(button.state === "ENABLED")
                 button.state = "HOVERED"

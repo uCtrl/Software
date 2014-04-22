@@ -18,5 +18,7 @@
         <file>Fonts/Lato-Black.ttf</file>
         <file>Fonts/icomoon.ttf</file>
         <file>Fonts/fontawesome-webfont.ttf</file>
+        <file>Images/uctrl.ico</file>
+        <file>Images/uctrl.icns</file>
     </qresource>
 </RCC>
