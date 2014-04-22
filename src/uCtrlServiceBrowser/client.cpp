@@ -42,7 +42,7 @@ Client::Client(QWidget *parent)
 
     setWindowTitle(tr("uCtrl Service Browser"));
     treeWidget->setFocus();
-    bonjourBrowser->browseForServiceType(QLatin1String("_http._tcp")); // TODO Change the service type when we agree to one
+    bonjourBrowser->browseForServiceType(QLatin1String("_uctrl._tcp")); // TODO Change the service type when we agree to one
 }
 
 void Client::resolveService()
