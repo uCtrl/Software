@@ -38,8 +38,9 @@ Rectangle {
     }
 
     function refresh(newPlatformModel) {
-        platformModel = newPlatformModel;
-        platformTitle.text = container.platformModel.name
+        platformModel = newPlatformModel
+        if(container.platformModel)
+            platformTitle.text = container.platformModel.name
     }
 
     function getLastUpdate(platform) {

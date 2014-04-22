@@ -8,12 +8,12 @@ Item {
 
     id: container
 
-    width: parent.width - 30
-    height: parent.height - 5
+    width: parent ? parent.width - 30 : 0
+    height: parent ? parent.height - 5 : 0
 
-    anchors.left: parent.left
-    anchors.leftMargin: 30
-    anchors.verticalCenter: parent.verticalCenter
+    anchors.left: parent ? parent.left : undefined
+    anchors.leftMargin: 25
+    anchors.verticalCenter: parent ? parent.verticalCenter : undefined
 
     property bool isEditMode: false
 
@@ -24,10 +24,8 @@ Item {
     }
 
     function cancelEditCondition() {
-        if (!isEditMode) {
+        if (!isEditMode)
             return
-        }
-
         weekDayPicker.value = weekDayCondition.selectedWeekdays
         weekDayPicker.closeDropDown()
     }
@@ -49,7 +47,6 @@ Item {
 
         text: "On"
         anchors.left: weekdayIcon.right
-        anchors.leftMargin: 10
 
         anchors.verticalCenter: parent.verticalCenter
     }
@@ -58,7 +55,7 @@ Item {
         id: weekDayPicker
 
         anchors.left: onLabel.right
-        anchors.leftMargin: 10
+        anchors.leftMargin: 5
 
         anchors.verticalCenter: parent.verticalCenter
 
@@ -76,7 +73,7 @@ Item {
         id: weekDayLabel
 
         anchors.left: onLabel.right
-        anchors.leftMargin: 10
+        anchors.leftMargin: 5
 
         anchors.verticalCenter: parent.verticalCenter
 

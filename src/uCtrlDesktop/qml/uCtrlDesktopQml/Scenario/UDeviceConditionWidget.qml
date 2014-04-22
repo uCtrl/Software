@@ -46,12 +46,12 @@ Rectangle {
 
     property bool isEditMode: false
 
-    anchors.left: parent.left
+    anchors.left: parent ? parent.left : undefined
     anchors.leftMargin: 30
-    anchors.verticalCenter: parent.verticalCenter
+    anchors.verticalCenter: parent ? parent.verticalCenter : undefined
 
-    width: parent.width - 30
-    height: parent.height - 5
+    width: parent ? parent.width - 30 : 0
+    height: parent ? parent.height - 5 : 0
 
     function updateDisplay() {
         deviceTypeComboBox.reset()

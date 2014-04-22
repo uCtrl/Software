@@ -107,7 +107,7 @@ Item {
 
                     ULabel.UInfoBoundedLabel {
                         id: statusLabel
-                        text: taskModel.status + " " + taskModel.scenario.device.unitLabel
+                        text: taskModel ? (taskModel.status + " " + taskModel.scenario.device.unitLabel) : ""
                     }
                 }
 
@@ -422,6 +422,9 @@ Item {
                 }
 
                 function cancelEditConditions() {
+                    if(!taskModel)
+                        return
+
                     var count = taskModel.conditionCount()
 
                     for(var i = count - 1; i >= 0 ; i--) {

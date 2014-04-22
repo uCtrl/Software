@@ -40,6 +40,8 @@ Rectangle {
             sourceComponent: getSourceComponent()
 
             function getSourceComponent() {
+                if(!conditionModel)
+                    return
                 switch(conditionModel.type) {
                 case UEConditionType.Date:
                     return uDateComponent
@@ -159,7 +161,7 @@ Rectangle {
         iconId: "Remove"
         iconSize: 12
 
-        function execute() {
+        onClicked: {
             if (isConditionOfTask) {
                 taskModel.deleteConditionAt(index)
             }

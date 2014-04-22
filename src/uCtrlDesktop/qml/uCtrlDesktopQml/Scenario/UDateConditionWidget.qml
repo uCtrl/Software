@@ -9,17 +9,15 @@ Rectangle {
 
     id: container
 
-    width: parent.width - 30
-    height: parent.height - 5
-
-    //state: UEComparisonType.InBetween.toString()
+    width: parent ? parent.width - 30 : 0
+    height: parent ? parent.height - 5 : 0
 
     property var setWidgetDate
     property var saveWidgetDate
 
-    anchors.left: parent.left
+    anchors.left: parent ? parent.left : undefined
     anchors.leftMargin: 30
-    anchors.verticalCenter: parent.verticalCenter
+    anchors.verticalCenter: parent ? parent.verticalCenter : undefined
 
     color: _colors.uTransparent
 

@@ -63,6 +63,9 @@ Rectangle {
     MouseArea {
         anchors.fill: parent
 
+        hoverEnabled: true
+        cursorShape: (container.state !== "DISABLED" ? (containsMouse ? Qt.PointingHandCursor : Qt.ArrowCursor) : Qt.ArrowCursor)
+
         onClicked: {
             if(container.state === "ON") {
                 container.state = "OFF"
@@ -102,23 +105,11 @@ Rectangle {
 
     transitions: [
         Transition {
-            from: "ON"
-            to: "OFF"
-            ColorAnimation { target: circle; duration: animationTime }
-            ColorAnimation { target: container; duration: animationTime }
-            PropertyAnimation { target: offLabel; property: "opacity"; duration: animationTime }
-            PropertyAnimation { target: onLabel; property: "opacity"; duration: animationTime }
-            PropertyAnimation { target: circle; property: "anchors.rightMargin"; duration: animationTime; easing { type: Easing.InOutQuad } }
-        },
-        Transition {
-            from: "OFF"
-            to: "ON"
             ColorAnimation { target: circle; duration: animationTime }
             ColorAnimation { target: container; duration: animationTime }
             PropertyAnimation { target: offLabel; property: "opacity"; duration: animationTime }
             PropertyAnimation { target: onLabel; property: "opacity"; duration: animationTime }
             PropertyAnimation { target: circle; property: "anchors.rightMargin"; duration: animationTime; easing { type: Easing.InOutQuad } }
         }
-
     ]
 }

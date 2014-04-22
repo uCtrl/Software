@@ -12,9 +12,11 @@ Rectangle {
         height: parent.height
 
         source: img
+        sourceSize.width: parent.width
+        sourceSize.height: parent.height
         anchors.centerIn: parent
+        smooth: false
 
         fillMode: Image.PreserveAspectFit
     }
-
 }

@@ -20,7 +20,7 @@ Rectangle {
 
     Rectangle {
         id: iconContainer
-        width: itemData.iconId === "" ? 0 : parent.height
+        width: itemData ? (itemData.iconId === "" ? 0 : parent.height) : 0
         height: parent.height
 
         color: _colors.uTransparent
@@ -47,7 +47,7 @@ Rectangle {
             id: comboBoxItemText
 
             anchors.verticalCenter: parent.verticalCenter
-            text: item.itemData.displayedValue
+            text: item.itemData ? item.itemData.displayedValue : ""
             color: textColor
         }
     }

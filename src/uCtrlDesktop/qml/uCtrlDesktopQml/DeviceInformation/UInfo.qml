@@ -462,7 +462,7 @@ Rectangle {
 
                     state: (validate() ? "SUCCESS" : "ERROR")
                     onTextChanged: infoForm.validate()
-                    function validate() { return text !== "" }
+                    function validate() { return true }
                 }
             }
         }

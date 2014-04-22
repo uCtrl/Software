@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
     viewer.showExpanded();
 
     int ret = app.exec();
-    //SaveSystemToFile(system, "newdata.json");
+    SaveSystemToFile(system, "newdata.json");
     return ret;
 }
 
