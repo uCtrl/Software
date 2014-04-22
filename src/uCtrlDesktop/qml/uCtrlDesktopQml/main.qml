@@ -5,11 +5,6 @@ import "UI" as UI
 
 import "Navbar" as Navbar
 
-/*import "DeviceConfiguration" as Config
-import "Home" as Home
-import "Statistics" as Stats
-import "DeviceSummary" as Summary*/
-
 import "Titlebar" as Titlebar
 import "Navbar" as Navbar
 
@@ -22,7 +17,7 @@ Rectangle {
     property var activePage: null
 
     // Frame dimension
-    width: 1600; height: 900
+    width: 1280; height: 740
 
     color: _colors.uLightGrey
 
