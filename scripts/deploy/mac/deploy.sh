@@ -26,12 +26,13 @@ mkdir dmg
 cp -r uCtrlDesktop/uCtrlDesktop.app dmg/uCtrl.app
 cd dmg
 
-../../../scripts/deploy/create-dmg \
+../../../scripts/deploy/mac/create-dmg \
 --volname "µCtrl Installer" \
 --volicon "uCtrl.app/Contents/Resources/uctrl.icns" \
 --window-size 500 300 \
 --icon-size 96 \
---icon "uCtrl.app" 109 181 \
+--icon "uCtrl.app" 98 162 \
 --hide-extension "uCtrl.app" \
---app-drop-link 398 181 \
+--app-drop-link 402 162 \
+--background ../../../scripts/deploy/mac/background.png \
 µCtrl-Installer.dmg .
