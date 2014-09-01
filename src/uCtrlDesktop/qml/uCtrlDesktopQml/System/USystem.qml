@@ -182,9 +182,9 @@ UI.UFrame {
                                 { value: "status",   displayedValue: "Status",       iconId: "switch"},       // Not in model yet
                                 { value: "type",     displayedValue: "Device type",  iconId: "spinner3"},     // Not in platform model yet, still exists in device.
                                 { value: "alphabet", displayedValue: "Name",         iconId: "Font"}
-                            ]
+                           ]
 
-            onSelectedItemChanged:{
+            onSelectedItemChanged: {
                 platformListContainer.section = selectedItem.value
             }
 

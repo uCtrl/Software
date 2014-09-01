@@ -61,7 +61,7 @@ Rectangle {
     Rectangle {
         id: content
 
-        width: summaryLabel.width
+        width: summaryLabel.width + 1
         height: parent.height
 
         anchors.left: iconContainer.right

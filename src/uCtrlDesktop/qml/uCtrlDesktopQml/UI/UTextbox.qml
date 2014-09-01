@@ -84,7 +84,7 @@ Rectangle {
 
         style: TextFieldStyle {
             padding.left: 10
-            padding.right: 30
+            padding.right: 10
             textColor: getTextColor()
             selectedTextColor: _colors.uWhite
             selectionColor: getBorderColor()

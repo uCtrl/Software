@@ -680,10 +680,12 @@ Item {
     }
 
     FontLoader {
+        id: fontAwesome
         source: "qrc:///Resources/Fonts/fontawesome-webfont.ttf"
     }
 
     FontLoader {
+        id: icoMoon
         source: "qrc:///Resources/Fonts/icomoon.ttf"
     }
 
@@ -693,14 +695,14 @@ Item {
 
         anchors.centerIn: parent
         font.pointSize: iconSize
-        font.family: (icomoon[iconId] ? "IcoMoon" : "FontAwesome")
+        font.family: (icomoon[iconId] ? icoMoon.name : fontAwesome.name)
         text: (icomoon[iconId] ? icomoon[iconId] : fontawesome[iconId])
         color: iconColor
     }
 
     function refresh(iconId) {
         try {
-            labelFontAwesome.font.family = (icomoon[iconId] ? "IcoMoon" : "FontAwesome")
+            labelFontAwesome.font.family = (icomoon[iconId] ? icoMoon.name : fontAwesome.name)
             labelFontAwesome.text = (icomoon[iconId] ? icomoon[iconId] : fontawesome[iconId])
         } catch(err) {
 
