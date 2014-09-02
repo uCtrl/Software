@@ -7,7 +7,7 @@ Rectangle {
 
     clip: true
 
-    radius: 5
+    radius: radiusSize
 
     color: _colors.uTransparent
 

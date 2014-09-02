@@ -93,7 +93,7 @@ Rectangle {
             id: deviceIconContainer
             width: parent.height
             height: parent.height
-            radius: 5
+            radius: radiusSize
 
             visible: !isEditing
 

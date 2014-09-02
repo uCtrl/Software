@@ -5,6 +5,11 @@ import "UI" as UI
 
 import "Navbar" as Navbar
 
+/*import "DeviceConfiguration" as Config
+import "Home" as Home
+import "Statistics" as Stats
+import "DeviceSummary" as Summary*/
+
 import "Titlebar" as Titlebar
 import "Navbar" as Navbar
 
@@ -16,8 +21,10 @@ Rectangle {
     property var activeComponent: null
     property var activePage: null
 
+    property int radiusSize: 2
+
     // Frame dimension
-    width: 1280; height: 740
+    width: 1000; height: 650
 
     color: _colors.uLightGrey
 

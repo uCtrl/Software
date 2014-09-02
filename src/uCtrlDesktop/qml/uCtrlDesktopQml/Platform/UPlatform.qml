@@ -70,337 +70,330 @@ Rectangle {
         firmwareValue.text = platform.firmwareVersion
     }
 
-    UI.UForm {
-        id: platformValidator
-        controlsToValidate: [ platformNameTextBox ]
-
-        onAfterValidate: {
-            saveCancelPlatform.changeSaveButtonState(isValid)
-        }
-    }
-
     Rectangle {
-        id: info
+        id: containerPadding
+        anchors.fill: parent
+        anchors.margins: 20
 
-        anchors.top: parent.top
-        anchors.left: parent.left
+        UI.UForm {
+            id: platformValidator
+            controlsToValidate: [ platformNameTextBox ]
 
-        width: parent.width
-        height: 50
+            onAfterValidate: {
+                saveCancelPlatform.changeSaveButtonState(isValid)
+            }
+        }
 
-        color: _colors.uTransparent
+        Rectangle {
+            id: info
 
-        ULabel.Default {
-            id: platformName
+            anchors.top: parent.top
+            anchors.left: parent.left
 
-            anchors.verticalCenter: parent.verticalCenter
+            width: parent.width
+            height: 50
+
+            color: _colors.uTransparent
+
+            ULabel.Default {
+                id: platformName
+
+                anchors.top: parent.top
+                anchors.left: parent.left
+
+                visible: !isEditing
+
+                text: ""
+
+                font.pointSize: 24
+                font.bold: true
+                color: _colors.uBlack
+            }
+
+            UI.UButton {
+                iconId: "pencil"
+                iconSize: 22
+
+                anchors.top: parent.top
+                anchors.right: parent.right
+                width: 30
+                height: 30
+
+                visible: !isEditing
+
+                buttonTextColor: _colors.uGrey
+                buttonColor: _colors.uTransparent
+                buttonHoveredTextColor: _colors.uGreen
+                buttonHoveredColor: _colors.uTransparent
+
+                onClicked: {
+                    startEditing()
+                }
+            }
+
+            UI.UTextbox {
+                id: platformNameTextBox
+
+                anchors.top: parent.top
+                anchors.left: parent.left
+                anchors.right: saveCancelPlatform.left
+                anchors.rightMargin: 15
+
+                height: 30
+                placeholderText: "Platform name"
+
+                visible: isEditing
+
+                function validate() {
+                    return text !== ""
+                }
+
+                state: (validate() ? "SUCCESS" : "ERROR")
+                onTextChanged: { platformValidator.validate() }
+            }
+
+            UI.USaveCancel {
+                id: saveCancelPlatform
+
+                visible: isEditing
+
+                anchors.top: parent.top
+                anchors.right: parent.right
+
+                onSave: { saveEditing() }
+                onCancel: { cancelEditing() }
+            }
+        }
+
+        Rectangle {
+            id: enabledLabel
+            anchors.top: info.bottom
+
+            width: parent.width
+            height: 30
+
+            color: _colors.uTransparent
+
+            ULabel.UInfoTitle {
+                id: enabledTitle
+                text: "Enabled"
+            }
+
+            ULabel.UInfoBoundedLabel {
+                id: enabledStatusLabel
+                text: "ON"
+
+                anchors.left: enabledTitle.right
+                anchors.verticalCenter: parent.verticalCenter
+
+                visible: !isEditing
+            }
+
+            UI.USwitch {
+                id: enabledSwitch
+                state: platform.enabled
+
+                anchors.left: enabledTitle.right
+                anchors.verticalCenter: parent.verticalCenter
+
+                visible: isEditing
+            }
+        }
+
+        Rectangle {
+            id: locationLabel
+
+            anchors.top: enabledLabel.bottom
+            anchors.topMargin: 10
+
+            width: parent.width; height: 30
+
+            color: _colors.uTransparent
+
+            ULabel.UInfoTitle {
+                id: locationTitle
+                text: "Location"
+            }
+
+            ULabel.UInfoLabel {
+                id: locationText
+                text: ""
+                visible: !isEditing
+                anchors.left: locationTitle.right
+            }
+
+            UI.UTextbox {
+                id: locationTextbox
+                anchors.left: locationTitle.right
+                anchors.leftMargin: -1
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.right: parent.right
+                anchors.rightMargin: 15
+
+                height: 30
+
+                visible: isEditing
+                placeholderText: "Enter a location"
+            }
+        }
+
+        Rectangle {
+            id: advancedInformation
+
+            anchors.top: locationLabel.bottom
 
             anchors.left: parent.left
-            anchors.leftMargin: 15
 
-            visible: !isEditing
+            width: parent.width
+            clip: true
 
-            text: ""
+            color: _colors.uTransparent
 
-            font.pointSize: 24
-            font.bold: true
-            color: _colors.uBlack
+            Rectangle {
+                id: idLabel
+
+                anchors.top: advancedInformation.top
+                anchors.topMargin: 10
+
+                width: parent.width
+                height: 30
+
+                color: _colors.uTransparent
+
+                ULabel.UInfoTitle {
+                    id: idTitle
+                    text: "Platform ID"
+                }
+
+                ULabel.UInfoLabel {
+                    id: idValue
+                    text: platform.id
+                    anchors.left: idTitle.right
+                }
+            }
+
+            Rectangle {
+                id: ipLabel
+
+                anchors.top: idLabel.bottom
+                anchors.topMargin: 10
+
+                width: parent.width
+                height: 30
+
+                color: _colors.uTransparent
+
+                ULabel.UInfoTitle {
+                    id: ipTitle
+                    text: "IP Address"
+                }
+
+                ULabel.UInfoLabel {
+                    id: ipValue
+                    text: platform.ip
+                    anchors.left: ipTitle.right
+                }
+            }
+
+            Rectangle {
+                id: portLabel
+
+                anchors.top: ipLabel.bottom
+                anchors.topMargin: 10
+
+                width: parent.width
+                height: 30
+
+                color: _colors.uTransparent
+
+                ULabel.UInfoTitle {
+                    id: portTitle
+                    text: "Port Number"
+                }
+
+                ULabel.UInfoLabel {
+                    id: portValue
+                    text: platform.port
+                    anchors.left: portTitle.right
+                }
+            }
+
+            Rectangle {
+                id: firmwareLabel
+
+                anchors.top: portLabel.bottom
+                anchors.topMargin: 10
+
+                width: parent.width
+                height: 30
+
+                color: _colors.uTransparent
+
+                ULabel.UInfoTitle {
+                    id: firmwareTitle
+                    text: "Firmware Version"
+                }
+
+                ULabel.UInfoLabel {
+                    id: firmwareValue
+                    text: platform.firmwareVersion
+                    anchors.left: firmwareTitle.right
+                }
+            }
+        }
+
+        Rectangle {
+            id: bottomLine
+
+            width: parent.width
+            height: 1
+
+            anchors.left: parent.left
+
+            anchors.top: advancedInformation.bottom
+            anchors.topMargin: 20
+
+            color: _colors.uLightGrey
+        }
+
+        UDeviceList {
+            id: devicesListContainer
+
+            anchors.top: bottomLine.bottom
+
+            anchors.bottom: parent.bottom
+
+            anchors.left: parent.left
+
+            width: parent.width;
         }
 
         UI.UButton {
-            iconId: "Pencil"
-            iconSize: 24
+            id: showAdvancedInfo
 
-            anchors.right: parent.right
-            anchors.rightMargin: 15
-            anchors.verticalCenter: parent.verticalCenter
-            width: 30
+            anchors.left: parent.left
+            anchors.bottom: parent.bottom
+
+            width: 210
             height: 30
 
-            visible: !isEditing
+            text: "Show advanced information"
 
-            buttonTextColor: _colors.uBlack
-            buttonColor: _colors.uTransparent
-            buttonHoveredColor: _colors.uGrey
+            iconId: "info2"
+            iconSize: 12
+
+            buttonColor: _colors.uUltraLightGrey
+            buttonTextColor: _colors.uGrey
+            buttonHoveredColor: _colors.uUltraLightGrey
 
             onClicked: {
-                startEditing()
-            }
-        }
-
-        UI.UTextbox {
-            id: platformNameTextBox
-
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.left: parent.left
-            anchors.leftMargin: 15
-            anchors.right: saveCancelPlatform.left
-            anchors.rightMargin: 15
-
-            height: 30
-            placeholderText: "Enter a platform name"
-
-            visible: isEditing
-
-            function validate() {
-                return text !== ""
-            }
-
-            state: (validate() ? "SUCCESS" : "ERROR")
-            onTextChanged: { platformValidator.validate() }
-        }
-
-        UI.USaveCancel {
-            id: saveCancelPlatform
-
-            visible: isEditing
-
-            anchors.right: parent.right
-            anchors.rightMargin: 15
-
-            anchors.verticalCenter: parent.verticalCenter
-            onSave: {
-                saveEditing()
-                platform.save()
-            }
-            onCancel: { cancelEditing() }
-        }
-    }
-
-    Rectangle {
-        id: enabledLabel
-        anchors.top: info.bottom
-        anchors.topMargin: 10
-
-        width: parent.width
-        height: 30
-
-        color: _colors.uTransparent
-
-        ULabel.UInfoTitle {
-            id: enabledTitle
-            text: "Enabled"
-        }
-
-        ULabel.UInfoBoundedLabel {
-            id: enabledStatusLabel
-            text: "ON"
-
-            anchors.left: enabledTitle.right
-            anchors.verticalCenter: parent.verticalCenter
-
-            visible: !isEditing
-        }
-
-        UI.USwitch {
-            id: enabledSwitch
-            state: platform.enabled
-
-            anchors.left: enabledTitle.right
-            anchors.verticalCenter: parent.verticalCenter
-
-            visible: isEditing
-        }
-    }
-
-    Rectangle {
-        id: locationLabel
-
-        anchors.top: enabledLabel.bottom
-        anchors.topMargin: 10
-
-        width: parent.width; height: 30
-
-        color: _colors.uTransparent
-
-        ULabel.UInfoTitle {
-            id: locationTitle
-            text: "Location"
-        }
-
-        ULabel.UInfoLabel {
-            id: locationText
-            text: ""
-            visible: !isEditing
-            anchors.left: locationTitle.right
-        }
-
-        UI.UTextbox {
-            id: locationTextbox
-            anchors.left: locationTitle.right
-            anchors.leftMargin: -1
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.right: parent.right
-            anchors.rightMargin: 15
-
-            height: 30
-
-            visible: isEditing
-            placeholderText: "Enter a location"
-        }
-    }
-
-    Rectangle {
-        id: advancedInformation
-
-        anchors.top: locationLabel.bottom
-
-        anchors.left: parent.left
-
-        width: parent.width
-        clip: true
-
-        color: _colors.uTransparent
-
-        Rectangle {
-            id: idLabel
-
-            anchors.top: advancedInformation.top
-            anchors.topMargin: 10
-
-            width: parent.width
-            height: 30
-
-            color: _colors.uTransparent
-
-            ULabel.UInfoTitle {
-                id: idTitle
-                text: "Id"
-            }
-
-            ULabel.UInfoLabel {
-                id: idValue
-                text: platform.id
-                anchors.left: idTitle.right
-            }
-        }
-
-        Rectangle {
-            id: ipLabel
-
-            anchors.top: idLabel.bottom
-            anchors.topMargin: 10
-
-            width: parent.width
-            height: 30
-
-            color: _colors.uTransparent
-
-            ULabel.UInfoTitle {
-                id: ipTitle
-                text: "Ip address"
-            }
-
-            ULabel.UInfoLabel {
-                id: ipValue
-                text: platform.ip
-                anchors.left: ipTitle.right
-            }
-        }
-
-        Rectangle {
-            id: portLabel
-
-            anchors.top: ipLabel.bottom
-            anchors.topMargin: 10
-
-            width: parent.width
-            height: 30
-
-            color: _colors.uTransparent
-
-            ULabel.UInfoTitle {
-                id: portTitle
-                text: "Port"
-            }
-
-            ULabel.UInfoLabel {
-                id: portValue
-                text: platform.port
-                anchors.left: portTitle.right
-            }
-        }
-
-        Rectangle {
-            id: firmwareLabel
-
-            anchors.top: portLabel.bottom
-            anchors.topMargin: 10
-
-            width: parent.width
-            height: 30
-
-            color: _colors.uTransparent
-
-            ULabel.UInfoTitle {
-                id: firmwareTitle
-                text: "Firmware version"
-            }
-
-            ULabel.UInfoLabel {
-                id: firmwareValue
-                text: platform.firmwareVersion
-                anchors.left: firmwareTitle.right
-            }
-        }
-    }
-
-    Rectangle {
-        id: bottomLine
-
-        property int marginSize: 3
-
-        width: parent.width - (marginSize *2)
-        height: 1
-
-        anchors.left: parent.left
-        anchors.leftMargin: marginSize
-
-        anchors.top: advancedInformation.bottom
-        anchors.topMargin: 10
-
-        color: _colors.uLightGrey
-    }
-
-    UDeviceList {
-        id: devicesListContainer
-
-        anchors.top: bottomLine.bottom
-
-        anchors.bottom: parent.bottom
-
-        anchors.left: parent.left
-
-        width: parent.width;
-    }
-
-    UI.UButton {
-        id: showAdvancedInfo
-
-        anchors.left: parent.left
-        anchors.leftMargin: 10
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 10
-
-        width: 210
-        height: 30
-
-        text: "Show advanced information"
-
-        iconId: "Globe"
-        iconSize: 12
-
-        buttonColor: _colors.uTransparent
-        buttonTextColor: _colors.uGrey
-        buttonHoveredColor: _colors.uTransparent
-
-        onClicked: {
-            if(container.state === "HideAdvanced") {
-                container.state = "ShowAdvanced"
-                showAdvancedInfo.changeText("Hide advanced information")
-            } else {
-                container.state = "HideAdvanced"
-                showAdvancedInfo.changeText("Show advanced information")
+                if(container.state === "HideAdvanced") {
+                    container.state = "ShowAdvanced"
+                    showAdvancedInfo.changeText("Hide advanced information")
+                } else {
+                    container.state = "HideAdvanced"
+                    showAdvancedInfo.changeText("Show advanced information")
+                }
             }
         }
     }

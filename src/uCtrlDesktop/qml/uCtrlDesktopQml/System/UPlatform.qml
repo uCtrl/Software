@@ -9,7 +9,7 @@ Rectangle {
     property var system: systemFrame.system
 
     width: parent.width
-    height: 60
+    height: 55
 
     color: getBackgroundColor()
 
@@ -49,15 +49,15 @@ Rectangle {
             var currentTime = new Date();
 
             // @TODO: Replace with alert display.
-            if (Qt.formatDate(time) > Qt.formatDate(currentTime)) console.log("An error occured.");
-            else if (Qt.formatDate(time) === Qt.formatDate(currentTime)) return "Updated a second ago.";
-            else if (currentTime.getMinutes()-1 === time.getMinutes()) return "Updated a minute ago.";
-            else if (currentTime.getHours()-1 === time.getHours()) return "Updated last hour.";
-            else if (currentTime.getDate() === time.getDate()) return "Updated earlier today.";
-            else if (currentTime.getDate()-1 === time.getDate()) return "Updated yesterday.";
-            else if (currentTime.getMonth() === time.getMonth()) return "Updated " + (currentTime.getDate() - time.getDate()) + " days ago.";
-            else if (currentTime.getMonth()-1 === time.getMonth()) return "Last month.";
-            else if (currentTime.getYear()-1 === time.getYear()) return "Last year.";
+            if (Qt.formatDate(time) > Qt.formatDate(currentTime)) console.log("An error occured");
+            else if (Qt.formatDate(time) === Qt.formatDate(currentTime)) return "Updated a second ago";
+            else if (currentTime.getMinutes()-1 === time.getMinutes()) return "Updated a minute ago";
+            else if (currentTime.getHours()-1 === time.getHours()) return "Updated last hour";
+            else if (currentTime.getDate() === time.getDate()) return "Updated earlier today";
+            else if (currentTime.getDate()-1 === time.getDate()) return "Updated yesterday";
+            else if (currentTime.getMonth() === time.getMonth()) return "Updated " + (currentTime.getDate() - time.getDate()) + " days ago";
+            else if (currentTime.getMonth()-1 === time.getMonth()) return "Last month";
+            else if (currentTime.getYear()-1 === time.getYear()) return "Last year";
         }
     }
 
@@ -76,7 +76,7 @@ Rectangle {
 
             anchors.top: parent.top
             anchors.left: platformSummaryContainer.left
-            anchors.leftMargin: 20
+            anchors.leftMargin: 15
 
             text: container.platformModel.name
             color: getTextColor()
@@ -90,26 +90,24 @@ Rectangle {
 
             anchors.top: platformTitle.bottom
             anchors.left: platformSummaryContainer.left
-            anchors.leftMargin: 20
+            anchors.leftMargin: 15
 
             text: getLastUpdate(platformModel)
             color: getTextColor()
+            opacity: 0.65
 
-            font.pointSize: 12
+            font.pointSize: 11
         }
     }
 
 
     Rectangle {
-        property int marginSize: 3
-
         id: bottomLine
 
-        width: container.width - (marginSize *2)
+        width: container.width
         height: 1
 
         anchors.left: container.left
-        anchors.leftMargin: marginSize
 
         anchors.bottom: container.bottom
         anchors.bottomMargin: -1
@@ -119,6 +117,7 @@ Rectangle {
 
     MouseArea {
         anchors.fill: parent
+        cursorShape: Qt.PointingHandCursor
 
         onClicked: {
             var newIndex = -1

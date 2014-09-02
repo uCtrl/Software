@@ -1,244 +1,286 @@
 {
-    "platforms": [
+  "platforms": [
+    {
+      "devices": [
         {
-            "devices": [
+          "id": 3,
+          "maxValue": 100,
+          "minValue": 0,
+          "name": "Temperature B",
+          "precision": 1,
+          "description": "A random description, which is pretty long I'll say. Give me a break!",
+          "scenarios": [
+            {
+              "id": 1782103622,
+              "name": "Semaine",
+              "tasks": [
                 {
-                    "description": "Motion sensor in my room over the door",
-                    "enabled": "ON",
-                    "id": 0,
-                    "isTriggerValue": true,
-                    "maxValue": 1,
-                    "minValue": 0,
-                    "name": "Bed Motion Sens.",
-                    "precision": 1,
-                    "scenarios": [
-                        {
-                            "id": 1782103622,
-                            "name": "Semaine",
-                            "tasks": [
-                                {
-                                    "conditions": [
-                                    ],
-                                    "id": 1782103627,
-                                    "status": "OFF"
-                                }
-                            ]
-                        }
-                    ],
-                    "status": "ON",
-                    "type": 1,
-                    "unitLabel": ""
+                  "conditions": [
+                    {
+                      "beginDate": "2014-03-27",
+                      "comparisonType": 8,
+                      "endDate": "2014-03-31",
+                      "id": 1350245676,
+                      "type": 1
+                    },
+                    {
+                      "beginDate": "2014-05-27",
+                      "comparisonType": 8,
+                      "endDate": "2014-05-31",
+                      "id": 1350245678,
+                      "type": 1
+                    }
+                  ],
+                  "id": 1782103623,
+                  "status": "60"
                 },
                 {
-                    "description": "Light near my bed",
-                    "enabled": "ON",
-                    "id": 1,
-                    "isTriggerValue": true,
-                    "maxValue": 1,
-                    "minValue": 0,
-                    "name": "Bed Light",
-                    "precision": 1,
-                    "scenarios": [
-                        {
-                            "id": 1782103622,
-                            "name": "Week",
-                            "tasks": [
-                                {
-                                    "conditions": [
-                                        {
-                                            "beginTime": "17:00",
-                                            "comparisonType": 8,
-                                            "endTime": "22:00",
-                                            "id": -2142585397,
-                                            "type": 3
-                                        },
-                                        {
-                                            "comparisonType": 4,
-                                            "id": -2142583696,
-                                            "selectedWeekdays": 31,
-                                            "type": 2
-                                        },
-                                        {
-                                            "beginValue": 1,
-                                            "comparisonType": 4,
-                                            "deviceId": 0,
-                                            "deviceType": 1,
-                                            "endValue": 0,
-                                            "id": -2142473945,
-                                            "type": 4
-                                        }
-                                    ],
-                                    "id": -2142586898,
-                                    "status": "ON"
-                                },
-                                {
-                                    "conditions": [
-                                    ],
-                                    "id": 1782103627,
-                                    "status": "OFF"
-                                }
-                            ]
-                        },
-                        {
-                            "id": -2142581695,
-                            "name": "Weekend",
-                            "tasks": [
-                                {
-                                    "conditions": [
-                                        {
-                                            "comparisonType": 4,
-                                            "id": -2142576992,
-                                            "selectedWeekdays": 96,
-                                            "type": 2
-                                        },
-                                        {
-                                            "beginTime": "17:00",
-                                            "comparisonType": 8,
-                                            "endTime": "02:00",
-                                            "id": -2142575291,
-                                            "type": 3
-                                        }
-                                    ],
-                                    "id": -2142581493,
-                                    "status": "ON"
-                                },
-                                {
-                                    "conditions": [
-                                    ],
-                                    "id": -2142581694,
-                                    "status": "OFF"
-                                }
-                            ]
-                        }
-                    ],
-                    "status": "ON",
-                    "type": 3,
-                    "unitLabel": ""
+                  "conditions": [
+                    {
+                      "beginTime": "08:00",
+                      "comparisonType": 8,
+                      "endTime": "17:00",
+                      "id": 1350243447,
+                      "type": 3
+                    }
+                  ],
+                  "id": 1782103626,
+                  "status": "30"
+                },
+                {
+                  "conditions": [],
+                  "id": 1782103627,
+                  "status": "0"
                 }
-            ],
-            "enabled": "ON",
-            "firmwareVersion": "1.0.0.2225",
-            "id": 2165212654,
-            "ip": "127.0.0.1",
-            "name": "Bedroom Platform",
-            "port": 5000,
-            "room": "Bedroom"
+              ]
+            }
+          ],
+          "type": 0,
+          "unitLabel": "%",
+          "enabled": "OFF"
+        }
+      ],
+      "firmwareVersion": "1.0.0.2225",
+      "id": 157257547,
+      "name": "My other platform",
+      "port": 5000,
+      "room": "Kitchen",
+      "enabled": "OFF",
+      "ip": "127.0.0.1"
+    },
+    {
+      "devices": [
+        {
+          "description": "A random description, which is pretty long I'll say. I don't know what to say...",
+          "enabled": "ON",
+          "id": 1,
+          "isTriggerValue": false,
+          "maxValue": 100,
+          "minValue": 25,
+          "name": "Temperature A",
+          "precision": 5,
+          "scenarios": [
+            {
+              "id": 1782103622,
+              "name": "Semaine",
+              "tasks": [
+                {
+                  "conditions": [
+                    {
+                      "beginDate": "2014-03-31",
+                      "comparisonType": 2,
+                      "endDate": "2014-03-31",
+                      "id": 1350245676,
+                      "type": 1
+                    },
+                    {
+                      "beginTime": "08:00",
+                      "comparisonType": 8,
+                      "endTime": "17:00",
+                      "id": 1350245677,
+                      "type": 3
+                    },
+                    {
+                      "beginTime": "19:00",
+                      "comparisonType": 1,
+                      "endTime": "",
+                      "id": 1350245681,
+                      "type": 3
+                    },
+                    {
+                      "beginValue": 0,
+                      "comparisonType": 4,
+                      "deviceId": 2,
+                      "deviceType": 3,
+                      "endValue": 0,
+                      "id": 1350245682,
+                      "type": 4
+                    }
+                  ],
+                  "id": 1782103623,
+                  "status": "21"
+                },
+                {
+                  "conditions": [
+                    {
+                      "beginTime": "016:00",
+                      "comparisonType": 8,
+                      "endTime": "17:00",
+                      "id": 1350212677,
+                      "type": 3
+                    }
+                  ],
+                  "id": 1782103626,
+                  "status": "13"
+                },
+                {
+                  "conditions": [
+                    {
+                      "beginTime": "03:00",
+                      "comparisonType": 8,
+                      "endTime": "17:00",
+                      "id": 1350245237,
+                      "type": 3
+                    }
+                  ],
+                  "id": 1782103628,
+                  "status": "0"
+                }
+              ]
+            },
+            {
+              "id": 123456789,
+              "name": "Fin de semaine",
+              "tasks": [
+                {
+                  "conditions": [
+                    {
+                      "beginTime": "03:00",
+                      "comparisonType": 8,
+                      "endTime": "17:00",
+                      "id": 1350245227,
+                      "type": 3
+                    }
+                  ],
+                  "id": 1782103226,
+                  "status": "21"
+                },
+                {
+                  "conditions": [
+                    {
+                      "beginDate": "2014-03-31",
+                      "comparisonType": 2,
+                      "endDate": "2014-04-31",
+                      "id": 1350245123,
+                      "type": 1
+                    }
+                  ],
+                  "id": 1782103626,
+                  "status": "13"
+                },
+                {
+                  "conditions": [
+                    {
+                      "beginValue": 0,
+                      "comparisonType": 4,
+                      "deviceId": 3,
+                      "deviceType": 3,
+                      "endValue": 0,
+                      "id": 1350245612,
+                      "type": 4
+                    }
+                  ],
+                  "id": 1782103628,
+                  "status": "0"
+                }
+              ]
+            }
+          ],
+          "status": 25.75,
+          "type": 0,
+          "unitLabel": "°C"
         },
         {
-            "devices": [
+          "description": "A random description, which is pretty long I'll say. Not too bad",
+          "enabled": "ON",
+          "id": 2,
+          "isTriggerValue": true,
+          "maxValue": 1,
+          "minValue": 0,
+          "name": "Light A",
+          "precision": 0,
+          "scenarios": [
+            {
+              "id": 1782103622,
+              "name": "Semaine",
+              "tasks": [
                 {
-                    "description": "Kitchen temperature sensor",
-                    "enabled": "ON",
-                    "id": 2,
-                    "isTriggerValue": false,
-                    "maxValue": 40,
-                    "minValue": 0,
-                    "name": "Temp. Sensor",
-                    "precision": 5,
-                    "scenarios": [
-                        {
-                            "id": 1782103622,
-                            "name": "Semaine",
-                            "tasks": [
-                                {
-                                    "conditions": [
-                                    ],
-                                    "id": 1782103628,
-                                    "status": "18"
-                                }
-                            ]
-                        }
-                    ],
-                    "status": 21,
-                    "type": 0,
-                    "unitLabel": "K"
+                  "conditions": [
+                    {
+                      "beginDate": "2014-03-31",
+                      "comparisonType": 2,
+                      "endDate": "2014-03-31",
+                      "id": 1350245612,
+                      "type": 1
+                    },
+                    {
+                      "beginTime": "03:00",
+                      "comparisonType": 8,
+                      "endTime": "04:00",
+                      "id": 1350245677,
+                      "type": 3
+                    },
+                    {
+                      "beginDate": "2014-03-31",
+                      "comparisonType": 2,
+                      "endDate": "2014-03-31",
+                      "id": 1350245678,
+                      "type": 1
+                    },
+                    {
+                      "beginTime": "21:00",
+                      "comparisonType": 8,
+                      "endTime": "22:00",
+                      "id": 1350245681,
+                      "type": 3
+                    }
+                  ],
+                  "id": 1782103623,
+                  "status": "ON"
                 },
                 {
-                    "description": "Toaster plug!",
-                    "enabled": "ON",
-                    "id": 3,
-                    "isTriggerValue": true,
-                    "maxValue": 1,
-                    "minValue": 0,
-                    "name": "Toaster plug",
-                    "precision": 0,
-                    "scenarios": [
-                        {
-                            "id": 1782103622,
-                            "name": "Toaster scenario",
-                            "tasks": [
-                                {
-                                    "conditions": [
-                                        {
-                                            "beginDate": "2014-07-06",
-                                            "comparisonType": 8,
-                                            "endDate": "2014-07-20",
-                                            "id": -2142504574,
-                                            "type": 1
-                                        }
-                                    ],
-                                    "id": -2142505578,
-                                    "status": "OFF"
-                                },
-                                {
-                                    "conditions": [
-                                        {
-                                            "comparisonType": 4,
-                                            "id": -2142502773,
-                                            "selectedWeekdays": 31,
-                                            "type": 2
-                                        },
-                                        {
-                                            "beginTime": "07:00",
-                                            "comparisonType": 8,
-                                            "endTime": "07:15",
-                                            "id": -2142502172,
-                                            "type": 3
-                                        }
-                                    ],
-                                    "id": -2142505577,
-                                    "status": "ON"
-                                },
-                                {
-                                    "conditions": [
-                                        {
-                                            "beginTime": "12:00",
-                                            "comparisonType": 8,
-                                            "endTime": "12:30",
-                                            "id": -2142485171,
-                                            "type": 3
-                                        },
-                                        {
-                                            "comparisonType": 4,
-                                            "id": -2142483070,
-                                            "selectedWeekdays": 96,
-                                            "type": 2
-                                        }
-                                    ],
-                                    "id": -2142505576,
-                                    "status": "ON"
-                                },
-                                {
-                                    "conditions": [
-                                    ],
-                                    "id": 1782103626,
-                                    "status": "OFF"
-                                }
-                            ]
-                        }
-                    ],
-                    "status": "OFF",
-                    "type": 4,
-                    "unitLabel": ""
+                  "conditions": [
+                    {
+                      "beginDate": "2014-03-31",
+                      "comparisonType": 2,
+                      "endDate": "2014-03-31",
+                      "id": 1350245680,
+                      "type": 1
+                    }
+                  ],
+                  "id": 1782103626,
+                  "status": "ON"
+                },
+                {
+                  "conditions": [],
+                  "id": 1782103626,
+                  "status": "OFF"
                 }
-            ],
-            "enabled": "ON",
-            "firmwareVersion": "1.0.0.1234",
-            "id": 123456879,
-            "ip": "127.0.0.1",
-            "name": "Kitchen Platform",
-            "port": 5001,
-            "room": "Kitchen"
+              ]
+            }
+          ],
+          "status": 0,
+          "type": 3,
+          "unitLabel": ""
         }
-    ]
+      ],
+      "enabled": "ON",
+      "firmwareVersion": "1.0.0.1234",
+      "id": 123456879,
+      "ip": "127.0.0.1",
+      "name": "Platform #1",
+      "port": 5001,
+      "room": "Bedroom"
+    }
+  ]
 }

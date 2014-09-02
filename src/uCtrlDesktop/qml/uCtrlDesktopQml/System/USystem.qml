@@ -28,7 +28,7 @@ UI.UFrame {
             platformInfo.isEditing = false
         }
 
-        property int constSize: 16
+        property int constSize: 20
         property int separation: 10
 
         anchors.left: parent.left
@@ -90,17 +90,17 @@ UI.UFrame {
                 anchors.leftMargin: 0
                 anchors.verticalCenter: header.verticalCenter
 
-                width: platformListContainer.width - (filterCombo.width + header.separation)
+                width: Math.round(platformListContainer.width - (filterCombo.width + header.separation))
                 height: filterCombo.height
 
                 state: "ENABLED"
 
-                opacity: 0.5
+                opacity: 0.75
 
                 placeholderText: "Search"
 
-                iconId: "Search"
-                iconSize: 16
+                iconId: "search"
+                iconSize: 13
 
                 onTextChanged: {
                     platformListContainer.setFilter(searchBox.text)
@@ -133,7 +133,7 @@ UI.UFrame {
             width: ((systemContainer.width/2) - systemContainer.separation)
             height: (systemContainer.height - header.height - 5)
 
-            radius: 5
+            radius: radiusSize
 
             color: _colors.uWhite
         }
@@ -149,7 +149,7 @@ UI.UFrame {
             width: ((systemContainer.width/2) - systemContainer.separation)
             height: (systemContainer.height - header.height)
 
-            radius: 5
+            radius: radiusSize
 
             color: _colors.uTransparent
 
@@ -177,14 +177,14 @@ UI.UFrame {
             width: 200; height: 30
 
             itemListModel: [
-                                { value: "room",     displayedValue: "Location",     iconId: "MapMarker"},
-                            //  { value: "update",     displayedValue: "Last Updated", iconId: "Calendar"},     // Not in model yet
-                            //  { value: "status",     displayedValue: "Status",       iconId: "Magnet"},       // Not in model yet
-                            //  { value: "type",     displayedValue: "Device type",  iconId: "Magnet"}          // Not in platform model yet, still exists in device.
+                                { value: "room",     displayedValue: "Location",     iconId: "location"},
+                                { value: "update",   displayedValue: "Last Updated", iconId: "clock"},        // Not in model yet
+                                { value: "status",   displayedValue: "Status",       iconId: "switch"},       // Not in model yet
+                                { value: "type",     displayedValue: "Device type",  iconId: "spinner3"},     // Not in platform model yet, still exists in device.
                                 { value: "alphabet", displayedValue: "Name",         iconId: "Font"}
-                            ]
+                           ]
 
-            onSelectedItemChanged:{
+            onSelectedItemChanged: {
                 platformListContainer.section = selectedItem.value
             }
 

@@ -69,6 +69,8 @@ Rectangle {
     TextField {
         id: field
 
+        font.family: "Lato"
+
         state: parent.state
         readOnly: (state === "DISABLED")
 
@@ -78,17 +80,18 @@ Rectangle {
         placeholderText: parent.placeholderText
 
         horizontalAlignment: container.textAlignment
+        verticalAlignment: Text.AlignVCenter
 
         style: TextFieldStyle {
+            padding.left: 10
+            padding.right: 10
             textColor: getTextColor()
             selectedTextColor: _colors.uWhite
             selectionColor: getBorderColor()
 
-
-
             background: Rectangle {
                 color: getBackgroundColor()
-                radius: 3
+                radius: radiusSize
 
                 implicitWidth: field.width
                 implicitHeight: field.height
@@ -116,7 +119,7 @@ Rectangle {
         anchors.verticalCenter: container.verticalCenter
 
         anchors.right: field.right
-        anchors.rightMargin: 4
+        anchors.rightMargin: 6
 
         visible: (parent.iconId !== null || container.state === "SUCCESS" || container.state === "ERROR")
 

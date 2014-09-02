@@ -4,6 +4,7 @@ Text {
     id: dflt
     font.family: "Lato"
     font.pointSize: 12
+    renderType: Text.NativeRendering
     wrapMode: Text.WordWrap
     color: _colors.uBlack
 

@@ -10,7 +10,7 @@ Rectangle {
 
     anchors.centerIn: parent
 
-    radius: 5
+    radius: radiusSize
     color: _colors.uGreen
 
     property string iconId
@@ -26,6 +26,7 @@ Rectangle {
         },
         State {
             name: "HOVERED"
+            PropertyChanges { target: mouseArea; cursorShape: Qt.PointingHandCursor }
             PropertyChanges { target: container; color: _colors.uMediumLightGreen }
         }
     ]
@@ -51,36 +52,35 @@ Rectangle {
     Rectangle {
         id: imageContainer
         width: parent.width
-        height: parent.width
+        height: parent.height * 0.60
+        anchors.top: parent.top
+        anchors.topMargin: 25
         color: _colors.uTransparent
 
         UI.UFontAwesome {
             iconId: container.iconId
             anchors.centerIn: parent
-            iconSize: 120
+
+            iconSize: (parent.width ? parent.width * 0.55 : 100)
             iconColor: _colors.uWhite
         }
     }
 
-    Rectangle {
-        id: textContainer
+    ULabel.Default {
+        id: textLabel
+        text: container.text
+        height: 100
         width: parent.width * 0.75
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: imageContainer.bottom
         anchors.bottom: parent.bottom
-        color: _colors.uTransparent
+        anchors.bottomMargin: 25
 
-        ULabel.Default {
-            id: textLabel
-            text: container.text
-            anchors.centerIn: parent
-            width: parent.width
-            wrapMode: Text.WordWrap
-            horizontalAlignment: Text.AlignHCenter
+        wrapMode: Text.WordWrap
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
 
-            font.bold: true
-            font.pointSize: 24
-            color: _colors.uWhite
-        }
+        font.bold: true
+        font.pointSize: 24
+        color: _colors.uWhite
     }
 }

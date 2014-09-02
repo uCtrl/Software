@@ -97,7 +97,7 @@ Item {
         model: links
         anchors.fill: parent
         anchors.right: parent.right
-        anchors.rightMargin: 10
+        anchors.rightMargin: 23
         delegate: breadcrumbElement
         orientation: ListView.Horizontal
         rotation: 180

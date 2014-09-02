@@ -20,17 +20,21 @@ UI.UFrame {
 
         Rectangle {
             id: content
-            radius: 20
+            radius: radiusSize
 
             anchors.centerIn: parent
-            width: parent.width - 20
-            height: parent.height - 20
+            width: parent.width
+            height: parent.height
 
             Rectangle {
                 id: titleArea
 
-                width: parent.width - 40
-                anchors.right: parent.right
+                width: parent.width + (frameMarginSize * 2)
+                anchors.top: parent.top
+                anchors.left: parent.left
+                anchors.topMargin: 5
+                anchors.leftMargin: frameMarginSize
+
                 height: 100
                 color: _colors.uTransparent
 
@@ -47,6 +51,7 @@ UI.UFrame {
 
                     width: 150
                     height: 150
+                    smooth: false
 
                     anchors.verticalCenter: parent.verticalCenter
 
@@ -57,9 +62,11 @@ UI.UFrame {
 
             Rectangle {
                 id: menuArea
-                width: parent.width
-                anchors.top: titleArea.bottom
-                anchors.bottom: parent.bottom
+                width: parent.width * 0.90
+                height: parent.height * 0.60
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.verticalCenterOffset: (titleArea.height / 2)
                 color: _colors.uTransparent
 
                 Rectangle {
@@ -72,6 +79,8 @@ UI.UFrame {
                         id: configureButton
                         iconId: "settings"
                         text: "Configure Platforms"
+                        width: parent.width * 0.85
+                        height: parent.height
 
                         onClicked: {
                             main.resetBreadcrumb()
@@ -91,6 +100,8 @@ UI.UFrame {
                         id: statisticsButton
                         iconId: "bars"
                         text: "View Usage Statistics"
+                        width: parent.width * 0.85
+                        height: parent.height
 
                         onClicked: {
                             main.resetBreadcrumb()
@@ -110,6 +121,8 @@ UI.UFrame {
                         id: userPreferenceButton
                         iconId: "cog2"
                         text: "Change User Settings"
+                        width: parent.width * 0.85
+                        height: parent.height
 
                         onClicked: {
                             main.resetBreadcrumb()

@@ -10,11 +10,12 @@ Rectangle {
 
     anchors.leftMargin: 8
     width: 200
-    height: 40
+    height: 30
 
     color: _colors.uTransparent
+    visible: true
 
-    visible: false
+    state: "HIDDEN"
 
     function drawArrow() {
         if (arrowRight) {
@@ -25,11 +26,11 @@ Rectangle {
     }
 
     function startAnimation() {
-        if (!visible && !visibleTimer.running) visibleTimer.start()
+        if (container.state == "HIDDEN" && !visibleTimer.running) visibleTimer.start()
     }
 
     function stopAnimation() {
-        if (visible) visible = false
+        if (container.state == "VISIBLE") container.state = "HIDDEN"
         else if (visibleTimer.running) visibleTimer.stop()
     }
 
@@ -50,7 +51,7 @@ Rectangle {
         height: parent.height
 
         color: _colors.uDarkGrey
-        radius: 5
+        radius: radiusSize
 
         anchors.centerIn: parent
 
@@ -62,8 +63,23 @@ Rectangle {
 
     Timer {
         id: visibleTimer
-        interval: 1000
-        onTriggered: parent.visible = true
+        interval: 500
+        onTriggered: container.state = "VISIBLE"
+    }
+
+    states: [
+        State {
+            name: "HIDDEN"
+            PropertyChanges { target: container; opacity: 0 }
+        },
+        State {
+            name: "VISIBLE"
+            PropertyChanges { target: container; opacity: 1 }
+        }
+    ]
+
+    transitions: Transition {
+        PropertyAnimation { target: container; property: "opacity"; duration: 200 }
     }
 
     Component.onCompleted: drawArrow()

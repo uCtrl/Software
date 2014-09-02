@@ -4,9 +4,19 @@ import "../UI" as UI
 Rectangle {
     id: navbar
 
-    width: 100
+    width: 61
 
     color: _colors.uDarkGrey
+
+    Rectangle {
+        height: parent.width
+        width: 1
+        color: _colors.uDarkerGray
+
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+    }
 
     // Menu component
     UMenuItem {
@@ -68,25 +78,25 @@ Rectangle {
     }
 
     function resetButtonHighlight() {
-        dashboard.state = "NORMAL"
-        device.state = "NORMAL"
-        statistics.state = "NORMAL"
-        config.state = "NORMAL"
+        dashboard.state = ""
+        device.state = ""
+        statistics.state = ""
+        config.state = ""
     }
 
     function highlightButton(buttonNameToHighlight) {
         switch(buttonNameToHighlight) {
         case "Home":
-            dashboard.state = "SELECTED"
+            dashboard.state = "ACTIVE"
             break
         case "Configuration":
-            device.state = "SELECTED"
+            device.state = "ACTIVE"
             break
         case "Statistics":
-            statistics.state = "SELECTED"
+            statistics.state = "ACTIVE"
             break
         case "Settings":
-            config.state = "SELECTED"
+            config.state = "ACTIVE"
             break
         }
     }

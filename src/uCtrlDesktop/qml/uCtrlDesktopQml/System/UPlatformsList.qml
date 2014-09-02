@@ -8,7 +8,7 @@ Rectangle {
 
     clip: true
 
-    radius: 5
+    radius: radiusSize
 
     color: _colors.uWhite
 
@@ -26,15 +26,15 @@ Rectangle {
         highlight: Rectangle {
             id: highlighter
 
-            width: parent.width; height: 60;
+            width: parent.width; height: 55;
 
-            color: _colors.uLightGrey
+            color: _colors.uMediumLightGrey
             opacity: 0.6
 
             visible: (systemContainer.activePlatform !== null)
 
             y: (platformsList.currentItem === null ? -1 : platformsList.currentItem.y);
-            Behavior on y { SpringAnimation { spring: 3; damping: 0.1; mass: 0.3 } }
+            Behavior on y { SpringAnimation { spring: 5; damping: 0.1; mass: 0.3 } }
         }
 
         highlightFollowsCurrentItem: false
@@ -91,12 +91,15 @@ Rectangle {
 
             property bool showChildren: true
 
-            width: parent.width; height: 24;
+            width: parent.width; height: 20;
 
             color: _colors.uGreen
 
             Text {
                 id: room
+                font.family: "Lato"
+                font.pointSize: 10
+                font.bold: true
 
                 text: section
                 color: "white"

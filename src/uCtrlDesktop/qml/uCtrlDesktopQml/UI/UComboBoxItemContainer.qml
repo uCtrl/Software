@@ -10,15 +10,15 @@ Rectangle {
     property int animationTime: 100
 
     width: parent.width
-    height: 40
-    radius: 5
+    height: 32
+    radius: radiusSize
     state: "NORMAL"
 
     states: [
         State {
             name: "NORMAL"
             PropertyChanges { target: container; color: _colors.uTransparent }
-            PropertyChanges { target: item; textColor: _colors.uDarkGrey }
+            PropertyChanges { target: item; textColor: _colors.uMediumDarkGrey }
         },
         State {
             name: "HOVERED"
@@ -51,6 +51,7 @@ Rectangle {
     MouseArea {
         anchors.fill: item
         hoverEnabled: true
+        cursorShape: Qt.PointingHandCursor
         onEntered: {
             if (container.state === "HOVERED SELECTED" || container.state === "SELECTED") {
                 container.state = "HOVERED SELECTED"

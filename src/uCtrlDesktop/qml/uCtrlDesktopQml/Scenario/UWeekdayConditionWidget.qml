@@ -8,12 +8,12 @@ Item {
 
     id: container
 
-    width: parent ? parent.width - 30 : 0
-    height: parent ? parent.height - 5 : 0
+    width: parent.width - 30
+    height: parent.height - 5
 
-    anchors.left: parent ? parent.left : undefined
-    anchors.leftMargin: 25
-    anchors.verticalCenter: parent ? parent.verticalCenter : undefined
+    anchors.left: parent.left
+    anchors.leftMargin: 28
+    anchors.verticalCenter: parent.verticalCenter
 
     property bool isEditMode: false
 
@@ -24,8 +24,10 @@ Item {
     }
 
     function cancelEditCondition() {
-        if (!isEditMode)
+        if (!isEditMode) {
             return
+        }
+
         weekDayPicker.value = weekDayCondition.selectedWeekdays
         weekDayPicker.closeDropDown()
     }

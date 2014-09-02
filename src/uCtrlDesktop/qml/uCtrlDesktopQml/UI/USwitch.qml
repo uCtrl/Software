@@ -9,8 +9,8 @@ Rectangle {
     state: "ON"
 
     id: container
-    width: 80
-    height: 30
+    width: 65
+    height: 27
     radius: height / 2
     color: _colors.uLightGreen
 
@@ -39,6 +39,7 @@ Rectangle {
             anchors.centerIn: parent
             color: _colors.uGreen
             font.bold: true
+            font.pointSize: 12
         }
     }
 
@@ -57,14 +58,13 @@ Rectangle {
             color: _colors.uWhite
             opacity: 0
             font.bold: true
+            font.pointSize: 12
         }
     }
 
     MouseArea {
         anchors.fill: parent
-
-        hoverEnabled: true
-        cursorShape: (container.state !== "DISABLED" ? (containsMouse ? Qt.PointingHandCursor : Qt.ArrowCursor) : Qt.ArrowCursor)
+        cursorShape: Qt.PointingHandCursor
 
         onClicked: {
             if(container.state === "ON") {
@@ -105,11 +105,23 @@ Rectangle {
 
     transitions: [
         Transition {
+            from: "ON"
+            to: "OFF"
+            ColorAnimation { target: circle; duration: animationTime }
+            ColorAnimation { target: container; duration: animationTime }
+            PropertyAnimation { target: offLabel; property: "opacity"; duration: animationTime }
+            PropertyAnimation { target: onLabel; property: "opacity"; duration: animationTime }
+            PropertyAnimation { target: circle; property: "anchors.rightMargin"; duration: animationTime; easing { type: Easing.InOutQuad } }
+        },
+        Transition {
+            from: "OFF"
+            to: "ON"
             ColorAnimation { target: circle; duration: animationTime }
             ColorAnimation { target: container; duration: animationTime }
             PropertyAnimation { target: offLabel; property: "opacity"; duration: animationTime }
             PropertyAnimation { target: onLabel; property: "opacity"; duration: animationTime }
             PropertyAnimation { target: circle; property: "anchors.rightMargin"; duration: animationTime; easing { type: Easing.InOutQuad } }
         }
+
     ]
 }
