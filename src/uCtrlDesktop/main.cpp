@@ -11,6 +11,7 @@
 #include "Network/unetworkscanner.h"
 #include "Conditions/uconditionweekday.h"
 #include "Conditions/uconditiondevice.h"
+#include "Utility/oshandler.h"
 
 #include <QFile>
 #include <QTextStream>
@@ -43,7 +44,6 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
     QtQuick2ApplicationViewer viewer;
-
     QTranslator translator;
     if (translator.load(":/Resources/Languages/uctrl_" + QLocale::system().name())) {
         app.installTranslator(&translator);
@@ -55,6 +55,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<UConditionDevice>("ConditionEnums", 1, 0, "UEDeviceType");
     
     USystem* system = USystem::Instance();
+    OsHandler osType;
 
     // SIMULATOR SECTION
     //UNetworkScanner* scanner = UNetworkScanner::Instance();
@@ -65,10 +66,11 @@ int main(int argc, char *argv[])
 
     QQmlContext *ctxt = viewer.rootContext();
     ctxt->setContextProperty("mySystem", system);
-
+    ctxt->setContextProperty("CrossPlatformOS", &osType);
     viewer.setMainQmlFile(QStringLiteral("qml/uCtrlDesktopQml/main.qml"));
     viewer.setMinimumHeight(650);
     viewer.setMinimumWidth(900);
+
     viewer.showExpanded();
 
     int ret = app.exec();

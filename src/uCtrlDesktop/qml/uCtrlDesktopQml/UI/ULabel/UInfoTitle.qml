@@ -2,7 +2,7 @@ import QtQuick 2.0
 
 Default {
 
-    width: 125
+    width: 200
     font.pointSize: 16
     color: _colors.uGrey
 

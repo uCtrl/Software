@@ -12,4 +12,10 @@ Text {
         var newValue = dflt.text.replace(/(\n|\r)/, "").replace(/\s+/g, " ")
         dflt.text = newValue
     }
+
+    Component.onCompleted: {
+        if(CrossPlatformOS.getOS() === 1){
+           dflt.font.pointSize *= 0.90;
+        }
+    }
 }

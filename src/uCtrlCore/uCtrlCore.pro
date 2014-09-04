@@ -24,7 +24,8 @@ SOURCES += \
     Conditions/uconditiondevice.cpp \
     Device/udevicelist.cpp \
     Communication/Requests/saveplatformrequest.cpp \
-    Communication/Responses/saveplatformresponse.cpp
+    Communication/Responses/saveplatformresponse.cpp \
+    Utility/oshandler.cpp
 
 
 HEADERS += \
@@ -51,4 +52,5 @@ HEADERS += \
     Conditions/uconditiondevice.h \
     Device/udevicelist.h \
     Communication/Requests/saveplatformrequest.h \
-    Communication/Responses/saveplatformresponse.h
+    Communication/Responses/saveplatformresponse.h \
+    Utility/oshandler.h
