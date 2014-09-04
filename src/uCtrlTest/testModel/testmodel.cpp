@@ -289,11 +289,11 @@ void TestModel::testConditionWeekDayJson()
 void TestModel::testPlatformSlots()
 {
     UPlatform* platform = new UPlatform();
-    QList<UDevice*> list = platform->getDevices();
+    QList<UDevice*> platform_list = platform->getDevices();
     platform->setId(platform_id);
     platform->setIp(platform_ip);
     platform->setPort(platform_port);
-    platform->setDevices(list);
+    platform->setDevices(platform_list);
     platform->setName(platform_name);
     platform->setRoom(platform_room);
     platform->setEnabled(platform_enb);
@@ -302,7 +302,7 @@ void TestModel::testPlatformSlots()
     QCOMPARE(platform->getId(), platform_id);
     QCOMPARE(platform->getIp(), platform_ip);
     QCOMPARE(platform->getPort(), platform_port);
-    QCOMPARE(platform->getDevices(), list);
+    QCOMPARE(platform->getDevices(), platform_list);
     QCOMPARE(platform->getName(), platform_name);
     QCOMPARE(platform->getRoom(), platform_room);
     QCOMPARE(platform->getEnabled(), platform_enb);
@@ -317,6 +317,7 @@ void TestModel::testDeviceSlots()
 {
     UDevice* device = new UDevice();
     QDateTime device_date = QDateTime();
+    QList<UScenario*> device_list = device->getScenarios();
     device->setId(device_id);
     device->setName(device_name);
     device->setMinValue(device_minvalue);
@@ -342,6 +343,7 @@ void TestModel::testDeviceSlots()
     QCOMPARE(device->getEnabled(), device_enabled);
     QCOMPARE(device->getStatus(), device_status);
     QCOMPARE(device->getLastUpdate(), device_date);
+    QCOMPARE(device->getScenarios(), device_list);
 
     QVERIFY2(device_id > test_value, "Error! Device id value is invalid");
     QVERIFY2(device_type > test_value, "Error! Device type value is invalid");
