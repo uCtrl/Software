@@ -113,6 +113,7 @@ void TestModel::testUPlatformJson()
     QCOMPARE(platform->getRoom(), parsePlatform->getRoom());
     QCOMPARE(platform->getEnabled(), parsePlatform->getEnabled());
     QCOMPARE(platform->getFirmwareVersion(), parsePlatform->getFirmwareVersion());
+    QCOMPARE(platform->getDevices(), platform_list);
 
 }
 
@@ -153,6 +154,7 @@ void TestModel::testUDeviceJson()
     QCOMPARE(device->getStatus(), device->getStatus());
     QCOMPARE(device->getLastUpdate(), device->getLastUpdate());
     QCOMPARE(device->getScenarios(), parseDevice->getScenarios());
+    QCOMPARE(device->getScenarios(), device_list);
 
 }
 
@@ -171,6 +173,7 @@ void TestModel::testScenarioJson()
     QCOMPARE(scenario->getId(), parseScenario->getId());
     QCOMPARE(scenario->getName(), parseScenario->getName());
     QCOMPARE(scenario->getTasks(), parseScenario->getTasks());
+    QCOMPARE(scenario->getTasks(), scenario_list);
 
 }
 
@@ -189,19 +192,18 @@ void TestModel::testTaskJson()
     QCOMPARE(task->getId(), parseTask->getId());
     QCOMPARE(task->getStatus(), parseTask->getStatus());
     QCOMPARE(task->getConditions(), parseTask->getConditions());
+    QCOMPARE(task->getConditions(), task_list);
 
 }
 
 void TestModel::testConditionJson()
 {
-    //TODO : test setConditionParent
     UCondition* condition = new UCondition();
     UCondition::UEConditionType conditionType;
     UCondition::UEComparisonType comparisonType;
     condition->setId(condition_id);
     condition->setType(conditionType);
     condition->setComparisonType(comparisonType);
-
     QString json = JsonSerializer::serialize(condition);
     UCondition* parseCondition = new UCondition();
     parseCondition->setType(conditionType);
@@ -216,7 +218,6 @@ void TestModel::testConditionJson()
 
 void TestModel::testConditionDateJson()
 {
-    //WIP
     UConditionDate* conditionDate = new UConditionDate();
     UConditionDate::UEConditionDateType dateType;
     QDate beginDate = QDate();
@@ -381,7 +382,6 @@ void TestModel::testTaskSlots()
 
 void TestModel::testConditionSlots()
 {
-   //TODO : test setConditionParent
    UCondition* condition = new UCondition();
    UCondition::UEConditionType conditionType;
    UCondition::UEComparisonType comparisonType;
