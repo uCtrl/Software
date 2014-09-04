@@ -11,6 +11,7 @@
 #include "Network/unetworkscanner.h"
 #include "Conditions/uconditionweekday.h"
 #include "Conditions/uconditiondevice.h"
+#include "Audio/uaudiorecorder.h"
 
 #include <QFile>
 #include <QTextStream>
@@ -53,6 +54,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<UCondition>("ConditionEnums", 1, 0, "UEComparisonType");
     qmlRegisterType<UConditionWeekday>("ConditionEnums", 1, 0, "UEWeekday");
     qmlRegisterType<UConditionDevice>("ConditionEnums", 1, 0, "UEDeviceType");
+    qmlRegisterType<UAudioRecorder>("UAudioRecorder", 1, 0, "UAudioRecorder");
     
     USystem* system = USystem::Instance();
 

@@ -1,14 +1,15 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
+import UAudioRecorder 1.0
 
 import "../UI" as UI
 import "../UI/ULabel" as ULabel
 
 UI.UFrame {
     contentItem: Rectangle {
+
         anchors.left: parent.left
         anchors.leftMargin: frameMarginSize
-
         anchors.top: parent.top
         anchors.topMargin: frameMarginSize
 
@@ -18,10 +19,12 @@ UI.UFrame {
         color: _colors.uTransparent
 
         Rectangle {
+            id: voiceContainer
+
             anchors.centerIn: parent
             anchors.verticalCenterOffset: -100
             width: voiceButton.width
-            height: voiceButton.height + startLabel.height + startLabel.anchors.topMargin
+            height: voiceButton.height + recordLabel.height + recordLabel.anchors.topMargin
             color: _colors.uTransparent
 
             UI.UButton {
@@ -32,14 +35,30 @@ UI.UFrame {
                 radius: width * 0.5
                 iconId: "Microphone"
                 iconSize: 100
+                color: _colors.uDarkGrey
+                onClicked: audioRecorder.toggleRecord()
 
-                onClicked: {
-                    //Get mic input
+                function onRecordingStarted() {
+                    voiceButton.buttonColor = _colors.uDarkGrey
+                    voiceButton.buttonHoveredColor = _colors.uDarkGreyHover
+                }
+
+                function onRecordingStopped() {
+                    voiceButton.buttonColor = _colors.uGreen
+                    voiceButton.buttonHoveredColor = _colors.uMediumLightGreen
+                }
+
+                Component.onCompleted: {
+                    audioRecorder.onRecordingStarted.connect(onRecordingStarted);
+                    audioRecorder.onRecordingStopped.connect(onRecordingStopped);
                 }
             }
 
             ULabel.Heading3 {
-                id: startLabel
+                id: recordLabel
+
+                property string startRecordingLabel: "Click to start recording";
+                property string stopRecordingLabel: "Click to stop recording";
 
                 anchors.top: voiceButton.bottom
                 anchors.topMargin: 10
@@ -47,7 +66,24 @@ UI.UFrame {
                 wrapMode: Text.WordWrap
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
-                text: "Click to record"
+                text: startRecordingLabel
+
+                function onRecordingStarted() {
+                    recordLabel.text = stopRecordingLabel;
+                }
+
+                function onRecordingStopped() {
+                    recordLabel.text = startRecordingLabel;
+                }
+
+                Component.onCompleted: {
+                    audioRecorder.onRecordingStarted.connect(onRecordingStarted);
+                    audioRecorder.onRecordingStopped.connect(onRecordingStopped);
+                }
+            }
+
+            UAudioRecorder {
+                id: audioRecorder
             }
         }
     }
