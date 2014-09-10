@@ -17,8 +17,8 @@ icon="${installForlder}uCtrl.png"
 ### Test root privilege
 
 if [[ $EUID -ne 0 ]]; then
-	echo "To execute this scritp, you need root privilege!"
-	echo "Please execut it using sudo."
+	echo "To execute this script, you need root privilege!"
+	echo "Please execute it using sudo."
 
 	exit 1
 fi
