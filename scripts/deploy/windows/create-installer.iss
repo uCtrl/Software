@@ -19,8 +19,10 @@ Name: "french"; MessagesFile: "compiler:Languages\French.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}";   Flags: unchecked 
 Name: "quicklaunchicon";   Description: "{cm:CreateQuickLaunchIcon}";   GroupDescription: "{cm:AdditionalIcons}";   Flags: unchecked;   OnlyBelowVersion: 0,6.1
 
+
 [Files]
 Source: "source\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "Bonjour.msi"; DestDir: "{app}"; Flags: deleteafterinstall; AfterInstall: InstallBonjour; Check: BonjourIsNotInstalled;
 
 [Icons]
 Name: "{group}\uCtrl"; Filename: "{app}\uCtrlDesktop.exe"
@@ -31,3 +33,20 @@ Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\uCtrl"; Filename: 
 [Run]
 Filename: "{app}\uCtrlDesktop.exe"; Description: "{cm:LaunchProgram,Uctrl}"; Flags: nowait postinstall skipifsilent
 
+[Code]
+procedure InstallBonjour;
+var
+  ResultCode: Integer;
+begin
+  if not Exec(ExpandConstant('msiexec /i {app}\Bonjour.msi'), '/quiet', '', SW_SHOW, ewWaitUntilTerminated, ResultCode) then
+  begin
+    // you can interact with the user that the installation failed
+    MsgBox('Bonjour not installed: ' + IntToStr(ResultCode) + '.',
+      mbError, MB_OK);
+  end;
+end;
+
+function BonjourIsNotInstalled: Boolean;
+  begin
+    Result := not RegKeyExists(HKEY_LOCAL_MACHINE, 'SOFTWARE\Apple Inc.\Bonjour');
+end;

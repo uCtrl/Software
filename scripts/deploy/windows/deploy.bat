@@ -9,6 +9,7 @@ set RELEASE_DIR=%BUILD_DIR%\release
 set INSTALLER_DIR=%BUILD_DIR%\release\installer\source
 set INNO_SCRIPT=%BATCH_DIR%create-installer.iss
 set ICON=%BATCH_DIR%..\..\..\src\uCtrlDesktop\Images\uctrl.ico
+set BONJOUR=%BATCH_DIR%Bonjour.msi
 
 rmdir /s /q "%BUILD_DIR%"
 
@@ -23,6 +24,7 @@ xcopy /s/e "%RELEASE_DIR%\uCtrlDesktop\qml" "%INSTALLER_DIR%\qml"
 xcopy /s/e "%RELEASE_DIR%\uCtrlDesktop\release\uCtrlDesktop.exe" "%INSTALLER_DIR%"
 xcopy /s/e "%INNO_SCRIPT%" "%INSTALLER_DIR%\.."
 xcopy /s/e "%ICON%" "%INSTALLER_DIR%\.."
+xcopy /s/e "%Bonjour%" "%INSTALLER_DIR%\.."
 
 echo Bringing dependencies in installer folder
 windeployqt --qmldir "%INSTALLER_DIR%\qml" "%INSTALLER_DIR%\uCtrlDesktop.exe"
