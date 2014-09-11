@@ -5,6 +5,7 @@
 #include <QtTest>
 #include "../../uCtrlCore/System/usystem.h"
 #include "../../uCtrlCore/Device/udevice.h"
+#include "../../uCtrlCore/Device/udevicelist.h"
 #include "../../uCtrlCore/Serialization/jsonserializable.h"
 #include "../../uCtrlCore/Serialization/jsonserializer.h"
 #include "../../uCtrlCore/Platform/uplatform.h"
@@ -28,6 +29,7 @@ private Q_SLOTS:
 //Json
 void testUPlatformJson();
 void testUDeviceJson();
+//void testUDeviceListJson();
 void testScenarioJson();
 void testTaskJson();
 void testConditionJson();
@@ -39,6 +41,7 @@ void testConditionDeviceJson();
 //Slots
 void testPlatformSlots();
 void testDeviceSlots();
+void testUDeviceListSlots();
 void testScenarioSlots();
 void testTaskSlots();
 void testConditionSlots();
