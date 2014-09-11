@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
 import UAudioRecorder 1.0
+import UVoiceControl 1.0
 
 import "../UI" as UI
 import "../UI/ULabel" as ULabel
@@ -46,6 +47,8 @@ UI.UFrame {
                 function onRecordingStopped() {
                     voiceButton.buttonColor = _colors.uGreen
                     voiceButton.buttonHoveredColor = _colors.uMediumLightGreen
+
+                    voiceControl.sendVoiceControlFile(audioRecorder.getOutputLocation())
                 }
 
                 Component.onCompleted: {
@@ -84,6 +87,14 @@ UI.UFrame {
 
             UAudioRecorder {
                 id: audioRecorder
+            }
+
+            UVoiceControl {
+                id: voiceControl
+
+                onVoiceControlIntentChanged: {
+                    console.log("New intent : " + voiceControlIntent)
+                }
             }
         }
     }
