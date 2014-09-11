@@ -14,6 +14,7 @@
 #include "../../uCtrlCore/Conditions/uconditiondate.h"
 #include "../../uCtrlCore/Conditions/uconditiontime.h"
 #include "../../uCtrlCore/Conditions/uconditionweekday.h"
+#include "../../uCtrlCore/Conditions/uconditiondevice.h"
 
 class TestModel : public QObject
 {
@@ -33,6 +34,7 @@ void testConditionJson();
 void testConditionDateJson();
 void testConditionTimeJson();
 void testConditionWeekDayJson();
+void testConditionDeviceJson();
 
 //Slots
 void testPlatformSlots();
@@ -43,6 +45,7 @@ void testConditionSlots();
 void testConditionDateSlots();
 void testConditionTimeSlots();
 void testConditionWeekDaySlots();
+void testConditionDeviceSlots();
 
 
 private:
@@ -81,6 +84,15 @@ QString task_status = "Enabled";
 
 //condition
 int condition_id = 56;
+int con_dev_id = 1;
+float con_dev_begin_value = 1.0;
+float con_dev_end_value = 2.0;
+int condition_weekday = 2;
+UCondition::UEConditionType conditionType = UCondition::UEConditionType::Date;
+UCondition::UEComparisonType comparisonType = UCondition::UEComparisonType::InBetween;
+UConditionDate::UEConditionDateType dateType = UConditionDate::UEConditionDateType::DDMMYYYY;
+UConditionDevice::UEDeviceType deviceType = UConditionDevice::UEDeviceType::ElectricPlug;
+
 
 };
 

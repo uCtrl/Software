@@ -42,8 +42,10 @@ void TestModel::testUDeviceJson()
 {
     UDevice* device = new UDevice();
     QDateTime device_date = QDateTime();
+    QList<UScenario*> device_list = device->getScenarios();
     device->setId(device_id);
     device->setName(device_name);
+    device->setScenarios(device_list);
     device->setMinValue(device_minvalue);
     device->setMaxValue(device_maxvalue);
     device->setPrecision(device_precision);
@@ -60,8 +62,6 @@ void TestModel::testUDeviceJson()
     UDevice* parseDevice = new UDevice();
     JsonSerializer::parse(json, parseDevice);
 
-    QList<UScenario*> device_list = device->getScenarios();
-
     QCOMPARE(device->getId(), parseDevice->getId());
     QCOMPARE(device->getName(), parseDevice->getName());
     QCOMPARE(device->getMinValue(), parseDevice->getMinValue());
@@ -76,6 +76,22 @@ void TestModel::testUDeviceJson()
     QCOMPARE(device->getLastUpdate(), device->getLastUpdate());
     QCOMPARE(device->getScenarios(), parseDevice->getScenarios());
     QCOMPARE(device->getScenarios(), device_list);
+
+}
+
+void TestModel::testUDeviceListJson()
+{
+    UDeviceList* devicelist = new UDeviceList();
+    QList<UScenario*> device_list = device->getScenarios();
+
+    devicelist->setDevices(device_list);
+
+    QString json = JsonSerializer::serialize(devicelist);
+
+    UDeviceList* parseDeviceList = new UDeviceList();
+    JsonSerializer::parse(json, parseDeviceList);
+
+    QCOMPARE(devicelist->getDevices(), parseDeviceList->getDevices());
 
 }
 
@@ -120,8 +136,6 @@ void TestModel::testTaskJson()
 void TestModel::testConditionJson()
 {
     UCondition* condition = new UCondition();
-    UCondition::UEConditionType conditionType;
-    UCondition::UEComparisonType comparisonType;
     condition->setId(condition_id);
     condition->setType(conditionType);
     condition->setComparisonType(comparisonType);
@@ -140,7 +154,7 @@ void TestModel::testConditionJson()
 void TestModel::testConditionDateJson()
 {
     UConditionDate* conditionDate = new UConditionDate();
-    UConditionDate::UEConditionDateType dateType;
+    UConditionDate::UEConditionDateType dateType = UConditionDate::UEConditionDateType::DDMMYYYY;
     QDate beginDate = QDate();
     QDate endDate = QDate();
 
@@ -192,18 +206,45 @@ void TestModel::testConditionTimeJson()
 void TestModel::testConditionWeekDayJson()
 {
     UConditionWeekday* conditionWeekDay = new UConditionWeekday();
-    UCondition::UEComparisonType comparisonType;
 
     conditionWeekDay->setComparisonType(comparisonType);
+    conditionWeekDay->setSelectedWeekdays(condition_weekday);
 
     QString json = JsonSerializer::serialize(conditionWeekDay);
 
     UConditionWeekday* parseConditionWeekDay = new UConditionWeekday();
     parseConditionWeekDay->setComparisonType(comparisonType);
+    parseConditionWeekDay->setSelectedWeekdays(condition_weekday);
 
     JsonSerializer::parse(json, parseConditionWeekDay);
 
     QCOMPARE(conditionWeekDay->getComparisonType(), parseConditionWeekDay->getComparisonType());
+    QCOMPARE(conditionWeekDay->getSelectedWeekdays(), parseConditionWeekDay->getSelectedWeekdays());
+}
+
+void TestModel::testConditionDeviceJson()
+{
+    UConditionDevice* conditionDevice = new UConditionDevice();
+
+    conditionDevice->setDeviceType(deviceType);
+    conditionDevice->setDeviceId(con_dev_id);
+    conditionDevice->setBeginValue(con_dev_begin_value);
+    conditionDevice->setEndValue(con_dev_end_value);
+
+    QString json = JsonSerializer::serialize(conditionDevice);
+
+    UConditionDevice* parseConditionDevice = new UConditionDevice();
+    parseConditionDevice->setDeviceType(deviceType);
+    parseConditionDevice->setDeviceId(con_dev_id);
+    parseConditionDevice->setBeginValue(con_dev_begin_value);
+    parseConditionDevice->setEndValue(con_dev_end_value);
+    JsonSerializer::parse(json, parseConditionDevice);
+
+    QCOMPARE(conditionDevice->getDeviceType(), parseConditionDevice->getDeviceType());
+    QCOMPARE(conditionDevice->getDeviceId(), parseConditionDevice->getDeviceId());
+    QCOMPARE(conditionDevice->getBeginValue(), parseConditionDevice->getBeginValue());
+    QCOMPARE(conditionDevice->getEndValue(), parseConditionDevice->getEndValue());
+
 }
 
 //Slots test section
@@ -306,8 +347,6 @@ void TestModel::testTaskSlots()
 void TestModel::testConditionSlots()
 {
    UCondition* condition = new UCondition();
-   UCondition::UEConditionType conditionType;
-   UCondition::UEComparisonType comparisonType;
    condition->setId(condition_id);
    condition->setType(conditionType);
    condition->setComparisonType(comparisonType);
@@ -321,7 +360,6 @@ void TestModel::testConditionSlots()
 void TestModel::testConditionDateSlots()
 {
     UConditionDate* conditionDate = new UConditionDate();
-    UConditionDate::UEConditionDateType dateType;
     QDate beginDate = QDate();
     QDate endDate = QDate();
 
@@ -358,11 +396,30 @@ void TestModel::testConditionTimeSlots()
 void TestModel::testConditionWeekDaySlots()
 {
     UConditionWeekday* conditionWeekDay = new UConditionWeekday();
-    UCondition::UEComparisonType comparisonType;
+    //UConditionWeekday::UEWeekday weekday = UConditionWeekday::UEWeekday::Friday;
+    //It seem there is an error in uconditionweekday.h,
+    //int getSelectedWeekdays should be UEWeekday getSelectedWeekdays
 
     conditionWeekDay->setComparisonType(comparisonType);
+    conditionWeekDay->setSelectedWeekdays(condition_weekday);
 
     QCOMPARE(conditionWeekDay->getComparisonType(), comparisonType);
+    QCOMPARE(conditionWeekDay->getSelectedWeekdays(), condition_weekday);
+}
+
+void TestModel::testConditionDeviceSlots()
+{
+    UConditionDevice* conditionDevice = new UConditionDevice();
+
+    conditionDevice->setDeviceType(deviceType);
+    conditionDevice->setDeviceId(con_dev_id);
+    conditionDevice->setBeginValue(con_dev_begin_value);
+    conditionDevice->setEndValue(con_dev_end_value);
+
+    QCOMPARE(conditionDevice->getDeviceType(), deviceType);
+    QCOMPARE(conditionDevice->getDeviceId(), con_dev_id);
+    QCOMPARE(conditionDevice->getBeginValue(), con_dev_begin_value);
+    QCOMPARE(conditionDevice->getEndValue(), con_dev_end_value);
 }
 
 QTEST_APPLESS_MAIN(TestModel)
