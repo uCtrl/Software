@@ -79,7 +79,7 @@ void TestModel::testUDeviceJson()
 
 }
 
-//WIP udeviceList doesn't seem to be serialiable
+//WIP udeviceList doesn't seem to be serializeable
 /*void TestModel::testUDeviceListJson()
 {
     UDeviceList* devicelist = new UDeviceList();
