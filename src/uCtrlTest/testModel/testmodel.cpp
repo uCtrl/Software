@@ -1,4 +1,4 @@
-#include "../../uCtrlTest/testModel/testmodel.h"
+#include "testmodel.h"
 
 TestModel::TestModel()
 {
@@ -435,4 +435,3 @@ void TestModel::testConditionDeviceSlots()
 }
 
 QTEST_APPLESS_MAIN(TestModel)
-#include "testmodel.moc"
