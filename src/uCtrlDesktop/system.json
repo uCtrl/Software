@@ -6,7 +6,7 @@
           "id": 3,
           "maxValue": 100,
           "minValue": 0,
-          "name": "Temperature B",
+          "name": "Temperature Be",
           "precision": 1,
           "description": "A random description, which is pretty long I'll say. Give me a break!",
           "scenarios": [

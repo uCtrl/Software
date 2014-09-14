@@ -7,6 +7,8 @@
 #include <QAbstractListModel>
 #include <QJsonObject>
 #include <QList>
+#include <QTimer>
+#include <QFile>
 
 class USystem : public QAbstractListModel, public JsonSerializable
 {
@@ -29,8 +31,11 @@ public:
     void read(const QJsonObject &jsonObj);
     void write(QJsonObject &jsonObj) const;
 
+    void setRefreshTimer(const QObject *app, const int time);
+
 public slots:
     void setPlatforms(QList<UPlatform*> arg) { m_platforms = arg; }
+    void refreshSystem();
 
 signals:
     void platformsChanged(QList<UPlatform*> arg);
@@ -39,5 +44,6 @@ private:
     USystem(){}
     static USystem* m_systemInstance;
     QList<UPlatform*> m_platforms;
+    QTimer *m_refreshTimer;
 };
 #endif // USYSTEM_H

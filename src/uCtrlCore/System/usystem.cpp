@@ -65,6 +65,8 @@ QObject* USystem::getAllDevices() {
 
 void USystem::read(const QJsonObject &jsonObj)
 {
+    m_platforms.clear();
+
     QJsonArray platformsArray = jsonObj["platforms"].toArray();
     foreach(QJsonValue platformJson, platformsArray)
     {
@@ -85,4 +87,23 @@ void USystem::write(QJsonObject &jsonObj) const
     }
 
     jsonObj["platforms"] = platformsArray;
+}
+
+
+void USystem::setRefreshTimer(const QObject *app, const int time)
+{
+    m_refreshTimer = new QTimer();
+    QObject::connect(m_refreshTimer, SIGNAL(timeout()), this, SLOT(refreshSystem()), Qt::AutoConnection);
+    m_refreshTimer->start(time);
+}
+
+void USystem::refreshSystem()
+{
+    QFile f(QString::fromStdString("/Users/alexis/Documents/University/uCtrl/dev/Software/src/uCtrlDesktop/data.json"));
+    if (f.open(QFile::ReadOnly | QFile::Text)){
+        QTextStream in(&f);
+        QString str = in.readAll();
+        str.remove(QRegExp("[\\n\\t\\r]"));
+        JsonSerializer::parse(str, this);
+    }
 }

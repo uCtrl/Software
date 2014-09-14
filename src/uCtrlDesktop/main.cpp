@@ -15,6 +15,7 @@
 
 #include <QFile>
 #include <QTextStream>
+#include <QTimer>
 
 #include <QtQml>
 
@@ -40,6 +41,13 @@ void LoadSystemFromFile(USystem* s, std::string filename)
     }
 }
 
+void refreshSystem()
+{
+    qDebug() << "Test";
+}
+
+USystem* satan = USystem::Instance();
+
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
@@ -58,6 +66,8 @@ int main(int argc, char *argv[])
     USystem* system = USystem::Instance();
     UStats* stats = UStats::Instance();
 
+    system->setRefreshTimer(&app, 5000);
+
     // SIMULATOR SECTION
     //UNetworkScanner* scanner = UNetworkScanner::Instance();
     //scanner->scanNetwork();
@@ -67,7 +77,7 @@ int main(int argc, char *argv[])
 
     QQmlContext *ctxt = viewer.rootContext();
     ctxt->setContextProperty("mySystem", system);
-    ctxt->setContextProperty("myStats", stats);
+    //ctxt->setContextProperty("myStats", stats);
 
     viewer.setMainQmlFile(QStringLiteral("qml/uCtrlDesktopQml/main.qml"));
     viewer.setMinimumHeight(650);
