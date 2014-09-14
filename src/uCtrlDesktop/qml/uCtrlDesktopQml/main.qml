@@ -18,6 +18,7 @@ Rectangle {
 
     property int scrollbarSize: 16
 
+    property var activeModel: null
     property var activeComponent: null
     property var activePage: null
 
@@ -32,7 +33,7 @@ Rectangle {
     signal swap (string page, string title, variant model)
     onSwap: renderComponent(page, title, model)
 
-    // Extern Signals declaration
+    // Extern Signals declarationb
     Component.onCompleted: {
         renderComponent(_paths.uLandingPage, _paths.uLandingPageTitle)
         highlightNavbar("Home")
@@ -77,7 +78,7 @@ Rectangle {
 
     function renderComponent(path, title, model) {
         titlebar.changeBreadcrumb(path, title, model)
-
+        activeModel = model
         destroyComponent()
         activeComponent = Qt.createComponent(path)
         refreshPage(model)
@@ -162,5 +163,14 @@ Rectangle {
 
     UI.UPath {
         id: _paths
+    }
+
+    Timer {
+        id: refreshTimer;
+        interval: 5000;
+        running: true;
+        repeat: true;
+
+        onTriggered: parent.refreshPage(parent.activeModel)
     }
 }
