@@ -1,4 +1,4 @@
-#include "../../uCtrlTest/testModel/testmodel.h"
+#include "testmodel.h"
 
 TestModel::TestModel()
 {
@@ -8,7 +8,6 @@ TestModel::TestModel()
 
 void TestModel::testUPlatformJson()
 {
-
     UPlatform* platform = new UPlatform();
     QList<UDevice*> platform_list = platform->getDevices();
     platform->setId(platform_id);
@@ -435,4 +434,3 @@ void TestModel::testConditionDeviceSlots()
 }
 
 QTEST_APPLESS_MAIN(TestModel)
-#include "testmodel.moc"
