@@ -4,4 +4,4 @@ CONFIG += ordered
 
 SUBDIRS += \
     uCtrlCore \
-    uCtrlTest/uCtrlTest.pro
+    uCtrlTest
