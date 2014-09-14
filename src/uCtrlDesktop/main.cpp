@@ -11,6 +11,7 @@
 #include "Network/unetworkscanner.h"
 #include "Conditions/uconditionweekday.h"
 #include "Conditions/uconditiondevice.h"
+#include "Stats/ustats.h"
 
 #include <QFile>
 #include <QTextStream>
@@ -55,6 +56,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<UConditionDevice>("ConditionEnums", 1, 0, "UEDeviceType");
     
     USystem* system = USystem::Instance();
+    UStats* stats = UStats::Instance();
 
     // SIMULATOR SECTION
     //UNetworkScanner* scanner = UNetworkScanner::Instance();
@@ -65,6 +67,7 @@ int main(int argc, char *argv[])
 
     QQmlContext *ctxt = viewer.rootContext();
     ctxt->setContextProperty("mySystem", system);
+    ctxt->setContextProperty("myStats", stats);
 
     viewer.setMainQmlFile(QStringLiteral("qml/uCtrlDesktopQml/main.qml"));
     viewer.setMinimumHeight(650);
