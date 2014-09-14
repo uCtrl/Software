@@ -54,3 +54,5 @@ HEADERS += \
     Communication/Requests/saveplatformrequest.h \
     Communication/Responses/saveplatformresponse.h \
     Stats/ustats.h
+
+DEFINES += PROJECT_PATH=\"\\\"$$PWD/../\\\"\"

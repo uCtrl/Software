@@ -41,13 +41,6 @@ void LoadSystemFromFile(USystem* s, std::string filename)
     }
 }
 
-void refreshSystem()
-{
-    qDebug() << "Test";
-}
-
-USystem* satan = USystem::Instance();
-
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
@@ -77,7 +70,6 @@ int main(int argc, char *argv[])
 
     QQmlContext *ctxt = viewer.rootContext();
     ctxt->setContextProperty("mySystem", system);
-    //ctxt->setContextProperty("myStats", stats);
 
     viewer.setMainQmlFile(QStringLiteral("qml/uCtrlDesktopQml/main.qml"));
     viewer.setMinimumHeight(650);

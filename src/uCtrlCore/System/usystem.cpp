@@ -1,6 +1,9 @@
 #include "usystem.h"
 #include "Device/udevicelist.h"
 
+#include <QCoreApplication>
+#include <QDir>
+
 USystem* USystem::m_systemInstance = NULL;
 
 USystem* USystem::Instance()
@@ -99,11 +102,17 @@ void USystem::setRefreshTimer(const QObject *app, const int time)
 
 void USystem::refreshSystem()
 {
-    QFile f(QString::fromStdString("/Users/alexis/Documents/University/uCtrl/dev/Software/src/uCtrlDesktop/data.json"));
+    QString previousPath = QDir::currentPath();
+    QDir::setCurrent(PROJECT_PATH);
+    QDir::setCurrent(QDir::currentPath() + "/uCtrlDesktop/");
+    QFile f;
+    f.setFileName("data.json");
     if (f.open(QFile::ReadOnly | QFile::Text)){
         QTextStream in(&f);
         QString str = in.readAll();
         str.remove(QRegExp("[\\n\\t\\r]"));
         JsonSerializer::parse(str, this);
     }
+    f.close();
+    QDir::setCurrent(previousPath);
 }
