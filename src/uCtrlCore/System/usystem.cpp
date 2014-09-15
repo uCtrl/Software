@@ -16,7 +16,6 @@ void USystem::addPlatform(const QString& ip, const int port)
 {
     UPlatform* platform = new UPlatform(USystem::Instance(), ip, port);
     m_platforms.append(platform);
-    new UCommunicationHandler(platform);
 }
 
 bool USystem::containsPlatform(const QString& ip, const int port)

@@ -11,6 +11,7 @@
 #include "Network/unetworkscanner.h"
 #include "Conditions/uconditionweekday.h"
 #include "Conditions/uconditiondevice.h"
+#include "NinjaBlocks/uninjablocksapi.h"
 
 #include <QFile>
 #include <QTextStream>
@@ -39,10 +40,8 @@ void LoadSystemFromFile(USystem* s, std::string filename)
     }
 }
 
-int main(int argc, char *argv[])
+void Init(QGuiApplication& app, QtQuick2ApplicationViewer& viewer)
 {
-    QGuiApplication app(argc, argv);
-    QtQuick2ApplicationViewer viewer;
 
     QTranslator translator;
     if (translator.load(":/Resources/Languages/uctrl_" + QLocale::system().name())) {
@@ -53,26 +52,32 @@ int main(int argc, char *argv[])
     qmlRegisterType<UCondition>("ConditionEnums", 1, 0, "UEComparisonType");
     qmlRegisterType<UConditionWeekday>("ConditionEnums", 1, 0, "UEWeekday");
     qmlRegisterType<UConditionDevice>("ConditionEnums", 1, 0, "UEDeviceType");
-    
-    USystem* system = USystem::Instance();
 
-    // SIMULATOR SECTION
-    //UNetworkScanner* scanner = UNetworkScanner::Instance();
-    //scanner->scanNetwork();
+    QNetworkAccessManager* networkAccessManager = viewer.engine()->networkAccessManager();
+    UNinjaBlocksAPI* ninja = new UNinjaBlocksAPI(networkAccessManager);
 
     // LOCAL FILE SECTION
+    USystem* system = USystem::Instance();
     LoadSystemFromFile(system, ":/Resources/data.json");
 
     QQmlContext *ctxt = viewer.rootContext();
     ctxt->setContextProperty("mySystem", system);
+    ctxt->setContextProperty("ninja", ninja);
 
     viewer.setMainQmlFile(QStringLiteral("qml/uCtrlDesktopQml/main.qml"));
     viewer.setMinimumHeight(650);
     viewer.setMinimumWidth(900);
     viewer.showExpanded();
+}
 
-    int ret = app.exec();
-    SaveSystemToFile(system, "newdata.json");
-    return ret;
+int main(int argc, char *argv[])
+{
+    QGuiApplication app(argc, argv);
+    QtQuick2ApplicationViewer viewer;
+
+    // TODO: Extract this to a class and speed up initialization with QMetaObject::invokeMethod(this, "init",!Qt::QueuedConnection);
+    Init(app, viewer);
+
+    return app.exec();
 }
 

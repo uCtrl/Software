@@ -16,15 +16,11 @@ SOURCES += \
     Utility/uniqueidgenerator.cpp \
     System/usystem.cpp \
     Serialization/jsonserializer.cpp \
-    Communication/ucommunicationhandler.cpp \
-    Communication/Responses/getplatformresponse.cpp \
-    Communication/Requests/getplatformrequest.cpp \
     Conditions/uconditiontime.cpp \
     Conditions/uconditionweekday.cpp \
     Conditions/uconditiondevice.cpp \
     Device/udevicelist.cpp \
-    Communication/Requests/saveplatformrequest.cpp \
-    Communication/Responses/saveplatformresponse.cpp
+    NinjaBlocks/uninjablocksapi.cpp
 
 
 HEADERS += \
@@ -38,17 +34,10 @@ HEADERS += \
     Utility/uniqueidgenerator.h \
     Serialization/jsonserializable.h \
     Serialization/jsonserializer.h \
-    Communication/ucommunicationhandler.h \
     Serialization/jsonwritable.h \
     Serialization/jsonreadable.h \
-    Communication/uemessagetype.h \
-    Communication/Responses/getplatformresponse.h \
-    Communication/Requests/getplatformrequest.h \
-    Communication/Responses/uresponse.h \
-    Communication/Requests/urequest.h \
     Conditions/uconditiontime.h \
     Conditions/uconditionweekday.h \
     Conditions/uconditiondevice.h \
     Device/udevicelist.h \
-    Communication/Requests/saveplatformrequest.h \
-    Communication/Responses/saveplatformresponse.h
+    NinjaBlocks/uninjablocksapi.h
