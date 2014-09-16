@@ -7,7 +7,7 @@ UAudioRecorder::UAudioRecorder(QObject* parent) : QObject(parent) {
 
     //TODO: It will work for Mac and Windows, but I'm not sure about linux. We'll need to wait for the packagers to be done.
     #ifdef Q_OS_MAC
-        QUrl url = QUrl::fromLocalFile((QDir::cleanPath(QCoreApplication::applicationDirPath() + "/../Resources/clip.wav"));
+        QUrl url = QUrl::fromLocalFile(QDir::cleanPath(QCoreApplication::applicationDirPath() + "/../Resources/clip.wav"));
     #else
         QUrl url = QUrl::fromLocalFile(QDir::cleanPath(QCoreApplication::applicationDirPath() + "/clip.wav"));
     #endif
