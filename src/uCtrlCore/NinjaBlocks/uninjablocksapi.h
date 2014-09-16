@@ -5,6 +5,7 @@
 #include <QtNetwork>
 
 const QString NinjaBaseUrl = "https://api.ninja.is/rest/v0/";
+const QString UserAccessToken = "107f6f460bed2dbb10f0a93b994deea7fe07dad5";
 
 class UNinjaBlocksAPI : public QObject
 {
@@ -19,6 +20,7 @@ public:
     Q_INVOKABLE void getRules();
 
 signals:
+    void networkError(QNetworkReply::NetworkError err);
 
 public slots:
 

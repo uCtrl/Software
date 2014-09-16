@@ -56,6 +56,7 @@ void Init(QGuiApplication& app, QtQuick2ApplicationViewer& viewer)
     QNetworkAccessManager* networkAccessManager = viewer.engine()->networkAccessManager();
     UNinjaBlocksAPI* ninja = new UNinjaBlocksAPI(networkAccessManager);
 
+    ninja->getBlocks();
     // LOCAL FILE SECTION
     USystem* system = USystem::Instance();
     LoadSystemFromFile(system, ":/Resources/data.json");
