@@ -9,6 +9,7 @@ DEPLOYMENTFOLDERS = folder_01 \
                     folder_02
 
 QT += network
+QT += multimedia
 
 CONFIG += c++11
 RC_ICONS = Images/uctrl.ico
@@ -25,13 +26,17 @@ SOURCES += \
     main.cpp \
     Network/bonjourservicebrowser.cpp \
     Network/bonjourserviceresolver.cpp \
-    Network/unetworkscanner.cpp
+    Network/unetworkscanner.cpp \
+    Audio/uaudiorecorder.cpp \
+    Voice/uvoicecontrolapi.cpp
 
 HEADERS += \
     Network/bonjourrecord.h \
     Network/bonjourservicebrowser.h \
     Network/bonjourserviceresolver.h \
-    Network/unetworkscanner.h
+    Network/unetworkscanner.h \
+    Audio/uaudiorecorder.h \
+    Voice/uvoicecontrolapi.h
 
 INCLUDEPATH += \
     qml/uCtrlDesktopQml/
