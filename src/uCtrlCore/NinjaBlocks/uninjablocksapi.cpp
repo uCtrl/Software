@@ -8,26 +8,75 @@ UNinjaBlocksAPI::UNinjaBlocksAPI(QNetworkAccessManager* nam, QObject *parent) :
     QObject::connect(m_networkAccessManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(parseResponse(QNetworkReply*)));
 }
 
+
+//##### User #####
+
+// Return information about the authenticated user
+void UNinjaBlocksAPI::getUser()
+{
+    sendRequest("user");
+}
+
+// Returns the 30 most recent entries in the authenticating user's activity stream
+void UNinjaBlocksAPI::getUserStream()
+{
+    sendRequest("user/stream");
+}
+
+// Returns user's pusher channel key
+void UNinjaBlocksAPI::getUserPushercahnnel()
+{
+    sendRequest("user/pusherchannel");
+}
+
+
+
+
+//##### Block #####
+
+// Fetch all claimed blocks
 void UNinjaBlocksAPI::getBlocks()
 {
     sendRequest("block");
 }
 
-void UNinjaBlocksAPI::getBlock(const QString &blockId)
+// Fetch a specific block's details
+void UNinjaBlocksAPI::getBlockDetails(const QString &blockId)
 {
+    sendRequest("blockblock/" + blockId);
 }
 
+
+
+
+//#### Devices ####
+
+// Returns the list of devices associated with the authenticating user
 void UNinjaBlocksAPI::getDevices()
 {
+    sendRequest("devices");
 }
 
-void UNinjaBlocksAPI::getDevice(const QString &deviceId)
+// Fetch metadata about the specified device
+void UNinjaBlocksAPI::getDeviceDetails(const QString &deviceGuid)
 {
+    sendRequest("device/" + deviceGuid);
 }
+
+// Return the last heartbeat for the specified device.
+
+void UNinjaBlocksAPI::getDeviceHeartbeat(const QString &deviceGuid)
+{
+    sendRequest("device/" + deviceGuid + "/" + "heartbeat");
+}
+
+
 
 void UNinjaBlocksAPI::getRules()
 {
 }
+
+
 
 void UNinjaBlocksAPI::sendRequest(const QString &urlString)
 {

@@ -13,10 +13,20 @@ class UNinjaBlocksAPI : public QObject
 
 public:
     explicit UNinjaBlocksAPI(QNetworkAccessManager* nam, QObject *parent = 0);
+
+    //User
+    Q_INVOKABLE void getUser();
+    Q_INVOKABLE void getUserStream();
+    Q_INVOKABLE void getUserPushercahnnel ();
+
+    //Block
     Q_INVOKABLE void getBlocks();
-    Q_INVOKABLE void getBlock(const QString& blockId);
+    Q_INVOKABLE void getBlockDetails(const QString &blockId);
+
+    //Devices
     Q_INVOKABLE void getDevices();
-    Q_INVOKABLE void getDevice(const QString& deviceId);
+    Q_INVOKABLE void getDeviceDetails(const QString& deviceGuid);
+    Q_INVOKABLE void getDeviceHeartbeat(const QString& deviceGuid);
     Q_INVOKABLE void getRules();
 
 signals:
@@ -28,7 +38,7 @@ private slots:
     void parseResponse(QNetworkReply* reply);
 
 private:
-    void sendRequest(const QString &url);
+    void sendRequest(const QString& url);
 
     QNetworkAccessManager* m_networkAccessManager;
 };
