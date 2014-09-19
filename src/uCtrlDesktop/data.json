@@ -2,6 +2,111 @@
   "platforms": [
   {
     "devices": [
+      {      
+        "description": "Lampe principale de la chambre des maîtres",
+        "enabled": "ON",
+        "id": 2,
+        "isTriggerValue": true,
+        "maxValue": 1,
+        "minValue": 0,
+        "name": "Lampe principale",
+        "precision": 0,
+        "scenarios": [
+          {
+            "id": 1782103622,
+            "name": "Semaine",
+            "tasks": [
+              {
+                "conditions": [
+                  {
+                    "beginDate": "2014-09-09",
+                    "comparisonType": 2,
+                    "endDate": "2014-12-31",
+                    "id": 1350245612,
+                    "type": 1
+                  },
+                  {
+                    "beginTime": "7:00",
+                    "comparisonType": 8,
+                    "endTime": "09:00",
+                    "id": 1350245677,
+                    "type": 3
+                  },
+                  {
+                    "beginDate": "2014-09-09",
+                    "comparisonType": 2,
+                    "endDate": "2014-12-31",
+                    "id": 1350245678,
+                    "type": 1
+                  },
+                  {
+                    "beginTime": "17:00",
+                    "comparisonType": 8,
+                    "endTime": "22:00",
+                    "id": 1350245681,
+                    "type": 3
+                  }
+                ],
+                "id": 1782103623,
+                "status": "ON"
+              },
+              {
+                "conditions": [],
+                "id": 1782103626,
+                "status": "OFF"
+              }
+            ]
+          },
+          {
+            "id": 1782103623,
+            "name": "Fin de Semaine",
+            "tasks": [
+              {
+                "conditions": [
+                  {
+                    "beginDate": "2014-09-09",
+                    "comparisonType": 2,
+                    "endDate": "2014-12-31",
+                    "id": 1350245612,
+                    "type": 1
+                  },
+                  {
+                    "beginTime": "11:00",
+                    "comparisonType": 8,
+                    "endTime": "11:30",
+                    "id": 1350245677,
+                    "type": 3
+                  },
+                  {
+                    "beginDate": "2014-09-09",
+                    "comparisonType": 2,
+                    "endDate": "2014-12-31",
+                    "id": 1350245678,
+                    "type": 1
+                  },
+                  {
+                    "beginTime": "18:00",
+                    "comparisonType": 8,
+                    "endTime": "23:00",
+                    "id": 1350245681,
+                    "type": 3
+                  }
+                ],
+                "id": 1782103623,
+                "status": "ON"
+              },
+              {
+                "conditions": [],
+                "id": 1782103626,
+                "status": "OFF"
+              }
+            ]
+          }
+        ],
+        "status": 0,
+        "type": 3,
+        "unitLabel": ""
+      },
       {       
         "description": "",
         "enabled": "ON",
