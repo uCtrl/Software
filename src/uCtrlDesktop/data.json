@@ -326,6 +326,207 @@
     "room": "Chambre des maîtres",
     "enabled": "ON",
     "ip": "127.0.0.1"
-    }    
+    },
+    {
+      "devices": [
+        {      
+        "description": "Lampe de chevet de la chambre",
+        "enabled": "ON",
+        "id": 4,
+        "isTriggerValue": true,
+        "maxValue": 1,
+        "minValue": 0,
+        "name": "Lampe de chevet",
+        "precision": 0,
+        "scenarios": [
+          {
+            "id": 1782106735,
+            "name": "Semaine",
+            "tasks": [
+              {
+                "conditions": [
+                  {
+                    "beginDate": "2014-09-01",
+                    "comparisonType": 2,
+                    "endDate": "2014-12-31",
+                    "id": 1350243278,
+                    "type": 1
+                  },
+                  {
+                    "beginTime": "7:00",
+                    "comparisonType": 8,
+                    "endTime": "08:00",
+                    "id": 1350243283,
+                    "type": 3
+                  },
+                  {
+                    "beginDate": "2014-09-01",
+                    "comparisonType": 2,
+                    "endDate": "2014-12-31",
+                    "id": 13502487522,
+                    "type": 1
+                  },
+                  {
+                    "beginTime": "17:00",
+                    "comparisonType": 8,
+                    "endTime": "21:00",
+                    "id": 1350249328,
+                    "type": 3
+                  }
+                ],
+                "id": 1782102495,
+                "status": "ON"
+              },
+              {
+                "conditions": [],
+                "id": 1782107482,
+                "status": "OFF"
+              }
+            ]
+          },
+          {
+            "id": 1782109623,
+            "name": "Fin de Semaine",
+            "tasks": [
+              {
+                "conditions": [
+                  {
+                    "beginDate": "2014-09-01",
+                    "comparisonType": 2,
+                    "endDate": "2014-12-31",
+                    "id": 1350248461,
+                    "type": 1
+                  },
+                  {
+                    "beginTime": "09:30",
+                    "comparisonType": 8,
+                    "endTime": "11:30",
+                    "id": 1350245281,
+                    "type": 3
+                  },
+                  {
+                    "beginDate": "2014-09-01",
+                    "comparisonType": 2,
+                    "endDate": "2014-12-31",
+                    "id": 1350242468,
+                    "type": 1
+                  },
+                  {
+                    "beginTime": "18:00",
+                    "comparisonType": 8,
+                    "endTime": "22:00",
+                    "id": 1350244366,
+                    "type": 3
+                  }
+                ],
+                "id": 1782106633,
+                "status": "ON"
+              },
+              {
+                "conditions": [],
+                "id": 1782105527,
+                "status": "OFF"
+              }
+            ]
+          }
+        ],
+        "status": 0,
+        "type": 3,
+        "unitLabel": ""
+      }
+     ],
+    "enabled": "ON",
+    "firmwareVersion": "1.0.0.2225",
+    "id": 157252863,
+    "name": "Platforme de la chambre de fiston",
+    "port": 5001,
+    "room": "Chambre de fiston",
+    "enabled": "ON",
+    "ip": "127.0.0.1"
+    },
+    {
+      "devices": [
+      {      
+        "description": "Lampe de l'évier",
+        "enabled": "ON",
+        "id": 4,
+        "isTriggerValue": true,
+        "maxValue": 1,
+        "minValue": 0,
+        "name": "Lampe de l'évier",
+        "precision": 0,
+        "scenarios": [
+          {
+            "id": 1782102359,
+            "name": "Semaine",
+            "tasks": [
+              {
+                "conditions": [
+                  {
+                    "beginDate": "2014-04-01",
+                    "comparisonType": 2,
+                    "endDate": "2015-12-31",
+                    "id": 1350248361,
+                    "type": 1
+                  },
+                  {
+                    "beginTime": "7:00",
+                    "comparisonType": 8,
+                    "endTime": "09:00",
+                    "id": 1350240943,
+                    "type": 3
+                  },
+                  {
+                    "beginDate": "2014-04-01",
+                    "comparisonType": 2,
+                    "endDate": "2015-12-31",
+                    "id": 13502483611,
+                    "type": 1
+                  },
+                  {
+                    "beginTime": "17:00",
+                    "comparisonType": 8,
+                    "endTime": "22:00",
+                    "id": 1350243680,
+                    "type": 3
+                  }
+                ],
+                "id": 1782102562,
+                "status": "ON"
+              },
+              {
+                "conditions": [],
+                "id": 1782107426,
+                "status": "OFF"
+              }
+            ]
+          }
+        ],
+        "status": 0,
+        "type": 3,
+        "unitLabel": ""
+      }
+     ],
+    "enabled": "ON",
+    "firmwareVersion": "1.0.0.2225",
+    "id": 157259591,
+    "name": "Platforme de la cuisine",
+    "port": 5002,
+    "room": "Cuisine",
+    "enabled": "ON",
+    "ip": "127.0.0.1"
+    },
+    {
+    "devices": [
+     ],
+    "enabled": "ON",
+    "firmwareVersion": "1.0.0.2225",
+    "id": 157252470,
+    "name": "Platforme du salon",
+    "port": 5003,
+    "room": "Salon",
+    "enabled": "ON",
+    "ip": "127.0.0.1"
+    }       
   ]
 }
