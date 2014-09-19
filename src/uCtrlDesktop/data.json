@@ -505,7 +505,64 @@
         "status": 0,
         "type": 3,
         "unitLabel": ""
-      }
+      },
+      {
+        "id": 3,
+        "maxValue": 100,
+        "minValue": 0,
+        "name": "Thermomètre",
+        "precision": 1,
+        "description": "",
+        "scenarios": [
+          {
+            "id": 1782103622,
+            "name": "Semaine",
+            "tasks": [
+              {
+                "conditions": [
+                  {
+                    "beginDate": "2014-09-01",
+                    "comparisonType": 8,
+                    "endDate": "2014-09-15",
+                    "id": 1350245676,
+                    "type": 1
+                  },
+                  {
+                    "beginDate": "2014-09-05",
+                    "comparisonType": 8,
+                    "endDate": "2014-09-15",
+                    "id": 1350244263,
+                    "type": 1
+                  }
+                ],
+                "id": 1782103623,
+                "status": "60"
+              },
+              {
+                "conditions": [
+                  {
+                    "beginTime": "08:00",
+                    "comparisonType": 8,
+                    "endTime": "17:00",
+                    "id": 1350243447,
+                    "type": 3
+                  }
+                ],
+                "id": 1782103626,
+                "status": "30"
+              },
+              {
+                "conditions": [],
+                "id": 1782103627,
+                "status": "0"
+              }
+            ]
+          }
+        ],
+        "type": 0,
+        "unitLabel": "%",
+        "enabled": "OFF"
+      }      
      ],
     "enabled": "ON",
     "firmwareVersion": "1.0.0.2225",
