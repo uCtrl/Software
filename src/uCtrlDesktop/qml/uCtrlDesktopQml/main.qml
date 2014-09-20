@@ -166,7 +166,7 @@ Rectangle {
     }
 
     Timer {
-        id: refreshTimer;
+        id: _refreshTimer;
         interval: 5000;
         running: true;
         repeat: true;
