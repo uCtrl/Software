@@ -77,7 +77,6 @@ int main(int argc, char *argv[])
 
     QQmlContext *ctxt = viewer.rootContext();
     ctxt->setContextProperty("mySystem", system);
-    //ctxt->setContextProperty("myStats", stats);
 
     viewer.setMainQmlFile(QStringLiteral("qml/uCtrlDesktopQml/main.qml"));
     viewer.setMinimumHeight(650);

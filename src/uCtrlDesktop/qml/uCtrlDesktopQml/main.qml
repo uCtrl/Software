@@ -33,7 +33,7 @@ Rectangle {
     signal swap (string page, string title, variant model)
     onSwap: renderComponent(page, title, model)
 
-    // Extern Signals declarationb
+    // Extern Signals declaration
     Component.onCompleted: {
         renderComponent(_paths.uLandingPage, _paths.uLandingPageTitle)
         highlightNavbar("Home")
