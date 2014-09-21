@@ -1,4 +1,7 @@
 #include "uvoicecontrolapi.h"
+#include "uvoicecontrolresponse.h"
+#include <QJsonDocument>
+#include <QJsonObject>
 
 UVoiceControlAPI::UVoiceControlAPI(QObject *parent) :
     QObject(parent)
@@ -15,7 +18,7 @@ void UVoiceControlAPI::sendVoiceControlFile(QString voiceFilePath)
     request.setRawHeader("Authorization", "Bearer AJKFKPXCCXDD6CPEXASZMJSLCOZSUQ3Z");
     request.setRawHeader("Content-Type", "audio/wav");
 
-    //voiceFilePath = "C:/Users/Frank/Desktop/c29decaada78f883c58fec7d46bb04a7.wav";
+    voiceFilePath = "C:/Users/Frank/Desktop/c29decaada78f883c58fec7d46bb04a7.wav";
     voiceFile = new QFile(voiceFilePath);
     if (!voiceFile->open(QIODevice::ReadOnly))
         return;
@@ -23,6 +26,14 @@ void UVoiceControlAPI::sendVoiceControlFile(QString voiceFilePath)
     QNetworkReply* reply = manager->post(request, voiceFile);
 
     voiceFile->setParent(reply);
+}
+
+void UVoiceControlAPI::analyseIntent()
+{
+    QJsonDocument jsonResponse = QJsonDocument::fromJson(m_voiceControlIntent.toUtf8());
+    QJsonObject jsonObj = jsonResponse.object();
+    UVoiceControlResponse voiceControlResponse(jsonObj);
+    return;
 }
 
 void  UVoiceControlAPI::replyFinished(QNetworkReply* reply)

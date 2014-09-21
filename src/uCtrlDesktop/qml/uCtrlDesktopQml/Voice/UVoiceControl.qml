@@ -94,6 +94,7 @@ UI.UFrame {
 
                 onVoiceControlIntentChanged: {
                     console.log("New intent : " + voiceControlIntent)
+                    analyseIntent()
                 }
             }
         }
