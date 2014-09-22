@@ -17,17 +17,40 @@ public:
     //User
     Q_INVOKABLE void getUser();
     Q_INVOKABLE void getUserStream();
-    Q_INVOKABLE void getUserPushercahnnel ();
+    Q_INVOKABLE void getUserPusherChannel();
+    Q_INVOKABLE void putUserRealtime(int length);
 
     //Block
     Q_INVOKABLE void getBlocks();
-    Q_INVOKABLE void getBlockDetails(const QString &blockId);
+    Q_INVOKABLE void getBlock(const QString& nodeId);
+    Q_INVOKABLE void postBlock(const QString& nodeId);
+    Q_INVOKABLE void getBlockActivate(const QString& nodeId);
+    Q_INVOKABLE void deleteBlock(const QString& nodeId);
 
     //Devices
     Q_INVOKABLE void getDevices();
-    Q_INVOKABLE void getDeviceDetails(const QString& deviceGuid);
-    Q_INVOKABLE void getDeviceHeartbeat(const QString& deviceGuid);
+    Q_INVOKABLE void getDevice(const QString& guid);
+    Q_INVOKABLE void putDevice(const QString& guid, const QString& da, const QString& shortName);
+    Q_INVOKABLE void deleteDevice(const QString& guid);
+    Q_INVOKABLE void getDeviceHeartbeat(const QString& guid);
+    Q_INVOKABLE void getDeviceData(const QString& guid, const QString& from, const QString& to, const QString& interval, const QString& fn);
+    Q_INVOKABLE void postDeviceCallback(const QString& guid, const QString& url);
+    Q_INVOKABLE void getDeviceCallback(const QString& guid);
+    Q_INVOKABLE void putDeviceCallback(const QString& guid, const QString& url);
+    Q_INVOKABLE void deleteDeviceCallback(const QString& guid);
+    Q_INVOKABLE void postSubdevice(const QString& guid, const QString& category, const QString& type, const QString& shortName, const QString& data, const QString& url);
+    Q_INVOKABLE void putSubdevice(const QString& guid, const QString& subDeviceId, const QString& category, const QString& type, const QString& shortName, const QString& data, const QString& url);
+    Q_INVOKABLE void deleteSubdevice(const QString& guid, const QString& subDeviceId);
+    Q_INVOKABLE void getSubdeviceData(const QString& guid, const QString& subDeviceId, const QString& from, const QString& to, const QString& interval);
+
+    // Rules
     Q_INVOKABLE void getRules();
+    Q_INVOKABLE void getRule(const QString& ruleId);
+    Q_INVOKABLE void postRule(const QString& shortName, const QString& preConditions, const QString& actions, const QString& timeout);
+    Q_INVOKABLE void putRule(const QString& ruleId, const QString& shortName, const QString& preConditions, const QString& actions, const QString& timeout);
+    Q_INVOKABLE void deleteRule(const QString& ruleId);
+    Q_INVOKABLE void suspendRule(const QString& ruleId);
+    Q_INVOKABLE void unsuspendRule(const QString& ruleId);
 
 signals:
     void networkError(QNetworkReply::NetworkError err);
@@ -35,10 +58,49 @@ signals:
 public slots:
 
 private slots:
-    void parseResponse(QNetworkReply* reply);
+    // User
+    void getUserReply();
+    void getUserStreamReply();
+    void getUserPusherChannelReply();
+    void putUserRealtimeReply();
+
+    // Block
+   void getBlocksReply();
+   void getBlockReply();
+   void postBlockReply();
+   void getBlockActivateReply();
+   void deleteBlockReply();
+
+   // Devices
+   void getDevicesReply();
+   void getDeviceReply();
+   void putDeviceReply();
+   void deleteDeviceReply();
+   void getDeviceHeartbeatReply();
+   void getDeviceDataReply();
+   void postDeviceCallbackReply();
+   void getDeviceCallbackReply();
+   void putDeviceCallbackReply();
+   void deleteDeviceCallbackReply();
+   void postSubdeviceReply();
+   void putSubdeviceReply();
+   void deleteSubdeviceReply();
+   void getSubdeviceDataReply();
+
+   // Rules
+   void getRulesReply();
+   void getRuleReply();
+   void postRuleReply();
+   void putRuleReply();
+   void deleteRuleReply();
+   void suspendRuleReply();
+   void unsuspendRuleReply();
 
 private:
-    void sendRequest(const QString& url);
+    QNetworkReply* getRequest(const QString& url);
+    QNetworkReply* postRequest(const QString& url, const QByteArray& data);
+    QNetworkReply* putRequest(const QString &urlString, const QByteArray& data);
+    QNetworkReply* deleteRequest(const QString& url);
 
     QNetworkAccessManager* m_networkAccessManager;
 };
