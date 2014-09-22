@@ -316,52 +316,6 @@
         "status": 0,
         "type": 3,
         "unitLabel": ""
-      },
-      {       
-        "description": "",
-        "enabled": "ON",
-        "id": 10,
-        "isTriggerValue": true,
-        "maxValue": 1,
-        "minValue": 0,
-        "name": "senseur RF",
-        "precision": 0,
-        "scenarios": [
-          {
-            "id": 1782103526,
-            "name": "Tout le temps",
-            "tasks": [
-              {
-                "conditions": [
-                  {
-                    "beginDate": "2014-01-01",
-                    "comparisonType": 2,
-                    "endDate": "2014-12-31",
-                    "id": 1350245427,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "0:00",
-                    "comparisonType": 8,
-                    "endTime": "23:59",
-                    "id": 1350247552,
-                    "type": 3
-                  }
-                ],
-                "id": 1782103864,
-                "status": "ON"
-              },
-              {
-                "conditions": [],
-                "id": 1782102964,
-                "status": "OFF"
-              }
-            ]
-          }
-        ],
-        "status": 0,
-        "type": 3,
-        "unitLabel": ""
       }
     ],
     "enabled": "ON",
@@ -375,7 +329,7 @@
     },
     {
       "devices": [
-      {      
+        {      
         "description": "Lampe de chevet de la chambre",
         "enabled": "ON",
         "id": 4,
@@ -471,52 +425,6 @@
               {
                 "conditions": [],
                 "id": 1782105527,
-                "status": "OFF"
-              }
-            ]
-          }
-        ],
-        "status": 0,
-        "type": 3,
-        "unitLabel": ""
-      },
-      {       
-        "description": "",
-        "enabled": "ON",
-        "id": 11,
-        "isTriggerValue": true,
-        "maxValue": 1,
-        "minValue": 0,
-        "name": "senseur RF",
-        "precision": 0,
-        "scenarios": [
-          {
-            "id": 1782102652,
-            "name": "Tout le temps",
-            "tasks": [
-              {
-                "conditions": [
-                  {
-                    "beginDate": "2014-01-01",
-                    "comparisonType": 2,
-                    "endDate": "2014-12-31",
-                    "id": 1350249933,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "0:00",
-                    "comparisonType": 8,
-                    "endTime": "23:59",
-                    "id": 1350243411,
-                    "type": 3
-                  }
-                ],
-                "id": 17821039835,
-                "status": "ON"
-              },
-              {
-                "conditions": [],
-                "id": 1782103367,
                 "status": "OFF"
               }
             ]
@@ -654,52 +562,6 @@
         "type": 0,
         "unitLabel": "%",
         "enabled": "OFF"
-      },
-      {       
-        "description": "",
-        "enabled": "ON",
-        "id": 12,
-        "isTriggerValue": true,
-        "maxValue": 1,
-        "minValue": 0,
-        "name": "senseur RF",
-        "precision": 0,
-        "scenarios": [
-          {
-            "id": 1782104423,
-            "name": "Tout le temps",
-            "tasks": [
-              {
-                "conditions": [
-                  {
-                    "beginDate": "2014-01-01",
-                    "comparisonType": 2,
-                    "endDate": "2014-12-31",
-                    "id": 1350245628,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "0:00",
-                    "comparisonType": 8,
-                    "endTime": "23:59",
-                    "id": 1350249802,
-                    "type": 3
-                  }
-                ],
-                "id": 17821030002,
-                "status": "ON"
-              },
-              {
-                "conditions": [],
-                "id": 1782104519,
-                "status": "OFF"
-              }
-            ]
-          }
-        ],
-        "status": 0,
-        "type": 3,
-        "unitLabel": ""
       }      
      ],
     "enabled": "ON",
@@ -713,158 +575,6 @@
     },
     {
     "devices": [
-      {      
-        "description": "Lampe de la télé",
-        "enabled": "ON",
-        "id": 7,
-        "isTriggerValue": true,
-        "maxValue": 1,
-        "minValue": 0,
-        "name": "Lampe de la télé",
-        "precision": 0,
-        "scenarios": [
-          {
-            "id": 17821076432,
-            "name": "Semaine",
-            "tasks": [
-              {
-                "conditions": [
-                  {
-                    "beginDate": "2014-04-01",
-                    "comparisonType": 2,
-                    "endDate": "2015-12-31",
-                    "id": 1350247295,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "7:00",
-                    "comparisonType": 8,
-                    "endTime": "08:00",
-                    "id": 1350248926,
-                    "type": 3
-                  },
-                  {
-                    "beginDate": "2014-04-01",
-                    "comparisonType": 2,
-                    "endDate": "2015-12-31",
-                    "id": 13502483377,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "17:00",
-                    "comparisonType": 8,
-                    "endTime": "22:00",
-                    "id": 13502433478,
-                    "type": 3
-                  }
-                ],
-                "id": 1782108133,
-                "status": "ON"
-              },
-              {
-                "conditions": [],
-                "id": 1782106588,
-                "status": "OFF"
-              }
-            ]
-          }
-        ],
-        "status": 0,
-        "type": 3,
-        "unitLabel": ""
-      },
-      {      
-        "description": "Lampe de lecture",
-        "enabled": "ON",
-        "id": 8,
-        "isTriggerValue": true,
-        "maxValue": 1,
-        "minValue": 0,
-        "name": "Lampe de lecture",
-        "precision": 0,
-        "scenarios": [
-          {
-            "id": 17821073411,
-            "name": "Fin de semaine",
-            "tasks": [
-              {
-                "conditions": [
-                  {
-                    "beginDate": "2014-04-01",
-                    "comparisonType": 2,
-                    "endDate": "2014-12-31",
-                    "id": 1350248463,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "11:00",
-                    "comparisonType": 8,
-                    "endTime": "17:00",
-                    "id": 1350249800,
-                    "type": 3
-                  }
-                ],
-                "id": 1782101122,
-                "status": "ON"
-              },
-              {
-                "conditions": [],
-                "id": 1782106632,
-                "status": "OFF"
-              }
-            ]
-          }
-        ],
-        "status": 0,
-        "type": 3,
-        "unitLabel": ""
-      },
-      {       
-        "description": "",
-        "enabled": "ON",
-        "id": 13,
-        "isTriggerValue": true,
-        "maxValue": 1,
-        "minValue": 0,
-        "name": "senseur RF",
-        "precision": 0,
-        "scenarios": [
-          {
-            "id": 1782105528,
-            "name": "Tout le temps",
-            "tasks": [
-              {
-                "conditions": [
-                  {
-                    "beginDate": "2014-01-01",
-                    "comparisonType": 2,
-                    "endDate": "2014-12-31",
-                    "id": 1350247844,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "0:00",
-                    "comparisonType": 8,
-                    "endTime": "23:59",
-                    "id": 1350245279,
-                    "type": 3
-                  }
-                ],
-                "id": 17821037389,
-                "status": "ON"
-              },
-              {
-                "conditions": [],
-                "id": 1782106670,
-                "status": "OFF"
-              }
-            ]
-          }
-        ],
-        "status": 0,
-        "type": 3,
-        "unitLabel": ""
-      }
      ],
     "enabled": "ON",
     "firmwareVersion": "1.0.0.2225",
