@@ -1,0 +1,4 @@
+#ifndef TESTCONTROLLER_H
+#define TESTCONTROLLER_H
+
+#endif // TESTCONTROLLER_H
