@@ -18,7 +18,7 @@ void UVoiceControlAPI::sendVoiceControlFile(QString voiceFilePath)
     request.setRawHeader("Authorization", "Bearer AJKFKPXCCXDD6CPEXASZMJSLCOZSUQ3Z");
     request.setRawHeader("Content-Type", "audio/wav");
 
-    voiceFilePath = "C:/Users/Frank/Desktop/c29decaada78f883c58fec7d46bb04a7.wav";
+    //voiceFilePath = "C:/Users/Frank/Desktop/c29decaada78f883c58fec7d46bb04a7.wav";
     voiceFile = new QFile(voiceFilePath);
     if (!voiceFile->open(QIODevice::ReadOnly))
         return;
@@ -33,6 +33,17 @@ void UVoiceControlAPI::analyseIntent()
     QJsonDocument jsonResponse = QJsonDocument::fromJson(m_voiceControlIntent.toUtf8());
     QJsonObject jsonObj = jsonResponse.object();
     UVoiceControlResponse voiceControlResponse(jsonObj);
+
+    // TEST CODE
+    if (voiceControlResponse.getIntent() == QString("turn_onoff_all_lights"))
+    {
+        QJsonObject entities = voiceControlResponse.getEntities();
+        QJsonValue onoffValue = entities["on_off"];
+        QJsonArray onOffArray = onoffValue.toArray();
+        QJsonObject firstObject = onOffArray.first().toObject();
+        QString onoffString = firstObject["value"].toString();
+        qDebug() << onoffString;
+    }
     return;
 }
 

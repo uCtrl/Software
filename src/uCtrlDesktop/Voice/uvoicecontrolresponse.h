@@ -9,11 +9,13 @@ class UVoiceControlResponse
 public:
     UVoiceControlResponse(const QJsonObject& jsonResponse);
 
+    QString getIntent() { return m_intent; }
+    const QJsonObject& getEntities() { return m_entities; }
 private:
     QString m_msgId;
     QString m_text;
     QString m_intent;
-    QJsonArray m_entities;
+    QJsonObject m_entities;
     float m_confidence;
 };
 

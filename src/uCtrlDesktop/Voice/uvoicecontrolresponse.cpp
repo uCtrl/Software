@@ -8,6 +8,6 @@ UVoiceControlResponse::UVoiceControlResponse(const QJsonObject& jsonResponse)
     QJsonObject firstOutcome = outcomesArray.first().toObject();
     m_text = firstOutcome["_text"].toString();
     m_intent = firstOutcome["intent"].toString();
-    m_entities = firstOutcome["entities"].toArray();
+    m_entities = firstOutcome["entities"].toObject();
     m_confidence = firstOutcome["confidence"].toDouble();
 }
