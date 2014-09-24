@@ -42,7 +42,7 @@ void UVoiceControlAPI::analyseIntent()
         QJsonArray onOffArray = onoffValue.toArray();
         QJsonObject firstObject = onOffArray.first().toObject();
         QString onoffString = firstObject["value"].toString();
-        qDebug() << onoffString;
+        //qDebug() << onoffString;
     }
     return;
 }
