@@ -17,4 +17,7 @@ QtObject {
 
     property string uSystem: root + "/System/USystem.qml"
     property string uSystemTitle: "Platform"
+
+    property string uVoiceControl: root + "/Voice/UVoiceControl.qml"
+    property string uVoiceControlTitle: "Voice Control"
 }

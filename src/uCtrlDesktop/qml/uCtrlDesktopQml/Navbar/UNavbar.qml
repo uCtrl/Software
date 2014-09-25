@@ -29,7 +29,6 @@ Rectangle {
         title: _paths.uLandingPageTitle
 
         anchors.top: parent.top
-
         anchors.left: parent.left
     }
 
@@ -44,7 +43,6 @@ Rectangle {
         model: mySystem
 
         anchors.top: dashboard.bottom
-
         anchors.left: parent.left
     }
 
@@ -56,8 +54,8 @@ Rectangle {
 
         path: _paths.uStatistics
         title: _paths.uStatisticsTitle
-        anchors.top: device.bottom
 
+        anchors.top: device.bottom
         anchors.left: parent.left
     }
 
@@ -71,7 +69,19 @@ Rectangle {
         title: _paths.uHomeTitle
 
         anchors.top: statistics.bottom
+        anchors.left: parent.left
+    }
 
+    UMenuItem {
+        id: voice
+        icon: "Microphone"
+        label: "Voice Control"
+        name: "Voice"
+
+        path: _paths.uVoiceControl
+        title: _paths.uVoiceControlTitle
+
+        anchors.top: config.bottom
         anchors.left: parent.left
 
         showSeparator: false
@@ -82,6 +92,7 @@ Rectangle {
         device.state = ""
         statistics.state = ""
         config.state = ""
+        voice.state = ""
     }
 
     function highlightButton(buttonNameToHighlight) {
@@ -97,6 +108,9 @@ Rectangle {
             break
         case "Settings":
             config.state = "ACTIVE"
+            break
+        case "Voice":
+            voice.state = "ACTIVE"
             break
         }
     }

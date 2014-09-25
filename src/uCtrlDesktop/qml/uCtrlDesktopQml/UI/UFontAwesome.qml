@@ -218,6 +218,7 @@ Item {
         "Umbrella"          : "\uf0e9",
         "Paste"             : "\uf0ea",
         "LocationArrow"     : "\uf124",
+        "Microphone"        : "\uf130",
         "CalendarEmpty"     : "\uf133",
         "SortAlphabetical"  : "\uf15d",
         "UserMd"            : "\uf200",

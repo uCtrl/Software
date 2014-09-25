@@ -12,6 +12,8 @@
 #include "Conditions/uconditionweekday.h"
 #include "Conditions/uconditiondevice.h"
 #include "NinjaBlocks/uninjablocksapi.h"
+#include "Audio/uaudiorecorder.h"
+#include "Voice/uvoicecontrolapi.h"
 
 #include <QFile>
 #include <QTextStream>
@@ -52,6 +54,10 @@ void Init(QGuiApplication& app, QtQuick2ApplicationViewer& viewer)
     qmlRegisterType<UCondition>("ConditionEnums", 1, 0, "UEComparisonType");
     qmlRegisterType<UConditionWeekday>("ConditionEnums", 1, 0, "UEWeekday");
     qmlRegisterType<UConditionDevice>("ConditionEnums", 1, 0, "UEDeviceType");
+    qmlRegisterType<UAudioRecorder>("UAudioRecorder", 1, 0, "UAudioRecorder");
+    qmlRegisterType<UVoiceControlAPI>("UVoiceControl", 1, 0, "UVoiceControl");
+    
+    USystem* system = USystem::Instance();
 
     QNetworkAccessManager* networkAccessManager = viewer.engine()->networkAccessManager();
     UNinjaBlocksAPI* ninja = new UNinjaBlocksAPI(networkAccessManager);
@@ -59,7 +65,6 @@ void Init(QGuiApplication& app, QtQuick2ApplicationViewer& viewer)
     ninja->getBlocks();
 
     // LOCAL FILE SECTION
-    USystem* system = USystem::Instance();
     LoadSystemFromFile(system, ":/Resources/data.json");
 
     QQmlContext *ctxt = viewer.rootContext();
