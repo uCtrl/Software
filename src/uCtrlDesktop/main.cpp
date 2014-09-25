@@ -34,6 +34,8 @@ void SaveSystemToFile(USystem* s, std::string filename)
 
 void LoadSystemFromFile(USystem* s, std::string filename)
 {
+    QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
+
     QFile f(QString::fromStdString(filename));
     if (f.open(QFile::ReadOnly | QFile::Text)){
         QTextStream in(&f);
