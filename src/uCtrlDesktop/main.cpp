@@ -13,9 +13,11 @@
 #include "Conditions/uconditiondevice.h"
 #include "Audio/uaudiorecorder.h"
 #include "Voice/uvoicecontrolapi.h"
+#include "Stats/ustats.h"
 
 #include <QFile>
 #include <QTextStream>
+#include <QTimer>
 
 #include <QtQml>
 
@@ -59,6 +61,9 @@ int main(int argc, char *argv[])
     qmlRegisterType<UVoiceControlAPI>("UVoiceControl", 1, 0, "UVoiceControl");
     
     USystem* system = USystem::Instance();
+    UStats* stats = UStats::Instance();
+
+    system->setRefreshTimer(&app, 5000);
 
     // SIMULATOR SECTION
     //UNetworkScanner* scanner = UNetworkScanner::Instance();

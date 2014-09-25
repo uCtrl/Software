@@ -1,6 +1,9 @@
 #include "usystem.h"
 #include "Device/udevicelist.h"
 
+#include <QCoreApplication>
+#include <QDir>
+
 USystem* USystem::m_systemInstance = NULL;
 
 USystem* USystem::Instance()
@@ -65,6 +68,8 @@ QObject* USystem::getAllDevices() {
 
 void USystem::read(const QJsonObject &jsonObj)
 {
+    m_platforms.clear();
+
     QJsonArray platformsArray = jsonObj["platforms"].toArray();
     foreach(QJsonValue platformJson, platformsArray)
     {
@@ -85,4 +90,29 @@ void USystem::write(QJsonObject &jsonObj) const
     }
 
     jsonObj["platforms"] = platformsArray;
+}
+
+
+void USystem::setRefreshTimer(const QObject *app, const int time)
+{
+    m_refreshTimer = new QTimer();
+    QObject::connect(m_refreshTimer, SIGNAL(timeout()), this, SLOT(refreshSystem()), Qt::AutoConnection);
+    m_refreshTimer->start(time);
+}
+
+void USystem::refreshSystem()
+{
+    QString previousPath = QDir::currentPath();
+    QDir::setCurrent(PROJECT_PATH);
+    QDir::setCurrent(QDir::currentPath() + "/uCtrlDesktop/");
+    QFile f;
+    f.setFileName("data.json");
+    if (f.open(QFile::ReadOnly | QFile::Text)){
+        QTextStream in(&f);
+        QString str = in.readAll();
+        str.remove(QRegExp("[\\n\\t\\r]"));
+        JsonSerializer::parse(str, this);
+    }
+    f.close();
+    QDir::setCurrent(previousPath);
 }

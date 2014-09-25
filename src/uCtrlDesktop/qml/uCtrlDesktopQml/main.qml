@@ -18,6 +18,7 @@ Rectangle {
 
     property int scrollbarSize: 16
 
+    property var activeModel: null
     property var activeComponent: null
     property var activePage: null
 
@@ -77,7 +78,7 @@ Rectangle {
 
     function renderComponent(path, title, model) {
         titlebar.changeBreadcrumb(path, title, model)
-
+        activeModel = model
         destroyComponent()
         activeComponent = Qt.createComponent(path)
         refreshPage(model)
@@ -162,5 +163,14 @@ Rectangle {
 
     UI.UPath {
         id: _paths
+    }
+
+    Timer {
+        id: _refreshTimer;
+        interval: 5000;
+        running: true;
+        repeat: true;
+
+        onTriggered: parent.refreshPage(parent.activeModel)
     }
 }
