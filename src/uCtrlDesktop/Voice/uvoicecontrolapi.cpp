@@ -1,4 +1,7 @@
 #include "uvoicecontrolapi.h"
+#include "uvoicecontrolresponse.h"
+#include <QJsonDocument>
+#include <QJsonObject>
 
 UVoiceControlAPI::UVoiceControlAPI(QObject *parent) :
     QObject(parent)
@@ -23,6 +26,25 @@ void UVoiceControlAPI::sendVoiceControlFile(QString voiceFilePath)
     QNetworkReply* reply = manager->post(request, voiceFile);
 
     voiceFile->setParent(reply);
+}
+
+void UVoiceControlAPI::analyseIntent()
+{
+    QJsonDocument jsonResponse = QJsonDocument::fromJson(m_voiceControlIntent.toUtf8());
+    QJsonObject jsonObj = jsonResponse.object();
+    UVoiceControlResponse voiceControlResponse(jsonObj);
+
+    // TEST CODE
+    if (voiceControlResponse.getIntent() == QString("turn_onoff_all_lights"))
+    {
+        QJsonObject entities = voiceControlResponse.getEntities();
+        QJsonValue onoffValue = entities["on_off"];
+        QJsonArray onOffArray = onoffValue.toArray();
+        QJsonObject firstObject = onOffArray.first().toObject();
+        QString onoffString = firstObject["value"].toString();
+        //qDebug() << onoffString;
+    }
+    return;
 }
 
 void  UVoiceControlAPI::replyFinished(QNetworkReply* reply)

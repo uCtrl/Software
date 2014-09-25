@@ -19,6 +19,7 @@ class UVoiceControlAPI : public QObject
 public:
     explicit UVoiceControlAPI(QObject *parent = 0);
     Q_INVOKABLE void sendVoiceControlFile(QString voiceFilePath);
+    Q_INVOKABLE void analyseIntent();
 
     QString getVoiceControlIntent() const
     {
