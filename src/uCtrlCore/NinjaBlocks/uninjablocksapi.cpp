@@ -5,7 +5,15 @@ UNinjaBlocksAPI::UNinjaBlocksAPI(QNetworkAccessManager* nam, QObject *parent) :
 {
 }
 
+
+
+
+// /////////////////////////////////////
+//              User                  //
+// /////////////////////////////////////
+
 // Return information about the authenticated user
+// Needs to be implemented in server. No route for /user at the moment
 void UNinjaBlocksAPI::getUser()
 {  
     QNetworkReply* reply = getRequest("user");
@@ -25,7 +33,9 @@ void UNinjaBlocksAPI::getUserReply()
     reply->deleteLater();
 }
 
+
 // Returns the 30 most recent entries in the authenticating user's activity stream
+// Needs to be implemented in server. No route for /user/stream at the moment
 void UNinjaBlocksAPI::getUserStream()
 {
     QNetworkReply* reply = getRequest("user/stream");
@@ -45,7 +55,9 @@ void UNinjaBlocksAPI::getUserStreamReply()
     reply->deleteLater();
 }
 
+
 // Returns user's pusher channel key
+// Needs to be implemented in server. No route for /user/pusherchannel at the moment
 void UNinjaBlocksAPI::getUserPusherChannel()
 {
     QNetworkReply* reply = getRequest("user/pusherchannel");
@@ -66,6 +78,7 @@ void UNinjaBlocksAPI::getUserPusherChannelReply()
 }
 
 // Sets the amount of time that 'realtime' mode will be active for
+// Needs to be implemented in server. No route for /user/realtime at the moment
 void UNinjaBlocksAPI::putUserRealtime(int length)
 {
     QJsonObject obj;
@@ -89,14 +102,23 @@ void UNinjaBlocksAPI::putUserRealtimeReply()
     reply->deleteLater();
 }
 
-// Fetch all claimed blocks
-void UNinjaBlocksAPI::getBlocks()
+
+
+
+
+// /////////////////////////////////////
+//            Platforms               //
+// /////////////////////////////////////
+
+
+// Fetch all claimed platforms
+void UNinjaBlocksAPI::getPlatforms()
 {
-    QNetworkReply* reply = getRequest("block");
+    QNetworkReply* reply = getRequest("platforms");
     connect(reply, SIGNAL(finished()), this, SLOT(getBlocksReply()));
 }
 
-void UNinjaBlocksAPI::getBlocksReply()
+void UNinjaBlocksAPI::getPlatformsReply()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
     if (reply->error() == QNetworkReply::NoError) {
@@ -110,18 +132,22 @@ void UNinjaBlocksAPI::getBlocksReply()
 }
 
 
+
+
 // Attempt to claim an unclaimed block.
-void UNinjaBlocksAPI::postBlock(const QString& nodeId)
+// Needs more impletation in server (platforms.js)
+
+void UNinjaBlocksAPI::postPlatforms(const QString& nodeId)
 {
     QJsonObject obj;
     obj["nodeid"] = nodeId;
     QJsonDocument doc(obj);
 
-    QNetworkReply* reply = postRequest("block", doc.toJson());
-    connect(reply, SIGNAL(finished()), this, SLOT(postBlocksReply()));
+    QNetworkReply* reply = postRequest("platforms", doc.toJson());
+    connect(reply, SIGNAL(finished()), this, SLOT(postPlatformsReply()));
 }
 
-void UNinjaBlocksAPI::postBlockReply()
+void UNinjaBlocksAPI::postPlatformsReply()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
     if (reply->error() == QNetworkReply::NoError) {
@@ -134,34 +160,18 @@ void UNinjaBlocksAPI::postBlockReply()
     reply->deleteLater();
 }
 
-// Activate a block and return its token. This token should be used with all subsequent requests. Your nodeId should be a 12+ alphanumeric character identifier, ideally a unique serial number.
-void UNinjaBlocksAPI::getBlockActivate(const QString& nodeId)
-{
-    QNetworkReply* reply = getRequest(QString("block/%1/activate").arg(nodeId));
-    connect(reply, SIGNAL(finished()), this, SLOT(getBlockActivateReply()));
-}
 
-void UNinjaBlocksAPI::getBlockActivateReply()
-{
-    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
-    if (reply->error() == QNetworkReply::NoError) {
-        // emit networkError
-    }
 
-    QString data(reply->readAll());
-    // TODO: Parse JSON reply into our class
 
-    reply->deleteLater();
-}
 
 // Returns data about the specified block.
-void UNinjaBlocksAPI::getBlock(const QString& nodeId)
+void UNinjaBlocksAPI::getPlatform(const QString& nodeId)
 {
-    QNetworkReply* reply = getRequest(QString("block/%1").arg(nodeId));
-    connect(reply, SIGNAL(finished()), this, SLOT(getBlockReply()));
+    QNetworkReply* reply = getRequest(QString("platforms/%1").arg(nodeId));
+    connect(reply, SIGNAL(finished()), this, SLOT(getPlatformReply()));
 }
 
-void UNinjaBlocksAPI::getBlockReply()
+void UNinjaBlocksAPI::getPlatformReply()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
     if (reply->error() == QNetworkReply::NoError) {
@@ -173,15 +183,18 @@ void UNinjaBlocksAPI::getBlockReply()
 
     reply->deleteLater();
 }
+
+
+
 
 // Unpair a block.
-void UNinjaBlocksAPI::deleteBlock(const QString& nodeId)
+void UNinjaBlocksAPI::deletePlatform(const QString& nodeId)
 {
-    QNetworkReply* reply = deleteRequest(QString("block/%1").arg(nodeId));
-    connect(reply, SIGNAL(finished()), this, SLOT(deleteBlockReply()));
+    QNetworkReply* reply = deleteRequest(QString("platforms/%1").arg(nodeId));
+    connect(reply, SIGNAL(finished()), this, SLOT(deletePlatformReply()));
 }
 
-void UNinjaBlocksAPI::deleteBlockReply()
+void UNinjaBlocksAPI::deletePlatformReply()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
     if (reply->error() == QNetworkReply::NoError) {
@@ -195,10 +208,35 @@ void UNinjaBlocksAPI::deleteBlockReply()
 }
 
 
-// Returns the list of devices associated with the authenticating user
-void UNinjaBlocksAPI::getDevices()
+
+/*
+ * Not in the µCtrl protocol but available with ninjablocks. so do we have to upgrade µCtrl protocol with that ?
+ *
+ * GET   block/:nodeId/activate  => Activate a block and return its token.
+ * POST  block/:nodeId/heartbeat =>	[DEPRECATED] Send a heartbeat from this block.
+ * POST  block/:nodeId/data      =>	Send a 'data' event from this block. Typically 'data' events will be instantly actioned, as opposed to heartbeats which may be queued.
+ * POST  block/:nodeId/config    => Config events are intended to be meta information about a device, for example it's IP address if it were an IP camera.
+ * GET   block/:nodeId/commands  =>	Long GET that will respond with that block's commands for the duration of the request.
+ * POST  camera/:guid/snapshot   =>	Send an image that has been requested via a 'snapshot' command.
+ *
+ *
+ * */
+
+
+
+
+
+
+// /////////////////////////////////////
+//             Devices                //
+// /////////////////////////////////////
+
+
+
+// Returns the list of devices associated to a specified platform
+void UNinjaBlocksAPI::getDevices(const QString& nodeId)
 {
-    QNetworkReply* reply = getRequest("devices");
+    QNetworkReply* reply = getRequest(QString("platforms/%1/devices").arg(nodeId));
     connect(reply, SIGNAL(finished()), this, SLOT(getDevicesReply()));
 }
 
@@ -215,10 +253,17 @@ void UNinjaBlocksAPI::getDevicesReply()
     reply->deleteLater();
 }
 
-// Fetch metadata about the specified device.
-void UNinjaBlocksAPI::getDevice(const QString& guid)
+
+
+// Create new device
+// Maybe not available for device. (Only for sub devices ?)
+
+
+
+// Fetch data about the specified device.
+void UNinjaBlocksAPI::getDevice(const QString& nodeId, const QString& guid)
 {
-    QNetworkReply* reply = getRequest(QString("device/%1").arg(guid));
+    QNetworkReply* reply = getRequest(QString("platforms/%1/devices/%2").arg(nodeId).arg(guid));
     connect(reply, SIGNAL(finished()), this, SLOT(getDeviceReply()));
 }
 
@@ -235,15 +280,21 @@ void UNinjaBlocksAPI::getDeviceReply()
     reply->deleteLater();
 }
 
+
+
+
+
 // Update a device, including sending a command.
-void UNinjaBlocksAPI::putDevice(const QString& guid, const QString& da, const QString& shortName)
+// Needs implementation in server (devices.js)
+
+void UNinjaBlocksAPI::putDevice(const QString& nodeId, const QString& guid, const QString& da, const QString& shortName)
 {
     QJsonObject obj;
     if (da != NULL) obj["DA"] = da;
     if (shortName != NULL) obj["shortName"] = shortName;
     QJsonDocument doc(obj);
 
-    QNetworkReply* reply = putRequest(QString("device/%1").arg(guid), doc.toJson());
+    QNetworkReply* reply = putRequest(QString("platforms/%1/device/%2").arg(nodeId).arg(guid), doc.toJson());
     connect(reply, SIGNAL(finished()), this, SLOT(putDeviceReply()));
 }
 
@@ -260,10 +311,14 @@ void UNinjaBlocksAPI::putDeviceReply()
     reply->deleteLater();
 }
 
+
+
 // Delete this device from the system.
-void UNinjaBlocksAPI::deleteDevice(const QString& guid)
+// needs implementation in server (devices.js)
+
+void UNinjaBlocksAPI::deleteDevice(const QString& nodeId, const QString& guid)
 {
-    QNetworkReply* reply = deleteRequest(QString("device/%1").arg(guid));
+    QNetworkReply* reply = deleteRequest(QString("platforms/%1/device/%2").arg(nodeId).arg(guid));
     connect(reply, SIGNAL(finished()), this, SLOT(deleteDeviceReply()));
 }
 
@@ -280,160 +335,52 @@ void UNinjaBlocksAPI::deleteDeviceReply()
     reply->deleteLater();
 }
 
-// Return the last heartbeat for the specified device.
-void UNinjaBlocksAPI::getDeviceHeartbeat(const QString& guid)
+
+
+/*
+ * Not in the µCtrl protocol but available with ninjablocks. so do we have to upgrade µCtrl protocol with that ?
+ *
+ * GET     device/:guid/data                  Return the historical data for the specified device.
+ * GET     device/:guid/heartbeat             Return the last heartbeat for the specified device.
+ * POST    device/:guid/callback              Register a new callback against this device.
+ * GET     device/:guid/callback              Retrieve the current callback url registered against this device.
+ * PUT     device/:guid/callback              Update an existing callback against this device.
+ * DELETE  device/:guid/callback              Delete an existing callback against this device.
+ *
+ *
+ *
+ *
+ *
+ * La notion de "Sub-device" n'est pas gérée par le protocol µCtrl coté server actuellement
+ *
+ * POST    device/:guid/subdevice             Create a new sub-device under this device.
+ * PUT     device/:guid/subdevice/:subdeviceId          Update information about the specified sub-device.
+ * DELETE  device/:guid/subdevice/:subdeviceId          Delete the specified sub-device. Note that if there are any rules attached to this sub-device they will not be deleted, but instead become ineffectual.
+ * GET     device/:guid/subdevice/:subdeviceId/data     Fetch the count of the number of times the sub-device was actuated.
+ * POST    device/:deviceGuid/subdevice/:subDeviceId/tickle/:token      Tickle a 'webhook' sub-device.
+ *
+ *
+ * */
+
+
+
+
+
+// /////////////////////////////////////
+//             Scenarii               //
+// /////////////////////////////////////
+
+
+
+// Fetch all the existing scenarii about a specified device
+
+void UNinjaBlocksAPI::getScenarios(const QString& nodeId, const QString& guid)
 {
-    QNetworkReply* reply = getRequest(QString("device/%1/heartbeat").arg(guid));
-    connect(reply, SIGNAL(finished()), this, SLOT(getDeviceHeartbeatReply()));
+    QNetworkReply* reply = getRequest(QString("platforms/%1/devices/%2/scenarios").arg(nodeId).arg(guid));
+    connect(reply, SIGNAL(finished()), this, SLOT(getScenariosReply()));
 }
 
-void UNinjaBlocksAPI::getDeviceHeartbeatReply()
-{
-    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
-    if (reply->error() == QNetworkReply::NoError) {
-        // emit networkError
-    }
-
-    QString data(reply->readAll());
-    // TODO: Parse JSON reply into our class
-
-    reply->deleteLater();
-}
-
-// Return the historical data for the specified device.
-void UNinjaBlocksAPI::getDeviceData(const QString& guid, const QString& from, const QString& to, const QString& interval, const QString& fn)
-{
-    QUrl url(NinjaBaseUrl + QString("device/%1/data").arg(guid));
-    QUrlQuery urlQuery;
-    urlQuery.addQueryItem("from", from);
-    urlQuery.addQueryItem("to", to);
-    urlQuery.addQueryItem("interval", interval);
-    urlQuery.addQueryItem("fn", fn);
-    urlQuery.addQueryItem("user_access_token", UserAccessToken);
-    url.setQuery(urlQuery);
-    QNetworkRequest req(url);
-
-    QNetworkReply* reply =  m_networkAccessManager->get(req);
-    connect(reply, SIGNAL(finished()), this, SLOT(getDeviceDataReply()));
-}
-
-void UNinjaBlocksAPI::getDeviceDataReply()
-{
-    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
-    if (reply->error() == QNetworkReply::NoError) {
-        // emit networkError
-    }
-
-    QString data(reply->readAll());
-    // TODO: Parse JSON reply into our class
-
-    reply->deleteLater();
-}
-
-// Register a new callback against this device.
-void UNinjaBlocksAPI::postDeviceCallback(const QString& guid, const QString& url)
-{
-    QJsonObject obj;
-    obj["url"] = url;
-    QJsonDocument doc(obj);
-
-    QNetworkReply* reply = postRequest(QString("device/%1/callback").arg(guid), doc.toJson());
-    connect(reply, SIGNAL(finished()), this, SLOT(postDeviceCallbackReply()));
-}
-
-void UNinjaBlocksAPI::postDeviceCallbackReply()
-{
-    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
-    if (reply->error() == QNetworkReply::NoError) {
-        // emit networkError
-    }
-
-    QString data(reply->readAll());
-    // TODO: Parse JSON reply into our class
-
-    reply->deleteLater();
-}
-
-// Register a new callback against this device.
-void UNinjaBlocksAPI::getDeviceCallback(const QString& guid)
-{
-    QNetworkReply* reply = getRequest(QString("device/%1/callback").arg(guid));
-    connect(reply, SIGNAL(finished()), this, SLOT(getDeviceCallbackReply()));
-}
-
-void UNinjaBlocksAPI::getDeviceCallbackReply()
-{
-    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
-    if (reply->error() == QNetworkReply::NoError) {
-        // emit networkError
-    }
-
-    QString data(reply->readAll());
-    // TODO: Parse JSON reply into our class
-
-    reply->deleteLater();
-}
-
-// Register a new callback against this device.
-void UNinjaBlocksAPI::putDeviceCallback(const QString& guid, const QString& url)
-{
-    QJsonObject obj;
-    obj["url"] = url;
-    QJsonDocument doc(obj);
-
-    QNetworkReply* reply = putRequest(QString("device/%1/callback").arg(guid), doc.toJson());
-    connect(reply, SIGNAL(finished()), this, SLOT(putDeviceCallbackReply()));
-}
-
-void UNinjaBlocksAPI::putDeviceCallbackReply()
-{
-    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
-    if (reply->error() == QNetworkReply::NoError) {
-        // emit networkError
-    }
-
-    QString data(reply->readAll());
-    // TODO: Parse JSON reply into our class
-
-    reply->deleteLater();
-}
-
-// Delete an existing callback against this device.
-void UNinjaBlocksAPI::deleteDeviceCallback(const QString& guid)
-{
-    QNetworkReply* reply = deleteRequest(QString("device/%1/callback").arg(guid));
-    connect(reply, SIGNAL(finished()), this, SLOT(deleteDeviceCallbackReply()));
-}
-
-void UNinjaBlocksAPI::deleteDeviceCallbackReply()
-{
-    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
-    if (reply->error() == QNetworkReply::NoError) {
-        // emit networkError
-    }
-
-    QString data(reply->readAll());
-    // TODO: Parse JSON reply into our class
-
-    reply->deleteLater();
-}
-
-// Create a new sub-device under this device.
-void UNinjaBlocksAPI::postSubdevice(const QString& guid, const QString& category, const QString& type, const QString& shortName, const QString& data, const QString& url)
-{
-    QJsonObject obj;
-    obj["category"] = category;
-    obj["type"] = type;
-    obj["shortName"] = shortName;
-    if (data != NULL) obj["data"] = data;
-    if (url != NULL) obj["url"] = url;
-    QJsonDocument doc(obj);
-
-    QNetworkReply* reply = postRequest(QString("device/%1/subdevice").arg(guid), doc.toJson());
-    connect(reply, SIGNAL(finished()), this, SLOT(postSubdeviceReply()));
-}
-
-void UNinjaBlocksAPI::postSubdeviceReply()
+void UNinjaBlocksAPI::getScenariosReply()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
     if (reply->error() == QNetworkReply::NoError) {
@@ -447,42 +394,30 @@ void UNinjaBlocksAPI::postSubdeviceReply()
 }
 
 
-// Update information about the specified sub-device.
-void UNinjaBlocksAPI::putSubdevice(const QString& guid, const QString& subDeviceId, const QString& category, const QString& type, const QString& shortName, const QString& data, const QString& url)
+// Create a new scenario for specified device
+// Needs implementation right here
+void UNinjaBlocksAPI::postScenarios(const QString& nodeId, const QString& guid)
 {
-    QJsonObject obj;
-    if (category != NULL) obj["category"] = category;
-    if (type != NULL) obj["type"] = type;
-    if (shortName != NULL) obj["shortName"] = shortName;
-    if (data != NULL) obj["data"] = data;
-    if (url != NULL) obj["url"] = url;
-    QJsonDocument doc(obj);
 
-    QNetworkReply* reply = putRequest(QString("device/%1/subdevice/%2").arg(guid, subDeviceId), doc.toJson());
-    connect(reply, SIGNAL(finished()), this, SLOT(putSubdeviceReply()));
 }
 
-void UNinjaBlocksAPI::putSubdeviceReply()
+void UNinjaBlocksAPI::postScenariosReply()
 {
-    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
-    if (reply->error() == QNetworkReply::NoError) {
-        // emit networkError
-    }
 
-    QString data(reply->readAll());
-    // TODO: Parse JSON reply into our class
-
-    reply->deleteLater();
 }
 
-// Delete the specified sub-device. Note that if there are any rules attached to this sub-device they will not be deleted, but instead become ineffectual.
-void UNinjaBlocksAPI::deleteSubdevice(const QString& guid, const QString& subDeviceId)
+
+
+
+// Fetch data about a specified scenario for a specified device
+// Needs implementation in server (scenarios.js)
+void UNinjaBlocksAPI::getScenario(const QString& nodeId, const QString& guid, const QString& scenarioId)
 {
-    QNetworkReply* reply = deleteRequest(QString("device/%1/subdevice/%2").arg(guid, subDeviceId));
-    connect(reply, SIGNAL(finished()), this, SLOT(deleteSubdeviceReply()));
+    QNetworkReply* reply = getRequest(QString("platforms/%1/devices/%2/scenarios/%3").arg(nodeId).arg(guid).arg(scenarioId));
+    connect(reply, SIGNAL(finished()), this, SLOT(getScenarioReply()));
 }
 
-void UNinjaBlocksAPI::deleteSubdeviceReply()
+void UNinjaBlocksAPI::getScenarioReply()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
     if (reply->error() == QNetworkReply::NoError) {
@@ -495,43 +430,29 @@ void UNinjaBlocksAPI::deleteSubdeviceReply()
     reply->deleteLater();
 }
 
-// Fetch the count of the number of times the sub-device was actuated.
-void UNinjaBlocksAPI::getSubdeviceData(const QString& guid, const QString& subDeviceId, const QString& from, const QString& to, const QString& interval)
-{
-    QUrl url(NinjaBaseUrl + QString("device/%1/subdevice/%2").arg(guid, subDeviceId));
-    QUrlQuery urlQuery;
-    urlQuery.addQueryItem("from", from);
-    urlQuery.addQueryItem("to", to);
-    urlQuery.addQueryItem("interval", interval);
-    urlQuery.addQueryItem("user_access_token", UserAccessToken);
-    url.setQuery(urlQuery);
-    QNetworkRequest req(url);
 
-    QNetworkReply* reply =  m_networkAccessManager->get(req);
-    connect(reply, SIGNAL(finished()), this, SLOT(getSubdeviceDataReply()));
+// Update a specified scenario
+// Needs implementation right here
+void UNinjaBlocksAPI::putScenario(const QString& nodeId, const QString& guid, const QString& scenarioId)
+{
+
 }
 
-void UNinjaBlocksAPI::getSubdeviceDataReply()
+void UNinjaBlocksAPI::putScenarioReply()
 {
-    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
-    if (reply->error() == QNetworkReply::NoError) {
-        // emit networkError
-    }
 
-    QString data(reply->readAll());
-    // TODO: Parse JSON reply into our class
-
-    reply->deleteLater();
 }
 
-// Fetch all of a user's rules.
-void UNinjaBlocksAPI::getRules()
+
+
+// Delete a specified scenario
+void UNinjaBlocksAPI::deleteScenario(const QString& nodeId, const QString& guid, const QString& scenarioId)
 {
-    QNetworkReply* reply = getRequest("rule");
-    connect(reply, SIGNAL(finished()), this, SLOT(getRulesReply()));
+    QNetworkReply* reply = deleteRequest(QString("platforms/%1/devices/%2/scenarios/%3").arg(nodeId).arg(guid).arg(scenarioId));
+    connect(reply, SIGNAL(finished()), this, SLOT(deleteScenarioReply()));
 }
 
-void UNinjaBlocksAPI::getRulesReply()
+void UNinjaBlocksAPI::deleteScenarioReply()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
     if (reply->error() == QNetworkReply::NoError) {
@@ -544,14 +465,24 @@ void UNinjaBlocksAPI::getRulesReply()
     reply->deleteLater();
 }
 
-// Fetch one rule.
-void UNinjaBlocksAPI::getRule(const QString& ruleId)
+
+
+
+// /////////////////////////////////////
+//               Task                 //
+// /////////////////////////////////////
+
+
+
+
+// Fetch all of a scenario's tasks.
+void UNinjaBlocksAPI::getTasks(const QString& nodeId, const QString& guid, const QString& scenarioId)
 {
-    QNetworkReply* reply = getRequest(QString("rule/%1").arg(ruleId));
-    connect(reply, SIGNAL(finished()), this, SLOT(getRuleReply()));
+    QNetworkReply* reply = getRequest(QString("platforms/%1/devices/%2/scenarios/%3/tasks").arg(nodeId).arg(guid).arg(scenarioId));
+    connect(reply, SIGNAL(finished()), this, SLOT(getTasksReply()));
 }
 
-void UNinjaBlocksAPI::getRuleReply()
+void UNinjaBlocksAPI::geTasksReply()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
     if (reply->error() == QNetworkReply::NoError) {
@@ -564,8 +495,10 @@ void UNinjaBlocksAPI::getRuleReply()
     reply->deleteLater();
 }
 
-// Create a new rule.
-void UNinjaBlocksAPI::postRule(const QString& shortName, const QString& preConditions, const QString& actions, const QString& timeout)
+
+
+// Create a new tasks
+void UNinjaBlocksAPI::postTasks(const QString& nodeId, const QString& guid, const QString& scenarioId, const QString& shortName, const QString& preConditions, const QString& actions, const QString& timeout)
 {
     QJsonObject obj;
     obj["shortName"] = shortName;
@@ -574,11 +507,11 @@ void UNinjaBlocksAPI::postRule(const QString& shortName, const QString& preCondi
     if (timeout != NULL) obj["timeout"] = timeout;
     QJsonDocument doc(obj);
 
-    QNetworkReply* reply = postRequest("rule", doc.toJson());
-    connect(reply, SIGNAL(finished()), this, SLOT(postRuleReply()));
+    QNetworkReply* reply = postRequest(QString("platforms/%1/devices/%2/scenarios/%3/tasks").arg(nodeId).arg(guid).arg(scenarioId));
+    connect(reply, SIGNAL(finished()), this, SLOT(postTasksReply()));
 }
 
-void UNinjaBlocksAPI::postRuleReply()
+void UNinjaBlocksAPI::postTasksReply()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
     if (reply->error() == QNetworkReply::NoError) {
@@ -591,8 +524,34 @@ void UNinjaBlocksAPI::postRuleReply()
     reply->deleteLater();
 }
 
-// Update a rule.
-void UNinjaBlocksAPI::putRule(const QString& ruleId, const QString& shortName, const QString& preConditions, const QString& actions, const QString& timeout)
+
+
+
+
+
+// Fetch data about a specified task
+void UNinjaBlocksAPI::getTask(const QString& nodeId, const QString& guid, const QString& scenarioId, const QString& taskId)
+{
+    QNetworkReply* reply = getRequest(QString("platforms/%1/devices/%2/scenarios/%3/tasks/%4").arg(nodeId).arg(guid).arg(scenarioId).arg(taskId));
+    connect(reply, SIGNAL(finished()), this, SLOT(getTaskReply()));
+}
+
+void UNinjaBlocksAPI::getTaskReply()
+{
+    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
+    if (reply->error() == QNetworkReply::NoError) {
+        // emit networkError
+    }
+
+    QString data(reply->readAll());
+    // TODO: Parse JSON reply into our class
+
+    reply->deleteLater();
+}
+
+
+// Update a specified task.
+void UNinjaBlocksAPI::putTask(const QString& nodeId, const QString& guid, const QString& scenarioId, const QString& taskId, const QString& shortName, const QString& preConditions, const QString& actions, const QString& timeout)
 {
     QJsonObject obj;
     obj["shortName"] = shortName;
@@ -601,11 +560,11 @@ void UNinjaBlocksAPI::putRule(const QString& ruleId, const QString& shortName, c
     if (timeout != NULL) obj["timeout"] = timeout;
     QJsonDocument doc(obj);
 
-    QNetworkReply* reply = putRequest(QString("rule/%1").arg(ruleId), doc.toJson());
-    connect(reply, SIGNAL(finished()), this, SLOT(putRuleReply()));
+    QNetworkReply* reply = putRequest(QString("platforms/%1/devices/%2/scenarios/%3/tasks/%4").arg(nodeId).arg(guid).arg(scenarioId).arg(taskId));
+    connect(reply, SIGNAL(finished()), this, SLOT(putTaskReply()));
 }
 
-void UNinjaBlocksAPI::putRuleReply()
+void UNinjaBlocksAPI::putTaskReply()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
     if (reply->error() == QNetworkReply::NoError) {
@@ -617,35 +576,14 @@ void UNinjaBlocksAPI::putRuleReply()
 
 }
 
-// Delete a rule.
-void UNinjaBlocksAPI::deleteRule(const QString& ruleId)
+// Delete a Task.
+void UNinjaBlocksAPI::deleteTask(const QString& nodeId, const QString& guid, const QString& scenarioId, const QString& taskId)
 {
-    QNetworkReply* reply = deleteRequest(QString("rule/%1").arg(ruleId));
-    connect(reply, SIGNAL(finished()), this, SLOT(deleteRuleReply()));
+    QNetworkReply* reply = deleteRequest(QString("platforms/%1/devices/%2/scenarios/%3/tasks/%4").arg(nodeId).arg(guid).arg(scenarioId).arg(taskId));
+    connect(reply, SIGNAL(finished()), this, SLOT(deleteTaskReply()));
 }
 
-void UNinjaBlocksAPI::deleteRuleReply()
-{
-    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
-    if (reply->error() == QNetworkReply::NoError) {
-        // emit networkError
-    }
-
-    QString data(reply->readAll());
-    // TODO: Parse JSON reply into our class
-
-    reply->deleteLater();
-}
-
-
-// Suspend a rule.
-void UNinjaBlocksAPI::suspendRule(const QString& ruleId)
-{
-    QNetworkReply* reply = postRequest(QString("rule/%1/suspend").arg(ruleId), NULL);
-    connect(reply, SIGNAL(finished()), this, SLOT(suspendRuleReply()));
-}
-
-void UNinjaBlocksAPI::suspendRuleReply()
+void UNinjaBlocksAPI::deleteTaskReply()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
     if (reply->error() == QNetworkReply::NoError) {
@@ -658,25 +596,22 @@ void UNinjaBlocksAPI::suspendRuleReply()
     reply->deleteLater();
 }
 
-// Suspend a rule.
-void UNinjaBlocksAPI::unsuspendRule(const QString& ruleId)
-{
-    QNetworkReply* reply = deleteRequest(QString("rule/%1/suspend").arg(ruleId));
-    connect(reply, SIGNAL(finished()), this, SLOT(unsuspendRuleReply()));
-}
 
-void UNinjaBlocksAPI::unsuspendRuleReply()
-{
-    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
-    if (reply->error() == QNetworkReply::NoError) {
-        // emit networkError
-    }
+/*
+ * Not in the µCtrl protocol but available with ninjablocks. so do we have to upgrade µCtrl protocol with that ?
+ *
+ * POST     rule/:rid/suspend	Suspend a rule.
+ * DELETE   rule/:rid/suspend	Unsuspend a rule
+ *
+ *
+ * */
 
-    QString data(reply->readAll());
-    // TODO: Parse JSON reply into our class
 
-    reply->deleteLater();
-}
+
+
+
+
+
 
 QNetworkReply* UNinjaBlocksAPI::getRequest(const QString &urlString)
 {
