@@ -5,9 +5,6 @@ UNinjaBlocksAPI::UNinjaBlocksAPI(QNetworkAccessManager* nam, QObject *parent) :
 {
 }
 
-
-
-
 // /////////////////////////////////////
 //              User                  //
 // /////////////////////////////////////
@@ -33,7 +30,6 @@ void UNinjaBlocksAPI::getUserReply()
     reply->deleteLater();
 }
 
-
 // Returns the 30 most recent entries in the authenticating user's activity stream
 // Needs to be implemented in server. No route for /user/stream at the moment
 void UNinjaBlocksAPI::getUserStream()
@@ -54,7 +50,6 @@ void UNinjaBlocksAPI::getUserStreamReply()
 
     reply->deleteLater();
 }
-
 
 // Returns user's pusher channel key
 // Needs to be implemented in server. No route for /user/pusherchannel at the moment
@@ -103,9 +98,6 @@ void UNinjaBlocksAPI::putUserRealtimeReply()
 }
 
 
-
-
-
 // /////////////////////////////////////
 //            Platforms               //
 // /////////////////////////////////////
@@ -130,9 +122,6 @@ void UNinjaBlocksAPI::getPlatformsReply()
 
     reply->deleteLater();
 }
-
-
-
 
 // Attempt to claim an unclaimed block.
 // Needs more impletation in server (platforms.js)
@@ -160,10 +149,6 @@ void UNinjaBlocksAPI::postPlatformsReply()
     reply->deleteLater();
 }
 
-
-
-
-
 // Returns data about the specified block.
 void UNinjaBlocksAPI::getPlatform(const QString& nodeId)
 {
@@ -183,9 +168,6 @@ void UNinjaBlocksAPI::getPlatformReply()
 
     reply->deleteLater();
 }
-
-
-
 
 // Unpair a block.
 void UNinjaBlocksAPI::deletePlatform(const QString& nodeId)
@@ -207,8 +189,6 @@ void UNinjaBlocksAPI::deletePlatformReply()
     reply->deleteLater();
 }
 
-
-
 /*
  * Not in the µCtrl protocol but available with ninjablocks. so do we have to upgrade µCtrl protocol with that ?
  *
@@ -222,16 +202,9 @@ void UNinjaBlocksAPI::deletePlatformReply()
  *
  * */
 
-
-
-
-
-
 // /////////////////////////////////////
 //             Devices                //
 // /////////////////////////////////////
-
-
 
 // Returns the list of devices associated to a specified platform
 void UNinjaBlocksAPI::getDevices(const QString& nodeId)
@@ -253,12 +226,8 @@ void UNinjaBlocksAPI::getDevicesReply()
     reply->deleteLater();
 }
 
-
-
 // Create new device
 // Maybe not available for device. (Only for sub devices ?)
-
-
 
 // Fetch data about the specified device.
 void UNinjaBlocksAPI::getDevice(const QString& nodeId, const QString& guid)
@@ -279,10 +248,6 @@ void UNinjaBlocksAPI::getDeviceReply()
 
     reply->deleteLater();
 }
-
-
-
-
 
 // Update a device, including sending a command.
 // Needs implementation in server (devices.js)
@@ -311,8 +276,6 @@ void UNinjaBlocksAPI::putDeviceReply()
     reply->deleteLater();
 }
 
-
-
 // Delete this device from the system.
 // needs implementation in server (devices.js)
 
@@ -334,8 +297,6 @@ void UNinjaBlocksAPI::deleteDeviceReply()
 
     reply->deleteLater();
 }
-
-
 
 /*
  * Not in the µCtrl protocol but available with ninjablocks. so do we have to upgrade µCtrl protocol with that ?
@@ -362,15 +323,9 @@ void UNinjaBlocksAPI::deleteDeviceReply()
  *
  * */
 
-
-
-
-
 // /////////////////////////////////////
 //             Scenarii               //
 // /////////////////////////////////////
-
-
 
 // Fetch all the existing scenarii about a specified device
 
@@ -393,7 +348,6 @@ void UNinjaBlocksAPI::getScenariosReply()
     reply->deleteLater();
 }
 
-
 // Create a new scenario for specified device
 // Needs implementation right here
 void UNinjaBlocksAPI::postScenarios(const QString& nodeId, const QString& guid)
@@ -405,9 +359,6 @@ void UNinjaBlocksAPI::postScenariosReply()
 {
 
 }
-
-
-
 
 // Fetch data about a specified scenario for a specified device
 // Needs implementation in server (scenarios.js)
@@ -430,7 +381,6 @@ void UNinjaBlocksAPI::getScenarioReply()
     reply->deleteLater();
 }
 
-
 // Update a specified scenario
 // Needs implementation right here
 void UNinjaBlocksAPI::putScenario(const QString& nodeId, const QString& guid, const QString& scenarioId)
@@ -442,8 +392,6 @@ void UNinjaBlocksAPI::putScenarioReply()
 {
 
 }
-
-
 
 // Delete a specified scenario
 void UNinjaBlocksAPI::deleteScenario(const QString& nodeId, const QString& guid, const QString& scenarioId)
@@ -465,15 +413,9 @@ void UNinjaBlocksAPI::deleteScenarioReply()
     reply->deleteLater();
 }
 
-
-
-
 // /////////////////////////////////////
 //               Task                 //
 // /////////////////////////////////////
-
-
-
 
 // Fetch all of a scenario's tasks.
 void UNinjaBlocksAPI::getTasks(const QString& nodeId, const QString& guid, const QString& scenarioId)
@@ -482,11 +424,7 @@ void UNinjaBlocksAPI::getTasks(const QString& nodeId, const QString& guid, const
     connect(reply, SIGNAL(finished()), this, SLOT(getTasksReply()));
 }
 
-<<<<<<< HEAD
 void UNinjaBlocksAPI::getTasksReply()
-=======
-void UNinjaBlocksAPI::geTasksReply()
->>>>>>> f550317f2424b18c4bfe85699f0491153d5f714f
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
     if (reply->error() == QNetworkReply::NoError) {
@@ -499,8 +437,6 @@ void UNinjaBlocksAPI::geTasksReply()
     reply->deleteLater();
 }
 
-
-
 // Create a new tasks
 void UNinjaBlocksAPI::postTasks(const QString& nodeId, const QString& guid, const QString& scenarioId, const QString& shortName, const QString& preConditions, const QString& actions, const QString& timeout)
 {
@@ -511,11 +447,7 @@ void UNinjaBlocksAPI::postTasks(const QString& nodeId, const QString& guid, cons
     if (timeout != NULL) obj["timeout"] = timeout;
     QJsonDocument doc(obj);
 
-<<<<<<< HEAD
     QNetworkReply* reply = postRequest(QString("platforms/%1/devices/%2/scenarios/%3/tasks").arg(nodeId).arg(guid).arg(scenarioId), doc.toJson());
-=======
-    QNetworkReply* reply = postRequest(QString("platforms/%1/devices/%2/scenarios/%3/tasks").arg(nodeId).arg(guid).arg(scenarioId));
->>>>>>> f550317f2424b18c4bfe85699f0491153d5f714f
     connect(reply, SIGNAL(finished()), this, SLOT(postTasksReply()));
 }
 
@@ -531,11 +463,6 @@ void UNinjaBlocksAPI::postTasksReply()
 
     reply->deleteLater();
 }
-
-
-
-
-
 
 // Fetch data about a specified task
 void UNinjaBlocksAPI::getTask(const QString& nodeId, const QString& guid, const QString& scenarioId, const QString& taskId)
@@ -557,7 +484,6 @@ void UNinjaBlocksAPI::getTaskReply()
     reply->deleteLater();
 }
 
-
 // Update a specified task.
 void UNinjaBlocksAPI::putTask(const QString& nodeId, const QString& guid, const QString& scenarioId, const QString& taskId, const QString& shortName, const QString& preConditions, const QString& actions, const QString& timeout)
 {
@@ -568,11 +494,7 @@ void UNinjaBlocksAPI::putTask(const QString& nodeId, const QString& guid, const 
     if (timeout != NULL) obj["timeout"] = timeout;
     QJsonDocument doc(obj);
 
-<<<<<<< HEAD
     QNetworkReply* reply = putRequest(QString("platforms/%1/devices/%2/scenarios/%3/tasks/%4").arg(nodeId).arg(guid).arg(scenarioId).arg(taskId), doc.toJson());
-=======
-    QNetworkReply* reply = putRequest(QString("platforms/%1/devices/%2/scenarios/%3/tasks/%4").arg(nodeId).arg(guid).arg(scenarioId).arg(taskId));
->>>>>>> f550317f2424b18c4bfe85699f0491153d5f714f
     connect(reply, SIGNAL(finished()), this, SLOT(putTaskReply()));
 }
 
@@ -608,7 +530,6 @@ void UNinjaBlocksAPI::deleteTaskReply()
     reply->deleteLater();
 }
 
-
 /*
  * Not in the µCtrl protocol but available with ninjablocks. so do we have to upgrade µCtrl protocol with that ?
  *
@@ -617,13 +538,6 @@ void UNinjaBlocksAPI::deleteTaskReply()
  *
  *
  * */
-
-
-
-
-
-
-
 
 QNetworkReply* UNinjaBlocksAPI::getRequest(const QString &urlString)
 {
