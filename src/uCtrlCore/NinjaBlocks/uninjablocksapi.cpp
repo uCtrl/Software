@@ -482,7 +482,11 @@ void UNinjaBlocksAPI::getTasks(const QString& nodeId, const QString& guid, const
     connect(reply, SIGNAL(finished()), this, SLOT(getTasksReply()));
 }
 
+<<<<<<< HEAD
 void UNinjaBlocksAPI::getTasksReply()
+=======
+void UNinjaBlocksAPI::geTasksReply()
+>>>>>>> f550317f2424b18c4bfe85699f0491153d5f714f
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
     if (reply->error() == QNetworkReply::NoError) {
@@ -507,7 +511,11 @@ void UNinjaBlocksAPI::postTasks(const QString& nodeId, const QString& guid, cons
     if (timeout != NULL) obj["timeout"] = timeout;
     QJsonDocument doc(obj);
 
+<<<<<<< HEAD
     QNetworkReply* reply = postRequest(QString("platforms/%1/devices/%2/scenarios/%3/tasks").arg(nodeId).arg(guid).arg(scenarioId), doc.toJson());
+=======
+    QNetworkReply* reply = postRequest(QString("platforms/%1/devices/%2/scenarios/%3/tasks").arg(nodeId).arg(guid).arg(scenarioId));
+>>>>>>> f550317f2424b18c4bfe85699f0491153d5f714f
     connect(reply, SIGNAL(finished()), this, SLOT(postTasksReply()));
 }
 
@@ -560,7 +568,11 @@ void UNinjaBlocksAPI::putTask(const QString& nodeId, const QString& guid, const 
     if (timeout != NULL) obj["timeout"] = timeout;
     QJsonDocument doc(obj);
 
+<<<<<<< HEAD
     QNetworkReply* reply = putRequest(QString("platforms/%1/devices/%2/scenarios/%3/tasks/%4").arg(nodeId).arg(guid).arg(scenarioId).arg(taskId), doc.toJson());
+=======
+    QNetworkReply* reply = putRequest(QString("platforms/%1/devices/%2/scenarios/%3/tasks/%4").arg(nodeId).arg(guid).arg(scenarioId).arg(taskId));
+>>>>>>> f550317f2424b18c4bfe85699f0491153d5f714f
     connect(reply, SIGNAL(finished()), this, SLOT(putTaskReply()));
 }
 

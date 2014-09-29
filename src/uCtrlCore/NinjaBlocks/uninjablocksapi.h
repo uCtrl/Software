@@ -61,7 +61,11 @@ public:
 
     // Tasks
     Q_INVOKABLE void getTasks(const QString& nodeId, const QString& guid, const QString& scenarioId);
+<<<<<<< HEAD
     Q_INVOKABLE void postTasks(const QString& nodeId, const QString& guid, const QString& scenarioId, const QString& shortName, const QString& preConditions, const QString& actions, const QString& timeout);
+=======
+    Q_INVOKABLE void postTask(const QString& nodeId, const QString& guid, const QString& scenarioId, const QString& shortName, const QString& preConditions, const QString& actions, const QString& timeout);
+>>>>>>> f550317f2424b18c4bfe85699f0491153d5f714f
 
     Q_INVOKABLE void getTask(const QString& nodeId, const QString& guid, const QString& scenarioId, const QString& taskId);
     Q_INVOKABLE void putTask(const QString& nodeId, const QString& guid, const QString& scenarioId, const QString& taskId, const QString& shortName, const QString& preConditions, const QString& actions, const QString& timeout);
