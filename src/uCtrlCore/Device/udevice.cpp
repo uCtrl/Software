@@ -4,13 +4,20 @@
 
 UDevice::UDevice(QObject* parent) : QAbstractListModel(parent)
 {
-    setId(UniqueIdGenerator::GenerateUniqueId());
+}
+
+UDevice::UDevice(QObject* parent, const QString& id) : QAbstractListModel(parent)
+{
+    setId(id);
     setLastUpdate(QDateTime::currentDateTime());
 }
 
 UDevice::~UDevice()
 {
-    setLastUpdate(QDateTime::currentDateTime());
+    foreach(UScenario* scenario, m_scenarios) {
+        delete scenario;
+    }
+    m_scenarios.clear();
 }
 
 UDevice::UDevice(const UDevice& device)
@@ -21,14 +28,16 @@ UDevice::UDevice(const UDevice& device)
     setLastUpdate(QDateTime::currentDateTime());
 }
 
-QObject* UDevice::createScenario() {
+QObject* UDevice::createScenario()
+{
     UScenario* newScenario = new UScenario(this);
     UTask* otherwiseTask = (UTask*)newScenario->createTask();
     newScenario->addTask(otherwiseTask);
     return newScenario;
 }
 
-void UDevice::addScenario(UScenario* scenario) {
+void UDevice::addScenario(UScenario* scenario)
+{
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     m_scenarios.push_back(scenario);
     endInsertRows();
@@ -36,7 +45,8 @@ void UDevice::addScenario(UScenario* scenario) {
     emit scenariosChanged(m_scenarios);
 }
 
-void UDevice::updateScenarioAt(int index, UScenario* scenario) {
+void UDevice::updateScenarioAt(int index, UScenario* scenario)
+{
     m_scenarios.replace(index, scenario);
 
     emit scenariosChanged(m_scenarios);
@@ -45,6 +55,49 @@ void UDevice::updateScenarioAt(int index, UScenario* scenario) {
 void UDevice::saveScenarios()
 {
     emit save();
+}
+
+void UDevice::deleteScenario(const QString &id)
+{
+    for(int i = 0; i < m_scenarios.count(); i++) {
+        if (m_scenarios[i]->getId() != id)  {
+            deleteScenarioAt(i);
+            return;
+        }
+    }
+}
+
+UScenario *UDevice::findScenario(const QString &id)
+{
+    for(int i = 0; i < m_scenarios.count(); i++) {
+        if (m_scenarios[i]->getId() == id)
+            return m_scenarios[i];
+    }
+    return 0;
+}
+
+bool UDevice::containsScenario(const QString &id)
+{
+    for(int i = 0; i < m_scenarios.count(); i++) {
+        if (m_scenarios[i]->getId() == id)
+            return true;
+    }
+    return false;
+}
+
+void UDevice::copyProperties(UDevice* device)
+{
+    this->setName(device->getName());
+    this->setMinValue(device->getMinValue());
+    this->setMaxValue(device->getMaxValue());
+    this->setPrecision(device->getPrecision());
+    this->setUnitLabel(device->getUnitLabel());
+    this->setType(device->getType());
+    this->setIsTriggerValue(device->isTriggerValue());
+    this->setEnabled(device->getEnabled());
+    this->setDescription(device->getDescription());
+    this->setStatus(device->getStatus());
+    this->setLastUpdate(QDateTime::currentDateTime());
 }
 
 void UDevice::deleteScenarioAt(int index) {
@@ -65,7 +118,7 @@ void UDevice::deleteScenarioAt(int index) {
 
 void UDevice::read(const QJsonObject &jsonObj)
 {
-    this->setId(jsonObj["id"].toInt());
+    this->setId(jsonObj["id"].toString());
     this->setName(jsonObj["name"].toString());
     this->setMinValue(jsonObj["minValue"].toDouble());
     this->setMaxValue(jsonObj["maxValue"].toDouble());

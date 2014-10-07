@@ -13,8 +13,9 @@ class UScenario : public QAbstractListModel, public JsonSerializable
 {
     Q_OBJECT
 
-    Q_PROPERTY(int id READ getId WRITE setId NOTIFY idChanged)
+    Q_PROPERTY(QString id READ getId WRITE setId NOTIFY idChanged)
     Q_PROPERTY(QString name READ getName WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(bool status READ getStatus WRITE setStatus NOTIFY statusChanged)
     Q_PROPERTY(QList<UTask*> tasks READ getTasks WRITE setTasks NOTIFY tasksChanged)
     Q_PROPERTY(QObject* device READ getDevice NOTIFY deviceChanged)
 
@@ -22,10 +23,12 @@ public:
     UScenario() {}
     UScenario(QObject *parent);
     UScenario(UScenario* scenario);
+    UScenario(QObject* parent, const QString& id);
     ~UScenario();
 
-    int getId() const { return m_id; }
+    QString getId() const { return m_id; }
     QString getName() const { return m_name; }
+    bool getStatus() const { return m_status; }
     QList<UTask*> getTasks() const { return m_tasks; }
 
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const { return m_tasks.count(); }
@@ -41,6 +44,11 @@ public:
     Q_INVOKABLE QObject* copyScenario() { return new UScenario(this); }
     Q_INVOKABLE void updateScenario(UScenario* scenario);
     QList<UTask*> copyTasks();
+    void copyProperties(UScenario* scenario);
+
+    Q_INVOKABLE UTask* findTask(const QString &taskId);
+    Q_INVOKABLE bool containsTask(const QString &taskId);
+    Q_INVOKABLE void deleteTask(const QString &taskId);
 
     void read(const QJsonObject &jsonObj);
     void write(QJsonObject &jsonObj) const;
@@ -51,8 +59,7 @@ public:
     }
 
 public slots:
-
-    void setId(int arg)
+    void setId(QString arg)
     {
         if (m_id != arg) {
             m_id = arg;
@@ -68,6 +75,14 @@ public slots:
         }
     }
 
+    void setStatus(bool arg)
+    {
+        if (m_status != arg) {
+            m_status = arg;
+            emit statusChanged(arg);
+        }
+    }
+
     void setTasks(QList<UTask*> arg)
     {
         if (m_tasks != arg) {
@@ -78,16 +93,15 @@ public slots:
 
 signals:
     void tasksChanged(QList<UTask*> arg);
-
-    void idChanged(int arg);
-
+    void idChanged(QString arg);
     void nameChanged(QString arg);
-
+    void statusChanged(bool arg);
     void deviceChanged(QObject* arg);
 
 private:
-    int m_id;
+    QString m_id;
     QString m_name;
+    bool m_status;
     QList<UTask*> m_tasks;
     QObject* m_device;
 };

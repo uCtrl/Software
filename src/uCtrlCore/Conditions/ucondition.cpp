@@ -6,9 +6,8 @@
 #include "uconditiondevice.h"
 
 UCondition::UCondition(QObject *parent, UCondition::UEConditionType type)
-    :QAbstractItemModel(parent), m_conditionParent(parent), m_comparisonType(UEComparisonType::InBetween)
+    : QAbstractItemModel(parent), m_conditionParent(parent), m_comparisonType(UEComparisonType::InBetween)
 {
-    setId(UniqueIdGenerator::GenerateUniqueId());
     setType(type);
 }
 
@@ -20,25 +19,11 @@ UCondition::UCondition(QObject* parent, UCondition* condition)
     m_conditionParent = parent;
 }
 
-UCondition::~UCondition(){}
-
-void UCondition::read(const QJsonObject &jsonObj)
-{
-    this->setId(jsonObj["id"].toInt());
-    this->setComparisonType((UEComparisonType)jsonObj["comparisonType"].toInt());
-    // Type should be set by Ucondition::createCondition, when calling a sub-class constructor.
-}
-
-void UCondition::write(QJsonObject &jsonObj) const
-{
-    jsonObj["id"] = getId();
-    jsonObj["type"] = (int) getType();
-    jsonObj["comparisonType"] = (int) getComparisonType();
-}
+UCondition::~UCondition() {}
 
 UCondition* UCondition::createCondition(QObject *parent, UCondition::UEConditionType type)
 {
-    switch(type){
+    switch (type){
     case UEConditionType::Date:
         return new UConditionDate(parent);
     case UEConditionType::Time:
@@ -52,8 +37,9 @@ UCondition* UCondition::createCondition(QObject *parent, UCondition::UECondition
     }
 }
 
-UCondition* UCondition::copyCondition(QObject* parent) {
-    switch(getType()){
+UCondition* UCondition::copyCondition(QObject* parent)
+{
+    switch (getType()) {
     case UEConditionType::Date:
         return new UConditionDate(parent, (UConditionDate*)this);
     case UEConditionType::Time:
@@ -65,4 +51,24 @@ UCondition* UCondition::copyCondition(QObject* parent) {
     default:
         return 0;
     }
+}
+
+void UCondition::copyPorperties(UCondition* condition)
+{
+    this->setComparisonType(condition->getComparisonType());
+    this->setType(condition->getType());
+}
+
+void UCondition::read(const QJsonObject &jsonObj)
+{
+    this->setId(jsonObj["id"].toString());
+    this->setComparisonType((UEComparisonType)jsonObj["comparisonType"].toInt());
+    // Type should be set by Ucondition::createCondition, when calling a sub-class constructor.
+}
+
+void UCondition::write(QJsonObject &jsonObj) const
+{
+    jsonObj["id"] = getId();
+    jsonObj["type"] = (int) getType();
+    jsonObj["comparisonType"] = (int) getComparisonType();
 }

@@ -13,7 +13,7 @@ class UDevice : public QAbstractListModel, public JsonSerializable
     Q_OBJECT
 
     Q_PROPERTY(QList<UScenario*> scenarios READ getScenarios WRITE setScenarios NOTIFY scenariosChanged)
-    Q_PROPERTY(int id READ getId WRITE setId NOTIFY idChanged)
+    Q_PROPERTY(QString id READ getId WRITE setId NOTIFY idChanged)
     Q_PROPERTY(QString name READ getName WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(float minValue READ getMinValue WRITE setMinValue NOTIFY minValueChanged)
     Q_PROPERTY(float maxValue READ getMaxValue WRITE setMaxValue NOTIFY maxValueChanged)
@@ -29,42 +29,111 @@ class UDevice : public QAbstractListModel, public JsonSerializable
 public:
     UDevice() {}
     UDevice(QObject* parent);
+    UDevice(QObject* parent, const QString& id);
     UDevice(const UDevice& device);
     ~UDevice();
 
-    virtual QVariant data(const QModelIndex &index, int role) const { return QVariant();}
-    virtual int rowCount(const QModelIndex &parent = QModelIndex()) const { return m_scenarios.count();}
+    QString getId() const
+    {
+        return m_id;
+    }
 
-    int getId() const { return m_id; }
-    QString getName() const { return m_name; }
-    float getMinValue() const { return m_minValue; }
-    float getMaxValue() const { return m_maxValue; }
-    int getPrecision() const { return m_precision; }
-    QString getUnitLabel() const { return m_unitLabel; }
-    int getType() const { return m_type; }
-    bool isTriggerValue() const { return m_isTriggerValue; }
-    QString getDescription() const { return m_description; }
-    QString getEnabled() const { return m_enabled; }
-    float getStatus() const { return m_status; }
-    QDateTime getLastUpdate() const { return m_lastUpdate; }
+    QString getName() const
+    {
+        return m_name;
+    }
 
-    QList<UScenario*> getScenarios() const { return m_scenarios; }
+    float getMinValue() const
+    {
+        return m_minValue;
+    }
+
+    float getMaxValue() const
+    {
+        return m_maxValue;
+    }
+
+    int getPrecision() const
+    {
+        return m_precision;
+    }
+
+    QString getUnitLabel() const
+    {
+        return m_unitLabel;
+    }
+
+    int getType() const
+    {
+        return m_type;
+    }
+
+    bool isTriggerValue() const
+    {
+        return m_isTriggerValue;
+    }
+
+    QString getDescription() const
+    {
+        return m_description;
+    }
+
+    QString getEnabled() const
+    {
+        return m_enabled;
+    }
+
+    float getStatus() const
+    {
+        return m_status;
+    }
+
+    QDateTime getLastUpdate() const
+    {
+        return m_lastUpdate;
+    }
+
+    QList<UScenario*> getScenarios() const
+    {
+        return m_scenarios;
+    }
 
     Q_INVOKABLE QObject* createScenario();
     Q_INVOKABLE void addScenario(UScenario* scenario);
     Q_INVOKABLE void deleteScenarioAt(int index);
     Q_INVOKABLE void updateScenarioAt(int index, UScenario* scenario);
     Q_INVOKABLE void saveScenarios();
+    Q_INVOKABLE void deleteScenario(const QString& id);
+    Q_INVOKABLE UScenario* findScenario(const QString& id);
+    Q_INVOKABLE bool containsScenario(const QString& id);
+    void copyProperties(UDevice* device);
 
     // TODO: this should be better handled
-    Q_INVOKABLE int getScenarioCount() const { return m_scenarios.count(); }
-    Q_INVOKABLE QObject* getScenarioAt(int index) const { return (QObject*) m_scenarios.at(index); }
+    Q_INVOKABLE int getScenarioCount() const
+    {
+        return m_scenarios.count();
+    }
+
+    Q_INVOKABLE QObject* getScenarioAt(int index) const
+    {
+        return (QObject*) m_scenarios.at(index);
+    }
+
+    virtual QVariant data(const QModelIndex &index, int role) const
+    {
+        return QVariant();
+    }
+
+    virtual int rowCount(const QModelIndex &parent = QModelIndex()) const
+    {
+        return m_scenarios.count();
+    }
 
     void read(const QJsonObject &jsonObj);
     void write(QJsonObject &jsonObj) const;
 
 signals:
-    void idChanged(int arg);
+    void idChanged(QString arg);
     void nameChanged(QString arg);
     void minValueChanged(float arg);
     void maxValueChanged(float arg);
@@ -76,7 +145,6 @@ signals:
     void enabledChanged(QString arg);
     void statusChanged(float arg);
     void updateChanged(QDateTime arg);
-
     void scenariosChanged(QList<UScenario*> arg);
 
     void save();
@@ -84,7 +152,7 @@ signals:
 public slots:
     void setScenarios(QList<UScenario*> arg) { m_scenarios = arg; }
 
-    void setId(int arg)
+    void setId(QString arg)
     {
         if (m_id != arg) {
             m_id = arg;
@@ -180,7 +248,7 @@ public slots:
     }
 
 private:
-    int m_id;
+    QString m_id;
     QString m_name;
     QList<UScenario*> m_scenarios;
     float m_minValue;

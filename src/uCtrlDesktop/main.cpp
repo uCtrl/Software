@@ -11,7 +11,7 @@
 #include "Network/unetworkscanner.h"
 #include "Conditions/uconditionweekday.h"
 #include "Conditions/uconditiondevice.h"
-#include "NinjaBlocks/uninjablocksapi.h"
+#include "UCtrl/uctrlapi.h"
 #include "Audio/uaudiorecorder.h"
 #include "Voice/uvoicecontrolapi.h"
 
@@ -20,31 +20,8 @@
 
 #include <QtQml>
 
-void SaveSystemToFile(USystem* s, std::string filename)
-{
-    QFile file(QString::fromStdString(filename));
-    file.open(QIODevice::WriteOnly | QIODevice::Text);
-    QTextStream out(&file);
-    out << JsonSerializer::serialize(s);
-
-    // optional, as QFile destructor will already do it:
-    file.close();
-}
-
-void LoadSystemFromFile(USystem* s, std::string filename)
-{
-    QFile f(QString::fromStdString(filename));
-    if (f.open(QFile::ReadOnly | QFile::Text)){
-        QTextStream in(&f);
-        QString str = in.readAll();
-        str.remove(QRegExp("[\\n\\t\\r]"));
-        JsonSerializer::parse(str, s);
-    }
-}
-
 void Init(QGuiApplication& app, QtQuick2ApplicationViewer& viewer)
 {
-
     QTranslator translator;
     if (translator.load(":/Resources/Languages/uctrl_" + QLocale::system().name())) {
         app.installTranslator(&translator);
@@ -60,15 +37,12 @@ void Init(QGuiApplication& app, QtQuick2ApplicationViewer& viewer)
     USystem* system = USystem::Instance();
 
     QNetworkAccessManager* networkAccessManager = viewer.engine()->networkAccessManager();
-    UNinjaBlocksAPI* ninja = new UNinjaBlocksAPI(networkAccessManager);
-
-    ninja->getDevice("1014BBBK6089", "1014BBBK6089_0001_0_31");
-    // LOCAL FILE SECTION
-    LoadSystemFromFile(system, ":/Resources/data.json");
+    UCtrlAPI* uCtrlApi = new UCtrlAPI(networkAccessManager);
+    uCtrlApi->getSystem();
 
     QQmlContext *ctxt = viewer.rootContext();
     ctxt->setContextProperty("mySystem", system);
-    ctxt->setContextProperty("ninja", ninja);
+    ctxt->setContextProperty("uctrlApi", uCtrlApi);
 
     viewer.setMainQmlFile(QStringLiteral("qml/uCtrlDesktopQml/main.qml"));
     viewer.setMinimumHeight(650);

@@ -1,5 +1,4 @@
 QT       += network
-
 QT       -= gui
 
 TARGET = uCtrlCore
@@ -20,8 +19,7 @@ SOURCES += \
     Conditions/uconditionweekday.cpp \
     Conditions/uconditiondevice.cpp \
     Device/udevicelist.cpp \
-    NinjaBlocks/uninjablocksapi.cpp
-
+    UCtrl/uctrlapi.cpp
 
 HEADERS += \
     Platform/uplatform.h \
@@ -40,4 +38,4 @@ HEADERS += \
     Conditions/uconditionweekday.h \
     Conditions/uconditiondevice.h \
     Device/udevicelist.h \
-    NinjaBlocks/uninjablocksapi.h
+    UCtrl/uctrlapi.h

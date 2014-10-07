@@ -3,7 +3,11 @@
 
 UPlatform::UPlatform(QObject* parent) : QAbstractListModel(parent)
 {
-    setId(UniqueIdGenerator::GenerateUniqueId());
+}
+
+UPlatform::UPlatform(QObject* parent, const QString& id) : QAbstractListModel(parent)
+{
+    setId(id);
 }
 
 UPlatform::UPlatform(QObject* parent, const QString& ip, const int port) : QAbstractListModel(parent)
@@ -22,6 +26,10 @@ UPlatform::UPlatform(const UPlatform& platform)
 
 UPlatform::~UPlatform()
 {
+    foreach(UDevice* device, m_devices) {
+        delete device;
+    }
+    m_devices.clear();
 }
 
 QObject* UPlatform::getDeviceAt(int index) const {
@@ -44,27 +52,63 @@ QDateTime UPlatform::getLastUpdate() const
     return time;
 }
 
+void UPlatform::addDevice(UDevice *device)
+{
+    m_devices.push_back(device);
+}
+
+void UPlatform::deleteDevice(const QString &id)
+{
+    for(int i = 0; i < m_devices.count(); i++)
+    {
+        if (m_devices[i]->getId() != id) continue;
+
+        m_devices.removeAt(i);
+        delete m_devices[i];
+    }
+}
+
+bool UPlatform::containsDevice(const QString &id)
+{
+    for(int i = 0; i < m_devices.count(); i++)
+    {
+        if (m_devices[i]->getId() == id)
+            return true;
+    }
+    return false;
+}
+
+UDevice *UPlatform::findDevice(const QString &id)
+{
+    for(int i = 0; i < m_devices.count(); i++)
+    {
+        if (m_devices[i]->getId() == id)
+            return m_devices[i];
+    }
+    return 0;
+}
+
+void UPlatform::copyProperties(UPlatform* platform)
+{
+    this->setName(platform->getName());
+    this->setRoom(platform->getRoom());
+    this->setEnabled(platform->getEnabled());
+    this->setIp(platform->getIp());
+    this->setPort(platform->getPort());
+    this->setFirmwareVersion(platform->getFirmwareVersion());
+}
 
 void UPlatform::save()
 {
     emit savePlatform();
 }
 
-QVariant UPlatform::data(const QModelIndex & index, int role) const {
-    return QVariant();
-}
-
-int UPlatform::rowCount(const QModelIndex &parent) const
-{
-    return m_devices.count();
-}
-
 void UPlatform::read(const QJsonObject &jsonObj)
 {
-    this->setId(jsonObj["id"].toInt());
+    this->setId(jsonObj["id"].toString());
     this->setName(jsonObj["name"].toString());
     this->setRoom(jsonObj["room"].toString());
-    this->setEnabled(jsonObj["enabled"].toString());
+    this->setEnabled(jsonObj["enabled"].toBool());
     this->setIp(jsonObj["ip"].toString());
     this->setPort(jsonObj["port"].toInt());
     this->setFirmwareVersion(jsonObj["firmwareVersion"].toString());

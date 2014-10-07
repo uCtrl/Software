@@ -4,19 +4,25 @@
 
 UTask::UTask(QObject* parent) : QAbstractListModel(parent), m_scenario(parent)
 {
-    setId(UniqueIdGenerator::GenerateUniqueId());
+}
+
+UTask::UTask(QObject* parent, const QString& id) : QAbstractListModel(parent), m_scenario(parent)
+{
+    setId(id);
 }
 
 UTask::UTask(QObject* parent, UTask* task) : QAbstractListModel(parent)
 {
     setId(task->getId());
-    setStatus(task->getStatus());
     setConditions(task->copyConditions());
     setScenario(parent);
 }
 
 UTask::~UTask()
 {
+    foreach(UCondition* condition, m_conditions) {
+        delete condition;
+    }
     m_conditions.clear();
 }
 
@@ -27,6 +33,36 @@ QList<UCondition*> UTask::copyConditions() {
         conditionsCopy.push_back(tmpCondition->copyCondition(this));
     }
     return conditionsCopy;
+}
+
+UCondition* UTask::findCondition(const QString &conditionId)
+{
+    for(int i = 0; i < m_conditions.count(); i++)
+    {
+        if (m_conditions[i]->getId() == conditionId)
+            return m_conditions[i];
+    }
+    return 0;
+}
+
+bool UTask::containsCondition(const QString &conditionId)
+{
+    for(int i = 0; i < m_conditions.count(); i++)
+    {
+        if (m_conditions[i]->getId() == conditionId)
+            return true;
+    }
+    return false;
+}
+
+void UTask::deleteCondition(const QString &conditionId)
+{
+    for(int i = 0; i < m_conditions.count(); i++) {
+        if (m_conditions[i]->getId() != conditionId) {;
+            deleteConditionAt(i);
+            return;
+        }
+    }
 }
 
 QObject* UTask::createCondition(int conditionType)
@@ -95,14 +131,14 @@ void UTask::moveCondition(int indexSource, int indexDestination)
     emit conditionsChanged(m_conditions);
 }
 
-QObject* UTask::getAllDevices() {
+QObject* UTask::getAllDevices()
+{
     return USystem::Instance()->getAllDevices();
 }
 
 void UTask::read(const QJsonObject &jsonObj)
 {
-    this->setId(jsonObj["id"].toInt());
-    this->setStatus(jsonObj["status"].toString());
+    this->setId(jsonObj["id"].toString());
 
     QJsonArray conditionsArray = jsonObj["conditions"].toArray();
     foreach(QJsonValue conditionJson, conditionsArray)
@@ -117,7 +153,6 @@ void UTask::read(const QJsonObject &jsonObj)
 void UTask::write(QJsonObject &jsonObj) const
 {
     jsonObj["id"] = getId();
-    jsonObj["status"] = getStatus();
 
     QJsonArray conditionsArray;
     foreach(UCondition* condition, this->m_conditions)

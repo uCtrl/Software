@@ -11,19 +11,27 @@ class USystem : public QAbstractListModel, public JsonSerializable
 {
     Q_OBJECT
 
+    Q_PROPERTY(QList<UPlatform*> platforms READ getPlatforms WRITE setPlatforms NOTIFY platformsChanged)
+
 public:
     static USystem* Instance();  
 
     Q_INVOKABLE QObject* getPlatformAt(int index) const;
-    Q_PROPERTY(QList<UPlatform*> platforms READ getPlatforms WRITE setPlatforms NOTIFY platformsChanged)
- 
+
+    QList<UPlatform*> getPlatforms() const
+    {
+        return m_platforms;
+    }
+
+    void addPlatform(UPlatform* platform);
+    void deletePlatform(const QString& id);
+    UPlatform* findPlatform(const QString& id);
+    bool containsPlatform(const QString& id);
+
+    QObject* getAllDevices();
+
     virtual QVariant data(const QModelIndex &index, int role) const;
     virtual int rowCount(const QModelIndex &parent) const;
-
-    QList<UPlatform*> getPlatforms() const { return m_platforms; }
-    void addPlatform(const QString& ip, const int port);
-    bool containsPlatform(const QString& ip, const int port);
-    QObject* getAllDevices();
 
     void read(const QJsonObject &jsonObj);
     void write(QJsonObject &jsonObj) const;
@@ -35,7 +43,7 @@ signals:
     void platformsChanged(QList<UPlatform*> arg);
 
 private:
-    USystem(){}
+    USystem() {}
     static USystem* m_systemInstance;
     QList<UPlatform*> m_platforms;
 };
