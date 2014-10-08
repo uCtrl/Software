@@ -62,7 +62,7 @@ void UCtrlAPI::getSystemReply()
     }
 
     QJsonObject jsonObj = QJsonDocument::fromJson(reply->readAll()).object();
-    if (checkServerError(jsonObj)) {
+    if (!checkServerError(jsonObj)) {
         reply->deleteLater();
         return;
     }
@@ -91,7 +91,7 @@ void UCtrlAPI::getPlatformsReply()
     }
 
     QJsonObject jsonObj = QJsonDocument::fromJson(reply->readAll()).object();
-    if (checkServerError(jsonObj)) {
+    if (!checkServerError(jsonObj)) {
         reply->deleteLater();
         return;
     }
@@ -608,6 +608,7 @@ void UCtrlAPI::getTasksReply()
         UTask* task = scenario->findTask(newTask->getId());
 
         if (task) {
+            task->copyProperties(newTask);
             delete newTask;
         } else {
             scenario->addTask(newTask);
@@ -704,6 +705,7 @@ void UCtrlAPI::getTaskReply()
     UTask* task = scenario->findTask(newTask->getId());
 
     if (task) {
+        task->copyProperties(newTask);
         delete newTask;
     } else {
         scenario->addTask(newTask);
@@ -1005,11 +1007,11 @@ void UCtrlAPI::deleteConditionReply()
 
 bool UCtrlAPI::checkNetworkError(QNetworkReply* reply)
 {
-    bool hasError = reply->error() == QNetworkReply::NoError;
-    if (hasError) {
+    bool noError = reply->error() == QNetworkReply::NoError;
+    if (!noError) {
         emit networkError(reply->error());
     }
-    return !hasError;
+    return noError;
 }
 
 bool UCtrlAPI::checkServerError(const QJsonObject& jsonObj)

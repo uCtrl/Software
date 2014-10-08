@@ -40,7 +40,7 @@ Rectangle {
 
         container.platform.name = platformNameTextBox.text;
         container.platform.room = locationTextbox.text;
-        container.platform.enabled = enabledSwitch.state;
+        container.platform.enabled = getEnabledBool(enabledSwitch.state);
 
         container.refresh(platform);
         systemFrame.notify();
@@ -62,12 +62,20 @@ Rectangle {
 
     function refreshData() {
         platformName.text = platform.name
-        enabledStatusLabel.text = platform.enabled
+        enabledStatusLabel.text = getEnabledString(platform.enabled)
         locationText.text = platform.room
         idValue.text = platform.id
         ipValue.text = platform.ip
         portValue.text = platform.port
         firmwareValue.text = platform.firmwareVersion
+    }
+
+    function getEnabledString(data) {
+        return data ? "ON" : "OFF"
+    }
+
+    function getEnabledBool(data) {
+        return data === "ON"
     }
 
     Rectangle {

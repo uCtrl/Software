@@ -9,6 +9,7 @@ class UTask : public QAbstractListModel, public JsonSerializable
     Q_OBJECT
 
     Q_PROPERTY(QString id READ getId WRITE setId NOTIFY idChanged)
+    Q_PROPERTY(QString status READ getStatus WRITE setStatus NOTIFY statusChanged)
     Q_PROPERTY(QList<UCondition*> conditions READ getConditions WRITE setConditions NOTIFY conditionsChanged)
     Q_PROPERTY(QObject* scenario READ getScenario WRITE setScenario NOTIFY scenarioChanged)
 
@@ -22,6 +23,11 @@ public:
     QString getId() const
     {
         return m_id;
+    }
+
+    QString getStatus() const
+    {
+        return m_status;
     }
 
     QList<UCondition*> getConditions() const
@@ -50,6 +56,7 @@ public:
     Q_INVOKABLE bool containsCondition(const QString& conditionId);
     Q_INVOKABLE void deleteCondition(const QString& conditionId);
     Q_INVOKABLE QObject* getAllDevices();
+    void copyProperties(UTask* task);
 
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const
     {
@@ -74,6 +81,14 @@ public slots:
         }
     }
 
+    void setStatus(QString arg)
+        {
+            if (m_status != arg) {
+                m_status = arg;
+                emit statusChanged(arg);
+            }
+        }
+
     void setConditions(QList<UCondition*> arg)
     {
         if (m_conditions != arg) {
@@ -95,9 +110,11 @@ signals:
     void idChanged(QString arg);
     void conditionsChanged(QList<UCondition*> arg);
     void scenarioChanged(QObject* arg);
+    void statusChanged(QString arg);
 
 private:
     QString m_id;
+    QString m_status;
     QList<UCondition*> m_conditions;
     QObject* m_scenario;
 };

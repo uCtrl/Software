@@ -234,7 +234,7 @@ public slots:
 
     void setStatus(float arg)
     {
-        if(m_status != arg) {
+        if (m_status != arg) {
             m_status = arg;
             emit statusChanged(arg);
         }

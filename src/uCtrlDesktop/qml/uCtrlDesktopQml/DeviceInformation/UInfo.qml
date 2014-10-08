@@ -39,7 +39,7 @@ Rectangle {
     }
 
     function refreshData() {
-        enabledLabel.changeText(deviceInfoModel.enabled)
+        enabledLabel.changeText(getEnabledString(deviceInfoModel.enabled))
         statusLabel.changeText(deviceInfoModel.status + " " + deviceInfoModel.unitLabel)
         idLabel.text = deviceInfoModel.id
         deviceName.text = deviceInfoModel.name
@@ -51,7 +51,7 @@ Rectangle {
     }
 
     function saveData() {
-        deviceInfoModel.enabled = enabledSwitch.state
+        deviceInfoModel.enabled = getEnabledBool(enabledSwitch.state)
         deviceInfoModel.name = deviceNameTextbox.text
 
         deviceInfoModel.minValue = minValueTextbox.text
@@ -80,6 +80,14 @@ Rectangle {
 
     function cancelEditing() {
         isEditing = false
+    }
+
+    function getEnabledString(data) {
+        return data ? "ON" : "OFF"
+    }
+
+    function getEnabledBool(data) {
+        return data === "ON"
     }
 
     Rectangle {

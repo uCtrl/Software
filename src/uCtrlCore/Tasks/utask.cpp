@@ -136,9 +136,15 @@ QObject* UTask::getAllDevices()
     return USystem::Instance()->getAllDevices();
 }
 
+void UTask::copyProperties(UTask *task)
+{
+    this->setStatus(task->getStatus());
+}
+
 void UTask::read(const QJsonObject &jsonObj)
 {
     this->setId(jsonObj["id"].toString());
+    this->setStatus(jsonObj["status"].toString());
 
     QJsonArray conditionsArray = jsonObj["conditions"].toArray();
     foreach(QJsonValue conditionJson, conditionsArray)
@@ -153,6 +159,7 @@ void UTask::read(const QJsonObject &jsonObj)
 void UTask::write(QJsonObject &jsonObj) const
 {
     jsonObj["id"] = getId();
+    jsonObj["status"] = getStatus();
 
     QJsonArray conditionsArray;
     foreach(UCondition* condition, this->m_conditions)

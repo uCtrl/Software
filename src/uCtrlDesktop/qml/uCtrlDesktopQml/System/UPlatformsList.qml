@@ -70,7 +70,7 @@ Rectangle {
                     return platformContainer
 
                 if (sourceContainsFilter(platform.name, filterValue)
-                    || sourceContainsFilter(toString(platform.id), filterValue)
+                    || sourceContainsFilter(platform.id, filterValue)
                     || sourceContainsFilter(platform.ip, filterValue)
                     || sourceContainsFilter(toString(platform.port), filterValue)
                     || sourceContainsFilter(platform.room, filterValue))

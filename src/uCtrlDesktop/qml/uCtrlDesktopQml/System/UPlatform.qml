@@ -49,7 +49,7 @@ Rectangle {
             var currentTime = new Date();
 
             // @TODO: Replace with alert display.
-            if (Qt.formatDate(time) > Qt.formatDate(currentTime)) console.log("An error occured");
+            if (Qt.formatDate(time) > Qt.formatDate(currentTime)) return "";
             else if (Qt.formatDate(time) === Qt.formatDate(currentTime)) return "Updated a second ago";
             else if (currentTime.getMinutes()-1 === time.getMinutes()) return "Updated a minute ago";
             else if (currentTime.getHours()-1 === time.getHours()) return "Updated last hour";
@@ -59,6 +59,7 @@ Rectangle {
             else if (currentTime.getMonth()-1 === time.getMonth()) return "Last month";
             else if (currentTime.getYear()-1 === time.getYear()) return "Last year";
         }
+        return ""
     }
 
     Rectangle {
