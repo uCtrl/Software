@@ -29,7 +29,8 @@ SOURCES += \
     Network/unetworkscanner.cpp \
     Audio/uaudiorecorder.cpp \
     Voice/uvoicecontrolapi.cpp \
-    Voice/uvoicecontrolresponse.cpp
+    Voice/uvoicecontrolresponse.cpp \
+    Voice/uvoiceintent.cpp
 
 HEADERS += \
     Network/bonjourrecord.h \
@@ -38,7 +39,8 @@ HEADERS += \
     Network/unetworkscanner.h \
     Audio/uaudiorecorder.h \
     Voice/uvoicecontrolapi.h \
-    Voice/uvoicecontrolresponse.h
+    Voice/uvoicecontrolresponse.h \
+    Voice/uvoiceintent.h
 
 INCLUDEPATH += \
     qml/uCtrlDesktopQml/

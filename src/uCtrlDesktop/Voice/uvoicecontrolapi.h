@@ -41,6 +41,10 @@ public slots:
     }
 
     void replyFinished(QNetworkReply* reply);
+
+private:
+    void testLimitlessLED();
 };
+
 
 #endif // UVOICECONTROLAPI_H
