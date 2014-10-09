@@ -30,7 +30,10 @@ SOURCES += \
     Audio/uaudiorecorder.cpp \
     Voice/uvoicecontrolapi.cpp \
     Voice/uvoicecontrolresponse.cpp \
-    Voice/uvoiceintent.cpp
+    Voice/uvoiceintent.cpp \
+    Voice/uturnonofflightintent.cpp \
+    Voice/usetninjaeyescolorintent.cpp \
+    Voice/uturnonffplugintent.cpp
 
 HEADERS += \
     Network/bonjourrecord.h \
@@ -40,7 +43,10 @@ HEADERS += \
     Audio/uaudiorecorder.h \
     Voice/uvoicecontrolapi.h \
     Voice/uvoicecontrolresponse.h \
-    Voice/uvoiceintent.h
+    Voice/uvoiceintent.h \
+    Voice/uturnonofflightintent.h \
+    Voice/usetninjaeyescolorintent.h \
+    Voice/uturnonffplugintent.h
 
 INCLUDEPATH += \
     qml/uCtrlDesktopQml/

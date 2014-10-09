@@ -15,8 +15,8 @@ UVoiceControlAPI::UVoiceControlAPI(QObject *parent) :
 
 void UVoiceControlAPI::sendVoiceControlFile(QString voiceFilePath)
 {
-    testLimitlessLED();
-    return;
+    //testLimitlessLED();
+    //return;
 
     QNetworkRequest request;
     request.setUrl(QUrl("https://api.wit.ai/speech"));
@@ -39,8 +39,8 @@ void UVoiceControlAPI::analyseIntent()
     QJsonObject jsonObj = jsonResponse.object();
     UVoiceControlResponse voiceControlResponse(jsonObj);
 
-    if (true)
-        testLimitlessLED();
+    //if (true)
+    //    testLimitlessLED();
 
     // TEST CODE
     if (voiceControlResponse.getIntent() == QString("turn_onoff_all_lights"))
