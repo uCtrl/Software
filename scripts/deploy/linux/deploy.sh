@@ -1,21 +1,16 @@
 #!/bin/bash
 
-### Deploy script variables ############################################################################################
+### Deploy script variables
 error=0;
 errorArray[0]='No error';
 
 currDir=$(pwd)
-srcFolder=$(cd "${currDir}/../../../src/"; pwd)/
-buildedApp=$(cd "${currDir}/build/"; pwd)
 
 installForlder="/opt/uCtrl/"
 executionFileFolder="${installForlder}uCtrlDesktop/uCtrlDesktop"
 icon="${installForlder}uCtrl.png"
 
-### Deploy script methods ##############################################################################################
-
 ### Test root privilege
-
 if [[ $EUID -ne 0 ]]; then
 	echo "To execute this script, you need root privilege!"
 	echo "Please execute it using sudo."
@@ -23,10 +18,7 @@ if [[ $EUID -ne 0 ]]; then
 	exit 1
 fi
 
-###
-
 ### Detect OS
-
 ARCH=$(uname -m | sed 's/x86_//;s/i[3-6]86/32/')
 
 if [ -f /etc/lsb-release ]; then
@@ -42,7 +34,6 @@ else
 fi
 
 #Warning if not Ubuntu
-
 if [ $OS == 'Ubuntu' ]; then
 	echo 'Ubuntu OS detected, continue installation'
 else
@@ -57,44 +48,24 @@ else
 	fi
 fi
 
-###
+### Install needed third-party library
+echo "Install third party libs."
 
-### Detect processor type
+pass='ok'
 
-processor=$(uname -m)
+# Print result in null to make it less noisy
+sudo apt-get install libavahi-compat-libdnssd-dev > /dev/null || pass='failed'
 
-if [[ ${processor} == 'x86_64' ]]; then
-	echo 'Detect 64-bit system.'
-	architechture="Qt_5_3_GCC_64bit"
+if [ ${pass} == 'ok' ]; then
+	echo 'Third party libs installation pass!'
 else
-	echo 'Detect 32-bit system.'
-	architechture="Qt_5_3_GCC_32bit"
+	echo 'Third party libs installation failed! Try to manually install "dns_sd.h".'
+
+	${errorArray}[${error}]='Third party libs installation failed! Try to manually install "dns_sd.h".'
+	((error++))
 fi
 
-###
-
-### Install needed third-party library
-
-	echo "Install third party libs."
-
-	pass='ok'
-
-	# Print result in null to make it less noisy
-	sudo apt-get install libavahi-compat-libdnssd-dev > /dev/null || pass='failed'
-
-	if [ ${pass} == 'ok' ]; then
-		echo 'Third party libs installation pass!'
-	else
-		echo 'Third party libs installation failed! Try to manually install "dns_sd.h".'
-
-		${errorArray}[${error}]='Third party libs installation failed! Try to manually install "dns_sd.h".'
-		((error++))
-	fi
-
-###
-
 ### Copy files
-
 # Try to delete the folder just in case
 sudo rm -rf ${installForlder}
 
@@ -105,54 +76,23 @@ if [ $? -ne 0 ] ; then
 	${errorArray}[${error}]='Unable to create the tool folder.'
 	((error++))
 else
-	# Creation of the folder work
+	echo "Installing the application."
 
-	## Test if in a dev environment by verifying if the dev files exist
-	if [ -d "$srcFolder" ]; then
-		# In dev environment
-		echo "Installing the dev version!"
-		
-		cp -R "${srcFolder}../build-uCtrl-Desktop_${architechture}-Release/." "${installForlder}"
+	if [ -d "${currDir}/build/" ]; then
 
-		if [ $? -ne 0 ]; then
-			echo -e "\e[33mNo Release build found, try tu use Debug build instead.\e[00m"
-			cp -R "${srcFolder}../build-uCtrl-Desktop_${architechture}-Debug/." "${installForlder}"
-
-			if [ $? -ne 0 ]; then
-				echo -e "\e[1m\e[31mInstallation failed due to fatal error: No builded application found.\e[00m"
-				read fail
-				exit 1
-			else
-				echo "Application installation done."
-			fi
-		else
-			echo "Application installation done."
-		fi
-
-		# Copy the icon
+		cp -rf ${currDir}/build/* ${installForlder}
 		cp ${currDir}/uCtrl.png ${installForlder}
+
+		echo "Application installation done."
 	else
-		# Not in dev environment
-		echo "Installing the application."
+		echo 'No buiilded application found. Canceling installation!'
 
-		if [ -d "$buildedApp" ]; then
+		# Remove the created folder
+		sudo rm -rf ${installForlder}
 
-			## TODO when we create a static build folder we can take the stuff there but for the moment this section will crash
-			exit 2
+		read -p 'Installation failed due to fatal error: No builded application found.' fail
 
-			mv ${buildedApp}* ${installForlder}
-
-			echo "Application installation done."
-		else
-			echo 'No buiilded application found. Canceling installation!'
-
-			# Remove the created folder
-			sudo rm -rf ${installForlder}
-
-			read -p 'Installation failed due to fatal error: No builded application found.' fail
-
-			exit 1
-		fi
+		exit 1
 	fi
 fi
 
@@ -165,10 +105,7 @@ sudo chown -R ${SUDO_USER} ${installForlder}
 # Give folder to the "adm" group
 sudo chgrp -R adm ${installForlder}
 
-###
-
 ### Create shortcut
-
 echo "Creating the application menu shortcut."
 
 sudo rm -rf /usr/share/applications/uCtrl.desktop
@@ -184,8 +121,6 @@ echo "StartupNotify=true" >> /usr/share/applications/uCtrl.desktop
 
 echo "uCtrl shortcut created!"
 
-###
-
 ### Error display / End message
 	if [[ "${error}" > 0 ]]; then
 		echo -e "\e[1m\e[31mSome errors occurs during installation :\e[00m"
@@ -199,8 +134,6 @@ echo "uCtrl shortcut created!"
 	else
 		echo -e "\e[1m\e[32mTool installation success!\e[00m"
 	fi
-
-###
 
 read -p "Work done, press ENTER to continue."
 exit 0
