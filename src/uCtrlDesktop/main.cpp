@@ -14,6 +14,7 @@
 #include "Audio/uaudiorecorder.h"
 #include "Voice/uvoicecontrolapi.h"
 #include "Stats/ustats.h"
+#include "Utility/oshandler.h"
 
 #include <QFile>
 #include <QTextStream>
@@ -63,6 +64,8 @@ int main(int argc, char *argv[])
     qmlRegisterType<UVoiceControlAPI>("UVoiceControl", 1, 0, "UVoiceControl");
     
     USystem* system = USystem::Instance();
+    OsHandler osType;
+
     UStats* stats = UStats::Instance();
 
     system->setRefreshTimer(&app, 5000);
@@ -77,6 +80,7 @@ int main(int argc, char *argv[])
     QQmlContext *ctxt = viewer.rootContext();
     ctxt->setContextProperty("mySystem", system);
 
+    ctxt->setContextProperty("CrossPlatformOS", &osType);
     viewer.setMainQmlFile(QStringLiteral("qml/uCtrlDesktopQml/main.qml"));
     viewer.setMinimumHeight(650);
     viewer.setMinimumWidth(900);
