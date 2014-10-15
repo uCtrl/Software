@@ -25,6 +25,7 @@ SOURCES += \
     Device/udevicelist.cpp \
     Communication/Requests/saveplatformrequest.cpp \
     Communication/Responses/saveplatformresponse.cpp \
+    Stats/ustats.cpp \
     Utility/oshandler.cpp
 
 
@@ -53,4 +54,7 @@ HEADERS += \
     Device/udevicelist.h \
     Communication/Requests/saveplatformrequest.h \
     Communication/Responses/saveplatformresponse.h \
+    Stats/ustats.h \
     Utility/oshandler.h
+
+DEFINES += PROJECT_PATH=\"\\\"$$PWD/../\\\"\"

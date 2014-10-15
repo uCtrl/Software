@@ -11,10 +11,14 @@
 #include "Network/unetworkscanner.h"
 #include "Conditions/uconditionweekday.h"
 #include "Conditions/uconditiondevice.h"
+#include "Audio/uaudiorecorder.h"
+#include "Voice/uvoicecontrolapi.h"
+#include "Stats/ustats.h"
 #include "Utility/oshandler.h"
 
 #include <QFile>
 #include <QTextStream>
+#include <QTimer>
 
 #include <QtQml>
 
@@ -31,6 +35,8 @@ void SaveSystemToFile(USystem* s, std::string filename)
 
 void LoadSystemFromFile(USystem* s, std::string filename)
 {
+    QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
+
     QFile f(QString::fromStdString(filename));
     if (f.open(QFile::ReadOnly | QFile::Text)){
         QTextStream in(&f);
@@ -44,6 +50,7 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
     QtQuick2ApplicationViewer viewer;
+
     QTranslator translator;
     if (translator.load(":/Resources/Languages/uctrl_" + QLocale::system().name())) {
         app.installTranslator(&translator);
@@ -53,9 +60,15 @@ int main(int argc, char *argv[])
     qmlRegisterType<UCondition>("ConditionEnums", 1, 0, "UEComparisonType");
     qmlRegisterType<UConditionWeekday>("ConditionEnums", 1, 0, "UEWeekday");
     qmlRegisterType<UConditionDevice>("ConditionEnums", 1, 0, "UEDeviceType");
+    qmlRegisterType<UAudioRecorder>("UAudioRecorder", 1, 0, "UAudioRecorder");
+    qmlRegisterType<UVoiceControlAPI>("UVoiceControl", 1, 0, "UVoiceControl");
     
     USystem* system = USystem::Instance();
     OsHandler osType;
+
+    UStats* stats = UStats::Instance();
+
+    system->setRefreshTimer(&app, 5000);
 
     // SIMULATOR SECTION
     //UNetworkScanner* scanner = UNetworkScanner::Instance();
@@ -66,11 +79,11 @@ int main(int argc, char *argv[])
 
     QQmlContext *ctxt = viewer.rootContext();
     ctxt->setContextProperty("mySystem", system);
+
     ctxt->setContextProperty("CrossPlatformOS", &osType);
     viewer.setMainQmlFile(QStringLiteral("qml/uCtrlDesktopQml/main.qml"));
     viewer.setMinimumHeight(650);
     viewer.setMinimumWidth(900);
-
     viewer.showExpanded();
 
     int ret = app.exec();
