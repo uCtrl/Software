@@ -5,9 +5,6 @@
     <qresource prefix="/titlebar">
         <file alias="Titlebar.qml">qml/component/titlebar.qml</file>
     </qresource>
-    <qresource prefix="/ui">
-        <file alias="UImage.qml">qml/ui/UImage.qml</file>
-    </qresource>
     <qresource prefix="/img">
         <file alias="uCtrl-white.svg">qml/img/uCtrl-white.svg</file>
     </qresource>
@@ -23,5 +20,29 @@
         <file alias="Lato-Italic.ttf">qml/fonts/Lato-Italic.ttf</file>
         <file alias="Lato-LightItalic.ttf">qml/fonts/Lato-LightItalic.ttf</file>
         <file alias="Lato-Regular.ttf">qml/fonts/Lato-Regular.ttf</file>
+    </qresource>
+    <qresource prefix="/label">
+        <file alias="Default.qml">qml/ui/label/Default.qml</file>
+        <file alias="ComboBoxItemText.qml">qml/ui/label/ComboBoxItemText.qml</file>
+        <file alias="Heading1.qml">qml/ui/label/Heading1.qml</file>
+        <file alias="Heading2.qml">qml/ui/label/Heading2.qml</file>
+        <file alias="Heading3.qml">qml/ui/label/Heading3.qml</file>
+        <file alias="Heading4.qml">qml/ui/label/Heading4.qml</file>
+        <file alias="Heading5.qml">qml/ui/label/Heading5.qml</file>
+        <file alias="Link.qml">qml/ui/label/Link.qml</file>
+        <file alias="TooltipText.qml">qml/ui/label/TooltipText.qml</file>
+        <file alias="UInfoBoundedLabel.qml">qml/ui/label/UInfoBoundedLabel.qml</file>
+        <file alias="UInfoLabel.qml">qml/ui/label/UInfoLabel.qml</file>
+        <file alias="UInfoTitle.qml">qml/ui/label/UInfoTitle.qml</file>
+        <file alias="UTabText.qml">qml/ui/label/UTabText.qml</file>
+        <file alias="UWeekDayPickerLabel.qml">qml/ui/label/UWeekDayPickerLabel.qml</file>
+    </qresource>
+    <qresource prefix="/ui">
+        <file alias="UImage.qml">qml/ui/UImage.qml</file>
+        <file alias="UCombobox.qml">qml/ui/UCombobox.qml</file>
+        <file alias="UComboboxItem.qml">qml/ui/UComboboxItem.qml</file>
+        <file alias="UComboboxItemContainer.qml">qml/ui/UComboboxItemContainer.qml</file>
+        <file alias="UTextbox.qml">qml/ui/UTextbox.qml</file>
+        <file alias="UFontAwesome.qml">qml/ui/UFontAwesome.qml</file>
     </qresource>
 </RCC>
