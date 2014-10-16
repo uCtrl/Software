@@ -71,11 +71,11 @@ Rectangle {
 
             /*onSelectedItemChanged: {
                 platformListContainer.section = selectedItem.value
-            }
+            }*/
 
             Component.onCompleted: {
                 selectItem(0)
-            }*/
+            }
         }
     }
 
@@ -91,32 +91,77 @@ Rectangle {
 
         width: filters.width
 
-        color: "#EDEDED"
+        color: "white"
 
         ListView {
             id: platforms
+
             anchors.fill: parent
+
             model: platformsModel
+
+            highlight: Rectangle {
+                id: highlighter
+
+                width: parent.width; height: parent.height;
+
+                color: "#D4D4D4"
+                opacity: 0.6
+
+                visible: (platformInfo.model != null)
+
+                z: 2
+
+                y: (platforms.currentIndex === null ? -1 : (platforms.currentIndex * 60));
+                Behavior on y { SpringAnimation { spring: 5; damping: 0.1; mass: 0.3 } }
+            }
+
             delegate: Column {
                 width: parent.width
+                z: 1
                 Rectangle {
                     width: parent.width
                     height: 60
 
                     color: "white"
 
-                    Text {
-                        text: name
+                    Rectangle {
+                        width: parent.width - 10
+                        height: platformName.height + platformUpdate.height
 
-                        color: "black"
+                        anchors.verticalCenter: parent.verticalCenter
+                        x: 10
 
-                        font.bold: true
-                        font.pixelSize: 18
+                        Text {
+                            id: platformName
 
-                        anchors.top: parent.top
+                            text: name
+
+                            color: "black"
+
+                            font.bold: true
+                            font.pixelSize: 18
+
+                            anchors.top: parent.top
+                        }
+
+                        Text {
+                            id: platformUpdate
+
+                            text: "Updated a second ago."
+
+                            color: "#737373"
+
+                            font.bold: false
+                            font.pixelSize: 10
+
+                            anchors.top: platformName.bottom
+                        }
                     }
 
                     Rectangle {
+                        id: platformSeparator
+
                         width: parent.width
                         height: 1
 
@@ -130,6 +175,8 @@ Rectangle {
                         height: parent.height; width: parent.width;
                         onClicked: {
                             platformInfo.model = model
+                            platforms.currentIndex = index
+                           //highlighter.top = platforms.currentItem.top
                         }
                     }
                 }
