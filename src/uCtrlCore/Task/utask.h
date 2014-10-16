@@ -12,9 +12,9 @@ class UTask : public NestedListItem
     enum TaskRoles
     {
         idRole = Qt::UserRole + 1,
-        suspendedRole,
-        nameRole,
-        statusRole
+        valueRole,
+        lastUpdatedRole,
+        enabledRole
     };
 
 public:
@@ -28,20 +28,11 @@ public:
     ListModel* nestedModel() const;
 
     // Properties
-    inline QString id() const { return m_id; }
-    inline void id(const QString& id) { m_id = id; emit dataChanged(); }
-    inline bool suspended() const { return m_suspended; }
-    inline void suspended(bool suspended) { m_suspended = suspended; emit dataChanged(); }
-    inline QString name() const { return m_name; }
-    inline void name(const QString& name) { m_name = name; emit dataChanged(); }
-    inline bool status() const { return m_status; }
-    inline void status(bool status) { m_status = status; emit dataChanged(); }
+    inline QString value() const { return m_value; }
+    inline void value(const QString& value) { m_value = value; emit dataChanged(); }
 
 private:
-    QString m_id;
-    bool m_suspended;
-    QString m_name;
-    bool m_status;
+    QString m_value;
     ListModel* m_conditions;
 };
 

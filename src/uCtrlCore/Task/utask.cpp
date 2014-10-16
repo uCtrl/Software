@@ -15,12 +15,12 @@ QVariant UTask::data(int role) const
     {
     case idRole:
         return id();
-    case suspendedRole:
-        return suspended();
-    case nameRole:
-        return name();
-    case statusRole:
-        return status();
+    case valueRole:
+        return value();
+    case enabledRole:
+        return enabled();
+    case lastUpdatedRole:
+        return lastUpdated();
     default:
         return QVariant();
     }
@@ -31,13 +31,13 @@ bool UTask::setData(const QVariant& value, int role)
     switch (role)
     {
     case idRole:
-        id(value.value<QString>());
-    case suspendedRole:
-        suspended(value.value<bool>());
-    case nameRole:
-        name(value.value<QString>());
-    case statusRole:
-        status(value.value<bool>());
+        id(value.toString());
+    case valueRole:
+        this->value(value.toString());
+    case enabledRole:
+        enabled(value.toBool());
+    case lastUpdatedRole:
+        lastUpdated(value.toUInt());
     default:
         return false;
     }
@@ -49,9 +49,9 @@ QHash<int, QByteArray> UTask::roleNames() const
     QHash<int, QByteArray> roles;
 
     roles[idRole] = "id";
-    roles[suspendedRole] = "suspended";
-    roles[nameRole] = "name";
-    roles[statusRole] = "status";
+    roles[valueRole] = "value";
+    roles[enabledRole] = "enabled";
+    roles[lastUpdatedRole] = "lastUpdated";
 
     return roles;
 }

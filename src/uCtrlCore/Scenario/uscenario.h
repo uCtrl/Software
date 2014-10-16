@@ -13,7 +13,8 @@ class UScenario : public NestedListItem
     {
         idRole = Qt::UserRole + 1,
         nameRole,
-        activeRole
+        enabledRole,
+        lastUpdatedRole
     };
 
 public:
@@ -27,17 +28,11 @@ public:
     ListModel* nestedModel() const;
 
     // Properties
-    inline QString id() const { return m_id; }
-    inline void id(const QString& id) { m_id = id; emit dataChanged(); }
     inline QString name() const { return m_name; }
     inline void name(const QString& name) { m_name = name; emit dataChanged(); }
-    inline bool active() const { return m_active; }
-    inline void active(bool active) { m_active = active; emit dataChanged(); }
 
 private:
-    QString m_id;
     QString m_name;
-    bool m_active;
     NestedListModel* m_tasks;
 };
 

@@ -15,26 +15,26 @@ QVariant UDevice::data(int role) const
     {
     case idRole:
         return id();
+    case nameRole:
+        return name();
     case typeRole:
         return type();
     case descriptionRole:
         return description();
-    case enabledRole:
-        return enabled();
-    case isTriggerValueRole:
-        return isTriggerValue();
     case maxValueRole:
         return maxValue();
     case minValueRole:
         return minValue();
-    case nameRole:
-        return name();
     case precisionRole:
         return precision();
     case statusRole:
         return status();
     case unitLabelRole:
         return unitLabel();
+    case enabledRole:
+        return enabled();
+    case lastUpdatedRole:
+        return lastUpdated();
     default:
         return QVariant();
     }
@@ -45,27 +45,27 @@ bool UDevice::setData(const QVariant& value, int role)
     switch (role)
     {
     case idRole:
-        id(value.value<QString>());
-    case typeRole:
-        type(value.value<int>());
-    case descriptionRole:
-        description(value.value<QString>());
-    case enabledRole:
-        enabled(value.value<bool>());
-    case isTriggerValueRole:
-        isTriggerValue(value.value<bool>());
-    case maxValueRole:
-        maxValue(value.value<int>());
-    case minValueRole:
-        minValue(value.value<int>());
+        id(value.toString());
     case nameRole:
-        name(value.value<QString>());
+        name(value.toString());
+    case typeRole:
+        type(value.toInt());
+    case descriptionRole:
+        description(value.toString());
+    case maxValueRole:
+        maxValue(value.toInt());
+    case minValueRole:
+        minValue(value.toInt());
     case precisionRole:
-        precision(value.value<int>());
+        precision(value.toInt());
     case statusRole:
-        status(value.value<int>());
+        status(value.toInt());
     case unitLabelRole:
-        unitLabel(value.value<QString>());
+        unitLabel(value.toString());
+    case enabledRole:
+        enabled(value.toBool());
+    case lastUpdatedRole:
+        lastUpdated(value.toUInt());
     default:
         return false;
     }
@@ -77,16 +77,16 @@ QHash<int, QByteArray> UDevice::roleNames() const
     QHash<int, QByteArray> roles;
 
     roles[idRole] = "id";
+    roles[nameRole] = "name";
     roles[typeRole] = "type";
     roles[descriptionRole] = "description";
-    roles[enabledRole] = "isEnabled";
-    roles[isTriggerValueRole] = "isTriggerValue";
     roles[maxValueRole] = "maxValue";
     roles[minValueRole] = "minValue";
-    roles[nameRole] = "name";
     roles[precisionRole] = "precision";
     roles[statusRole] = "status";
     roles[unitLabelRole] = "unitLabel";
+    roles[enabledRole] = "isEnabled";
+    roles[lastUpdatedRole] = "lastUpdated";
 
     return roles;
 }

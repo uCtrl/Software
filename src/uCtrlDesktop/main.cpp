@@ -23,12 +23,14 @@ UPlatform* createPlatform(ListModel* parent, int id)
 {
     UPlatform* platform = new UPlatform(parent);
     platform->id("id" + QString::number(id));
-    platform->firmwareVersion("FirmwareVersion" + QString::number(id));
-    platform->name("Name" + QString::number(id));
+    platform->firmwareVersion("firmwareVersion" + QString::number(id));
+    platform->name("name" + QString::number(id));
     platform->port(5000 + id);
-    platform->room("Room" + QString::number(id));
+    platform->room("room" + QString::number(id));
     platform->enabled(true);
     platform->ip("192.168.0." + QString::number(id));
+    platform->enabled(true);
+    platform->lastUpdated(QDateTime::currentDateTimeUtc().toTime_t());
     parent->appendRow(platform);
 
     return platform;
@@ -41,13 +43,14 @@ UDevice* createDevice(ListModel* parent, int id)
     device->type(id);
     device->description("description" + QString::number(id));
     device->enabled(true);
-    device->isTriggerValue(true);
     device->maxValue(0);
     device->minValue(id);
     device->name("name" + QString::number(id));
     device->precision(id);
     device->status(id);
     device->unitLabel("unitLabel" + QString::number(id));
+    device->enabled(true);
+    device->lastUpdated(QDateTime::currentDateTimeUtc().toTime_t());
     parent->appendRow(device);
 
     return device;
@@ -58,7 +61,8 @@ UScenario* createScenario(ListModel* parent, int id)
     UScenario* scenario = new UScenario(parent);
     scenario->id("id" + QString::number(id));
     scenario->name("name" + QString::number(id));
-    scenario->active(true);
+    scenario->enabled(true);
+    scenario->lastUpdated(QDateTime::currentDateTimeUtc().toTime_t());
     parent->appendRow(scenario);
 
     return scenario;
@@ -68,9 +72,9 @@ UTask* createTask(ListModel* parent, int id)
 {
     UTask* task = new UTask(parent);
     task->id("id" + QString::number(id));
-    task->name("name" + QString::number(id));
-    task->status(true);
-    task->suspended(false);
+    task->value("value" + QString::number(id));
+    task->enabled(true);
+    task->lastUpdated(QDateTime::currentDateTimeUtc().toTime_t());
     parent->appendRow(task);
 
     return task;
@@ -80,6 +84,14 @@ UCondition* createCondition(ListModel* parent, int id)
 {
     UCondition* condition = new UCondition(parent);
     condition->id("id" + QString::number(id));
+    condition->type(id);
+    condition->comparisonType(id);
+    condition->beginValue("beginValue" + QString::number(id));
+    condition->endValue("endValue" + QString::number(id));
+    condition->deviceId("deviceId" + QString::number(id));
+    condition->deviceValue("deviceValue" + QString::number(id));
+    condition->enabled(true);
+    condition->lastUpdated(QDateTime::currentDateTimeUtc().toTime_t());
     parent->appendRow(condition);
 
     return condition;

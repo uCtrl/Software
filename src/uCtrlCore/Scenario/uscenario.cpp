@@ -17,8 +17,10 @@ QVariant UScenario::data(int role) const
         return id();
     case nameRole:
         return name();
-    case activeRole:
-        return active();
+    case enabledRole:
+        return enabled();
+    case lastUpdatedRole:
+        return lastUpdated();
     default:
         return QVariant();
     }
@@ -29,11 +31,13 @@ bool UScenario::setData(const QVariant& value, int role)
     switch (role)
     {
     case idRole:
-        id(value.value<QString>());
+        id(value.toString());
     case nameRole:
-        name(value.value<QString>());
-    case activeRole:
-        active(value.value<bool>());
+        name(value.toString());
+    case enabledRole:
+        enabled(value.toBool());
+    case lastUpdatedRole:
+        lastUpdated(value.toUInt());
     default:
         return false;
     }
@@ -46,7 +50,8 @@ QHash<int, QByteArray> UScenario::roleNames() const
 
     roles[idRole] = "id";
     roles[nameRole] = "name";
-    roles[activeRole] = "active";
+    roles[enabledRole] = "isEnabled";
+    roles[lastUpdatedRole] = "lastUpdated";
 
     return roles;
 }
