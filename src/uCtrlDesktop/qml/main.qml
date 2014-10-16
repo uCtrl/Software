@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 1.0
 
 import "../titlebar" as Titlebar
+import "../navbar" as Navbar
 
 Rectangle {
     id: main
@@ -17,9 +18,9 @@ Rectangle {
         "platforms/Platforms"
     ];
 
-    /*Component.onCompleted: {
+    Component.onCompleted: {
         navbar.pages = pages
-    }*/
+    }
 
     Titlebar.Titlebar {
         id: titlebar
@@ -31,6 +32,51 @@ Rectangle {
         z: 1    // Always on top.
     }
 
+    Navbar.Navbar {
+        id: navbar
+
+        anchors.top: titlebar.bottom
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+
+        z: 2    // Always on top.
+    }
+
+    // Set this property to another file name to change page
+    property string currentPage: "platforms/Platforms";
+
+    Repeater {
+        model: pages;
+
+        anchors.left: navbar.right;
+        anchors.right: parent.right;
+        anchors.top: titlebar.bottom;
+        anchors.bottom: parent.bottom;
+
+        delegate: Loader {
+            active: false;
+            asynchronous: true;
+
+            anchors.left: navbar.right;
+            anchors.right: parent.right;
+            anchors.top: titlebar.bottom;
+            anchors.bottom: parent.bottom;
+
+            visible: (currentPage === modelData);
+            source: "qrc:/%1.qml".arg(modelData)
+            onVisibleChanged:      { loadIfNotLoaded(); }
+            Component.onCompleted: { loadIfNotLoaded(); }
+
+            function loadIfNotLoaded () {
+                // to load the file at first show
+                if (visible && !active) {
+                    active = true;
+                }
+            }
+        }
+    }
+
+    /*
     Text {
         id: platLabel
         anchors.top: titlebar.bottom
@@ -196,6 +242,6 @@ Rectangle {
             }
         }
     }
-
+    */
 }
 

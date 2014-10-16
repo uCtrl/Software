@@ -5,6 +5,9 @@
     <qresource prefix="/titlebar">
         <file alias="Titlebar.qml">qml/component/titlebar.qml</file>
     </qresource>
+    <qresource prefix="/navbar">
+        <file alias="Navbar.qml">qml/component/navbar.qml</file>
+    </qresource>
     <qresource prefix="/img">
         <file alias="uCtrl-white.svg">qml/img/uCtrl-white.svg</file>
     </qresource>
@@ -44,5 +47,13 @@
         <file alias="UComboboxItemContainer.qml">qml/ui/UComboboxItemContainer.qml</file>
         <file alias="UTextbox.qml">qml/ui/UTextbox.qml</file>
         <file alias="UFontAwesome.qml">qml/ui/UFontAwesome.qml</file>
+    </qresource>
+    <qresource prefix="/platforms">
+        <file alias="Platforms.qml">qml/component/Platforms.qml</file>
+        <file alias="Platform.qml">qml/component/Platform.qml</file>
+    </qresource>
+    <qresource prefix="/devices">
+        <file alias="Devices.qml">qml/component/Devices.qml</file>
+        <file alias="Device.qml">qml/component/Device.qml</file>
     </qresource>
 </RCC>
