@@ -9,6 +9,7 @@ Rectangle {
     color: "#EDEDED"
 
     property var marginSize: 20
+    property string section: "room"
 
     Rectangle {
         id: filters
@@ -112,7 +113,7 @@ Rectangle {
 
                 z: 2
 
-                y: (platforms.currentIndex === null ? -1 : (platforms.currentIndex * 60));
+                y: (platforms.currentIndex === null ? -1 : (platforms.currentIndex * 80) + 20);
                 Behavior on y { SpringAnimation { spring: 5; damping: 0.1; mass: 0.3 } }
             }
 
@@ -120,6 +121,8 @@ Rectangle {
                 width: parent.width
                 z: 1
                 Rectangle {
+                    id: itemContainer
+
                     width: parent.width
                     height: 60
 
@@ -179,6 +182,41 @@ Rectangle {
                            //highlighter.top = platforms.currentItem.top
                         }
                     }
+                }
+            }
+
+            section.property: platformsList.section
+            section.criteria: ViewSection.FullString
+            section.delegate: Rectangle {
+                id: header
+
+                property bool showChildren: true
+
+                width: parent.width; height: 20;
+
+                color: "#0D9B0D"
+
+                Text {
+                    id: room
+                    font.family: "Lato"
+                    font.pointSize: 10
+                    font.bold: true
+
+                    text: section
+                    color: "white"
+
+                    anchors.left: parent.left
+                    anchors.leftMargin: 5
+
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                MouseArea {
+                    id: headerArea
+
+                    anchors.fill: parent
+
+                    onClicked: header.showChildren = !header.showChildren
                 }
             }
         }
