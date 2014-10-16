@@ -2,4 +2,13 @@
     <qresource prefix="/qml">
         <file alias="main.qml">qml/main.qml</file>
     </qresource>
+    <qresource prefix="/titlebar">
+        <file alias="Titlebar.qml">qml/component/titlebar.qml</file>
+    </qresource>
+    <qresource prefix="/ui">
+        <file alias="UImage.qml">qml/ui/UImage.qml</file>
+    </qresource>
+    <qresource prefix="/img">
+        <file alias="uCtrl-white.svg">qml/img/uCtrl-white.svg</file>
+    </qresource>
 </RCC>
