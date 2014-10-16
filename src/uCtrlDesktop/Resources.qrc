@@ -11,4 +11,17 @@
     <qresource prefix="/img">
         <file alias="uCtrl-white.svg">qml/img/uCtrl-white.svg</file>
     </qresource>
+    <qresource prefix="/fonts">
+        <file alias="fontawesome-webfont.ttf">qml/fonts/fontawesome-webfont.ttf</file>
+        <file alias="icomoon.ttf">qml/fonts/icomoon.ttf</file>
+        <file alias="Lato-Black.ttf">qml/fonts/Lato-Black.ttf</file>
+        <file alias="Lato-BlackItalic.ttf">qml/fonts/Lato-BlackItalic.ttf</file>
+        <file alias="Lato-Bold.ttf">qml/fonts/Lato-Bold.ttf</file>
+        <file alias="Lato-BoldItalic.ttf">qml/fonts/Lato-BoldItalic.ttf</file>
+        <file alias="Lato-Hairline.ttf">qml/fonts/Lato-Hairline.ttf</file>
+        <file alias="Lato-HairlineItalic.ttf">qml/fonts/Lato-HairlineItalic.ttf</file>
+        <file alias="Lato-Italic.ttf">qml/fonts/Lato-Italic.ttf</file>
+        <file alias="Lato-LightItalic.ttf">qml/fonts/Lato-LightItalic.ttf</file>
+        <file alias="Lato-Regular.ttf">qml/fonts/Lato-Regular.ttf</file>
+    </qresource>
 </RCC>
