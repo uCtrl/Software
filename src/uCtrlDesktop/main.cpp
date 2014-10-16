@@ -137,7 +137,8 @@ void Init(QGuiApplication& app, QtQuick2ApplicationViewer& viewer)
     QQmlContext *ctxt = viewer.rootContext();
     ctxt->setContextProperty("platformsModel", platforms);
 
-    viewer.setMainQmlFile(QStringLiteral("qml/uCtrlDesktopQml/main.qml"));
+    //viewer.setMainQmlFile(QStringLiteral("qml/uCtrlDesktopQml/main.qml"));
+    viewer.setSource(QUrl("qrc:///qml/main.qml"));
     viewer.setMinimumHeight(650);
     viewer.setMinimumWidth(900);
     viewer.showExpanded();
