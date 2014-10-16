@@ -1,113 +1,97 @@
 #include "udevice.h"
-#include "Utility/uniqueidgenerator.h"
-#include <sstream>
 
-UDevice::UDevice(QObject* parent) : QAbstractListModel(parent)
+UDevice::UDevice(QObject* parent) : NestedListItem(parent)
 {
-    setId(UniqueIdGenerator::GenerateUniqueId());
-    setLastUpdate(QDateTime::currentDateTime());
+    m_scenarios = new NestedListModel(new UScenario(), this);
 }
 
 UDevice::~UDevice()
 {
-    setLastUpdate(QDateTime::currentDateTime());
 }
 
-UDevice::UDevice(const UDevice& device)
+QVariant UDevice::data(int role) const
 {
-    setId(device.getId());
-    setName(device.getName());
-    setScenarios(device.getScenarios());
-    setLastUpdate(QDateTime::currentDateTime());
-}
-
-QObject* UDevice::createScenario() {
-    UScenario* newScenario = new UScenario(this);
-    UTask* otherwiseTask = (UTask*)newScenario->createTask();
-    newScenario->addTask(otherwiseTask);
-    return newScenario;
-}
-
-void UDevice::addScenario(UScenario* scenario) {
-    beginInsertRows(QModelIndex(), rowCount(), rowCount());
-    m_scenarios.push_back(scenario);
-    endInsertRows();
-
-    emit scenariosChanged(m_scenarios);
-}
-
-void UDevice::updateScenarioAt(int index, UScenario* scenario) {
-    m_scenarios.replace(index, scenario);
-
-    emit scenariosChanged(m_scenarios);
-}
-
-void UDevice::saveScenarios()
-{
-    emit save();
-}
-
-void UDevice::deleteScenarioAt(int index) {
-    if (index < 0 || index >= getScenarioCount())
-        return;
-
-    beginRemoveRows(QModelIndex(), index, index);
-
-    QObject* scenario = getScenarioAt(index);
-    delete scenario;
-    scenario = NULL;
-    m_scenarios.removeAt(index);
-
-    endRemoveRows();
-
-    emit scenariosChanged(m_scenarios);
-}
-
-void UDevice::read(const QJsonObject &jsonObj)
-{
-    this->setId(jsonObj["id"].toInt());
-    this->setName(jsonObj["name"].toString());
-    this->setMinValue(jsonObj["minValue"].toDouble());
-    this->setMaxValue(jsonObj["maxValue"].toDouble());
-    this->setPrecision(jsonObj["precision"].toInt());
-    this->setUnitLabel(jsonObj["unitLabel"].toString());
-    this->setType(jsonObj["type"].toInt());
-    this->setIsTriggerValue(jsonObj["isTriggerValue"].toBool());
-    this->setEnabled(jsonObj["enabled"].toString());
-    this->setDescription(jsonObj["description"].toString());
-    this->setStatus((float)jsonObj["status"].toDouble());
-    this->setLastUpdate(QDateTime::currentDateTime());
-
-    QJsonArray scenariosArray = jsonObj["scenarios"].toArray();
-    foreach(QJsonValue scenarioJson, scenariosArray)
+    switch (role)
     {
-        UScenario* s = new UScenario(this);
-        s->read(scenarioJson.toObject());
-        this->m_scenarios.append(s);
+    case idRole:
+        return id();
+    case typeRole:
+        return type();
+    case descriptionRole:
+        return description();
+    case enabledRole:
+        return enabled();
+    case isTriggerValueRole:
+        return isTriggerValue();
+    case maxValueRole:
+        return maxValue();
+    case minValueRole:
+        return minValue();
+    case nameRole:
+        return name();
+    case precisionRole:
+        return precision();
+    case statusRole:
+        return status();
+    case unitLabelRole:
+        return unitLabel();
+    default:
+        return QVariant();
     }
 }
 
-void UDevice::write(QJsonObject &jsonObj) const
+bool UDevice::setData(const QVariant& value, int role)
 {
-    jsonObj["id"] = getId();
-    jsonObj["name"] = getName();
-    jsonObj["minValue"] = getMinValue();
-    jsonObj["maxValue"] = getMaxValue();
-    jsonObj["precision"] = getPrecision();
-    jsonObj["unitLabel"] = getUnitLabel();
-    jsonObj["type"] = getType();
-    jsonObj["isTriggerValue"] = isTriggerValue();
-    jsonObj["enabled"] = getEnabled();
-    jsonObj["description"] = getDescription();
-    jsonObj["status"] = getStatus();
-
-    QJsonArray scenariosArray;
-    foreach(UScenario* scenario, this->m_scenarios)
+    switch (role)
     {
-        QJsonObject scenarioJson;
-        scenario->write(scenarioJson);
-        scenariosArray.append(scenarioJson);
+    case idRole:
+        id(value.value<QString>());
+    case typeRole:
+        type(value.value<int>());
+    case descriptionRole:
+        description(value.value<QString>());
+    case enabledRole:
+        enabled(value.value<bool>());
+    case isTriggerValueRole:
+        isTriggerValue(value.value<bool>());
+    case maxValueRole:
+        maxValue(value.value<int>());
+    case minValueRole:
+        minValue(value.value<int>());
+    case nameRole:
+        name(value.value<QString>());
+    case precisionRole:
+        precision(value.value<int>());
+    case statusRole:
+        status(value.value<int>());
+    case unitLabelRole:
+        unitLabel(value.value<QString>());
+    default:
+        return false;
     }
+    return true;
+}
 
-    jsonObj["scenarios"] = scenariosArray;
+QHash<int, QByteArray> UDevice::roleNames() const
+{
+    QHash<int, QByteArray> roles;
+
+    roles[idRole] = "id";
+    roles[typeRole] = "type";
+    roles[descriptionRole] = "description";
+    roles[enabledRole] = "isEnabled";
+    roles[isTriggerValueRole] = "isTriggerValue";
+    roles[maxValueRole] = "maxValue";
+    roles[minValueRole] = "minValue";
+    roles[nameRole] = "name";
+    roles[precisionRole] = "precision";
+    roles[statusRole] = "status";
+    roles[unitLabelRole] = "unitLabel";
+
+    return roles;
+}
+
+ListModel* UDevice::nestedModel() const
+{
+    return m_scenarios;
 }

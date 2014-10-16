@@ -38,7 +38,7 @@ void UNetworkScanner::resolveService(const BonjourRecord& record)
 
 void UNetworkScanner::resolved(const QHostInfo &hostInfo, int port)
 {
-    USystem* system = USystem::Instance();
+    //USystem* system = USystem::Instance();
     QList<QHostAddress> addresses = hostInfo.addresses();
     for(int i = 0; i < addresses.count(); i++)
     {
@@ -50,11 +50,11 @@ void UNetworkScanner::resolved(const QHostInfo &hostInfo, int port)
             if(this->isLocalAddress(addresses[i]))
                 addresses[i] = QHostAddress("127.0.0.1");
 
-            if(!system->containsPlatform(addresses[i].toString(), port))
+            /*if(!system->containsPlatform(addresses[i].toString(), port))
             {
                 qDebug() << "Address: " << addresses[i].toString() << " Port: " << QString::number(port);
                 system->addPlatform(addresses[i].toString(), port);
-            }
+            }*/
 
             break;
         }

@@ -1,24 +1,25 @@
-#ifndef USCENARIO_H
-#define USCENARIO_H
+#ifndef UTASK_H
+#define UTASK_H
 
 #include "Models/nestedlistitem.h"
 #include "Models/nestedlistmodel.h"
-#include "Task/utask.h"
+#include "Condition/ucondition.h"
 
-class UScenario : public NestedListItem
+class UTask : public NestedListItem
 {
     Q_OBJECT
 
-    enum ScenarioRoles
+    enum TaskRoles
     {
         idRole = Qt::UserRole + 1,
+        suspendedRole,
         nameRole,
-        activeRole
+        statusRole
     };
 
 public:
-    explicit UScenario(QObject *parent = 0);
-    ~UScenario();
+    explicit UTask(QObject *parent = 0);
+    ~UTask();
 
     // NestedListItem
     QVariant data(int role) const;
@@ -29,16 +30,19 @@ public:
     // Properties
     inline QString id() const { return m_id; }
     inline void id(const QString& id) { m_id = id; emit dataChanged(); }
+    inline bool suspended() const { return m_suspended; }
+    inline void suspended(bool suspended) { m_suspended = suspended; emit dataChanged(); }
     inline QString name() const { return m_name; }
     inline void name(const QString& name) { m_name = name; emit dataChanged(); }
-    inline bool active() const { return m_active; }
-    inline void active(bool active) { m_active = active; emit dataChanged(); }
+    inline bool status() const { return m_status; }
+    inline void status(bool status) { m_status = status; emit dataChanged(); }
 
 private:
     QString m_id;
+    bool m_suspended;
     QString m_name;
-    bool m_active;
-    NestedListModel* m_tasks;
+    bool m_status;
+    ListModel* m_conditions;
 };
 
-#endif // USCENARIO_H
+#endif // UTASK_H

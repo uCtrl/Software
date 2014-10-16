@@ -1,101 +1,77 @@
-#include "Utility/uniqueidgenerator.h"
 #include "uplatform.h"
 
-UPlatform::UPlatform(QObject* parent) : QAbstractListModel(parent)
+UPlatform::UPlatform(QObject* parent) : NestedListItem(parent)
 {
-    setId(UniqueIdGenerator::GenerateUniqueId());
-}
-
-UPlatform::UPlatform(QObject* parent, const QString& ip, const int port) : QAbstractListModel(parent)
-{
-    setIp(ip);
-    setPort(port);
-}
-
-UPlatform::UPlatform(const UPlatform& platform)
-{
-    setId(platform.getId());
-    setIp(platform.getIp());
-    setPort(platform.getPort());
-    setDevices(platform.getDevices());
+    m_devices = new NestedListModel(new UDevice(), this);
 }
 
 UPlatform::~UPlatform()
 {
 }
 
-QObject* UPlatform::getDeviceAt(int index) const {
-    if (index < 0 || index >= m_devices.count())
-        return 0;
-
-    return (QObject*) ( getDevices().at(index) );
-}
-
-QDateTime UPlatform::getLastUpdate() const
+QVariant UPlatform::data(int role) const
 {
-    QDateTime time;
-    for (int i=0;i<m_devices.count(); i++) {
-        UDevice device = getDeviceAt(i);
-        if (device.getLastUpdate() > time) {
-            time = device.getLastUpdate();
-        }
-    }
-
-    return time;
-}
-
-
-void UPlatform::save()
-{
-    emit savePlatform();
-}
-
-QVariant UPlatform::data(const QModelIndex & index, int role) const {
-    return QVariant();
-}
-
-int UPlatform::rowCount(const QModelIndex &parent) const
-{
-    return m_devices.count();
-}
-
-void UPlatform::read(const QJsonObject &jsonObj)
-{
-    this->setId(jsonObj["id"].toInt());
-    this->setName(jsonObj["name"].toString());
-    this->setRoom(jsonObj["room"].toString());
-    this->setEnabled(jsonObj["enabled"].toString());
-    this->setIp(jsonObj["ip"].toString());
-    this->setPort(jsonObj["port"].toInt());
-    this->setFirmwareVersion(jsonObj["firmwareVersion"].toString());
-
-    QJsonArray devicesArray = jsonObj["devices"].toArray();
-    foreach(QJsonValue deviceJson, devicesArray)
+    switch (role)
     {
-        UDevice* d = new UDevice(this);
-        d->read(deviceJson.toObject());
-        this->m_devices.append(d);
-        connect(d, SIGNAL(save()), this, SLOT(save()));
+    case idRole:
+        return id();
+    case firmwareVersionRole:
+        return firmwareVersion();
+    case nameRole:
+        return name();
+    case portRole:
+        return port();
+    case roomRole:
+        return room();
+    case enabledRole:
+        return enabled();
+    case ipRole:
+        return ip();
+    default:
+        return QVariant();
     }
 }
 
-void UPlatform::write(QJsonObject &jsonObj) const
+bool UPlatform::setData(const QVariant& value, int role)
 {
-    jsonObj["id"] = getId();
-    jsonObj["enabled"] = getEnabled();
-    jsonObj["name"] = getName();
-    jsonObj["room"] = getRoom();
-    jsonObj["firmwareVersion"] = getFirmwareVersion();
-    jsonObj["ip"] = getIp();
-    jsonObj["port"] = getPort();
-
-    QJsonArray devicesArray;
-    foreach(UDevice* device, this->m_devices)
+    switch (role)
     {
-        QJsonObject deviceJson;
-        device->write(deviceJson);
-        devicesArray.append(deviceJson);
+    case idRole:
+        id(value.value<QString>());
+    case firmwareVersionRole:
+        firmwareVersion(value.value<QString>());
+    case nameRole:
+        name(value.value<QString>());
+    case portRole:
+        port(value.value<int>());
+    case roomRole:
+        room(value.value<QString>());
+    case enabledRole:
+        enabled(value.value<bool>());
+    case ipRole:
+        ip(value.value<QString>());
+    default:
+        return false;
     }
+    return true;
+}
 
-    jsonObj["devices"] = devicesArray;
+QHash<int, QByteArray> UPlatform::roleNames() const
+{
+    QHash<int, QByteArray> roles;
+
+    roles[idRole] = "id";
+    roles[firmwareVersionRole] = "firmwareVersion";
+    roles[nameRole] = "name";
+    roles[portRole] = "port";
+    roles[roomRole] = "room";
+    roles[enabledRole] = "isEnabled";
+    roles[ipRole] = "ip";
+
+    return roles;
+}
+
+ListModel* UPlatform::nestedModel() const
+{
+    return m_devices;
 }

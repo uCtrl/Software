@@ -3,7 +3,6 @@
 
 #include "Network/bonjourservicebrowser.h"
 #include "Network/bonjourserviceresolver.h"
-#include "System/usystem.h"
 #include <QHostInfo>
 #include <QObject>
 
