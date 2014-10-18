@@ -5,7 +5,7 @@ import "../label" as ULabel
 Item {
     property string iconId: "Ok"
     property int iconSize: 16
-    property color iconColor: _colors.uBlack
+    property color iconColor: "black"
 
     property variant fontawesome: {
         "Glass"             : "\uf000",

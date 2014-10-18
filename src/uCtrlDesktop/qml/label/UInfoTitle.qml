@@ -4,7 +4,7 @@ Default {
 
     width: 200
     font.pointSize: 16
-    color: _colors.uGrey
+    color: "#AAAAAA"
 
     anchors.verticalCenter: parent.verticalCenter
 

@@ -6,10 +6,11 @@ Text {
     font.pointSize: 12
     renderType: Text.NativeRendering
     wrapMode: Text.WordWrap
-    color: _colors.uBlack
+    color: "black"
+    text: ""
 
-    onTextChanged: {
+    /*onTextChanged: {
         var newValue = dflt.text.replace(/(\n|\r)/, "").replace(/\s+/g, " ")
         dflt.text = newValue
-    }
+    }*/
 }

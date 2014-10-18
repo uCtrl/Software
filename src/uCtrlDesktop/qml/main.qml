@@ -16,7 +16,7 @@ Rectangle {
 
     // Available pages
     property variant pages: [
-        {file: "platforms/Platforms", icon: "settings", text: "Platforms"}
+        {file: "platform/Platforms", icon: "settings", text: "Platforms"}
     ];
 
     Component.onCompleted: {
@@ -43,7 +43,7 @@ Rectangle {
         z: 1    // Always on top of the background.
     }
 
-    property string currentPage: "platforms/Platforms";
+    property string currentPage: "platform/Platforms";
 
     Repeater {
         model: pages;

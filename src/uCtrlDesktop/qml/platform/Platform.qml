@@ -1,6 +1,7 @@
 import QtQuick 2.0
 
-import "../devices" as Devices
+import "../device" as Device
+import "../label" as ULabel
 import "../ui" as UI
 
 Rectangle {
@@ -17,7 +18,7 @@ Rectangle {
 
         color: "transparent"
 
-        Text {
+        ULabel.Default {
 
             text: "Please select a platform"
 
@@ -48,19 +49,18 @@ Rectangle {
             anchors.right: parent.right
             anchors.margins: marginSize
 
-            Text {
+            ULabel.Default {
                 id: name
 
                 width: (parent.width - editButton.width)
+                anchors.verticalCenter: editButton.verticalCenter
 
-                text: getName()
+                font.pointSize: 24
+                font.bold: true
 
                 color: "black"
 
-                font.bold: true
-                font.pixelSize: 20
-
-                anchors.verticalCenter: editButton.verticalCenter
+                text: getName()
             }
 
             UI.UButton {
@@ -98,38 +98,33 @@ Rectangle {
             Rectangle {
                 color: "white"
 
-                width: (parent.width / 2)
+                width: (parent.width / 4)
                 height: parent.height
 
-                Text {
+                ULabel.UInfoTitle {
+                    id: enabledTitle
+
                     text: "Enabled"
 
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     anchors.margins: 20
-
-                    color: "#AAAAAA"
-                    font.pixelSize: 14
-                    font.bold: false
                 }
             }
 
             Rectangle {
                 color: "white"
 
-                width: (parent.width / 2)
+                width: 3 * (parent.width / 4)
                 height: parent.height
 
-                Text {
+                ULabel.UInfoBoundedLabel {
+                    id: enabledStatusLabel
                     text: getEnabled()
 
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     anchors.margins: 20
-
-                    color: "black"
-                    font.pixelSize: 14
-                    font.bold: false
                 }
             }
         }
@@ -146,38 +141,32 @@ Rectangle {
             Rectangle {
                 color: "white"
 
-                width: (parent.width / 2)
+                width: (parent.width / 4)
                 height: parent.height
 
-                Text {
+                ULabel.UInfoTitle {
+                    id: locationTitle
+
                     text: "Location"
 
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     anchors.margins: 20
-
-                    color: "#AAAAAA"
-                    font.pixelSize: 14
-                    font.bold: false
                 }
             }
 
             Rectangle {
                 color: "white"
 
-                width: (parent.width / 2)
+                width: 3 * (parent.width / 4)
                 height: parent.height
 
-                Text {
+                ULabel.Default {
                     text: getRoom()
 
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     anchors.margins: 20
-
-                    color: "black"
-                    font.pixelSize: 14
-                    font.bold: false
                 }
             }
         }
@@ -199,7 +188,7 @@ Rectangle {
             color: "#D4D4D4"
         }
 
-        Devices.Devices {
+        Device.Devices {
             id: rectDevice
 
             model: getDevices()
@@ -222,8 +211,8 @@ Rectangle {
     }
 
     function getEnabled() {
-        if (model != null) return model.isEnabled
-        else return "null"
+        if (model != null && model.isEnabled) return "ON"
+        else return "OFF"
     }
 
     function getRoom() {

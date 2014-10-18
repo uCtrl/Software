@@ -71,38 +71,11 @@ Rectangle {
             anchors.right: filters.right
             width: (filters.width / 3);
             height: searchBox.height
-        }
-
-        /*UI.UCombobox {
-            id: filterCombo
-
-            anchors.left: searchBox.right
-            anchors.leftMargin: 5
-
-            z: 1
-
-            anchors.right: filters.right
-
-            anchors.verticalCenter: filters.verticalCenter
-
-            height: filters.height; width: (filters.width / 3);
-
-            itemListModel: [
-                { value: "room",     displayedValue: "Location",     iconId: "location"},
-                { value: "update",   displayedValue: "Last Updated", iconId: "clock"},        // Not in model yet
-                { value: "status",   displayedValue: "Status",       iconId: "switch"},       // Not in model yet
-                { value: "type",     displayedValue: "Device type",  iconId: "spinner3"},     // Not in platform model yet, still exists in device.
-                { value: "alphabet", displayedValue: "Name",         iconId: "Font"}
-            ]
-
-            onSelectedItemChanged: {
-                platformListContainer.section = selectedItem.value
-            }
 
             Component.onCompleted: {
                 selectItem(0)
             }
-        }*/
+        }
     }
 
     Rectangle {
@@ -213,6 +186,4 @@ Rectangle {
 
         width: (parent.width/2)
     }
-
-    Component.onCompleted: filterCombo.z = 1000
 }

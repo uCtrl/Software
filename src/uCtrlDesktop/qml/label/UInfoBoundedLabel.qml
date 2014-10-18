@@ -2,10 +2,10 @@ import QtQuick 2.0
 
 Rectangle {
     id: container
-    color: _colors.uGreen
+    color: "#0D9B0D"
     width: Math.round(label.width + 16)
     height: 22
-    radius: radiusSize
+    radius: 4
 
     anchors.verticalCenter: parent.verticalCenter
 
@@ -21,7 +21,7 @@ Rectangle {
         text: container.text
         font.pointSize: 14
         font.bold: true
-        color: _colors.uWhite
+        color: "white"
         height: parent.height
         anchors.centerIn: parent
         verticalAlignment: Text.AlignVCenter

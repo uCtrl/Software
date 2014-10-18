@@ -25,20 +25,20 @@
         <file alias="Lato-Regular.ttf">qml/fonts/Lato-Regular.ttf</file>
     </qresource>
     <qresource prefix="/label">
-        <file alias="Default.qml">qml/ui/label/Default.qml</file>
-        <file alias="ComboBoxItemText.qml">qml/ui/label/ComboBoxItemText.qml</file>
-        <file alias="Heading1.qml">qml/ui/label/Heading1.qml</file>
-        <file alias="Heading2.qml">qml/ui/label/Heading2.qml</file>
-        <file alias="Heading3.qml">qml/ui/label/Heading3.qml</file>
-        <file alias="Heading4.qml">qml/ui/label/Heading4.qml</file>
-        <file alias="Heading5.qml">qml/ui/label/Heading5.qml</file>
-        <file alias="Link.qml">qml/ui/label/Link.qml</file>
-        <file alias="TooltipText.qml">qml/ui/label/TooltipText.qml</file>
-        <file alias="UInfoBoundedLabel.qml">qml/ui/label/UInfoBoundedLabel.qml</file>
-        <file alias="UInfoLabel.qml">qml/ui/label/UInfoLabel.qml</file>
-        <file alias="UInfoTitle.qml">qml/ui/label/UInfoTitle.qml</file>
-        <file alias="UTabText.qml">qml/ui/label/UTabText.qml</file>
-        <file alias="UWeekDayPickerLabel.qml">qml/ui/label/UWeekDayPickerLabel.qml</file>
+        <file alias="Default.qml">qml/label/Default.qml</file>
+        <file alias="ComboBoxItemText.qml">qml/label/ComboBoxItemText.qml</file>
+        <file alias="Heading1.qml">qml/label/Heading1.qml</file>
+        <file alias="Heading2.qml">qml/label/Heading2.qml</file>
+        <file alias="Heading3.qml">qml/label/Heading3.qml</file>
+        <file alias="Heading4.qml">qml/label/Heading4.qml</file>
+        <file alias="Heading5.qml">qml/label/Heading5.qml</file>
+        <file alias="Link.qml">qml/label/Link.qml</file>
+        <file alias="TooltipText.qml">qml/label/TooltipText.qml</file>
+        <file alias="UInfoBoundedLabel.qml">qml/label/UInfoBoundedLabel.qml</file>
+        <file alias="UInfoLabel.qml">qml/label/UInfoLabel.qml</file>
+        <file alias="UInfoTitle.qml">qml/label/UInfoTitle.qml</file>
+        <file alias="UTabText.qml">qml/label/UTabText.qml</file>
+        <file alias="UWeekDayPickerLabel.qml">qml/label/UWeekDayPickerLabel.qml</file>
     </qresource>
     <qresource prefix="/ui">
         <file alias="UImage.qml">qml/ui/UImage.qml</file>
@@ -49,13 +49,14 @@
         <file alias="UFontAwesome.qml">qml/ui/UFontAwesome.qml</file>
         <file alias="UButton.qml">qml/ui/UButton.qml</file>
     </qresource>
-    <qresource prefix="/platforms">
-        <file alias="Platforms.qml">qml/component/Platforms.qml</file>
-        <file alias="Platform.qml">qml/component/Platform.qml</file>
-        <file alias="PlatformListItem.qml">qml/component/PlatformListItem.qml</file>
+    <qresource prefix="/platform">
+        <file alias="Platforms.qml">qml/platform/Platforms.qml</file>
+        <file alias="Platform.qml">qml/platform/Platform.qml</file>
+        <file alias="PlatformListItem.qml">qml/platform/PlatformListItem.qml</file>
     </qresource>
-    <qresource prefix="/devices">
-        <file alias="Devices.qml">qml/component/Devices.qml</file>
-        <file alias="Device.qml">qml/component/Device.qml</file>
+    <qresource prefix="/device">
+        <file alias="Devices.qml">qml/device/Devices.qml</file>
+        <file alias="Device.qml">qml/device/Device.qml</file>
+        <file alias="DeviceListItem.qml">qml/device/DeviceListItem.qml</file>
     </qresource>
 </RCC>
