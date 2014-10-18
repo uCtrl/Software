@@ -10,6 +10,8 @@ Rectangle {
     property variant model: null
     property int marginSize: 20
 
+    property bool showAdvanced: false
+
     Rectangle {
         visible: (model == null)
 
@@ -188,13 +190,202 @@ Rectangle {
             color: "#D4D4D4"
         }
 
+        Rectangle {
+            id: advanced
+
+            anchors.bottom: parent.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+
+            anchors.margins: 20
+            anchors.bottomMargin: 10
+
+            height: showAdvanced ? 100 : 30
+
+            color: "#EDEDED"
+
+            border.width: 0.5
+            border.color: "transparent"
+            radius: 4
+
+            Row {
+                id: idRow
+
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.top: parent.top
+
+                anchors.margins: 10
+
+                height: 15
+
+                visible: showAdvanced
+
+                ULabel.Default {
+                    width: (parent.width / 4); height: parent.height
+
+                    color: "#AAAAAA"
+                    font.family: "Courier"
+                    font.pointSize: 11
+
+                    text: "Platform ID"
+                }
+
+                ULabel.Default {
+                    width: 3*(parent.width / 4); height: parent.height
+
+                    color: "#AAAAAA"
+                    font.family: "Courier"
+                    font.pointSize: 11
+
+                    text: getId()
+                }
+            }
+
+            Row {
+                id: ipRow
+
+                anchors.left: idRow.left
+                anchors.right: idRow.right
+                anchors.top: idRow.bottom
+
+                height: 15
+
+                visible: showAdvanced
+
+                ULabel.Default {
+                    width: (parent.width / 4); height: parent.height
+
+                    color: "#AAAAAA"
+                    font.family: "Courier"
+                    font.pointSize: 11
+
+                    text: "IP Address"
+                }
+
+                ULabel.Default {
+                    width: 3*(parent.width / 4); height: parent.height
+
+                    color: "#AAAAAA"
+                    font.family: "Courier"
+                    font.pointSize: 11
+
+                    text: getIp()
+                }
+            }
+
+            Row {
+                id: portRow
+
+                anchors.left: ipRow.left
+                anchors.right: ipRow.right
+                anchors.top: ipRow.bottom
+
+                height: 15
+
+                visible: showAdvanced
+
+                ULabel.Default {
+                    width: (parent.width / 4); height: parent.height
+
+                    color: "#AAAAAA"
+                    font.family: "Courier"
+                    font.pointSize: 11
+
+                    text: "Port Number"
+                }
+
+                ULabel.Default {
+                    width: 3*(parent.width / 4); height: parent.height
+
+                    color: "#AAAAAA"
+                    font.family: "Courier"
+                    font.pointSize: 11
+
+                    text: getPort()
+                }
+            }
+
+            Row {
+                id: firmwareRow
+
+                anchors.left: portRow.left
+                anchors.right: portRow.right
+                anchors.top: portRow.bottom
+
+                height: 15
+
+                visible: showAdvanced
+
+                ULabel.Default {
+                    width: (parent.width / 4); height: parent.height
+
+                    color: "#AAAAAA"
+                    font.family: "Courier"
+                    font.pointSize: 11
+
+                    text: "Firmware Version"
+                }
+
+                ULabel.Default {
+                    width: 3*(parent.width / 4); height: parent.height
+
+                    color: "#AAAAAA"
+                    font.family: "Courier"
+                    font.pointSize: 11
+
+                    text: getFirmwareVersion()
+                }
+            }
+
+            UI.UFontAwesome {
+                id: advancedIcon
+
+                anchors.left: parent.left
+                anchors.bottom: parent.bottom
+
+                anchors.margins: 15
+
+                iconId: "earth"
+                iconSize: 12
+                iconColor: "#AAAAAA"
+            }
+
+            ULabel.Default {
+                id: advancedText
+
+                text: (showAdvanced ? "Hide" : "Show") + " advanced information"
+
+                anchors.left: advancedIcon.right
+                anchors.leftMargin: 12
+                anchors.verticalCenter: advancedIcon.verticalCenter
+
+                font.family: "Courier"
+
+                color: "#AAAAAA"
+            }
+
+            MouseArea {
+                id: advancedMouseArea
+
+                anchors.fill: parent
+                hoverEnabled: true
+                onHoveredChanged: {
+                    advancedText.font.underline = containsMouse
+                    advanced.border.color = (containsMouse ? "#AAAAAA" : "transparent")
+                }
+
+                onClicked: showAdvanced = !showAdvanced
+            }
+        }
+
         Device.Devices {
             id: rectDevice
 
             model: getDevices()
 
             anchors.top: separator.bottom
-            anchors.bottom: parent.bottom
+            anchors.bottom: advanced.top
 
             anchors.left: parent.left
             anchors.right: parent.right
@@ -217,6 +408,26 @@ Rectangle {
 
     function getRoom() {
         if (model != null) return model.room
+        else return "null"
+    }
+
+    function getId() {
+        if (model != null) return model.id
+        else return "null"
+    }
+
+    function getIp() {
+        if (model != null) return model.ip
+        else return "null"
+    }
+
+    function getPort() {
+        if (model != null) return model.port
+        else return "null"
+    }
+
+    function getFirmwareVersion() {
+        if (model != null) return model.firmwareVersion
         else return "null"
     }
 

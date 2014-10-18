@@ -9,7 +9,7 @@ Rectangle {
 
     // Frame configuration
     height: 600
-    width: 1000
+    width: 1200
 
     // @TODO    Replace with color library
     color: "#EDEDED"

@@ -16,10 +16,5 @@ Default {
                 label.font.underline = containsMouse
             }
         }
-        onClicked: {
-            if(label.state === "ENABLED") {
-                main.swap(redirectPath, label.text, redirectModel)
-            }
-        }
     }
 }
