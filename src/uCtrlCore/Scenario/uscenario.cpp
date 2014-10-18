@@ -2,7 +2,7 @@
 
 UScenario::UScenario(QObject* parent) : NestedListItem(parent)
 {
-    m_tasks = new NestedListModel(new UTask(), this);
+    m_tasks = new UTasksModel(this);
 }
 
 UScenario::~UScenario()

@@ -13,7 +13,12 @@ SOURCES += \
     Platform/uplatform.cpp \
     Scenario/uscenario.cpp \
     Task/utask.cpp \
-    Models/listitem.cpp
+    Models/listitem.cpp \
+    Platform/uplatformsmodel.cpp \
+    Device/udevicesmodel.cpp \
+    Scenario/uscenariosmodel.cpp \
+    Task/utasksmodel.cpp \
+    Condition/uconditionsmodel.cpp
 
 
 HEADERS += \
@@ -30,6 +35,11 @@ HEADERS += \
     Models/nestedlistmodel.h \
     Platform/uplatform.h \
     Scenario/uscenario.h \
-    Task/utask.h
+    Task/utask.h \
+    Platform/uplatformsmodel.h \
+    Device/udevicesmodel.h \
+    Scenario/uscenariosmodel.h \
+    Task/utasksmodel.h \
+    Condition/uconditionsmodel.h
 
 DEFINES += PROJECT_PATH=\"\\\"$$PWD/../\\\"\"

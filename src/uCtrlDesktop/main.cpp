@@ -17,7 +17,7 @@
 #include "Utility/oshandler.h"
 #include "Models/nestedlistmodel.h"
 #include "Models/nestedlistitem.h"
-#include "Platform/uplatform.h"
+#include "Platform/uplatformsmodel.h"
 
 UPlatform* createPlatform(ListModel* parent, int id)
 {
@@ -104,11 +104,10 @@ void Init(QGuiApplication& app, QtQuick2ApplicationViewer& viewer)
         app.installTranslator(&translator);
     }
 
-
     qmlRegisterType<UAudioRecorder>("UAudioRecorder", 1, 0, "UAudioRecorder");
     qmlRegisterType<UVoiceControlAPI>("UVoiceControl", 1, 0, "UVoiceControl");
 
-    NestedListModel* platforms = new NestedListModel(new UPlatform);
+    UPlatformsModel* platforms = new UPlatformsModel();
 
     UPlatform* platform1 = createPlatform(platforms, 1);
     UPlatform* platform2 = createPlatform(platforms, 2);

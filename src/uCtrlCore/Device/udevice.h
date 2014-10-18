@@ -3,7 +3,7 @@
 
 #include "Models/nestedlistitem.h"
 #include "Models/nestedlistmodel.h"
-#include "Scenario/uscenario.h"
+#include "Scenario/uscenariosmodel.h"
 
 class UDevice : public NestedListItem
 {

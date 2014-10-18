@@ -3,7 +3,7 @@
 
 #include "Models/nestedlistitem.h"
 #include "Models/nestedlistmodel.h"
-#include "Device/udevice.h"
+#include "Device/udevicesmodel.h"
 
 class UPlatform : public NestedListItem
 {

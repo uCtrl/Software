@@ -2,7 +2,7 @@
 
 UDevice::UDevice(QObject* parent) : NestedListItem(parent)
 {
-    m_scenarios = new NestedListModel(new UScenario(), this);
+    m_scenarios = new UScenariosModel(this);
 }
 
 UDevice::~UDevice()
