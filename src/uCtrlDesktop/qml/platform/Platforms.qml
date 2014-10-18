@@ -126,9 +126,21 @@ Rectangle {
                     width: parent.width
                     height: 60
 
-                    platformName: name
+                    item: model
 
                     visible: (filterValue(name, filterText))
+
+                    MouseArea {
+                        id: mouseArea
+
+                        anchors.fill: parent
+                        hoverEnabled: true
+
+                        onClicked: {
+                            platformInfo.model = model
+                            platforms.currentIndex = index
+                        }
+                    }
                 }
 
                 function filterValue(source, filter) {

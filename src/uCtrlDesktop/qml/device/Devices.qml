@@ -14,6 +14,15 @@ Rectangle {
             width: parent.width
             DeviceListItem {
 
+                item: model
+
+                MouseArea {
+                    anchors.fill: parent
+
+                    onClicked: {
+                        console.log(id);
+                    }
+                }
             }
         }
     }

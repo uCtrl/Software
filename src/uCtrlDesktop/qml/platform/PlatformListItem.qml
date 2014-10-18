@@ -6,6 +6,8 @@ Rectangle {
 
     id: listItem
 
+    property var item: null
+
     property string platformName: "Platform name"
     property int marginSize: 10
 
@@ -19,7 +21,7 @@ Rectangle {
 
         x: marginSize; y: marginSize
 
-        text: platformName
+        text: getName()
 
         color: "black"
 
@@ -51,20 +53,13 @@ Rectangle {
         color: "#D4D4D4"
     }
 
-    MouseArea {
-        id: mouseArea
-
-        anchors.fill: parent
-        hoverEnabled: true
-
-        onClicked: {
-            platformInfo.model = model
-            platforms.currentIndex = index
-        }
-    }
-
     function getColor() {
         if (mouseArea.containsMouse) return "#EDEDED"
         else return "white"
+    }
+
+    function getName() {
+        if (model != null) return model.name
+        else return "Platform name"
     }
 }

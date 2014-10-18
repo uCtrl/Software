@@ -6,7 +6,7 @@ import "../label" as ULabel
 Rectangle {
     id: listItem
 
-    property string platformName: "Device name"
+    property var item: null
 
     width: parent.width
     height: 42
@@ -53,7 +53,7 @@ Rectangle {
     }
 
     ULabel.Default {
-        text: description
+        text: getName()
 
         color: "black"
 
@@ -93,5 +93,10 @@ Rectangle {
     function getColor() {
         if (mouseArea.containsMouse) return "#EDEDED"
         else return "white"
+    }
+
+    function getName() {
+        if (item != null) return item.description
+        else return "Device name"
     }
 }
