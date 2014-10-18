@@ -47,10 +47,12 @@
         <file alias="UComboboxItemContainer.qml">qml/ui/UComboboxItemContainer.qml</file>
         <file alias="UTextbox.qml">qml/ui/UTextbox.qml</file>
         <file alias="UFontAwesome.qml">qml/ui/UFontAwesome.qml</file>
+        <file alias="UButton.qml">qml/ui/UButton.qml</file>
     </qresource>
     <qresource prefix="/platforms">
         <file alias="Platforms.qml">qml/component/Platforms.qml</file>
         <file alias="Platform.qml">qml/component/Platform.qml</file>
+        <file alias="PlatformListItem.qml">qml/component/PlatformListItem.qml</file>
     </qresource>
     <qresource prefix="/devices">
         <file alias="Devices.qml">qml/component/Devices.qml</file>
