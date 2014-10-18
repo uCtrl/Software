@@ -12,7 +12,8 @@ SOURCES += \
     Models/nestedlistmodel.cpp \
     Platform/uplatform.cpp \
     Scenario/uscenario.cpp \
-    Task/utask.cpp
+    Task/utask.cpp \
+    Models/listitem.cpp
 
 
 HEADERS += \
