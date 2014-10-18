@@ -14,8 +14,9 @@ Rectangle {
     // @TODO    Replace with color library
     color: "#EDEDED"
 
+    // Available pages
     property variant pages: [
-        "platforms/Platforms"
+        {file: "platforms/Platforms", icon: "settings", text: "Platforms"}
     ];
 
     Component.onCompleted: {
@@ -29,7 +30,7 @@ Rectangle {
         anchors.left: parent.left
         anchors.right: parent.right
 
-        z: 1    // Always on top.
+        z: 2    // Always on top of the background and the navigation bar.
     }
 
     Navbar.Navbar {
@@ -39,10 +40,9 @@ Rectangle {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
 
-        z: 2    // Always on top.
+        z: 1    // Always on top of the background.
     }
 
-    // Set this property to another file name to change page
     property string currentPage: "platforms/Platforms";
 
     Repeater {
@@ -62,8 +62,8 @@ Rectangle {
             anchors.top: titlebar.bottom;
             anchors.bottom: parent.bottom;
 
-            visible: (currentPage === modelData);
-            source: "qrc:/%1.qml".arg(modelData)
+            visible: (currentPage === modelData.file);
+            source: "qrc:/%1.qml".arg(modelData.file)
             onVisibleChanged:      { loadIfNotLoaded(); }
             Component.onCompleted: { loadIfNotLoaded(); }
 
