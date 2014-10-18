@@ -3,6 +3,7 @@ import QtQuick 2.0
 import "../label" as ULabel
 
 Rectangle {
+
     id: item
 
     property var itemData: null

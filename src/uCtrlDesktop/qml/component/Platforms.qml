@@ -8,8 +8,17 @@ Rectangle {
 
     color: "#EDEDED"
 
-    property var marginSize: 20
-    property string section: "room"
+    property int marginSize: 20;
+    property string section: "status";
+    property string filterText: ""
+
+    property variant sections: [
+        { value: "room",     displayedValue: "Location",     iconId: "location"},
+        //{ value: "update",   displayedValue: "Last Updated", iconId: "clock"},
+        { value: "status",   displayedValue: "Status",       iconId: "switch"}//,
+        //{ value: "type",     displayedValue: "Device type",  iconId: "spinner3"},
+        //{ value: "alphabet", displayedValue: "Name",         iconId: "Font"}
+   ]
 
     Rectangle {
         id: filters
@@ -22,6 +31,8 @@ Rectangle {
         width: (parent.width/2) - parent.marginSize
 
         color: "transparent"
+
+        z: 2
 
         UI.UTextbox {
             id: searchBox
@@ -45,16 +56,30 @@ Rectangle {
             iconId: "search"
             iconSize: 13
 
-            /*onTextChanged: {
-                platformListContainer.setFilter(searchBox.text)
-            }*/
+            onTextChanged: {
+                filterText = searchBox.text
+            }
         }
 
         UI.UCombobox {
             id: filterCombo
 
+            itemListModel: sections
             anchors.left: searchBox.right
             anchors.leftMargin: 5
+
+            anchors.right: filters.right
+            width: (filters.width / 3);
+            height: searchBox.height
+        }
+
+        /*UI.UCombobox {
+            id: filterCombo
+
+            anchors.left: searchBox.right
+            anchors.leftMargin: 5
+
+            z: 1
 
             anchors.right: filters.right
 
@@ -70,18 +95,20 @@ Rectangle {
                 { value: "alphabet", displayedValue: "Name",         iconId: "Font"}
             ]
 
-            /*onSelectedItemChanged: {
+            onSelectedItemChanged: {
                 platformListContainer.section = selectedItem.value
-            }*/
+            }
 
             Component.onCompleted: {
                 selectItem(0)
             }
-        }
+        }*/
     }
 
     Rectangle {
         id: rectPlatforms
+
+        z: 1
 
         anchors.top: filters.bottom
         anchors.bottom: parent.bottom
@@ -113,75 +140,27 @@ Rectangle {
 
                 z: 2
 
-                y: (platforms.currentIndex === null ? -1 : (platforms.currentIndex * 80) + 20);
+                y: (platforms.currentIndex === null ? -1 : (platforms.currentIndex * (height + 20)) + 20);
                 Behavior on y { SpringAnimation { spring: 5; damping: 0.1; mass: 0.3 } }
             }
 
             delegate: Column {
                 width: parent.width
-                z: 1
-                Rectangle {
+                //z: 1
+                PlatformListItem {
                     id: itemContainer
 
                     width: parent.width
                     height: 60
 
-                    color: "white"
+                    platformName: name
 
-                    Rectangle {
-                        width: parent.width - 10
-                        height: platformName.height + platformUpdate.height
+                    visible: (filterValue(name, filterText))
+                }
 
-                        anchors.verticalCenter: parent.verticalCenter
-                        x: 10
-
-                        Text {
-                            id: platformName
-
-                            text: name
-
-                            color: "black"
-
-                            font.bold: true
-                            font.pixelSize: 18
-
-                            anchors.top: parent.top
-                        }
-
-                        Text {
-                            id: platformUpdate
-
-                            text: "Updated a second ago."
-
-                            color: "#737373"
-
-                            font.bold: false
-                            font.pixelSize: 10
-
-                            anchors.top: platformName.bottom
-                        }
-                    }
-
-                    Rectangle {
-                        id: platformSeparator
-
-                        width: parent.width
-                        height: 1
-
-                        anchors.bottom: parent.bottom
-
-                        color: "#D4D4D4"
-                    }
-
-                    MouseArea {
-                        anchors.fill: parent
-                        height: parent.height; width: parent.width;
-                        onClicked: {
-                            platformInfo.model = model
-                            platforms.currentIndex = index
-                           //highlighter.top = platforms.currentItem.top
-                        }
-                    }
+                function filterValue(source, filter) {
+                    if (filter === "") return true
+                    else return source.toLowerCase().indexOf(filter.toLowerCase()) !== -1
                 }
             }
 
@@ -234,4 +213,6 @@ Rectangle {
 
         width: (parent.width/2)
     }
+
+    Component.onCompleted: filterCombo.z = 1000
 }

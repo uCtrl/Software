@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 1.0
 
 Rectangle {
+
     id: combo
     property var itemListModel: [
                                     { value:"0", displayedValue:"Sleep", iconId:"Ok"},
@@ -12,7 +13,7 @@ Rectangle {
                                 ]
 
     property var selectedItem
-    z:1000
+    z:1
     signal selectValue(var newValue)
     property int itemDisplayedBeforeScroll: 10
 
@@ -76,6 +77,7 @@ Rectangle {
             anchors.topMargin: 5
             anchors.horizontalCenter: parent.horizontalCenter
             color: "transparent"
+            z: 2
             visible: false
 
             UFontAwesome {
