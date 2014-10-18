@@ -1,5 +1,6 @@
 #include "usetninjaeyescolorintent.h"
 
-USetNinjaEyesColorIntent::USetNinjaEyesColorIntent()
+USetNinjaEyesColorIntent::USetNinjaEyesColorIntent(const QString& deviceId)
+    : UVoiceIntent(deviceId)
 {
 }

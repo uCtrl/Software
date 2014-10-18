@@ -1,10 +1,15 @@
 #ifndef USETNINJAEYESCOLORINTENT_H
 #define USETNINJAEYESCOLORINTENT_H
 
-class USetNinjaEyesColorIntent
+#include "uvoiceintent.h"
+#include <QColor>
+
+class USetNinjaEyesColorIntent : UVoiceIntent
 {
 public:
-    USetNinjaEyesColorIntent();
+    USetNinjaEyesColorIntent(const QString& deviceId);
+
+    void setNinjaEyesColors(const QString& color);
 };
 
 #endif // USETNINJAEYESCOLORINTENT_H

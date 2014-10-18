@@ -4,6 +4,7 @@
 #include <QJsonObject>
 #include <QJsonValue>
 #include <QUdpSocket>
+#include "uturnonoffplugintent.h"
 
 UVoiceControlAPI::UVoiceControlAPI(QObject *parent) :
     QObject(parent)
@@ -39,10 +40,6 @@ void UVoiceControlAPI::analyseIntent()
     QJsonObject jsonObj = jsonResponse.object();
     UVoiceControlResponse voiceControlResponse(jsonObj);
 
-    //if (true)
-    //    testLimitlessLED();
-
-    // TEST CODE
     if (voiceControlResponse.getIntent() == QString("turn_onoff_all_lights"))
     {
         QJsonObject entities = voiceControlResponse.getEntities();
@@ -63,7 +60,7 @@ void UVoiceControlAPI::analyseIntent()
         QNetworkRequest request;
         request.setUrl(QUrl("https://api.ninja.is/rest/v0/device/1014BBBK6089_0_0_1007?user_access_token=107f6f460bed2dbb10f0a93b994deea7fe07dad5"));
         request.setRawHeader("Content-Type", "application/json");
-
+        QUrl testUrl = request.url();
         QString dataStr = "{ \"DA\" : ";
         if (colorString == QString("red"))
         {
@@ -86,6 +83,39 @@ void UVoiceControlAPI::analyseIntent()
 
         QByteArray data = dataStr.toUtf8();
         QNetworkReply* reply = manager->put(request, data);
+    }
+    else if (voiceControlResponse.getIntent() == QString("turn_onoff_plugs_in_location"))
+    {
+        QJsonObject entities = voiceControlResponse.getEntities();
+        QJsonValue onoffValue = entities["uctrl_onoff"];
+        QJsonArray onOffArray = onoffValue.toArray();
+        QJsonObject firstObject = onOffArray.first().toObject();
+        QString onoffString = firstObject["value"].toString();
+
+        QJsonValue locationValue = entities["location"];
+        QJsonArray locationArray = locationValue.toArray();
+        firstObject = locationArray.first().toObject();
+        QString locationString = firstObject["value"].toString();
+
+        UTurnOnOffPlugIntent intent("1014BBBK6089_0_0_11", onoffString == QString("on") ? true : false);
+        intent.turnOnOffPlugInLocation(locationString);
+    }
+    else if (voiceControlResponse.getIntent() == QString("turn_onoff_plug_with_id"))
+    {
+        QJsonObject entities = voiceControlResponse.getEntities();
+        QJsonValue onoffValue = entities["uctrl_onoff"];
+        QJsonArray onOffArray = onoffValue.toArray();
+        QJsonObject firstObject = onOffArray.first().toObject();
+        QString onoffString = firstObject["value"].toString();
+
+        QJsonValue idValue = entities["number"];
+        QJsonArray idArray = idValue.toArray();
+        firstObject = idArray.first().toObject();
+        long id = firstObject["value"].toInt();
+
+        //UTurnOnOffPlugIntent intent("1014BBBK6089_0_0_11", onoffString == QString("on") ? true : false);
+        //intent.turnOnOffPlugWithId(id);
+
     }
     return;
 }

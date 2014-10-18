@@ -33,7 +33,7 @@ SOURCES += \
     Voice/uvoiceintent.cpp \
     Voice/uturnonofflightintent.cpp \
     Voice/usetninjaeyescolorintent.cpp \
-    Voice/uturnonffplugintent.cpp
+    Voice/uturnonoffplugintent.cpp
 
 HEADERS += \
     Network/bonjourrecord.h \
@@ -46,7 +46,7 @@ HEADERS += \
     Voice/uvoiceintent.h \
     Voice/uturnonofflightintent.h \
     Voice/usetninjaeyescolorintent.h \
-    Voice/uturnonffplugintent.h
+    Voice/uturnonoffplugintent.h
 
 INCLUDEPATH += \
     qml/uCtrlDesktopQml/
