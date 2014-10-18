@@ -20,14 +20,14 @@ Rectangle {
                 anchors.left: parent.left
                 anchors.right: parent.right
 
-                UI.UFontAwesome {
+                /*UI.UFontAwesome {
                     id: icon
 
                     iconId: modelData.icon
                     iconColor: "white"
                     iconSize: 24
                     anchors.centerIn: parent
-                }
+                }*/
 
                 color: getBackgroundColor()
 

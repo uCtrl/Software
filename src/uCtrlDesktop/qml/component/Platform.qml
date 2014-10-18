@@ -1,12 +1,13 @@
 import QtQuick 2.0
 
 import "../devices" as Devices
+import "../ui" as UI
 
 Rectangle {
 
     color: "transparent"
     property variant model: null
-    property variant marginSize: 20
+    property int marginSize: 20
 
     Rectangle {
         visible: (model == null)
@@ -62,17 +63,26 @@ Rectangle {
                 anchors.verticalCenter: editButton.verticalCenter
             }
 
-            Rectangle {
+            UI.UButton {
                 id: editButton
+
+                iconId: "pencil"
+
+                iconSize: 22
 
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
 
                 width: 40
 
-                color: "#0D9B0D"
+                buttonTextColor: "#AAAAAA"
+                buttonColor: "transparent"
+                buttonHoveredTextColor: "#0D9B0D"
+                buttonHoveredColor: "transparent"
 
-                radius: 2
+                onClicked: {
+                    console.log("edit");
+                }
             }
         }
 
