@@ -222,11 +222,35 @@ Rectangle {
                 height: parent.height
 
                 ULabel.Default {
+                    id: roomLabel
+
                     text: getRoom()
 
                     anchors.verticalCenter: parent.verticalCenter
+
                     anchors.left: parent.left
+                    anchors.right: parent.right
+
                     anchors.margins: 20
+
+                    visible: !showEditMode
+                }
+
+                UI.UTextbox {
+                    id: roomTextbox
+
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.rightMargin: 20
+
+                    anchors.verticalCenter: parent.verticalCenter
+
+                    height: 25
+
+                    visible: showEditMode
+
+                    placeholderText: "Enter a location"
+                    text: getRoom()
                 }
             }
         }
@@ -504,10 +528,12 @@ Rectangle {
     function saveForm() {
         if (nameTextbox.text != "") model.name = nameTextbox.text
         model.isEnabled = (enabledSwitch.state === "ON")
+        model.room = roomTextbox.text
     }
 
     function cancelForm() {
         nameTextbox.text = getName()
         enabledSwitch.state = getEnabled() ? "ON" : "OFF"
+        roomTextbox.text = getRoom()
     }
 }
