@@ -85,3 +85,35 @@ ListModel* UPlatform::nestedModel() const
 {
     return m_devices;
 }
+
+void UPlatform::write(QJsonObject& jsonObj) const
+{
+    jsonObj["id"] = this->id();
+    jsonObj["firmwareVersion"] = this->firmwareVersion();
+    jsonObj["name"] = this->name();
+    jsonObj["ip"] = this->ip();
+    jsonObj["port"] = this->port();
+    jsonObj["room"] = this->room();
+    jsonObj["status"] = this->status();
+    jsonObj["enabled"] = this->enabled();
+    jsonObj["lastUpdated"] = QString::number(this->lastUpdated());
+
+    QJsonObject devices;
+    m_devices->write(devices);
+    jsonObj["devices"] = devices;
+}
+
+void UPlatform::read(const QJsonObject& jsonObj)
+{
+    this->id(jsonObj["id"].toString());
+    this->firmwareVersion(jsonObj["firmwareVersion"].toString());
+    this->name(jsonObj["name"].toString());
+    this->ip(jsonObj["ip"].toString());
+    this->port(jsonObj["port"].toInt());
+    this->room(jsonObj["room"].toString());
+    this->status(jsonObj["status"].toInt());
+    this->enabled(jsonObj["enabled"].toBool());
+    this->lastUpdated(jsonObj["lastUpdated"].toString().toUInt());
+
+    m_devices->read(jsonObj);
+}

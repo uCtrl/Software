@@ -8,6 +8,10 @@ class UConditionsModel : public ListModel
 {
 public:
     UConditionsModel(QObject* parent);
+
+    // JsonSerializable
+    void write(QJsonObject &jsonObj) const;
+    void read(const QJsonObject &jsonObj);
 };
 
 #endif // UCONDITIONSMODEL_H

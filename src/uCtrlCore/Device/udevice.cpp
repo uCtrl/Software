@@ -95,3 +95,39 @@ ListModel* UDevice::nestedModel() const
 {
     return m_scenarios;
 }
+
+void UDevice::write(QJsonObject& jsonObj) const
+{
+    jsonObj["id"] = this->id();
+    jsonObj["name"] = this->name();
+    jsonObj["type"] = this->type();
+    jsonObj["description"] = this->description();
+    jsonObj["maxValue"] = this->maxValue();
+    jsonObj["minValue"] = this->minValue();
+    jsonObj["precision"] = this->precision();
+    jsonObj["status"] = this->status();
+    jsonObj["unitLabel"] = this->unitLabel();
+    jsonObj["enabled"] = this->enabled();
+    jsonObj["lastUpdated"] = QString::number(this->lastUpdated());
+
+    QJsonObject scenarios;
+    m_scenarios->write(scenarios);
+    jsonObj["scenarios"] = scenarios;
+}
+
+void UDevice::read(const QJsonObject &jsonObj)
+{
+    this->id(jsonObj["id"].toString());
+    this->name(jsonObj["name"].toString());
+    this->type(jsonObj["type"].toInt());
+    this->description(jsonObj["description"].toString());
+    this->maxValue(jsonObj["maxValue"].toInt());
+    this->minValue(jsonObj["minValue"].toInt());
+    this->precision(jsonObj["precision"].toInt());
+    this->status(jsonObj["status"].toInt());
+    this->unitLabel(jsonObj["unitLabel"].toString());
+    this->enabled(jsonObj["enabled"].toBool());
+    this->lastUpdated(jsonObj["lastUpdated"].toString().toUInt());
+
+    m_scenarios->read(jsonObj);
+}

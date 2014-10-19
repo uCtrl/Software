@@ -79,3 +79,29 @@ QHash<int, QByteArray> UCondition::roleNames() const
 
     return roles;
 }
+
+void UCondition::write(QJsonObject &jsonObj) const
+{
+    jsonObj["id"] = this->id();
+    jsonObj["type"] = this->type();
+    jsonObj["comparisonType"] = this->comparisonType();
+    jsonObj["beginValue"] = this->beginValue();
+    jsonObj["endValue"] = this->endValue();
+    jsonObj["deviceId"] = this->deviceId();
+    jsonObj["deviceValue"] = this->deviceValue();
+    jsonObj["enabled"] = this->enabled();
+    jsonObj["lastUpdated"] = QString::number(this->lastUpdated());
+}
+
+void UCondition::read(const QJsonObject &jsonObj)
+{
+    this->id(jsonObj["id"].toString());
+    this->type(jsonObj["type"].toInt());
+    this->comparisonType(jsonObj["comparisonType"].toInt());
+    this->beginValue(jsonObj["beginValue"].toString());
+    this->endValue(jsonObj["endValue"].toString());
+    this->deviceId(jsonObj["deviceId"].toString());
+    this->deviceValue(jsonObj["deviceValue"].toString());
+    this->enabled(jsonObj["enabled"].toBool());
+    this->lastUpdated(jsonObj["lastUpdated"].toString().toUInt());
+}

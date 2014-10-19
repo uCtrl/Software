@@ -9,8 +9,9 @@
 #include <QtQml/QQmlEngine>
 
 #include "listitem.h"
+#include "Serialization/jsonserializable.h"
 
-class ListModel : public QAbstractListModel
+class ListModel : public QAbstractListModel, public JsonSerializable
 {
     Q_OBJECT
 
@@ -25,6 +26,10 @@ public:
     Qt::ItemFlags flags(const QModelIndex& index) const;
     QHash<int, QByteArray> roleNames() const;
     Q_INVOKABLE QVariant get(int row);
+
+    // JsonSerializable
+    virtual void write(QJsonObject &jsonObj) const = 0;
+    virtual void read(const QJsonObject &jsonObj) = 0;
 
     // Helpers
     void appendRow(ListItem* item);

@@ -34,6 +34,10 @@ public:
     QHash<int, QByteArray> roleNames() const;
     ListModel* nestedModel() const;
 
+    // JsonSerializable
+    void write(QJsonObject &jsonObj) const;
+    void read(const QJsonObject &jsonObj);
+
     // Properties
     inline QString name() const { return m_name; }
     inline void name(const QString& name) { m_name = name; emit dataChanged(); }

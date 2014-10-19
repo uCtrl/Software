@@ -2,7 +2,7 @@
 
 UTask::UTask(QObject* parent) : NestedListItem(parent)
 {
-    m_conditions = new ListModel(new UCondition(), this);
+    m_conditions = new UConditionsModel(this);
 }
 
 UTask::~UTask()
@@ -59,4 +59,26 @@ QHash<int, QByteArray> UTask::roleNames() const
 ListModel* UTask::nestedModel() const
 {
     return m_conditions;
+}
+
+void UTask::write(QJsonObject &jsonObj) const
+{
+    jsonObj["id"] = this->id();
+    jsonObj["value"] = this->value();
+    jsonObj["enabled"] = this->enabled();
+    jsonObj["lastUpdated"] = QString::number(this->lastUpdated());
+
+    QJsonObject conditions;
+    m_conditions->write(conditions);
+    jsonObj["conditions"] = conditions;
+}
+
+void UTask::read(const QJsonObject &jsonObj)
+{
+    this->id(jsonObj["id"].toString());
+    this->value(jsonObj["value"].toString());
+    this->enabled(jsonObj["enabled"].toBool());
+    this->lastUpdated(jsonObj["lastUpdated"].toString().toUInt());
+
+    m_conditions->read(jsonObj);
 }
