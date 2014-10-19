@@ -32,12 +32,16 @@ bool UScenario::setData(const QVariant& value, int role)
     {
     case idRole:
         id(value.toString());
+        break;
     case nameRole:
         name(value.toString());
+        break;
     case enabledRole:
         enabled(value.toBool());
+        break;
     case lastUpdatedRole:
         lastUpdated(value.toUInt());
+        break;
     default:
         return false;
     }

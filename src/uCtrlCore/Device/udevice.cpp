@@ -46,26 +46,37 @@ bool UDevice::setData(const QVariant& value, int role)
     {
     case idRole:
         id(value.toString());
+        break;
     case nameRole:
         name(value.toString());
+        break;
     case typeRole:
         type(value.toInt());
+        break;
     case descriptionRole:
         description(value.toString());
+        break;
     case maxValueRole:
         maxValue(value.toInt());
+        break;
     case minValueRole:
         minValue(value.toInt());
+        break;
     case precisionRole:
         precision(value.toInt());
+        break;
     case statusRole:
         status(value.toInt());
+        break;
     case unitLabelRole:
         unitLabel(value.toString());
+        break;
     case enabledRole:
         enabled(value.toBool());
+        break;
     case lastUpdatedRole:
         lastUpdated(value.toUInt());
+        break;
     default:
         return false;
     }

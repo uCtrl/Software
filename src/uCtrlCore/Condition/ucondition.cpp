@@ -41,22 +41,31 @@ bool UCondition::setData(const QVariant& value, int role)
     {
     case idRole:
         id(value.toString());
+        break;
     case typeRole:
         type(value.toInt());
+        break;
     case comparisonTypeRole:
         comparisonType(value.toInt());
+        break;
     case beginValueRole:
         beginValue(value.toString());
+        break;
     case endValueRole:
         endValue(value.toString());
+        break;
     case deviceIdRole:
         deviceId(value.toString());
+        break;
     case deviceValueRole:
         deviceValue(value.toString());
+        break;
     case enabledRole:
         enabled(value.toBool());
+        break;
     case lastUpdatedRole:
         lastUpdated(value.toUInt());
+        break;
     default:
         return false;
     }

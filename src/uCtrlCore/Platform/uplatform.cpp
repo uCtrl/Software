@@ -42,22 +42,31 @@ bool UPlatform::setData(const QVariant& value, int role)
     {
     case idRole:
         id(value.toString());
+        break;
     case nameRole:
         name(value.toString());
+        break;
     case firmwareVersionRole:
         firmwareVersion(value.toString());
+        break;
     case ipRole:
         ip(value.toString());
+        break;
     case portRole:
         port(value.toInt());
+        break;
     case roomRole:
         room(value.toString());
+        break;
     case statusRole:
         status(value.toInt());
+        break;
     case enabledRole:
         enabled(value.toBool());
+        break;
     case lastUpdatedRole:
         lastUpdated(value.toUInt());
+        break;
     default:
         return false;
     }
