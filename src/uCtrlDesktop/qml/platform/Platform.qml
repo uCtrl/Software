@@ -11,6 +11,7 @@ Rectangle {
     property int marginSize: 20
 
     property bool showAdvanced: false
+    property bool showEditMode: false
 
     Rectangle {
         visible: (model == null)
@@ -51,8 +52,10 @@ Rectangle {
             anchors.right: parent.right
             anchors.margins: marginSize
 
+            visible : !showEditMode
+
             ULabel.Default {
-                id: name
+                id: nameLabel
 
                 width: (parent.width - editButton.width)
                 anchors.verticalCenter: editButton.verticalCenter
@@ -82,8 +85,50 @@ Rectangle {
                 buttonHoveredTextColor: "#0D9B0D"
                 buttonHoveredColor: "transparent"
 
-                onClicked: {
-                    console.log("edit");
+                onClicked: showEditMode = true
+            }
+        }
+
+        Row {
+            id: editNameRow
+
+            anchors.fill: nameRow
+
+            visible: showEditMode
+
+            UI.UTextbox {
+                id: nameTextbox
+
+                anchors.top: parent.top
+
+                height: 32
+                width: (4 * (parent.width /5) + 20)
+
+                text: getName()
+                placeholderText: "Platform name"
+
+                function validate() {
+                    return text !== ""
+                }
+
+                state: (validate() ? "SUCCESS" : "ERROR")
+                //onTextChanged: { platformValidator.validate() }
+            }
+
+            UI.USaveCancel {
+                id: saveCancelPlatform
+
+                anchors.top: parent.top
+
+                width: parent.width / 5
+
+                onSave: {
+                    saveForm()
+                    showEditMode = false
+                }
+                onCancel: {
+                    cancelForm()
+                    showEditMode = false
                 }
             }
         }
@@ -127,6 +172,19 @@ Rectangle {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     anchors.margins: 20
+
+                    visible: !showEditMode
+                }
+
+                UI.USwitch {
+                    id: enabledSwitch
+
+                    state: getEnabled()
+
+                    anchors.left: enabledStatusLabel.left
+                    anchors.top: enabledStatusLabel.top
+
+                    visible: showEditMode
                 }
             }
         }
@@ -396,6 +454,13 @@ Rectangle {
         }
     }
 
+    onModelChanged: {
+        if (showEditMode) {
+            cancelForm()
+            showEditMode = false
+        }
+    }
+
     function getName() {
         if (model != null) return model.name
         else return "Test"
@@ -434,5 +499,15 @@ Rectangle {
     function getDevices() {
         if (model != null) return platforms.model.nestedModelFromId(model.id);
         else return null
+    }
+
+    function saveForm() {
+        if (nameTextbox.text != "") model.name = nameTextbox.text
+        model.isEnabled = (enabledSwitch.state === "ON")
+    }
+
+    function cancelForm() {
+        nameTextbox.text = getName()
+        enabledSwitch.state = getEnabled() ? "ON" : "OFF"
     }
 }
