@@ -16,7 +16,8 @@ Rectangle {
 
     // Available pages
     property variant pages: [
-        {file: "platform/Platforms", icon: "settings", text: "Platforms"}
+        {file: "platform/Platforms", icon: "settings", text: "Platforms", showInNavbar: true},
+        {file: "device/Device", icon: "", text: "Device", showInNavbar: false}
     ];
 
     Component.onCompleted: {

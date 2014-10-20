@@ -29,6 +29,8 @@ Rectangle {
                     anchors.centerIn: parent
                 }
 
+                visible: modelData.showInNavbar
+
                 color: getBackgroundColor()
 
                 MouseArea {

@@ -20,7 +20,7 @@ Rectangle {
                     anchors.fill: parent
 
                     onClicked: {
-                        console.log(id);
+                        main.currentPage = "device/Device"
                     }
                 }
             }
