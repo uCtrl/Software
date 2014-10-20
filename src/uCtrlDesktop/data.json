@@ -1,879 +1,908 @@
 {
-  "platforms": [
-  {
-    "devices": [
-      {      
-        "description": "Lampe principale de la chambre des maîtres",
-        "enabled": "ON",
-        "id": 2,
-        "isTriggerValue": true,
-        "maxValue": 1,
-        "minValue": 0,
-        "name": "Lampe principale",
-        "precision": 0,
-        "scenarios": [
-          {
-            "id": 1782103622,
-            "name": "Semaine",
-            "tasks": [
-              {
-                "conditions": [
-                  {
-                    "beginDate": "2014-09-09",
-                    "comparisonType": 2,
-                    "endDate": "2014-12-31",
-                    "id": 1350245612,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "7:00",
-                    "comparisonType": 8,
-                    "endTime": "09:00",
-                    "id": 1350245677,
-                    "type": 3
-                  },
-                  {
-                    "beginDate": "2014-09-09",
-                    "comparisonType": 2,
-                    "endDate": "2014-12-31",
-                    "id": 1350245678,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "17:00",
-                    "comparisonType": 8,
-                    "endTime": "22:00",
-                    "id": 1350245681,
-                    "type": 3
-                  }
-                ],
-                "id": 1782103623,
-                "status": "ON"
-              },
-              {
-                "conditions": [],
-                "id": 1782103626,
-                "status": "OFF"
-              }
-            ]
-          },
-          {
-            "id": 1782103623,
-            "name": "Fin de Semaine",
-            "tasks": [
-              {
-                "conditions": [
-                  {
-                    "beginDate": "2014-09-09",
-                    "comparisonType": 2,
-                    "endDate": "2014-12-31",
-                    "id": 1350245612,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "11:00",
-                    "comparisonType": 8,
-                    "endTime": "11:30",
-                    "id": 1350245677,
-                    "type": 3
-                  },
-                  {
-                    "beginDate": "2014-09-09",
-                    "comparisonType": 2,
-                    "endDate": "2014-12-31",
-                    "id": 1350245678,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "18:00",
-                    "comparisonType": 8,
-                    "endTime": "23:00",
-                    "id": 1350245681,
-                    "type": 3
-                  }
-                ],
-                "id": 1782103623,
-                "status": "ON"
-              },
-              {
-                "conditions": [],
-                "id": 1782103626,
-                "status": "OFF"
-              }
-            ]
-          }
-        ],
-        "status": 0,
-        "type": 3,
-        "unitLabel": ""
-      },
-      {       
-        "description": "",
-        "enabled": "ON",
-        "id": 2,
-        "isTriggerValue": true,
-        "maxValue": 1,
-        "minValue": 0,
-        "name": "Lampe de chevet #1",
-        "precision": 0,
-        "scenarios": [
-          {
-            "id": 1782103530,
-            "name": "Semaine",
-            "tasks": [
-              {
-                "conditions": [
-                  {
-                    "beginDate": "2014-09-09",
-                    "comparisonType": 2,
-                    "endDate": "2014-12-31",
-                    "id": 1350245561,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "7:00",
-                    "comparisonType": 8,
-                    "endTime": "09:00",
-                    "id": 1350245153,
-                    "type": 3
-                  },
-                  {
-                    "beginDate": "2014-09-09",
-                    "comparisonType": 2,
-                    "endDate": "2014-12-31",
-                    "id": 1350245920,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "20:00",
-                    "comparisonType": 8,
-                    "endTime": "23:00",
-                    "id": 1350245258,
-                    "type": 3
-                  }
-                ],
-                "id": 1782103928,
-                "status": "ON"
-              },
-              {
-                "conditions": [],
-                "id": 1782103821,
-                "status": "OFF"
-              }
-            ]
-          },
-          {
-            "id": 1782103532,
-            "name": "Fin de Semaine",
-            "tasks": [
-              {
-                "conditions": [
-                  {
-                    "beginDate": "2014-09-09",
-                    "comparisonType": 2,
-                    "endDate": "2014-12-31",
-                    "id": 1350245876,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "10:30",
-                    "comparisonType": 8,
-                    "endTime": "11:00",
-                    "id": 1350245479,
-                    "type": 3
-                  },
-                  {
-                    "beginDate": "2014-09-09",
-                    "comparisonType": 2,
-                    "endDate": "2014-12-31",
-                    "id": 1350245038,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "21:30",
-                    "comparisonType": 8,
-                    "endTime": "23:30",
-                    "id": 1350245220,
-                    "type": 3
-                  }
-                ],
-                "id": 1782103359,
-                "status": "ON"
-              },
-              {
-                "conditions": [],
-                "id": 1782103169,
-                "status": "OFF"
-              }
-            ]
-          }
-        ],
-        "status": 0,
-        "type": 3,
-        "unitLabel": ""
-      },
-      {       
-        "description": "",
-        "enabled": "ON",
-        "id": 3,
-        "isTriggerValue": true,
-        "maxValue": 1,
-        "minValue": 0,
-        "name": "Lampe de chevet #2",
-        "precision": 0,
-        "scenarios": [
-          {
-            "id": 1782103526,
-            "name": "Semaine",
-            "tasks": [
-              {
-                "conditions": [
-                  {
-                    "beginDate": "2014-09-09",
-                    "comparisonType": 2,
-                    "endDate": "2014-12-31",
-                    "id": 1350245879,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "7:00",
-                    "comparisonType": 8,
-                    "endTime": "09:00",
-                    "id": 1350245002,
-                    "type": 3
-                  },
-                  {
-                    "beginDate": "2014-09-09",
-                    "comparisonType": 2,
-                    "endDate": "2014-12-31",
-                    "id": 1350245839,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "20:00",
-                    "comparisonType": 8,
-                    "endTime": "22:00",
-                    "id": 1350245928,
-                    "type": 3
-                  }
-                ],
-                "id": 1782103193,
-                "status": "ON"
-              },
-              {
-                "conditions": [],
-                "id": 1782103626,
-                "status": "OFF"
-              }
-            ]
-          },
-          {
-            "id": 1782103527,
-            "name": "Fin de Semaine",
-            "tasks": [
-              {
-                "conditions": [
-                  {
-                    "beginDate": "2014-09-09",
-                    "comparisonType": 2,
-                    "endDate": "2014-12-31",
-                    "id": 1350245612,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "10:00",
-                    "comparisonType": 8,
-                    "endTime": "11:00",
-                    "id": 1350245677,
-                    "type": 3
-                  },
-                  {
-                    "beginDate": "2014-09-09",
-                    "comparisonType": 2,
-                    "endDate": "2014-12-31",
-                    "id": 1350245678,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "21:00",
-                    "comparisonType": 8,
-                    "endTime": "23:00",
-                    "id": 1350245681,
-                    "type": 3
-                  }
-                ],
-                "id": 1782103623,
-                "status": "ON"
-              },
-              {
-                "conditions": [],
-                "id": 1782103626,
-                "status": "OFF"
-              }
-            ]
-          }
-        ],
-        "status": 0,
-        "type": 3,
-        "unitLabel": ""
-      },
-      {       
-        "description": "",
-        "enabled": "ON",
-        "id": 10,
-        "isTriggerValue": true,
-        "maxValue": 1,
-        "minValue": 0,
-        "name": "senseur RF",
-        "precision": 0,
-        "scenarios": [
-          {
-            "id": 1782103526,
-            "name": "Tout le temps",
-            "tasks": [
-              {
-                "conditions": [
-                  {
-                    "beginDate": "2014-01-01",
-                    "comparisonType": 2,
-                    "endDate": "2014-12-31",
-                    "id": 1350245427,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "0:00",
-                    "comparisonType": 8,
-                    "endTime": "23:59",
-                    "id": 1350247552,
-                    "type": 3
-                  }
-                ],
-                "id": 1782103864,
-                "status": "ON"
-              },
-              {
-                "conditions": [],
-                "id": 1782102964,
-                "status": "OFF"
-              }
-            ]
-          }
-        ],
-        "status": 0,
-        "type": 3,
-        "unitLabel": ""
-      }
-    ],
-    "enabled": "ON",
-    "firmwareVersion": "1.0.0.2225",
-    "id": 157257389,
-    "name": "Platforme de la chambre des maîtres",
-    "port": 5000,
-    "room": "Chambre des maîtres",
-    "enabled": "ON",
-    "ip": "127.0.0.1"
+  "platforms":[
+    {
+      "enabled":true,
+      "firmwareVersion":"1.0.0.2225",
+      "id":157257389,
+      "name":"Platforme de la chambre des maîtres",
+      "port":5000,
+      "room":"Chambre des maîtres",
+      "ip":"127.0.0.1",
+      "devices":[
+        {
+          "description":"Lampe principale de la chambre des maîtres",
+          "enabled":true,
+          "id":22,
+          "isTriggerValue":true,
+          "maxValue":1,
+          "minValue":0,
+          "name":"Lampe principale",
+          "precision":0,
+          "status":0,
+          "type":3,
+          "unitLabel":"",
+          "scenarios":[
+            {
+              "id":1782103622,
+              "name":"Semaine",
+              "tasks":[
+                {
+                  "id":1782103623,
+                  "status":"ON",
+                  "conditions":[
+                    {
+                      "beginDate":"2014-09-09",
+                      "comparisonType":2,
+                      "endDate":"2014-12-31",
+                      "id":1350245612,
+                      "type":1
+                    },
+                    {
+                      "beginTime":"7:00",
+                      "comparisonType":8,
+                      "endTime":"09:00",
+                      "id":1350245677,
+                      "type":3
+                    },
+                    {
+                      "beginDate":"2014-09-09",
+                      "comparisonType":2,
+                      "endDate":"2014-12-31",
+                      "id":1350245678,
+                      "type":1
+                    },
+                    {
+                      "beginTime":"17:00",
+                      "comparisonType":8,
+                      "endTime":"22:00",
+                      "id":1350245681,
+                      "type":3
+                    }
+                  ]
+                },
+                {
+                  "id":2782103626,
+                  "status":"OFF",
+                  "conditions":[
+
+                  ]
+                }
+              ]
+            },
+            {
+              "id":1782103623,
+              "name":"Fin de Semaine",
+              "tasks":[
+                {
+                  "id":1782103623,
+                  "status":"ON",
+                  "conditions":[
+                    {
+                      "beginDate":"2014-09-09",
+                      "comparisonType":2,
+                      "endDate":"2014-12-31",
+                      "id":1350245612,
+                      "type":1
+                    },
+                    {
+                      "beginTime":"11:00",
+                      "comparisonType":8,
+                      "endTime":"11:30",
+                      "id":1360245677,
+                      "type":3
+                    },
+                    {
+                      "beginDate":"2014-09-09",
+                      "comparisonType":2,
+                      "endDate":"2014-12-31",
+                      "id":1450245678,
+                      "type":1
+                    },
+                    {
+                      "beginTime":"18:00",
+                      "comparisonType":8,
+                      "endTime":"23:00",
+                      "id":1350245681,
+                      "type":3
+                    }
+                  ]
+                },
+                {
+                  "id":1782103626,
+                  "status":"OFF",
+                  "conditions":[
+
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "description":"Le lampe de chevet cool à l'os",
+          "enabled":true,
+          "id":2,
+          "isTriggerValue":true,
+          "maxValue":1,
+          "minValue":0,
+          "name":"Lampe de chevet #1",
+          "precision":0,
+          "status":0,
+          "type":3,
+          "unitLabel":"",
+          "scenarios":[
+            {
+              "id":1782103530,
+              "name":"Semaine",
+              "tasks":[
+                {
+                  "id":1782103928,
+                  "status":"ON",
+                  "conditions":[
+                    {
+                      "beginDate":"2014-09-09",
+                      "comparisonType":2,
+                      "endDate":"2014-12-31",
+                      "id":1350245561,
+                      "type":1
+                    },
+                    {
+                      "beginTime":"7:00",
+                      "comparisonType":8,
+                      "endTime":"09:00",
+                      "id":1350245153,
+                      "type":3
+                    },
+                    {
+                      "beginDate":"2014-09-09",
+                      "comparisonType":2,
+                      "endDate":"2014-12-31",
+                      "id":1350245920,
+                      "type":1
+                    },
+                    {
+                      "beginTime":"20:00",
+                      "comparisonType":8,
+                      "endTime":"23:00",
+                      "id":1350245258,
+                      "type":3
+                    }
+                  ]
+                },
+                {
+                  "id":1782103821,
+                  "status":"OFF",
+                  "conditions":[
+
+                  ]
+                }
+              ]
+            },
+            {
+              "id":1782103532,
+              "name":"Fin de Semaine",
+              "tasks":[
+                {
+                  "id":1782103359,
+                  "status":"ON",
+                  "conditions":[
+                    {
+                      "beginDate":"2014-09-09",
+                      "comparisonType":2,
+                      "endDate":"2014-12-31",
+                      "id":1350245876,
+                      "type":1
+                    },
+                    {
+                      "beginTime":"10:30",
+                      "comparisonType":8,
+                      "endTime":"11:00",
+                      "id":1350245479,
+                      "type":3
+                    },
+                    {
+                      "beginDate":"2014-09-09",
+                      "comparisonType":2,
+                      "endDate":"2014-12-31",
+                      "id":1350245038,
+                      "type":1
+                    },
+                    {
+                      "beginTime":"21:30",
+                      "comparisonType":8,
+                      "endTime":"23:30",
+                      "id":1350245220,
+                      "type":3
+                    }
+                  ]
+                },
+                {
+                  "id":1782103169,
+                  "status":"OFF",
+                  "conditions":[
+
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "description":"Lampe de chevet sur table à livres",
+          "enabled":true,
+          "id":3,
+          "isTriggerValue":true,
+          "maxValue":1,
+          "minValue":0,
+          "name":"Lampe de chevet #2",
+          "precision":0,
+          "status":0,
+          "type":3,
+          "unitLabel":"",
+          "scenarios":[
+            {
+              "id":1782103526,
+              "name":"Semaine",
+              "tasks":[
+                {
+                  "id":1782103193,
+                  "status":"ON",
+                  "conditions":[
+                    {
+                      "beginDate":"2014-09-09",
+                      "comparisonType":2,
+                      "endDate":"2014-12-31",
+                      "id":1350245879,
+                      "type":1
+                    },
+                    {
+                      "beginTime":"7:00",
+                      "comparisonType":8,
+                      "endTime":"09:00",
+                      "id":1350245002,
+                      "type":3
+                    },
+                    {
+                      "beginDate":"2014-09-09",
+                      "comparisonType":2,
+                      "endDate":"2014-12-31",
+                      "id":1350245839,
+                      "type":1
+                    },
+                    {
+                      "beginTime":"20:00",
+                      "comparisonType":8,
+                      "endTime":"22:00",
+                      "id":1350245928,
+                      "type":3
+                    }
+                  ]
+                },
+                {
+                  "id":1782103626,
+                  "status":"OFF",
+                  "conditions":[
+
+                  ]
+                }
+              ]
+            },
+            {
+              "id":1782103527,
+              "name":"Fin de Semaine",
+              "tasks":[
+                {
+                  "id":1782103623,
+                  "status":"ON",
+                  "conditions":[
+                    {
+                      "beginDate":"2014-09-09",
+                      "comparisonType":2,
+                      "endDate":"2014-12-31",
+                      "id":1350245612,
+                      "type":1
+                    },
+                    {
+                      "beginTime":"10:00",
+                      "comparisonType":8,
+                      "endTime":"11:00",
+                      "id":1350245697,
+                      "type":3
+                    },
+                    {
+                      "beginDate":"2014-09-09",
+                      "comparisonType":2,
+                      "endDate":"2014-12-31",
+                      "id":1350245678,
+                      "type":1
+                    },
+                    {
+                      "beginTime":"21:00",
+                      "comparisonType":8,
+                      "endTime":"23:00",
+                      "id":1350245690,
+                      "type":3
+                    }
+                  ]
+                },
+                {
+                  "id":1782113626,
+                  "status":"OFF",
+                  "conditions":[
+
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "description":"Récepteur RF",
+          "enabled":true,
+          "id":10,
+          "isTriggerValue":true,
+          "maxValue":1,
+          "minValue":0,
+          "name":"senseur RF",
+          "precision":0,
+          "status":0,
+          "type":3,
+          "unitLabel":"",
+          "scenarios":[
+            {
+              "id":1782103597,
+              "name":"Tout le temps",
+              "tasks":[
+                {
+                  "id":1782103864,
+                  "status":"ON",
+                  "conditions":[
+                    {
+                      "beginDate":"2014-01-01",
+                      "comparisonType":2,
+                      "endDate":"2014-12-31",
+                      "id":1350245427,
+                      "type":1
+                    },
+                    {
+                      "beginTime":"0:00",
+                      "comparisonType":8,
+                      "endTime":"23:59",
+                      "id":1350247552,
+                      "type":3
+                    }
+                  ]
+                },
+                {
+                  "conditions":[
+
+                  ],
+                  "id":1782102964,
+                  "status":"OFF"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
-      "devices": [
-      {      
-        "description": "Lampe de chevet de la chambre",
-        "enabled": "ON",
-        "id": 4,
-        "isTriggerValue": true,
-        "maxValue": 1,
-        "minValue": 0,
-        "name": "Lampe de chevet",
-        "precision": 0,
-        "scenarios": [
-          {
-            "id": 1782106735,
-            "name": "Semaine",
-            "tasks": [
-              {
-                "conditions": [
-                  {
-                    "beginDate": "2014-09-01",
-                    "comparisonType": 2,
-                    "endDate": "2014-12-31",
-                    "id": 1350243278,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "7:00",
-                    "comparisonType": 8,
-                    "endTime": "08:00",
-                    "id": 1350243283,
-                    "type": 3
-                  },
-                  {
-                    "beginDate": "2014-09-01",
-                    "comparisonType": 2,
-                    "endDate": "2014-12-31",
-                    "id": 13502487522,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "17:00",
-                    "comparisonType": 8,
-                    "endTime": "21:00",
-                    "id": 1350249328,
-                    "type": 3
-                  }
-                ],
-                "id": 1782102495,
-                "status": "ON"
-              },
-              {
-                "conditions": [],
-                "id": 1782107482,
-                "status": "OFF"
-              }
-            ]
-          },
-          {
-            "id": 1782109623,
-            "name": "Fin de Semaine",
-            "tasks": [
-              {
-                "conditions": [
-                  {
-                    "beginDate": "2014-09-01",
-                    "comparisonType": 2,
-                    "endDate": "2014-12-31",
-                    "id": 1350248461,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "09:30",
-                    "comparisonType": 8,
-                    "endTime": "11:30",
-                    "id": 1350245281,
-                    "type": 3
-                  },
-                  {
-                    "beginDate": "2014-09-01",
-                    "comparisonType": 2,
-                    "endDate": "2014-12-31",
-                    "id": 1350242468,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "18:00",
-                    "comparisonType": 8,
-                    "endTime": "22:00",
-                    "id": 1350244366,
-                    "type": 3
-                  }
-                ],
-                "id": 1782106633,
-                "status": "ON"
-              },
-              {
-                "conditions": [],
-                "id": 1782105527,
-                "status": "OFF"
-              }
-            ]
-          }
-        ],
-        "status": 0,
-        "type": 3,
-        "unitLabel": ""
-      },
-      {       
-        "description": "",
-        "enabled": "ON",
-        "id": 11,
-        "isTriggerValue": true,
-        "maxValue": 1,
-        "minValue": 0,
-        "name": "senseur RF",
-        "precision": 0,
-        "scenarios": [
-          {
-            "id": 1782102652,
-            "name": "Tout le temps",
-            "tasks": [
-              {
-                "conditions": [
-                  {
-                    "beginDate": "2014-01-01",
-                    "comparisonType": 2,
-                    "endDate": "2014-12-31",
-                    "id": 1350249933,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "0:00",
-                    "comparisonType": 8,
-                    "endTime": "23:59",
-                    "id": 1350243411,
-                    "type": 3
-                  }
-                ],
-                "id": 17821039835,
-                "status": "ON"
-              },
-              {
-                "conditions": [],
-                "id": 1782103367,
-                "status": "OFF"
-              }
-            ]
-          }
-        ],
-        "status": 0,
-        "type": 3,
-        "unitLabel": ""
-      }
-     ],
-    "enabled": "ON",
-    "firmwareVersion": "1.0.0.2225",
-    "id": 157252863,
-    "name": "Platforme de la chambre de fiston",
-    "port": 5001,
-    "room": "Chambre de fiston",
-    "enabled": "ON",
-    "ip": "127.0.0.1"
+      "enabled":true,
+      "firmwareVersion":"1.0.0.2225",
+      "id":157252863,
+      "name":"Platforme de la chambre de fiston",
+      "port":5001,
+      "room":"Chambre de fiston",
+      "enabled":true,
+      "ip":"127.0.0.1",
+      "devices":[
+        {
+          "description":"Lampe de chevet de la chambre",
+          "enabled":true,
+          "id":5,
+          "isTriggerValue":true,
+          "maxValue":1,
+          "minValue":0,
+          "name":"Lampe de chevet",
+          "precision":0,
+          "status":0,
+          "type":3,
+          "unitLabel":"F",
+          "scenarios":[
+            {
+              "id":1782106735,
+              "name":"Semaine",
+              "tasks":[
+                {
+                  "id":1782102495,
+                  "status":"ON",
+                  "conditions":[
+                    {
+                      "beginDate":"2014-09-01",
+                      "comparisonType":2,
+                      "endDate":"2014-12-31",
+                      "id":1350243278,
+                      "type":1
+                    },
+                    {
+                      "beginTime":"7:00",
+                      "comparisonType":8,
+                      "endTime":"08:00",
+                      "id":1350243283,
+                      "type":3
+                    },
+                    {
+                      "beginDate":"2014-09-01",
+                      "comparisonType":2,
+                      "endDate":"2014-12-31",
+                      "id":13502487522,
+                      "type":1
+                    },
+                    {
+                      "beginTime":"17:00",
+                      "comparisonType":8,
+                      "endTime":"21:00",
+                      "id":1350249328,
+                      "type":3
+                    }
+                  ]
+                },
+                {
+                  "id":1782107482,
+                  "status":"OFF",
+                  "conditions":[
+
+                  ]
+                }
+              ]
+            },
+            {
+              "id":1782109623,
+              "name":"Fin de Semaine",
+              "tasks":[
+                {
+                  "id":1782106633,
+                  "status":"ON",
+                  "conditions":[
+                    {
+                      "beginDate":"2014-09-01",
+                      "comparisonType":2,
+                      "endDate":"2014-12-31",
+                      "id":1350248461,
+                      "type":1
+                    },
+                    {
+                      "beginTime":"09:30",
+                      "comparisonType":8,
+                      "endTime":"11:30",
+                      "id":1350245281,
+                      "type":3
+                    },
+                    {
+                      "beginDate":"2014-09-01",
+                      "comparisonType":2,
+                      "endDate":"2014-12-31",
+                      "id":1350242468,
+                      "type":1
+                    },
+                    {
+                      "beginTime":"18:00",
+                      "comparisonType":8,
+                      "endTime":"22:00",
+                      "id":1350244366,
+                      "type":3
+                    }
+                  ]
+                },
+                {
+                  "id":1782105527,
+                  "status":"OFF",
+                  "conditions":[
+
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "description":"Récepteur RF",
+          "enabled":true,
+          "id":11,
+          "isTriggerValue":true,
+          "maxValue":1,
+          "minValue":0,
+          "name":"senseur RF",
+          "precision":0,
+          "status":0,
+          "type":3,
+          "unitLabel":"",
+          "scenarios":[
+            {
+              "id":1782102652,
+              "name":"Tout le temps",
+              "tasks":[
+                {
+                  "conditions":[
+                    {
+                      "beginDate":"2014-01-01",
+                      "comparisonType":2,
+                      "endDate":"2014-12-31",
+                      "id":1350249933,
+                      "type":1
+                    },
+                    {
+                      "beginTime":"0:00",
+                      "comparisonType":8,
+                      "endTime":"23:59",
+                      "id":1350243411,
+                      "type":3
+                    }
+                  ],
+                  "id":17821039835,
+                  "status":"ON"
+                },
+                {
+                  "id":1782103367,
+                  "status":"OFF",
+                  "conditions":[
+
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
-      "devices": [
-      {      
-        "description": "Lampe de l'évier",
-        "enabled": "ON",
-        "id": 4,
-        "isTriggerValue": true,
-        "maxValue": 1,
-        "minValue": 0,
-        "name": "Lampe de l'évier",
-        "precision": 0,
-        "scenarios": [
-          {
-            "id": 1782102359,
-            "name": "Semaine",
-            "tasks": [
-              {
-                "conditions": [
-                  {
-                    "beginDate": "2014-04-01",
-                    "comparisonType": 2,
-                    "endDate": "2015-12-31",
-                    "id": 1350248361,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "7:00",
-                    "comparisonType": 8,
-                    "endTime": "09:00",
-                    "id": 1350240943,
-                    "type": 3
-                  },
-                  {
-                    "beginDate": "2014-04-01",
-                    "comparisonType": 2,
-                    "endDate": "2015-12-31",
-                    "id": 13502483611,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "17:00",
-                    "comparisonType": 8,
-                    "endTime": "22:00",
-                    "id": 1350243680,
-                    "type": 3
-                  }
-                ],
-                "id": 1782102562,
-                "status": "ON"
-              },
-              {
-                "conditions": [],
-                "id": 1782107426,
-                "status": "OFF"
-              }
-            ]
-          }
-        ],
-        "status": 0,
-        "type": 3,
-        "unitLabel": ""
-      },
-      {
-        "id": 3,
-        "maxValue": 100,
-        "minValue": 0,
-        "name": "Thermomètre",
-        "precision": 1,
-        "description": "",
-        "scenarios": [
-          {
-            "id": 1782103622,
-            "name": "Semaine",
-            "tasks": [
-              {
-                "conditions": [
-                  {
-                    "beginDate": "2014-09-01",
-                    "comparisonType": 8,
-                    "endDate": "2014-09-15",
-                    "id": 1350245676,
-                    "type": 1
-                  },
-                  {
-                    "beginDate": "2014-09-05",
-                    "comparisonType": 8,
-                    "endDate": "2014-09-15",
-                    "id": 1350244263,
-                    "type": 1
-                  }
-                ],
-                "id": 1782103623,
-                "status": "60"
-              },
-              {
-                "conditions": [
-                  {
-                    "beginTime": "08:00",
-                    "comparisonType": 8,
-                    "endTime": "17:00",
-                    "id": 1350243447,
-                    "type": 3
-                  }
-                ],
-                "id": 1782103626,
-                "status": "30"
-              },
-              {
-                "conditions": [],
-                "id": 1782103627,
-                "status": "0"
-              }
-            ]
-          }
-        ],
-        "type": 0,
-        "unitLabel": "%",
-        "enabled": "OFF"
-      },
-      {       
-        "description": "",
-        "enabled": "ON",
-        "id": 12,
-        "isTriggerValue": true,
-        "maxValue": 1,
-        "minValue": 0,
-        "name": "senseur RF",
-        "precision": 0,
-        "scenarios": [
-          {
-            "id": 1782104423,
-            "name": "Tout le temps",
-            "tasks": [
-              {
-                "conditions": [
-                  {
-                    "beginDate": "2014-01-01",
-                    "comparisonType": 2,
-                    "endDate": "2014-12-31",
-                    "id": 1350245628,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "0:00",
-                    "comparisonType": 8,
-                    "endTime": "23:59",
-                    "id": 1350249802,
-                    "type": 3
-                  }
-                ],
-                "id": 17821030002,
-                "status": "ON"
-              },
-              {
-                "conditions": [],
-                "id": 1782104519,
-                "status": "OFF"
-              }
-            ]
-          }
-        ],
-        "status": 0,
-        "type": 3,
-        "unitLabel": ""
-      }      
-     ],
-    "enabled": "ON",
-    "firmwareVersion": "1.0.0.2225",
-    "id": 157259591,
-    "name": "Platforme de la cuisine",
-    "port": 5002,
-    "room": "Cuisine",
-    "enabled": "ON",
-    "ip": "127.0.0.1"
+      "firmwareVersion":"1.0.0.2225",
+      "id":157259591,
+      "name":"Platforme de la cuisine",
+      "port":5002,
+      "room":"Cuisine",
+      "enabled":true,
+      "ip":"127.0.0.1",
+      "devices":[
+        {
+          "description":"Lampe de l'évier",
+          "enabled":true,
+          "id":4,
+          "isTriggerValue":true,
+          "maxValue":1,
+          "minValue":0,
+          "name":"Lampe de l'évier",
+          "precision":0,
+          "status":0,
+          "type":3,
+          "unitLabel":"",
+          "scenarios":[
+            {
+              "id":1782102359,
+              "name":"Semaine",
+              "tasks":[
+                {
+                  "id":1782102562,
+                  "status":"ON",
+                  "conditions":[
+                    {
+                      "beginDate":"2014-04-01",
+                      "comparisonType":2,
+                      "id":1350248361,
+                      "type":1
+                    },
+                    {
+                      "beginTime":"7:00",
+                      "comparisonType":8,
+                      "endTime":"09:00",
+                      "id":1350240943,
+                      "type":3
+                    },
+                    {
+                      "beginDate":"2014-04-10",
+                      "comparisonType":8,
+                      "endDate":"2015-12-31",
+                      "id":13502483611,
+                      "type":1
+                    },
+                    {
+                      "beginTime":"17:00",
+                      "comparisonType":8,
+                      "endTime":"22:00",
+                      "id":1350243680,
+                      "type":3
+                    }
+                  ]
+                },
+                {
+                  "id":1782107426,
+                  "status":"OFF",
+                  "conditions":[
+
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id":14,
+          "maxValue":100,
+          "minValue":0,
+          "name":"Thermomètre",
+          "precision":1,
+          "description":"Thermomètre proche de la table de cuisine",
+          "type":0,
+          "unitLabel":"%",
+          "enabled":false,
+          "scenarios":[
+            {
+              "id":1782113622,
+              "name":"Semaine",
+              "tasks":[
+                {
+                  "id":1782103623,
+                  "status":"60",
+                  "conditions":[
+                    {
+                      "beginDate":"2014-09-01",
+                      "comparisonType":8,
+                      "endDate":"2014-09-15",
+                      "id":1350245676,
+                      "type":1
+                    },
+                    {
+                      "beginDate":"2014-09-05",
+                      "comparisonType":8,
+                      "endDate":"2014-09-15",
+                      "id":1350244263,
+                      "type":1
+                    }
+                  ]
+                },
+                {
+                  "id":1782203626,
+                  "status":"30",
+                  "conditions":[
+                    {
+                      "beginTime":"08:00",
+                      "comparisonType":8,
+                      "endTime":"17:00",
+                      "id":1350243447,
+                      "type":3
+                    }
+                  ]
+                },
+                {
+                  "id":1782103627,
+                  "status":"0",
+                  "conditions":[
+
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "description":"Récepteur RF pour la cuisine",
+          "enabled":true,
+          "id":12,
+          "isTriggerValue":true,
+          "maxValue":1,
+          "minValue":0,
+          "name":"senseur RF",
+          "precision":0,
+          "status":0,
+          "type":3,
+          "unitLabel":"",
+          "scenarios":[
+            {
+              "id":1782104423,
+              "name":"Tout le temps",
+              "tasks":[
+                {
+                  "id":17821030002,
+                  "status":"ON",
+                  "conditions":[
+                    {
+                      "beginDate":"2014-01-01",
+                      "comparisonType":2,
+                      "endDate":"2014-12-31",
+                      "id":1350245628,
+                      "type":1
+                    },
+                    {
+                      "beginTime":"0:00",
+                      "comparisonType":8,
+                      "endTime":"23:59",
+                      "id":1350249802,
+                      "type":3
+                    }
+                  ]
+                },
+                {
+                  "id":1782104519,
+                  "status":"OFF",
+                  "conditions":[
+
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
-    "devices": [
-      {      
-        "description": "Lampe de la télé",
-        "enabled": "ON",
-        "id": 7,
-        "isTriggerValue": true,
-        "maxValue": 1,
-        "minValue": 0,
-        "name": "Lampe de la télé",
-        "precision": 0,
-        "scenarios": [
-          {
-            "id": 17821076432,
-            "name": "Semaine",
-            "tasks": [
-              {
-                "conditions": [
-                  {
-                    "beginDate": "2014-04-01",
-                    "comparisonType": 2,
-                    "endDate": "2015-12-31",
-                    "id": 1350247295,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "7:00",
-                    "comparisonType": 8,
-                    "endTime": "08:00",
-                    "id": 1350248926,
-                    "type": 3
-                  },
-                  {
-                    "beginDate": "2014-04-01",
-                    "comparisonType": 2,
-                    "endDate": "2015-12-31",
-                    "id": 13502483377,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "17:00",
-                    "comparisonType": 8,
-                    "endTime": "22:00",
-                    "id": 13502433478,
-                    "type": 3
-                  }
-                ],
-                "id": 1782108133,
-                "status": "ON"
-              },
-              {
-                "conditions": [],
-                "id": 1782106588,
-                "status": "OFF"
-              }
-            ]
-          }
-        ],
-        "status": 0,
-        "type": 3,
-        "unitLabel": ""
-      },
-      {      
-        "description": "Lampe de lecture",
-        "enabled": "ON",
-        "id": 8,
-        "isTriggerValue": true,
-        "maxValue": 1,
-        "minValue": 0,
-        "name": "Lampe de lecture",
-        "precision": 0,
-        "scenarios": [
-          {
-            "id": 17821073411,
-            "name": "Fin de semaine",
-            "tasks": [
-              {
-                "conditions": [
-                  {
-                    "beginDate": "2014-04-01",
-                    "comparisonType": 2,
-                    "endDate": "2014-12-31",
-                    "id": 1350248463,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "11:00",
-                    "comparisonType": 8,
-                    "endTime": "17:00",
-                    "id": 1350249800,
-                    "type": 3
-                  }
-                ],
-                "id": 1782101122,
-                "status": "ON"
-              },
-              {
-                "conditions": [],
-                "id": 1782106632,
-                "status": "OFF"
-              }
-            ]
-          }
-        ],
-        "status": 0,
-        "type": 3,
-        "unitLabel": ""
-      },
-      {       
-        "description": "",
-        "enabled": "ON",
-        "id": 13,
-        "isTriggerValue": true,
-        "maxValue": 1,
-        "minValue": 0,
-        "name": "senseur RF",
-        "precision": 0,
-        "scenarios": [
-          {
-            "id": 1782105528,
-            "name": "Tout le temps",
-            "tasks": [
-              {
-                "conditions": [
-                  {
-                    "beginDate": "2014-01-01",
-                    "comparisonType": 2,
-                    "endDate": "2014-12-31",
-                    "id": 1350247844,
-                    "type": 1
-                  },
-                  {
-                    "beginTime": "0:00",
-                    "comparisonType": 8,
-                    "endTime": "23:59",
-                    "id": 1350245279,
-                    "type": 3
-                  }
-                ],
-                "id": 17821037389,
-                "status": "ON"
-              },
-              {
-                "conditions": [],
-                "id": 1782106670,
-                "status": "OFF"
-              }
-            ]
-          }
-        ],
-        "status": 0,
-        "type": 3,
-        "unitLabel": ""
-      }
-     ],
-    "enabled": "ON",
-    "firmwareVersion": "1.0.0.2225",
-    "id": 157252470,
-    "name": "Platforme du salon",
-    "port": 5003,
-    "room": "Salon",
-    "enabled": "ON",
-    "ip": "127.0.0.1"
-    }       
+      "enabled":true,
+      "firmwareVersion":"1.0.0.2225",
+      "id":157252470,
+      "name":"Platforme du salon",
+      "port":5003,
+      "room":"Salon",
+      "enabled":true,
+      "ip":"127.0.0.1",
+      "devices":[
+        {
+          "description":"Lampe de la télé",
+          "enabled":true,
+          "id":7,
+          "isTriggerValue":true,
+          "maxValue":1,
+          "minValue":0,
+          "name":"Lampe de la télé",
+          "precision":0,
+          "status":0,
+          "type":3,
+          "unitLabel":"",
+          "scenarios":[
+            {
+              "id":17821076432,
+              "name":"Semaine",
+              "tasks":[
+                {
+                  "id":1782108133,
+                  "status":"ON",
+                  "conditions":[
+                    {
+                      "beginDate":"2014-04-01",
+                      "comparisonType":2,
+                      "endDate":"2015-12-31",
+                      "id":1350247295,
+                      "type":1
+                    },
+                    {
+                      "beginTime":"7:00",
+                      "comparisonType":8,
+                      "endTime":"08:00",
+                      "id":1350248926,
+                      "type":3
+                    },
+                    {
+                      "beginDate":"2014-04-01",
+                      "comparisonType":2,
+                      "endDate":"2015-12-31",
+                      "id":13502483377,
+                      "type":1
+                    },
+                    {
+                      "beginTime":"17:00",
+                      "comparisonType":8,
+                      "endTime":"22:00",
+                      "id":13502433478,
+                      "type":3
+                    }
+                  ]
+                },
+                {
+                  "conditions":[
+
+                  ],
+                  "id":1782106588,
+                  "status":"OFF"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "description":"Lampe de lecture",
+          "enabled":true,
+          "id":8,
+          "isTriggerValue":true,
+          "maxValue":1,
+          "minValue":0,
+          "name":"Lampe de lecture",
+          "precision":0,
+          "status":0,
+          "type":3,
+          "unitLabel":"",
+          "scenarios":[
+            {
+              "id":17821073411,
+              "name":"Fin de semaine",
+              "tasks":[
+                {
+                  "id":1782101122,
+                  "status":"ON",
+                  "conditions":[
+                    {
+                      "beginDate":"2014-04-01",
+                      "comparisonType":2,
+                      "endDate":"2014-12-31",
+                      "id":1350248463,
+                      "type":1
+                    },
+                    {
+                      "beginTime":"11:00",
+                      "comparisonType":8,
+                      "endTime":"17:00",
+                      "id":1350249800,
+                      "type":3
+                    }
+                  ]
+                },
+                {
+                  "id":1782106632,
+                  "status":"OFF",
+                  "conditions":[
+
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "description":"Récepteur RF du salon",
+          "enabled":true,
+          "id":13,
+          "isTriggerValue":true,
+          "maxValue":1,
+          "minValue":0,
+          "name":"senseur RF",
+          "precision":0,
+          "status":0,
+          "type":3,
+          "unitLabel":"",
+          "scenarios":[
+            {
+              "id":1782105528,
+              "name":"Tout le temps",
+              "tasks":[
+                {
+                  "id":17821037389,
+                  "status":"ON",
+                  "conditions":[
+                    {
+                      "beginDate":"2014-01-01",
+                      "comparisonType":2,
+                      "endDate":"2014-12-31",
+                      "id":1350247844,
+                      "type":1
+                    },
+                    {
+                      "beginTime":"0:00",
+                      "comparisonType":8,
+                      "endTime":"23:59",
+                      "id":1350245279,
+                      "type":3
+                    }
+                  ]
+                },
+                {
+                  "id":1782106670,
+                  "status":"OFF",
+                  "conditions":[
+
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
   ]
 }
