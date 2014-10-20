@@ -7,7 +7,9 @@
 #include <QHash>
 #include <QDateTime>
 
-class ListItem : public QObject
+#include "Serialization/jsonserializable.h"
+
+class ListItem : public QObject, public JsonSerializable
 {
     Q_OBJECT
 
@@ -17,6 +19,10 @@ public:
     virtual QVariant data(int role) const = 0;
     virtual bool setData(const QVariant & value, int role) = 0;
     virtual QHash<int, QByteArray> roleNames() const = 0;
+
+    // JsonSerializable
+    virtual void write(QJsonObject &jsonObj) const = 0;
+    virtual void read(const QJsonObject &jsonObj) = 0;
 
     // Base properties
     inline QString id() const { return m_id; }

@@ -97,6 +97,19 @@ UCondition* createCondition(ListModel* parent, int id)
     return condition;
 }
 
+void LoadSystemFromFile(UPlatformsModel* p, const QString& filename)
+{
+    QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
+
+    QFile f(filename);
+    if (f.open(QFile::ReadOnly | QFile::Text)){
+        QTextStream in(&f);
+        QString str = in.readAll();
+        str.remove(QRegExp("[\\n\\t\\r]"));
+        JsonSerializer::parse(str, p);
+    }
+}
+
 void Init(QGuiApplication& app, QtQuick2ApplicationViewer& viewer)
 {
     QTranslator translator;
@@ -109,7 +122,7 @@ void Init(QGuiApplication& app, QtQuick2ApplicationViewer& viewer)
 
     UPlatformsModel* platforms = new UPlatformsModel();
 
-    UPlatform* platform1 = createPlatform(platforms, 1);
+    /*UPlatform* platform1 = createPlatform(platforms, 1);
     UPlatform* platform2 = createPlatform(platforms, 2);
     UPlatform* platform3 = createPlatform(platforms, 3);
 
@@ -143,7 +156,9 @@ void Init(QGuiApplication& app, QtQuick2ApplicationViewer& viewer)
 
     createCondition(conditions1, 1);
     createCondition(conditions2, 2);
-    createCondition(conditions3, 3);
+    createCondition(conditions3, 3);*/
+
+    LoadSystemFromFile(platforms, ":/data/data.json");
 
     QQmlContext *ctxt = viewer.rootContext();
     ctxt->setContextProperty("platformsModel", platforms);

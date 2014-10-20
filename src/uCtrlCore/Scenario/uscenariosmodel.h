@@ -8,6 +8,10 @@ class UScenariosModel : public NestedListModel
 {
 public:
     UScenariosModel(QObject* parent = 0);
+
+    // JsonSerializable
+    void write(QJsonObject &jsonObj) const;
+    void read(const QJsonObject &jsonObj);
 };
 
 #endif // USCENARIOSMODEL_H

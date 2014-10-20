@@ -32,12 +32,16 @@ bool UScenario::setData(const QVariant& value, int role)
     {
     case idRole:
         id(value.toString());
+        break;
     case nameRole:
         name(value.toString());
+        break;
     case enabledRole:
         enabled(value.toBool());
+        break;
     case lastUpdatedRole:
         lastUpdated(value.toUInt());
+        break;
     default:
         return false;
     }
@@ -59,4 +63,26 @@ QHash<int, QByteArray> UScenario::roleNames() const
 ListModel* UScenario::nestedModel() const
 {
     return m_tasks;
+}
+
+void UScenario::write(QJsonObject &jsonObj) const
+{
+    jsonObj["id"] = this->id();
+    jsonObj["name"] = this->name();
+    jsonObj["enabled"] = this->enabled();
+    jsonObj["lastUpdated"] = QString::number(this->lastUpdated());
+
+    QJsonObject tasks;
+    m_tasks->write(tasks);
+    jsonObj["tasks"] = tasks;
+}
+
+void UScenario::read(const QJsonObject &jsonObj)
+{
+    this->id(jsonObj["id"].toString());
+    this->name(jsonObj["name"].toString());
+    this->enabled(jsonObj["enabled"].toBool());
+    this->lastUpdated(jsonObj["lastUpdated"].toString().toUInt());
+
+    m_tasks->read(jsonObj);
 }

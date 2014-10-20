@@ -12,6 +12,10 @@ public :
     NestedListItem(QObject* parent = 0) : ListItem(parent) {}
     virtual ~NestedListItem() {}
     virtual ListModel* nestedModel() const = 0;
+
+    // JsonSerializable
+    virtual void write(QJsonObject &jsonObj) const = 0;
+    virtual void read(const QJsonObject &jsonObj) = 0;
 };
 
 #endif // NESTEDLISTITEM_H

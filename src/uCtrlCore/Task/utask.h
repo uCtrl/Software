@@ -3,7 +3,7 @@
 
 #include "Models/nestedlistitem.h"
 #include "Models/nestedlistmodel.h"
-#include "Condition/ucondition.h"
+#include "Condition/uconditionsmodel.h"
 
 class UTask : public NestedListItem
 {
@@ -26,6 +26,10 @@ public:
     bool setData(const QVariant &value, int role);
     QHash<int, QByteArray> roleNames() const;
     ListModel* nestedModel() const;
+
+    // JsonSerializable
+    void write(QJsonObject &jsonObj) const;
+    void read(const QJsonObject &jsonObj);
 
     // Properties
     inline QString value() const { return m_value; }

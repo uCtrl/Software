@@ -61,4 +61,7 @@
         <file alias="Device.qml">qml/device/Device.qml</file>
         <file alias="DeviceListItem.qml">qml/device/DeviceListItem.qml</file>
     </qresource>
+    <qresource prefix="/data">
+        <file>data.json</file>
+    </qresource>
 </RCC>

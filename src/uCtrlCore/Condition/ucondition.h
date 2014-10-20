@@ -29,6 +29,10 @@ public:
     bool setData(const QVariant &value, int role);
     QHash<int, QByteArray> roleNames() const;
 
+    // JsonSerializable
+    void write(QJsonObject &jsonObj) const;
+    void read(const QJsonObject &jsonObj);
+
     // Properties
     inline int type() const { return m_type; }
     inline void type(int type) { m_type = type; emit dataChanged(); }

@@ -4,6 +4,7 @@
 #include "Serialization/jsonreadable.h"
 #include "Serialization/jsonwritable.h"
 
+#include <QJsonDocument>
 #include <QJsonArray>
 
 class JsonSerializable : public JsonReadable, public JsonWritable
