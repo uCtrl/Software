@@ -50,6 +50,8 @@
         <file alias="UButton.qml">qml/ui/UButton.qml</file>
         <file alias="USaveCancel.qml">qml/ui/USaveCancel.qml</file>
         <file alias="USwitch.qml">qml/ui/USwitch.qml</file>
+        <file alias="UTabs.qml">qml/ui/UTabs.qml</file>
+        <file alias="UTabItem.qml">qml/ui/UTabItem.qml</file>
     </qresource>
     <qresource prefix="/platform">
         <file alias="Platforms.qml">qml/platform/Platforms.qml</file>

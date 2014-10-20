@@ -85,7 +85,7 @@ Rectangle {
                 buttonHoveredTextColor: "#0D9B0D"
                 buttonHoveredColor: "transparent"
 
-                onClicked: showEditMode = true
+                onClicked: toggleEditMode()
             }
         }
 
@@ -122,14 +122,8 @@ Rectangle {
 
                 width: parent.width / 5
 
-                onSave: {
-                    saveForm()
-                    showEditMode = false
-                }
-                onCancel: {
-                    cancelForm()
-                    showEditMode = false
-                }
+                onSave: saveForm()
+                onCancel: toggleEditMode()
             }
         }
 
@@ -478,12 +472,7 @@ Rectangle {
         }
     }
 
-    onModelChanged: {
-        if (showEditMode) {
-            cancelForm()
-            showEditMode = false
-        }
-    }
+    onModelChanged: if (showEditMode) toggleEditMode()
 
     function getName() {
         if (model != null) return model.name
@@ -529,11 +518,17 @@ Rectangle {
         if (nameTextbox.text != "") model.name = nameTextbox.text
         model.isEnabled = (enabledSwitch.state === "ON")
         model.room = roomTextbox.text
+
+        toggleEditMode()
     }
 
-    function cancelForm() {
-        nameTextbox.text = getName()
-        enabledSwitch.state = getEnabled() ? "ON" : "OFF"
-        roomTextbox.text = getRoom()
+    function toggleEditMode() {
+        if (model != null) {
+            nameTextbox.text = getName()
+            enabledSwitch.state = getEnabled()
+            roomTextbox.text = getRoom()
+        }
+
+        showEditMode = !showEditMode
     }
 }
