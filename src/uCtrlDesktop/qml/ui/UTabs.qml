@@ -13,7 +13,8 @@ Rectangle {
     property string iconColor: "white"
 
     color: backgroundColor
-    radius: 8
+
+    radius: 2
 
     Row {
 
@@ -30,6 +31,8 @@ Rectangle {
 
                 iconColor: iconColor
                 color: getColor()
+
+                radius: 2
 
                 MouseArea {
                     id: mouseArea

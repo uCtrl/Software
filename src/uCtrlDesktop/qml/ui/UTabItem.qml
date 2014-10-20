@@ -9,8 +9,6 @@ Rectangle {
     property string iconColor: "white"
     property string iconId: ""
 
-    radius: 8
-
     UI.UFontAwesome {
         id: icon
 

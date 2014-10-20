@@ -277,16 +277,6 @@ Rectangle {
                 Component.onCompleted: selectedValue = "Configuration"
             }
         }
-
-        /*UI.UTabs {
-            width: 300
-            height: 40
-            anchors.centerIn: parent
-
-            icons: ["Off",    "Time",    "BarChart"]
-            texts: ["",       "",        ""]
-            ids:   ["Config", "History", "Statistics"]
-        }*/
     }
 
     Rectangle {
