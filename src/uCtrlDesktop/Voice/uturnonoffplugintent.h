@@ -1,18 +1,10 @@
 #ifndef UTURNONOFFPLUGINTENT_H
 #define UTURNONOFFPLUGINTENT_H
 
-#include <QObject>
-#include <QString>
-#include <QNetworkAccessManager>
-#include <QNetworkRequest>
-#include <QNetworkReply>
-#include "uvoiceintent.h"
+#include "uninjaapi.h"
 
-class UTurnOnOffPlugIntent : public UVoiceIntent
+class UTurnOnOffPlugIntent
 {
-    Q_OBJECT
-    bool m_isTurnOn;
-
     const QString SocketTypeRFCode = "11011010110110101101";
     const QString SocketOnRFCode = "1";
     const QString SocketOffRFCode = "0";
@@ -20,15 +12,15 @@ class UTurnOnOffPlugIntent : public UVoiceIntent
     const QString Socket2RFCode = "100";
     const QString Socket3RFCode = "110";
 
-QNetworkAccessManager *manager;
+    bool m_isTurnOn;
+    UNinjaAPI* m_ninjaAPI;
+    QString m_deviceId;
 public:
 
-    UTurnOnOffPlugIntent(const QString& deviceId, bool turnOn);
+    UTurnOnOffPlugIntent(UNinjaAPI* ninjaAPI, const QString& deviceId, bool turnOn);
 
     void turnOnOffPlugWithId(long id);
     void turnOnOffPlugInLocation(QString location);
-public slots:
-    void replyFinished(QNetworkReply* reply);
 
 };
 

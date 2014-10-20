@@ -5,6 +5,7 @@
 #include <QJsonValue>
 #include <QUdpSocket>
 #include "uturnonoffplugintent.h"
+#include "usetninjaeyescolorintent.h"
 
 UVoiceControlAPI::UVoiceControlAPI(QObject *parent) :
     QObject(parent)
@@ -16,9 +17,6 @@ UVoiceControlAPI::UVoiceControlAPI(QObject *parent) :
 
 void UVoiceControlAPI::sendVoiceControlFile(QString voiceFilePath)
 {
-    //testLimitlessLED();
-    //return;
-
     QNetworkRequest request;
     request.setUrl(QUrl("https://api.wit.ai/speech"));
     request.setRawHeader("Authorization", "Bearer AJKFKPXCCXDD6CPEXASZMJSLCOZSUQ3Z");
@@ -57,32 +55,8 @@ void UVoiceControlAPI::analyseIntent()
         QJsonObject firstObject = colorArray.first().toObject();
         QString colorString = firstObject["value"].toString();
 
-        QNetworkRequest request;
-        request.setUrl(QUrl("https://api.ninja.is/rest/v0/device/1014BBBK6089_0_0_1007?user_access_token=107f6f460bed2dbb10f0a93b994deea7fe07dad5"));
-        request.setRawHeader("Content-Type", "application/json");
-        QUrl testUrl = request.url();
-        QString dataStr = "{ \"DA\" : ";
-        if (colorString == QString("red"))
-        {
-            dataStr.append("\"FF0000\" }");
-        }
-        else if (colorString == QString("green"))
-        {
-            dataStr.append("\"00FF00\" }");
-        }
-        else if (colorString == QString("blue"))
-        {
-            dataStr.append("\"0000FF\" }");
-        }
-        else if (colorString == QString("white"))
-        {
-            dataStr.append("\"FFFFFF\" }");
-        }
-        else
-            return;
-
-        QByteArray data = dataStr.toUtf8();
-        QNetworkReply* reply = manager->put(request, data);
+        USetNinjaEyesColorIntent setNinjaEyesColorIntent(&m_ninjaAPI, "1014BBBK6089_0_0_1007");
+        setNinjaEyesColorIntent.setNinjaEyesColors(colorString);
     }
     else if (voiceControlResponse.getIntent() == QString("turn_onoff_plugs_in_location"))
     {
@@ -97,7 +71,7 @@ void UVoiceControlAPI::analyseIntent()
         firstObject = locationArray.first().toObject();
         QString locationString = firstObject["value"].toString();
 
-        UTurnOnOffPlugIntent intent("1014BBBK6089_0_0_11", onoffString == QString("on") ? true : false);
+        UTurnOnOffPlugIntent intent(&m_ninjaAPI, "1014BBBK6089_0_0_11", onoffString == QString("on") ? true : false);
         intent.turnOnOffPlugInLocation(locationString);
     }
     else if (voiceControlResponse.getIntent() == QString("turn_onoff_plug_with_id"))
@@ -113,9 +87,8 @@ void UVoiceControlAPI::analyseIntent()
         firstObject = idArray.first().toObject();
         long id = firstObject["value"].toInt();
 
-        //UTurnOnOffPlugIntent intent("1014BBBK6089_0_0_11", onoffString == QString("on") ? true : false);
-        //intent.turnOnOffPlugWithId(id);
-
+        UTurnOnOffPlugIntent intent(&m_ninjaAPI, "1014BBBK6089_0_0_11", onoffString == QString("on") ? true : false);
+        intent.turnOnOffPlugWithId(id);
     }
     return;
 }
