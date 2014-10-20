@@ -5,9 +5,9 @@ import "../label" as ULabel
 
 Rectangle {
 
-    id: container
+    id: deviceInfo
 
-    property variant model: null
+    property variant model: main.activeDevice
     property bool showEditMode: false
 
     color: "transparent"
@@ -293,27 +293,27 @@ Rectangle {
     }
 
     function getName() {
-        if (model != null) return model.name
+        if (model !== null) return model.name
         else return "Device name"
     }
 
     function getEnabled() {
-        if (model != null) return model.isEnabled ? "ON" : "OFF"
+        if (model !== null) return model.isEnabled ? "ON" : "OFF"
         else return "OFF"
     }
 
     function getType() {
-        if (model != null) return model.type
+        if (model !== null) return model.type
         else return 0
     }
 
     function getUpdate() {
-        if (model != null) return model.lastUpdate
+        if (model !== null && model.lastUpdate !== undefined) return model.lastUpdate
         else return "Last update a second ago."
     }
 
     function saveForm() {
-        if (model != null) {
+        if (model !== null) {
             if (nameTextbox.text != "") model.name = nameTextbox.text
             model.isEnabled = (enabledSwitch.state === "ON")
         }
@@ -322,7 +322,7 @@ Rectangle {
     }
 
     function toggleEditMode() {
-        if (model != null) {
+        if (model !== null) {
             nameTextbox.text = getName()
             enabledSwitch.state = getEnabled()
         }

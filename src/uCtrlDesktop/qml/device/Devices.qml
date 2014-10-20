@@ -2,47 +2,39 @@ import QtQuick 2.0
 
 Rectangle {
 
+    id: container
+
     color: "white"
 
     property variant model: null
 
     ListView {
-        id: devices
+        id: devicesList
+
         anchors.fill: parent
+
         model: parent.model
+
+        property variant currentItem: null
+
         delegate: Column {
+            id: column
+
             width: parent.width
             DeviceListItem {
+
+                id: listItem
 
                 item: model
 
                 MouseArea {
                     anchors.fill: parent
-
                     onClicked: {
+                        main.activeDevice = model
                         main.currentPage = "device/Device"
                     }
                 }
             }
         }
     }
-
-    /*
-        delegate: Column {
-            width: parent.width
-            height: 20
-
-            Text {
-                text: id + " | " + type + " | " + description + " | " + isEnabled + " | " + isTriggerValue + " | " + maxValue + " | " + minValue + " | " + name + " | " + precision + " | " + status + " | " + unitLabel
-                wrapMode: Text.WordWrap
-                MouseArea {
-                    anchors.fill: parent
-                    height: parent.height; width: parent.width;
-                    onClicked: {
-                        console.log(id);
-                    }
-                }
-            }
-        }
-   */
 }

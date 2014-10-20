@@ -4,17 +4,25 @@ import "../ui" as UI
 
 Rectangle {
 
+    id: navbar
+
     color: "#3C3C3C"
     width: 67;
 
     property variant pages: []
 
     Column {
+        id: column
+
         anchors.fill: parent
 
         Repeater {
+            id: repeater
+
             model: pages
             Rectangle {
+                id: rectangle
+
                 height: 50
 
                 anchors.left: parent.left
@@ -46,7 +54,8 @@ Rectangle {
 
                 function getBackgroundColor() {
                     if (mouseArea.containsMouse) return "#5A5A5A"
-                    else return "#3C3C3C"
+                    else if (main.currentPage === modelData.file) return "#222222"
+                    else return navbar.color
                 }
             }
         }

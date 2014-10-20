@@ -4,11 +4,13 @@ import "../ui" as UI
 
 Rectangle {
     id: titlebar
+
     color: "#0D9B0D"
     height: 65
 
     UI.UImage {
-        id: homeBtn
+        id: logo
+
         width: 80
         height: 45
 

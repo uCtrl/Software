@@ -6,7 +6,7 @@ import "../label" as ULabel
 Rectangle {
     id: listItem
 
-    property var item: null
+    property variant item: null
 
     width: parent.width
     height: 42
@@ -83,11 +83,6 @@ Rectangle {
 
         anchors.fill: parent
         hoverEnabled: true
-
-        /*onClicked: {
-            platformInfo.model = model
-            platforms.currentIndex = index
-        }*/
     }
 
     function getColor() {
@@ -96,7 +91,7 @@ Rectangle {
     }
 
     function getName() {
-        if (item != null) return item.description
+        if (item != null) return item.name
         else return "Device name"
     }
 }

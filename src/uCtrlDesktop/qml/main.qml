@@ -20,9 +20,7 @@ Rectangle {
         {file: "device/Device", icon: "", text: "Device", showInNavbar: false}
     ];
 
-    Component.onCompleted: {
-        navbar.pages = pages
-    }
+    property variant activeDevice: null
 
     Titlebar.Titlebar {
         id: titlebar
@@ -37,6 +35,8 @@ Rectangle {
     Navbar.Navbar {
         id: navbar
 
+        pages: main.pages
+
         anchors.top: titlebar.bottom
         anchors.bottom: parent.bottom
         anchors.left: parent.left
@@ -47,14 +47,16 @@ Rectangle {
     property string currentPage: "platform/Platforms";
 
     Repeater {
+        id: repeater
+
         model: pages;
 
-        anchors.left: navbar.right;
-        anchors.right: parent.right;
-        anchors.top: titlebar.bottom;
-        anchors.bottom: parent.bottom;
-
         delegate: Loader {
+
+            id: mainLoader
+
+            property variant test: null
+
             active: false;
             asynchronous: true;
 
@@ -77,78 +79,7 @@ Rectangle {
         }
     }
 
-    /*
-    Text {
-        id: platLabel
-        anchors.top: titlebar.bottom
-
-        text: "PLATFORMS"
-        color: "green"
-    }
-
-    Rectangle {
-        id: rectPlat
-        height: 100
-        anchors.top: platLabel.bottom
-        ListView {
-            id: platforms
-            anchors.fill: parent
-            model: platformsModel
-            delegate: Column {
-                width: parent.width
-                height: 20
-                Text {
-                    text: id + " | " + firmwareVersion + " | " + name + " | " + port + " | " + room + " | " + isEnabled + " | " + ip
-                    wrapMode: Text.WordWrap
-                    MouseArea {
-                        anchors.fill: parent
-                        height: parent.height; width: parent.width;
-                        onClicked: {
-                            console.log(model.id);
-                            devices.model = platforms.model.nestedModelFromId(model.id);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    Text {
-        id: devLabel
-        anchors.top: rectPlat.bottom
-        text: "DEVICES"
-        color: "blue"
-    }
-
-    Rectangle {
-        id: devRect
-        anchors.top: devLabel.bottom
-        height: 100
-        ListView {
-            id: devices
-            anchors.fill: parent
-            model: ""
-            delegate: Column {
-                width: parent.width
-                height: 20
-
-                Text {
-                    text: id + " | " + type + " | " + description + " | " + isEnabled + " | " + isTriggerValue + " | " + maxValue + " | " + minValue + " | " + name + " | " + precision + " | " + status + " | " + unitLabel
-                    wrapMode: Text.WordWrap
-                    MouseArea {
-                        anchors.fill: parent
-                        height: parent.height; width: parent.width;
-                        onClicked: {
-                            console.log(id);
-                            scenarios.model = devices.model.nestedModelFromId(model.id);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    Text {
+    /*Text {
         id: sceLabel
         anchors.top: devRect.bottom
         text: "SCENARIOS"

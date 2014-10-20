@@ -3,7 +3,6 @@ import QtQuick 2.0
 import "../ui" as UI
 
 Rectangle {
-
     id: platformsList
 
     color: "#EDEDED"
@@ -14,10 +13,9 @@ Rectangle {
 
     property variant sections: [
         { value: "room",     displayedValue: "Location",     iconId: "location"},
-        //{ value: "update",   displayedValue: "Last Updated", iconId: "clock"},
-        { value: "status",   displayedValue: "Status",       iconId: "switch"}//,
-        //{ value: "type",     displayedValue: "Device type",  iconId: "spinner3"},
-        //{ value: "alphabet", displayedValue: "Name",         iconId: "Font"}
+        { value: "lastUpdate",   displayedValue: "Last Updated", iconId: "clock"},
+        { value: "status",   displayedValue: "Status",       iconId: "switch"},
+        { value: "type",     displayedValue: "Device type",  iconId: "spinner3"}
    ]
 
     Rectangle {
@@ -65,16 +63,16 @@ Rectangle {
             id: filterCombo
 
             itemListModel: sections
+
             anchors.left: searchBox.right
             anchors.leftMargin: 5
 
             anchors.right: filters.right
-            width: (filters.width / 3);
-            height: searchBox.height
 
-            Component.onCompleted: {
-                selectItem(0)
-            }
+            height: searchBox.height;
+
+
+            Component.onCompleted: selectItem(0)
         }
     }
 
@@ -118,8 +116,10 @@ Rectangle {
             }
 
             delegate: Column {
+                id: column
+
                 width: parent.width
-                //z: 1
+
                 PlatformListItem {
                     id: itemContainer
 
@@ -161,7 +161,8 @@ Rectangle {
                 color: "#0D9B0D"
 
                 Text {
-                    id: room
+                    id: headerText
+
                     font.family: "Lato"
                     font.pointSize: 10
                     font.bold: true

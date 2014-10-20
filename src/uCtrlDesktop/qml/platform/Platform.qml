@@ -6,7 +6,10 @@ import "../ui" as UI
 
 Rectangle {
 
+    id: platformInfo
+
     color: "transparent"
+
     property variant model: null
     property int marginSize: 20
 
@@ -14,6 +17,8 @@ Rectangle {
     property bool showEditMode: false
 
     Rectangle {
+        id: selectPlatform
+
         visible: (model == null)
 
         anchors.fill: parent
@@ -42,8 +47,8 @@ Rectangle {
 
         color: "white"
 
-        Row {
-            id: nameRow
+        Rectangle {
+            id: nameContainer
 
             height: 40
 
@@ -51,22 +56,6 @@ Rectangle {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.margins: marginSize
-
-            visible : !showEditMode
-
-            ULabel.Default {
-                id: nameLabel
-
-                width: (parent.width - editButton.width)
-                anchors.verticalCenter: editButton.verticalCenter
-
-                font.pointSize: 24
-                font.bold: true
-
-                color: "black"
-
-                text: getName()
-            }
 
             UI.UButton {
                 id: editButton
@@ -76,6 +65,8 @@ Rectangle {
                 iconSize: 22
 
                 anchors.top: parent.top
+                anchors.right: parent.right
+
                 anchors.bottom: parent.bottom
 
                 width: 40
@@ -86,23 +77,49 @@ Rectangle {
                 buttonHoveredColor: "transparent"
 
                 onClicked: toggleEditMode()
+
+                visible : !showEditMode
             }
-        }
 
-        Row {
-            id: editNameRow
+            ULabel.Default {
+                id: nameLabel
 
-            anchors.fill: nameRow
+                anchors.left: parent.left
+                anchors.right: editButton.right
+                anchors.verticalCenter: editButton.verticalCenter
 
-            visible: showEditMode
+                font.pointSize: 24
+                font.bold: true
+
+                color: "black"
+
+                text: getName()
+
+                visible : !showEditMode
+            }
+
+            UI.USaveCancel {
+                id: saveCancelPlatform
+
+                anchors.top: parent.top
+                anchors.right: parent.right
+
+                width: parent.width / 5
+
+                onSave: saveForm()
+                onCancel: toggleEditMode()
+
+                visible: showEditMode
+            }
 
             UI.UTextbox {
                 id: nameTextbox
 
                 anchors.top: parent.top
+                anchors.bottom: saveCancelPlatform.bottom
 
-                height: 32
-                width: (4 * (parent.width /5) + 20)
+                anchors.left: parent.left
+                anchors.right: saveCancelPlatform.left
 
                 text: getName()
                 placeholderText: "Platform name"
@@ -113,139 +130,111 @@ Rectangle {
 
                 state: (validate() ? "SUCCESS" : "ERROR")
                 //onTextChanged: { platformValidator.validate() }
-            }
 
-            UI.USaveCancel {
-                id: saveCancelPlatform
-
-                anchors.top: parent.top
-
-                width: parent.width / 5
-
-                onSave: saveForm()
-                onCancel: toggleEditMode()
+                visible: showEditMode
             }
         }
 
-        Row {
-            id: enabledRow
+        Rectangle {
+            id: enabledContainer
 
-            anchors.top: nameRow.bottom
+            anchors.top: nameContainer.bottom
+
             anchors.left: parent.left
             anchors.right: parent.right
 
             height: 40
 
-            Rectangle {
-                color: "white"
+            ULabel.UInfoTitle {
+                id: enabledTitle
+
+                text: "Enabled"
+
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.left
+
+                anchors.margins: 20
 
                 width: (parent.width / 4)
-                height: parent.height
-
-                ULabel.UInfoTitle {
-                    id: enabledTitle
-
-                    text: "Enabled"
-
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left
-                    anchors.margins: 20
-                }
             }
 
-            Rectangle {
-                color: "white"
+            ULabel.UInfoBoundedLabel {
+                id: enabledStatusLabel
 
-                width: 3 * (parent.width / 4)
-                height: parent.height
+                text: getEnabled()
 
-                ULabel.UInfoBoundedLabel {
-                    id: enabledStatusLabel
-                    text: getEnabled()
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: enabledTitle.right
 
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left
-                    anchors.margins: 20
+                visible: !showEditMode
+            }
 
-                    visible: !showEditMode
-                }
+            UI.USwitch {
+                id: enabledSwitch
 
-                UI.USwitch {
-                    id: enabledSwitch
+                state: getEnabled()
 
-                    state: getEnabled()
+                anchors.left: enabledTitle.right
 
-                    anchors.left: enabledStatusLabel.left
-                    anchors.top: enabledStatusLabel.top
+                anchors.verticalCenter: parent.verticalCenter
 
-                    visible: showEditMode
-                }
+                visible: showEditMode
             }
         }
 
-        Row {
-            id: roomRow
+        Rectangle {
+            id: roomContainer
 
-            anchors.top: enabledRow.bottom
+            anchors.top: enabledContainer.bottom
             anchors.left: parent.left
             anchors.right: parent.right
 
             height: 40
 
-            Rectangle {
-                color: "white"
+            ULabel.UInfoTitle {
+                id: locationTitle
+
+                text: "Location"
+
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.left
+
+                anchors.margins: 20
 
                 width: (parent.width / 4)
-                height: parent.height
-
-                ULabel.UInfoTitle {
-                    id: locationTitle
-
-                    text: "Location"
-
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left
-                    anchors.margins: 20
-                }
             }
 
-            Rectangle {
-                color: "white"
+            ULabel.Default {
+                id: roomLabel
 
-                width: 3 * (parent.width / 4)
-                height: parent.height
+                text: getRoom()
 
-                ULabel.Default {
-                    id: roomLabel
+                anchors.verticalCenter: parent.verticalCenter
 
-                    text: getRoom()
+                anchors.left: locationTitle.right
+                anchors.right: parent.right
 
-                    anchors.verticalCenter: parent.verticalCenter
+                anchors.margins: 20
 
-                    anchors.left: parent.left
-                    anchors.right: parent.right
+                visible: !showEditMode
+            }
 
-                    anchors.margins: 20
+            UI.UTextbox {
+                id: roomTextbox
 
-                    visible: !showEditMode
-                }
+                anchors.left: locationTitle.right
 
-                UI.UTextbox {
-                    id: roomTextbox
+                anchors.right: parent.right
+                anchors.rightMargin: 20
 
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.rightMargin: 20
+                anchors.verticalCenter: parent.verticalCenter
 
-                    anchors.verticalCenter: parent.verticalCenter
+                height: 25
 
-                    height: 25
+                visible: showEditMode
 
-                    visible: showEditMode
-
-                    placeholderText: "Enter a location"
-                    text: getRoom()
-                }
+                placeholderText: "Enter a location"
+                text: getRoom()
             }
         }
 
@@ -255,7 +244,7 @@ Rectangle {
 
             height: 0.5
 
-            anchors.bottom: roomRow.bottom
+            anchors.bottom: roomContainer.bottom
 
             anchors.left: parent.left
             anchors.right: parent.right
