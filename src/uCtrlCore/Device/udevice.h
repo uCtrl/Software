@@ -26,6 +26,31 @@ class UDevice : public NestedListItem
     };
 
 public:
+    Q_ENUMS(UEStatus)
+    Q_ENUMS(UEType)
+
+    enum class UEStatus: int {
+        Ok = 0,
+        Disconnected = 1,
+        Error
+    };
+
+    enum class UEType: int {
+        PushButton = 5,
+        LightSensor = 6,
+        PIRMotionSensor = 7,
+        RF4333 = 11,
+        Humidity = 30,
+        Temperature = 31,
+        Switch = 206,
+        ProximitySensor = 219,
+        Light = 233,
+        StatusLight = 999,
+        OnBoardRGBLed = 1000,
+        NinasEyes = 1007,
+        BelkinWeMoSocket = 1009
+    };
+
     explicit UDevice(QObject *parent = 0);
     ~UDevice();
 
@@ -42,8 +67,8 @@ public:
     // Properties
     QString name() const;
     void name(const QString& name);
-    int type() const;
-    void type(int type);
+    UEType type() const;
+    void type(UEType type);
     QString description() const;
     void description(const QString& description);
     QString maxValue() const;
@@ -54,20 +79,20 @@ public:
     void value(const QString& value);
     int precision() const;
     void precision(int precision);
-    int status() const;
-    void status(int status);
+    UEStatus status() const;
+    void status(UEStatus status);
     QString unitLabel() const;
     void unitLabel(const QString& unitLabel);
 
 private:
     QString m_name;
-    int m_type;
+    UEType m_type;
     QString m_description;
     QString m_maxValue;
     QString m_minValue;
     QString m_value;
     int m_precision;
-    int m_status;
+    UEStatus m_status;
     QString m_unitLabel;
     NestedListModel* m_scenarios;
 };

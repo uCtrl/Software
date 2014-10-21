@@ -26,7 +26,7 @@ QVariant UPlatform::data(int role) const
     case roomRole:
         return room();
     case statusRole:
-        return room();
+        return (int)status();
     case enabledRole:
         return enabled();
     case lastUpdatedRole:
@@ -59,7 +59,7 @@ bool UPlatform::setData(const QVariant& value, int role)
         room(value.toString());
         break;
     case statusRole:
-        status(value.toInt());
+        status((UEStatus)value.toInt());
         break;
     case enabledRole:
         enabled(value.toBool());
@@ -103,7 +103,7 @@ void UPlatform::write(QJsonObject& jsonObj) const
     jsonObj["ip"] = this->ip();
     jsonObj["port"] = this->port();
     jsonObj["room"] = this->room();
-    jsonObj["status"] = this->status();
+    jsonObj["status"] = (int)this->status();
     jsonObj["enabled"] = this->enabled();
     jsonObj["lastUpdated"] = QString::number(this->lastUpdated());
 
@@ -120,7 +120,7 @@ void UPlatform::read(const QJsonObject& jsonObj)
     this->ip(jsonObj["ip"].toString());
     this->port(jsonObj["port"].toInt());
     this->room(jsonObj["room"].toString());
-    this->status(jsonObj["status"].toInt());
+    this->status((UEStatus)jsonObj["status"].toInt());
     this->enabled(jsonObj["enabled"].toBool());
     this->lastUpdated(jsonObj["lastUpdated"].toString().toUInt());
 
@@ -192,12 +192,12 @@ void UPlatform::room(const QString &room)
     }
 }
 
-int UPlatform::status() const
+UPlatform::UEStatus UPlatform::status() const
 {
     return m_status;
 }
 
-void UPlatform::status(int status)
+void UPlatform::status(UEStatus status)
 {
     if (m_status != status) {
         m_status = status;

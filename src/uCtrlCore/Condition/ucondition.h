@@ -21,6 +21,26 @@ class UCondition : public ListItem
     };
 
 public:
+    Q_ENUMS(UEType)
+    Q_ENUMS(UEComparisonType)
+
+    enum class UEType: int {
+        None = -1,
+        Date = 1,
+        Day,
+        Time,
+        Device
+    };
+
+    enum class UEComparisonType: int {
+        None = 0,
+        GreaterThan = 0x1,
+        LesserThan = 0x2,
+        Equals = 0x4,
+        InBetween = 0x8,
+        Not = 0x16,
+    };
+
     explicit UCondition(QObject *parent = 0);
     ~UCondition();
 
@@ -34,20 +54,20 @@ public:
     void read(const QJsonObject &jsonObj);
 
     // Properties
-    inline int type() const;
-    inline void type(int type);
-    inline int comparisonType() const;
-    inline void comparisonType(int comparisonType);
-    inline QString beginValue() const;
-    inline void beginValue(const QString& beginValue);
-    inline QString endValue() const;
-    inline void endValue(const QString& endValue);
-    inline QString deviceId() const;
-    inline void deviceId(const QString& deviceId);
+    UEType type() const;
+    void type(UEType type);
+    UEComparisonType comparisonType() const;
+    void comparisonType(UEComparisonType comparisonType);
+    QString beginValue() const;
+    void beginValue(const QString& beginValue);
+    QString endValue() const;
+    void endValue(const QString& endValue);
+    QString deviceId() const;
+    void deviceId(const QString& deviceId);
 
 private:
-    int m_type;
-    int m_comparisonType;
+    UEType m_type;
+    UEComparisonType m_comparisonType;
     QString m_beginValue;
     QString m_endValue;
     QString m_deviceId;

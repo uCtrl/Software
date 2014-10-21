@@ -8,7 +8,7 @@ Rectangle {
     color: "#EDEDED"
 
     property int marginSize: 20;
-    property string section: "status";
+    property string section: "room";
     property string filterText: ""
 
     property variant sections: [

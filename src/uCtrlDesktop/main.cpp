@@ -39,6 +39,12 @@ void Init(QGuiApplication& app, QtQuick2ApplicationViewer& viewer)
         app.installTranslator(&translator);
     }
 
+    qmlRegisterType<UPlatform>("PlatformEnums", 1, 0, "UEStatus");
+    qmlRegisterType<UDevice>("DeviceEnums", 1, 0, "UEStatus");
+    qmlRegisterType<UDevice>("DeviceEnums", 1, 0, "UEType");
+    qmlRegisterType<UCondition>("ConditionEnums", 1, 0, "UEType");
+    qmlRegisterType<UCondition>("ConditionEnums", 1, 0, "UEComparisonType");
+
     qmlRegisterType<UAudioRecorder>("UAudioRecorder", 1, 0, "UAudioRecorder");
     qmlRegisterType<UVoiceControlAPI>("UVoiceControl", 1, 0, "UVoiceControl");
 

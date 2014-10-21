@@ -15,9 +15,9 @@ QVariant UCondition::data(int role) const
     case idRole:
         return id();
     case typeRole:
-        return type();
+        return (int)type();
     case comparisonTypeRole:
-        return comparisonType();
+        return (int)comparisonType();
     case beginValueRole:
         return beginValue();
     case endValueRole:
@@ -41,10 +41,10 @@ bool UCondition::setData(const QVariant& value, int role)
         id(value.toString());
         break;
     case typeRole:
-        type(value.toInt());
+        type((UEType)value.toInt());
         break;
     case comparisonTypeRole:
-        comparisonType(value.toInt());
+        comparisonType((UEComparisonType)value.toInt());
         break;
     case beginValueRole:
         beginValue(value.toString());
@@ -86,8 +86,8 @@ QHash<int, QByteArray> UCondition::roleNames() const
 void UCondition::write(QJsonObject &jsonObj) const
 {
     jsonObj["id"] = this->id();
-    jsonObj["type"] = this->type();
-    jsonObj["comparisonType"] = this->comparisonType();
+    jsonObj["type"] = (int)this->type();
+    jsonObj["comparisonType"] = (int)this->comparisonType();
     jsonObj["beginValue"] = this->beginValue();
     jsonObj["endValue"] = this->endValue();
     jsonObj["deviceId"] = this->deviceId();
@@ -98,8 +98,8 @@ void UCondition::write(QJsonObject &jsonObj) const
 void UCondition::read(const QJsonObject &jsonObj)
 {
     this->id(jsonObj["id"].toString());
-    this->type(jsonObj["type"].toInt());
-    this->comparisonType(jsonObj["comparisonType"].toInt());
+    this->type((UEType)jsonObj["type"].toInt());
+    this->comparisonType((UEComparisonType)jsonObj["comparisonType"].toInt());
     this->beginValue(jsonObj["beginValue"].toString());
     this->endValue(jsonObj["endValue"].toString());
     this->deviceId(jsonObj["deviceId"].toString());
@@ -107,12 +107,12 @@ void UCondition::read(const QJsonObject &jsonObj)
     this->lastUpdated(jsonObj["lastUpdated"].toString().toUInt());
 }
 
-int UCondition::type() const
+UCondition::UEType UCondition::type() const
 {
     return m_type;
 }
 
-void UCondition::type(int type)
+void UCondition::type(UEType type)
 {
     if (m_type != type) {
         m_type = type;
@@ -120,12 +120,12 @@ void UCondition::type(int type)
     }
 }
 
-int UCondition::comparisonType() const
+UCondition::UEComparisonType UCondition::comparisonType() const
 {
-    return m_type;
+    return m_comparisonType;
 }
 
-void UCondition::comparisonType(int comparisonType)
+void UCondition::comparisonType(UEComparisonType comparisonType)
 {
     if (m_comparisonType != comparisonType) {
         m_comparisonType = comparisonType;

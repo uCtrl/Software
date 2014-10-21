@@ -18,7 +18,7 @@ QVariant UDevice::data(int role) const
     case nameRole:
         return name();
     case typeRole:
-        return type();
+        return (int)type();
     case descriptionRole:
         return description();
     case maxValueRole:
@@ -30,7 +30,7 @@ QVariant UDevice::data(int role) const
     case precisionRole:
         return precision();
     case statusRole:
-        return status();
+        return (int)status();
     case unitLabelRole:
         return unitLabel();
     case enabledRole:
@@ -53,7 +53,7 @@ bool UDevice::setData(const QVariant& value, int role)
         name(value.toString());
         break;
     case typeRole:
-        type(value.toInt());
+        type((UEType)value.toInt());
         break;
     case descriptionRole:
         description(value.toString());
@@ -71,7 +71,7 @@ bool UDevice::setData(const QVariant& value, int role)
         precision(value.toInt());
         break;
     case statusRole:
-        status(value.toInt());
+        status((UEStatus)value.toInt());
         break;
     case unitLabelRole:
         unitLabel(value.toString());
@@ -117,13 +117,13 @@ void UDevice::write(QJsonObject& jsonObj) const
 {
     jsonObj["id"] = this->id();
     jsonObj["name"] = this->name();
-    jsonObj["type"] = this->type();
+    jsonObj["type"] = (int)this->type();
     jsonObj["description"] = this->description();
     jsonObj["maxValue"] = this->maxValue();
     jsonObj["minValue"] = this->minValue();
     jsonObj["value"] = this->value();
     jsonObj["precision"] = this->precision();
-    jsonObj["status"] = this->status();
+    jsonObj["status"] = (int)this->status();
     jsonObj["unitLabel"] = this->unitLabel();
     jsonObj["enabled"] = this->enabled();
     jsonObj["lastUpdated"] = QString::number(this->lastUpdated());
@@ -137,13 +137,13 @@ void UDevice::read(const QJsonObject &jsonObj)
 {
     this->id(jsonObj["id"].toString());
     this->name(jsonObj["name"].toString());
-    this->type(jsonObj["type"].toInt());
+    this->type((UEType)jsonObj["type"].toInt());
     this->description(jsonObj["description"].toString());
     this->maxValue(jsonObj["maxValue"].toString());
     this->minValue(jsonObj["minValue"].toString());
     this->value(jsonObj["value"].toString());
     this->precision(jsonObj["precision"].toInt());
-    this->status(jsonObj["status"].toInt());
+    this->status((UEStatus)jsonObj["status"].toInt());
     this->unitLabel(jsonObj["unitLabel"].toString());
     this->enabled(jsonObj["enabled"].toBool());
     this->lastUpdated(jsonObj["lastUpdated"].toString().toUInt());
@@ -164,12 +164,12 @@ void UDevice::name(const QString &name)
     }
 }
 
-int UDevice::type() const
+UDevice::UEType UDevice::type() const
 {
     return m_type;
 }
 
-void UDevice::type(int type)
+void UDevice::type(UEType type)
 {
     if (m_type != type) {
         m_type = type;
@@ -242,12 +242,12 @@ void UDevice::precision(int precision)
     }
 }
 
-int UDevice::status() const
+UDevice::UEStatus UDevice::status() const
 {
     return m_status;
 }
 
-void UDevice::status(int status)
+void UDevice::status(UEStatus status)
 {
     if (m_status != status) {
         m_status = status;

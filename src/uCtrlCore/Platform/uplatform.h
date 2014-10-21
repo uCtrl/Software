@@ -23,6 +23,14 @@ class UPlatform : public NestedListItem
     };
 
 public:
+    Q_ENUMS(UEStatus)
+
+    enum class UEStatus: int {
+        Ok = 0,
+        Disconnected = 1,
+        Error
+    };
+
     explicit UPlatform(QObject *parent = 0);
     ~UPlatform();
 
@@ -47,8 +55,8 @@ public:
     void port(int port);
     QString room() const;
     void room(const QString& room);
-    int status() const;
-    void status(int status);
+    UEStatus status() const;
+    void status(UEStatus status);
 
 private:
     QString m_firmwareVersion;
@@ -56,7 +64,7 @@ private:
     int m_port;
     QString m_room;
     QString m_ip;
-    int m_status;
+    UEStatus m_status;
     NestedListModel* m_devices;
 };
 
