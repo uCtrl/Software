@@ -14,6 +14,8 @@ Rectangle {
     property string hoverColor: Colors.get("uMediumLightGreen")
     property string iconColor: Colors.get("uWhite")
 
+    property bool showText: false
+
     color: backgroundColor
 
     radius: 2
@@ -31,10 +33,13 @@ Rectangle {
                 height: container.height;
                 width: (container.width / items.length)
 
-                iconColor: iconColor
+                iconColor: container.iconColor
                 color: getColor()
 
                 radius: 2
+
+                linkText: container.showText ? modelData.text : ""
+                showText: container.showText
 
                 MouseArea {
                     id: mouseArea

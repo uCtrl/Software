@@ -290,6 +290,107 @@ Rectangle {
         }
     }
 
+    Rectangle {
+        id: configuration
+
+        property int marginSize: deviceHeader.marginSize
+
+        anchors.left: deviceHeader.right
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+
+        anchors.margins: marginSize
+
+        color: Colors.get("uWhite")
+
+        Rectangle {
+            id: tabsContainer
+
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.topMargin: 10
+
+            height: 40
+
+            color: Colors.get("uTransparent")
+
+            UI.UTabs {
+                id: tabs
+
+                anchors.centerIn: parent
+
+                height: 30; width: 300
+
+                iconColor: Colors.get("uWhite")
+                showText: true
+
+                items: [
+                    {icon: "BarChart", value: "scenario", text: "Scenarios" },
+                    { icon: "BarChart", value: "log", text: "System Logs" }
+                ]
+
+                Component.onCompleted: tabs.selectedValue = "scenario"
+            }
+        }
+
+        Rectangle {
+            id: scenariosContainer
+
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: tabsContainer.bottom
+            anchors.bottom: parent.bottom
+
+            anchors.margins: configuration.marginSize
+
+            color: Colors.get("uTransparent")
+
+            visible: tabs.selectedValue === "scenario"
+
+            ULabel.Default {
+                id: scenariosLabel
+
+                text: "Scenarios"
+
+                anchors.centerIn: parent
+                font.pointSize: 36
+                font.bold: true
+
+                color: Colors.get("uGrey")
+            }
+        }
+
+        Rectangle {
+            id: logsContainer
+
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: tabsContainer.bottom
+            anchors.bottom: parent.bottom
+
+            anchors.margins: configuration.marginSize
+
+            visible: tabs.selectedValue === "log"
+
+            color: Colors.get("uTransparent")
+
+            ULabel.Default {
+                id: logsLabel
+
+                text: "System Logs"
+
+                anchors.centerIn: parent
+
+                font.pointSize: 36
+                font.bold: true
+
+                color: Colors.get("uGrey")
+            }
+        }
+    }
+
     function getName() {
         if (model !== null) return model.name
         else return "Device name"
