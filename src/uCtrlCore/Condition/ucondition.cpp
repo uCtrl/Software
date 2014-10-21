@@ -24,8 +24,6 @@ QVariant UCondition::data(int role) const
         return endValue();
     case deviceIdRole:
         return deviceId();
-    case deviceValueRole:
-        return deviceValue();
     case enabledRole:
         return enabled();
     case lastUpdatedRole:
@@ -57,9 +55,6 @@ bool UCondition::setData(const QVariant& value, int role)
     case deviceIdRole:
         deviceId(value.toString());
         break;
-    case deviceValueRole:
-        deviceValue(value.toString());
-        break;
     case enabledRole:
         enabled(value.toBool());
         break;
@@ -82,7 +77,6 @@ QHash<int, QByteArray> UCondition::roleNames() const
     roles[beginValueRole] = "beginValue";
     roles[endValueRole] = "endValue";
     roles[deviceIdRole] = "deviceId";
-    roles[deviceValueRole] = "deviceValue";
     roles[enabledRole] = "isEnabled";
     roles[lastUpdatedRole] = "lastUpdated";
 
@@ -97,7 +91,6 @@ void UCondition::write(QJsonObject &jsonObj) const
     jsonObj["beginValue"] = this->beginValue();
     jsonObj["endValue"] = this->endValue();
     jsonObj["deviceId"] = this->deviceId();
-    jsonObj["deviceValue"] = this->deviceValue();
     jsonObj["enabled"] = this->enabled();
     jsonObj["lastUpdated"] = QString::number(this->lastUpdated());
 }
@@ -110,7 +103,6 @@ void UCondition::read(const QJsonObject &jsonObj)
     this->beginValue(jsonObj["beginValue"].toString());
     this->endValue(jsonObj["endValue"].toString());
     this->deviceId(jsonObj["deviceId"].toString());
-    this->deviceValue(jsonObj["deviceValue"].toString());
     this->enabled(jsonObj["enabled"].toBool());
     this->lastUpdated(jsonObj["lastUpdated"].toString().toUInt());
 }

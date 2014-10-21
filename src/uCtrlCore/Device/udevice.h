@@ -17,6 +17,7 @@ class UDevice : public NestedListItem
         descriptionRole,
         maxValueRole,
         minValueRole,
+        valueRole,
         precisionRole,
         statusRole,
         unitLabelRole,
@@ -45,10 +46,12 @@ public:
     inline void type(int type) { m_type = type; emit dataChanged(); }
     inline QString description() const { return m_description; }
     inline void description(const QString& description) { m_description = description; emit dataChanged(); }
-    inline int maxValue() const{ return m_maxValue; }
-    inline void maxValue(int maxValue) { m_maxValue = maxValue; emit dataChanged(); }
-    inline int minValue() const{ return m_minValue; }
-    inline void minValue(int minValue) { m_minValue = minValue; emit dataChanged(); }
+    inline QString maxValue() const{ return m_maxValue; }
+    inline void maxValue(const QString& maxValue) { m_maxValue = maxValue; emit dataChanged(); }
+    inline QString minValue() const{ return m_minValue; }
+    inline void minValue(const QString& minValue) { m_minValue = minValue; emit dataChanged(); }
+    inline QString value() const{ return m_value; }
+    inline void value(const QString& value) { m_value = value; emit dataChanged(); }
     inline int precision() const{ return m_precision; }
     inline void precision(int precision) { m_precision = precision; emit dataChanged(); }
     inline int status() const{ return m_status; }
@@ -60,8 +63,9 @@ private:
     QString m_name;
     int m_type;
     QString m_description;
-    int m_maxValue;
-    int m_minValue;
+    QString m_maxValue;
+    QString m_minValue;
+    QString m_value;
     int m_precision;
     int m_status;
     QString m_unitLabel;

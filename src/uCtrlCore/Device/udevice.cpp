@@ -25,6 +25,8 @@ QVariant UDevice::data(int role) const
         return maxValue();
     case minValueRole:
         return minValue();
+    case valueRole:
+        return value();
     case precisionRole:
         return precision();
     case statusRole:
@@ -57,10 +59,13 @@ bool UDevice::setData(const QVariant& value, int role)
         description(value.toString());
         break;
     case maxValueRole:
-        maxValue(value.toInt());
+        maxValue(value.toString());
         break;
     case minValueRole:
-        minValue(value.toInt());
+        minValue(value.toString());
+        break;
+    case valueRole:
+        this->value(value.toString());
         break;
     case precisionRole:
         precision(value.toInt());
@@ -93,6 +98,7 @@ QHash<int, QByteArray> UDevice::roleNames() const
     roles[descriptionRole] = "description";
     roles[maxValueRole] = "maxValue";
     roles[minValueRole] = "minValue";
+    roles[valueRole] = "value";
     roles[precisionRole] = "precision";
     roles[statusRole] = "status";
     roles[unitLabelRole] = "unitLabel";
@@ -115,6 +121,7 @@ void UDevice::write(QJsonObject& jsonObj) const
     jsonObj["description"] = this->description();
     jsonObj["maxValue"] = this->maxValue();
     jsonObj["minValue"] = this->minValue();
+    jsonObj["value"] = this->value();
     jsonObj["precision"] = this->precision();
     jsonObj["status"] = this->status();
     jsonObj["unitLabel"] = this->unitLabel();
@@ -132,8 +139,9 @@ void UDevice::read(const QJsonObject &jsonObj)
     this->name(jsonObj["name"].toString());
     this->type(jsonObj["type"].toInt());
     this->description(jsonObj["description"].toString());
-    this->maxValue(jsonObj["maxValue"].toInt());
-    this->minValue(jsonObj["minValue"].toInt());
+    this->maxValue(jsonObj["maxValue"].toString());
+    this->minValue(jsonObj["minValue"].toString());
+    this->value(jsonObj["value"].toString());
     this->precision(jsonObj["precision"].toInt());
     this->status(jsonObj["status"].toInt());
     this->unitLabel(jsonObj["unitLabel"].toString());
