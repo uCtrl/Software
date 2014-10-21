@@ -2,6 +2,7 @@ import QtQuick 2.0
 
 import "../ui" as UI
 import "../label" as ULabel
+import "../ui/UColors.js" as Colors
 
 Rectangle {
     id: listItem
@@ -23,7 +24,7 @@ Rectangle {
         anchors.leftMargin: 5
         anchors.verticalCenter: parent.verticalCenter
 
-        color: "#0D9B0D"
+        color: Colors.get("uGreen")
 
         // @TODO : Replace with proper icon when ready.
         UI.UFontAwesome {
@@ -33,7 +34,7 @@ Rectangle {
 
             iconId: "Bolt"
             iconSize: 24
-            iconColor: "white"
+            iconColor: Colors.get("uWhite")
         }
     }
 
@@ -49,13 +50,13 @@ Rectangle {
 
         iconId: "ChevronRight"
         iconSize: 22
-        iconColor: "#D4D4D4"
+        iconColor: Colors.get("uMediumLightGrey")
     }
 
     ULabel.Default {
         text: getName()
 
-        color: "black"
+        color: Colors.get("uBlack")
 
         font.bold: true
         font.pointSize: 18
@@ -73,7 +74,7 @@ Rectangle {
         width: parent.width
         height: 1
 
-        color: "#D4D4D4"
+        color: Colors.get("uMediumLightGrey")
 
         anchors.bottom: parent.bottom
     }
@@ -86,8 +87,8 @@ Rectangle {
     }
 
     function getColor() {
-        if (mouseArea.containsMouse) return "#EDEDED"
-        else return "white"
+        if (mouseArea.containsMouse) return Colors.get("uLightGrey")
+        else return Colors.get("uWhite")
     }
 
     function getName() {

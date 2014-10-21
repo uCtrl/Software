@@ -1,11 +1,12 @@
 import QtQuick 2.0
+import "UColors.js" as Colors
 
 Rectangle {
     id: imageContainer
 
     property string img: "unknown"
 
-    color: "transparent"
+    color: Colors.get("uTransparent")
 
     Image {
         width: parent.width

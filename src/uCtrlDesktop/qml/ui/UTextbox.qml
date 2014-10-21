@@ -3,6 +3,7 @@ import QtQuick.Controls 1.0
 import QtQuick.Controls.Styles 1.0
 
 import "../ui" as UI
+import "UColors.js" as Colors
 
 Rectangle {
     id: container
@@ -18,51 +19,51 @@ Rectangle {
     width: 100
     height: 25
 
-    color: "transparent"
+    color: Colors.get("uTransparent")
 
     state: "ENABLED"
 
     function getBackgroundColor() {
         switch (state) {
             case "DISABLED":
-                return "#EDEDED"
+                return Colors.get("uLightGrey")
             default:
-                return "white"
+                return Colors.get("uWhite")
         }
     }
 
     function getBorderColor() {
         switch (state) {
             case "SUCCESS":
-                return "#0D9B0D"
+                return Colors.get("uGreen")
             case "ERROR":
-                return "#A60E0E"
+                return Colors.get("uDarkRed")
             default:
-                return "#AAAAAA"
+                return Colors.get("uGrey")
         }
     }
 
     function getIconColor() {
         switch (state) {
             case "SUCCESS":
-                return "#0D9B0D"
+                return Colors.get("uGreen")
             case "ERROR":
-                return "#A60E0E"
+                return Colors.get("uDarkRed")
             default:
-                return "transparent"
+                return Colors.get("uTransparent")
         }
     }
 
     function getTextColor() {
         switch (state) {
             case "ENABLED":
-                return "black"
+                return Colors.get("uBlack")
             case "DISABLED":
-                return "#AAAAAA"
+                return Colors.get("uGrey")
             case "ERROR":
-                return "#A60E0E"
+                return Colors.get("uDarkRed")
             case "SUCCESS":
-                return "#0D9B0D"
+                return Colors.get("uGreen")
         }
     }
 
@@ -86,7 +87,7 @@ Rectangle {
             padding.left: 10
             padding.right: 10
             textColor: getTextColor()
-            selectedTextColor: "white"
+            selectedTextColor: Colors.get("uWhite")
             selectionColor: getBorderColor()
 
             background: Rectangle {
@@ -139,7 +140,7 @@ Rectangle {
 
             anchors.centerIn: parent
             iconSize: container.iconSize
-            iconColor: (container.state === "SUCCESS" || container.state === "ERROR" ? "white" : "#AAAAAA")
+            iconColor: (container.state === "SUCCESS" || container.state === "ERROR" ? Colors.get("uWhite") : Colors.get("uGrey"))
         }
     }
 }

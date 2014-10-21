@@ -1,13 +1,5 @@
 include( ../uCtrl.pri )
 
-# Add more folders to ship with the application, here
-folder_01.source = qml/uCtrlDesktopQml
-folder_01.target = qml
-folder_02.source = qml/jbQuick
-folder_02.target = qml
-DEPLOYMENTFOLDERS = folder_01 \
-                    folder_02
-
 QT += network
 QT += multimedia
 
@@ -40,8 +32,6 @@ HEADERS += \
     Voice/uvoicecontrolapi.h \
     Voice/uvoicecontrolresponse.h
 
-INCLUDEPATH += \
-    qml/uCtrlDesktopQml/
 
 RESOURCES += \
     Resources.qrc

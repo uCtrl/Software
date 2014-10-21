@@ -1,12 +1,13 @@
 import QtQuick 2.0
 
 import "../ui" as UI
+import "../ui/UColors.js" as Colors
 
 Rectangle {
 
     id: navbar
 
-    color: "#3C3C3C"
+    color: Colors.get("uDarkGrey")
     width: 67;
 
     property variant pages: []
@@ -32,7 +33,7 @@ Rectangle {
                     id: icon
 
                     iconId: modelData.icon
-                    iconColor: "white"
+                    iconColor: Colors.get("uWhite")
                     iconSize: 24
                     anchors.centerIn: parent
                 }
@@ -53,8 +54,8 @@ Rectangle {
                 }
 
                 function getBackgroundColor() {
-                    if (mouseArea.containsMouse) return "#5A5A5A"
-                    else if (main.currentPage === modelData.file) return "#222222"
+                    if (mouseArea.containsMouse) return Colors.get("uDarkGreyHover")
+                    else if (main.currentPage === modelData.file) return Colors.get("uDarkestGrey")
                     else return navbar.color
                 }
             }

@@ -1,11 +1,12 @@
 import QtQuick 2.0
+import "UColors.js" as Colors
 
 Rectangle {
     id: saveCancel
     width: saveButton.width + cancelButton.width + 5
     height: 30
 
-    color: "transparent"
+    color: Colors.get("uTransparent")
 
     property bool saveEnabled: true
 
@@ -41,8 +42,8 @@ Rectangle {
         width: parent.height
         height: parent.height
 
-        buttonColor: "#A60E0E"
-        buttonHoveredColor: "#D90E0E"
+        buttonColor: Colors.get("uDarkRed")
+        buttonHoveredColor: Colors.get("uRed")
 
         onClicked: {
             saveCancel.cancel()

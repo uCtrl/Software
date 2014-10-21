@@ -1,6 +1,7 @@
 import QtQuick 2.0
 
 import "../label" as ULabel
+import "../ui/UColors.js" as Colors
 
 Rectangle {
 
@@ -23,7 +24,7 @@ Rectangle {
 
         text: getName()
 
-        color: "black"
+        color: Colors.get("uBlack")
 
         font.bold: true
         font.pointSize: 16
@@ -37,7 +38,7 @@ Rectangle {
 
         text: "Updated a second ago."
 
-        color: "#737373"
+        color: Colors.get("uMediumDarkGrey")
 
         font.pixelSize: 11
     }
@@ -50,12 +51,12 @@ Rectangle {
 
         anchors.bottom: parent.bottom
 
-        color: "#D4D4D4"
+        color: Colors.get("uMediumLightGrey")
     }
 
     function getColor() {
-        if (mouseArea.containsMouse) return "#EDEDED"
-        else return "white"
+        if (mouseArea.containsMouse) return Colors.get("uLightGrey")
+        else return Colors.get("uWhite")
     }
 
     function getName() {

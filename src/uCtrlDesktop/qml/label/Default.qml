@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import "../ui/UColors.js" as Colors
 
 Text {
     id: dflt
@@ -6,7 +7,7 @@ Text {
     font.pointSize: 12
     renderType: Text.NativeRendering
     wrapMode: Text.WordWrap
-    color: "black"
+    color: Colors.get("uBlack")
     text: ""
 
     /*onTextChanged: {

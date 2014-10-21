@@ -2,6 +2,7 @@ import QtQuick 2.0
 
 import "../ui" as UI
 import "../label" as ULabel
+import "../ui/UColors.js" as Colors
 
 Rectangle {
 
@@ -12,14 +13,14 @@ Rectangle {
     property variant model: main.activeDevice
     property bool showEditMode: false
 
-    color: "transparent"
+    color: Colors.get("uTransparent")
 
     Rectangle {
         id: deviceHeader
 
         property int marginSize: 20
 
-        color: "white"
+        color: Colors.get("uWhite")
 
         anchors.top: parent.top
         anchors.left: parent.left
@@ -39,7 +40,7 @@ Rectangle {
 
             height: 40; width: 40
 
-            color: "#0D9B0D"
+            color: Colors.get("uGreen")
 
             radius: 4
 
@@ -48,7 +49,7 @@ Rectangle {
 
                 anchors.centerIn: parent
 
-                color: "white"
+                color: Colors.get("uWhite")
 
                 font.pointSize: 18
                 font.bold: false
@@ -81,10 +82,10 @@ Rectangle {
 
                 height: 40; width: 40
 
-                buttonTextColor: "#AAAAAA"
-                buttonColor: "transparent"
-                buttonHoveredTextColor: "#0D9B0D"
-                buttonHoveredColor: "transparent"
+                buttonTextColor: Colors.get("uGrey")
+                buttonColor: Colors.get("uTransparent")
+                buttonHoveredTextColor: Colors.get("uGreen")
+                buttonHoveredColor: Colors.get("uTransparent")
 
                 onClicked: showEditMode = true
 
@@ -125,7 +126,7 @@ Rectangle {
                 font.pointSize: 24
                 font.bold: true
 
-                color: "black"
+                color: Colors.get("uBlack")
 
                 text: getName()
 
@@ -216,7 +217,7 @@ Rectangle {
 
                 iconSize: 14
                 iconId: "Time"
-                iconColor: "#AAAAAA"
+                iconColor: Colors.get("uGrey")
             }
 
             ULabel.Default {
@@ -235,7 +236,7 @@ Rectangle {
                 font.bold: false
                 font.family: "Lato"
 
-                color: "#AAAAAA"
+                color: Colors.get("uGrey")
             }
         }
 

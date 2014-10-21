@@ -1,11 +1,12 @@
 import QtQuick 2.0
 
 import "../label" as ULabel
+import "UColors.js" as Colors
 
 Item {
     property string iconId: "Ok"
     property int iconSize: 16
-    property color iconColor: "black"
+    property color iconColor: Colors.get("uBlack")
 
     property variant fontawesome: {
         "Glass"             : "\uf000",

@@ -3,12 +3,13 @@ import QtQuick 2.0
 import "../device" as Device
 import "../label" as ULabel
 import "../ui" as UI
+import "../ui/UColors.js" as Colors
 
 Rectangle {
 
     id: platformInfo
 
-    color: "transparent"
+    color: Colors.get("uTransparent")
 
     property variant model: null
     property int marginSize: 20
@@ -24,7 +25,7 @@ Rectangle {
         anchors.fill: parent
         anchors.margins: 20
 
-        color: "transparent"
+        color: Colors.get("uTransparent")
 
         ULabel.Default {
 
@@ -34,7 +35,7 @@ Rectangle {
 
             font.pointSize: 28
             font.bold: true
-            color: "#AAAAAA"
+            color: Colors.get("uGrey")
         }
     }
 
@@ -45,7 +46,7 @@ Rectangle {
 
         anchors.fill: parent
 
-        color: "white"
+        color: Colors.get("uWhite")
 
         Rectangle {
             id: nameContainer
@@ -71,10 +72,10 @@ Rectangle {
 
                 width: 40
 
-                buttonTextColor: "#AAAAAA"
-                buttonColor: "transparent"
-                buttonHoveredTextColor: "#0D9B0D"
-                buttonHoveredColor: "transparent"
+                buttonTextColor: Colors.get("uGrey")
+                buttonColor: Colors.get("uTransparent")
+                buttonHoveredTextColor: Colors.get("uGreen")
+                buttonHoveredColor: Colors.get("uTransparent")
 
                 onClicked: toggleEditMode()
 
@@ -91,7 +92,7 @@ Rectangle {
                 font.pointSize: 24
                 font.bold: true
 
-                color: "black"
+                color: Colors.get("uBlack")
 
                 text: getName()
 
@@ -252,7 +253,7 @@ Rectangle {
             anchors.leftMargin: 20
             anchors.rightMargin: 20
 
-            color: "#D4D4D4"
+            color: Colors.get("uMediumLightGrey")
         }
 
         Rectangle {
@@ -267,10 +268,10 @@ Rectangle {
 
             height: showAdvanced ? 100 : 30
 
-            color: "#EDEDED"
+            color: Colors.get("uLightGrey")
 
             border.width: 0.5
-            border.color: "transparent"
+            border.color: Colors.get("uTransparent")
             radius: 4
 
             Row {
@@ -289,7 +290,7 @@ Rectangle {
                 ULabel.Default {
                     width: (parent.width / 4); height: parent.height
 
-                    color: "#AAAAAA"
+                    color: Colors.get("uGrey")
                     font.family: "Courier"
                     font.pointSize: 11
 
@@ -299,7 +300,7 @@ Rectangle {
                 ULabel.Default {
                     width: 3*(parent.width / 4); height: parent.height
 
-                    color: "#AAAAAA"
+                    color: Colors.get("uGrey")
                     font.family: "Courier"
                     font.pointSize: 11
 
@@ -321,7 +322,7 @@ Rectangle {
                 ULabel.Default {
                     width: (parent.width / 4); height: parent.height
 
-                    color: "#AAAAAA"
+                    color: Colors.get("uGrey")
                     font.family: "Courier"
                     font.pointSize: 11
 
@@ -331,7 +332,7 @@ Rectangle {
                 ULabel.Default {
                     width: 3*(parent.width / 4); height: parent.height
 
-                    color: "#AAAAAA"
+                    color: Colors.get("uGrey")
                     font.family: "Courier"
                     font.pointSize: 11
 
@@ -353,7 +354,7 @@ Rectangle {
                 ULabel.Default {
                     width: (parent.width / 4); height: parent.height
 
-                    color: "#AAAAAA"
+                    color: Colors.get("uGrey")
                     font.family: "Courier"
                     font.pointSize: 11
 
@@ -363,7 +364,7 @@ Rectangle {
                 ULabel.Default {
                     width: 3*(parent.width / 4); height: parent.height
 
-                    color: "#AAAAAA"
+                    color: Colors.get("uGrey")
                     font.family: "Courier"
                     font.pointSize: 11
 
@@ -385,7 +386,7 @@ Rectangle {
                 ULabel.Default {
                     width: (parent.width / 4); height: parent.height
 
-                    color: "#AAAAAA"
+                    color: Colors.get("uGrey")
                     font.family: "Courier"
                     font.pointSize: 11
 
@@ -395,7 +396,7 @@ Rectangle {
                 ULabel.Default {
                     width: 3*(parent.width / 4); height: parent.height
 
-                    color: "#AAAAAA"
+                    color: Colors.get("uGrey")
                     font.family: "Courier"
                     font.pointSize: 11
 
@@ -413,7 +414,7 @@ Rectangle {
 
                 iconId: "earth"
                 iconSize: 12
-                iconColor: "#AAAAAA"
+                iconColor: Colors.get("uGrey")
             }
 
             ULabel.Default {
@@ -427,7 +428,7 @@ Rectangle {
 
                 font.family: "Courier"
 
-                color: "#AAAAAA"
+                color: Colors.get("uGrey")
             }
 
             MouseArea {
@@ -437,7 +438,7 @@ Rectangle {
                 hoverEnabled: true
                 onHoveredChanged: {
                     advancedText.font.underline = containsMouse
-                    advanced.border.color = (containsMouse ? "#AAAAAA" : "transparent")
+                    advanced.border.color = (containsMouse ? Colors.get("uGrey") : Colors.get("uTransparent"))
                 }
 
                 onClicked: showAdvanced = !showAdvanced

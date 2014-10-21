@@ -1,11 +1,12 @@
 import QtQuick 2.0
 
 import "../ui" as UI
+import "../ui/UColors.js" as Colors
 
 Rectangle {
     id: titlebar
 
-    color: "#0D9B0D"
+    color: Colors.get("uGreen")
     height: 65
 
     UI.UImage {

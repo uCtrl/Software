@@ -1,7 +1,4 @@
 <RCC>
-    <qresource prefix="/qml">
-        <file alias="main.qml">qml/main.qml</file>
-    </qresource>
     <qresource prefix="/titlebar">
         <file alias="Titlebar.qml">qml/component/titlebar.qml</file>
     </qresource>
@@ -52,6 +49,7 @@
         <file alias="USwitch.qml">qml/ui/USwitch.qml</file>
         <file alias="UTabs.qml">qml/ui/UTabs.qml</file>
         <file alias="UTabItem.qml">qml/ui/UTabItem.qml</file>
+        <file alias="UColors.js">qml/ui/UColors.js</file>
     </qresource>
     <qresource prefix="/platform">
         <file alias="Platforms.qml">qml/platform/Platforms.qml</file>
@@ -65,5 +63,8 @@
     </qresource>
     <qresource prefix="/data">
         <file>data.json</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>qml/main.qml</file>
     </qresource>
 </RCC>

@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
+import "UColors.js" as Colors
 
 Rectangle {
 
@@ -20,21 +21,21 @@ Rectangle {
     width: 200
     height: 40
 
-    color: "transparent"
+    color: Colors.get("uTransparent")
 
     Rectangle {
         id: valueBackground
         width: parent.width - parent.height / 2
         height: parent.height
 
-        color: "#D4D4D4"
+        color: Colors.get("uMediumLightGrey")
         radius: 2
 
         Rectangle {
             id: valueField
             width: combo.width - dropDownIcon.width
             height: parent.height
-            color: "transparent"
+            color: Colors.get("uTransparent")
 
             UComboboxItem {
                     id: valueItem
@@ -44,7 +45,7 @@ Rectangle {
                     anchors.centerIn: parent
 
                     itemData: selectedItem
-                    textColor: "#737373"
+                    textColor: Colors.get("uMediumDarkGrey")
             }
         }
     }
@@ -55,14 +56,14 @@ Rectangle {
         height: parent.height
         anchors.right: parent.right
 
-        color: "#D4D4D4"
+        color: Colors.get("uMediumLightGrey")
         radius: 2
 
         UFontAwesome {
             id: arrowDown
 
             iconId: "CaretDown"
-            iconColor: "#737373"
+            iconColor: Colors.get("uMediumDarkGrey")
             iconSize: 14
             anchors.centerIn: parent
         }
@@ -76,7 +77,7 @@ Rectangle {
             anchors.top: parent.bottom
             anchors.topMargin: 5
             anchors.horizontalCenter: parent.horizontalCenter
-            color: "transparent"
+            color: Colors.get("uTransparent")
             z: 2
             visible: false
 
@@ -85,7 +86,7 @@ Rectangle {
                 height: 10
                 iconId: "CaretUp"
                 iconSize: 16
-                iconColor: "#D4D4D4"
+                iconColor: Colors.get("uMediumLightGrey")
 
                 anchors.top: parent.top
                 anchors.right: parent.right
@@ -100,7 +101,7 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 height: dropDown.height - 10
                 radius: 2
-                color: "#D4D4D4"
+                color: Colors.get("uMediumLightGrey")
 
                 Rectangle {
                     property int selectedIndex: 0
@@ -109,7 +110,7 @@ Rectangle {
                     width: parent.width - 10
                     height: parent.height - 10
                     anchors.centerIn: parent
-                    color: "transparent"
+                    color: Colors.get("uTransparent")
 
                     ListView {
                         property var pComboBoxItemContainer: null

@@ -1,10 +1,11 @@
 import QtQuick 2.0
+import "../ui/UColors.js" as Colors
 
 Rectangle {
 
     id: container
 
-    color: "white"
+    color: Colors.get("uWhite")
 
     property variant model: null
 

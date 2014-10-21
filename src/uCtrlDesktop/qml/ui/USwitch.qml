@@ -1,6 +1,7 @@
 import QtQuick 2.0
 
 import "../label" as ULabel
+import "UColors.js" as Colors
 
 Rectangle {
     property int borderRadius: 5
@@ -12,7 +13,7 @@ Rectangle {
     width: 65
     height: 27
     radius: height / 2
-    color: "#DAF2DA"
+    color: Colors.get("uLightGreen")
 
     clip: true
 
@@ -30,14 +31,14 @@ Rectangle {
         id: labelOnContainer
         width: parent.width - circle.width - borderRadius
         anchors.right: circle.left
-        color: "transparent"
+        color: Colors.get("uTransparent")
         height: parent.height
 
         ULabel.Heading4 {
             id: onLabel
             text: "ON"
             anchors.centerIn: parent
-            color: "#0D9B0D"
+            color: Colors.get("uGreen")
             font.bold: true
             font.pointSize: 12
         }
@@ -47,7 +48,7 @@ Rectangle {
         id: labelOffContainer
         width: parent.width - circle.width - borderRadius
         anchors.left: circle.right
-        color: "transparent"
+        color: Colors.get("uTransparent")
         opacity: 0.9
         height: parent.height
 
@@ -55,7 +56,7 @@ Rectangle {
             id: offLabel
             text: "OFF"
             anchors.centerIn: parent
-            color: "white"
+            color: Colors.get("uWhite")
             opacity: 0
             font.bold: true
             font.pointSize: 12
@@ -81,8 +82,8 @@ Rectangle {
     states: [
         State {
             name: "ON"
-            PropertyChanges { target: circle; color: "#0D9B0D" }
-            PropertyChanges { target: container; color: "#DAF2DA" }
+            PropertyChanges { target: circle; color: Colors.get("uGreen") }
+            PropertyChanges { target: container; color: Colors.get("uLightGreen") }
             PropertyChanges { target: onLabel; opacity: 1 }
             PropertyChanges { target: offLabel; opacity: 0 }
             PropertyChanges {
@@ -92,8 +93,8 @@ Rectangle {
         },
         State {
             name: "OFF"
-            PropertyChanges { target: circle; color: "#737373" }
-            PropertyChanges { target: container; color: "#D4D4D4" }
+            PropertyChanges { target: circle; color: Colors.get("uMediumDarkGrey") }
+            PropertyChanges { target: container; color: Colors.get("uMediumLightGrey") }
             PropertyChanges { target: onLabel; opacity: 0 }
             PropertyChanges { target: offLabel; opacity: 1 }
             PropertyChanges {

@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import "UColors.js" as Colors
 
 Rectangle {
     id: container
@@ -18,22 +19,22 @@ Rectangle {
         State {
             name: "NORMAL"
             PropertyChanges { target: container; color: "transparent" }
-            PropertyChanges { target: item; textColor: "#737373" }
+            PropertyChanges { target: item; textColor: Colors.get("uMediumDarkGrey") }
         },
         State {
             name: "HOVERED"
-            PropertyChanges { target: container; color: "#AAAAAA" }
-            PropertyChanges { target: item; textColor: "#EDEDED" }
+            PropertyChanges { target: container; color: Colors.get("uGrey") }
+            PropertyChanges { target: item; textColor: Colors.get("uLightGrey") }
         },
         State {
             name: "SELECTED"
-            PropertyChanges { target: container; color: "#0D9B0D" }
-            PropertyChanges { target: item; textColor: "white" }
+            PropertyChanges { target: container; color: Colors.get("uGreen") }
+            PropertyChanges { target: item; textColor: Colors.get("uWhite") }
         },
         State {
             name: "HOVERED SELECTED"
-            PropertyChanges { target: container; color: "#0D740D" }
-            PropertyChanges { target: item; textColor: "white" }
+            PropertyChanges { target: container; color: Colors.get("uDarkGreen") }
+            PropertyChanges { target: item; textColor: Colors.get("uWhite") }
         }
     ]
 

@@ -1,5 +1,7 @@
 import QtQuick 2.0
 
+import "UColors.js" as Colors
+
 Rectangle {
 
     id: container
@@ -7,10 +9,10 @@ Rectangle {
     property variant items: null
     property string selectedValue: ""
 
-    property string backgroundColor: "#0D9B0D"
-    property string selectedColor: "#0D740D"
-    property string hoverColor: "#0DBE0D"
-    property string iconColor: "white"
+    property string backgroundColor: Colors.get("uGreen")
+    property string selectedColor: Colors.get("uDarkGreen")
+    property string hoverColor: Colors.get("uMediumLightGreen")
+    property string iconColor: Colors.get("uWhite")
 
     color: backgroundColor
 

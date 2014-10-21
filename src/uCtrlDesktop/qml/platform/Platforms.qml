@@ -1,11 +1,12 @@
 import QtQuick 2.0
 
 import "../ui" as UI
+import "../ui/UColors.js" as Colors
 
 Rectangle {
     id: platformsList
 
-    color: "#EDEDED"
+    color: Colors.get("uLightGrey")
 
     property int marginSize: 20;
     property string section: "room";
@@ -28,7 +29,7 @@ Rectangle {
         height: 35
         width: (parent.width/2) - parent.marginSize
 
-        color: "transparent"
+        color: Colors.get("uTransparent")
 
         z: 2
 
@@ -90,7 +91,7 @@ Rectangle {
 
         width: filters.width
 
-        color: "white"
+        color: Colors.get("uWhite")
 
         ListView {
             id: platforms
@@ -104,7 +105,7 @@ Rectangle {
 
                 width: parent.width; height: parent.height;
 
-                color: "#D4D4D4"
+                color: Colors.get("uMediumLightGrey")
                 opacity: 0.6
 
                 visible: (platformInfo.model != null)
@@ -158,7 +159,7 @@ Rectangle {
 
                 width: parent.width; height: 20;
 
-                color: "#0D9B0D"
+                color: Colors.get("uGreen")
 
                 Text {
                     id: headerText
@@ -168,7 +169,7 @@ Rectangle {
                     font.bold: true
 
                     text: section
-                    color: "white"
+                    color: Colors.get("uWhite")
 
                     anchors.left: parent.left
                     anchors.leftMargin: 5

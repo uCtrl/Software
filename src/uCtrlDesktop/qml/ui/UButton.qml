@@ -3,6 +3,7 @@ import QtQuick.Controls 1.0
 import QtQuick.Controls.Styles 1.0
 
 import "../label" as ULabel
+import "UColors.js" as Colors
 
 Rectangle {
     id: button
@@ -10,15 +11,15 @@ Rectangle {
     property string text: ""
     property string iconId: ""
     property int iconSize: 16
-    property color buttonColor: "#0D9B0D"
-    property color buttonHoveredColor: "#0DBE0D"
-    property color buttonTextColor : "white"
+    property color buttonColor: Colors.get("uGreen")
+    property color buttonHoveredColor: Colors.get("uMediumLightGreen")
+    property color buttonTextColor : Colors.get("uWhite")
     property color buttonHoveredTextColor : buttonTextColor
-    property color buttonDisabledColor : "#EDEDED"
-    property color buttonDisabledTextColor : "#3C3C3C"
-    property color buttonErrorColor : "#A60E0E"
-    property color buttonErrorHoveredColor : "#D90E0E"
-    property color buttonErrorTextColor : "white"
+    property color buttonDisabledColor : Colors.get("uLightGrey")
+    property color buttonDisabledTextColor : Colors.get("uDarkGrey")
+    property color buttonErrorColor : Colors.get("uDarkRed")
+    property color buttonErrorHoveredColor : Colors.get("uRed")
+    property color buttonErrorTextColor : Colors.get("uWhite")
     property bool bold: true
 
 
@@ -26,7 +27,7 @@ Rectangle {
     width: 100
     radius: 4
 
-    color: "#0D9B0D"
+    color: Colors.get("uGreen")
     state: "ENABLED"
 
     signal clicked
@@ -68,7 +69,7 @@ Rectangle {
         id: content
         width: icon.width + label.width
         height: parent.height
-        color: "transparent"
+        color: Colors.get("uTransparent")
         anchors.centerIn: parent
 
         UFontAwesome {
@@ -83,7 +84,7 @@ Rectangle {
         ULabel.Default {
             id: label
             font.bold: button.bold
-            color: "white"
+            color: Colors.get("uTransparent")
             text: button.text
             anchors.left: icon.right
             anchors.verticalCenter: parent.verticalCenter
