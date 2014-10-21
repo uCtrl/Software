@@ -3,6 +3,8 @@
 UNinjaAPI::UNinjaAPI(QObject *parent) :
     QObject(parent)
 {
+    m_userAccessToken = "107f6f460bed2dbb10f0a93b994deea7fe07dad5";
+
     m_manager = new QNetworkAccessManager(this);
     connect(m_manager, SIGNAL(finished(QNetworkReply*)),
             this, SLOT(replyFinished(QNetworkReply*)));

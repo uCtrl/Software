@@ -19,7 +19,7 @@ private slots:
     void replyFinished(QNetworkReply* reply);
 private:
     // Hardcoded user access token
-    const QString m_userAccessToken = "107f6f460bed2dbb10f0a93b994deea7fe07dad5";
+    QString m_userAccessToken;
     QNetworkAccessManager* m_manager;
 };
 
