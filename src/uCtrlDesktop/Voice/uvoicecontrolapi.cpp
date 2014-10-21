@@ -40,55 +40,30 @@ void UVoiceControlAPI::analyseIntent()
 
     if (voiceControlResponse.getIntent() == QString("turn_onoff_all_lights"))
     {
-        QJsonObject entities = voiceControlResponse.getEntities();
-        QJsonValue onoffValue = entities["on_off"];
-        QJsonArray onOffArray = onoffValue.toArray();
-        QJsonObject firstObject = onOffArray.first().toObject();
-        QString onoffString = firstObject["value"].toString();
-        //qDebug() << onoffString;
+        bool onOffValue = voiceControlResponse.getOnOff("on_off");
     }
     else if (voiceControlResponse.getIntent() == QString("set_ninja_eyes_color"))
     {
-        QJsonObject entities = voiceControlResponse.getEntities();
-        QJsonValue colorValue = entities["uctrl_color"];
-        QJsonArray colorArray = colorValue.toArray();
-        QJsonObject firstObject = colorArray.first().toObject();
-        QString colorString = firstObject["value"].toString();
+        QString colorString = voiceControlResponse.getStringValue("uctrl_color");
 
         USetNinjaEyesColorIntent setNinjaEyesColorIntent(&m_ninjaAPI, "1014BBBK6089_0_0_1007");
         setNinjaEyesColorIntent.setNinjaEyesColors(colorString);
     }
     else if (voiceControlResponse.getIntent() == QString("turn_onoff_plugs_in_location"))
     {
-        QJsonObject entities = voiceControlResponse.getEntities();
-        QJsonValue onoffValue = entities["uctrl_onoff"];
-        QJsonArray onOffArray = onoffValue.toArray();
-        QJsonObject firstObject = onOffArray.first().toObject();
-        QString onoffString = firstObject["value"].toString();
+        bool isOn = voiceControlResponse.getOnOff("uctrl_onoff");
+        QString locationName = voiceControlResponse.getStringValue("location");
 
-        QJsonValue locationValue = entities["location"];
-        QJsonArray locationArray = locationValue.toArray();
-        firstObject = locationArray.first().toObject();
-        QString locationString = firstObject["value"].toString();
-
-        UTurnOnOffPlugIntent intent(&m_ninjaAPI, "1014BBBK6089_0_0_11", onoffString == QString("on") ? true : false);
-        intent.turnOnOffPlugInLocation(locationString);
+        UTurnOnOffPlugIntent intent(&m_ninjaAPI, "1014BBBK6089_0_0_11", isOn);
+        intent.turnOnOffPlugInLocation(locationName);
     }
     else if (voiceControlResponse.getIntent() == QString("turn_onoff_plug_with_id"))
     {
-        QJsonObject entities = voiceControlResponse.getEntities();
-        QJsonValue onoffValue = entities["uctrl_onoff"];
-        QJsonArray onOffArray = onoffValue.toArray();
-        QJsonObject firstObject = onOffArray.first().toObject();
-        QString onoffString = firstObject["value"].toString();
+        bool isOn = voiceControlResponse.getOnOff("uctrl_onoff");
+        int plugId = voiceControlResponse.getInt("number");
 
-        QJsonValue idValue = entities["number"];
-        QJsonArray idArray = idValue.toArray();
-        firstObject = idArray.first().toObject();
-        long id = firstObject["value"].toInt();
-
-        UTurnOnOffPlugIntent intent(&m_ninjaAPI, "1014BBBK6089_0_0_11", onoffString == QString("on") ? true : false);
-        intent.turnOnOffPlugWithId(id);
+        UTurnOnOffPlugIntent intent(&m_ninjaAPI, "1014BBBK6089_0_0_11", isOn);
+        intent.turnOnOffPlugWithId(plugId);
     }
     return;
 }
@@ -115,41 +90,4 @@ void  UVoiceControlAPI::replyFinished(QNetworkReply* reply)
         voiceFile = NULL;
     }
     delete reply;
-}
-
-void UVoiceControlAPI::testLimitlessLED()
-{
-    QUdpSocket* clientSocket = new QUdpSocket(this);
-    //m_oClientSocket ->connect(m_oClientSocket , SIGNAL(readyRead()), this, SLOT(__onClientRecv()));
-
-    //QString sSendMsg = ui->txtClientSend->text();
-    //m_oClientSocket->writeDatagram(sSendMsg.toUtf8(), QHostAddress::LocalHost, sPort.toInt());
-    //QUdpSocket socket;
-
-    QByteArray b = QByteArray("Link_Wi-Fi");
-    long dataSentSize = clientSocket->writeDatagram(b, QHostAddress("255.255.255.255"), 48899);
-
-    while (!clientSocket->hasPendingDatagrams());
-
-    char* data;
-    clientSocket->readDatagram(data, 1000);
-    QString theData(data);
-    return;
-    /*
-    udpAdmin.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, 1000);
-    while (iFoundWifiBridges < 1000) {
-        receiveBytes = udpAdmin.Receive(listenEP);
-        //wait here until a UDP packet has been received.
-
-        sResponse = UTF8.GetString(receiveBytes);  //convert udp datagram bytes into a string.
-        static System.Text.RegularExpressions.Regex expression = new System.Text.RegularExpressions.Regex("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]),([A-F]|[0-9]){12},.*$");
-        IsValidWifiBridgeResponse = expression.IsMatch(System.text);
-       if (IsValidWifiBridgeResponse) {
-
-       }
-    }
-
-      //Catch TimeOut Exception here, no more LimitlessLED Bridge devices responded within 1000ms.
-
-    }*/
 }
