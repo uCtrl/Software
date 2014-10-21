@@ -106,3 +106,68 @@ void UCondition::read(const QJsonObject &jsonObj)
     this->enabled(jsonObj["enabled"].toBool());
     this->lastUpdated(jsonObj["lastUpdated"].toString().toUInt());
 }
+
+int UCondition::type() const
+{
+    return m_type;
+}
+
+void UCondition::type(int type)
+{
+    if (m_type != type) {
+        m_type = type;
+        emit dataChanged();
+    }
+}
+
+int UCondition::comparisonType() const
+{
+    return m_type;
+}
+
+void UCondition::comparisonType(int comparisonType)
+{
+    if (m_comparisonType != comparisonType) {
+        m_comparisonType = comparisonType;
+        emit dataChanged();
+    }
+}
+
+QString UCondition::beginValue() const
+{
+    return m_beginValue;
+}
+
+void UCondition::beginValue(const QString &beginValue)
+{
+    if (m_beginValue != beginValue) {
+        m_beginValue = beginValue;
+        emit dataChanged();
+    }
+}
+
+QString UCondition::endValue() const
+{
+    return m_endValue;
+}
+
+void UCondition::endValue(const QString &endValue)
+{
+    if (m_endValue != endValue) {
+        m_endValue = endValue;
+        emit dataChanged();
+    }
+}
+
+QString UCondition::deviceId() const
+{
+    return m_deviceId;
+}
+
+void UCondition::deviceId(const QString &deviceId)
+{
+    if (m_deviceId != deviceId) {
+        m_deviceId = deviceId;
+        emit dataChanged();
+    }
+}

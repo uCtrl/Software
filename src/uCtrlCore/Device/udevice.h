@@ -40,24 +40,24 @@ public:
     void read(const QJsonObject &jsonObj);
 
     // Properties
-    inline QString name() const { return m_name; }
-    inline void name(const QString& name) { m_name = name; emit dataChanged(); }
-    inline int type() const{ return m_type; }
-    inline void type(int type) { m_type = type; emit dataChanged(); }
-    inline QString description() const { return m_description; }
-    inline void description(const QString& description) { m_description = description; emit dataChanged(); }
-    inline QString maxValue() const{ return m_maxValue; }
-    inline void maxValue(const QString& maxValue) { m_maxValue = maxValue; emit dataChanged(); }
-    inline QString minValue() const{ return m_minValue; }
-    inline void minValue(const QString& minValue) { m_minValue = minValue; emit dataChanged(); }
-    inline QString value() const{ return m_value; }
-    inline void value(const QString& value) { m_value = value; emit dataChanged(); }
-    inline int precision() const{ return m_precision; }
-    inline void precision(int precision) { m_precision = precision; emit dataChanged(); }
-    inline int status() const{ return m_status; }
-    inline void status(int status) { m_status = status; emit dataChanged(); }
-    inline QString unitLabel() const { return m_unitLabel; }
-    inline void unitLabel(const QString& unitLabel) { m_unitLabel = unitLabel; emit dataChanged(); }
+    QString name() const;
+    void name(const QString& name);
+    int type() const;
+    void type(int type);
+    QString description() const;
+    void description(const QString& description);
+    QString maxValue() const;
+    void maxValue(const QString& maxValue);
+    QString minValue() const;
+    void minValue(const QString& minValue);
+    QString value() const;
+    void value(const QString& value);
+    int precision() const;
+    void precision(int precision);
+    int status() const;
+    void status(int status);
+    QString unitLabel() const;
+    void unitLabel(const QString& unitLabel);
 
 private:
     QString m_name;

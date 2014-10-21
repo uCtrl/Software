@@ -126,3 +126,81 @@ void UPlatform::read(const QJsonObject& jsonObj)
 
     m_devices->read(jsonObj);
 }
+
+QString UPlatform::name() const
+{
+    return m_name;
+}
+
+void UPlatform::name(const QString &name)
+{
+    if (m_name != name) {
+        m_name = name;
+        emit dataChanged();
+    }
+}
+
+QString UPlatform::firmwareVersion() const
+{
+    return m_firmwareVersion;
+}
+
+void UPlatform::firmwareVersion(const QString &firmwareVersion)
+{
+    if (m_firmwareVersion != firmwareVersion) {
+        m_firmwareVersion = firmwareVersion;
+        emit dataChanged();
+    }
+}
+
+QString UPlatform::ip() const
+{
+    return m_ip;
+}
+
+void UPlatform::ip(const QString &ip)
+{
+    if (m_ip != ip) {
+        m_ip = ip;
+        emit dataChanged();
+    }
+}
+
+int UPlatform::port() const
+{
+    return m_port;
+}
+
+void UPlatform::port(int port)
+{
+    if (m_port != port) {
+        m_port = port;
+        emit dataChanged();
+    }
+}
+
+QString UPlatform::room() const
+{
+    return m_room;
+}
+
+void UPlatform::room(const QString &room)
+{
+    if (m_room != room) {
+        m_room = room;
+        emit dataChanged();
+    }
+}
+
+int UPlatform::status() const
+{
+    return m_status;
+}
+
+void UPlatform::status(int status)
+{
+    if (m_status != status) {
+        m_status = status;
+        emit dataChanged();
+    }
+}

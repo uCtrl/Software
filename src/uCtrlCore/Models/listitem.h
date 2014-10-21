@@ -25,12 +25,12 @@ public:
     virtual void read(const QJsonObject &jsonObj) = 0;
 
     // Base properties
-    inline QString id() const { return m_id; }
-    inline void id(const QString& id) { m_id = id; emit dataChanged(); }
-    inline bool enabled() const { return m_enabled; }
-    inline void enabled(bool enabled) { m_enabled = enabled; emit dataChanged(); }
-    inline uint lastUpdated() const { return m_lastUpdated; }
-    inline void lastUpdated(uint lastUpdated) { m_lastUpdated = lastUpdated; }
+    QString id() const;
+    void id(const QString& id);
+    bool enabled() const;
+    void enabled(bool enabled);
+    uint lastUpdated() const;
+    void lastUpdated(uint lastUpdated);
 
 signals:
     void dataChanged();

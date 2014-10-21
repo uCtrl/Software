@@ -150,3 +150,120 @@ void UDevice::read(const QJsonObject &jsonObj)
 
     m_scenarios->read(jsonObj);
 }
+
+QString UDevice::name() const
+{
+    return m_name;
+}
+
+void UDevice::name(const QString &name)
+{
+    if (m_name != name) {
+        m_name = name;
+        emit dataChanged();
+    }
+}
+
+int UDevice::type() const
+{
+    return m_type;
+}
+
+void UDevice::type(int type)
+{
+    if (m_type != type) {
+        m_type = type;
+        emit dataChanged();
+    }
+}
+
+QString UDevice::description() const
+{
+    return m_description;
+}
+
+void UDevice::description(const QString &description)
+{
+    if (m_description != description) {
+        m_description = description;
+        emit dataChanged();
+    }
+}
+
+QString UDevice::maxValue() const
+{
+    return m_maxValue;
+}
+
+void UDevice::maxValue(const QString &maxValue)
+{
+    if (m_maxValue != maxValue) {
+        m_maxValue = maxValue;
+        emit dataChanged();
+    }
+}
+
+QString UDevice::minValue() const
+{
+    return m_minValue;
+}
+
+void UDevice::minValue(const QString &minValue)
+{
+    if (m_minValue != minValue) {
+        m_minValue = minValue;
+        emit dataChanged();
+    }
+}
+
+QString UDevice::value() const
+{
+    return m_value;
+}
+
+void UDevice::value(const QString &value)
+{
+    if (m_value != value) {
+        m_value = value;
+        emit dataChanged();
+    }
+}
+
+int UDevice::precision() const
+{
+    return m_precision;
+}
+
+void UDevice::precision(int precision)
+{
+    if (m_precision != precision) {
+        m_precision = precision;
+        emit dataChanged();
+    }
+}
+
+int UDevice::status() const
+{
+    return m_status;
+}
+
+void UDevice::status(int status)
+{
+    if (m_status != status) {
+        m_status = status;
+        emit dataChanged();
+    }
+}
+
+QString UDevice::unitLabel() const
+{
+    return m_unitLabel;
+}
+
+void UDevice::unitLabel(const QString &unitLabel)
+{
+    if (m_unitLabel != unitLabel) {
+        m_unitLabel = unitLabel;
+        emit dataChanged();
+    }
+}

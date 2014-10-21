@@ -86,3 +86,16 @@ void UScenario::read(const QJsonObject &jsonObj)
 
     m_tasks->read(jsonObj);
 }
+
+QString UScenario::name() const
+{
+    return m_name;
+}
+
+void UScenario::name(const QString &name)
+{
+    if (m_name != name) {
+        m_name = name;
+        emit dataChanged();
+    }
+}

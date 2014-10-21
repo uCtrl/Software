@@ -32,8 +32,8 @@ public:
     void read(const QJsonObject &jsonObj);
 
     // Properties
-    inline QString name() const { return m_name; }
-    inline void name(const QString& name) { m_name = name; emit dataChanged(); }
+    QString name() const;
+    void name(const QString& name);
 
 private:
     QString m_name;

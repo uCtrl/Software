@@ -86,3 +86,16 @@ void UTask::read(const QJsonObject &jsonObj)
 
     m_conditions->read(jsonObj);
 }
+
+QString UTask::value() const
+{
+    return m_value;
+}
+
+void UTask::value(const QString &value)
+{
+    if (m_value != value) {
+        m_value = value;
+        emit dataChanged();
+    }
+}

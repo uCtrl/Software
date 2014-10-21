@@ -34,18 +34,16 @@ public:
     void read(const QJsonObject &jsonObj);
 
     // Properties
-    inline int type() const { return m_type; }
-    inline void type(int type) { m_type = type; emit dataChanged(); }
-    inline int comparisonType() const { return m_type; }
-    inline void comparisonType(int comparisonType) { m_comparisonType = comparisonType; emit dataChanged(); }
-    inline QString beginValue() const { return m_beginValue; }
-    inline void beginValue(const QString& beginValue) { m_beginValue = beginValue; emit dataChanged(); }
-    inline QString endValue() const { return m_endValue; }
-    inline void endValue(const QString& endValue) { m_endValue = endValue; emit dataChanged(); }
-    inline QString deviceId() const { return m_deviceId; }
-    inline void deviceId(const QString& deviceId) { m_deviceId = deviceId; emit dataChanged(); }
-    inline QString deviceValue() const { return m_deviceValue; }
-    inline void deviceValue(const QString& deviceValue) { m_deviceValue = deviceValue; emit dataChanged(); }
+    inline int type() const;
+    inline void type(int type);
+    inline int comparisonType() const;
+    inline void comparisonType(int comparisonType);
+    inline QString beginValue() const;
+    inline void beginValue(const QString& beginValue);
+    inline QString endValue() const;
+    inline void endValue(const QString& endValue);
+    inline QString deviceId() const;
+    inline void deviceId(const QString& deviceId);
 
 private:
     int m_type;
@@ -53,7 +51,6 @@ private:
     QString m_beginValue;
     QString m_endValue;
     QString m_deviceId;
-    QString m_deviceValue;
 };
 
 #endif // UCONDITION_H
