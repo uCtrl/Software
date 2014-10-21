@@ -7,6 +7,12 @@ CONFIG += c++11
 RC_ICONS = Images/uctrl.ico
 ICON = Images/uctrl.icns
 
+#folder where the qml files are
+folder_01.source = qml
+#destination folder in the build directory and the install directory
+folder_01.target = qml
+DEPLOYMENTFOLDERS = folder_01
+
 # Please do not modify the following two lines. Required for deployment.
 include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
 qtcAddDeployment()

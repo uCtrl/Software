@@ -1,70 +1,56 @@
 <RCC>
-    <qresource prefix="/titlebar">
-        <file alias="Titlebar.qml">qml/component/titlebar.qml</file>
-    </qresource>
-    <qresource prefix="/navbar">
-        <file alias="Navbar.qml">qml/component/navbar.qml</file>
-    </qresource>
-    <qresource prefix="/img">
-        <file alias="uCtrl-white.svg">qml/img/uCtrl-white.svg</file>
-    </qresource>
-    <qresource prefix="/fonts">
-        <file alias="fontawesome-webfont.ttf">qml/fonts/fontawesome-webfont.ttf</file>
-        <file alias="icomoon.ttf">qml/fonts/icomoon.ttf</file>
-        <file alias="Lato-Black.ttf">qml/fonts/Lato-Black.ttf</file>
-        <file alias="Lato-BlackItalic.ttf">qml/fonts/Lato-BlackItalic.ttf</file>
-        <file alias="Lato-Bold.ttf">qml/fonts/Lato-Bold.ttf</file>
-        <file alias="Lato-BoldItalic.ttf">qml/fonts/Lato-BoldItalic.ttf</file>
-        <file alias="Lato-Hairline.ttf">qml/fonts/Lato-Hairline.ttf</file>
-        <file alias="Lato-HairlineItalic.ttf">qml/fonts/Lato-HairlineItalic.ttf</file>
-        <file alias="Lato-Italic.ttf">qml/fonts/Lato-Italic.ttf</file>
-        <file alias="Lato-LightItalic.ttf">qml/fonts/Lato-LightItalic.ttf</file>
-        <file alias="Lato-Regular.ttf">qml/fonts/Lato-Regular.ttf</file>
-    </qresource>
-    <qresource prefix="/label">
-        <file alias="Default.qml">qml/label/Default.qml</file>
-        <file alias="ComboBoxItemText.qml">qml/label/ComboBoxItemText.qml</file>
-        <file alias="Heading1.qml">qml/label/Heading1.qml</file>
-        <file alias="Heading2.qml">qml/label/Heading2.qml</file>
-        <file alias="Heading3.qml">qml/label/Heading3.qml</file>
-        <file alias="Heading4.qml">qml/label/Heading4.qml</file>
-        <file alias="Heading5.qml">qml/label/Heading5.qml</file>
-        <file alias="Link.qml">qml/label/Link.qml</file>
-        <file alias="TooltipText.qml">qml/label/TooltipText.qml</file>
-        <file alias="UInfoBoundedLabel.qml">qml/label/UInfoBoundedLabel.qml</file>
-        <file alias="UInfoLabel.qml">qml/label/UInfoLabel.qml</file>
-        <file alias="UInfoTitle.qml">qml/label/UInfoTitle.qml</file>
-        <file alias="UTabText.qml">qml/label/UTabText.qml</file>
-        <file alias="UWeekDayPickerLabel.qml">qml/label/UWeekDayPickerLabel.qml</file>
-    </qresource>
-    <qresource prefix="/ui">
-        <file alias="UImage.qml">qml/ui/UImage.qml</file>
-        <file alias="UCombobox.qml">qml/ui/UCombobox.qml</file>
-        <file alias="UComboboxItem.qml">qml/ui/UComboboxItem.qml</file>
-        <file alias="UComboboxItemContainer.qml">qml/ui/UComboboxItemContainer.qml</file>
-        <file alias="UTextbox.qml">qml/ui/UTextbox.qml</file>
-        <file alias="UFontAwesome.qml">qml/ui/UFontAwesome.qml</file>
-        <file alias="UButton.qml">qml/ui/UButton.qml</file>
-        <file alias="USaveCancel.qml">qml/ui/USaveCancel.qml</file>
-        <file alias="USwitch.qml">qml/ui/USwitch.qml</file>
-        <file alias="UTabs.qml">qml/ui/UTabs.qml</file>
-        <file alias="UTabItem.qml">qml/ui/UTabItem.qml</file>
-        <file alias="UColors.js">qml/ui/UColors.js</file>
-    </qresource>
-    <qresource prefix="/platform">
-        <file alias="Platforms.qml">qml/platform/Platforms.qml</file>
-        <file alias="Platform.qml">qml/platform/Platform.qml</file>
-        <file alias="PlatformListItem.qml">qml/platform/PlatformListItem.qml</file>
-    </qresource>
-    <qresource prefix="/device">
-        <file alias="Devices.qml">qml/device/Devices.qml</file>
-        <file alias="Device.qml">qml/device/Device.qml</file>
-        <file alias="DeviceListItem.qml">qml/device/DeviceListItem.qml</file>
-    </qresource>
-    <qresource prefix="/data">
-        <file>data.json</file>
-    </qresource>
     <qresource prefix="/">
+        <file>qml/component/Navbar.qml</file>
+        <file>qml/component/Titlebar.qml</file>
+        <file>qml/device/Device.qml</file>
+        <file>qml/device/DeviceListItem.qml</file>
+        <file>qml/device/Devices.qml</file>
+        <file>qml/fonts/fontawesome-webfont.ttf</file>
+        <file>qml/fonts/icomoon.ttf</file>
+        <file>qml/fonts/Lato-Black.ttf</file>
+        <file>qml/fonts/Lato-BlackItalic.ttf</file>
+        <file>qml/fonts/Lato-Bold.ttf</file>
+        <file>qml/fonts/Lato-BoldItalic.ttf</file>
+        <file>qml/fonts/Lato-Hairline.ttf</file>
+        <file>qml/fonts/Lato-HairlineItalic.ttf</file>
+        <file>qml/fonts/Lato-Italic.ttf</file>
+        <file>qml/fonts/Lato-Light.ttf</file>
+        <file>qml/fonts/Lato-LightItalic.ttf</file>
+        <file>qml/fonts/Lato-Regular.ttf</file>
+        <file>qml/img/uCtrl-white.svg</file>
+        <file>qml/jbQuick/Charts/QChart.js</file>
+        <file>qml/jbQuick/Charts/QChart.qml</file>
+        <file>qml/jbQuick/Charts/QChartGallery.js</file>
+        <file>qml/jbQuick/Charts/QChartGallery.qml</file>
+        <file>qml/label/ComboBoxItemText.qml</file>
+        <file>qml/label/Default.qml</file>
+        <file>qml/label/Heading1.qml</file>
+        <file>qml/label/Heading2.qml</file>
+        <file>qml/label/Heading3.qml</file>
+        <file>qml/label/Heading4.qml</file>
+        <file>qml/label/Heading5.qml</file>
+        <file>qml/label/Link.qml</file>
+        <file>qml/label/TooltipText.qml</file>
+        <file>qml/label/UInfoBoundedLabel.qml</file>
+        <file>qml/label/UInfoLabel.qml</file>
+        <file>qml/label/UInfoTitle.qml</file>
+        <file>qml/label/UTabText.qml</file>
+        <file>qml/label/UWeekDayPickerLabel.qml</file>
+        <file>qml/platform/Platform.qml</file>
+        <file>qml/platform/PlatformListItem.qml</file>
+        <file>qml/platform/Platforms.qml</file>
+        <file>qml/ui/UButton.qml</file>
+        <file>qml/ui/UColors.js</file>
+        <file>qml/ui/UCombobox.qml</file>
+        <file>qml/ui/UComboboxItem.qml</file>
+        <file>qml/ui/UComboboxItemContainer.qml</file>
+        <file>qml/ui/UFontAwesome.qml</file>
+        <file>qml/ui/UImage.qml</file>
+        <file>qml/ui/USaveCancel.qml</file>
+        <file>qml/ui/USwitch.qml</file>
+        <file>qml/ui/UTabItem.qml</file>
+        <file>qml/ui/UTabs.qml</file>
+        <file>qml/ui/UTextbox.qml</file>
         <file>qml/main.qml</file>
     </qresource>
 </RCC>

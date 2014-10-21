@@ -1,9 +1,8 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
 
-import "../titlebar" as Titlebar
-import "../navbar" as Navbar
-import "../ui/UColors.js" as Colors
+import "component" as Components
+import "ui/UColors.js" as Colors
 
 Rectangle {
     id: main
@@ -22,7 +21,7 @@ Rectangle {
 
     property variant activeDevice: null
 
-    Titlebar.Titlebar {
+    Components.Titlebar {
         id: titlebar
 
         anchors.top: parent.top
@@ -32,7 +31,7 @@ Rectangle {
         z: 2    // Always on top of the background and the navigation bar.
     }
 
-    Navbar.Navbar {
+    Components.Navbar {
         id: navbar
 
         pages: main.pages
@@ -66,7 +65,7 @@ Rectangle {
             anchors.bottom: parent.bottom;
 
             visible: (currentPage === modelData.file);
-            source: "qrc:/%1.qml".arg(modelData.file)
+            source: "qrc:/qml/%1.qml".arg(modelData.file)
             onVisibleChanged:      { loadIfNotLoaded(); }
             Component.onCompleted: { loadIfNotLoaded(); }
 
