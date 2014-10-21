@@ -21,8 +21,16 @@ void UDevicesModel::read(const QJsonObject &jsonObj)
     QJsonArray devices = jsonObj["devices"].toArray();
     foreach(QJsonValue device, devices)
     {
-        UDevice* d = new UDevice(this);
-        d->read(device.toObject());
-        this->appendRow(d);
+        QJsonObject deviceObj = device.toObject();
+        QString id = deviceObj["id"].toString();
+        ListItem* d = find(id);
+
+        if (d) {
+            d->read(device.toObject());
+        } else {
+            d = new UDevice(this);
+            d->read(device.toObject());
+            this->appendRow(d);
+        }
     }
 }

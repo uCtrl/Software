@@ -21,8 +21,16 @@ void UScenariosModel::read(const QJsonObject &jsonObj)
     QJsonArray scenarios = jsonObj["scenarios"].toArray();
     foreach(QJsonValue scenario, scenarios)
     {
-        UScenario* s = new UScenario(this);
-        s->read(scenario.toObject());
-        this->appendRow(s);
-    }
+        QJsonObject scenarioObj = scenario.toObject();
+        QString id = scenarioObj["id"].toString();
+        ListItem* s = find(id);
+
+        if (s) {
+            s->read(scenario.toObject());
+        } else {
+            s = new UScenario(this);
+            s->read(scenario.toObject());
+            this->appendRow(s);
+        }
+    }    
 }

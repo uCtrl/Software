@@ -20,9 +20,17 @@ void UConditionsModel::read(const QJsonObject &jsonObj)
 {
     QJsonArray conditions = jsonObj["conditions"].toArray();
     foreach(QJsonValue condition, conditions)
-    {
-        UCondition* c = new UCondition(this);
-        c->read(condition.toObject());
-        this->appendRow(c);
+    {   
+        QJsonObject conditionObj = condition.toObject();
+        QString id = conditionObj["id"].toString();
+        ListItem* c = find(id);
+
+        if (c) {
+            c->read(condition.toObject());
+        } else {
+            c = new UCondition(this);
+            c->read(condition.toObject());
+            this->appendRow(c);
+        }
     }
 }
