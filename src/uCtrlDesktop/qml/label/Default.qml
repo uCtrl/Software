@@ -7,7 +7,7 @@ Text {
     font.pointSize: 12
     renderType: Text.NativeRendering
     wrapMode: Text.WordWrap
-    color: Colors.get("uBlack")
+    color: Colors.uBlack
     text: ""
 
     /*onTextChanged: {

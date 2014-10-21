@@ -9,10 +9,10 @@ Rectangle {
     property variant items: null
     property string selectedValue: ""
 
-    property string backgroundColor: Colors.get("uGreen")
-    property string selectedColor: Colors.get("uDarkGreen")
-    property string hoverColor: Colors.get("uMediumLightGreen")
-    property string iconColor: Colors.get("uWhite")
+    property string backgroundColor: Colors.uGreen
+    property string selectedColor: Colors.uDarkGreen
+    property string hoverColor: Colors.uMediumLightGreen
+    property string iconColor: Colors.uWhite
 
     property bool showText: false
 

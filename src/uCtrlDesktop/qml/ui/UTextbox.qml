@@ -19,51 +19,51 @@ Rectangle {
     width: 100
     height: 25
 
-    color: Colors.get("uTransparent")
+    color: Colors.uTransparent
 
     state: "ENABLED"
 
     function getBackgroundColor() {
         switch (state) {
             case "DISABLED":
-                return Colors.get("uLightGrey")
+                return Colors.uLightGrey
             default:
-                return Colors.get("uWhite")
+                return Colors.uWhite
         }
     }
 
     function getBorderColor() {
         switch (state) {
             case "SUCCESS":
-                return Colors.get("uGreen")
+                return Colors.uGreen
             case "ERROR":
-                return Colors.get("uDarkRed")
+                return Colors.uDarkRed
             default:
-                return Colors.get("uGrey")
+                return Colors.uGrey
         }
     }
 
     function getIconColor() {
         switch (state) {
             case "SUCCESS":
-                return Colors.get("uGreen")
+                return Colors.uGreen
             case "ERROR":
-                return Colors.get("uDarkRed")
+                return Colors.uDarkRed
             default:
-                return Colors.get("uTransparent")
+                return Colors.uTransparent
         }
     }
 
     function getTextColor() {
         switch (state) {
             case "ENABLED":
-                return Colors.get("uBlack")
+                return Colors.uBlack
             case "DISABLED":
-                return Colors.get("uGrey")
+                return Colors.uGrey
             case "ERROR":
-                return Colors.get("uDarkRed")
+                return Colors.uDarkRed
             case "SUCCESS":
-                return Colors.get("uGreen")
+                return Colors.uGreen
         }
     }
 
@@ -87,7 +87,7 @@ Rectangle {
             padding.left: 10
             padding.right: 10
             textColor: getTextColor()
-            selectedTextColor: Colors.get("uWhite")
+            selectedTextColor: Colors.uWhite
             selectionColor: getBorderColor()
 
             background: Rectangle {
@@ -140,7 +140,7 @@ Rectangle {
 
             anchors.centerIn: parent
             iconSize: container.iconSize
-            iconColor: (container.state === "SUCCESS" || container.state === "ERROR" ? Colors.get("uWhite") : Colors.get("uGrey"))
+            iconColor: (container.state === "SUCCESS" || container.state === "ERROR" ? Colors.uWhite : Colors.uGrey)
         }
     }
 }

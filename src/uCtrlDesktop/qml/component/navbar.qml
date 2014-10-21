@@ -7,7 +7,7 @@ Rectangle {
 
     id: navbar
 
-    color: Colors.get("uDarkGrey")
+    color: Colors.uDarkGrey
     width: 67;
 
     property variant pages: []
@@ -33,7 +33,7 @@ Rectangle {
                     id: icon
 
                     iconId: modelData.icon
-                    iconColor: Colors.get("uWhite")
+                    iconColor: Colors.uWhite
                     iconSize: 24
                     anchors.centerIn: parent
                 }
@@ -54,8 +54,8 @@ Rectangle {
                 }
 
                 function getBackgroundColor() {
-                    if (mouseArea.containsMouse) return Colors.get("uDarkGreyHover")
-                    else if (main.currentPage === modelData.file) return Colors.get("uDarkestGrey")
+                    if (mouseArea.containsMouse) return Colors.uDarkGreyHover
+                    else if (main.currentPage === modelData.file) return Colors.uDarkestGrey
                     else return navbar.color
                 }
             }

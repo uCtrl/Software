@@ -24,7 +24,7 @@ Rectangle {
         anchors.leftMargin: 5
         anchors.verticalCenter: parent.verticalCenter
 
-        color: Colors.get("uGreen")
+        color: Colors.uGreen
 
         // @TODO : Replace with proper icon when ready.
         UI.UFontAwesome {
@@ -34,7 +34,7 @@ Rectangle {
 
             iconId: "Bolt"
             iconSize: 24
-            iconColor: Colors.get("uWhite")
+            iconColor: Colors.uWhite
         }
     }
 
@@ -50,13 +50,13 @@ Rectangle {
 
         iconId: "ChevronRight"
         iconSize: 22
-        iconColor: Colors.get("uMediumLightGrey")
+        iconColor: Colors.uMediumLightGrey
     }
 
     ULabel.Default {
         text: getName()
 
-        color: Colors.get("uBlack")
+        color: Colors.uBlack
 
         font.bold: true
         font.pointSize: 18
@@ -74,7 +74,7 @@ Rectangle {
         width: parent.width
         height: 1
 
-        color: Colors.get("uMediumLightGrey")
+        color: Colors.uMediumLightGrey
 
         anchors.bottom: parent.bottom
     }
@@ -87,8 +87,8 @@ Rectangle {
     }
 
     function getColor() {
-        if (mouseArea.containsMouse) return Colors.get("uLightGrey")
-        else return Colors.get("uWhite")
+        if (mouseArea.containsMouse) return Colors.uLightGrey
+        else return Colors.uWhite
     }
 
     function getName() {

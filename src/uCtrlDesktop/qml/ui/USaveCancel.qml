@@ -6,7 +6,7 @@ Rectangle {
     width: saveButton.width + cancelButton.width + 5
     height: 30
 
-    color: Colors.get("uTransparent")
+    color: Colors.uTransparent
 
     property bool saveEnabled: true
 
@@ -42,8 +42,8 @@ Rectangle {
         width: parent.height
         height: parent.height
 
-        buttonColor: Colors.get("uDarkRed")
-        buttonHoveredColor: Colors.get("uRed")
+        buttonColor: Colors.uDarkRed
+        buttonHoveredColor: Colors.uRed
 
         onClicked: {
             saveCancel.cancel()

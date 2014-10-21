@@ -6,7 +6,7 @@ Rectangle {
 
     property string img: "unknown"
 
-    color: Colors.get("uTransparent")
+    color: Colors.uTransparent
 
     Image {
         width: parent.width

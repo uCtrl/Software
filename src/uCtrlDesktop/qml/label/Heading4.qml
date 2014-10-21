@@ -3,5 +3,5 @@ import "../ui/UColors.js" as Colors
 
 Default {
     font.pointSize: 16
-    color: Colors.get("uDarkGrey")
+    color: Colors.uDarkGrey
 }

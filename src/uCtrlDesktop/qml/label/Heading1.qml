@@ -3,5 +3,5 @@ import "../ui/UColors.js" as Colors
 
 Default {
     font.pointSize: 24
-    color: Colors.get("uGreen")
+    color: Colors.uGreen
 }

@@ -11,7 +11,7 @@ Rectangle {
     height: 600
     width: 1200
 
-    color: Colors.get("uLightGrey")
+    color: Colors.uLightGrey
 
     // Available pages
     property variant pages: [

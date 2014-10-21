@@ -13,14 +13,14 @@ Rectangle {
     property variant model: main.activeDevice
     property bool showEditMode: false
 
-    color: Colors.get("uTransparent")
+    color: Colors.uTransparent
 
     Rectangle {
         id: deviceHeader
 
         property int marginSize: 20
 
-        color: Colors.get("uWhite")
+        color: Colors.uWhite
 
         anchors.top: parent.top
         anchors.left: parent.left
@@ -40,7 +40,7 @@ Rectangle {
 
             height: 40; width: 40
 
-            color: Colors.get("uGreen")
+            color: Colors.uGreen
 
             radius: 4
 
@@ -49,7 +49,7 @@ Rectangle {
 
                 anchors.centerIn: parent
 
-                color: Colors.get("uWhite")
+                color: Colors.uWhite
 
                 font.pointSize: 18
                 font.bold: false
@@ -82,10 +82,10 @@ Rectangle {
 
                 height: 40; width: 40
 
-                buttonTextColor: Colors.get("uGrey")
-                buttonColor: Colors.get("uTransparent")
-                buttonHoveredTextColor: Colors.get("uGreen")
-                buttonHoveredColor: Colors.get("uTransparent")
+                buttonTextColor: Colors.uGrey
+                buttonColor: Colors.uTransparent
+                buttonHoveredTextColor: Colors.uGreen
+                buttonHoveredColor: Colors.uTransparent
 
                 onClicked: showEditMode = true
 
@@ -126,7 +126,7 @@ Rectangle {
                 font.pointSize: 24
                 font.bold: true
 
-                color: Colors.get("uBlack")
+                color: Colors.uBlack
 
                 text: getName()
 
@@ -217,7 +217,7 @@ Rectangle {
 
                 iconSize: 14
                 iconId: "Time"
-                iconColor: Colors.get("uGrey")
+                iconColor: Colors.uGrey
             }
 
             ULabel.Default {
@@ -236,7 +236,7 @@ Rectangle {
                 font.bold: false
                 font.family: "Lato"
 
-                color: Colors.get("uGrey")
+                color: Colors.uGrey
             }
         }
 
@@ -302,7 +302,7 @@ Rectangle {
 
         anchors.margins: marginSize
 
-        color: Colors.get("uWhite")
+        color: Colors.uWhite
 
         Rectangle {
             id: tabsContainer
@@ -314,7 +314,7 @@ Rectangle {
 
             height: 40
 
-            color: Colors.get("uTransparent")
+            color: Colors.uTransparent
 
             UI.UTabs {
                 id: tabs
@@ -323,7 +323,7 @@ Rectangle {
 
                 height: 30; width: 300
 
-                iconColor: Colors.get("uWhite")
+                iconColor: Colors.uWhite
                 showText: true
 
                 items: [
@@ -345,7 +345,7 @@ Rectangle {
 
             anchors.margins: configuration.marginSize
 
-            color: Colors.get("uTransparent")
+            color: Colors.uTransparent
 
             visible: tabs.selectedValue === "scenario"
 
@@ -358,7 +358,7 @@ Rectangle {
                 font.pointSize: 36
                 font.bold: true
 
-                color: Colors.get("uGrey")
+                color: Colors.uGrey
             }
         }
 
@@ -374,7 +374,7 @@ Rectangle {
 
             visible: tabs.selectedValue === "log"
 
-            color: Colors.get("uTransparent")
+            color: Colors.uTransparent
 
             ULabel.Default {
                 id: logsLabel
@@ -386,7 +386,7 @@ Rectangle {
                 font.pointSize: 36
                 font.bold: true
 
-                color: Colors.get("uGrey")
+                color: Colors.uGrey
             }
         }
     }
