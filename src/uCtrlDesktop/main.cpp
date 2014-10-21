@@ -18,6 +18,7 @@
 #include "Models/nestedlistmodel.h"
 #include "Models/nestedlistitem.h"
 #include "Platform/uplatformsmodel.h"
+#include "Protocol/uctrlapi.h"
 
 void LoadSystemFromFile(UPlatformsModel* p, const QString& filename)
 {
@@ -26,8 +27,7 @@ void LoadSystemFromFile(UPlatformsModel* p, const QString& filename)
     QFile f(filename);
     if (f.open(QFile::ReadOnly | QFile::Text)){
         QTextStream in(&f);
-        QString str = in.readAll();
-        str.remove(QRegExp("[\\n\\t\\r]"));
+        QByteArray str = in.readAll().toUtf8();
         JsonSerializer::parse(str, p);
     }
 }
@@ -50,7 +50,11 @@ void Init(QGuiApplication& app, QtQuick2ApplicationViewer& viewer)
 
     UPlatformsModel* platforms = new UPlatformsModel();
 
-    LoadSystemFromFile(platforms, ":/data/data.json");
+    QNetworkAccessManager* networkAccessManager = viewer.engine()->networkAccessManager();
+    UCtrlAPI* uCtrlApi = new UCtrlAPI(networkAccessManager, platforms);
+
+    //LoadSystemFromFile(platforms, ":/data/data.json");
+    uCtrlApi->getSystem();
 
     QQmlContext *ctxt = viewer.rootContext();
     ctxt->setContextProperty("platformsModel", platforms);

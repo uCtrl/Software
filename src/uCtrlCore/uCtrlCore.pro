@@ -18,7 +18,8 @@ SOURCES += \
     Device/udevicesmodel.cpp \
     Scenario/uscenariosmodel.cpp \
     Task/utasksmodel.cpp \
-    Condition/uconditionsmodel.cpp
+    Condition/uconditionsmodel.cpp \
+    Protocol/uctrlapi.cpp
 
 
 HEADERS += \
@@ -40,6 +41,7 @@ HEADERS += \
     Device/udevicesmodel.h \
     Scenario/uscenariosmodel.h \
     Task/utasksmodel.h \
-    Condition/uconditionsmodel.h
+    Condition/uconditionsmodel.h \
+    Protocol/uctrlapi.h
 
 DEFINES += PROJECT_PATH=\"\\\"$$PWD/../\\\"\"

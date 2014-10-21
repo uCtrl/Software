@@ -38,6 +38,7 @@ void UNetworkScanner::resolveService(const BonjourRecord& record)
 
 void UNetworkScanner::resolved(const QHostInfo &hostInfo, int port)
 {
+    (void)port;
     //USystem* system = USystem::Instance();
     QList<QHostAddress> addresses = hostInfo.addresses();
     for(int i = 0; i < addresses.count(); i++)
