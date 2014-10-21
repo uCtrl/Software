@@ -7,52 +7,36 @@ Rectangle {
 
     id: deviceInfo
 
+    anchors.fill: parent
+
     property variant model: main.activeDevice
     property bool showEditMode: false
 
     color: "transparent"
 
     Rectangle {
-        id: square
+        id: deviceHeader
+
+        property int marginSize: 20
 
         color: "white"
 
-        anchors.fill: parent
-        anchors.margins: 20
-    }
+        anchors.top: parent.top
+        anchors.left: parent.left
 
-    Rectangle {
-        id: separator
+        anchors.margins: marginSize
 
-        anchors.horizontalCenter: parent.horizontalCenter
-
-        anchors.top: square.top
-        anchors.bottom: square.bottom
-
-        anchors.margins: 20
-
-        width: 1
-
-        color: "#EDEDED"
-    }
-
-    Rectangle {
-        id: information
-
-        anchors.left: square.left
-        anchors.right: separator.right
-        anchors.top: square.top
-        anchors.bottom: square.bottom
-
-        anchors.margins: 20
-
-        color : "transparent"
+        width: (parent.width / 2) - (marginSize * 2);
+        height: 150
 
         Rectangle {
             id: icon
 
             anchors.top: parent.top
             anchors.left: parent.left
+
+            anchors.margins: deviceHeader.marginSize
+
             height: 40; width: 40
 
             color: "#0D9B0D"
@@ -78,6 +62,8 @@ Rectangle {
 
             anchors.right: parent.right
             anchors.top: parent.top
+
+            anchors.margins: deviceHeader.marginSize
 
             width: showEditMode ? saveCancelPlatform.width : editButton.width
 
@@ -173,30 +159,30 @@ Rectangle {
             id: enabledContainer
 
             anchors.left: parent.left
-            anchors.right: parent.right
+            anchors.top: icon.bottom
 
-            anchors.top: nameContainer.bottom
-            anchors.topMargin: 30
+            anchors.topMargin: deviceHeader.marginSize / 2
 
-            height: 35
+            height: 25; width: (parent.width / 2)
 
             ULabel.UInfoTitle {
                 id: enabledTitle
 
-                text: "Enabled"
+                text: "STATUS"
 
-                anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
+                anchors.leftMargin: deviceHeader.marginSize
 
-                width: (parent.width / 5)
+                anchors.verticalCenter: parent.verticalCenter;
+                width: 150
             }
 
             ULabel.UInfoBoundedLabel {
                 id: enabledStatusLabel
                 text: getEnabled()
 
-                anchors.verticalCenter: parent.verticalCenter
                 anchors.left: enabledTitle.right
+                anchors.verticalCenter: parent.verticalCenter
 
                 visible: !showEditMode
             }
@@ -204,10 +190,10 @@ Rectangle {
             UI.USwitch {
                 id: enabledSwitch
 
-                state: getEnabled()
-
-                anchors.left: enabledStatusLabel.left
+                anchors.left: enabledTitle.right
                 anchors.verticalCenter: parent.verticalCenter
+
+                state: getEnabled()
 
                 visible: showEditMode
             }
@@ -216,12 +202,10 @@ Rectangle {
         Rectangle {
             id: updateContainer
 
-            anchors.left: parent.left
             anchors.right: parent.right
+            anchors.verticalCenter: enabledContainer.verticalCenter
 
-            anchors.top: enabledContainer.bottom
-
-            height: 35
+            height: 25; width: 220
 
             UI.UFontAwesome {
                 id: updateIcon
@@ -256,40 +240,53 @@ Rectangle {
         }
 
         Rectangle {
-            id: tabsContainer
+            id: descriptionContainer
+
+            anchors.left: parent.left
+            anchors.leftMargin: deviceHeader.marginSize
+
+            anchors.right: parent.right
+            anchors.rightMargin: deviceHeader.marginSize
 
             anchors.top: updateContainer.bottom
-            anchors.left: parent.left
-            anchors.right: parent.right
+            anchors.topMargin: (deviceHeader.marginSize / 2)
 
-            UI.UTabs {
-                anchors.top: parent.top
-                anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
 
-                height: 30; width: 200
+            ULabel.UInfoTitle {
+                id: descriptionTitle
 
-                items: [
-                    {icon: "Off", value: "Configuration"},
-                    {icon: "Time", value: "Log"},
-                    {icon: "BarChart", value: "Statistics"}
-                ]
+                text: "DESCRIPTION"
 
-                Component.onCompleted: selectedValue = "Configuration"
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+
+                width: 150
+            }
+
+            ULabel.Link {
+                id: descriptionLink
+
+                text: "Show more"
+
+                anchors.right: parent.right
+                anchors.verticalCenter: parent.verticalCenter
+
+                color: descriptionTitle.color
+            }
+
+            ULabel.Default {
+                id: descriptionLabel
+
+                text: getDescription()
+
+                anchors.left: descriptionTitle.right
+                anchors.right: descriptionLink.left
+
+                anchors.verticalCenter: parent.verticalCenter
+                color: descriptionTitle.color
             }
         }
-    }
-
-    Rectangle {
-        id: configuration
-
-        anchors.left: separator.right
-        anchors.right: square.right
-        anchors.top: square.top
-        anchors.bottom: square.bottom
-
-        anchors.margins: 20
-
-        color: "transparent"
     }
 
     function getName() {
@@ -310,6 +307,11 @@ Rectangle {
     function getUpdate() {
         if (model !== null && model.lastUpdate !== undefined) return model.lastUpdate
         else return "Last update a second ago."
+    }
+
+    function getDescription() {
+        if (model !== null) return model.description
+        else return ""
     }
 
     function saveForm() {
