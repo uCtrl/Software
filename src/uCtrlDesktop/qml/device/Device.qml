@@ -5,6 +5,8 @@ import "../label" as ULabel
 import "../scenario" as Scenario
 import "../ui/UColors.js" as Colors
 
+import "./type" as Type
+
 import DeviceEnums 1.0
 
 Rectangle {
@@ -297,7 +299,6 @@ Rectangle {
         id: deviceOverview
 
         property int marginSize: 20
-        property int columnSize: (width / 3)
 
         anchors.left: parent.left
 
@@ -308,14 +309,24 @@ Rectangle {
 
         width: deviceHeader.width
 
-        color: "red"
+        Loader {
+            id: deviceLoader
 
-        Rectangle {
-            id: currentValueContainer
+            active: false;
+            asynchronous: true;
 
-            height: 100; width: deviceOverview.columnSize
+            height: parent.height; width: parent.width
 
-            color: "yellow"
+            source: "qrc:/qml/device/type/%1.qml".arg(getDeviceFile())
+            onVisibleChanged:      { loadIfNotLoaded(); }
+            Component.onCompleted: { loadIfNotLoaded(); }
+
+            function loadIfNotLoaded () {
+                // to load the file at first show
+                if (visible && !active) {
+                    active = true;
+                }
+            }
         }
     }
 
@@ -461,8 +472,41 @@ Rectangle {
                     return "T"
             }
         }
-
         return "ERR"
+    }
+
+    function getDeviceFile() {
+        if (model !== null) {
+            switch(model.type) {
+                case UEType.BelkinWeMoSocket:
+                    return "Weemo"
+                case UEType.Humidity:
+                    return "Humidity"
+                /*case UEType.Light:
+                    return "Light"
+                case UEType.LightSensor:
+                    return "LightSensor"
+                case UEType.NinjasEyes:
+                    return "NinjasEyes"
+                case UEType.OnBoardRGBLed:
+                    return "LED"
+                case UEType.PIRMotionSensor:
+                    return "MotionSensor"
+                case UEType.ProximitySensor:
+                    return "ProximitySensor"
+                case UEType.PushButton:
+                    return "PushButton"
+                case UEType.RF4333:
+                    return "RF"
+                case UEType.StatusLight:
+                    return "StatusLight"
+                case UEType.Switch:
+                    return "Switch"*/
+                case UEType.Temperature:
+                    return "Temperature"
+            }
+        }
+        return "Error"
     }
 
     function getUpdate() {

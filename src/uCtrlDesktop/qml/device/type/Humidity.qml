@@ -11,7 +11,7 @@ Rectangle {
 
         height: 125; width: 250
 
-        color: "yellow"
+        color: "cyan"
     }
 
     Rectangle {
@@ -22,6 +22,6 @@ Rectangle {
 
         height: currentValueContainer.height; width: parent.width - currentValueContainer.width
 
-        color: "green"
+        color: "blue"
     }
 }
