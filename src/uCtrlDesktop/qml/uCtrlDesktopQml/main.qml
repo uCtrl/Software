@@ -164,7 +164,7 @@ Rectangle {
     UI.UPath {
         id: _paths
     }
-
+/*
     Timer {
         id: _refreshTimer;
         interval: 5000;
@@ -172,5 +172,5 @@ Rectangle {
         repeat: true;
 
         onTriggered: parent.refreshPage(parent.activeModel)
-    }
+    }*/
 }
