@@ -5,6 +5,8 @@ import "../label" as ULabel
 import "../scenario" as Scenario
 import "../ui/UColors.js" as Colors
 
+import DeviceEnums 1.0
+
 Rectangle {
 
     id: deviceInfo
@@ -55,7 +57,7 @@ Rectangle {
                 font.pointSize: 18
                 font.bold: false
 
-                text: getType()
+                text: getIcon()
             }
         }
 
@@ -292,6 +294,32 @@ Rectangle {
     }
 
     Rectangle {
+        id: deviceOverview
+
+        property int marginSize: 20
+        property int columnSize: (width / 3)
+
+        anchors.left: parent.left
+
+        anchors.top: deviceHeader.bottom
+        anchors.bottom: parent.bottom
+
+        anchors.margins: marginSize
+
+        width: deviceHeader.width
+
+        color: "red"
+
+        Rectangle {
+            id: currentValueContainer
+
+            height: 100; width: deviceOverview.columnSize
+
+            color: "yellow"
+        }
+    }
+
+    Rectangle {
         id: configuration
 
         property int marginSize: deviceHeader.marginSize
@@ -400,6 +428,41 @@ Rectangle {
     function getType() {
         if (model !== null) return model.type
         else return 0
+    }
+
+    function getIcon() {
+        if (model !== null) {
+            switch(model.type) {
+                case UEType.BelkinWeMoSocket:
+                    return "B"
+                case UEType.Humidity:
+                    return "H"
+                case UEType.Light:
+                    return "L"
+                case UEType.LightSensor:
+                    return "LS"
+                case UEType.NinjasEyes:
+                    return "NE"
+                case UEType.OnBoardRGBLed:
+                    return "LED"
+                case UEType.PIRMotionSensor:
+                    return "MS"
+                case UEType.ProximitySensor:
+                    return "PS"
+                case UEType.PushButton:
+                    return "PB"
+                case UEType.RF4333:
+                    return "RF"
+                case UEType.StatusLight:
+                    return "SL"
+                case UEType.Switch:
+                    return "S"
+                case UEType.Temperature:
+                    return "T"
+            }
+        }
+
+        return "ERR"
     }
 
     function getUpdate() {
