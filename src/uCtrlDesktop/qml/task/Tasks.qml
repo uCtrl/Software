@@ -32,13 +32,6 @@ Rectangle {
                 width: parent.width
 
                 item: model
-
-                MouseArea {
-                    id: mouseArea
-
-                    anchors.fill: parent
-                    hoverEnabled: true
-                }
             }
         }
     }
