@@ -5,7 +5,7 @@ Default {
     id: h5
 
     font.pointSize: 12
-    color: Colors.get("uDarkGrey")
+    color: Colors.uDarkGrey
     onTextChanged: {
         var newValue = h5.text.toUpperCase()
         h5.text = newValue

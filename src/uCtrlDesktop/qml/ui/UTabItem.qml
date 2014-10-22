@@ -8,7 +8,7 @@ Rectangle {
 
     id: container
 
-    property string iconColor: Colors.get("uWhite")
+    property string iconColor: Colors.uWhite
     property string iconId: ""
     property string linkText: ""
 
@@ -20,7 +20,7 @@ Rectangle {
         anchors.centerIn: parent
         height: parent.height; width: icon.width + link.width + 20
 
-        color: Colors.get("uTransparent")
+        color: Colors.uTransparent
 
         UI.UFontAwesome {
             id: icon
@@ -47,7 +47,7 @@ Rectangle {
 
             text: container.linkText
 
-            color: Colors.get("uWhite")
+            color: Colors.uWhite
         }
     }
 }

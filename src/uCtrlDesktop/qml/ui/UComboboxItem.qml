@@ -8,11 +8,11 @@ Rectangle {
     id: item
 
     property var itemData: null
-    property string textColor : Colors.get("uWhite")
+    property string textColor : Colors.uWhite
 
     width: parent.width
     height: 30
-    color: Colors.get("uTransparent")
+    color: Colors.uTransparent
 
     function refresh(newItemData) {
         itemData = newItemData
@@ -25,7 +25,7 @@ Rectangle {
         width: (typeof(itemData) === 'undefined' || typeof(itemData.iconId) === 'undefined' || itemData.iconId === "")  ? 0 : 22
         height: parent.height
 
-        color: Colors.get("uTransparent")
+        color: Colors.uTransparent
 
         UFontAwesome {
             id: comboBoxItemIcon
@@ -45,7 +45,7 @@ Rectangle {
         anchors.leftMargin: 5
         anchors.right: parent.right
 
-        color: Colors.get("uTransparent")
+        color: Colors.uTransparent
         ULabel.ComboBoxItemText {
             id: comboBoxItemText
 

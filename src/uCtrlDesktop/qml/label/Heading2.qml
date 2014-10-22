@@ -3,6 +3,6 @@ import "../ui/UColors.js" as Colors
 
 Default {
     font.pointSize: 20
-    color: Colors.get("uDarkGrey")
+    color: Colors.uDarkGrey
     font.bold: true
 }

@@ -5,7 +5,7 @@ Default {
 
     width: 200
     font.pointSize: 16
-    color: Colors.get("uGrey")
+    color: Colors.uGrey
 
     anchors.verticalCenter: parent.verticalCenter
 

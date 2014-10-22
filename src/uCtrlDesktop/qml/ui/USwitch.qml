@@ -13,7 +13,7 @@ Rectangle {
     width: 65
     height: 27
     radius: height / 2
-    color: Colors.get("uLightGreen")
+    color: Colors.uLightGreen
 
     clip: true
 
@@ -31,14 +31,14 @@ Rectangle {
         id: labelOnContainer
         width: parent.width - circle.width - borderRadius
         anchors.right: circle.left
-        color: Colors.get("uTransparent")
+        color: Colors.uTransparent
         height: parent.height
 
         ULabel.Heading4 {
             id: onLabel
             text: "ON"
             anchors.centerIn: parent
-            color: Colors.get("uGreen")
+            color: Colors.uGreen
             font.bold: true
             font.pointSize: 12
         }
@@ -48,7 +48,7 @@ Rectangle {
         id: labelOffContainer
         width: parent.width - circle.width - borderRadius
         anchors.left: circle.right
-        color: Colors.get("uTransparent")
+        color: Colors.uTransparent
         opacity: 0.9
         height: parent.height
 
@@ -56,7 +56,7 @@ Rectangle {
             id: offLabel
             text: "OFF"
             anchors.centerIn: parent
-            color: Colors.get("uWhite")
+            color: Colors.uWhite
             opacity: 0
             font.bold: true
             font.pointSize: 12
@@ -82,8 +82,8 @@ Rectangle {
     states: [
         State {
             name: "ON"
-            PropertyChanges { target: circle; color: Colors.get("uGreen") }
-            PropertyChanges { target: container; color: Colors.get("uLightGreen") }
+            PropertyChanges { target: circle; color: Colors.uGreen }
+            PropertyChanges { target: container; color: Colors.uLightGreen }
             PropertyChanges { target: onLabel; opacity: 1 }
             PropertyChanges { target: offLabel; opacity: 0 }
             PropertyChanges {
@@ -93,8 +93,8 @@ Rectangle {
         },
         State {
             name: "OFF"
-            PropertyChanges { target: circle; color: Colors.get("uMediumDarkGrey") }
-            PropertyChanges { target: container; color: Colors.get("uMediumLightGrey") }
+            PropertyChanges { target: circle; color: Colors.uMediumDarkGrey }
+            PropertyChanges { target: container; color: Colors.uMediumLightGrey }
             PropertyChanges { target: onLabel; opacity: 0 }
             PropertyChanges { target: offLabel; opacity: 1 }
             PropertyChanges {

@@ -6,7 +6,7 @@ import "../ui/UColors.js" as Colors
 Rectangle {
     id: platformsList
 
-    color: Colors.get("uLightGrey")
+    color: Colors.uLightGrey
 
     property int marginSize: 20;
     property string section: "room";
@@ -29,7 +29,7 @@ Rectangle {
         height: 35
         width: (parent.width/2) - parent.marginSize
 
-        color: Colors.get("uTransparent")
+        color: Colors.uTransparent
 
         z: 2
 
@@ -91,7 +91,7 @@ Rectangle {
 
         width: filters.width
 
-        color: Colors.get("uWhite")
+        color: Colors.uWhite
 
         ListView {
             id: platforms
@@ -105,7 +105,7 @@ Rectangle {
 
                 width: parent.width; height: parent.height;
 
-                color: Colors.get("uMediumLightGrey")
+                color: Colors.uMediumLightGrey
                 opacity: 0.6
 
                 visible: (platformInfo.model != null)
@@ -159,7 +159,7 @@ Rectangle {
 
                 width: parent.width; height: 20;
 
-                color: Colors.get("uGreen")
+                color: Colors.uGreen
 
                 Text {
                     id: headerText
@@ -169,7 +169,7 @@ Rectangle {
                     font.bold: true
 
                     text: section
-                    color: Colors.get("uWhite")
+                    color: Colors.uWhite
 
                     anchors.left: parent.left
                     anchors.leftMargin: 5

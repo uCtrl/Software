@@ -6,7 +6,7 @@ import "../ui/UColors.js" as Colors
 Rectangle {
     id: titlebar
 
-    color: Colors.get("uGreen")
+    color: Colors.uGreen
     height: 65
 
     UI.UImage {

@@ -18,23 +18,23 @@ Rectangle {
     states: [
         State {
             name: "NORMAL"
-            PropertyChanges { target: container; color: "transparent" }
-            PropertyChanges { target: item; textColor: Colors.get("uMediumDarkGrey") }
+            PropertyChanges { target: container; color: Colors.uTransparent }
+            PropertyChanges { target: item; textColor: Colors.uMediumDarkGrey }
         },
         State {
             name: "HOVERED"
-            PropertyChanges { target: container; color: Colors.get("uGrey") }
-            PropertyChanges { target: item; textColor: Colors.get("uLightGrey") }
+            PropertyChanges { target: container; color: Colors.uGrey }
+            PropertyChanges { target: item; textColor: Colors.uLightGrey }
         },
         State {
             name: "SELECTED"
-            PropertyChanges { target: container; color: Colors.get("uGreen") }
-            PropertyChanges { target: item; textColor: Colors.get("uWhite") }
+            PropertyChanges { target: container; color: Colors.uGreen }
+            PropertyChanges { target: item; textColor: Colors.uWhite }
         },
         State {
             name: "HOVERED SELECTED"
-            PropertyChanges { target: container; color: Colors.get("uDarkGreen") }
-            PropertyChanges { target: item; textColor: Colors.get("uWhite") }
+            PropertyChanges { target: container; color: Colors.uDarkGreen }
+            PropertyChanges { target: item; textColor: Colors.uWhite }
         }
     ]
 

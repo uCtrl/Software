@@ -8,7 +8,7 @@ Rectangle {
 
     property var model: null
 
-    color: Colors.get("uTransparent")
+    color: Colors.uTransparent
 
     Rectangle {
         id: rectScenarios
@@ -18,7 +18,7 @@ Rectangle {
         anchors.top: container.top
         anchors.bottom: container.bottom
 
-        color: Colors.get("uTransparent")
+        color: Colors.uTransparent
 
         visible: (currentScenario.model === null)
 
@@ -30,7 +30,7 @@ Rectangle {
 
             text: "Please select a scenario"
 
-            color: Colors.get("uGrey")
+            color: Colors.uGrey
 
         }
 

@@ -4,6 +4,6 @@ import "../ui/UColors.js" as Colors
 Default {
     id: label
     font.pointSize: 16
-    color: Colors.get("uBlack")
+    color: Colors.uBlack
     anchors.verticalCenter: parent.verticalCenter
 }

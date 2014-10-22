@@ -24,7 +24,7 @@ Rectangle {
 
         text: (index + 1) + ". "
 
-        color: Colors.get("uBlack")
+        color: Colors.uBlack
 
         font.bold: true
         font.pointSize: 16
@@ -42,7 +42,7 @@ Rectangle {
 
         text: getName()
 
-        color: Colors.get("uBlack")
+        color: Colors.uBlack
 
         font.bold: true
         font.pointSize: 16
@@ -57,12 +57,12 @@ Rectangle {
 
         anchors.bottom: parent.bottom
 
-        color: Colors.get("uMediumLightGrey")
+        color: Colors.uMediumLightGrey
     }
 
     function getColor() {
-        if (mouseArea.containsMouse) return Colors.get("uLightGrey")
-        else return Colors.get("uWhite")
+        if (mouseArea.containsMouse) return Colors.uLightGrey
+        else return Colors.uWhite
     }
 
     function getName() {

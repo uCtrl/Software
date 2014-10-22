@@ -21,19 +21,27 @@ void UCtrlAPI::postUser()
     userObj["ninjablocks"] = ninjaObj;
     QJsonDocument doc(userObj);
 
-    QUrl url(m_serverBaseUrl + "user");
+    QUrl url(m_serverBaseUrl + "users");
     QNetworkRequest req(url);
+    req.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
     QNetworkReply* reply = m_networkAccessManager->post(req, doc.toJson(QJsonDocument::Indented));
-    connect(reply, SIGNAL(finished()), this, SLOT(getUserReply()));
+    connect(reply, SIGNAL(finished()), this, SLOT(postUserReply()));
 }
 
 void UCtrlAPI::postUserReply()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
-
     if (!checkNetworkError(reply)) {
-        checkServerError(QJsonDocument::fromJson(reply->readAll()).object());
+        reply->deleteLater();
+        return;
     }
+
+    QJsonObject jsonObj = QJsonDocument::fromJson(reply->readAll()).object();
+
+    m_userToken = jsonObj["token"].toString();
+
+    // Get all the system
+    getSystem();
     reply->deleteLater();
 }
 
@@ -972,6 +980,7 @@ QNetworkReply* UCtrlAPI::postRequest(const QString &urlString, JsonWritable* dat
     QUrl url(m_serverBaseUrl + urlString);
     QNetworkRequest req(url);
     req.setRawHeader("X-uCtrl-Token", m_userToken.toUtf8());
+    req.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
     return m_networkAccessManager->post(req, JsonSerializer::serialize(data));
 }
 
@@ -980,6 +989,7 @@ QNetworkReply* UCtrlAPI::putRequest(const QString &urlString, JsonWritable* data
     QUrl url(m_serverBaseUrl + urlString);
     QNetworkRequest req(url);
     req.setRawHeader("X-uCtrl-Token", m_userToken.toUtf8());
+    req.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
     return m_networkAccessManager->put(req, JsonSerializer::serialize(data));
 }
 

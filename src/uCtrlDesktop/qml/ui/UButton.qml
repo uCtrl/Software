@@ -11,15 +11,15 @@ Rectangle {
     property string text: ""
     property string iconId: ""
     property int iconSize: 16
-    property color buttonColor: Colors.get("uGreen")
-    property color buttonHoveredColor: Colors.get("uMediumLightGreen")
-    property color buttonTextColor : Colors.get("uWhite")
+    property color buttonColor: Colors.uGreen
+    property color buttonHoveredColor: Colors.uMediumLightGreen
+    property color buttonTextColor : Colors.uWhite
     property color buttonHoveredTextColor : buttonTextColor
-    property color buttonDisabledColor : Colors.get("uLightGrey")
-    property color buttonDisabledTextColor : Colors.get("uDarkGrey")
-    property color buttonErrorColor : Colors.get("uDarkRed")
-    property color buttonErrorHoveredColor : Colors.get("uRed")
-    property color buttonErrorTextColor : Colors.get("uWhite")
+    property color buttonDisabledColor : Colors.uLightGrey
+    property color buttonDisabledTextColor : Colors.uDarkGrey
+    property color buttonErrorColor : Colors.uDarkRed
+    property color buttonErrorHoveredColor : Colors.uRed
+    property color buttonErrorTextColor : Colors.uWhite
     property bool bold: true
 
 
@@ -27,7 +27,7 @@ Rectangle {
     width: 100
     radius: 4
 
-    color: Colors.get("uGreen")
+    color: Colors.uGreen
     state: "ENABLED"
 
     signal clicked
@@ -69,7 +69,7 @@ Rectangle {
         id: content
         width: icon.width + label.width
         height: parent.height
-        color: Colors.get("uTransparent")
+        color: Colors.uTransparent
         anchors.centerIn: parent
 
         UFontAwesome {
@@ -84,7 +84,7 @@ Rectangle {
         ULabel.Default {
             id: label
             font.bold: button.bold
-            color: Colors.get("uTransparent")
+            color: Colors.uTransparent
             text: button.text
             anchors.left: icon.right
             anchors.verticalCenter: parent.verticalCenter

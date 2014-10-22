@@ -5,7 +5,7 @@ Rectangle {
 
     id: container
 
-    color: Colors.get("uWhite")
+    color: Colors.uWhite
 
     property variant model: null
 

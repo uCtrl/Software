@@ -1,39 +1,32 @@
 .pragma library
 
-var colors = {
-    // µCtrl's Green variation
-   "uLightGreen": "#DAF2DA",
-   "uMediumLightGreen": "#0DBE0D",
-   "uGreen": "#0D9B0D",
-   "uDarkGreen": "#0D740D",
+// µCtrl's Green variation
+var uLightGreen = "#DAF2DA";
+var uMediumLightGreen = "#0DBE0D";
+var uGreen = "#0D9B0D";
+var uDarkGreen = "#0D740D";
 
+// µCtrl's Red variation
+var uLightRed = "#FFBFBF";
+var uRed = "#D90E0E";
+var uDarkRed = "#A60E0E";
 
-   // µCtrl's Red variation
-   "uLightRed": "#FFBFBF",
-   "uRed": "#D90E0E",
-   "uDarkRed": "#A60E0E",
+// White Colors
+var uWhite = "white";
 
-   // White colors
-   "uWhite": "white",
+// Black Colors
+var uBlack = "black";
 
-   // Black colors
-   "uBlack": "black",
+// Grey Colors
+var uUltraLightGrey = "#F7F6F6";
+var uLightGrey = "#EDEDED";
+var uMediumLightGrey = "#D4D4D4";
+var uGrey = "#AAAAAA";
+var uMediumDarkGrey = "#737373";
+var uDarkGreyHover = "#5A5A5A";
+var uDarkGrey = "#3C3C3C";
+var uDarkerGrey = "#383838";
+var uDarkestGrey = "#222222";
 
-   // Grey colors
-   "uUltraLightGrey": "#F7F6F6",
-   "uLightGrey": "#EDEDED",
-   "uMediumLightGrey": "#D4D4D4",
-   "uGrey": "#AAAAAA",
-   "uMediumDarkGrey": "#737373",
-   "uDarkGreyHover": "#5A5A5A",
-   "uDarkGrey": "#3C3C3C",
-   "uDarkerGrey": "#383838",
-   "uDarkestGrey": "#222222",
-
-   // Transparent color
-   "uTransparent": "transparent"
-}
-
-function get(color) {
-    return colors[color];
-}
+// Transparent color
+var uTransparent = "transparent";

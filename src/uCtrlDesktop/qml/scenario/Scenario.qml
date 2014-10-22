@@ -10,7 +10,7 @@ Rectangle {
     property var model: null
     property bool showEditMode: false
 
-    color: Colors.get("uTransparent")
+    color: Colors.uTransparent
 
     Rectangle {
         id: buttonContainer
@@ -31,10 +31,10 @@ Rectangle {
 
             height: 40; width: 40
 
-            buttonTextColor: Colors.get("uGrey")
-            buttonColor: Colors.get("uTransparent")
-            buttonHoveredTextColor: Colors.get("uGreen")
-            buttonHoveredColor: Colors.get("uTransparent")
+            buttonTextColor: Colors.uGrey
+            buttonColor: Colors.uTransparent
+            buttonHoveredTextColor: Colors.uGreen
+            buttonHoveredColor: Colors.uTransparent
 
             onClicked: showEditMode = true
 
@@ -74,7 +74,7 @@ Rectangle {
             font.pointSize: 24
             font.bold: true
 
-            color: Colors.get("uBlack")
+            color: Colors.uBlack
 
             text: getName()
 
@@ -113,7 +113,7 @@ Rectangle {
 
             height: 25;
 
-            color: Colors.get("uTransparent")
+            color: Colors.uTransparent
 
             UI.UFontAwesome {
                 id: updateIcon
@@ -125,7 +125,7 @@ Rectangle {
 
                 iconSize: 14
                 iconId: "Time"
-                iconColor: Colors.get("uGrey")
+                iconColor: Colors.uGrey
             }
 
             ULabel.Default {
@@ -142,7 +142,7 @@ Rectangle {
                 font.bold: false
                 font.family: "Lato"
 
-                color: Colors.get("uGrey")
+                color: Colors.uGrey
             }
         }
 
