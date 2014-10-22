@@ -4,7 +4,6 @@ import "../ui" as UI
 import "../label" as ULabel
 import "../scenario" as Scenario
 import "../ui/UColors.js" as Colors
-import "../history" as history
 
 Rectangle {
 
@@ -373,38 +372,26 @@ Rectangle {
 
             color: Colors.uTransparent
 
-
             //LOGS ////////////////////////////////////////////////
-            ListView {
-                id: devicesList
-
-                anchors.fill: parent
-
-                model: parent.model
-
-                property variant currentItem: null
-
-                delegate: Column {
-                    id: column
-
-                    width: parent.width
-                    DeviceListItem {
-
-                        id: listItem
-
-                        item: model
-
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                                main.devicesList = devicesList.model
-                                main.activeDevice = model
-                                main.currentPage = "device/Device"
-                            }
-                        }
-                    }
-                }
-            }
+            //ListView {
+            //    id: devicesList
+            //
+            //    anchors.fill: parent
+            //
+            //    model: deviceInfo.model.history
+            //
+            //    delegate: Column {
+            //        id: column
+            //
+            //        width: parent.width
+            //        History.HistoryEntry {
+            //
+            //            id: listItem
+            //            item: model
+            //        }
+            //    }
+            //}
+            ////////////////////////////////////////////////////////
         }
     }
 
@@ -453,5 +440,10 @@ Rectangle {
         }
 
         showEditMode = !showEditMode
+    }
+
+    function getHistory() {
+        if (model !== null) return item.history()
+        else return null;
     }
 }

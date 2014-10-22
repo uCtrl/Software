@@ -1,11 +1,13 @@
 import QtQuick 2.0
 
+import "../label" as ULabel
+
 Rectangle {
     id: historyEntry
     width: parent.width
     height: 50
 
-    property variant model: null
+    property variant item: null
 
     Rectangle
     {
@@ -23,6 +25,11 @@ Rectangle {
 
             radius: 5
             color: "green"
+
+            ULabel.Default
+            {
+                text: item.type
+            }
         }
 
         Rectangle

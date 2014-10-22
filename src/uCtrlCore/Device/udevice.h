@@ -4,6 +4,7 @@
 #include "Models/nestedlistitem.h"
 #include "Models/nestedlistmodel.h"
 #include "Scenario/uscenariosmodel.h"
+//#include "History/uhistorylogmodel.h"
 
 class UDevice : public NestedListItem
 {
@@ -83,6 +84,8 @@ public:
     void status(UEStatus status);
     QString unitLabel() const;
     void unitLabel(const QString& unitLabel);
+
+    //ListModel* history() const;
 
 private:
     QString m_name;
