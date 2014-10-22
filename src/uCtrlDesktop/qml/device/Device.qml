@@ -2,6 +2,7 @@ import QtQuick 2.0
 
 import "../ui" as UI
 import "../label" as ULabel
+import "../scenario" as Scenario
 import "../ui/UColors.js" as Colors
 
 Rectangle {
@@ -349,16 +350,12 @@ Rectangle {
 
             visible: tabs.selectedValue === "scenario"
 
-            ULabel.Default {
-                id: scenariosLabel
+            Scenario.Scenarios {
+                id: scenariosList
 
-                text: "Scenarios"
+                model: getScenarios()
 
-                anchors.centerIn: parent
-                font.pointSize: 36
-                font.bold: true
-
-                color: Colors.get("uGrey")
+                anchors.fill: parent
             }
         }
 
@@ -409,6 +406,10 @@ Rectangle {
     function getUpdate() {
         if (model !== null && model.lastUpdate !== undefined) return model.lastUpdate
         else return "Last update a second ago."
+    }
+
+    function getScenarios() {
+        if (model !== null) return main.devicesList.nestedModelFromId(model.id) // platforms.model.nestedModelFromId(model.id);
     }
 
     function getDescription() {

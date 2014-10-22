@@ -9,7 +9,7 @@ Rectangle {
 
     property var item: null
 
-    property string platformName: "Platform name"
+    property string scenarioName: "Scenario name"
     property int marginSize: 10
 
     width: parent.width
@@ -18,11 +18,11 @@ Rectangle {
     color: getColor()
 
     ULabel.Default {
-        id: platformNameText
+        id: indexLabel
 
         x: marginSize; y: marginSize
 
-        text: getName()
+        text: (index + 1) + ". "
 
         color: Colors.get("uBlack")
 
@@ -31,16 +31,22 @@ Rectangle {
     }
 
     ULabel.Default {
-        id: platformUpdateText
+        id: scenarioNameText
 
-        x: marginSize
-        anchors.top: platformNameText.bottom
+        anchors.left: indexLabel.right
+        anchors.leftMargin: 10
 
-        text: "Updated a second ago."
+        anchors.right: parent.right
 
-        color: Colors.get("uMediumDarkGrey")
+        anchors.verticalCenter: indexLabel.verticalCenter
 
-        font.pixelSize: 11
+        text: getName()
+
+        color: Colors.get("uBlack")
+
+        font.bold: true
+        font.pointSize: 16
+
     }
 
     Rectangle {
@@ -60,7 +66,7 @@ Rectangle {
     }
 
     function getName() {
-        if (item != null) return item.name
-        else return "Platform name"
+        if (item !== null) return item.name
+        else return "Scenario name"
     }
 }

@@ -20,6 +20,7 @@ Rectangle {
     ];
 
     property variant activeDevice: null
+    property variant devicesList: null
 
     Components.Titlebar {
         id: titlebar

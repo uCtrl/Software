@@ -52,5 +52,8 @@
         <file>qml/ui/UTabs.qml</file>
         <file>qml/ui/UTextbox.qml</file>
         <file>qml/main.qml</file>
+        <file>qml/scenario/Scenarios.qml</file>
+        <file>qml/scenario/Scenario.qml</file>
+        <file>qml/scenario/ScenarioListItem.qml</file>
     </qresource>
 </RCC>

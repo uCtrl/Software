@@ -31,6 +31,7 @@ Rectangle {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
+                        main.devicesList = devicesList.model
                         main.activeDevice = model
                         main.currentPage = "device/Device"
                     }
