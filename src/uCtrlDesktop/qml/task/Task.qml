@@ -7,28 +7,20 @@ import "../ui/UColors.js" as Colors
 
 import DeviceEnums 1.0
 
-Rectangle {
-
+Column {
     id: container
+    width: parent.width
 
     property var item: null
     property bool showEditMode: false
 
-    height: taskContainer.height + conditionsContainer.height
-
-    color: Colors.uLightGrey
-
     Rectangle {
         id: taskContainer
 
-        height: 25
+        height: 30
         color: Colors.uLightGrey
 
-        anchors.left: parent.left
-        width: parent.width - buttonContainer.width
-
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
+        width: parent.width
 
         ULabel.Default {
             id: taskLabel
@@ -112,7 +104,7 @@ Rectangle {
         }
     }
 
-    Rectangle {
+    /*Rectangle {
         id: buttonContainer
 
         property int iconSize: 10
@@ -255,20 +247,11 @@ Rectangle {
             visible: showEditMode
             onClicked: saveForm()
         }
-    }
+    }*/
 
     Condition.Conditions {
         id: conditionsContainer
-
         model: getConditions()
-
-        anchors.top: taskContainer.bottom
-        anchors.topMargin: 20
-
-        anchors.left: parent.left
-        anchors.leftMargin: 10
-
-        anchors.right: parent.right
     }
 
     function getValue() {
