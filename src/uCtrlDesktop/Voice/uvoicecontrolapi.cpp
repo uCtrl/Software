@@ -2,6 +2,10 @@
 #include "uvoicecontrolresponse.h"
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonValue>
+#include <QUdpSocket>
+#include "uturnonoffplugintent.h"
+#include "usetninjaeyescolorintent.h"
 
 UVoiceControlAPI::UVoiceControlAPI(QObject *parent) :
     QObject(parent)
@@ -34,15 +38,32 @@ void UVoiceControlAPI::analyseIntent()
     QJsonObject jsonObj = jsonResponse.object();
     UVoiceControlResponse voiceControlResponse(jsonObj);
 
-    // TEST CODE
     if (voiceControlResponse.getIntent() == QString("turn_onoff_all_lights"))
     {
-        QJsonObject entities = voiceControlResponse.getEntities();
-        QJsonValue onoffValue = entities["on_off"];
-        QJsonArray onOffArray = onoffValue.toArray();
-        QJsonObject firstObject = onOffArray.first().toObject();
-        QString onoffString = firstObject["value"].toString();
-        //qDebug() << onoffString;
+        bool onOffValue = voiceControlResponse.getOnOff("on_off");
+    }
+    else if (voiceControlResponse.getIntent() == QString("set_ninja_eyes_color"))
+    {
+        QString colorString = voiceControlResponse.getStringValue("uctrl_color");
+
+        USetNinjaEyesColorIntent setNinjaEyesColorIntent(&m_ninjaAPI, "1014BBBK6089_0_0_1007");
+        setNinjaEyesColorIntent.setNinjaEyesColors(colorString);
+    }
+    else if (voiceControlResponse.getIntent() == QString("turn_onoff_plugs_in_location"))
+    {
+        bool isOn = voiceControlResponse.getOnOff("uctrl_onoff");
+        QString locationName = voiceControlResponse.getStringValue("location");
+
+        UTurnOnOffPlugIntent intent(&m_ninjaAPI, "1014BBBK6089_0_0_11", isOn);
+        intent.turnOnOffPlugInLocation(locationName);
+    }
+    else if (voiceControlResponse.getIntent() == QString("turn_onoff_plug_with_id"))
+    {
+        bool isOn = voiceControlResponse.getOnOff("uctrl_onoff");
+        int plugId = voiceControlResponse.getInt("number");
+
+        UTurnOnOffPlugIntent intent(&m_ninjaAPI, "1014BBBK6089_0_0_11", isOn);
+        intent.turnOnOffPlugWithId(plugId);
     }
     return;
 }
