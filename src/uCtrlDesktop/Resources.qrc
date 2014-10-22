@@ -55,5 +55,10 @@
         <file>qml/scenario/Scenarios.qml</file>
         <file>qml/scenario/Scenario.qml</file>
         <file>qml/scenario/ScenarioListItem.qml</file>
+        <file>qml/task/Task.qml</file>
+        <file>qml/task/Tasks.qml</file>
+        <file>qml/condition/Conditions.qml</file>
+        <file>qml/condition/Condition.qml</file>
+        <file>data.json</file>
     </qresource>
 </RCC>

@@ -60,7 +60,7 @@ Rectangle {
     }
 
     function getName() {
-        if (item != null) return item.name
+        if (item !== null && item.name !== undefined) return item.name
         else return "Platform name"
     }
 }

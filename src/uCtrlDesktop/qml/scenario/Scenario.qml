@@ -2,6 +2,7 @@ import QtQuick 2.0
 
 import "../ui" as UI
 import "../label" as ULabel
+import "../task" as Task
 import "../ui/UColors.js" as Colors
 
 Rectangle {
@@ -102,95 +103,109 @@ Rectangle {
 
             state: (validate() ? "SUCCESS" : "ERROR")
         }
+    }
 
-        Rectangle {
-            id: updateContainer
+    Rectangle {
+        id: updateContainer
 
-            anchors.left: parent.left
-            anchors.right: parent.right
+        anchors.left: parent.left
+        anchors.right: parent.right
 
-            anchors.top: nameContainer.bottom
+        anchors.top: nameContainer.bottom
 
-            height: 25;
+        height: 25;
 
-            color: Colors.uTransparent
+        color: Colors.uTransparent
 
-            UI.UFontAwesome {
-                id: updateIcon
-
-                anchors.left: parent.left
-                anchors.leftMargin: 10
-
-                anchors.verticalCenter: parent.verticalCenter
-
-                iconSize: 14
-                iconId: "Time"
-                iconColor: Colors.uGrey
-            }
-
-            ULabel.Default {
-                id: updateText
-
-                text: getUpdate()
-
-                anchors.left: updateIcon.right
-                anchors.leftMargin: 15
-
-                anchors.verticalCenter: parent.verticalCenter
-
-                font.pointSize: 14
-                font.bold: false
-                font.family: "Lato"
-
-                color: Colors.uGrey
-            }
-        }
-
-        Rectangle {
-            id: enabledContainer
+        UI.UFontAwesome {
+            id: updateIcon
 
             anchors.left: parent.left
-            anchors.right: parent.right
+            anchors.leftMargin: 10
 
-            anchors.top: updateContainer.bottom
+            anchors.verticalCenter: parent.verticalCenter
 
-            anchors.topMargin: 10
-
-            height: 25;
-
-            ULabel.UInfoTitle {
-                id: enabledTitle
-
-                text: "STATUS"
-
-                anchors.left: parent.left
-                anchors.leftMargin: 6
-
-                anchors.verticalCenter: parent.verticalCenter;
-                width: 150
-            }
-
-            ULabel.UInfoBoundedLabel {
-                id: enabledStatusLabel
-                text: getEnabled()
-
-                anchors.left: enabledTitle.right
-                anchors.verticalCenter: parent.verticalCenter
-
-                visible: !showEditMode
-            }
-
-            UI.USwitch {
-                id: enabledSwitch
-
-                anchors.left: enabledTitle.right
-                anchors.verticalCenter: parent.verticalCenter
-
-                state: getEnabled()
-
-                visible: showEditMode
-            }
+            iconSize: 14
+            iconId: "Time"
+            iconColor: Colors.uGrey
         }
+
+        ULabel.Default {
+            id: updateText
+
+            text: getUpdate()
+
+            anchors.left: updateIcon.right
+            anchors.leftMargin: 15
+
+            anchors.verticalCenter: parent.verticalCenter
+
+            font.pointSize: 14
+            font.bold: false
+            font.family: "Lato"
+
+            color: Colors.uGrey
+        }
+    }
+
+    Rectangle {
+        id: enabledContainer
+
+        anchors.left: parent.left
+        anchors.right: parent.right
+
+        anchors.top: updateContainer.bottom
+
+        anchors.topMargin: 10
+
+        height: 25;
+
+        ULabel.UInfoTitle {
+            id: enabledTitle
+
+            text: "STATUS"
+
+            anchors.left: parent.left
+            anchors.leftMargin: 6
+
+            anchors.verticalCenter: parent.verticalCenter;
+            width: 150
+        }
+
+        ULabel.UInfoBoundedLabel {
+            id: enabledStatusLabel
+            text: getEnabled()
+
+            anchors.left: enabledTitle.right
+            anchors.verticalCenter: parent.verticalCenter
+
+            visible: !showEditMode
+        }
+
+        UI.USwitch {
+            id: enabledSwitch
+
+            anchors.left: enabledTitle.right
+            anchors.verticalCenter: parent.verticalCenter
+
+            state: getEnabled()
+
+            visible: showEditMode
+        }
+    }
+
+    Task.Tasks {
+        id: tasksContainer
+
+        anchors.left: parent.left
+        anchors.right: parent.right
+
+        anchors.top: enabledContainer.bottom
+        anchors.topMargin: 10
+
+        anchors.bottom: parent.bottom
+
+        model: getTasks()
     }
 
     function getName() {
@@ -206,6 +221,10 @@ Rectangle {
     function getUpdate() {
         if (model !== null && model.lastUpdate !== undefined) return model.lastUpdate
         else return "Last update a second ago."
+    }
+
+    function getTasks() {
+        if (model !== null) return scenarios.model.nestedModelFromId(model.id)
     }
 
     function saveForm() {

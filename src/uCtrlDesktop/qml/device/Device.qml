@@ -408,7 +408,7 @@ Rectangle {
     }
 
     function getScenarios() {
-        if (model !== null) return main.devicesList.nestedModelFromId(model.id) // platforms.model.nestedModelFromId(model.id);
+        if (model !== null) return main.devicesList.nestedModelFromId(model.id)
     }
 
     function getDescription() {
