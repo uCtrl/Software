@@ -4,6 +4,7 @@ import "../ui" as UI
 import "../label" as ULabel
 import "../scenario" as Scenario
 import "../ui/UColors.js" as Colors
+import "../history" as history
 
 Rectangle {
 
@@ -328,7 +329,7 @@ Rectangle {
                 showText: true
 
                 items: [
-                    {icon: "BarChart", value: "scenario", text: "Scenarios" },
+                    { icon: "BarChart", value: "scenario", text: "Scenarios" },
                     { icon: "BarChart", value: "log", text: "System Logs" }
                 ]
 
@@ -372,17 +373,37 @@ Rectangle {
 
             color: Colors.uTransparent
 
-            ULabel.Default {
-                id: logsLabel
 
-                text: "System Logs"
+            //LOGS ////////////////////////////////////////////////
+            ListView {
+                id: devicesList
 
-                anchors.centerIn: parent
+                anchors.fill: parent
 
-                font.pointSize: 36
-                font.bold: true
+                model: parent.model
 
-                color: Colors.uGrey
+                property variant currentItem: null
+
+                delegate: Column {
+                    id: column
+
+                    width: parent.width
+                    DeviceListItem {
+
+                        id: listItem
+
+                        item: model
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                main.devicesList = devicesList.model
+                                main.activeDevice = model
+                                main.currentPage = "device/Device"
+                            }
+                        }
+                    }
+                }
             }
         }
     }

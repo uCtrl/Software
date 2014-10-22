@@ -19,7 +19,8 @@ SOURCES += \
     Scenario/uscenariosmodel.cpp \
     Task/utasksmodel.cpp \
     Condition/uconditionsmodel.cpp \
-    Protocol/uctrlapi.cpp
+    Protocol/uctrlapi.cpp \
+    History/uhistorylog.cpp
 
 
 HEADERS += \
@@ -42,6 +43,7 @@ HEADERS += \
     Scenario/uscenariosmodel.h \
     Task/utasksmodel.h \
     Condition/uconditionsmodel.h \
-    Protocol/uctrlapi.h
+    Protocol/uctrlapi.h \
+    History/uhistorylog.h
 
 DEFINES += PROJECT_PATH=\"\\\"$$PWD/../\\\"\"
