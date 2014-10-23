@@ -11,11 +11,6 @@ class UPlatformsModel : public NestedListModel
 public:
     explicit UPlatformsModel(QObject* parent = 0);
 
-    Q_INVOKABLE void asd() {
-        int i = 0;
-        i++;
-    }
-
     // JsonSerializable
     void write(QJsonObject &jsonObj) const;
     void read(const QJsonObject &jsonObj);
