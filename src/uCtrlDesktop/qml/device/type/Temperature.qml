@@ -4,6 +4,10 @@ import "../../ui" as UI
 import "../../label" as ULabel
 import "../../ui/UColors.js" as Colors
 
+import "../../jbQuick/Charts" as QChart
+//import "../../jbQuick/Charts/QChart.js" as Charts
+//import "../../jbQuick/Charts/QChart.js" as ChartsData
+
 Rectangle {
     id: container
 
@@ -572,6 +576,24 @@ Rectangle {
         width: (container.width / 2)
 
         color: Colors.uTransparent
+
+        QChart.QChart {
+          id: chart_line;
+          width: graph.width;
+          height: graph.height;
+          chartAnimated: false;
+          chartData: [{
+            labels: ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
+            datasets: [{
+                fillColor: "rgba(237,237,237,0.5)",
+                strokeColor: Colors.uMediumLightGrey,
+                pointColor: Colors.uGreen,
+                pointStrokeColor: Colors.uGreen,
+                data: [17,18,21,20,21,22,23]
+            }]
+          }]
+          chartType: 3
+        }
     }
 
     function getValue() {

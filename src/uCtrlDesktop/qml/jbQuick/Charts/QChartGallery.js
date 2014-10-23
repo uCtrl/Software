@@ -17,7 +17,7 @@
 // /////////////////////////////////////////////////////////////////
 
 var ChartLineData = {
-      labels: ["January","February","March","April","May","June","July"],
+    labels: ["January","February","March","April","May","June","July"],
     datasets: [{
                fillColor: "rgba(220,220,220,0.5)",
              strokeColor: "rgba(220,220,220,1)",
