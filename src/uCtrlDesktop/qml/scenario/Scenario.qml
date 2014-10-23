@@ -201,7 +201,7 @@ Rectangle {
         anchors.right: parent.right
 
         anchors.top: enabledContainer.bottom
-        anchors.topMargin: 10
+        anchors.topMargin: 15
 
         anchors.bottom: parent.bottom
 

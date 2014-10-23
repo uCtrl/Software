@@ -6,8 +6,10 @@
 
 class UTasksModel : public NestedListModel
 {
+    Q_OBJECT
+
 public:
-    UTasksModel(QObject* parent = 0);
+    explicit UTasksModel(QObject* parent = 0);
 
     // JsonSerializable
     void write(QJsonObject &jsonObj) const;

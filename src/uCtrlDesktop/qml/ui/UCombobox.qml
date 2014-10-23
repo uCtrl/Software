@@ -18,6 +18,21 @@ Rectangle {
     signal selectValue(var newValue)
     property int itemDisplayedBeforeScroll: 10
 
+    property string itemColor: Colors.uMediumLightGrey
+    property string itemTextColor: Colors.uMediumDarkGrey
+
+    property string selectedItemColor: Colors.uGreen
+    property string selectedItemTextColor: Colors.uWhite
+    property string selectedItemHoverColor: Colors.uDarkGreen
+    property string selectedItemHoverTextColor: Colors.uWhite
+
+
+    property string dropdownColor: Colors.uMediumLightGrey
+    property string dropdownTextColor: Colors.uMediumDarkGrey
+
+    property string hoverColor: Colors.uMediumDarkGrey
+    property string hoverTextColor: Colors.uWhite
+
     width: 200
     height: 40
 
@@ -28,7 +43,7 @@ Rectangle {
         width: parent.width - parent.height / 2
         height: parent.height
 
-        color: Colors.uMediumLightGrey
+        color: combo.itemColor
         radius: 2
 
         Rectangle {
@@ -38,14 +53,14 @@ Rectangle {
             color: Colors.uTransparent
 
             UComboboxItem {
-                    id: valueItem
+                id: valueItem
 
-                    width: parent.width - 10
-                    height: parent.height - 10
-                    anchors.centerIn: parent
+                width: parent.width - 10
+                height: parent.height - 10
+                anchors.centerIn: parent
 
-                    itemData: selectedItem
-                    textColor: Colors.uMediumDarkGrey
+                itemData: selectedItem
+                textColor: combo.itemTextColor
             }
         }
     }
@@ -56,14 +71,14 @@ Rectangle {
         height: parent.height
         anchors.right: parent.right
 
-        color: Colors.uMediumLightGrey
+        color: combo.itemColor
         radius: 2
 
         UFontAwesome {
             id: arrowDown
 
             iconId: "CaretDown"
-            iconColor: Colors.uMediumDarkGrey
+            iconColor: combo.itemTextColor
             iconSize: 14
             anchors.centerIn: parent
         }
@@ -86,7 +101,7 @@ Rectangle {
                 height: 10
                 iconId: "CaretUp"
                 iconSize: 16
-                iconColor: Colors.uMediumLightGrey
+                iconColor: combo.dropdownColor
 
                 anchors.top: parent.top
                 anchors.right: parent.right
@@ -101,7 +116,7 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 height: dropDown.height - 10
                 radius: 2
-                color: Colors.uMediumLightGrey
+                color: combo.dropdownColor
 
                 Rectangle {
                     property int selectedIndex: 0
@@ -129,6 +144,16 @@ Rectangle {
                                 selectItem()
                                 combo.selectItem(index)
                             }
+
+                            selectedItemColor: combo.selectedItemColor
+                            selectedItemTextColor: combo.selectedItemTextColor
+                            selectedItemHoverColor: combo.selectedItemHoverColor
+                            selectedItemHoverTextColor: combo.selectedItemHoverTextColor
+
+                            itemTextColor: combo.dropdownTextColor
+
+                            hoverColor: combo.hoverColor
+                            hoverTextColor: combo.hoverTextColor
                         }
 
                         function deselectItem() {

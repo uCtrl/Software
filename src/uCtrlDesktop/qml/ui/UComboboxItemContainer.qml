@@ -10,6 +10,16 @@ Rectangle {
     property string displayedValue: itemData ? itemData.displayedValue : "UNKNOWN"
     property int animationTime: 100
 
+    property string itemTextColor: Colors.uMediumDarkGrey
+
+    property string hoverColor: Colors.uGrey
+    property string hoverTextColor: Colors.uLightGrey
+
+    property string selectedItemColor: Colors.uGreen
+    property string selectedItemTextColor: Colors.uWhite
+    property string selectedItemHoverColor: Colors.uDarkGreen
+    property string selectedItemHoverTextColor: Colors.uWhite
+
     width: parent.width
     height: 32
     radius: 2
@@ -19,22 +29,22 @@ Rectangle {
         State {
             name: "NORMAL"
             PropertyChanges { target: container; color: Colors.uTransparent }
-            PropertyChanges { target: item; textColor: Colors.uMediumDarkGrey }
+            PropertyChanges { target: item; textColor: itemTextColor }
         },
         State {
             name: "HOVERED"
-            PropertyChanges { target: container; color: Colors.uGrey }
-            PropertyChanges { target: item; textColor: Colors.uLightGrey }
+            PropertyChanges { target: container; color: hoverColor }
+            PropertyChanges { target: item; textColor: hoverTextColor }
         },
         State {
             name: "SELECTED"
-            PropertyChanges { target: container; color: Colors.uGreen }
-            PropertyChanges { target: item; textColor: Colors.uWhite }
+            PropertyChanges { target: container; color: selectedItemColor }
+            PropertyChanges { target: item; textColor: selectedItemTextColor }
         },
         State {
             name: "HOVERED SELECTED"
-            PropertyChanges { target: container; color: Colors.uDarkGreen }
-            PropertyChanges { target: item; textColor: Colors.uWhite }
+            PropertyChanges { target: container; color: selectedItemHoverColor }
+            PropertyChanges { target: item; textColor: selectedItemHoverTextColor }
         }
     ]
 

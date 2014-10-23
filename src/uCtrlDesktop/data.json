@@ -14,7 +14,7 @@
 				{
 					"id": "100",
 					"name": "Température",
-					"type": 1,
+                    "type": 31,
 					"description": "Capteur de température du salon",
 					"maxValue": "100",
 					"minValue": "0",
@@ -93,7 +93,7 @@
 				{
 					"id": "103",
 					"name": "Humidité",
-					"type": 8,
+                    "type": 30,
 					"description": "Capteur d'humidité du salon",
 					"maxValue": "100",
 					"minValue": "0",
@@ -121,7 +121,7 @@
 				{
 					"id": "200",
 					"name": "Humidité",
-					"type": 8,
+                    "type": 30,
 					"description": "Capteur d'humidité de la cuisine",
 					"maxValue": "100",
 					"minValue": "0",
@@ -249,7 +249,7 @@
 				{
 					"id": "400",
 					"name": "Température",
-					"type": 1,
+                    "type": 31,
 					"description": "Capteur de température du bureau",
 					"maxValue": "100",
 					"minValue": "0",
