@@ -102,6 +102,29 @@ void ListModel::insertRow(int row, ListItem* item)
     endInsertRows();
 }
 
+bool ListModel::moveRow(int from, int to)
+{
+    if (from < 0 || from >= m_items.size() || to < 0 || to >= m_items.size() || from == to)
+        return false;
+
+    beginMoveRows(QModelIndex(), from, from, QModelIndex(), from > to ? to : to + 1);
+
+    m_items.move(from, to);
+
+    endMoveRows();
+    return true;
+}
+
+bool ListModel::moveUp(int from)
+{
+    return moveRow(from, from+1);
+}
+
+bool ListModel::moveDown(int from)
+{
+    return moveRow(from, from-1);
+}
+
 bool ListModel::removeRow(int row, const QModelIndex& index)
 {
     return removeRows(row, 1, index);
