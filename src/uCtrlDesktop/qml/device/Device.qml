@@ -370,28 +370,28 @@ Rectangle {
 
             visible: tabs.selectedValue === "log"
 
-            color: Colors.uTransparent
+            color: "red"
 
-            //LOGS ////////////////////////////////////////////////
-            //ListView {
-            //    id: devicesList
-            //
-            //    anchors.fill: parent
-            //
-            //    model: deviceInfo.model.history
-            //
-            //    delegate: Column {
-            //        id: column
-            //
-            //        width: parent.width
-            //        History.HistoryEntry {
-            //
-            //            id: listItem
-            //            item: model
-            //        }
-            //    }
-            //}
-            ////////////////////////////////////////////////////////
+            ListView {
+                id: historyLogs
+
+                anchors.fill: parent
+
+                model: getHistory()
+
+                property variant currentItem: null
+
+                delegate: Column {
+                    id: column
+
+                    width: parent.width
+                    Rectangle
+                    {
+                        anchors.fill: parent
+                        color: "yellow"
+                    }
+                }
+            }
         }
     }
 
@@ -443,7 +443,10 @@ Rectangle {
     }
 
     function getHistory() {
-        if (model !== null) return item.history()
+        var result = main.devicesList.getHistoryWithId(model.id)
+        console.log("R: " + result)
+
+        if (model !== null) return result
         else return null;
     }
 }

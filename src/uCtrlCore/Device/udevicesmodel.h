@@ -12,6 +12,8 @@ public:
     // JsonSerializable
     void write(QJsonObject &jsonObj) const;
     void read(const QJsonObject &jsonObj);
+
+    Q_INVOKABLE QObject* getHistoryWithId(const QString& id);
 };
 
 #endif // UDEVICESMODEL_H

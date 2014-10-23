@@ -39,7 +39,6 @@ public:
     explicit UHistoryLog(QObject *parent = 0);
     explicit UHistoryLog(UELogType type, UESeverity severity, QString message, QDateTime date, QObject *parent = 0);
     ~UHistoryLog();
-    ListModel* nestedModel() const;
 
     // NestedListItem
     QVariant data(int role) const;

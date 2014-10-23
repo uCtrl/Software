@@ -113,16 +113,14 @@ ListModel* UDevice::nestedModel() const
     return m_scenarios;
 }
 
-//ListModel* UDevice::history() const
-//{
-//    return new UHistoryLogModel();
-//
-//    //Todo (m'Lord): Fetch the data from the server
-//    ListModel* data = new UHistoryLogModel();
-//    data->appendRow(new UHistoryLog(UHistoryLog::UELogType::Action, UHistoryLog::UESeverity::Normal, "This is a test message", QDateTime::currentDateTime().addDays(-9)));
-//    data->appendRow(new UHistoryLog(UHistoryLog::UELogType::Scenario, UHistoryLog::UESeverity::Warning, "This is a test message #2", QDateTime::currentDateTime().addDays(-12)));
-//    return data;
-//}
+ListModel* UDevice::history() const
+{
+    //Todo (m'Lord): Fetch the data from the server
+    ListModel* data = new UHistoryLogModel();
+    data->appendRow(new UHistoryLog(UHistoryLog::UELogType::Action, UHistoryLog::UESeverity::Normal, "This is a test message", QDateTime::currentDateTime().addDays(-9)));
+    data->appendRow(new UHistoryLog(UHistoryLog::UELogType::Scenario, UHistoryLog::UESeverity::Warning, "This is a test message #2", QDateTime::currentDateTime().addDays(-12)));
+    return data;
+}
 
 void UDevice::write(QJsonObject& jsonObj) const
 {
