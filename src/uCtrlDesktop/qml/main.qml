@@ -55,8 +55,6 @@ Rectangle {
 
             id: mainLoader
 
-            property variant test: null
-
             active: false;
             asynchronous: true;
 

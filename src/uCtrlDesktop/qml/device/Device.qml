@@ -5,6 +5,10 @@ import "../label" as ULabel
 import "../scenario" as Scenario
 import "../ui/UColors.js" as Colors
 
+import "./type" as Type
+
+import DeviceEnums 1.0
+
 Rectangle {
 
     id: deviceInfo
@@ -55,7 +59,7 @@ Rectangle {
                 font.pointSize: 18
                 font.bold: false
 
-                text: getType()
+                text: getIcon()
             }
         }
 
@@ -292,6 +296,41 @@ Rectangle {
     }
 
     Rectangle {
+        id: deviceOverview
+
+        property int marginSize: 20
+
+        anchors.left: parent.left
+
+        anchors.top: deviceHeader.bottom
+        anchors.bottom: parent.bottom
+
+        anchors.margins: marginSize
+
+        width: deviceHeader.width
+
+        Loader {
+            id: deviceLoader
+
+            active: false;
+            asynchronous: true;
+
+            height: parent.height; width: parent.width
+
+            source: "qrc:/qml/device/type/%1.qml".arg(getDeviceFile())
+            onVisibleChanged:      { loadIfNotLoaded(); }
+            Component.onCompleted: { loadIfNotLoaded(); }
+
+            function loadIfNotLoaded () {
+                // to load the file at first show
+                if (visible && !active) {
+                    active = true;
+                }
+            }
+        }
+    }
+
+    Rectangle {
         id: configuration
 
         property int marginSize: deviceHeader.marginSize
@@ -408,6 +447,74 @@ Rectangle {
     function getType() {
         if (model !== null) return model.type
         else return 0
+    }
+
+    function getIcon() {
+        if (model !== null) {
+            switch(model.type) {
+                case UEType.BelkinWeMoSocket:
+                    return "B"
+                case UEType.Humidity:
+                    return "H"
+                case UEType.Light:
+                    return "L"
+                case UEType.LightSensor:
+                    return "LS"
+                case UEType.NinjasEyes:
+                    return "NE"
+                case UEType.OnBoardRGBLed:
+                    return "LED"
+                case UEType.PIRMotionSensor:
+                    return "MS"
+                case UEType.ProximitySensor:
+                    return "PS"
+                case UEType.PushButton:
+                    return "PB"
+                case UEType.RF4333:
+                    return "RF"
+                case UEType.StatusLight:
+                    return "SL"
+                case UEType.Switch:
+                    return "S"
+                case UEType.Temperature:
+                    return "T"
+            }
+        }
+        return "ERR"
+    }
+
+    function getDeviceFile() {
+        if (model !== null) {
+            switch(model.type) {
+                case UEType.BelkinWeMoSocket:
+                    return "Weemo"
+                case UEType.Humidity:
+                    return "Humidity"
+                /*case UEType.Light:
+                    return "Light"
+                case UEType.LightSensor:
+                    return "LightSensor"
+                case UEType.NinjasEyes:
+                    return "NinjasEyes"
+                case UEType.OnBoardRGBLed:
+                    return "LED"
+                case UEType.PIRMotionSensor:
+                    return "MotionSensor"
+                case UEType.ProximitySensor:
+                    return "ProximitySensor"
+                case UEType.PushButton:
+                    return "PushButton"
+                case UEType.RF4333:
+                    return "RF"
+                case UEType.StatusLight:
+                    return "StatusLight"
+                case UEType.Switch:
+                    return "Switch"*/
+                case UEType.Temperature:
+                    return "Temperature"
+            }
+        }
+        return "Error"
     }
 
     function getUpdate() {

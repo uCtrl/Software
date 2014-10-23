@@ -51,7 +51,7 @@ void Init(QGuiApplication& app, QtQuick2ApplicationViewer& viewer)
     UPlatformsModel* platforms = new UPlatformsModel();
 
     QNetworkAccessManager* networkAccessManager = viewer.engine()->networkAccessManager();
-    //UCtrlAPI* uCtrlApi = new UCtrlAPI(networkAccessManager, platforms);
+    UCtrlAPI* uCtrlApi = new UCtrlAPI(networkAccessManager, platforms);
 
     LoadSystemFromFile(platforms, ":/data.json");
     //uCtrlApi->postUser();

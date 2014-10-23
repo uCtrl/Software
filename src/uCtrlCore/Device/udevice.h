@@ -48,7 +48,7 @@ public:
         Light = 233,
         StatusLight = 999,
         OnBoardRGBLed = 1000,
-        NinasEyes = 1007,
+        NinjasEyes = 1007,
         BelkinWeMoSocket = 1009
     };
 

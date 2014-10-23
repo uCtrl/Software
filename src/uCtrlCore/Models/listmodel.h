@@ -38,6 +38,9 @@ public:
     bool removeRow(int row, const QModelIndex& index = QModelIndex());
     bool removeRows(int row, int count, const QModelIndex& index = QModelIndex());
     ListItem* takeRow(int row, const QModelIndex &index = QModelIndex());
+    Q_INVOKABLE bool moveRow(int from, int to);
+    Q_INVOKABLE bool moveUp(int from);
+    Q_INVOKABLE bool moveDown(int from);
 
     ListItem* find(const QString& itemId) const;
     QModelIndex indexFromItem(ListItem *item) const;

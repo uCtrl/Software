@@ -5,21 +5,22 @@ import "../label" as ULabel
 import "../condition" as Condition
 import "../ui/UColors.js" as Colors
 
-Rectangle {
+import DeviceEnums 1.0
 
+Column {
     id: container
+    width: parent.width
 
     property var item: null
-
-    height: taskContainer.height + conditionsContainer.height
-
-    color: Colors.uLightGrey
+    property bool showEditMode: false
 
     Rectangle {
         id: taskContainer
 
-        width: parent.width; height: 25
+        height: 30
         color: Colors.uLightGrey
+
+        width: parent.width
 
         ULabel.Default {
             id: taskLabel
@@ -103,28 +104,150 @@ Rectangle {
         }
     }
 
-    Condition.Conditions {
-        id: conditionsContainer
+    Rectangle {
+        id: buttonContainer
 
-        model: getConditions()
-
-        anchors.top: taskContainer.bottom
-        anchors.topMargin: 20
-
-        anchors.left: parent.left
-        anchors.leftMargin: 10
+        property int iconSize: 20
+        property int buttonSize: 30
+        property int marginSize: 5
 
         anchors.right: parent.right
+
+        width: (showEditMode ? saveButton.width + cancelButton.width : editButton.width) + (deleteButton.width + moveUpButton.width + moveDownButton.width)
+
+        color: Colors.uTransparent
+
+        UI.UButton {
+            id: saveButton
+            iconId: "checkmark"
+            iconSize: buttonContainer.iconSize
+            width: buttonContainer.buttonSize
+            buttonTextColor: Colors.uGreen
+            buttonColor: Colors.uTransparent
+            buttonHoveredTextColor: Colors.uDarkGreen
+            buttonHoveredColor: Colors.uTransparent
+
+            visible: showEditMode
+            onClicked: saveForm()
+        }
+
+        UI.UButton {
+            id: cancelButton
+            iconId: "Remove"
+            iconSize: buttonContainer.iconSize
+
+            anchors.left: saveButton.right
+            width: buttonContainer.buttonSize
+            buttonTextColor: Colors.uRed
+            buttonColor: Colors.uTransparent
+            buttonHoveredTextColor: Colors.uDarkRed
+            buttonHoveredColor: Colors.uTransparent
+
+            visible: showEditMode
+            onClicked: toggleEditMode()
+        }
+
+        UI.UButton {
+            id: editButton
+            iconId: "pencil"
+            iconSize: buttonContainer.iconSize
+            width: buttonContainer.buttonSize
+            buttonTextColor: Colors.uMediumDarkGrey
+            buttonColor: Colors.uTransparent
+            buttonHoveredTextColor: Colors.uGreen
+            buttonHoveredColor: Colors.uTransparent
+
+            visible: !showEditMode
+            onClicked: showEditMode = true
+        }
+
+        UI.UButton {
+            id: moveUpButton
+            iconId: "ArrowDown"
+            iconSize: buttonContainer.iconSize
+            width: buttonContainer.buttonSize
+            anchors.left: showEditMode ? cancelButton.right : editButton.right
+
+            buttonTextColor: Colors.uMediumDarkGrey
+            buttonColor: Colors.uTransparent
+            buttonHoveredTextColor: Colors.uDarkGrey
+            buttonHoveredColor: Colors.uTransparent
+
+            onClicked: moveUp()
+        }
+
+        UI.UButton {
+            id: moveDownButton
+            iconId: "ArrowUp"
+            iconSize: buttonContainer.iconSize
+            width: buttonContainer.buttonSize
+            anchors.left: moveUpButton.right
+
+            buttonTextColor: Colors.uMediumDarkGrey
+            buttonColor: Colors.uTransparent
+            buttonHoveredTextColor: Colors.uDarkGrey
+            buttonHoveredColor: Colors.uTransparent
+
+            onClicked: moveDown()
+        }
+
+        UI.UButton {
+            id: deleteButton
+            iconId: "Trash"
+            iconSize: buttonContainer.iconSize
+            width: buttonContainer.buttonSize
+            anchors.left: moveDownButton.right
+
+            buttonTextColor: Colors.uMediumDarkGrey
+            buttonColor: Colors.uTransparent
+            buttonHoveredTextColor: Colors.uRed
+            buttonHoveredColor: Colors.uTransparent
+
+            onClicked: deleteTask()
+        }
+    }
+
+    Condition.Conditions {
+        id: conditionsContainer
+        model: getConditions()
     }
 
     function getValue() {
-        //if (item !== null) return item.value
-        //else return "ON"
-
-        return "ON"
+        if (item !== null) return item.value
+        else return "ON"
     }
 
     function getConditions() {
         if (item !== null) return tasks.model.nestedModelFromId(item.id)
+    }
+
+    function saveForm() {
+        if (item !== null) {
+            //if (nameTextbox.text != "") model.name = nameTextbox.text
+            //item.isEnabled = (enabledSwitch.state === "ON")
+        }
+
+        toggleEditMode()
+    }
+
+    function toggleEditMode() {
+        if (item !== null) {
+            //nameTextbox.text = getName()
+            //enabledSwitch.state = getEnabled()
+        }
+
+        showEditMode = !showEditMode
+    }
+
+    function deleteTask() {
+        console.log("delete")
+    }
+
+    function moveUp() {
+        tasks.model.moveUp(index);
+    }
+
+    function moveDown() {
+        tasks.model.moveDown(index);
     }
 }

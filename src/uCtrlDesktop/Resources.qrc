@@ -60,5 +60,8 @@
         <file>qml/condition/Conditions.qml</file>
         <file>qml/condition/Condition.qml</file>
         <file>data.json</file>
+        <file>qml/device/type/Temperature.qml</file>
+        <file>qml/device/type/Humidity.qml</file>
+        <file>qml/device/type/Error.qml</file>
     </qresource>
 </RCC>

@@ -6,8 +6,10 @@
 
 class UDevicesModel : public NestedListModel
 {
+    Q_OBJECT
+
 public:
-    UDevicesModel(QObject* parent = 0);
+    explicit UDevicesModel(QObject* parent = 0);
 
     // JsonSerializable
     void write(QJsonObject &jsonObj) const;
