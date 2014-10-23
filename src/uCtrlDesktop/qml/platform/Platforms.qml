@@ -71,8 +71,6 @@ Rectangle {
             anchors.right: filters.right
 
             height: searchBox.height;
-
-
             Component.onCompleted: selectItem(0)
         }
     }
