@@ -20,8 +20,8 @@ Rectangle {
     Rectangle {
         id: currentValue
 
-        anchors.top: parent.top
-        anchors.left: parent.left
+        anchors.top: container.top
+        anchors.left: container.left
 
         height: 125; width: 250
 
@@ -186,8 +186,8 @@ Rectangle {
 
                 itemListModel: periods
 
-                anchors.right: periodContainer.right
-                anchors.rightMargin: 10
+                anchors.left: periodContainer.left
+                anchors.leftMargin: 5
 
                 anchors.top: periodContainer.top
 
@@ -336,6 +336,286 @@ Rectangle {
         }
     }
 
+    Rectangle {
+        id: firmware
+
+        anchors.top: currentValue.bottom
+        anchors.bottom: container.bottom
+
+        anchors.left: parent.left
+
+        width: (container.width / 2)
+
+        color: Colors.uTransparent
+
+        Rectangle {
+            id: firmwareContainer
+
+            anchors.top: firmware.top
+            anchors.topMargin: 10
+
+            anchors.left: firmware.left
+            anchors.right: firmware.right
+
+            height: 15
+
+            color: Colors.uTransparent
+
+            UI.UFontAwesome {
+                id: firmwareIcon
+
+                anchors.left: firmwareContainer.left
+                anchors.leftMargin: 20
+
+                anchors.verticalCenter: firmwareContainer.verticalCenter
+
+                iconColor: Colors.uGreen
+                iconSize: 14
+                iconId: "Cog"
+            }
+
+            ULabel.Default {
+                id: firmwareText
+
+                anchors.left: firmwareIcon.right
+                anchors.leftMargin: 15
+
+                anchors.verticalCenter: firmwareContainer.verticalCenter
+
+                text: "TECHNICAL INFORMATION"
+
+                font.bold: true
+                font.pointSize: 10
+
+                color: Colors.uGreen
+            }
+        }
+
+        Rectangle {
+            id: typeContainer
+
+            anchors.left: firmware.left
+            anchors.leftMargin: 15
+
+            anchors.right: firmware.right
+            anchors.rightMargin: 15
+
+            anchors.top: firmwareContainer.bottom
+            anchors.topMargin: 5
+
+            height: 15
+
+            ULabel.Default {
+                id: typeLabel
+
+                anchors.left: typeContainer.left
+                anchors.verticalCenter: typeContainer.verticalCenter
+
+                font.bold: true
+                font.pointSize: 11
+
+                color: Colors.uMediumDarkGrey
+
+                text: "TYPE"
+            }
+
+            ULabel.Default {
+                id: typeValue
+
+                anchors.right: typeContainer.right
+                anchors.verticalCenter: typeContainer.verticalCenter
+
+                font.bold: false
+                font.pointSize: 11
+
+                color: Colors.uGrey
+
+                text: getModel()
+            }
+        }
+
+        Rectangle {
+            id: modelContainer
+
+            anchors.left: firmware.left
+            anchors.leftMargin: 15
+
+            anchors.right: firmware.right
+            anchors.rightMargin: 15
+
+            anchors.top: typeContainer.bottom
+
+            height: 15
+
+            ULabel.Default {
+                id: modelLabel
+
+                anchors.left: modelContainer.left
+                anchors.verticalCenter: modelContainer.verticalCenter
+
+                font.bold: true
+                font.pointSize: 11
+
+                color: Colors.uMediumDarkGrey
+
+                text: "MODEL"
+            }
+
+            ULabel.Default {
+                id: modelValue
+
+                anchors.right: modelContainer.right
+                anchors.verticalCenter: modelContainer.verticalCenter
+
+                font.bold: false
+                font.pointSize: 11
+
+                color: Colors.uGrey
+
+                text: getType()
+            }
+        }
+
+        Rectangle {
+            id: guidContainer
+
+            anchors.left: firmware.left
+            anchors.leftMargin: 15
+
+            anchors.right: firmware.right
+            anchors.rightMargin: 15
+
+            anchors.top: modelContainer.bottom
+
+            height: 15
+
+            ULabel.Default {
+                id: guidLabel
+
+                anchors.left: guidContainer.left
+                anchors.verticalCenter: guidContainer.verticalCenter
+
+                font.bold: true
+                font.pointSize: 11
+
+                color: Colors.uMediumDarkGrey
+
+                text: "GUID"
+            }
+
+            ULabel.Default {
+                id: guidValue
+
+                anchors.right: guidContainer.right
+                anchors.verticalCenter: guidContainer.verticalCenter
+
+                font.bold: false
+                font.pointSize: 11
+
+                color: Colors.uGrey
+
+                text: getGUID()
+            }
+        }
+
+        Rectangle {
+            id: firmMinContainer
+
+            anchors.left: firmware.left
+            anchors.leftMargin: 15
+
+            anchors.right: firmware.right
+            anchors.rightMargin: 15
+
+            anchors.top: guidContainer.bottom
+
+            height: 15
+
+            ULabel.Default {
+                id: firmMinLabel
+
+                anchors.left: firmMinContainer.left
+                anchors.verticalCenter: firmMinContainer.verticalCenter
+
+                font.bold: true
+                font.pointSize: 11
+
+                color: Colors.uMediumDarkGrey
+
+                text: "MINIMUM VALUE"
+            }
+
+            ULabel.Default {
+                id: firmMinValue
+
+                anchors.right: firmMinContainer.right
+                anchors.verticalCenter: firmMinContainer.verticalCenter
+
+                font.bold: false
+                font.pointSize: 11
+
+                color: Colors.uGrey
+
+                text: getMinValue()
+            }
+        }
+
+        Rectangle {
+            id: firmMaxContainer
+
+            anchors.left: firmware.left
+            anchors.leftMargin: 15
+
+            anchors.right: firmware.right
+            anchors.rightMargin: 15
+
+            anchors.top: firmMinContainer.bottom
+
+            height: 15
+
+            ULabel.Default {
+                id: firmMaxLabel
+
+                anchors.left: firmMaxContainer.left
+                anchors.verticalCenter: firmMaxContainer.verticalCenter
+
+                font.bold: true
+                font.pointSize: 11
+
+                color: Colors.uMediumDarkGrey
+
+                text: "MAXIMUM VALUE"
+            }
+
+            ULabel.Default {
+                id: firmMaxValue
+
+                anchors.right: firmMaxContainer.right
+                anchors.verticalCenter: firmMaxContainer.verticalCenter
+
+                font.bold: false
+                font.pointSize: 11
+
+                color: Colors.uGrey
+
+                text: getMaxValue()
+            }
+        }
+    }
+
+    Rectangle {
+        id: graph
+
+        anchors.top: currentValue.bottom
+        anchors.bottom: container.bottom
+
+        anchors.left: firmware.right
+
+        width: (container.width / 2)
+
+        color: Colors.uTransparent
+    }
+
     function getValue() {
         if (item !== null) return item.value
         else return 0
@@ -350,5 +630,27 @@ Rectangle {
     function getPrecision() {
         if (item !== null) return item.precision
         else return "0.1"
+    }
+
+    function getModel() {
+        return "La Crosse Temp WS2355"
+    }
+
+    function getType() {
+        return "Thermometer (sensor)"
+    }
+
+    function getGUID() {
+        return "12312412412321"
+    }
+
+    function getMinValue() {
+        if (item !== null) return item.minValue
+        else return "-70"
+    }
+
+    function getMaxValue() {
+        if (item !== null) return item.maxValue
+        else return "70"
     }
 }
