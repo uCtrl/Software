@@ -519,7 +519,7 @@ Rectangle {
         }
 
         Rectangle {
-            id: firmMinContainer
+            id: rangeContainer
 
             anchors.left: firmware.left
             anchors.leftMargin: 15
@@ -532,73 +532,31 @@ Rectangle {
             height: 15
 
             ULabel.Default {
-                id: firmMinLabel
+                id: rangeLabel
 
-                anchors.left: firmMinContainer.left
-                anchors.verticalCenter: firmMinContainer.verticalCenter
-
-                font.bold: true
-                font.pointSize: 11
-
-                color: Colors.uMediumDarkGrey
-
-                text: "MINIMUM VALUE"
-            }
-
-            ULabel.Default {
-                id: firmMinValue
-
-                anchors.right: firmMinContainer.right
-                anchors.verticalCenter: firmMinContainer.verticalCenter
-
-                font.bold: false
-                font.pointSize: 11
-
-                color: Colors.uGrey
-
-                text: getMinValue()
-            }
-        }
-
-        Rectangle {
-            id: firmMaxContainer
-
-            anchors.left: firmware.left
-            anchors.leftMargin: 15
-
-            anchors.right: firmware.right
-            anchors.rightMargin: 15
-
-            anchors.top: firmMinContainer.bottom
-
-            height: 15
-
-            ULabel.Default {
-                id: firmMaxLabel
-
-                anchors.left: firmMaxContainer.left
-                anchors.verticalCenter: firmMaxContainer.verticalCenter
+                anchors.left: rangeContainer.left
+                anchors.verticalCenter: rangeContainer.verticalCenter
 
                 font.bold: true
                 font.pointSize: 11
 
                 color: Colors.uMediumDarkGrey
 
-                text: "MAXIMUM VALUE"
+                text: "SENSOR RANGE"
             }
 
             ULabel.Default {
-                id: firmMaxValue
+                id: rangeValue
 
-                anchors.right: firmMaxContainer.right
-                anchors.verticalCenter: firmMaxContainer.verticalCenter
+                anchors.right: rangeContainer.right
+                anchors.verticalCenter: rangeContainer.verticalCenter
 
                 font.bold: false
                 font.pointSize: 11
 
                 color: Colors.uGrey
 
-                text: getMaxValue()
+                text: "from " + getMinValue() + " to " + getMaxValue()
             }
         }
     }

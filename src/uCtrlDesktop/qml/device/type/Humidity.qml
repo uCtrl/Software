@@ -1,27 +1,33 @@
 import QtQuick 2.0
 
+import "../../ui/UColors.js" as Colors
 Rectangle {
     id: container
 
-    Rectangle {
-        id: currentValueContainer
+    property variant periods: [
+        { value: "today",     displayedValue: "Today", iconId: ""},
+        { value: "week",   displayedValue: "This week", iconId: ""},
+        { value: "month",   displayedValue: "This month", iconId: ""},
+   ]
 
-        anchors.top: parent.top
-        anchors.left: parent.left
+    color: Colors.uTransparent
 
-        height: 125; width: 250
+    Temperature {
+        id: temperature
 
-        color: "cyan"
-    }
+        property var item: main.activeDevice
+        property variant periods: container.periods
 
-    Rectangle {
-        id: periodContainer
+        anchors.fill: parent
 
-        anchors.top: parent.top
-        anchors.left: currentValueContainer.right
+        color: container.color
 
-        height: currentValueContainer.height; width: parent.width - currentValueContainer.width
+        function getType() {
+            return "Humidity (sensor)"
+        }
 
-        color: "blue"
+        function getModel() {
+            return "La Crosse Humidity WS2355"
+        }
     }
 }
