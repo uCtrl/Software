@@ -1,10 +1,13 @@
-.pragma library
+﻿.pragma library
 
 // µCtrl's Green variation
 var uLightGreen = "#DAF2DA";
 var uMediumLightGreen = "#0DBE0D";
 var uGreen = "#0D9B0D";
 var uDarkGreen = "#0D740D";
+
+// Yellow variation
+var uYellow = "#FFCC00";
 
 // µCtrl's Red variation
 var uLightRed = "#FFBFBF";

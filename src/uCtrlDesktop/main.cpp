@@ -44,6 +44,8 @@ void Init(QGuiApplication& app, QtQuick2ApplicationViewer& viewer)
     qmlRegisterType<UDevice>("DeviceEnums", 1, 0, "UEType");
     qmlRegisterType<UCondition>("ConditionEnums", 1, 0, "UEType");
     qmlRegisterType<UCondition>("ConditionEnums", 1, 0, "UEComparisonType");
+    qmlRegisterType<UHistoryLog>("HistoryEnums", 1, 0, "UESeverity");
+    qmlRegisterType<UHistoryLog>("HistoryEnums", 1, 0, "UELogType");
 
     qmlRegisterType<UAudioRecorder>("UAudioRecorder", 1, 0, "UAudioRecorder");
     qmlRegisterType<UVoiceControlAPI>("UVoiceControl", 1, 0, "UVoiceControl");

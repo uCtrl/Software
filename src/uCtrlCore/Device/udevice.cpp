@@ -117,8 +117,14 @@ ListModel* UDevice::history() const
 {
     //Todo (m'Lord): Fetch the data from the server
     ListModel* data = new UHistoryLogModel();
-    data->appendRow(new UHistoryLog(UHistoryLog::UELogType::Action, UHistoryLog::UESeverity::Normal, "This is a test message", QDateTime::currentDateTime().addDays(-9)));
-    data->appendRow(new UHistoryLog(UHistoryLog::UELogType::Scenario, UHistoryLog::UESeverity::Warning, "This is a test message #2", QDateTime::currentDateTime().addDays(-12)));
+    data->appendRow(new UHistoryLog(UHistoryLog::UELogType::Condition, UHistoryLog::UESeverity::Normal, "Light turned ON", QDateTime::currentDateTime().addDays(-1).addSecs(125)));
+    data->appendRow(new UHistoryLog(UHistoryLog::UELogType::Action, UHistoryLog::UESeverity::Normal, "Light manually turned OFF", QDateTime::currentDateTime().addDays(-5)));
+    data->appendRow(new UHistoryLog(UHistoryLog::UELogType::Scenario, UHistoryLog::UESeverity::Normal, "Scenario changed to 'Summertime'", QDateTime::currentDateTime().addDays(-15)));
+    data->appendRow(new UHistoryLog(UHistoryLog::UELogType::Status, UHistoryLog::UESeverity::Normal, "Status cleared", QDateTime::currentDateTime().addDays(-32).addSecs(564)));
+    data->appendRow(new UHistoryLog(UHistoryLog::UELogType::Status, UHistoryLog::UESeverity::Error, "The device is no longer working", QDateTime::currentDateTime().addDays(-32).addSecs(98)));
+    data->appendRow(new UHistoryLog(UHistoryLog::UELogType::Status, UHistoryLog::UESeverity::Warning, "There is a problem with the device", QDateTime::currentDateTime().addDays(-32)));
+    data->appendRow(new UHistoryLog(UHistoryLog::UELogType::Update, UHistoryLog::UESeverity::Normal, "Updated to firmware version 1.2.3.0", QDateTime::currentDateTime().addDays(-1245).addSecs(1234)));
+
     return data;
 }
 

@@ -18,6 +18,7 @@ class UHistoryLog : public ListItem
 
 public:
     Q_ENUMS(UELogType)
+    Q_ENUMS(UESeverity)
 
     enum class UELogType: int {
         Action,

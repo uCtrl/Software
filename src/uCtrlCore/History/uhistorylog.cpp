@@ -138,11 +138,16 @@ QString UHistoryLog::timestamp() const
     }
     if(numberOfDays >= 2 && numberOfDays < 7)
     {
-        return numberOfDays + " days ago";
+        return QString::number(numberOfDays) + " days ago";
     }
-    if(numberOfDays >= 7 && numberOfDays < 31)
+    if(numberOfDays >= 7 && numberOfDays < 14)
     {
-        return (numberOfDays/7) + " weeks ago";
+        return "1 week ago";
+    }
+    if(numberOfDays >= 14 && numberOfDays < 31)
+    {
+        int numberOfWeeks = numberOfDays/7;
+        return QString::number(numberOfWeeks) + " weeks ago";
     }
     return m_timestamp.toString("dd/MM/yyyy hh:mm");
 }
