@@ -17,8 +17,8 @@ void UCtrlAPI::postUser()
 {
     QJsonObject userObj;
     QJsonObject ninjaObj;
-    ninjaObj["userAccessToken"] = m_ninjaToken;
-    userObj["ninjablocks"] = ninjaObj;
+    userObj["userAccessToken"] = m_ninjaToken;
+    //userObj["ninjablocks"] = ninjaObj;
     QJsonDocument doc(userObj);
 
     QUrl url(m_serverBaseUrl + "users");
