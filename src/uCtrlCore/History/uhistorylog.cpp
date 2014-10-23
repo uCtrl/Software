@@ -1,34 +1,95 @@
 #include "uhistorylog.h"
 
-uhistorylog::UDevice(QObject* parent) : NestedListItem(parent)
+UHistoryLog::UHistoryLog(QObject* parent) : ListItem(parent)
 {
 
 }
 
-uhistorylog::~UDevice()
+UHistoryLog::UHistoryLog(UELogType t, UESeverity s, QString m, QDateTime d, QObject* parent) : ListItem(parent)
+{
+    type(t);
+    severity(s);
+    message(m);
+    timestamp(d);
+}
+
+UHistoryLog::~UHistoryLog()
 {
 }
 
-void uhistorylog::write(QJsonObject& jsonObj) const
+QVariant UHistoryLog::data(int role) const
 {
-    jsonObj["type"] = m_type;
+    switch (role)
+    {
+    case typeRole:
+        return (int)type();
+    case severityRole:
+        return (int)severity();
+    case messageRole:
+        return message();
+    case timestampRole:
+        return timestamp();
+    default:
+        return QVariant();
+    }
+}
+
+bool UHistoryLog::setData(const QVariant& value, int role)
+{
+    switch (role)
+    {
+    case typeRole:
+        type((UELogType)value.toInt());
+        break;
+    case severityRole:
+        severity((UESeverity)value.toInt());
+        break;
+    case messageRole:
+        message(value.toString());
+        break;
+    case timestampRole:
+        timestamp(QDateTime::fromTime_t((uint)value.toInt()));
+        break;
+    default:
+        return false;
+    }
+    return true;
+}
+
+QHash<int, QByteArray> UHistoryLog::roleNames() const
+{
+    QHash<int, QByteArray> roles;
+
+    roles[typeRole] = "type";
+    roles[severityRole] = "severity";
+    roles[messageRole] = "message";
+    roles[timestampRole] = "timestamp";
+
+    return roles;
+}
+
+void UHistoryLog::write(QJsonObject& jsonObj) const
+{
+    jsonObj["type"] = (int)m_type;
+    jsonObj["severity"] = (int)m_severity;
     jsonObj["message"] = m_message;
-    jsonObj["timestamp"] = m_timestamp.toTime_t();
+    jsonObj["timestamp"] = (int)m_timestamp.toTime_t();
 }
 
-void uhistorylog::read(const QJsonObject &jsonObj)
+void UHistoryLog::read(const QJsonObject &jsonObj)
 {
-    this->type((UELogType)jsonObj["type"]);
+    this->type((UELogType)jsonObj["type"].toInt());
+    this->severity((UESeverity)jsonObj["severity"].toInt());
     this->message(jsonObj["message"].toString());
     this->timestamp(QDateTime::fromTime_t((uint)jsonObj["timestamp"].toInt()));
 }
 
-QString uhistorylog::type() const
+UHistoryLog::UELogType UHistoryLog::type() const
 {
-    return m_type.toString();
+    return m_type;
 }
 
-void uhistorylog::type(const UELogType& type)
+void UHistoryLog::type(const UELogType& type)
 {
     if (m_type != type) {
         m_type = type;
@@ -36,12 +97,25 @@ void uhistorylog::type(const UELogType& type)
     }
 }
 
-QString uhistorylog::message() const
+UHistoryLog::UESeverity UHistoryLog::severity() const
 {
-    return m_description;
+    return m_severity;
 }
 
-void uhistorylog::message(const QString &message)
+void UHistoryLog::severity(const UESeverity& severity)
+{
+    if (m_severity != severity) {
+        m_severity = severity;
+        emit dataChanged();
+    }
+}
+
+QString UHistoryLog::message() const
+{
+    return m_message;
+}
+
+void UHistoryLog::message(const QString &message)
 {
     if (m_message != message) {
         m_message = message;
@@ -49,7 +123,7 @@ void uhistorylog::message(const QString &message)
     }
 }
 
-QString uhistorylog::timestamp() const
+QString UHistoryLog::timestamp() const
 {
     QDateTime today = QDateTime::currentDateTime();
     long numberOfDays = m_timestamp.daysTo(today);
@@ -64,16 +138,21 @@ QString uhistorylog::timestamp() const
     }
     if(numberOfDays >= 2 && numberOfDays < 7)
     {
-        return numberOfDays + " days ago";
+        return QString::number(numberOfDays) + " days ago";
     }
-    if(numberOfDays >= 7 && numberOfDays < 31)
+    if(numberOfDays >= 7 && numberOfDays < 14)
     {
-        return (numberOfDays/7) + " weeks ago";
+        return "1 week ago";
+    }
+    if(numberOfDays >= 14 && numberOfDays < 31)
+    {
+        int numberOfWeeks = numberOfDays/7;
+        return QString::number(numberOfWeeks) + " weeks ago";
     }
     return m_timestamp.toString("dd/MM/yyyy hh:mm");
 }
 
-void uhistorylog::timestamp(const QDateTime &timestamp)
+void UHistoryLog::timestamp(const QDateTime &timestamp)
 {
     if (m_timestamp != timestamp) {
         m_timestamp = timestamp;

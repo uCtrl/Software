@@ -34,3 +34,11 @@ void UDevicesModel::read(const QJsonObject &jsonObj)
         }
     }
 }
+
+QObject* UDevicesModel::getHistoryWithId(const QString &id)
+{
+    UDevice* item = (UDevice*)find(id);
+    if (item != NULL)
+        return (UDevice*) item->history();
+    return NULL;
+}
