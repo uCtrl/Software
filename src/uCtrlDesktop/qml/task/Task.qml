@@ -104,75 +104,69 @@ Column {
         }
     }
 
-    /*Rectangle {
+    Rectangle {
         id: buttonContainer
 
-        property int iconSize: 10
-        property int buttonSize: 15
+        property int iconSize: 20
+        property int buttonSize: 30
         property int marginSize: 5
 
-        anchors.left: taskContainer.right
-        width: (showEditMode ? saveButton.width + cancelButton.width : editButton.width) + (deleteButton.width + moveUpButton.width + moveDownButton.width)
+        anchors.right: parent.right
 
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
+        width: (showEditMode ? saveButton.width + cancelButton.width : editButton.width) + (deleteButton.width + moveUpButton.width + moveDownButton.width)
 
         color: Colors.uTransparent
 
         UI.UButton {
-            id: deleteButton
-
-            anchors.right: parent.right
-            anchors.rightMargin: buttonContainer.marginSize
-
-            anchors.verticalCenter: parent.verticalCenter
-
-            iconId: "Trash"
+            id: saveButton
+            iconId: "checkmark"
             iconSize: buttonContainer.iconSize
-
-            height: buttonContainer.buttonSize; width: buttonContainer.buttonSize
-
-            buttonTextColor: Colors.uMediumDarkGrey
+            width: buttonContainer.buttonSize
+            buttonTextColor: Colors.uGreen
             buttonColor: Colors.uTransparent
-            buttonHoveredTextColor: Colors.uRed
+            buttonHoveredTextColor: Colors.uDarkGreen
             buttonHoveredColor: Colors.uTransparent
 
-            onClicked: deleteTask()
+            visible: showEditMode
+            onClicked: saveForm()
         }
 
         UI.UButton {
-            id: moveDownButton
-
-            anchors.right: deleteButton.left
-            anchors.rightMargin: buttonContainer.marginSize
-
-            anchors.verticalCenter: parent.verticalCenter
-
-            iconId: "ArrowDown"
+            id: cancelButton
+            iconId: "Remove"
             iconSize: buttonContainer.iconSize
 
-            height: buttonContainer.buttonSize; width: buttonContainer.buttonSize
-
-            buttonTextColor: Colors.uMediumDarkGrey
+            anchors.left: saveButton.right
+            width: buttonContainer.buttonSize
+            buttonTextColor: Colors.uRed
             buttonColor: Colors.uTransparent
-            buttonHoveredTextColor: Colors.uDarkGrey
+            buttonHoveredTextColor: Colors.uDarkRed
             buttonHoveredColor: Colors.uTransparent
 
-            onClicked: moveDown()
+            visible: showEditMode
+            onClicked: toggleEditMode()
+        }
+
+        UI.UButton {
+            id: editButton
+            iconId: "pencil"
+            iconSize: buttonContainer.iconSize
+            width: buttonContainer.buttonSize
+            buttonTextColor: Colors.uMediumDarkGrey
+            buttonColor: Colors.uTransparent
+            buttonHoveredTextColor: Colors.uGreen
+            buttonHoveredColor: Colors.uTransparent
+
+            visible: !showEditMode
+            onClicked: showEditMode = true
         }
 
         UI.UButton {
             id: moveUpButton
-
-            anchors.right: moveDownButton.left
-            anchors.rightMargin: buttonContainer.marginSize
-
-            anchors.verticalCenter: parent.verticalCenter
-
-            iconId: "ArrowUp"
+            iconId: "ArrowDown"
             iconSize: buttonContainer.iconSize
-
-            height: buttonContainer.buttonSize; width: buttonContainer.buttonSize
+            width: buttonContainer.buttonSize
+            anchors.left: showEditMode ? cancelButton.right : editButton.right
 
             buttonTextColor: Colors.uMediumDarkGrey
             buttonColor: Colors.uTransparent
@@ -183,71 +177,35 @@ Column {
         }
 
         UI.UButton {
-            id: editButton
-
-            anchors.right: moveUpButton.left
-            anchors.rightMargin: buttonContainer.marginSize
-
-            anchors.verticalCenter: parent.verticalCenter
-
-            iconId: "pencil"
+            id: moveDownButton
+            iconId: "ArrowUp"
             iconSize: buttonContainer.iconSize
+            width: buttonContainer.buttonSize
+            anchors.left: moveUpButton.right
 
             buttonTextColor: Colors.uMediumDarkGrey
             buttonColor: Colors.uTransparent
-            buttonHoveredTextColor: Colors.uGreen
+            buttonHoveredTextColor: Colors.uDarkGrey
             buttonHoveredColor: Colors.uTransparent
 
-            height: buttonContainer.buttonSize; width: buttonContainer.buttonSize
-
-            visible: !showEditMode
-            onClicked: showEditMode = true
+            onClicked: moveDown()
         }
 
         UI.UButton {
-            id: cancelButton
-
-            anchors.right: moveUpButton.left
-            anchors.rightMargin: buttonContainer.marginSize
-
-            anchors.verticalCenter: parent.verticalCenter
-
-            iconId: "Remove"
+            id: deleteButton
+            iconId: "Trash"
             iconSize: buttonContainer.iconSize
+            width: buttonContainer.buttonSize
+            anchors.left: moveDownButton.right
 
-            buttonTextColor: Colors.uRed
+            buttonTextColor: Colors.uMediumDarkGrey
             buttonColor: Colors.uTransparent
-            buttonHoveredTextColor: Colors.uDarkRed
+            buttonHoveredTextColor: Colors.uRed
             buttonHoveredColor: Colors.uTransparent
 
-            height: buttonContainer.buttonSize; width: buttonContainer.buttonSize
-
-            visible: showEditMode
-            onClicked: toggleEditMode()
+            onClicked: deleteTask()
         }
-
-        UI.UButton {
-            id: saveButton
-
-            anchors.right: cancelButton.left
-            anchors.rightMargin: buttonContainer.marginSize
-
-            anchors.verticalCenter: parent.verticalCenter
-
-            iconId: "checkmark"
-            iconSize: buttonContainer.iconSize
-
-            buttonTextColor: Colors.uGreen
-            buttonColor: Colors.uTransparent
-            buttonHoveredTextColor: Colors.uDarkGreen
-            buttonHoveredColor: Colors.uTransparent
-
-            height: buttonContainer.buttonSize; width: buttonContainer.buttonSize
-
-            visible: showEditMode
-            onClicked: saveForm()
-        }
-    }*/
+    }
 
     Condition.Conditions {
         id: conditionsContainer
@@ -286,10 +244,10 @@ Column {
     }
 
     function moveUp() {
-        console.log("move up")
+        tasks.model.moveUp(index);
     }
 
     function moveDown() {
-        console.log("move down")
+        tasks.model.moveDown(index);
     }
 }
