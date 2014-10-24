@@ -50,7 +50,6 @@ Rectangle {
                     hoverEnabled: true
 
                     onClicked: {
-                        console.log("Changed tab to " + modelData.file)
                         main.currentPage = modelData.file;
                     }
                 }
