@@ -63,5 +63,6 @@
         <file>qml/device/type/Temperature.qml</file>
         <file>qml/device/type/Humidity.qml</file>
         <file>qml/device/type/Error.qml</file>
+        <file>qml/voice/VoiceControl.qml</file>
     </qresource>
 </RCC>

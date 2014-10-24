@@ -3,14 +3,20 @@
 
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QObject>
 
-class UVoiceControlResponse
+class UVoiceControlResponse : public QObject
 {
+    Q_OBJECT
 public:
-    UVoiceControlResponse(const QJsonObject& jsonResponse);
+    explicit UVoiceControlResponse( QObject *parent = 0);
+    explicit UVoiceControlResponse(const QJsonObject& jsonResponse, QObject *parent = 0);
+    ~UVoiceControlResponse() {}
 
-    QString getIntent() { return m_intent; }
-    const QJsonObject& getEntities() { return m_entities; }
+    Q_INVOKABLE QString getIntent() { return m_intent; }
+    Q_INVOKABLE QString getText() { return m_text; }
+    Q_INVOKABLE const QJsonObject& getEntities() { return m_entities; }
+    Q_INVOKABLE float getConfidence() { return m_confidence; }
 private:
     QString m_msgId;
     QString m_text;

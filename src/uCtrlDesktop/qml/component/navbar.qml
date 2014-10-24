@@ -21,6 +21,7 @@ Rectangle {
             id: repeater
 
             model: pages
+
             Rectangle {
                 id: rectangle
 
@@ -38,7 +39,7 @@ Rectangle {
                     anchors.centerIn: parent
                 }
 
-                visible: modelData.showInNavbar
+                visible: modelData.showInNavBar
 
                 color: getBackgroundColor()
 
@@ -49,6 +50,7 @@ Rectangle {
                     hoverEnabled: true
 
                     onClicked: {
+                        console.log("Changed tab to " + modelData.file)
                         main.currentPage = modelData.file;
                     }
                 }
