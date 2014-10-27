@@ -1,113 +1,284 @@
 #include "udevice.h"
-#include "Utility/uniqueidgenerator.h"
-#include <sstream>
 
-UDevice::UDevice(QObject* parent) : QAbstractListModel(parent)
+UDevice::UDevice(QObject* parent) : NestedListItem(parent)
 {
-    setId(UniqueIdGenerator::GenerateUniqueId());
-    setLastUpdate(QDateTime::currentDateTime());
+    m_scenarios = new UScenariosModel(this);
 }
 
 UDevice::~UDevice()
 {
-    setLastUpdate(QDateTime::currentDateTime());
 }
 
-UDevice::UDevice(const UDevice& device)
+QVariant UDevice::data(int role) const
 {
-    setId(device.getId());
-    setName(device.getName());
-    setScenarios(device.getScenarios());
-    setLastUpdate(QDateTime::currentDateTime());
+    switch (role)
+    {
+    case idRole:
+        return id();
+    case nameRole:
+        return name();
+    case typeRole:
+        return (int)type();
+    case descriptionRole:
+        return description();
+    case maxValueRole:
+        return maxValue();
+    case minValueRole:
+        return minValue();
+    case valueRole:
+        return value();
+    case precisionRole:
+        return precision();
+    case statusRole:
+        return (int)status();
+    case unitLabelRole:
+        return unitLabel();
+    case enabledRole:
+        return enabled();
+    case lastUpdatedRole:
+        return lastUpdated();
+    default:
+        return QVariant();
+    }
 }
 
-QObject* UDevice::createScenario() {
-    UScenario* newScenario = new UScenario(this);
-    UTask* otherwiseTask = (UTask*)newScenario->createTask();
-    newScenario->addTask(otherwiseTask);
-    return newScenario;
-}
-
-void UDevice::addScenario(UScenario* scenario) {
-    beginInsertRows(QModelIndex(), rowCount(), rowCount());
-    m_scenarios.push_back(scenario);
-    endInsertRows();
-
-    emit scenariosChanged(m_scenarios);
-}
-
-void UDevice::updateScenarioAt(int index, UScenario* scenario) {
-    m_scenarios.replace(index, scenario);
-
-    emit scenariosChanged(m_scenarios);
-}
-
-void UDevice::saveScenarios()
+bool UDevice::setData(const QVariant& value, int role)
 {
-    emit save();
+    switch (role)
+    {
+    case idRole:
+        id(value.toString());
+        break;
+    case nameRole:
+        name(value.toString());
+        break;
+    case typeRole:
+        type((UEType)value.toInt());
+        break;
+    case descriptionRole:
+        description(value.toString());
+        break;
+    case maxValueRole:
+        maxValue(value.toString());
+        break;
+    case minValueRole:
+        minValue(value.toString());
+        break;
+    case valueRole:
+        this->value(value.toString());
+        break;
+    case precisionRole:
+        precision(value.toInt());
+        break;
+    case statusRole:
+        status((UEStatus)value.toInt());
+        break;
+    case unitLabelRole:
+        unitLabel(value.toString());
+        break;
+    case enabledRole:
+        enabled(value.toBool());
+        break;
+    case lastUpdatedRole:
+        lastUpdated(value.toUInt());
+        break;
+    default:
+        return false;
+    }
+    return true;
 }
 
-void UDevice::deleteScenarioAt(int index) {
-    if (index < 0 || index >= getScenarioCount())
-        return;
+QHash<int, QByteArray> UDevice::roleNames() const
+{
+    QHash<int, QByteArray> roles;
 
-    beginRemoveRows(QModelIndex(), index, index);
+    roles[idRole] = "id";
+    roles[nameRole] = "name";
+    roles[typeRole] = "type";
+    roles[descriptionRole] = "description";
+    roles[maxValueRole] = "maxValue";
+    roles[minValueRole] = "minValue";
+    roles[valueRole] = "value";
+    roles[precisionRole] = "precision";
+    roles[statusRole] = "status";
+    roles[unitLabelRole] = "unitLabel";
+    roles[enabledRole] = "isEnabled";
+    roles[lastUpdatedRole] = "lastUpdated";
 
-    QObject* scenario = getScenarioAt(index);
-    delete scenario;
-    scenario = NULL;
-    m_scenarios.removeAt(index);
+    return roles;
+}
 
-    endRemoveRows();
+ListModel* UDevice::nestedModel() const
+{
+    return m_scenarios;
+}
 
-    emit scenariosChanged(m_scenarios);
+ListModel* UDevice::history() const
+{
+    //Todo (m'Lord): Fetch the data from the server
+    ListModel* data = new UHistoryLogModel();
+    data->appendRow(new UHistoryLog(UHistoryLog::UELogType::Condition, UHistoryLog::UESeverity::Normal, "Light turned ON", QDateTime::currentDateTime().addDays(-1).addSecs(125)));
+    data->appendRow(new UHistoryLog(UHistoryLog::UELogType::Action, UHistoryLog::UESeverity::Normal, "Light manually turned OFF", QDateTime::currentDateTime().addDays(-5)));
+    data->appendRow(new UHistoryLog(UHistoryLog::UELogType::Scenario, UHistoryLog::UESeverity::Normal, "Scenario changed to 'Summertime'", QDateTime::currentDateTime().addDays(-15)));
+    data->appendRow(new UHistoryLog(UHistoryLog::UELogType::Status, UHistoryLog::UESeverity::Normal, "Status cleared", QDateTime::currentDateTime().addDays(-32).addSecs(564)));
+    data->appendRow(new UHistoryLog(UHistoryLog::UELogType::Status, UHistoryLog::UESeverity::Error, "The device is no longer working", QDateTime::currentDateTime().addDays(-32).addSecs(98)));
+    data->appendRow(new UHistoryLog(UHistoryLog::UELogType::Status, UHistoryLog::UESeverity::Warning, "There is a problem with the device", QDateTime::currentDateTime().addDays(-32)));
+    data->appendRow(new UHistoryLog(UHistoryLog::UELogType::Update, UHistoryLog::UESeverity::Normal, "Updated to firmware version 1.2.3.0", QDateTime::currentDateTime().addDays(-1245).addSecs(1234)));
+
+    return data;
+}
+
+void UDevice::write(QJsonObject& jsonObj) const
+{
+    jsonObj["id"] = this->id();
+    jsonObj["name"] = this->name();
+    jsonObj["type"] = (int)this->type();
+    jsonObj["description"] = this->description();
+    jsonObj["maxValue"] = this->maxValue();
+    jsonObj["minValue"] = this->minValue();
+    jsonObj["value"] = this->value();
+    jsonObj["precision"] = this->precision();
+    jsonObj["status"] = (int)this->status();
+    jsonObj["unitLabel"] = this->unitLabel();
+    jsonObj["enabled"] = this->enabled();
+    jsonObj["lastUpdated"] = QString::number(this->lastUpdated());
+
+    QJsonObject scenarios;
+    m_scenarios->write(scenarios);
+    jsonObj["scenarios"] = scenarios;
 }
 
 void UDevice::read(const QJsonObject &jsonObj)
 {
-    this->setId(jsonObj["id"].toInt());
-    this->setName(jsonObj["name"].toString());
-    this->setMinValue(jsonObj["minValue"].toDouble());
-    this->setMaxValue(jsonObj["maxValue"].toDouble());
-    this->setPrecision(jsonObj["precision"].toInt());
-    this->setUnitLabel(jsonObj["unitLabel"].toString());
-    this->setType(jsonObj["type"].toInt());
-    this->setIsTriggerValue(jsonObj["isTriggerValue"].toBool());
-    this->setEnabled(jsonObj["enabled"].toString());
-    this->setDescription(jsonObj["description"].toString());
-    this->setStatus((float)jsonObj["status"].toDouble());
-    this->setLastUpdate(QDateTime::currentDateTime());
+    this->id(jsonObj["id"].toString());
+    this->name(jsonObj["name"].toString());
+    this->type((UEType)jsonObj["type"].toInt());
+    this->description(jsonObj["description"].toString());
+    this->maxValue(jsonObj["maxValue"].toString());
+    this->minValue(jsonObj["minValue"].toString());
+    this->value(jsonObj["value"].toString());
+    this->precision(jsonObj["precision"].toInt());
+    this->status((UEStatus)jsonObj["status"].toInt());
+    this->unitLabel(jsonObj["unitLabel"].toString());
+    this->enabled(jsonObj["enabled"].toBool());
+    this->lastUpdated(jsonObj["lastUpdated"].toString().toUInt());
 
-    QJsonArray scenariosArray = jsonObj["scenarios"].toArray();
-    foreach(QJsonValue scenarioJson, scenariosArray)
-    {
-        UScenario* s = new UScenario(this);
-        s->read(scenarioJson.toObject());
-        this->m_scenarios.append(s);
+    m_scenarios->read(jsonObj);
+}
+
+QString UDevice::name() const
+{
+    return m_name;
+}
+
+void UDevice::name(const QString &name)
+{
+    if (m_name != name) {
+        m_name = name;
+        emit dataChanged();
     }
 }
 
-void UDevice::write(QJsonObject &jsonObj) const
+UDevice::UEType UDevice::type() const
 {
-    jsonObj["id"] = getId();
-    jsonObj["name"] = getName();
-    jsonObj["minValue"] = getMinValue();
-    jsonObj["maxValue"] = getMaxValue();
-    jsonObj["precision"] = getPrecision();
-    jsonObj["unitLabel"] = getUnitLabel();
-    jsonObj["type"] = getType();
-    jsonObj["isTriggerValue"] = isTriggerValue();
-    jsonObj["enabled"] = getEnabled();
-    jsonObj["description"] = getDescription();
-    jsonObj["status"] = getStatus();
+    return m_type;
+}
 
-    QJsonArray scenariosArray;
-    foreach(UScenario* scenario, this->m_scenarios)
-    {
-        QJsonObject scenarioJson;
-        scenario->write(scenarioJson);
-        scenariosArray.append(scenarioJson);
+void UDevice::type(UEType type)
+{
+    if (m_type != type) {
+        m_type = type;
+        emit dataChanged();
     }
+}
 
-    jsonObj["scenarios"] = scenariosArray;
+QString UDevice::description() const
+{
+    return m_description;
+}
+
+void UDevice::description(const QString &description)
+{
+    if (m_description != description) {
+        m_description = description;
+        emit dataChanged();
+    }
+}
+
+QString UDevice::maxValue() const
+{
+    return m_maxValue;
+}
+
+void UDevice::maxValue(const QString &maxValue)
+{
+    if (m_maxValue != maxValue) {
+        m_maxValue = maxValue;
+        emit dataChanged();
+    }
+}
+
+QString UDevice::minValue() const
+{
+    return m_minValue;
+}
+
+void UDevice::minValue(const QString &minValue)
+{
+    if (m_minValue != minValue) {
+        m_minValue = minValue;
+        emit dataChanged();
+    }
+}
+
+QString UDevice::value() const
+{
+    return m_value;
+}
+
+void UDevice::value(const QString &value)
+{
+    if (m_value != value) {
+        m_value = value;
+        emit dataChanged();
+    }
+}
+
+int UDevice::precision() const
+{
+    return m_precision;
+}
+
+void UDevice::precision(int precision)
+{
+    if (m_precision != precision) {
+        m_precision = precision;
+        emit dataChanged();
+    }
+}
+
+UDevice::UEStatus UDevice::status() const
+{
+    return m_status;
+}
+
+void UDevice::status(UEStatus status)
+{
+    if (m_status != status) {
+        m_status = status;
+        emit dataChanged();
+    }
+}
+
+QString UDevice::unitLabel() const
+{
+    return m_unitLabel;
+}
+
+void UDevice::unitLabel(const QString &unitLabel)
+{
+    if (m_unitLabel != unitLabel) {
+        m_unitLabel = unitLabel;
+        emit dataChanged();
+    }
 }

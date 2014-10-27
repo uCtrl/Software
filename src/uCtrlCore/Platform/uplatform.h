@@ -1,87 +1,71 @@
 #ifndef UPLATFORM_H
 #define UPLATFORM_H
 
-#include "Serialization/jsonserializable.h"
-#include "Device/udevice.h"
-#include <QObject>
-#include <QAbstractListModel>
+#include "Models/nestedlistitem.h"
+#include "Models/nestedlistmodel.h"
+#include "Device/udevicesmodel.h"
 
-class UPlatform : public QAbstractListModel, public JsonSerializable
+class UPlatform : public NestedListItem
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString      name READ getName WRITE setName NOTIFY nameChanged)
-    Q_PROPERTY(int          id READ getId WRITE setId NOTIFY idChanged)
-    Q_PROPERTY(QString      ip READ getIp WRITE setIp NOTIFY ipChanged)
-    Q_PROPERTY(int          port READ getPort WRITE setPort NOTIFY portChanged)
-    Q_PROPERTY(QString      room READ getRoom WRITE setRoom NOTIFY roomChanged)
-    Q_PROPERTY(QList<UDevice*> devices READ getDevices WRITE setDevices)
-    Q_PROPERTY(QString      enabled READ getEnabled WRITE setEnabled NOTIFY enabledChanged)
-    Q_PROPERTY(QString      firmwareVersion READ getFirmwareVersion WRITE setFirmwareVersion)
-    Q_PROPERTY(QDateTime    lastUpdate READ getLastUpdate NOTIFY updateChanged)
+    enum PlatformRoles
+    {
+        idRole = Qt::UserRole + 1,
+        nameRole,
+        firmwareVersionRole,
+        ipRole,
+        portRole,
+        roomRole,
+        statusRole,
+        enabledRole,
+        lastUpdatedRole,
+    };
 
 public:
-    UPlatform() {}
-    UPlatform(QObject* parent);
-    UPlatform(QObject* parent, const QString& ip, const int port);
-    UPlatform(const UPlatform& platform);
+    Q_ENUMS(UEStatus)
+
+    enum class UEStatus: int {
+        Ok = 0,
+        Disconnected = 1,
+        Error
+    };
+
+    explicit UPlatform(QObject *parent = 0);
     ~UPlatform();
 
-    // QAbstractListModel
-    virtual QVariant data(const QModelIndex &index, int role) const;
-    virtual int rowCount(const QModelIndex &parent) const;
-
-    int             getId() const { return m_id; }
-    QString         getIp() const { return m_ip; }
-    QString         getName() const { return m_name; }
-    int             getPort() const { return m_port; }
-    QList<UDevice*> getDevices() const { return m_devices; }
-    Q_INVOKABLE QObject* getDeviceAt(int index) const;
-    QString         getRoom() const { return m_room; }
-    QString         getEnabled() const { return m_enabled; }
-    QString         getFirmwareVersion() const { return m_firmwareVersion; }
-    QDateTime       getLastUpdate() const;
+    // NestedListItem
+    QVariant data(int role) const;
+    bool setData(const QVariant &value, int role);
+    QHash<int, QByteArray> roleNames() const;
+    ListModel* nestedModel() const;
 
     // JsonSerializable
-    void read(const QJsonObject &jsonObj);
     void write(QJsonObject &jsonObj) const;
+    void read(const QJsonObject &jsonObj);
 
-public slots:
-    void setId(int arg) { m_id = arg; }
-    void setIp(QString arg) { m_ip = arg; }
-    void setPort(int arg) { m_port = arg; }
-    void setDevices(QList<UDevice*> arg) { m_devices = arg; }
-    void setName(QString arg) { m_name = arg; }
-    void setRoom(QString arg) { m_room = arg; }
-    void setEnabled(QString arg)
-    {
-        if (m_enabled != arg) {
-            m_enabled = arg;
-            emit enabledChanged(arg);
-        }
-    }
-    void setFirmwareVersion(QString arg) { m_firmwareVersion = arg; }
-
-    void save();
-
-signals:
-    void nameChanged(QString arg);
-    void roomChanged(QString arg);
-    void idChanged(int arg);
-    void ipChanged(QString arg);
-    void portChanged(int arg);
-    void enabledChanged(QString arg);
-    void updateChanged(QDateTime arg);
-    void savePlatform();
+    // Properties
+    QString name() const;
+    void name(const QString& name);
+    QString firmwareVersion() const;
+    void firmwareVersion(const QString& firmwareVersion);
+    QString ip() const;
+    void ip(const QString& ip);
+    int port() const;
+    void port(int port);
+    QString room() const;
+    void room(const QString& room);
+    UEStatus status() const;
+    void status(UEStatus status);
 
 private:
-    int m_id;
-    QString m_ip;
+    QString m_firmwareVersion;
     QString m_name;
     int m_port;
-    QList<UDevice*> m_devices;
     QString m_room;
-    QString m_enabled;
-    QString m_firmwareVersion;
+    QString m_ip;
+    UEStatus m_status;
+    NestedListModel* m_devices;
 };
+
 #endif // UPLATFORM_H

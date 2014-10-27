@@ -7,7 +7,7 @@ class OsHandler : public QObject
 {
     Q_OBJECT
 public:
-    explicit OsHandler(QObject *parent = 0);
+    explicit OsHandler(QObject *parent = 0) : QObject(parent) {}
 
     enum OsType
     {

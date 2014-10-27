@@ -1,19 +1,17 @@
 include( ../uCtrl.pri )
 
-# Add more folders to ship with the application, here
-folder_01.source = qml/uCtrlDesktopQml
-folder_01.target = qml
-folder_02.source = qml/jbQuick
-folder_02.target = qml
-DEPLOYMENTFOLDERS = folder_01 \
-                    folder_02
-
 QT += network
 QT += multimedia
 
 CONFIG += c++11
 RC_ICONS = Images/uctrl.ico
 ICON = Images/uctrl.icns
+
+#folder where the qml files are
+folder_01.source = qml
+#destination folder in the build directory and the install directory
+folder_01.target = qml
+DEPLOYMENTFOLDERS = folder_01
 
 # Please do not modify the following two lines. Required for deployment.
 include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
@@ -50,8 +48,6 @@ HEADERS += \
     Voice/uturnonoffplugintent.h \
     Voice/uninjaapi.h
 
-INCLUDEPATH += \
-    qml/uCtrlDesktopQml/
 
 RESOURCES += \
     Resources.qrc

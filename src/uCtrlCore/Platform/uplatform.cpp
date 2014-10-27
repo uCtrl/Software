@@ -1,101 +1,206 @@
-#include "Utility/uniqueidgenerator.h"
 #include "uplatform.h"
 
-UPlatform::UPlatform(QObject* parent) : QAbstractListModel(parent)
+UPlatform::UPlatform(QObject* parent) : NestedListItem(parent)
 {
-    setId(UniqueIdGenerator::GenerateUniqueId());
-}
-
-UPlatform::UPlatform(QObject* parent, const QString& ip, const int port) : QAbstractListModel(parent)
-{
-    setIp(ip);
-    setPort(port);
-}
-
-UPlatform::UPlatform(const UPlatform& platform)
-{
-    setId(platform.getId());
-    setIp(platform.getIp());
-    setPort(platform.getPort());
-    setDevices(platform.getDevices());
+    m_devices = new UDevicesModel(this);
 }
 
 UPlatform::~UPlatform()
 {
 }
 
-QObject* UPlatform::getDeviceAt(int index) const {
-    if (index < 0 || index >= m_devices.count())
-        return 0;
-
-    return (QObject*) ( getDevices().at(index) );
-}
-
-QDateTime UPlatform::getLastUpdate() const
+QVariant UPlatform::data(int role) const
 {
-    QDateTime time;
-    for (int i=0;i<m_devices.count(); i++) {
-        UDevice device = getDeviceAt(i);
-        if (device.getLastUpdate() > time) {
-            time = device.getLastUpdate();
-        }
-    }
-
-    return time;
-}
-
-
-void UPlatform::save()
-{
-    emit savePlatform();
-}
-
-QVariant UPlatform::data(const QModelIndex & index, int role) const {
-    return QVariant();
-}
-
-int UPlatform::rowCount(const QModelIndex &parent) const
-{
-    return m_devices.count();
-}
-
-void UPlatform::read(const QJsonObject &jsonObj)
-{
-    this->setId(jsonObj["id"].toInt());
-    this->setName(jsonObj["name"].toString());
-    this->setRoom(jsonObj["room"].toString());
-    this->setEnabled(jsonObj["enabled"].toString());
-    this->setIp(jsonObj["ip"].toString());
-    this->setPort(jsonObj["port"].toInt());
-    this->setFirmwareVersion(jsonObj["firmwareVersion"].toString());
-
-    QJsonArray devicesArray = jsonObj["devices"].toArray();
-    foreach(QJsonValue deviceJson, devicesArray)
+    switch (role)
     {
-        UDevice* d = new UDevice(this);
-        d->read(deviceJson.toObject());
-        this->m_devices.append(d);
-        connect(d, SIGNAL(save()), this, SLOT(save()));
+    case idRole:
+        return id();
+    case nameRole:
+        return name();
+    case firmwareVersionRole:
+        return firmwareVersion();
+    case ipRole:
+        return ip();
+    case portRole:
+        return port();
+    case roomRole:
+        return room();
+    case statusRole:
+        return (int)status();
+    case enabledRole:
+        return enabled();
+    case lastUpdatedRole:
+        return lastUpdated();
+    default:
+        return QVariant();
     }
 }
 
-void UPlatform::write(QJsonObject &jsonObj) const
+bool UPlatform::setData(const QVariant& value, int role)
 {
-    jsonObj["id"] = getId();
-    jsonObj["enabled"] = getEnabled();
-    jsonObj["name"] = getName();
-    jsonObj["room"] = getRoom();
-    jsonObj["firmwareVersion"] = getFirmwareVersion();
-    jsonObj["ip"] = getIp();
-    jsonObj["port"] = getPort();
-
-    QJsonArray devicesArray;
-    foreach(UDevice* device, this->m_devices)
+    switch (role)
     {
-        QJsonObject deviceJson;
-        device->write(deviceJson);
-        devicesArray.append(deviceJson);
+    case idRole:
+        id(value.toString());
+        break;
+    case nameRole:
+        name(value.toString());
+        break;
+    case firmwareVersionRole:
+        firmwareVersion(value.toString());
+        break;
+    case ipRole:
+        ip(value.toString());
+        break;
+    case portRole:
+        port(value.toInt());
+        break;
+    case roomRole:
+        room(value.toString());
+        break;
+    case statusRole:
+        status((UEStatus)value.toInt());
+        break;
+    case enabledRole:
+        enabled(value.toBool());
+        break;
+    case lastUpdatedRole:
+        lastUpdated(value.toUInt());
+        break;
+    default:
+        return false;
     }
+    return true;
+}
 
-    jsonObj["devices"] = devicesArray;
+QHash<int, QByteArray> UPlatform::roleNames() const
+{
+    QHash<int, QByteArray> roles;
+
+    roles[idRole] = "id";
+    roles[nameRole] = "name";
+    roles[firmwareVersionRole] = "firmwareVersion";
+    roles[ipRole] = "ip";
+    roles[portRole] = "port";
+    roles[roomRole] = "room";
+    roles[statusRole] = "status";
+    roles[enabledRole] = "isEnabled";
+    roles[lastUpdatedRole] = "lastUpdated";
+
+    return roles;
+}
+
+ListModel* UPlatform::nestedModel() const
+{
+    return m_devices;
+}
+
+void UPlatform::write(QJsonObject& jsonObj) const
+{
+    jsonObj["id"] = this->id();
+    jsonObj["firmwareVersion"] = this->firmwareVersion();
+    jsonObj["name"] = this->name();
+    jsonObj["ip"] = this->ip();
+    jsonObj["port"] = this->port();
+    jsonObj["room"] = this->room();
+    jsonObj["status"] = (int)this->status();
+    jsonObj["enabled"] = this->enabled();
+    jsonObj["lastUpdated"] = QString::number(this->lastUpdated());
+
+    QJsonObject devices;
+    m_devices->write(devices);
+    jsonObj["devices"] = devices;
+}
+
+void UPlatform::read(const QJsonObject& jsonObj)
+{
+    this->id(jsonObj["id"].toString());
+    this->firmwareVersion(jsonObj["firmwareVersion"].toString());
+    this->name(jsonObj["name"].toString());
+    this->ip(jsonObj["ip"].toString());
+    this->port(jsonObj["port"].toInt());
+    this->room(jsonObj["room"].toString());
+    this->status((UEStatus)jsonObj["status"].toInt());
+    this->enabled(jsonObj["enabled"].toBool());
+    this->lastUpdated(jsonObj["lastUpdated"].toString().toUInt());
+
+    m_devices->read(jsonObj);
+}
+
+QString UPlatform::name() const
+{
+    return m_name;
+}
+
+void UPlatform::name(const QString &name)
+{
+    if (m_name != name) {
+        m_name = name;
+        emit dataChanged();
+    }
+}
+
+QString UPlatform::firmwareVersion() const
+{
+    return m_firmwareVersion;
+}
+
+void UPlatform::firmwareVersion(const QString &firmwareVersion)
+{
+    if (m_firmwareVersion != firmwareVersion) {
+        m_firmwareVersion = firmwareVersion;
+        emit dataChanged();
+    }
+}
+
+QString UPlatform::ip() const
+{
+    return m_ip;
+}
+
+void UPlatform::ip(const QString &ip)
+{
+    if (m_ip != ip) {
+        m_ip = ip;
+        emit dataChanged();
+    }
+}
+
+int UPlatform::port() const
+{
+    return m_port;
+}
+
+void UPlatform::port(int port)
+{
+    if (m_port != port) {
+        m_port = port;
+        emit dataChanged();
+    }
+}
+
+QString UPlatform::room() const
+{
+    return m_room;
+}
+
+void UPlatform::room(const QString &room)
+{
+    if (m_room != room) {
+        m_room = room;
+        emit dataChanged();
+    }
+}
+
+UPlatform::UEStatus UPlatform::status() const
+{
+    return m_status;
+}
+
+void UPlatform::status(UEStatus status)
+{
+    if (m_status != status) {
+        m_status = status;
+        emit dataChanged();
+    }
 }

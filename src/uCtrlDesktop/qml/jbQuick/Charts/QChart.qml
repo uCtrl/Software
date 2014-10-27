@@ -36,7 +36,6 @@ Canvas {
 
   onPaint: {
       if(!chart) {
-
           switch(chartType) {
           case Charts.ChartType.BAR:
               chart = new Charts.Chart(canvas, canvas.getContext("2d")).Bar(chartData);

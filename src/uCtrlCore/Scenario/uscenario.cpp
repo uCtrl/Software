@@ -1,145 +1,101 @@
 #include "uscenario.h"
-#include "Utility/uniqueidgenerator.h"
-#include <sstream>
 
-UScenario::UScenario(QObject* parent) : QAbstractListModel(parent), m_device(parent)
+UScenario::UScenario(QObject* parent) : NestedListItem(parent)
 {
-    setId(UniqueIdGenerator::GenerateUniqueId());
-    setName("Undefined");
-}
-
-UScenario::UScenario(UScenario *scenario) : QAbstractListModel(scenario->getDevice())
-{
-    setId(scenario->getId());
-    setName(scenario->getName());
-    setTasks(scenario->copyTasks());
-    m_device = scenario->getDevice();
+    m_tasks = new UTasksModel(this);
 }
 
 UScenario::~UScenario()
 {
-    // TODO: properly delete m_tasks data
-    m_tasks.clear();
 }
 
-void UScenario::updateScenario(UScenario* scenario) {
-    setId(scenario->getId());
-    setName(scenario->getName());
-    setTasks(scenario->copyTasks());
-}
-
-QList<UTask*> UScenario::copyTasks() {
-    QList<UTask*> tasksCopy;
-    for (int i = 0; i < m_tasks.length(); i++) {
-        tasksCopy.push_back(new UTask(this, m_tasks.at(i)));
-    }
-    return tasksCopy;
-}
-
-QObject* UScenario::createTask() {
-    UDevice* myDevice = (UDevice*)getDevice();
-    UTask* newTask = new UTask(this);
-
-    newTask->setStatus(myDevice->isTriggerValue() ? "OFF" : QString::number((myDevice->getMinValue() + myDevice->getMaxValue()) / 2));
-    return newTask;
-}
-
-// Insert the task before the last one (else task)
-void UScenario::addTask(UTask* task) {
-    if (m_tasks.length() == 0) {
-        beginInsertRows(QModelIndex(), rowCount(), rowCount());
-        m_tasks.push_back(task);
-        endInsertRows();
-    }
-    else {
-        beginInsertRows(QModelIndex(), rowCount() - 1, rowCount() - 1);
-        m_tasks.insert(m_tasks.length() - 1, task);
-        endInsertRows();
-    }
-
-
-
-    emit tasksChanged(m_tasks);
-}
-
-QObject* UScenario::getTaskAt(int index) const {
-    if (index < 0 || index >= taskCount())
-        return 0;
-
-    return (QObject*) ( getTasks().at(index) );
-}
-
-void UScenario::deleteTaskAt(int index) {
-    if (index < 0 || index >= taskCount())
-        return;
-
-    beginRemoveRows(QModelIndex(), index, index);
-
-    QObject* task = getTaskAt(index);
-    delete task;
-    task = NULL;
-    m_tasks.removeAt(index);
-
-    endRemoveRows();
-
-    emit tasksChanged(m_tasks);
-}
-
-void UScenario::moveTask(int indexSource, int indexDestination)
+QVariant UScenario::data(int role) const
 {
-    if (indexDestination < 0 || indexDestination >= m_tasks.size())
-        return;
-
-    if (indexSource < 0 || indexSource >= m_tasks.size())
-        return;
-
-    int sourceFirst = indexSource;
-    int sourceLast = indexSource;
-    int destinationRow = indexDestination;
-
-    if (indexSource < indexDestination) {
-        sourceFirst = indexSource + 1;
-        sourceLast = indexDestination;
-        destinationRow = indexSource;
-    }
-
-    beginMoveRows(QModelIndex(), sourceFirst, sourceLast, QModelIndex(), destinationRow);
-
-    m_tasks.move(indexSource, indexDestination);
-
-    endMoveRows();
-
-    emit tasksChanged(m_tasks);
-}
-
-void UScenario::read(const QJsonObject &jsonObj)
-{
-    this->setId(jsonObj["id"].toInt());
-    this->setName(jsonObj["name"].toString());
-
-    QJsonArray tasksArray = jsonObj["tasks"].toArray();
-    foreach(QJsonValue taskJson, tasksArray)
+    switch (role)
     {
-        UTask* t = new UTask(this);
-        t->read(taskJson.toObject());
-        this->m_tasks.append(t);
+    case idRole:
+        return id();
+    case nameRole:
+        return name();
+    case enabledRole:
+        return enabled();
+    case lastUpdatedRole:
+        return lastUpdated();
+    default:
+        return QVariant();
     }
+}
+
+bool UScenario::setData(const QVariant& value, int role)
+{
+    switch (role)
+    {
+    case idRole:
+        id(value.toString());
+        break;
+    case nameRole:
+        name(value.toString());
+        break;
+    case enabledRole:
+        enabled(value.toBool());
+        break;
+    case lastUpdatedRole:
+        lastUpdated(value.toUInt());
+        break;
+    default:
+        return false;
+    }
+    return true;
+}
+
+QHash<int, QByteArray> UScenario::roleNames() const
+{
+    QHash<int, QByteArray> roles;
+
+    roles[idRole] = "id";
+    roles[nameRole] = "name";
+    roles[enabledRole] = "isEnabled";
+    roles[lastUpdatedRole] = "lastUpdated";
+
+    return roles;
+}
+
+ListModel* UScenario::nestedModel() const
+{
+    return m_tasks;
 }
 
 void UScenario::write(QJsonObject &jsonObj) const
 {
-    jsonObj["id"] = getId();
-    jsonObj["name"] = getName();
+    jsonObj["id"] = this->id();
+    jsonObj["name"] = this->name();
+    jsonObj["enabled"] = this->enabled();
+    jsonObj["lastUpdated"] = QString::number(this->lastUpdated());
 
-    QJsonArray tasksArray;
-    foreach(UTask* task, this->m_tasks)
-    {
-        QJsonObject taskJson;
-        task->write(taskJson);
-        tasksArray.append(taskJson);
-    }
-
-    jsonObj["tasks"] = tasksArray;
+    QJsonObject tasks;
+    m_tasks->write(tasks);
+    jsonObj["tasks"] = tasks;
 }
 
+void UScenario::read(const QJsonObject &jsonObj)
+{
+    this->id(jsonObj["id"].toString());
+    this->name(jsonObj["name"].toString());
+    this->enabled(jsonObj["enabled"].toBool());
+    this->lastUpdated(jsonObj["lastUpdated"].toString().toUInt());
 
+    m_tasks->read(jsonObj);
+}
+
+QString UScenario::name() const
+{
+    return m_name;
+}
+
+void UScenario::name(const QString &name)
+{
+    if (m_name != name) {
+        m_name = name;
+        emit dataChanged();
+    }
+}

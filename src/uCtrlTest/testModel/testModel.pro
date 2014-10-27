@@ -9,8 +9,7 @@ CONFIG += staticlib c++11
 
 TEMPLATE = app
 
-SOURCES += \
-    testmodel.cpp
+SOURCES +=
 
 HEADERS += \
     testmodel.h

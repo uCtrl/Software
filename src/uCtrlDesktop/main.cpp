@@ -1,49 +1,70 @@
 #include <QtGui/QGuiApplication>
 #include <QTranslator>
-#include "qtquick2applicationviewer.h"
-#include <qqmlengine.h>
-#include <qqmlcontext.h>
-#include <qqml.h>
-#include <QtQuick/qquickitem.h>
-#include <QtQuick/qquickview.h>
-#include "System/usystem.h"
-#include "Serialization/jsonserializer.h"
-#include "Network/unetworkscanner.h"
-#include "Conditions/uconditionweekday.h"
-#include "Conditions/uconditiondevice.h"
-#include "Audio/uaudiorecorder.h"
-#include "Voice/uvoicecontrolapi.h"
-#include "Stats/ustats.h"
-#include "Utility/oshandler.h"
-
+#include <QQmlEngine>
+#include <QQmlContext>
+#include <QtQml>
+#include <qtquick2applicationviewer.h>
+#include <QtQuick/QQuickItem>
+#include <QtQuick/QQuickView>
 #include <QFile>
 #include <QTextStream>
 #include <QTimer>
 
-#include <QtQml>
+#include "Serialization/jsonserializer.h"
+#include "Network/unetworkscanner.h"
+#include "Audio/uaudiorecorder.h"
+#include "Voice/uvoicecontrolapi.h"
+#include "Utility/oshandler.h"
+#include "Models/nestedlistmodel.h"
+#include "Models/nestedlistitem.h"
+#include "Platform/uplatformsmodel.h"
+#include "Protocol/uctrlapi.h"
 
-void SaveSystemToFile(USystem* s, std::string filename)
-{
-    QFile file(QString::fromStdString(filename));
-    file.open(QIODevice::WriteOnly | QIODevice::Text);
-    QTextStream out(&file);
-    out << JsonSerializer::serialize(s);
-
-    // optional, as QFile destructor will already do it:
-    file.close();
-}
-
-void LoadSystemFromFile(USystem* s, std::string filename)
+void LoadSystemFromFile(UPlatformsModel* p, const QString& filename)
 {
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
 
-    QFile f(QString::fromStdString(filename));
+    QFile f(filename);
     if (f.open(QFile::ReadOnly | QFile::Text)){
         QTextStream in(&f);
-        QString str = in.readAll();
-        str.remove(QRegExp("[\\n\\t\\r]"));
-        JsonSerializer::parse(str, s);
+        QByteArray str = in.readAll().toUtf8();
+        JsonSerializer::parse(str, p);
     }
+}
+
+void Init(QGuiApplication& app, QtQuick2ApplicationViewer& viewer)
+{
+    QTranslator translator;
+    if (translator.load(":/Resources/Languages/uctrl_" + QLocale::system().name())) {
+        app.installTranslator(&translator);
+    }
+
+    qmlRegisterType<UPlatform>("PlatformEnums", 1, 0, "UEStatus");
+    qmlRegisterType<UDevice>("DeviceEnums", 1, 0, "UEStatus");
+    qmlRegisterType<UDevice>("DeviceEnums", 1, 0, "UEType");
+    qmlRegisterType<UCondition>("ConditionEnums", 1, 0, "UEType");
+    qmlRegisterType<UCondition>("ConditionEnums", 1, 0, "UEComparisonType");
+    qmlRegisterType<UHistoryLog>("HistoryEnums", 1, 0, "UESeverity");
+    qmlRegisterType<UHistoryLog>("HistoryEnums", 1, 0, "UELogType");
+
+    qmlRegisterType<UAudioRecorder>("UAudioRecorder", 1, 0, "UAudioRecorder");
+    qmlRegisterType<UVoiceControlAPI>("UVoiceControl", 1, 0, "UVoiceControl");
+
+    UPlatformsModel* platforms = new UPlatformsModel();
+
+    QNetworkAccessManager* networkAccessManager = viewer.engine()->networkAccessManager();
+    UCtrlAPI* uCtrlApi = new UCtrlAPI(networkAccessManager, platforms);
+
+    LoadSystemFromFile(platforms, ":/data.json");
+    //uCtrlApi->postUser();
+
+    QQmlContext *ctxt = viewer.rootContext();
+    ctxt->setContextProperty("platformsModel", platforms);
+
+    viewer.setSource(QUrl("qrc:///qml/main.qml"));
+    viewer.setMinimumHeight(650);
+    viewer.setMinimumWidth(900);
+    viewer.showExpanded();
 }
 
 int main(int argc, char *argv[])
@@ -51,43 +72,9 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     QtQuick2ApplicationViewer viewer;
 
-    QTranslator translator;
-    if (translator.load(":/Resources/Languages/uctrl_" + QLocale::system().name())) {
-        app.installTranslator(&translator);
-    }
+    // TODO: Extract this to a class and speed up initialization with QMetaObject::invokeMethod(this, "init",!Qt::QueuedConnection);
+    Init(app, viewer);
 
-    qmlRegisterType<UCondition>("ConditionEnums", 1, 0, "UEConditionType");
-    qmlRegisterType<UCondition>("ConditionEnums", 1, 0, "UEComparisonType");
-    qmlRegisterType<UConditionWeekday>("ConditionEnums", 1, 0, "UEWeekday");
-    qmlRegisterType<UConditionDevice>("ConditionEnums", 1, 0, "UEDeviceType");
-    qmlRegisterType<UAudioRecorder>("UAudioRecorder", 1, 0, "UAudioRecorder");
-    qmlRegisterType<UVoiceControlAPI>("UVoiceControl", 1, 0, "UVoiceControl");
-    
-    USystem* system = USystem::Instance();
-    OsHandler osType;
-
-    UStats* stats = UStats::Instance();
-
-    system->setRefreshTimer(&app, 5000);
-
-    // SIMULATOR SECTION
-    //UNetworkScanner* scanner = UNetworkScanner::Instance();
-    //scanner->scanNetwork();
-
-    // LOCAL FILE SECTION
-    LoadSystemFromFile(system, ":/Resources/data.json");
-
-    QQmlContext *ctxt = viewer.rootContext();
-    ctxt->setContextProperty("mySystem", system);
-
-    ctxt->setContextProperty("CrossPlatformOS", &osType);
-    viewer.setMainQmlFile(QStringLiteral("qml/uCtrlDesktopQml/main.qml"));
-    viewer.setMinimumHeight(650);
-    viewer.setMinimumWidth(900);
-    viewer.showExpanded();
-
-    int ret = app.exec();
-    SaveSystemToFile(system, "newdata.json");
-    return ret;
+    return app.exec();
 }
 
