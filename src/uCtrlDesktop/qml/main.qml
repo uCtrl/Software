@@ -15,8 +15,9 @@ Rectangle {
 
     // Available pages
     property variant pages: [
-        {file: "platform/Platforms", icon: "settings", text: "Platforms", showInNavbar: true},
-        {file: "device/Device", icon: "", text: "Device", showInNavbar: false}
+        {file: "platform/Platforms", icon: "settings", text: "Platforms", showInNavBar: true},
+        {file: "voice/VoiceControl", icon: "Microphone", text: "Voice Control", showInNavBar: true},
+        {file: "device/Device", icon: "", text: "Device", showInNavBar: false}
     ];
 
     property variant activeDevice: null

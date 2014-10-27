@@ -21,6 +21,7 @@ Rectangle {
             id: repeater
 
             model: pages
+
             Rectangle {
                 id: rectangle
 
@@ -38,7 +39,7 @@ Rectangle {
                     anchors.centerIn: parent
                 }
 
-                visible: modelData.showInNavbar
+                visible: modelData.showInNavBar
 
                 color: getBackgroundColor()
 
