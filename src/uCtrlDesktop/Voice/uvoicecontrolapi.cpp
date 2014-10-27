@@ -6,6 +6,7 @@
 #include <QUdpSocket>
 #include "uturnonoffplugintent.h"
 #include "usetninjaeyescolorintent.h"
+#include "uturnonofflightintent.h"
 
 UVoiceControlAPI::UVoiceControlAPI(QObject *parent) :
     QObject(parent)
@@ -40,7 +41,10 @@ void UVoiceControlAPI::analyseIntent()
 
     if (voiceControlResponse.getIntent() == QString("turn_onoff_all_lights"))
     {
-        bool onOffValue = voiceControlResponse.getOnOff("on_off");
+        bool onOffValue = voiceControlResponse.getOnOff("uctrl_onoff");
+
+        UTurnOnOffLightIntent turnOnOffLightIntent(&m_ninjaAPI, "1014BBBK6089_allwhite_0_1012", onOffValue);
+        turnOnOffLightIntent.turnOnOffAllLights();
     }
     else if (voiceControlResponse.getIntent() == QString("set_ninja_eyes_color"))
     {
