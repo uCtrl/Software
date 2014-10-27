@@ -6,6 +6,7 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QFile>
+#include "Voice/uvoicecontrolresponse.h"
 
 class UVoiceControlAPI : public QObject
 {
@@ -20,7 +21,7 @@ class UVoiceControlAPI : public QObject
 public:
     explicit UVoiceControlAPI(QObject *parent = 0);
     Q_INVOKABLE void sendVoiceControlFile(QString voiceFilePath);
-    Q_INVOKABLE UVoiceControlResponse analyseIntent();
+    Q_INVOKABLE UVoiceControlResponse* analyseIntent();
 
     QString getVoiceControlIntent() const
     {

@@ -28,39 +28,12 @@ void UVoiceControlAPI::sendVoiceControlFile(QString voiceFilePath)
     voiceFile->setParent(reply);
 }
 
-UVoiceControlResponse UVoiceControlAPI::analyseIntent()
+UVoiceControlResponse* UVoiceControlAPI::analyseIntent()
 {
     QJsonDocument jsonResponse = QJsonDocument::fromJson(m_voiceControlIntent.toUtf8());
     QJsonObject jsonObj = jsonResponse.object();
-    UVoiceControlResponse voiceControlResponse(jsonObj);
+    UVoiceControlResponse* voiceControlResponse = new UVoiceControlResponse(jsonObj, &m_ninjaAPI);
 
-    if (voiceControlResponse.getIntent() == QString("turn_onoff_all_lights"))
-    {
-        bool onOffValue = voiceControlResponse.getOnOff("on_off");
-    }
-    else if (voiceControlResponse.getIntent() == QString("set_ninja_eyes_color"))
-    {
-        QString colorString = voiceControlResponse.getStringValue("uctrl_color");
-
-        USetNinjaEyesColorIntent setNinjaEyesColorIntent(&m_ninjaAPI, "1014BBBK6089_0_0_1007");
-        setNinjaEyesColorIntent.setNinjaEyesColors(colorString);
-    }
-    else if (voiceControlResponse.getIntent() == QString("turn_onoff_plugs_in_location"))
-    {
-        bool isOn = voiceControlResponse.getOnOff("uctrl_onoff");
-        QString locationName = voiceControlResponse.getStringValue("location");
-
-        UTurnOnOffPlugIntent intent(&m_ninjaAPI, "1014BBBK6089_0_0_11", isOn);
-        intent.turnOnOffPlugInLocation(locationName);
-    }
-    else if (voiceControlResponse.getIntent() == QString("turn_onoff_plug_with_id"))
-    {
-        bool isOn = voiceControlResponse.getOnOff("uctrl_onoff");
-        int plugId = voiceControlResponse.getInt("number");
-
-        UTurnOnOffPlugIntent intent(&m_ninjaAPI, "1014BBBK6089_0_0_11", isOn);
-        intent.turnOnOffPlugWithId(plugId);
-    }
     return voiceControlResponse;
 }
 

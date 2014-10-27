@@ -11,6 +11,8 @@ Rectangle {
 
     color: Colors.uLightGrey
 
+    property variant currentCommand
+
     UAudioRecorder
     {
         id: audioRecorder
@@ -22,51 +24,23 @@ Rectangle {
 
         onVoiceControlIntentChanged: {
             console.log("New intent : " + voiceControlIntent)
-            var currentCommand = analyseIntent()
+            currentCommand = analyseIntent()
 
-            if(currentCommand.getConfidence() >= 0.85)
+            if(currentCommand.isVeryConfident())
             {
-                commandLabel.text = "Command received: " + analyseResponse(currentCommand)
+                commandLabel.text = "Command received: " + currentCommand.getCommand()
+                currentCommand.sendIntent()
                 //TODO: Send the command to NinjaWare
             }
-            else if(currentCommand.getConfidence() >= 0.2)
+            else if(currentCommand.isUnsure())
             {
-                commandLabel.text = "Did you mean: " + analyseResponse(currentCommand) + "?"
+                commandLabel.text = "Did you mean: " + currentCommand.getCommand() + "?"
                 didYouMeanAnswerContainer.visible = true
             }
             else
             {
                 commandLabel.text = "We could not identify your command. Please try again."
             }
-        }
-
-        function analyseResponse(currentCommand) {
-            if(currentCommand.getIntent() === "set_ninja_eyes_color")
-            {
-                return "Set ninja eyes to {color}";
-            }
-            if(currentCommand.getIntent() === "turn_onoff_plug_with_id")
-            {
-                return "Turn {on/off} plug with id {id}"
-            }
-            if(currentCommand.getIntent() === "turn_onoff_plug_in_location")
-            {
-                return "Turn {on/off} plug in location {location}"
-            }
-            if(currentCommand.getIntent() === "set_dimmer_lights_in_location")
-            {
-                return "Set dimmer lights in location {location} to {%}"
-            }
-            if(currentCommand.getIntent() === "turn_onoff_light_with_id")
-            {
-                return "Turn lights with id {id} "
-            }
-            if(currentCommand.getIntent() === "turn_onoff_lights_in_location")
-            {
-                return "Turn {on/off} lights in location {location}"
-            }
-
-            return "Unknown command";
         }
     }
 
@@ -217,6 +191,8 @@ Rectangle {
 
             onClicked: {
                 //TODO: Send the command to NinjaWare
+                currentCommand.sendIntent()
+                commandLabel.text = "Command sent to NinjaWare."
                 didYouMeanAnswerContainer.visible = false
             }
         }
