@@ -6,9 +6,6 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QFile>
-#include "Voice/uvoicecontrolresponse.h"
-#include <QJsonDocument>
-#include <QJsonObject>
 
 class UVoiceControlAPI : public QObject
 {
@@ -18,11 +15,12 @@ class UVoiceControlAPI : public QObject
     QString m_voiceControlIntent;
     QNetworkAccessManager *manager;
     QFile* voiceFile;
+    UNinjaAPI m_ninjaAPI;
 
 public:
     explicit UVoiceControlAPI(QObject *parent = 0);
     Q_INVOKABLE void sendVoiceControlFile(QString voiceFilePath);
-    Q_INVOKABLE UVoiceControlResponse* analyseIntent();
+    Q_INVOKABLE UVoiceControlResponse analyseIntent();
 
     QString getVoiceControlIntent() const
     {
@@ -44,6 +42,9 @@ public slots:
     }
 
     void replyFinished(QNetworkReply* reply);
+
+private:
+    void testLimitlessLED();
 };
 
 #endif // UVOICECONTROLAPI_H

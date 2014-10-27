@@ -27,7 +27,12 @@ SOURCES += \
     Network/unetworkscanner.cpp \
     Audio/uaudiorecorder.cpp \
     Voice/uvoicecontrolapi.cpp \
-    Voice/uvoicecontrolresponse.cpp
+    Voice/uvoicecontrolresponse.cpp \
+    Voice/uvoiceintent.cpp \
+    Voice/uturnonofflightintent.cpp \
+    Voice/usetninjaeyescolorintent.cpp \
+    Voice/uturnonoffplugintent.cpp \
+    Voice/uninjaapi.cpp
 
 HEADERS += \
     Network/bonjourrecord.h \
@@ -36,7 +41,12 @@ HEADERS += \
     Network/unetworkscanner.h \
     Audio/uaudiorecorder.h \
     Voice/uvoicecontrolapi.h \
-    Voice/uvoicecontrolresponse.h
+    Voice/uvoicecontrolresponse.h \
+    Voice/uvoiceintent.h \
+    Voice/uturnonofflightintent.h \
+    Voice/usetninjaeyescolorintent.h \
+    Voice/uturnonoffplugintent.h \
+    Voice/uninjaapi.h
 
 
 RESOURCES += \
