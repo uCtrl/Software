@@ -29,6 +29,7 @@ Canvas {
   property alias chartAnimationEasing: chartAnimator.easing.type;
   property alias chartAnimationDuration: chartAnimator.duration;
   property   int chartAnimationProgress: 0;
+  property   var chartOptions: ({})
 
 // /////////////////////////////////////////////////////////////////
 // Callbacks
@@ -36,24 +37,25 @@ Canvas {
 
   onPaint: {
       if(!chart) {
+
           switch(chartType) {
           case Charts.ChartType.BAR:
-              chart = new Charts.Chart(canvas, canvas.getContext("2d")).Bar(chartData);
+              chart = new Charts.Chart(canvas, canvas.getContext("2d")).Bar(chartData, chartOptions);
               break;
           case Charts.ChartType.DOUGHNUT:
-              chart = new Charts.Chart(canvas, canvas.getContext("2d")).Doughnut(chartData);
+              chart = new Charts.Chart(canvas, canvas.getContext("2d")).Doughnut(chartData, chartOptions);
               break;
           case Charts.ChartType.LINE:
-              chart = new Charts.Chart(canvas, canvas.getContext("2d")).Line(chartData);
+              chart = new Charts.Chart(canvas, canvas.getContext("2d")).Line(chartData, chartOptions);
               break;
           case Charts.ChartType.PIE:
-              chart = new Charts.Chart(canvas, canvas.getContext("2d")).Pie(chartData);
+              chart = new Charts.Chart(canvas, canvas.getContext("2d")).Pie(chartData, chartOptions);
               break;
           case Charts.ChartType.POLAR:
-              chart = new Charts.Chart(canvas, canvas.getContext("2d")).PolarArea(chartData);
+              chart = new Charts.Chart(canvas, canvas.getContext("2d")).PolarArea(chartData, chartOptions);
               break;
           case Charts.ChartType.RADAR:
-              chart = new Charts.Chart(canvas, canvas.getContext("2d")).Radar(chartData);
+              chart = new Charts.Chart(canvas, canvas.getContext("2d")).Radar(chartData, chartOptions);
               break;
           default:
               console.log('Chart type should be specified.');

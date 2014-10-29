@@ -61,7 +61,7 @@ void Init(QGuiApplication& app, QtQuick2ApplicationViewer& viewer)
 
     QQmlContext *ctxt = viewer.rootContext();
     ctxt->setContextProperty("platformsModel", platforms);
-
+    viewer.addImportPath(QStringLiteral(":/qml"));
     viewer.setSource(QUrl("qrc:///qml/main.qml"));
     viewer.setMinimumHeight(650);
     viewer.setMinimumWidth(900);

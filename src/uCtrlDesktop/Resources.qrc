@@ -64,5 +64,8 @@
         <file>qml/device/type/Humidity.qml</file>
         <file>qml/device/type/Error.qml</file>
         <file>qml/voice/VoiceControl.qml</file>
+        <file>qml/jbQuick/Charts/LICENSE</file>
+        <file>qml/jbQuick/Charts/qmldir</file>
+        <file>qml/jbQuick/Charts/README.md</file>
     </qresource>
 </RCC>

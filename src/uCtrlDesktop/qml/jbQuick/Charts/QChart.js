@@ -169,8 +169,6 @@ var Chart = function(canvas, context) {
 
     this.Line = function(data,options) {
 
-        data = data[0]
-
         chart.Line.defaults = {
             scaleOverlay: false,
             scaleOverride: false,
@@ -211,7 +209,7 @@ var Chart = function(canvas, context) {
 // /////////////////////////////////////////////////////////////////
 
     this.Bar = function(data,options) {
-        data=data[0]
+
         chart.Bar.defaults = {
             scaleOverlay: false,
             scaleOverride: false,
