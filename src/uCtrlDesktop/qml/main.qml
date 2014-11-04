@@ -75,7 +75,11 @@ Rectangle {
                     active = true;
                 }
             }
-        }
+        }   
+    }
+
+    function changePage(path, pageName){
+        titlebar.changePage(path, pageName)
     }
 }
 

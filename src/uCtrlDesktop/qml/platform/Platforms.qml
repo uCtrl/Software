@@ -138,6 +138,7 @@ Rectangle {
                         onClicked: {
                             platformInfo.model = model
                             platforms.currentIndex = index
+                            main.changePage("platform/Platforms", model.name)
                         }
                     }
                 }
@@ -198,4 +199,6 @@ Rectangle {
 
         width: (parent.width/2)
     }
+
+
 }
