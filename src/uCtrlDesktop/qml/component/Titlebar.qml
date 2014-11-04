@@ -27,7 +27,7 @@ Rectangle {
     UI.UBreadCrumb{
         id: breadcrumb
 
-        width: 200
+        width: 400
         height: 45
 
         anchors.verticalCenter: parent.verticalCenter
@@ -38,5 +38,9 @@ Rectangle {
 
     function changePage(path, pageName){
         breadcrumb.changePage(path, pageName)
+    }
+
+    function resetBreadCrumb(){
+        breadcrumb.resetBreadCrumb()
     }
 }

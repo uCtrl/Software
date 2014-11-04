@@ -138,6 +138,7 @@ Rectangle {
                         onClicked: {
                             platformInfo.model = model
                             platforms.currentIndex = index
+                            main.resetBreadCrumb()
                             main.changePage("platform/Platforms", model.name)
                         }
                     }

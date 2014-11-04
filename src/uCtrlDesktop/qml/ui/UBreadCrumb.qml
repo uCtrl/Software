@@ -11,23 +11,28 @@ Rectangle {
     id: breadcrumbContainer
 
     property variant breadCrumbModel: []
-    //color: Colors.uTransparent
+    color: Colors.uTransparent
     width: parent.width
     height: parent.height
-    color: "red"
 
 
     ListView {
         id: historyLogs
 
         anchors.fill: parent
-
+        orientation: ListView.Horizontal
         model: breadcrumbContainer.breadCrumbModel
 
         delegate: Row{
             ULabel.Link{
-                text: breadCrumbModel[index].name
+
+                text: index !== 0? " / " + breadCrumbModel[index].name : breadCrumbModel[index].name
+
+                onHyperLinkClicked: {
+                    main.currentPage = breadCrumbModel[index].path
+                }
             }
+
         }
     }
 
@@ -43,5 +48,11 @@ Rectangle {
 
         breadCrumbModel = newModel
     }
+
+    function resetBreadCrumb(){
+        breadCrumbModel = []
+    }
+
+
 }
 

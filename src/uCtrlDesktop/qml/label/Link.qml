@@ -2,6 +2,7 @@ import QtQuick 2.0
 
 Default {
     id: label
+    signal hyperLinkClicked()
 
     MouseArea {
         anchors.fill: parent
@@ -11,6 +12,10 @@ Default {
             if(label.state === "ENABLED") {
                 label.font.underline = containsMouse
             }
+
+        }
+        onClicked: {
+            hyperLinkClicked()
         }
     }
 }

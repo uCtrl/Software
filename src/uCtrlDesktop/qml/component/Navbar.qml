@@ -51,6 +51,7 @@ Rectangle {
 
                     onClicked: {
                         main.currentPage = modelData.file;
+                        main.resetBreadCrumb()
                     }
                 }
 

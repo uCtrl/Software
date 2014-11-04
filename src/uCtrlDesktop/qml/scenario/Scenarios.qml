@@ -68,6 +68,7 @@ Rectangle {
 
                         onClicked: {
                             currentScenario.model = model;
+                            main.changePage("scenario/Scenarios", model.name)
                         }
                     }
                 }

@@ -34,6 +34,7 @@ Rectangle {
                         main.devicesList = devicesList.model
                         main.activeDevice = model
                         main.currentPage = "device/Device"
+                        main.changePage("device/Device", model.name)
                     }
                 }
             }

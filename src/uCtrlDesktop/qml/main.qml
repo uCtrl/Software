@@ -45,7 +45,7 @@ Rectangle {
         z: 1    // Always on top of the background.
     }
 
-    property string currentPage: "platform/Platforms";
+    property string currentPage: "home/UHome";
 
     Repeater {
         id: repeater
@@ -81,5 +81,10 @@ Rectangle {
     function changePage(path, pageName){
         titlebar.changePage(path, pageName)
     }
+
+    function resetBreadCrumb(){
+        titlebar.resetBreadCrumb()
+    }
+
 }
 
