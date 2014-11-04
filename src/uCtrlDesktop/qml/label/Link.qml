@@ -3,10 +3,6 @@ import QtQuick 2.0
 Default {
     id: label
 
-    property var redirectPath
-    property string state: "ENABLED"
-    property var redirectModel
-
     MouseArea {
         anchors.fill: parent
         hoverEnabled: true

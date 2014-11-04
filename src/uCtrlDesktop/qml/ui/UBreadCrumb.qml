@@ -10,11 +10,11 @@ Rectangle {
 
     id: breadcrumbContainer
 
-    property variant breadCrumbModel_Path: []
-    property variant breadCrumbModel_Name: []
-    color: Colors.uTransparent
+    property variant breadCrumbModel: []
+    //color: Colors.uTransparent
     width: parent.width
     height: parent.height
+    color: "red"
 
 
     ListView {
@@ -22,26 +22,26 @@ Rectangle {
 
         anchors.fill: parent
 
-        model: breadcrumbContainer.breadCrumbModel_Name
-
+        model: breadcrumbContainer.breadCrumbModel
 
         delegate: Row{
             ULabel.Link{
-                text: breadCrumbModel_Name[index]
+                text: breadCrumbModel[index].name
             }
-
         }
     }
 
-    function changePage (pagePath, pageName){
+    function changePage (pagePath, pageName)
+    {
+        var newModel = []
+        for(var i = 0; i < breadCrumbModel.length; i++) {
+            newModel.push(breadCrumbModel[i])
+        }
 
-        breadCrumbModel_Path.push(pagePath)
-        breadCrumbModel_Name.push(pageName)
-        console.log(breadCrumbModel_Path)
-        console.log(breadCrumbModel_Name)
-        console.log(pagePath)
-        console.log(pageName)
+        var newItem = {path: pagePath, name: pageName}
+        newModel.push(newItem)
 
+        breadCrumbModel = newModel
     }
 }
 
