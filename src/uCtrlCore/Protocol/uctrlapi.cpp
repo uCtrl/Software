@@ -945,7 +945,8 @@ bool UCtrlAPI::checkNetworkError(QNetworkReply* reply)
 {
     bool noError = reply->error() == QNetworkReply::NoError;
     if (!noError) {
-        emit networkError(reply->error());
+        QString errorString = "Network error (" + QString::number((int)reply->error()) + ")";
+        emit networkError(errorString);
     }
     return noError;
 }

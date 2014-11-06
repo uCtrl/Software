@@ -66,7 +66,7 @@ public:
     Q_INVOKABLE void deleteCondition(const QString& platformId, const QString& deviceId, const QString& scenarioId, const QString& taskId, const QString& conditionId);
 
 signals:
-    void networkError(QNetworkReply::NetworkError errorString);
+    void networkError(const QString& errorString);
     void serverError(const QString& errorString);
     void modelError(const QString& errorString);
 

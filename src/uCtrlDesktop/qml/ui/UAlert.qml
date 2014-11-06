@@ -87,4 +87,10 @@ Rectangle {
     function getHeight() {
         return label.height * 1.5;
     }
+
+    Component.onCompleted: {
+        uCtrlApi.networkError.connect(alert.error);
+        uCtrlApi.modelError.connect(alert.error);
+        uCtrlApi.serverError.connect(alert.error);
+    }
 }
