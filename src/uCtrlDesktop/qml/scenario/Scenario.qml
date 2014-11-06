@@ -209,22 +209,22 @@ Rectangle {
     }
 
     function getName() {
-        if (model !== null) return model.name
+        if (model !== null && model !== undefined) return model.name
         else return "Scenario name"
     }
 
     function getEnabled() {
-        if (model !== null) return model.isEnabled ? "ON" : "OFF"
+        if (model !== null && model !== undefined) return model.isEnabled ? "ON" : "OFF"
         else return "OFF"
     }
 
     function getUpdate() {
-        if (model !== null && model.lastUpdate !== undefined) return model.lastUpdate
+        if (model !== null && model !== undefined && model.lastUpdate !== undefined) return model.lastUpdate
         else return "Last update a second ago."
     }
 
     function getTasks() {
-        if (model !== null) return scenarios.model.nestedModelFromId(model.id)
+        if (model !== null && model !== undefined && scenarios !== undefined) return scenarios.model.nestedModelFromId(model.id)
     }
 
     function saveForm() {

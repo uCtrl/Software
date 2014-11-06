@@ -704,8 +704,10 @@ Item {
 
     function refresh(iconId) {
         try {
-            labelFontAwesome.font.family = (icomoon[iconId] ? icoMoon.name : fontAwesome.name)
-            labelFontAwesome.text = (icomoon[iconId] ? icomoon[iconId] : fontawesome[iconId])
+            if (iconId !== null) {
+                labelFontAwesome.font.family = (icomoon[iconId] ? icoMoon.name : fontAwesome.name)
+                labelFontAwesome.text = (icomoon[iconId] ? icomoon[iconId] : fontawesome[iconId])
+            }
         } catch(err) {
 
         }

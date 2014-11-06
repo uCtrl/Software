@@ -394,6 +394,7 @@ Rectangle {
                 id: scenariosList
 
                 model: getScenarios()
+
                 anchors.fill: parent
             }
         }

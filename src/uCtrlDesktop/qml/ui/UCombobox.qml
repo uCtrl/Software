@@ -87,7 +87,7 @@ Rectangle {
     Rectangle {
             id: dropDown
             clip:true
-            height: 20 + (itemListModel.length <= itemDisplayedBeforeScroll ? itemListModel.length * 32 : itemDisplayedBeforeScroll * 32)
+            height: getHeight()
             width: combo.width
             anchors.top: parent.bottom
             anchors.topMargin: 5
@@ -132,7 +132,7 @@ Rectangle {
 
                         id: dropDownMenu
                         anchors.fill: parent
-                        interactive: itemListModel.length > itemDisplayedBeforeScroll
+                        interactive: (itemListModel !== null ? (itemListModel.length > itemDisplayedBeforeScroll) : false)
 
                         model: itemListModel
                         delegate: UComboboxItemContainer {
@@ -167,7 +167,7 @@ Rectangle {
         }
 
     function selectItem(index) {
-        selectedItem = itemListModel[index]
+        selectedItem = (itemListModel !== null ? itemListModel[index] : 0)
         valueItem.refresh(selectedItem)
         dropDown.visible = false
         selectValue(selectedItem.value)
@@ -187,6 +187,11 @@ Rectangle {
                 break
             }
         }
+    }
+
+    function getHeight() {
+        if (itemListModel != null) return 20 + (itemListModel.length <= itemDisplayedBeforeScroll ? itemListModel.length * 32 : itemDisplayedBeforeScroll * 32)
+        else return 25
     }
 
     MouseArea {

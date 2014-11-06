@@ -2,74 +2,76 @@ import QtQuick 2.0
 
 import "../label" as ULabel
 import "../ui/UColors.js" as Colors
+import "../ui/" as UI
 
 Rectangle {
-    id: container
+
+    id: scenarios
 
     property var model: null
-
-    color: Colors.uTransparent
+    property var scenariosList: []
 
     Rectangle {
-        id: rectScenarios
+       id: noScenario
 
-        anchors.left: container.left
-        anchors.right: container.right
-        anchors.top: container.top
-        anchors.bottom: container.bottom
+       visible: (model !== null && model !== undefined && !(model.rowCount() > 0))
+
+       color: Colors.uTransparent
+
+       anchors.fill: parent
+
+       ULabel.Default {
+           anchors.centerIn: parent
+
+           text: "No scenarios available"
+           font.bold: true
+           font.pointSize: 32
+
+           color: Colors.uGrey
+       }
+    }
+
+    Rectangle {
+        id: scenarioContainer
+        anchors.fill: parent
+
+        visible: (model !== null && model !== undefined && model.rowCount() > 0)
 
         color: Colors.uTransparent
 
-        visible: (currentScenario.model === null)
+        UI.UCombobox {
+            id: scenarioCombo
 
-        ULabel.Default {
-            id: pleaseLabel
-
-            anchors.top: parent.top
-            anchors.horizontalCenter: parent.horizontalCenter
-
-            text: "Please select a scenario"
-
-            color: Colors.uGrey
-
-        }
-
-        ListView {
-            id: scenarios
-
-            anchors.top: pleaseLabel.bottom
-            anchors.topMargin: 10
-
-            anchors.bottom: parent.bottom
+            itemListModel: scenariosList
 
             anchors.left: parent.left
-            anchors.right: parent.right
+            anchors.top: parent.top
 
-            model: container.model
+            height: 35; width: parent.width
 
-            delegate: Column {
-                id: column
+            Component.onCompleted: {
+                selectItem(0)
+                currentScenario.model = scenarios.model.get(selectedItem)
+            }
 
-                width: parent.width
+            z: 3
 
-                ScenarioListItem {
-                    id: itemContainer
+            onSelectedItemChanged: if (scenarios.model !== null && scenarios.model !== undefined) currentScenario.model = scenarios.model.get(selectedItem)
+        }
 
-                    width: parent.width;
-                    height: 40
+        z: 2
+    }
 
-                    item: model
-
-                    MouseArea {
-                        id: mouseArea
-
-                        anchors.fill: parent
-                        hoverEnabled: true
-
-                        onClicked: {
-                            currentScenario.model = model;
-                        }
-                    }
+    onModelChanged: {
+        currentScenario.model = null;
+        scenarioCombo.selectedItem = null
+        if (model !== null && model !== undefined) {
+            scenariosList = null;
+            if (model.rowCount() > 0) {
+                for (var i=0;i<model.rowCount();i++) {
+                    var item = {value: i, displayedValue: model.get(i).name, iconId: ""};
+                    if (scenariosList != null) scenariosList.push(item);
+                    else scenariosList = [item];
                 }
             }
         }
@@ -78,10 +80,10 @@ Rectangle {
     Scenario {
         id: currentScenario
 
-        anchors.left: container.left
-        anchors.right: container.right
-        anchors.top: container.top
-        anchors.bottom: container.bottom
+        anchors.left: scenarios.left
+        anchors.right: scenarios.right
+        anchors.top: scenarios.top
+        anchors.bottom: scenarios.bottom
 
         visible: (currentScenario.model != null)
     }
