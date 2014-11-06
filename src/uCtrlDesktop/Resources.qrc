@@ -67,5 +67,6 @@
         <file>qml/jbQuick/Charts/LICENSE</file>
         <file>qml/jbQuick/Charts/qmldir</file>
         <file>qml/jbQuick/Charts/README.md</file>
+        <file>qml/ui/UAlert.qml</file>
     </qresource>
 </RCC>

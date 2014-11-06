@@ -33,3 +33,20 @@ var uDarkestGrey = "#222222";
 
 // Transparent color
 var uTransparent = "transparent";
+
+// Alerts
+var sucessBack = "#dff0d8";
+var sucessText = "#3c763d";
+var sucessBorder = "#d6e9c6";
+
+var infoBack = "#d9edf7";
+var infoText = "#31708f";
+var infoBorder = "#bce8f1";
+
+var warningBack = "#fcf8e3";
+var warningText = "#8a6d3b";
+var warningBorder = "#faebcc";
+
+var errorBack = "#f2dede";
+var errorText = "#a94442";
+var errorBorder = "#ebccd1";

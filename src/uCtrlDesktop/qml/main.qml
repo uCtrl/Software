@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 1.0
 
 import "component" as Components
+import "ui" as Ui
 import "ui/UColors.js" as Colors
 
 Rectangle {
@@ -43,6 +44,11 @@ Rectangle {
         anchors.left: parent.left
 
         z: 1    // Always on top of the background.
+    }
+
+    Ui.UAlert {
+        id: alert
+        anchors.top: titlebar.bottom
     }
 
     property string currentPage: "platform/Platforms";
