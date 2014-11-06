@@ -60,7 +60,7 @@ QString UVoiceControlResponse::getCommand()
 {
     if (getIntent() == QString("turn_onoff_all_lights"))
     {
-        bool onOffValue = getOnOff("on_off");
+        bool onOffValue = getOnOff("uctrl_onoff");
         return QString("Turn {0} all lights").replace("{0}", (onOffValue ? "on" : "off"));
     }
     else if (getIntent() == QString("set_ninja_eyes_color"))
@@ -88,7 +88,7 @@ bool UVoiceControlResponse::hasValidIntent()
 {
     if (getIntent() == QString("turn_onoff_all_lights"))
     {
-        return getFirstJsonValue("on_off").toString() != QString("");
+        return getFirstJsonValue("uctrl_onoff").toString() != QString("");
     }
     else if (getIntent() == QString("set_ninja_eyes_color"))
     {
@@ -110,7 +110,10 @@ void UVoiceControlResponse::sendIntent()
 {
     if (getIntent() == QString("turn_onoff_all_lights"))
     {
-        bool onOffValue = getOnOff("on_off");
+        bool isOn = getOnOff("uctrl_onoff");
+
+        UTurnOnOffLightIntent turnOnOffLightIntent(m_ninjaAPI, "1014BBBK6089_allwhite_0_1012", isOn);
+        turnOnOffLightIntent.turnOnOffAllLights();
     }
     else if (getIntent() == QString("set_ninja_eyes_color"))
     {
