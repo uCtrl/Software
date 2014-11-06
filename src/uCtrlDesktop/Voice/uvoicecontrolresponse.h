@@ -7,6 +7,7 @@
 #include <QColor>
 #include <QObject>
 #include "Voice/usetninjaeyescolorintent.h"
+#include "Voice/usetdimmerlights.h"
 #include "Voice/uturnonofflightintent.h"
 #include "Voice/uturnonoffplugintent.h"
 #include "Voice/uninjaapi.h"
