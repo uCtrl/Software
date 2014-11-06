@@ -63,6 +63,12 @@ QString UVoiceControlResponse::getCommand()
         bool onOffValue = getOnOff("uctrl_onoff");
         return QString("Turn {0} all lights").replace("{0}", (onOffValue ? "on" : "off"));
     }
+    else if (getIntent() == QString("set_dimmer_lights"))
+    {
+        int lightIntensityPercent = getInt("number");
+        QString lightIntensityPercentStr = QString::number(lightIntensityPercent);
+        return QString("Set lights to {0}%").replace("{0}", lightIntensityPercentStr);
+    }
     else if (getIntent() == QString("set_ninja_eyes_color"))
     {
         QString colorString = getStringValue("uctrl_color");
@@ -90,6 +96,10 @@ bool UVoiceControlResponse::hasValidIntent()
     {
         return getFirstJsonValue("uctrl_onoff").toString() != QString("");
     }
+    else if (getIntent() == QString("set_dimmer_lights"))
+    {
+        return getFirstJsonValue("number").toInt() >= 0 && getFirstJsonValue("number").toInt() <= 100;
+    }
     else if (getIntent() == QString("set_ninja_eyes_color"))
     {
         return getStringValue("uctrl_color") != QString("");
@@ -114,6 +124,13 @@ void UVoiceControlResponse::sendIntent()
 
         UTurnOnOffLightIntent turnOnOffLightIntent(m_ninjaAPI, "1014BBBK6089_allwhite_0_1012", isOn);
         turnOnOffLightIntent.turnOnOffAllLights();
+    }
+    else if (getIntent() == QString("set_dimmer_lights"))
+    {
+        int lightIntensityPercent = getInt("number");
+
+        USetDimmerLights setDimmerLights(m_ninjaAPI, "1014BBBK6089_allwhite_0_1012", lightIntensityPercent);
+        setDimmerLights.setAllLightsIntensity();
     }
     else if (getIntent() == QString("set_ninja_eyes_color"))
     {

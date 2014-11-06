@@ -32,7 +32,8 @@ SOURCES += \
     Voice/uturnonofflightintent.cpp \
     Voice/usetninjaeyescolorintent.cpp \
     Voice/uturnonoffplugintent.cpp \
-    Voice/uninjaapi.cpp
+    Voice/uninjaapi.cpp \
+    Voice/usetdimmerlights.cpp
 
 HEADERS += \
     Network/bonjourrecord.h \
@@ -46,7 +47,8 @@ HEADERS += \
     Voice/uturnonofflightintent.h \
     Voice/usetninjaeyescolorintent.h \
     Voice/uturnonoffplugintent.h \
-    Voice/uninjaapi.h
+    Voice/uninjaapi.h \
+    Voice/usetdimmerlights.h
 
 
 RESOURCES += \
