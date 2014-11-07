@@ -11,7 +11,7 @@ Rectangle {
 
     anchors.centerIn: parent
 
-    radius: radiusSize
+    //radius: radiusSize
     color: Colors.uGreen
 
     property string iconId

@@ -68,9 +68,9 @@
         <file>qml/jbQuick/Charts/qmldir</file>
         <file>qml/jbQuick/Charts/README.md</file>
         <file>qml/ui/UBreadCrumb.qml</file>
-        <file>qml/home/UHome.qml</file>
         <file>qml/home/ULandingPage.qml</file>
         <file>qml/home/ULargeButton.qml</file>
         <file>qml/ui/UFrame.qml</file>
+        <file>Images/uCtrl.svg</file>
     </qresource>
 </RCC>

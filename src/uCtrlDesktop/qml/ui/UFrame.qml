@@ -1,5 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
+import "UColors.js" as Colors
+
 
 ScrollView {
     property bool requiredModel: false
@@ -7,7 +9,7 @@ ScrollView {
     property int frameMarginSize: 16
 
     contentItem: Rectangle {
-        color: _colors.uTransparent
+        color: Colors.uTransparent
     }
 
    signal bind(variant newModel)

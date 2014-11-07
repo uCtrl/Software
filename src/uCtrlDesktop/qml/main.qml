@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
 
+
 import "component" as Components
 import "ui/UColors.js" as Colors
 
@@ -15,6 +16,7 @@ Rectangle {
 
     // Available pages
     property variant pages: [
+        {file: "home/ULandingPage", icon: "Dashboard", text: "Dashboard", showInNavBar: true},
         {file: "platform/Platforms", icon: "settings", text: "Platforms", showInNavBar: true},
         {file: "voice/VoiceControl", icon: "Microphone", text: "Voice Control", showInNavBar: true},
         {file: "device/Device", icon: "", text: "Device", showInNavBar: false}
@@ -45,7 +47,7 @@ Rectangle {
         z: 1    // Always on top of the background.
     }
 
-    property string currentPage: "home/UHome";
+    property string currentPage: "home/ULandingPage";
 
     Repeater {
         id: repeater
@@ -78,6 +80,13 @@ Rectangle {
         }   
     }
 
+
+
+
+    function changePageFromHome(path){
+        currentPage = path
+    }
+
     function changePage(path, pageName){
         titlebar.changePage(path, pageName)
     }
@@ -85,6 +94,7 @@ Rectangle {
     function resetBreadCrumb(){
         titlebar.resetBreadCrumb()
     }
+
 
 }
 
