@@ -51,8 +51,9 @@ void UCtrlAPI::postUserReply()
 
 void UCtrlAPI::getUserStream()
 {
-    connect(&m_webSocket, SIGNAL(connected), this, SLOT(onConnected));
-    connect(&m_webSocket, SIGNAL(disconnected), this, SLOT(onClosed));
+    connect(&m_webSocket, SIGNAL(connected()), this, SLOT(onConnected()));
+    connect(&m_webSocket, SIGNAL(disconnected()), this, SLOT(onClosed()));
+
     QUrl url(m_serverBaseUrl + "stream");
     url.setScheme("ws");
     m_webSocket.open(url);
@@ -962,7 +963,7 @@ void UCtrlAPI::onServerBaseURLChanged()
 
 void UCtrlAPI::onConnected()
 {
-    connect(&m_webSocket, SIGNAL(textMessageReceived(const QString& message)), this, SLOT(onMessageReceived(const QString& message)));
+    connect(&m_webSocket, SIGNAL(textMessageReceived(QString)), this, SLOT(onMessageReceived(QString)));
 
     QJsonObject tokenObj;
     tokenObj["token"] = m_userToken;
@@ -973,7 +974,8 @@ void UCtrlAPI::onConnected()
 
 void UCtrlAPI::onMessageReceived(const QString &message)
 {
-    qDebug() << "Message received:" << message;
+    Q_UNUSED(message)
+    // TODO: Dispatch to alerts or system or whatever
 }
 
 void UCtrlAPI::onClosed()
