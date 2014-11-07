@@ -68,7 +68,7 @@ Rectangle {
 
                         onClicked: {
                             currentScenario.model = model;
-                            main.changePage("scenario/Scenarios", model.name)
+                            main.addToBreadCrumb("scenario/Scenarios", model.name)
                         }
                     }
                 }

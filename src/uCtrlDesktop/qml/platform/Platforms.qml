@@ -138,12 +138,17 @@ Rectangle {
                         onClicked: {
                             platformInfo.model = model
                             platforms.currentIndex = index
-                            main.resetBreadCrumb()
-                            main.changePage("platform/Platforms", model.name)
+                            main.resetBreadCrumbplatforms()
+                            main.addToBreadCrumbplatforms("platform/Platforms", model.name)
                         }
                     }
+
+
                 }
 
+                function addToBreadCrumb(){
+                    main.addToBreadCrumb("platform/Platforms", model.name)
+                }
                 function filterValue(source, filter) {
                     if (filter === "") return true
                     else return source.toLowerCase().indexOf(filter.toLowerCase()) !== -1

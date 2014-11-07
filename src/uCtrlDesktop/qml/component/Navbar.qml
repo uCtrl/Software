@@ -51,7 +51,10 @@ Rectangle {
 
                     onClicked: {
                         main.currentPage = modelData.file;
-                        main.resetBreadCrumb()
+                        main.resetBreadCrumbdevices()
+                        main.addToBreadCrumbdevices("device/Device", "")
+                        main.resetBreadCrumbplatforms()
+                        main.addToBreadCrumbplatforms("platform/Platforms", "")
                     }
                 }
 

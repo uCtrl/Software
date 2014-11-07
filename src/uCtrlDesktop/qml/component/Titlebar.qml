@@ -10,6 +10,8 @@ Rectangle {
     color: Colors.uGreen
     height: 65
 
+    property var pages: null
+
     UI.UImage {
         id: logo
 
@@ -34,13 +36,21 @@ Rectangle {
 
         anchors.right: parent.right
         anchors.rightMargin: 12
+
+        pages: titlebar.pages
     }
 
-    function changePage(path, pageName){
-        breadcrumb.changePage(path, pageName)
+    function addToBreadCrumbdevices(path, pageName){
+        breadcrumb.addToBreadCrumbdevices(path, pageName)
+    }
+    function addToBreadCrumbplatforms(path, pageName){
+        breadcrumb.addToBreadCrumbplatforms(path, pageName)
     }
 
-    function resetBreadCrumb(){
-        breadcrumb.resetBreadCrumb()
+    function resetBreadCrumbdevices(){
+        breadcrumb.resetBreadCrumbdevices()
+    }
+    function resetBreadCrumbplatforms(){
+        breadcrumb.resetBreadCrumbplatforms()
     }
 }

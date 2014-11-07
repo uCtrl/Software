@@ -33,6 +33,8 @@ Rectangle {
         anchors.right: parent.right
 
         z: 2    // Always on top of the background and the navigation bar.
+
+        pages: main.pages
     }
 
     Components.Navbar {
@@ -87,14 +89,21 @@ Rectangle {
         currentPage = path
     }
 
-    function changePage(path, pageName){
-        titlebar.changePage(path, pageName)
+    function addToBreadCrumbplatforms(path, pageName){
+        titlebar.addToBreadCrumbplatforms(path, pageName)
     }
 
-    function resetBreadCrumb(){
-        titlebar.resetBreadCrumb()
+    function addToBreadCrumbdevices(path, pageName){
+        titlebar.addToBreadCrumbdevices(path, pageName)
     }
 
+    function resetBreadCrumbdevices(){
+        titlebar.resetBreadCrumbdevices()
+    }
+
+    function resetBreadCrumbplatforms(){
+        titlebar.resetBreadCrumbplatforms()
+    }
 
 }
 
