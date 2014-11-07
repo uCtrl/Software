@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QtNetwork>
+#include <QtWebSockets/QWebSocket>
 #include "Serialization/jsonserializer.h"
 #include "Platform/uplatformsmodel.h"
 #include "Device/udevicesmodel.h"
@@ -22,6 +23,9 @@ class UCtrlAPI : public QObject
 
 public:
     explicit UCtrlAPI(QNetworkAccessManager* nam, UPlatformsModel* platforms, QObject *parent = 0);
+
+    Q_PROPERTY(QString ninjaToken MEMBER m_ninjaToken NOTIFY ninjaTokenChanged)
+    Q_PROPERTY(QString serverBaseUrl MEMBER m_serverBaseUrl NOTIFY serverBaseURLChanged)
 
     //User
     Q_INVOKABLE void postUser();
@@ -70,6 +74,10 @@ signals:
     void serverError(const QString& errorString);
     void modelError(const QString& errorString);
 
+    // Settings
+    void ninjaTokenChanged(const QString& ninjaToken);
+    void serverBaseURLChanged(const QString& serverBaseUrl);
+
 private slots:
     //User
     void postUserReply();
@@ -112,6 +120,15 @@ private slots:
     void putConditionReply();
     void deleteConditionReply();
 
+    // Settings
+    void onNinjaTokenChanged();
+    void onServerBaseURLChanged();
+
+    // Websocket
+    void onConnected();
+    void onMessageReceived(const QString& message);
+    void onClosed();
+
 private:
     bool checkServerError(const QJsonObject& jsonObj);
     bool checkNetworkError(QNetworkReply* reply);
@@ -126,6 +143,7 @@ private:
     QString m_serverBaseUrl;
     QString m_userToken;
     QNetworkAccessManager* m_networkAccessManager;
+    QWebSocket m_webSocket;
 };
 
 #endif // UCTRLAPI_H

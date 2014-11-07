@@ -4,7 +4,7 @@ UCtrlAPI::UCtrlAPI(QNetworkAccessManager* nam, UPlatformsModel* platforms, QObje
     QObject(parent), m_networkAccessManager(nam)
 {
     m_platforms = platforms;
-    m_serverBaseUrl = "http://uctrl.gel.usherbrooke.ca/dev/";
+    m_serverBaseUrl = "http://localhost:3000/"; //"http://uctrl.gel.usherbrooke.ca/dev/";
     m_ninjaToken = "107f6f460bed2dbb10f0a93b994deea7fe07dad5";
 }
 
@@ -17,8 +17,8 @@ void UCtrlAPI::postUser()
 {
     QJsonObject userObj;
     QJsonObject ninjaObj;
-    userObj["userAccessToken"] = m_ninjaToken;
-    //userObj["ninjablocks"] = ninjaObj;
+    ninjaObj["userAccessToken"] = m_ninjaToken;
+    userObj["ninjablocks"] = ninjaObj;
     QJsonDocument doc(userObj);
 
     QUrl url(m_serverBaseUrl + "users");
@@ -42,12 +42,20 @@ void UCtrlAPI::postUserReply()
 
     // Get all the system
     getSystem();
+
+    // Start the stream
+    getUserStream();
+
     reply->deleteLater();
 }
 
 void UCtrlAPI::getUserStream()
 {
-    // Get WebSocket in user/stream
+    connect(&m_webSocket, SIGNAL(connected), this, SLOT(onConnected));
+    connect(&m_webSocket, SIGNAL(disconnected), this, SLOT(onClosed));
+    QUrl url(m_serverBaseUrl + "stream");
+    url.setScheme("ws");
+    m_webSocket.open(url);
 }
 
 // /////////////////////////////////////
@@ -935,6 +943,42 @@ void UCtrlAPI::deleteConditionReply()
     }
 
     reply->deleteLater();
+}
+
+void UCtrlAPI::onNinjaTokenChanged()
+{
+    if(!m_ninjaToken.isNull() && !m_ninjaToken.isEmpty()) {
+        postUser();
+    }
+}
+
+void UCtrlAPI::onServerBaseURLChanged()
+{
+    if(!m_serverBaseUrl.isNull() && !m_serverBaseUrl.isEmpty() && QUrl(m_serverBaseUrl).isValid()) {
+        m_platforms->clear();
+        postUser();
+    }
+}
+
+void UCtrlAPI::onConnected()
+{
+    connect(&m_webSocket, SIGNAL(textMessageReceived(const QString& message)), this, SLOT(onMessageReceived(const QString& message)));
+
+    QJsonObject tokenObj;
+    tokenObj["token"] = m_userToken;
+    QJsonDocument doc(tokenObj);
+
+    m_webSocket.sendTextMessage(QString(doc.toJson()));
+}
+
+void UCtrlAPI::onMessageReceived(const QString &message)
+{
+    qDebug() << "Message received:" << message;
+}
+
+void UCtrlAPI::onClosed()
+{
+    // TODO: Error I guess!?
 }
 
 // /////////////////////////////////////

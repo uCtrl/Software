@@ -1,4 +1,5 @@
 QT       += network
+QT       += websockets
 
 TARGET = uCtrlCore
 TEMPLATE = lib

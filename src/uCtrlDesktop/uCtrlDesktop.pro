@@ -2,6 +2,7 @@ include( ../uCtrl.pri )
 
 QT += network
 QT += multimedia
+QT += websockets
 
 CONFIG += c++11
 RC_ICONS = Images/uctrl.ico
