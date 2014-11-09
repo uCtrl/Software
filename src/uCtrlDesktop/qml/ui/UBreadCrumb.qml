@@ -105,6 +105,12 @@ Rectangle {
     function resetBreadCrumbplatforms(){
         breadCrumbModelplatforms = []
     }
+    function hideBreadCrumbPlatforms(){
+        element1.visible = false
+    }
+    function showBreadCrumbPlatforms(){
+        element1.visible = true
+    }
 }
 
 

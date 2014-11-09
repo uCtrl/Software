@@ -105,5 +105,12 @@ Rectangle {
         titlebar.resetBreadCrumbplatforms()
     }
 
+    function hideBreadCrumbPlatforms(){
+        titlebar.hideBreadCrumbPlatforms()
+    }
+    function showBreadCrumbPlatforms(){
+        titlebar.showBreadCrumbPlatforms()
+    }
+
 }
 

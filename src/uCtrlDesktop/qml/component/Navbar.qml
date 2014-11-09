@@ -50,11 +50,21 @@ Rectangle {
                     hoverEnabled: true
 
                     onClicked: {
+
+
                         main.currentPage = modelData.file;
-                        main.resetBreadCrumbdevices()
-                        main.addToBreadCrumbdevices("device/Device", "")
-                        main.resetBreadCrumbplatforms()
-                        main.addToBreadCrumbplatforms("platform/Platforms", "")
+
+
+                        if(currentPage !== "platform/Platforms"){
+                            main.hideBreadCrumbPlatforms()
+                            main.resetBreadCrumbdevices()
+                            main.addToBreadCrumbdevices("device/Device", "")
+                        }
+                        if(currentPage === "platform/Platforms"){
+                            main.showBreadCrumbPlatforms()
+                            main.resetBreadCrumbdevices()
+                            main.addToBreadCrumbdevices("device/Device", "")
+                        }
                     }
                 }
 

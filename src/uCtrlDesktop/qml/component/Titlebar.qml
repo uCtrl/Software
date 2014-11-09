@@ -53,4 +53,10 @@ Rectangle {
     function resetBreadCrumbplatforms(){
         breadcrumb.resetBreadCrumbplatforms()
     }
+    function hideBreadCrumbPlatforms(){
+        breadcrumb.hideBreadCrumbPlatforms()
+    }
+    function showBreadCrumbPlatforms(){
+        breadcrumb.showBreadCrumbPlatforms()
+    }
 }
