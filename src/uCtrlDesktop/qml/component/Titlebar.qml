@@ -30,14 +30,14 @@ Rectangle {
         id: breadcrumb
 
         width: 400
-        height: 45
+        height: 50
 
         anchors.verticalCenter: parent.verticalCenter
 
         anchors.right: parent.right
         anchors.rightMargin: 12
 
-        pages: titlebar.pages
+        //pages: titlebar.pages
     }
 
     function addToBreadCrumbdevices(path, pageName){
