@@ -935,6 +935,30 @@ void UCtrlAPI::deleteCondition(const QString& platformId, const QString& deviceI
     connect(reply, SIGNAL(finished()), this, SLOT(deleteConditionReply()));
 }
 
+void UCtrlAPI::ninjaToken(const QString &ninjaToken)
+{
+    if (m_ninjaToken != ninjaToken ) {
+        m_ninjaToken = ninjaToken;
+    }
+}
+
+const QString &UCtrlAPI::ninjaToken()
+{
+    return m_ninjaToken;
+}
+
+void UCtrlAPI::serverBaseUrl(const QString &serverBaseUrl)
+{
+    if (m_serverBaseUrl != serverBaseUrl ) {
+        m_serverBaseUrl = serverBaseUrl;
+    }
+}
+
+const QString &UCtrlAPI::serverBaseUrl()
+{
+    return m_serverBaseUrl;
+}
+
 void UCtrlAPI::deleteConditionReply()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
@@ -944,21 +968,6 @@ void UCtrlAPI::deleteConditionReply()
     }
 
     reply->deleteLater();
-}
-
-void UCtrlAPI::onNinjaTokenChanged()
-{
-    if(!m_ninjaToken.isNull() && !m_ninjaToken.isEmpty()) {
-        postUser();
-    }
-}
-
-void UCtrlAPI::onServerBaseURLChanged()
-{
-    if(!m_serverBaseUrl.isNull() && !m_serverBaseUrl.isEmpty() && QUrl(m_serverBaseUrl).isValid()) {
-        m_platforms->clear();
-        postUser();
-    }
 }
 
 void UCtrlAPI::onConnected()
@@ -981,6 +990,12 @@ void UCtrlAPI::onMessageReceived(const QString &message)
 void UCtrlAPI::onClosed()
 {
     // TODO: Error I guess!?
+}
+
+void UCtrlAPI::synchronize()
+{
+    m_platforms->clear();
+    postUser();
 }
 
 // /////////////////////////////////////

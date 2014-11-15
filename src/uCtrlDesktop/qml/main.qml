@@ -18,7 +18,8 @@ Rectangle {
     property variant pages: [
         {file: "platform/Platforms", icon: "settings", text: "Platforms", showInNavBar: true},
         {file: "voice/VoiceControl", icon: "Microphone", text: "Voice Control", showInNavBar: true},
-        {file: "device/Device", icon: "", text: "Device", showInNavBar: false}
+        {file: "device/Device", icon: "", text: "Device", showInNavBar: false},
+        {file: "settings/Settings", icon: "cog2", text: "Settings", showInNavBar: true}
     ];
 
     property variant activeDevice: null

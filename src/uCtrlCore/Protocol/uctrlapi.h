@@ -24,8 +24,8 @@ class UCtrlAPI : public QObject
 public:
     explicit UCtrlAPI(QNetworkAccessManager* nam, UPlatformsModel* platforms, QObject *parent = 0);
 
-    Q_PROPERTY(QString ninjaToken MEMBER m_ninjaToken NOTIFY ninjaTokenChanged)
-    Q_PROPERTY(QString serverBaseUrl MEMBER m_serverBaseUrl NOTIFY serverBaseURLChanged)
+    Q_PROPERTY(QString ninjaToken READ ninjaToken WRITE ninjaToken NOTIFY ninjaTokenChanged)
+    Q_PROPERTY(QString serverBaseUrl READ serverBaseUrl WRITE serverBaseUrl NOTIFY serverBaseURLChanged)
 
     //User
     Q_INVOKABLE void postUser();
@@ -68,6 +68,13 @@ public:
     Q_INVOKABLE void getCondition(const QString& platformId, const QString& deviceId, const QString& scenarioId, const QString& taskId, const QString& conditionId);
     Q_INVOKABLE void putCondition(const QString& platformId, const QString& deviceId, const QString& scenarioId, const QString& taskId, const QString& conditionId);
     Q_INVOKABLE void deleteCondition(const QString& platformId, const QString& deviceId, const QString& scenarioId, const QString& taskId, const QString& conditionId);
+
+    // Settings
+    void ninjaToken(const QString& ninjaToken);
+    const QString& ninjaToken();
+    void serverBaseUrl(const QString& serverBaseUrl);
+    const QString& serverBaseUrl();
+    Q_INVOKABLE void synchronize();
 
 signals:
     void networkError(const QString& errorString);
@@ -119,10 +126,6 @@ private slots:
     void getConditionReply();
     void putConditionReply();
     void deleteConditionReply();
-
-    // Settings
-    void onNinjaTokenChanged();
-    void onServerBaseURLChanged();
 
     // Websocket
     void onConnected();
