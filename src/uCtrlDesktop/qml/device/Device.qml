@@ -316,7 +316,8 @@ Rectangle {
             active: false;
             asynchronous: true;
 
-            height: parent.height; width: parent.width
+            height: parent.height - 20; width: parent.width - 20
+            anchors.centerIn: parent
 
             source: "qrc:/qml/device/type/%1.qml".arg(getDeviceFile())
             onVisibleChanged:      { loadIfNotLoaded(); }
@@ -629,12 +630,12 @@ Rectangle {
                     return "Weemo"
                 case UEType.Humidity:
                     return "Humidity"
-                /*case UEType.Light:
+                case UEType.Light:
                     return "Light"
                 case UEType.LightSensor:
                     return "LightSensor"
                 case UEType.NinjasEyes:
-                    return "NinjasEyes"
+                    return "NinjaEyes"
                 case UEType.OnBoardRGBLed:
                     return "LED"
                 case UEType.PIRMotionSensor:
@@ -648,7 +649,7 @@ Rectangle {
                 case UEType.StatusLight:
                     return "StatusLight"
                 case UEType.Switch:
-                    return "Switch"*/
+                    return "Switch"
                 case UEType.Temperature:
                     return "Temperature"
             }
