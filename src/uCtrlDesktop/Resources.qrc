@@ -69,5 +69,6 @@
         <file>qml/jbQuick/Charts/README.md</file>
         <file>qml/ui/UAlert.qml</file>
         <file>qml/settings/Settings.qml</file>
+        <file>qml/recommendations/Recommendations.qml</file>
     </qresource>
 </RCC>
