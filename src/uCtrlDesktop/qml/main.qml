@@ -58,8 +58,6 @@ Rectangle {
         anchors.top: titlebar.bottom
     }
 
-    property string currentPage: "platform/Platforms";
-
     property string currentPage: "home/ULandingPage";
 
 
