@@ -138,10 +138,17 @@ Rectangle {
                         onClicked: {
                             platformInfo.model = model
                             platforms.currentIndex = index
+                            main.resetBreadcrumbPlatforms()
+                            main.addToBreadcrumbPlatforms("platform/Platforms", model.name)
                         }
                     }
+
+
                 }
 
+                function addToBreadCrumb(){
+                    main.addToBreadCrumb("platform/Platforms", model.name)
+                }
                 function filterValue(source, filter) {
                     if (filter === "") return true
                     else return source.toLowerCase().indexOf(filter.toLowerCase()) !== -1
@@ -198,4 +205,6 @@ Rectangle {
 
         width: (parent.width/2)
     }
+
+
 }

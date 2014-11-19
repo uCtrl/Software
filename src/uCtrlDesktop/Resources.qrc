@@ -67,8 +67,16 @@
         <file>qml/jbQuick/Charts/LICENSE</file>
         <file>qml/jbQuick/Charts/qmldir</file>
         <file>qml/jbQuick/Charts/README.md</file>
+<<<<<<< HEAD
         <file>qml/ui/UAlert.qml</file>
         <file>qml/settings/Settings.qml</file>
         <file>qml/recommendations/Recommendations.qml</file>
+=======
+        <file>qml/ui/UBreadCrumb.qml</file>
+        <file>qml/home/ULandingPage.qml</file>
+        <file>qml/home/ULargeButton.qml</file>
+        <file>qml/ui/UFrame.qml</file>
+        <file>Images/uCtrl.svg</file>
+>>>>>>> breadcrumb
     </qresource>
 </RCC>

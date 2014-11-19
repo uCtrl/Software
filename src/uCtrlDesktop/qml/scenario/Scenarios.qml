@@ -62,6 +62,7 @@ Rectangle {
         z: 2
     }
 
+<<<<<<< HEAD
     onModelChanged: {
         currentScenario.model = null;
         scenarioCombo.selectedItem = null
@@ -72,6 +73,13 @@ Rectangle {
                     var item = {value: i, displayedValue: model.get(i).name, iconId: ""};
                     if (scenariosList != null) scenariosList.push(item);
                     else scenariosList = [item];
+=======
+                        onClicked: {
+                            currentScenario.model = model;
+                            main.addToBreadCrumb("scenario/Scenarios", model.name)
+                        }
+                    }
+>>>>>>> breadcrumb
                 }
             }
         }

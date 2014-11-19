@@ -2,10 +2,7 @@ import QtQuick 2.0
 
 Default {
     id: label
-
-    property var redirectPath
-    property string state: "ENABLED"
-    property var redirectModel
+    signal hyperLinkClicked()
 
     MouseArea {
         anchors.fill: parent
@@ -15,6 +12,10 @@ Default {
             if(label.state === "ENABLED") {
                 label.font.underline = containsMouse
             }
+
+        }
+        onClicked: {
+            hyperLinkClicked()
         }
     }
 }

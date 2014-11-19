@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
 
+
 import "component" as Components
 import "ui" as Ui
 import "ui/UColors.js" as Colors
@@ -16,6 +17,7 @@ Rectangle {
 
     // Available pages
     property variant pages: [
+        {file: "home/ULandingPage", icon: "Dashboard", text: "Dashboard", showInNavBar: true},
         {file: "platform/Platforms", icon: "settings", text: "Platforms", showInNavBar: true},
         {file: "voice/VoiceControl", icon: "Microphone", text: "Voice Control", showInNavBar: true},
         {file: "device/Device", icon: "", text: "Device", showInNavBar: false},
@@ -34,6 +36,8 @@ Rectangle {
         anchors.right: parent.right
 
         z: 2    // Always on top of the background and the navigation bar.
+
+        pages: main.pages
     }
 
     Components.Navbar {
@@ -48,12 +52,16 @@ Rectangle {
         z: 1    // Always on top of the background.
     }
 
+<<<<<<< HEAD
     Ui.UAlert {
         id: alert
         anchors.top: titlebar.bottom
     }
 
     property string currentPage: "platform/Platforms";
+=======
+    property string currentPage: "home/ULandingPage";
+>>>>>>> breadcrumb
 
     Repeater {
         id: repeater
@@ -83,7 +91,38 @@ Rectangle {
                     active = true;
                 }
             }
-        }
+        }   
     }
+
+
+
+
+    function changePageFromHome(path){
+        currentPage = path
+    }
+
+    function addToBreadcrumbPlatforms(path, pageName){
+        titlebar.addToBreadcrumbPlatforms(path, pageName)
+    }
+
+    function addToBreadcrumbDevices(path, pageName){
+        titlebar.addToBreadcrumbDevices(path, pageName)
+    }
+
+    function resetBreadcrumbDevices(){
+        titlebar.resetBreadcrumbDevices()
+    }
+
+    function resetBreadcrumbPlatforms(){
+        titlebar.resetBreadcrumbPlatforms()
+    }
+
+    function hideBreadcrumbPlatforms(){
+        titlebar.hideBreadcrumbPlatforms()
+    }
+    function showBreadcrumbPlatforms(){
+        titlebar.showBreadcrumbPlatforms()
+    }
+
 }
 
