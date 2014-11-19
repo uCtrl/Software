@@ -11,7 +11,7 @@ Rectangle {
 
     id: breadcrumbContainer
 
-    property variant breadCrumbModelplatforms: []
+    property variant breadcrumbModelPlatforms: []
     property variant breadCrumbModeldevices: []
     color: Colors.uTransparent
     width: parent.width
@@ -29,7 +29,7 @@ Rectangle {
         width: 500
 
         Rectangle{
-            id: element1
+            id: platformsLevel
 
             height: container.height / 2
             width: 300
@@ -38,23 +38,23 @@ Rectangle {
 
             ULabel.Link{
                 font.pointSize: 15
-                anchors.top: element1.top
+                anchors.top: platformsLevel.top
 
-                text: breadCrumbModelplatforms[0].name
+                text: breadcrumbModelPlatforms[0].name
                 onHyperLinkClicked: {
-                    main.currentPage = breadCrumbModelplatforms[0].path
-                    main.resetBreadCrumbdevices()
-                    main.addToBreadCrumbdevices("device/Device", "")
+                    main.currentPage = breadcrumbModelPlatforms[0].path
+                    main.resetBreadcrumbDevices()
+                    main.addToBreadcrumbDevices("device/Device", "")
                 }
             }
         }
 
         Rectangle{
-            id: element2
+            id: devicesLevel
 
             height: container.height / 2
             width: 300
-            anchors.top: element1.bottom
+            anchors.top: platformsLevel.bottom
             color: Colors.uTransparent
 
             ULabel.Link{
@@ -71,30 +71,28 @@ Rectangle {
                 iconId: "forward"
                 iconColor: Colors.uWhite
                 iconSize: 20
-                anchors.left: element2.left
+                anchors.left: devicesLevel.left
                 anchors.leftMargin: 25
                 anchors.verticalCenter: parent.verticalCenter
                 visible: false
             }
         }
-
     }
 
-
-    function addToBreadCrumbplatforms (pagePath, pageName)
+    function addToBreadcrumbPlatforms (pagePath, pageName)
     {
 
         var newModel = []
-        for(var i = 0; i < breadCrumbModelplatforms.length; i++) {
-            newModel.push(breadCrumbModelplatforms[i])
+        for(var i = 0; i < breadcrumbModelPlatforms.length; i++) {
+            newModel.push(breadcrumbModelPlatforms[i])
         }
 
         var newItem = {path: pagePath, name: pageName}
         newModel.push(newItem)
 
-        breadCrumbModelplatforms = newModel
+        breadcrumbModelPlatforms = newModel
     }
-    function addToBreadCrumbdevices (pagePath, pageName)
+    function addToBreadcrumbDevices (pagePath, pageName)
     {
 
         var newModel = []
@@ -111,20 +109,20 @@ Rectangle {
         }
 
     }
-    function resetBreadCrumbdevices(){
+    function resetBreadcrumbDevices(){
         breadCrumbModeldevices = []
         iconForward.visible = false
     }
-    function resetBreadCrumbplatforms(){
-        breadCrumbModelplatforms = []
+    function resetBreadcrumbPlatforms(){
+        breadcrumbModelPlatforms = []
         iconForward.visible = false
     }
-    function hideBreadCrumbPlatforms(){
+    function hideBreadcrumbPlatforms(){
         iconForward.visible = false;
-        element1.visible = false
+        platformsLevel.visible = false
     }
-    function showBreadCrumbPlatforms(){
-        element1.visible = true
+    function showBreadcrumbPlatforms(){
+        platformsLevel.visible = true
     }
     function showIconForward(){
         iconForward.visible = true

@@ -89,27 +89,27 @@ Rectangle {
         currentPage = path
     }
 
-    function addToBreadCrumbplatforms(path, pageName){
-        titlebar.addToBreadCrumbplatforms(path, pageName)
+    function addToBreadcrumbPlatforms(path, pageName){
+        titlebar.addToBreadcrumbPlatforms(path, pageName)
     }
 
-    function addToBreadCrumbdevices(path, pageName){
-        titlebar.addToBreadCrumbdevices(path, pageName)
+    function addToBreadcrumbDevices(path, pageName){
+        titlebar.addToBreadcrumbDevices(path, pageName)
     }
 
-    function resetBreadCrumbdevices(){
-        titlebar.resetBreadCrumbdevices()
+    function resetBreadcrumbDevices(){
+        titlebar.resetBreadcrumbDevices()
     }
 
-    function resetBreadCrumbplatforms(){
-        titlebar.resetBreadCrumbplatforms()
+    function resetBreadcrumbPlatforms(){
+        titlebar.resetBreadcrumbPlatforms()
     }
 
-    function hideBreadCrumbPlatforms(){
-        titlebar.hideBreadCrumbPlatforms()
+    function hideBreadcrumbPlatforms(){
+        titlebar.hideBreadcrumbPlatforms()
     }
-    function showBreadCrumbPlatforms(){
-        titlebar.showBreadCrumbPlatforms()
+    function showBreadcrumbPlatforms(){
+        titlebar.showBreadcrumbPlatforms()
     }
 
 }

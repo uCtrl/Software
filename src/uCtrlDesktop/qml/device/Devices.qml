@@ -34,8 +34,8 @@ Rectangle {
                         main.devicesList = devicesList.model
                         main.activeDevice = model
                         main.currentPage = "device/Device"
-                        main.resetBreadCrumbdevices()
-                        main.addToBreadCrumbdevices("device/Device", model.name)
+                        main.resetBreadcrumbDevices()
+                        main.addToBreadcrumbDevices("device/Device", model.name)
                     }
                 }
             }

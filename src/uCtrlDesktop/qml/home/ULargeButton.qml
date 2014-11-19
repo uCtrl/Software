@@ -10,8 +10,6 @@ Rectangle {
     height: width * 1.5
 
     anchors.centerIn: parent
-
-    //radius: radiusSize
     color: Colors.uGreen
 
     property string iconId

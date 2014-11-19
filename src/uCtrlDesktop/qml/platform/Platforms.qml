@@ -138,8 +138,8 @@ Rectangle {
                         onClicked: {
                             platformInfo.model = model
                             platforms.currentIndex = index
-                            main.resetBreadCrumbplatforms()
-                            main.addToBreadCrumbplatforms("platform/Platforms", model.name)
+                            main.resetBreadcrumbPlatforms()
+                            main.addToBreadcrumbPlatforms("platform/Platforms", model.name)
                         }
                     }
 

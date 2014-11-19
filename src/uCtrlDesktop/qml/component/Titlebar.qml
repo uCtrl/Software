@@ -31,32 +31,28 @@ Rectangle {
 
         width: 400
         height: 50
-
         anchors.verticalCenter: parent.verticalCenter
-
         anchors.right: parent.right
         anchors.rightMargin: 12
-
-        //pages: titlebar.pages
     }
 
-    function addToBreadCrumbdevices(path, pageName){
-        breadcrumb.addToBreadCrumbdevices(path, pageName)
+    function addToBreadcrumbDevices(path, pageName){
+        breadcrumb.addToBreadcrumbDevices(path, pageName)
     }
-    function addToBreadCrumbplatforms(path, pageName){
-        breadcrumb.addToBreadCrumbplatforms(path, pageName)
+    function addToBreadcrumbPlatforms(path, pageName){
+        breadcrumb.addToBreadcrumbPlatforms(path, pageName)
     }
 
-    function resetBreadCrumbdevices(){
-        breadcrumb.resetBreadCrumbdevices()
+    function resetBreadcrumbDevices(){
+        breadcrumb.resetBreadcrumbDevices()
     }
-    function resetBreadCrumbplatforms(){
-        breadcrumb.resetBreadCrumbplatforms()
+    function resetBreadcrumbPlatforms(){
+        breadcrumb.resetBreadcrumbPlatforms()
     }
-    function hideBreadCrumbPlatforms(){
-        breadcrumb.hideBreadCrumbPlatforms()
+    function hideBreadcrumbPlatforms(){
+        breadcrumb.hideBreadcrumbPlatforms()
     }
-    function showBreadCrumbPlatforms(){
-        breadcrumb.showBreadCrumbPlatforms()
+    function showBreadcrumbPlatforms(){
+        breadcrumb.showBreadcrumbPlatforms()
     }
 }

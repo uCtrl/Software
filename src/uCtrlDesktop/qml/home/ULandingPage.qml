@@ -6,25 +6,25 @@ import "../label" as ULabel
 import "../ui/UColors.js" as Colors
 
 Rectangle {
-    property int frameMarginSize: 16
+    property int marginSize: 16
     id: container
 
     color: Colors.uTransparent
 
-    width: (parent.width - frameMarginSize*2)
-    height: (parent.height - frameMarginSize*2)
+    width: (parent.width - marginSize*2)
+    height: (parent.height - marginSize*2)
 
     anchors.left: parent.left
-    anchors.leftMargin: frameMarginSize
+    anchors.leftMargin: marginSize
 
     anchors.top: parent.top
-    anchors.topMargin: frameMarginSize
+    anchors.topMargin: marginSize
 
     anchors.right: parent.right
-    anchors.rightMargin: frameMarginSize
+    anchors.rightMargin: marginSize
 
     anchors.bottom: parent.bottom
-    anchors.bottomMargin: frameMarginSize
+    anchors.bottomMargin: marginSize
 
 
     Rectangle {
@@ -34,10 +34,10 @@ Rectangle {
         height: parent.height/6
 
         anchors.top: parent.top
-        anchors.topMargin: frameMarginSize
+        anchors.topMargin: marginSize
 
         anchors.left: parent.left
-        anchors.leftMargin: frameMarginSize
+        anchors.leftMargin: marginSize
 
         anchors.horizontalCenter: parent.horizontalCenter
 
@@ -88,7 +88,7 @@ Rectangle {
 
                 onClicked: {
                     main.changePageFromHome("platform/Platforms")
-                    main.showBreadCrumbPlatforms()
+                    main.showBreadcrumbPlatforms()
                 }
             }
         }
