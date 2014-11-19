@@ -42,13 +42,14 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
 
         color: Colors.uTransparent
-
-        ULabel.Heading1 {
+        ULabel.Default {
             id: title
             text: "Welcome to"
+
             anchors.verticalCenter: parent.verticalCenter
-            font.pointSize: 48
             font.bold: true
+            font.pointSize: 48
+            color: Colors.uGreen
         }
 
         UI.UImage {

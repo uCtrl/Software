@@ -37,6 +37,7 @@ Rectangle {
 
         cursorShape: (container.state !== "DISABLED" ? (containsMouse ? Qt.PointingHandCursor : Qt.ArrowCursor) : Qt.ArrowCursor)
 
+
         onEntered: {
             container.state = "HOVERED"
         }

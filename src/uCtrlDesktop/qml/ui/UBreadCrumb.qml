@@ -33,13 +33,12 @@ Rectangle {
 
             height: container.height / 2
             width: 300
-            anchors.left: parent.left
+            anchors.right: parent.right
             color: Colors.uTransparent
 
             ULabel.Link{
                 font.pointSize: 15
                 anchors.top: platformsLevel.top
-
                 text: breadcrumbModelPlatforms[0].name
                 onHyperLinkClicked: {
                     main.currentPage = breadcrumbModelPlatforms[0].path
@@ -55,13 +54,14 @@ Rectangle {
             height: container.height / 2
             width: 300
             anchors.top: platformsLevel.bottom
+            anchors.right: parent.right
             color: Colors.uTransparent
 
             ULabel.Link{
                 id: linkdevice
                 font.pointSize: 15
                 anchors.verticalCenter: parent.verticalCenter
-                anchors.left: iconForward.right
+                anchors.right: devicesLevel.right
                 anchors.leftMargin: 25
                 text: breadCrumbModeldevices[0].name
             }
@@ -71,8 +71,8 @@ Rectangle {
                 iconId: "forward"
                 iconColor: Colors.uWhite
                 iconSize: 20
-                anchors.left: devicesLevel.left
-                anchors.leftMargin: 25
+                anchors.right: linkdevice.left
+                anchors.rightMargin: 25
                 anchors.verticalCenter: parent.verticalCenter
                 visible: false
             }
