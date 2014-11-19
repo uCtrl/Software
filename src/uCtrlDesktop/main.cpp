@@ -18,7 +18,7 @@
 #include "Models/nestedlistmodel.h"
 #include "Models/nestedlistitem.h"
 #include "Platform/uplatformsmodel.h"
-#include "Protocol/uctrlapi.h"
+#include "Protocol/uctrlapifacade.h"
 
 void LoadSystemFromFile(UPlatformsModel* p, const QString& filename)
 {
@@ -54,7 +54,7 @@ void Init(QGuiApplication& app, QtQuick2ApplicationViewer& viewer)
     UPlatformsModel* platforms = new UPlatformsModel();
 
     QNetworkAccessManager* networkAccessManager = viewer.engine()->networkAccessManager();
-    UCtrlAPI* uCtrlApi = new UCtrlAPI(networkAccessManager, platforms);
+    UCtrlAPIFacade* uCtrlApi = new UCtrlAPIFacade(networkAccessManager, platforms);
 
     LoadSystemFromFile(platforms, ":/data.json");
     //uCtrlApi->postUser();
