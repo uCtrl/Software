@@ -52,16 +52,16 @@ Rectangle {
         z: 1    // Always on top of the background.
     }
 
-<<<<<<< HEAD
+
     Ui.UAlert {
         id: alert
         anchors.top: titlebar.bottom
     }
 
     property string currentPage: "platform/Platforms";
-=======
+
     property string currentPage: "home/ULandingPage";
->>>>>>> breadcrumb
+
 
     Repeater {
         id: repeater
