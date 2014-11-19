@@ -54,13 +54,15 @@ void Init(QGuiApplication& app, QtQuick2ApplicationViewer& viewer)
     UPlatformsModel* platforms = new UPlatformsModel();
 
     QNetworkAccessManager* networkAccessManager = viewer.engine()->networkAccessManager();
-    UCtrlAPIFacade* uCtrlApi = new UCtrlAPIFacade(networkAccessManager, platforms);
+    UCtrlAPIFacade* uCtrlApiFacade = new UCtrlAPIFacade(networkAccessManager, platforms);
+    UCtrlAPI* uCtrlApi = uCtrlApiFacade->getAPI();
 
-    LoadSystemFromFile(platforms, ":/data.json");
-    //uCtrlApi->postUser();
+    //LoadSystemFromFile(platforms, ":/data.json");
+    uCtrlApiFacade->postUser();
 
     QQmlContext *ctxt = viewer.rootContext();
     ctxt->setContextProperty("platformsModel", platforms);
+    ctxt->setContextProperty("uCtrlApiFacade", uCtrlApiFacade);
     ctxt->setContextProperty("uCtrlApi", uCtrlApi);
     viewer.addImportPath(QStringLiteral(":/qml"));
     viewer.setSource(QUrl("qrc:///qml/main.qml"));

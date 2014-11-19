@@ -5,6 +5,8 @@
 
 class UCtrlAPIFacade : public QObject
 {
+    Q_OBJECT
+
 public:
     explicit UCtrlAPIFacade(QNetworkAccessManager* nam, UPlatformsModel* platforms, QObject *parent = 0);
 
@@ -50,13 +52,16 @@ public:
     Q_INVOKABLE void putCondition(const UCondition& condition);
     Q_INVOKABLE void deleteCondition(const UCondition& condition);
 
+    Q_INVOKABLE UCtrlAPI* getAPI() { return &m_uCtrlApi; }
+
 private:
-    UCtrlAPI uCtrlApi;
+    UCtrlAPI m_uCtrlApi;
 
     void resolveIds(QString& platformId, QString& deviceId, QString& scenarioId, QString& taskId, const UCondition& condition);
     void resolveIds(QString& platformId, QString& deviceId, QString& scenarioId, const UTask& task);
     void resolveIds(QString& platformId, QString& deviceId, const UScenario& scenario);
     void resolveIds(QString& platformId, const UDevice& device);
+
 };
 
 #endif // UCTRLAPIFACADE_H

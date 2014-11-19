@@ -1,7 +1,7 @@
 #include "uctrlapifacade.h"
 
 UCtrlAPIFacade::UCtrlAPIFacade(QNetworkAccessManager* nam, UPlatformsModel* platforms, QObject *parent)
-    : uCtrlApi(nam, platforms, parent)
+    : m_uCtrlApi(nam, platforms, parent)
 {
 }
 
@@ -36,78 +36,78 @@ void UCtrlAPIFacade::resolveIds(QString& platformId, const UDevice& device)
 // Facade
 void UCtrlAPIFacade::postUser()
 {
-    uCtrlApi.postUser();
+    m_uCtrlApi.postUser();
 }
 
 void UCtrlAPIFacade::getUserStream()
 {
-    uCtrlApi.getUserStream();
+    m_uCtrlApi.getUserStream();
 }
 
 void UCtrlAPIFacade::getSystem()
 {
-    uCtrlApi.getSystem();
+    m_uCtrlApi.getSystem();
 }
 
 void UCtrlAPIFacade::getPlatforms()
 {
-    uCtrlApi.getPlatforms();
+    m_uCtrlApi.getPlatforms();
 }
 
 void UCtrlAPIFacade::postPlatform(const UPlatform& platform)
 {
-    uCtrlApi.postPlatform(platform.id());
+    m_uCtrlApi.postPlatform(platform.id());
 }
 
 void UCtrlAPIFacade::getPlatform(const UPlatform& platform)
 {
-    uCtrlApi.getPlatform(platform.id());
+    m_uCtrlApi.getPlatform(platform.id());
 }
 
 void UCtrlAPIFacade::putPlatform(const UPlatform& platform)
 {
-    uCtrlApi.putPlatform(platform.id());
+    m_uCtrlApi.putPlatform(platform.id());
 }
 
 void UCtrlAPIFacade::deletePlatform(const UPlatform& platform)
 {
-    uCtrlApi.deletePlatform(platform.id());
+    m_uCtrlApi.deletePlatform(platform.id());
 }
 
 void UCtrlAPIFacade::getDevices(const UPlatform& platform)
 {
-    uCtrlApi.getDevices(platform.id());
+    m_uCtrlApi.getDevices(platform.id());
 }
 void UCtrlAPIFacade::postDevice(const UDevice& device)
 {
     QString platformId;
     resolveIds(platformId, device);
-    uCtrlApi.postDevice(platformId, device.id());
+    m_uCtrlApi.postDevice(platformId, device.id());
 }
 void UCtrlAPIFacade::getDevice(const UDevice& device)
 {
     QString platformId;
     resolveIds(platformId, device);
-    uCtrlApi.getDevice(platformId, device.id());
+    m_uCtrlApi.getDevice(platformId, device.id());
 }
 void UCtrlAPIFacade::putDevice(const UDevice& device)
 {
     QString platformId;
     resolveIds(platformId, device);
-    uCtrlApi.putDevice(platformId, device.id());
+    m_uCtrlApi.putDevice(platformId, device.id());
 }
 void UCtrlAPIFacade::deleteDevice(const UDevice& device)
 {
     QString platformId;
     resolveIds(platformId, device);
-    uCtrlApi.deleteDevice(platformId, device.id());
+    m_uCtrlApi.deleteDevice(platformId, device.id());
 }
 
 void UCtrlAPIFacade::getScenarios(const UDevice& device)
 {
     QString platformId;
     resolveIds(platformId, device);
-    uCtrlApi.getScenarios(platformId, device.id());
+    m_uCtrlApi.getScenarios(platformId, device.id());
 }
 
 void UCtrlAPIFacade::postScenario(const UScenario& scenario)
@@ -115,28 +115,28 @@ void UCtrlAPIFacade::postScenario(const UScenario& scenario)
     QString platformId;
     QString deviceId;
     resolveIds(platformId, deviceId, scenario);
-    uCtrlApi.postScenario(platformId, deviceId, scenario.id());
+    m_uCtrlApi.postScenario(platformId, deviceId, scenario.id());
 }
 void UCtrlAPIFacade::getScenario(const UScenario& scenario)
 {
     QString platformId;
     QString deviceId;
     resolveIds(platformId, deviceId, scenario);
-    uCtrlApi.getScenario(platformId, deviceId, scenario.id());
+    m_uCtrlApi.getScenario(platformId, deviceId, scenario.id());
 }
 void UCtrlAPIFacade::putScenario(const UScenario& scenario)
 {
     QString platformId;
     QString deviceId;
     resolveIds(platformId, deviceId, scenario);
-    uCtrlApi.putScenario(platformId, deviceId, scenario.id());
+    m_uCtrlApi.putScenario(platformId, deviceId, scenario.id());
 }
 void UCtrlAPIFacade::deleteScenario(const UScenario& scenario)
 {
     QString platformId;
     QString deviceId;
     resolveIds(platformId, deviceId, scenario);
-    uCtrlApi.deleteScenario(platformId, deviceId, scenario.id());
+    m_uCtrlApi.deleteScenario(platformId, deviceId, scenario.id());
 }
 
 void UCtrlAPIFacade::getTasks(const UScenario& scenario)
@@ -144,7 +144,7 @@ void UCtrlAPIFacade::getTasks(const UScenario& scenario)
     QString platformId;
     QString deviceId;
     resolveIds(platformId, deviceId, scenario);
-    uCtrlApi.getTasks(platformId, deviceId, scenario.id());
+    m_uCtrlApi.getTasks(platformId, deviceId, scenario.id());
 }
 
 void UCtrlAPIFacade::postTask(const UTask& task)
@@ -153,7 +153,7 @@ void UCtrlAPIFacade::postTask(const UTask& task)
     QString deviceId;
     QString scenarioId;
     resolveIds(platformId, deviceId, scenarioId, task);
-    uCtrlApi.postTask(platformId, deviceId, scenarioId, task.id());
+    m_uCtrlApi.postTask(platformId, deviceId, scenarioId, task.id());
 }
 
 void UCtrlAPIFacade::getTask(const UTask& task)
@@ -162,7 +162,7 @@ void UCtrlAPIFacade::getTask(const UTask& task)
     QString deviceId;
     QString scenarioId;
     resolveIds(platformId, deviceId, scenarioId, task);
-    uCtrlApi.getTask(platformId, deviceId, scenarioId, task.id());
+    m_uCtrlApi.getTask(platformId, deviceId, scenarioId, task.id());
 }
 
 void UCtrlAPIFacade::putTask(const UTask& task)
@@ -171,7 +171,7 @@ void UCtrlAPIFacade::putTask(const UTask& task)
     QString deviceId;
     QString scenarioId;
     resolveIds(platformId, deviceId, scenarioId, task);
-    uCtrlApi.putTask(platformId, deviceId, scenarioId, task.id());
+    m_uCtrlApi.putTask(platformId, deviceId, scenarioId, task.id());
 }
 
 void UCtrlAPIFacade::deleteTask(const UTask& task)
@@ -180,7 +180,7 @@ void UCtrlAPIFacade::deleteTask(const UTask& task)
     QString deviceId;
     QString scenarioId;
     resolveIds(platformId, deviceId, scenarioId, task);
-    uCtrlApi.deleteTask(platformId, deviceId, scenarioId, task.id());
+    m_uCtrlApi.deleteTask(platformId, deviceId, scenarioId, task.id());
 }
 
 void UCtrlAPIFacade::getConditions(const UTask& task)
@@ -189,7 +189,7 @@ void UCtrlAPIFacade::getConditions(const UTask& task)
     QString deviceId;
     QString scenarioId;
     resolveIds(platformId, deviceId, scenarioId, task);
-    uCtrlApi.getConditions(platformId, deviceId, scenarioId, task.id());
+    m_uCtrlApi.getConditions(platformId, deviceId, scenarioId, task.id());
 }
 
 void UCtrlAPIFacade::postCondition(const UCondition& condition)
@@ -199,7 +199,7 @@ void UCtrlAPIFacade::postCondition(const UCondition& condition)
     QString scenarioId;
     QString taskId;
     resolveIds(platformId, deviceId, scenarioId, taskId, condition);
-    uCtrlApi.postCondition(platformId, deviceId, scenarioId, taskId, condition.id());
+    m_uCtrlApi.postCondition(platformId, deviceId, scenarioId, taskId, condition.id());
 }
 
 void UCtrlAPIFacade::getCondition(const UCondition& condition)
@@ -209,7 +209,7 @@ void UCtrlAPIFacade::getCondition(const UCondition& condition)
     QString scenarioId;
     QString taskId;
     resolveIds(platformId, deviceId, scenarioId, taskId, condition);
-    uCtrlApi.getCondition(platformId, deviceId, scenarioId, taskId, condition.id());
+    m_uCtrlApi.getCondition(platformId, deviceId, scenarioId, taskId, condition.id());
 }
 
 void UCtrlAPIFacade::putCondition(const UCondition& condition)
@@ -219,7 +219,7 @@ void UCtrlAPIFacade::putCondition(const UCondition& condition)
     QString scenarioId;
     QString taskId;
     resolveIds(platformId, deviceId, scenarioId, taskId, condition);
-    uCtrlApi.putCondition(platformId, deviceId, scenarioId, taskId, condition.id());
+    m_uCtrlApi.putCondition(platformId, deviceId, scenarioId, taskId, condition.id());
 }
 
 void UCtrlAPIFacade::deleteCondition(const UCondition& condition)
@@ -229,5 +229,5 @@ void UCtrlAPIFacade::deleteCondition(const UCondition& condition)
     QString scenarioId;
     QString taskId;
     resolveIds(platformId, deviceId, scenarioId, taskId, condition);
-    uCtrlApi.deleteCondition(platformId, deviceId, scenarioId, taskId, condition.id());
+    m_uCtrlApi.deleteCondition(platformId, deviceId, scenarioId, taskId, condition.id());
 }
