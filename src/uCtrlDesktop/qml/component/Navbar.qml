@@ -50,7 +50,21 @@ Rectangle {
                     hoverEnabled: true
 
                     onClicked: {
+
+
                         main.currentPage = modelData.file;
+
+
+                        if(currentPage !== "platform/Platforms"){
+                            main.hideBreadcrumbPlatforms()
+                            main.resetBreadcrumbDevices()
+                            main.addToBreadcrumbDevices("device/Device", "")
+                        }
+                        if(currentPage === "platform/Platforms"){
+                            main.showBreadcrumbPlatforms()
+                            main.resetBreadcrumbDevices()
+                            main.addToBreadcrumbDevices("device/Device", "")
+                        }
                     }
                 }
 

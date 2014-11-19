@@ -56,7 +56,7 @@
 											"id": "100000",
                                             "type": 4,
                                             "comparisonType": 1,
-											"beginValue": "",
+                                            "beginValue": "",
 											"endValue": "20",
 											"deviceId": "100",
 											"enabled": true,

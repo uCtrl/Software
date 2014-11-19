@@ -22,7 +22,9 @@ SOURCES += \
     Condition/uconditionsmodel.cpp \
     Protocol/uctrlapi.cpp \
     History/uhistorylog.cpp \
-    History/uhistorylogmodel.cpp
+    History/uhistorylogmodel.cpp \
+    Recommendations/recommendation.cpp \
+    Recommendations/recommendationsModel.cpp
 
 
 HEADERS += \
@@ -47,6 +49,8 @@ HEADERS += \
     Condition/uconditionsmodel.h \
     Protocol/uctrlapi.h \
     History/uhistorylog.h \
-    History/uhistorylogmodel.h
+    History/uhistorylogmodel.h \
+    Recommendations/recommendation.h \
+    Recommendations/recommendationsModel.h
 
 DEFINES += PROJECT_PATH=\"\\\"$$PWD/../\\\"\"

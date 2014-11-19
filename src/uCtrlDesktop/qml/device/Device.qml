@@ -32,9 +32,7 @@ Rectangle
         anchors.top: parent.top
         anchors.bottom: parent.bottom
 
-        anchors.leftMargin: devicePage.marginSize
-        anchors.rightMargin: devicePage.marginSize
-        anchors.topMargin: devicePage.marginSize
+        anchors.margins: devicePage.marginSize
         anchors.bottomMargin: devicePage.bottomMarginSize
 
         color: Colors.uWhite
@@ -65,7 +63,6 @@ Rectangle
                     anchors.right: parent.right
                     anchors.top: parent.top
                     anchors.bottom: parent.bottom
-
                     anchors.rightMargin: devicePage.paddingSize
 
                     Loader {

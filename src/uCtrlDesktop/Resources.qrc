@@ -87,5 +87,11 @@
         <file>qml/ui/UCarousel.qml</file>
         <file>qml/ui/UChart.qml</file>
         <file>qml/label/ConditionLabel.qml</file>
+        <file>qml/recommendations/Recommendations.qml</file>
+        <file>qml/ui/UBreadCrumb.qml</file>
+        <file>qml/home/ULandingPage.qml</file>
+        <file>qml/home/ULargeButton.qml</file>
+        <file>qml/ui/UFrame.qml</file>
+        <file>Images/uCtrl.svg</file>
     </qresource>
 </RCC>
