@@ -17,7 +17,7 @@ Rectangle {
     {
         anchors.left: parent.left
         anchors.leftMargin: 5
-        width: parent.width
+        width: labelIcon.width + labelText.width + 50
         height: parent.height
         color: Colors.uTransparent
 

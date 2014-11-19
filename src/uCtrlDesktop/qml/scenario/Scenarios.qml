@@ -19,16 +19,38 @@ Rectangle {
        color: Colors.uTransparent
 
        anchors.fill: parent
-
-       ULabel.Default {
+       Rectangle
+       {
+           width: parent.width
+           height: noScenarioLabel.height + createButton.height + 20
            anchors.centerIn: parent
+           ULabel.Default {
+               id: noScenarioLabel
+               anchors.horizontalCenter: parent.horizontalCenter
+               text: "No scenarios available"
+               width: parent.width * 0.75
+               font.bold: true
+               font.pointSize: 32
+               horizontalAlignment: Text.AlignHCenter
 
-           text: "No scenarios available"
-           font.bold: true
-           font.pointSize: 32
 
-           color: Colors.uGrey
+               color: Colors.uGrey
+           }
+           UI.UButton
+           {
+               id: createButton
+               text: "Click here to create a new one"
+               iconId: ""
+               iconSize: 14
+               width: 300
+               anchors.horizontalCenter: parent.horizontalCenter
+               anchors.bottom: parent.bottom
+           }
        }
+
+
+
+
     }
 
     Rectangle {

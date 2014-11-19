@@ -80,5 +80,11 @@
         <file>qml/device/type/LED.qml</file>
         <file>qml/label/IconLabel.qml</file>
         <file>qml/ui/USlider.qml</file>
+        <file>qml/device/Logs.qml</file>
+        <file>qml/label/DeviceInfoValueLabel.qml</file>
+        <file>qml/label/DeviceInfoHeaderLabel.qml</file>
+        <file>qml/label/Description.qml</file>
+        <file>qml/ui/UCarousel.qml</file>
+        <file>qml/ui/UChart.qml</file>
     </qresource>
 </RCC>

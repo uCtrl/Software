@@ -16,6 +16,6 @@ Rectangle {
 
         color: Colors.uRed
 
-        text: "Load device error"
+        text: "Unknown device found"
     }
 }

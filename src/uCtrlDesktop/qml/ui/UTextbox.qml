@@ -17,7 +17,7 @@ Rectangle {
     property int textAlignment: TextInput.AlignLeft
 
     width: 100
-    height: 25
+    height: 40
 
     color: Colors.uTransparent
 
@@ -71,6 +71,7 @@ Rectangle {
         id: field
 
         font.family: "Lato"
+        font.pointSize: 14
 
         state: parent.state
         readOnly: (state === "DISABLED")
