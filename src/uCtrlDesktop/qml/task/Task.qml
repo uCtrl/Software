@@ -12,204 +12,159 @@ Column {
     width: parent.width
 
     property var item: null
+    property variant deviceModel: main.activeDevice
     property bool showEditMode: false
 
     Rectangle {
         id: taskContainer
 
-        height: 30
-        color: Colors.uLightGrey
-
         width: parent.width
-
-        ULabel.Default {
-            id: taskLabel
-
-            anchors.left: parent.left
-            anchors.leftMargin: 10
-
-            anchors.verticalCenter: parent.verticalCenter
-
-            text: "TASK"
-
-            font.bold: false
-            font.pointSize: 10
-
-            color: Colors.uGrey
-        }
-
-        ULabel.Default {
-            id: indexLabel
-
-            anchors.left: taskLabel.right
-            anchors.leftMargin: 3
-
-            anchors.verticalCenter: parent.verticalCenter
-
-            text: "#" + (index + 1)
-
-            font.bold: true
-            font.pointSize: 10
-
-            color: Colors.uGreen
-        }
+        height: 40
+        color: Colors.uTransparent
 
         ULabel.Default {
             id: separator
 
-            anchors.left: indexLabel.right
-            anchors.leftMargin: 3
+            anchors.left: parent.left
 
             anchors.verticalCenter: parent.verticalCenter
 
-            text: " - SET TO "
+            text: "Set to "
 
             font.bold: true
-            font.pointSize: 10
+            font.pointSize: 14
 
             color: Colors.uGrey
 
         }
 
-        ULabel.Default {
-            id: valueLabel
+
+        Rectangle
+        {
+            id: valueContainer
+
+            width: valueLabel.width
+            height: valueLabel.height
+
+            anchors.verticalCenter: parent.verticalCenter
 
             anchors.left: separator.right
             anchors.leftMargin: 3
 
-            anchors.verticalCenter: parent.verticalCenter
+            ULabel.UInfoBoundedLabel {
+                id: valueLabel
 
-            text: getValue()
-
-            color: Colors.uGreen
-
-            font.bold: true
-            font.pointSize: 10
+                text: getValue() + getUnitLabel()
+            }
         }
 
         ULabel.Default {
             id: whenLabel
 
-            anchors.left: valueLabel.right
+            anchors.left: valueContainer.right
             anchors.leftMargin: 3
 
             anchors.verticalCenter: parent.verticalCenter
 
-            text: " WHEN"
+            text: getConditions().rowCount() > 0 ? " when" : " otherwise"
 
             color: Colors.uGrey
 
-            font.bold: false
-            font.pointSize: 10
+            font.bold: true
+            font.pointSize: 14
         }
-    }
 
-    Rectangle {
-        id: buttonContainer
+        Rectangle {
+            id: buttonContainer
 
-        property int iconSize: 20
-        property int buttonSize: 30
-        property int marginSize: 5
+            property int iconSize: 20
+            property int buttonSize: 30
+            property int marginSize: 5
 
-        anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.right: parent.right
 
-        width: (showEditMode ? saveButton.width + cancelButton.width : editButton.width) + (deleteButton.width + moveUpButton.width + moveDownButton.width)
-
-        color: Colors.uTransparent
-
-        UI.UButton {
-            id: saveButton
-            iconId: "checkmark"
-            iconSize: buttonContainer.iconSize
-            width: buttonContainer.buttonSize
-            buttonTextColor: Colors.uGreen
-            buttonColor: Colors.uTransparent
-            buttonHoveredTextColor: Colors.uDarkGreen
-            buttonHoveredColor: Colors.uTransparent
-
+            width: editButton.width + deleteButton.width + moveUpButton.width + moveDownButton.width
+            height: 30
             visible: showEditMode
-            onClicked: saveForm()
-        }
 
-        UI.UButton {
-            id: cancelButton
-            iconId: "Remove"
-            iconSize: buttonContainer.iconSize
+            UI.UButton {
+                id: editButton
+                iconId: "pencil"
+                iconSize: buttonContainer.iconSize
+                width: buttonContainer.buttonSize
+                anchors.left: parent.left
 
-            anchors.left: saveButton.right
-            width: buttonContainer.buttonSize
-            buttonTextColor: Colors.uRed
-            buttonColor: Colors.uTransparent
-            buttonHoveredTextColor: Colors.uDarkRed
-            buttonHoveredColor: Colors.uTransparent
+                buttonTextColor: Colors.uMediumDarkGrey
+                buttonColor: Colors.uTransparent
+                buttonHoveredTextColor: Colors.uDarkGrey
+                buttonHoveredColor: Colors.uTransparent
 
-            visible: showEditMode
-            onClicked: toggleEditMode()
-        }
+                onClicked: editTask()
+            }
 
-        UI.UButton {
-            id: editButton
-            iconId: "pencil"
-            iconSize: buttonContainer.iconSize
-            width: buttonContainer.buttonSize
-            buttonTextColor: Colors.uMediumDarkGrey
-            buttonColor: Colors.uTransparent
-            buttonHoveredTextColor: Colors.uGreen
-            buttonHoveredColor: Colors.uTransparent
+            UI.UButton {
+                id: moveUpButton
+                iconId: "ArrowDown"
+                iconSize: buttonContainer.iconSize
+                width: buttonContainer.buttonSize
+                anchors.left: editButton.right
 
-            visible: !showEditMode
-            onClicked: showEditMode = true
-        }
+                buttonTextColor: Colors.uMediumDarkGrey
+                buttonColor: Colors.uTransparent
+                buttonHoveredTextColor: Colors.uDarkGrey
+                buttonHoveredColor: Colors.uTransparent
 
-        UI.UButton {
-            id: moveUpButton
-            iconId: "ArrowDown"
-            iconSize: buttonContainer.iconSize
-            width: buttonContainer.buttonSize
-            anchors.left: showEditMode ? cancelButton.right : editButton.right
+                onClicked: moveUp()
+            }
 
-            buttonTextColor: Colors.uMediumDarkGrey
-            buttonColor: Colors.uTransparent
-            buttonHoveredTextColor: Colors.uDarkGrey
-            buttonHoveredColor: Colors.uTransparent
+            UI.UButton {
+                id: moveDownButton
+                iconId: "ArrowUp"
+                iconSize: buttonContainer.iconSize
+                width: buttonContainer.buttonSize
+                anchors.left: moveUpButton.right
 
-            onClicked: moveUp()
-        }
+                buttonTextColor: Colors.uMediumDarkGrey
+                buttonColor: Colors.uTransparent
+                buttonHoveredTextColor: Colors.uDarkGrey
+                buttonHoveredColor: Colors.uTransparent
 
-        UI.UButton {
-            id: moveDownButton
-            iconId: "ArrowUp"
-            iconSize: buttonContainer.iconSize
-            width: buttonContainer.buttonSize
-            anchors.left: moveUpButton.right
+                onClicked: moveDown()
+            }
 
-            buttonTextColor: Colors.uMediumDarkGrey
-            buttonColor: Colors.uTransparent
-            buttonHoveredTextColor: Colors.uDarkGrey
-            buttonHoveredColor: Colors.uTransparent
+            UI.UButton {
+                id: deleteButton
+                iconId: "Trash"
+                iconSize: buttonContainer.iconSize
+                width: buttonContainer.buttonSize
+                anchors.left: moveDownButton.right
 
-            onClicked: moveDown()
-        }
+                buttonTextColor: Colors.uMediumDarkGrey
+                buttonColor: Colors.uTransparent
+                buttonHoveredTextColor: Colors.uRed
+                buttonHoveredColor: Colors.uTransparent
 
-        UI.UButton {
-            id: deleteButton
-            iconId: "Trash"
-            iconSize: buttonContainer.iconSize
-            width: buttonContainer.buttonSize
-            anchors.left: moveDownButton.right
-
-            buttonTextColor: Colors.uMediumDarkGrey
-            buttonColor: Colors.uTransparent
-            buttonHoveredTextColor: Colors.uRed
-            buttonHoveredColor: Colors.uTransparent
-
-            onClicked: deleteTask()
+                onClicked: deleteTask()
+            }
         }
     }
 
     Condition.Conditions {
         id: conditionsContainer
+        showEditMode: container.showEditMode
         model: getConditions()
+    }
+
+    function editTask()
+    {
+
+    }
+
+    function getUnitLabel()
+    {
+        if(deviceModel !== null) return deviceModel.unitLabel
+        else return ""
     }
 
     function getValue() {
@@ -219,24 +174,6 @@ Column {
 
     function getConditions() {
         if (item !== null) return tasks.model.nestedModelFromId(item.id)
-    }
-
-    function saveForm() {
-        if (item !== null) {
-            //if (nameTextbox.text != "") model.name = nameTextbox.text
-            //item.isEnabled = (enabledSwitch.state === "ON")
-        }
-
-        toggleEditMode()
-    }
-
-    function toggleEditMode() {
-        if (item !== null) {
-            //nameTextbox.text = getName()
-            //enabledSwitch.state = getEnabled()
-        }
-
-        showEditMode = !showEditMode
     }
 
     function deleteTask() {

@@ -130,7 +130,6 @@ Rectangle {
                 }
 
                 state: (validate() ? "SUCCESS" : "ERROR")
-                //onTextChanged: { platformValidator.validate() }
 
                 visible: showEditMode
             }

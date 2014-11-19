@@ -86,5 +86,6 @@
         <file>qml/label/Description.qml</file>
         <file>qml/ui/UCarousel.qml</file>
         <file>qml/ui/UChart.qml</file>
+        <file>qml/label/ConditionLabel.qml</file>
     </qresource>
 </RCC>

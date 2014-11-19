@@ -4,8 +4,7 @@ import "../ui/UColors.js" as Colors
 Rectangle {
 
     id: container
-
-    color: Colors.uWhite
+    clip: true
 
     property variant model: null
 

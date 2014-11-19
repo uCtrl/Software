@@ -35,7 +35,19 @@ Rectangle {
                 height: parent.height
 
                 radius: 10
-                color: Colors.uGreen
+                color: {
+                    switch(getDeviceStatus())
+                    {
+                    case 0:
+                        return Colors.uGreen; //OK
+                    case 1:
+                        return Colors.uYellow; //Disconnected
+                    case 2:
+                        return Colors.uRed; //Warning
+                    }
+
+
+                }
 
                 UI.UFontAwesome
                 {
@@ -179,7 +191,7 @@ Rectangle {
 
                     ULabel.UInfoBoundedLabel
                     {
-                        text: "100%"
+                        text: getDeviceValue() + getDeviceUnitLabel()
                     }
                 }
             }
@@ -230,6 +242,7 @@ Rectangle {
                         anchors.topMargin: 11
                         width: parent.width
                         text: getDeviceDescription()
+                        font.pointSize: 14
 
                         visible: !showEditMode
                     }
@@ -284,7 +297,7 @@ Rectangle {
                 height: infoContainer.standardRowHeight
 
                 ULabel.DeviceInfoHeaderLabel { text: "Units"; width: infoContainer.headerWidth }
-                ULabel.DeviceInfoValueLabel { text: "%"; width: infoContainer.valueWidth }
+                ULabel.DeviceInfoValueLabel { text: getDeviceUnitLabel(); width: infoContainer.valueWidth }
             }
             Rectangle
             {
@@ -292,7 +305,7 @@ Rectangle {
                 height: infoContainer.standardRowHeight
 
                 ULabel.DeviceInfoHeaderLabel { text: "Range"; width: infoContainer.headerWidth }
-                ULabel.DeviceInfoValueLabel { text: "[0-100]"; width: infoContainer.valueWidth }
+                ULabel.DeviceInfoValueLabel { text: getDeviceRange(); width: infoContainer.valueWidth }
             }
             Rectangle
             {
@@ -495,7 +508,7 @@ Rectangle {
                 dropdownColor: Colors.uGreen
                 dropdownTextColor: Colors.uWhite
 
-                selectedItemColor: Colors.uGreen
+                selectedItemColor: Colors.uDarkGreen
                 selectedItemTextColor: Colors.uWhite
                 selectedItemHoverColor: Colors.uWhite
                 selectedItemHoverTextColor: Colors.uGreen
@@ -526,6 +539,41 @@ Rectangle {
     function getDeviceDescription() {
         if (model !== null) return model.description
         else return ""
+    }
+
+    function getDeviceMinValue()
+    {
+        if (model !== null) return model.minValue
+        else return 0
+    }
+
+    function getDeviceMaxValue()
+    {
+        if (model !== null) return model.maxValue
+        else return 0
+    }
+
+    function getDeviceRange()
+    {
+        return "[" + getDeviceMinValue() + "-" + getDeviceMaxValue() + "]"
+    }
+
+    function getDeviceStatus()
+    {
+        if (model !== null) return model.status
+        else return 2
+    }
+
+    function getDeviceUnitLabel()
+    {
+        if (model !== null) return model.unitLabel
+        else return ""
+    }
+
+    function getDeviceValue()
+    {
+        if (model !== null) return model.value
+        else return -1
     }
 
     function saveForm() {
