@@ -16,14 +16,14 @@ void RecommendationsModel::read(const QJsonObject& jsonObj)
     {
         QJsonObject recommendationObj = recommendation.toObject();
         QString id = recommendationObj["id"].toString();
-        ListItem* p = find(id);
+        ListItem* r = find(id);
 
-        if (p) {
-            p->read(recommendationObj);
+        if (r) {
+            r->read(recommendationObj);
         } else {
-            p = new Recommendation(this);
-            p->read(recommendationObj);
-            this->appendRow(p);
+            r = new Recommendation(this);
+            r->read(recommendationObj);
+            this->appendRow(r);
         }
     }
 }

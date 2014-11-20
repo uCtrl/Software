@@ -10,6 +10,7 @@
 #include "Scenario/uscenariosmodel.h"
 #include "Task/utasksmodel.h"
 #include "Condition/uconditionsmodel.h"
+#include "Recommendations/recommendationsModel.h"
 
 const char* const PlatformId = "platformId";
 const char* const DeviceId = "deviceId";
@@ -76,6 +77,10 @@ public:
     const QString& serverBaseUrl();
     Q_INVOKABLE void synchronize();
 
+    // Recommendations
+    Q_INVOKABLE void getRecommendations();
+    Q_INVOKABLE void acceptRecommendation(const QString& id);
+
 signals:
     void networkError(const QString& errorString);
     void serverError(const QString& errorString);
@@ -131,6 +136,10 @@ private slots:
     void onConnected();
     void onMessageReceived(const QString& message);
     void onClosed();
+
+    // Recommendations
+    void getRecommendationsReply();
+    void acceptRecommendationReply();
 
 private:
     bool checkServerError(const QJsonObject& jsonObj);

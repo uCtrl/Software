@@ -12,10 +12,10 @@ class Recommendation : public ListItem
     {
         idRole = Qt::UserRole + 1,
         descriptionRole,
+        acceptedRole
     };
 
 public:
-
     explicit Recommendation(QObject *parent = 0);
     ~Recommendation();
 
@@ -31,9 +31,12 @@ public:
     // Properties
     QString description() const;
     void description(const QString& description);
+    bool accepted() const;
+    void accepted(bool accepted);
 
 private:
     QString m_description;
+    bool m_accepted;
 };
 
 #endif // RECOMMENDATION_H

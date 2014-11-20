@@ -2,6 +2,13 @@
 
 UPlatformsModel::UPlatformsModel(QObject* parent) : NestedListModel(new UPlatform, parent)
 {
+    m_recModel = new RecommendationsModel(this);
+}
+
+UPlatformsModel::~UPlatformsModel()
+{
+    m_recModel->clear();
+    delete m_recModel;
 }
 
 void UPlatformsModel::write(QJsonObject& jsonObj) const
@@ -33,4 +40,9 @@ void UPlatformsModel::read(const QJsonObject& jsonObj)
             this->appendRow(p);
         }
     }
+}
+
+QObject* UPlatformsModel::getRecommendations()
+{
+    return m_recModel;
 }

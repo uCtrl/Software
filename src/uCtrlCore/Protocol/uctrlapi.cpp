@@ -998,6 +998,57 @@ void UCtrlAPI::synchronize()
     postUser();
 }
 
+void UCtrlAPI::getRecommendations()
+{
+    QNetworkReply* reply = getRequest(QString("recommendations"));
+    connect(reply, SIGNAL(finished()), this, SLOT(getRecommendationsReply()));
+}
+
+void UCtrlAPI::getRecommendationsReply()
+{
+    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
+    if (!checkNetworkError(reply)) {
+        reply->deleteLater();
+        return;
+    }
+
+    QJsonObject jsonObj = QJsonDocument::fromJson(reply->readAll()).object();
+    if (!checkServerError(jsonObj)) {
+        reply->deleteLater();
+        return;
+    }
+
+    RecommendationsModel* recModel = (RecommendationsModel*)m_platforms->getRecommendations();
+    if (!recModel) {
+        reply->deleteLater();
+        return;
+    }
+
+    recModel->read(jsonObj);
+
+    reply->deleteLater();
+}
+
+void UCtrlAPI::acceptRecommendation(const QString &id)
+{
+    RecommendationsModel* recModel = (RecommendationsModel*)m_platforms->getRecommendations();
+    Recommendation* rec = (Recommendation*)recModel->find(id);
+
+    QNetworkReply* reply = putRequest(QString("recommendations"), rec);
+    connect(reply, SIGNAL(finished()), this, SLOT(acceptRecommendationReply()));
+}
+
+void UCtrlAPI::acceptRecommendationReply()
+{
+    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
+
+    if (!checkNetworkError(reply)) {
+        checkServerError(QJsonDocument::fromJson(reply->readAll()).object());
+    }
+
+    reply->deleteLater();
+}
+
 // /////////////////////////////////////
 //             Helpers                //
 // /////////////////////////////////////
