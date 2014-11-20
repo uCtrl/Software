@@ -40,6 +40,7 @@ Rectangle {
                 font.pointSize: 15
                 anchors.top: platformsLevel.top
                 text: breadcrumbModelPlatforms[0].name
+                color: Colors.uWhite
                 onHyperLinkClicked: {
                     main.currentPage = breadcrumbModelPlatforms[0].path
                     main.resetBreadcrumbDevices()
@@ -63,6 +64,7 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: devicesLevel.right
                 anchors.leftMargin: 25
+                color: Colors.uWhite
                 text: breadCrumbModeldevices[0].name
             }
             UFontAwesome {

@@ -6,7 +6,7 @@ Text {
     font.family: "Lato"
     font.pointSize: 12
     wrapMode: Text.WordWrap
-    color: Colors.uWhite
+    color: Colors.uBlack
     text: ""
 
     /*onTextChanged: {
