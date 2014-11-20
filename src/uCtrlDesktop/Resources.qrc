@@ -93,5 +93,11 @@
         <file>qml/ui/UFrame.qml</file>
         <file>Images/uCtrl.svg</file>
         <file>qml/component/Titlebar.qml</file>
+        <file>qml/task/TaskEditor.qml</file>
+        <file>qml/task/ConditionEditor.qml</file>
+        <file>qml/ui/UTimePicker.qml</file>
+        <file>qml/ui/UDatePicker.qml</file>
+        <file>qml/ui/UWeekdayPicker.qml</file>
+        <file>qml/ui/UNumberSelector.qml</file>
     </qresource>
 </RCC>

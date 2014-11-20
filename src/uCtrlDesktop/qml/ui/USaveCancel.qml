@@ -18,7 +18,6 @@ Rectangle {
         iconId: "Ok"
 
         anchors.left: parent.left
-        anchors.leftMargin: 10
         state: saveEnabled ? "ENABLED" : "DISABLED"
 
         width: parent.height

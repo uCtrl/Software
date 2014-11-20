@@ -22,7 +22,7 @@ Rectangle {
 
     Rectangle {
         id: iconContainer
-        width: (typeof(itemData) === 'undefined' || typeof(itemData.iconId) === 'undefined' || itemData.iconId === "")  ? 0 : 22
+        width: (typeof(itemData) === 'undefined' || itemData === null || typeof(itemData.iconId) === 'undefined' || itemData.iconId === "") ? 0 : 22
         height: parent.height
 
         color: Colors.uTransparent
@@ -51,7 +51,7 @@ Rectangle {
 
             height: parent.height
             anchors.verticalCenter: parent.verticalCenter
-            text: typeof(item.itemData) != 'undefined' ? item.itemData.displayedValue : ''
+            text: typeof(item.itemData) != 'undefined' && item.itemData !== null ? item.itemData.displayedValue : ''
             verticalAlignment: Text.AlignVCenter
 
             color: textColor

@@ -206,9 +206,6 @@ Rectangle {
     }
 
     function getSourceComponent() {
-        if(showEditMode)
-            return editCondition
-
         switch(model.type)  {
         case UEType.Date:
             return dateComponent;
