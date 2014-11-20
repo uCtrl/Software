@@ -265,8 +265,23 @@ Rectangle {
                 expandInfoContainer.to = openedHeight
             }
 
-            NumberAnimation {id: expandInfoContainer; target: moreInfoContainer; properties: "height"; duration: 200; easing.type: Easing.InOutQuad }
-            NumberAnimation {id: collapseInfoContainer; target: moreInfoContainer; properties: "height"; to: 0; duration: 200; easing.type: Easing.InOutQuad }
+            NumberAnimation
+            {
+                id: expandInfoContainer;
+                target: moreInfoContainer;
+                properties: "height";
+                duration: 200;
+                easing.type: Easing.InOutQuad
+            }
+            NumberAnimation
+            {
+                id: collapseInfoContainer;
+                target: moreInfoContainer;
+                properties: "height";
+                to: 0;
+                duration: 200;
+                easing.type: Easing.InOutQuad
+            }
 
             function toggle()
             {
@@ -356,7 +371,7 @@ Rectangle {
                     color: Colors.uGrey
                     anchors.verticalCenter: parent.verticalCenter
 
-                    onLinkClicked: {
+                    onHyperLinkClicked: {
                         var isCollapsed = moreInfoContainer.toggle();
 
                         if(isCollapsed)

@@ -38,6 +38,7 @@ Rectangle {
 
             ULabel.Link{
                 font.pointSize: 15
+                color: Colors.uWhite
                 anchors.top: platformsLevel.top
                 text: breadcrumbModelPlatforms[0].name
                 onHyperLinkClicked: {
@@ -63,6 +64,7 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: devicesLevel.right
                 anchors.leftMargin: 25
+                color: Colors.uWhite
                 text: breadCrumbModeldevices[0].name
             }
             UFontAwesome {

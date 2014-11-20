@@ -28,7 +28,7 @@ Rectangle {
            ULabel.Default {
                id: noScenarioLabel
                anchors.horizontalCenter: parent.horizontalCenter
-               text: "No scenarios available"
+               text: "No scenario available"
                width: parent.width * 0.75
                font.bold: true
                font.pointSize: 32
@@ -114,7 +114,6 @@ Rectangle {
                 anchors.left: parent.left
                 anchors.right: scenarioSaveCancel.left
                 anchors.rightMargin: 10
-
                 height: parent.height
 
                 placeholderText: "Enter a scenario name"

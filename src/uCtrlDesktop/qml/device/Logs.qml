@@ -28,7 +28,7 @@ ListView {
             width: parent.width
             height: 50
 
-            color: model.type === UELogType.Update ? Colors.uLightGrey : Colors.uTransparent
+            color: getBackgroundColor()
             anchors.leftMargin: -5
             anchors.rightMargin: -5
             radius: 5
@@ -50,23 +50,7 @@ ListView {
                     anchors.verticalCenter: parent.verticalCenter
                     radius: 5
 
-                    color: {
-                        if(model.type === UELogType.Update)
-                            return Colors.uGrey
-                        switch(model.severity)
-                        {
-                            case UESeverity.Normal:
-                                return Colors.uGreen
-                            case UESeverity.Warning:
-                                return Colors.uYellow
-                            case UESeverity.Error:
-                                return Colors.uRed
-                            case UESeverity.Inactive:
-                                return Colors.uLightGrey
-                            default:
-                                return Colors.uLightGreen
-                        }
-                    }
+                    color: getBoundingColor()
 
                     ULabel.Default
                     {
@@ -76,23 +60,7 @@ ListView {
                         font.pointSize: 16
                         font.bold: true
 
-                        text: {
-                            switch(model.type)
-                            {
-                                case UELogType.Action:
-                                    return "Action"
-                                case UELogType.Scenario:
-                                    return "Scenario"
-                                case UELogType.Condition:
-                                    return "Condition"
-                                case UELogType.Update:
-                                    return "Update"
-                                case UELogType.Status:
-                                    return "Status"
-                                default:
-                                    return "Other"
-                            }
-                        }
+                        text: getHeaderText()
 
                         anchors.centerIn: parent
                     }
@@ -162,6 +130,49 @@ ListView {
                 }
 
             }
+        }
+    }
+
+    function getBackgroundColor()
+    {
+        return model.type === UELogType.Update ? Colors.uLightGrey : Colors.uTransparent
+    }
+
+    function getHeaderText()
+    {
+        switch(model.type)
+        {
+            case UELogType.Action:
+                return "Action"
+            case UELogType.Scenario:
+                return "Scenario"
+            case UELogType.Condition:
+                return "Condition"
+            case UELogType.Update:
+                return "Update"
+            case UELogType.Status:
+                return "Status"
+            default:
+                return "Other"
+        }
+    }
+
+    function getBoundingColor()
+    {
+        if(model.type === UELogType.Update)
+            return Colors.uGrey
+        switch(model.severity)
+        {
+            case UESeverity.Normal:
+                return Colors.uGreen
+            case UESeverity.Warning:
+                return Colors.uYellow
+            case UESeverity.Error:
+                return Colors.uRed
+            case UESeverity.Inactive:
+                return Colors.uLightGrey
+            default:
+                return Colors.uLightGreen
         }
     }
 }

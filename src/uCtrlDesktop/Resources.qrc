@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>qml/component/Navbar.qml</file>
-        <file>qml/component/Titlebar.qml</file>
         <file>qml/device/Device.qml</file>
         <file>qml/device/DeviceListItem.qml</file>
         <file>qml/device/Devices.qml</file>
@@ -93,5 +92,6 @@
         <file>qml/home/ULargeButton.qml</file>
         <file>qml/ui/UFrame.qml</file>
         <file>Images/uCtrl.svg</file>
+        <file>qml/component/Titlebar.qml</file>
     </qresource>
 </RCC>
