@@ -8,6 +8,9 @@ import ConditionEnums 1.0
 
 Rectangle {
     id: conditionItemContainer
+
+    property bool showEditMode: false
+
     width: parent.width
     height: 30
 
@@ -32,14 +35,22 @@ Rectangle {
 
                 iconId: "Calendar"
                 iconSize: 16
-                iconColor: Colors.uBlack
+                iconColor: Colors.uMediumDarkGrey
                 anchors.left: parent.left
+            }
+
+            ULabel.ConditionLabel {
+                id: dateConditionText
+                anchors.left: dateConditionIcon.right
+                anchors.verticalCenter: parent.verticalCenter
+
+                text: "Date is "
             }
 
             Loader {
                 id: conditionContentLoader
 
-                anchors.left: dateConditionIcon.right
+                anchors.left: dateConditionText.right
                 anchors.verticalCenter: parent.verticalCenter
                 sourceComponent: getContentComponent()
             }
@@ -60,14 +71,22 @@ Rectangle {
 
                 iconId: "clock"
                 iconSize: 16
-                iconColor: Colors.uBlack
+                iconColor: Colors.uMediumDarkGrey
                 anchors.left: parent.left
+            }
+
+            ULabel.ConditionLabel {
+                id: timeConditionText
+                anchors.left: timeConditionIcon.right
+                anchors.verticalCenter: parent.verticalCenter
+
+                text: "Time is "
             }
 
             Loader {
                 id: conditionContentLoader
 
-                anchors.left: timeConditionIcon.right
+                anchors.left: timeConditionText.right
                 anchors.verticalCenter: parent.verticalCenter
                 sourceComponent: getContentComponent()
             }
@@ -88,14 +107,22 @@ Rectangle {
 
                 iconId: "Calendar"
                 iconSize: 16
-                iconColor: Colors.uBlack
+                iconColor: Colors.uMediumDarkGrey
                 anchors.left: parent.left
+            }
+
+            ULabel.ConditionLabel {
+                id: dayConditionText
+                anchors.left: dayConditionIcon.right
+                anchors.verticalCenter: parent.verticalCenter
+
+                text: "Day is "
             }
 
             Loader {
                 id: conditionContentLoader
 
-                anchors.left: dayConditionIcon.right
+                anchors.left: dayConditionText.right
                 anchors.verticalCenter: parent.verticalCenter
                 sourceComponent: getContentComponent()
             }
@@ -116,11 +143,11 @@ Rectangle {
 
                 iconId: "lightning"
                 iconSize: 16
-                iconColor: Colors.uBlack
+                iconColor: Colors.uMediumDarkGrey
                 anchors.left: parent.left
             }
 
-            ULabel.Default {
+            ULabel.ConditionLabel {
                 id: deviceConditionText
                 anchors.left: deviceConditionIcon.right
                 anchors.verticalCenter: parent.verticalCenter
@@ -141,7 +168,7 @@ Rectangle {
     Component {
         id: gtComponent
 
-        ULabel.Default {
+        ULabel.ConditionLabel {
             text: "greater than " + model.endValue
         }
     }
@@ -149,7 +176,7 @@ Rectangle {
     Component {
         id: ltComponent
 
-        ULabel.Default {
+        ULabel.ConditionLabel {
             text: "lesser than " + model.beginValue
         }
     }
@@ -157,7 +184,7 @@ Rectangle {
     Component {
         id: equalsComponent
 
-        ULabel.Default {
+        ULabel.ConditionLabel {
             text: "equal to " + model.beginValue
         }
     }
@@ -165,7 +192,7 @@ Rectangle {
     Component {
         id: inBetweenComponent
 
-        ULabel.Default {
+        ULabel.ConditionLabel {
             text: "between " + model.beginValue + " and " + model.endValue
         }
     }
@@ -173,12 +200,15 @@ Rectangle {
     Component {
         id: notComponent
 
-        ULabel.Default {
+        ULabel.ConditionLabel {
             text: "not " + model.beginValue
         }
     }
 
     function getSourceComponent() {
+        if(showEditMode)
+            return editCondition
+
         switch(model.type)  {
         case UEType.Date:
             return dateComponent;

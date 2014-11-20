@@ -677,6 +677,7 @@ Item {
         "IE": "\ue7b4",
         "opera": "\ue7b5",
         "safari": "\ue7b6",
+        "lightbulb": "\f0eb",
         "IcoMoon": "\ue7b7",
         "": "",
     }

@@ -88,6 +88,7 @@ Rectangle {
         anchors.margins: parent.marginSize
 
         width: filters.width
+        clip: true
 
         color: Colors.uWhite
 

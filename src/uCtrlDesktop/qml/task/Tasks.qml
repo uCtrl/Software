@@ -8,6 +8,7 @@ Rectangle {
     id: tasksList
 
     property var model: null
+    property bool showEditMode: false
 
     ListView {
         id: tasks
@@ -16,6 +17,8 @@ Rectangle {
         clip:true
         delegate: Task {
             item: model
+
+            showEditMode: tasksList.showEditMode
         }
     }
 }

@@ -10,6 +10,7 @@ Rectangle {
 
     property var model: null
     property var scenariosList: []
+    property bool showEditMode: false
 
     Rectangle {
        id: noScenario
@@ -19,15 +20,34 @@ Rectangle {
        color: Colors.uTransparent
 
        anchors.fill: parent
-
-       ULabel.Default {
+       Rectangle
+       {
+           width: parent.width
+           height: noScenarioLabel.height
            anchors.centerIn: parent
+           ULabel.Default {
+               id: noScenarioLabel
+               anchors.horizontalCenter: parent.horizontalCenter
+               text: "No scenario available"
+               width: parent.width * 0.75
+               font.bold: true
+               font.pointSize: 32
+               horizontalAlignment: Text.AlignHCenter
 
-           text: "No scenarios available"
-           font.bold: true
-           font.pointSize: 32
 
-           color: Colors.uGrey
+               color: Colors.uGrey
+           }
+       }
+
+       UI.UButton
+       {
+           id: createScenarioButton
+           text: "Create new scenario"
+           iconId: ""
+           iconSize: 12
+           width: 225
+           anchors.bottom: parent.bottom
+           anchors.left: parent.left
        }
     }
 
@@ -39,27 +59,137 @@ Rectangle {
 
         color: Colors.uTransparent
 
-        UI.UCombobox {
-            id: scenarioCombo
+        Rectangle
+        {
+            id: scenarioHeader
+            width: parent.width
+            height: 50
 
-            itemListModel: scenariosList
+            UI.UFontAwesome
+            {
+                id: scHeaderIcon
+                iconId: "Cog"
+                iconSize: 24
+                iconColor: Colors.uGrey
 
-            anchors.left: parent.left
-            anchors.top: parent.top
-
-            height: 35; width: parent.width
-
-            Component.onCompleted: {
-                selectItem(0)
-                currentScenario.model = scenarios.model.get(selectedItem)
+                anchors.left: parent.left
+                anchors.leftMargin: 15
+                anchors.verticalCenter: parent.verticalCenter
             }
 
-            z: 3
-
-            onSelectedItemChanged: if (scenarios.model !== null && scenarios.model !== undefined) currentScenario.model = scenarios.model.get(selectedItem)
+            ULabel.Default
+            {
+                text: "Scenario configuration"
+                font.pointSize: 20
+                anchors.left: scHeaderIcon.right
+                anchors.leftMargin: 20
+                anchors.verticalCenter: parent.verticalCenter
+                color: Colors.uGrey
+            }
         }
 
-        z: 2
+        Scenario {
+            id: currentScenario
+
+            width: parent.width
+            anchors.top: scenarioSelectionHeader.bottom
+            anchors.topMargin: 95
+            anchors.bottom: parent.bottom
+
+            visible: (currentScenario.model != null)
+        }
+
+        Rectangle
+        {
+            id: scenarioEditHeader
+            width: parent.width
+            height: 35
+            anchors.top: scenarioHeader.bottom
+
+            visible: showEditMode
+
+            UI.UTextbox
+            {
+                id: editScenarioName
+                anchors.left: parent.left
+                anchors.right: scenarioSaveCancel.left
+                anchors.rightMargin: 10
+                height: parent.height
+
+                placeholderText: "Enter a scenario name"
+
+                function validate() {
+                    return text !== ""
+                }
+
+                state: (validate() ? "SUCCESS" : "ERROR")
+            }
+
+            UI.USaveCancel
+            {
+                id: scenarioSaveCancel
+                anchors.right: parent.right
+                anchors.verticalCenter: parent.verticalCenter
+
+                onCancel: toggleEditMode()
+            }
+        }
+
+        Rectangle
+        {
+            id: scenarioSelectionHeader
+            width: parent.width
+            height: 35
+            anchors.top: scenarioHeader.bottom
+
+            visible: !showEditMode
+
+            UI.UCombobox {
+                id: scenarioCombo
+
+                itemListModel: scenariosList
+
+                anchors.left: parent.left
+                anchors.right: editButton.left
+                anchors.rightMargin: 10
+
+                height: parent.height
+
+                Component.onCompleted: {
+                    selectItem(0)
+                    currentScenario.model = scenarios.model.get(selectedItem)
+                }
+
+                onSelectedItemChanged: if (scenarios.model !== null && scenarios.model !== undefined) currentScenario.model = scenarios.model.get(selectedItem)
+            }
+
+            UI.UButton
+            {
+                id: editButton
+                width: parent.height
+                height: parent.height
+                iconId: "pencil"
+
+                anchors.right: deleteButton.left
+                anchors.rightMargin: 5
+
+                onClicked: toggleEditMode()
+            }
+
+            UI.UButton
+            {
+                id: deleteButton
+                width: parent.height
+                height: parent.height
+                iconId: "Trash"
+
+                buttonColor: Colors.uDarkRed
+                buttonHoveredColor: Colors.uRed
+                buttonTextColor : Colors.uWhite
+
+                anchors.right: parent.right
+            }
+        }
     }
 
 
@@ -85,14 +215,14 @@ Rectangle {
         }
 
 
-    Scenario {
-        id: currentScenario
+    function toggleEditMode()
+    {
+        showEditMode = !showEditMode
+        currentScenario.showEditMode = showEditMode
 
-        anchors.left: scenarios.left
-        anchors.right: scenarios.right
-        anchors.top: scenarios.top
-        anchors.bottom: scenarios.bottom
-
-        visible: (currentScenario.model != null)
+        if(currentScenario.model !== null)
+        {
+            editScenarioName.text = currentScenario.model.name
+        }
     }
 }

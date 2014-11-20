@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>qml/component/Navbar.qml</file>
-        <file>qml/component/Titlebar.qml</file>
         <file>qml/device/Device.qml</file>
         <file>qml/device/DeviceListItem.qml</file>
         <file>qml/device/Devices.qml</file>
@@ -69,11 +68,30 @@
         <file>qml/jbQuick/Charts/README.md</file>
         <file>qml/ui/UAlert.qml</file>
         <file>qml/settings/Settings.qml</file>
+        <file>qml/device/type/Switch.qml</file>
+        <file>qml/device/type/StatusLight.qml</file>
+        <file>qml/device/type/RF.qml</file>
+        <file>qml/device/type/PushButton.qml</file>
+        <file>qml/device/type/ProximitySensor.qml</file>
+        <file>qml/device/type/NinjaEyes.qml</file>
+        <file>qml/device/type/LightSensor.qml</file>
+        <file>qml/device/type/Light.qml</file>
+        <file>qml/device/type/LED.qml</file>
+        <file>qml/label/IconLabel.qml</file>
+        <file>qml/ui/USlider.qml</file>
+        <file>qml/device/Logs.qml</file>
+        <file>qml/label/DeviceInfoValueLabel.qml</file>
+        <file>qml/label/DeviceInfoHeaderLabel.qml</file>
+        <file>qml/label/Description.qml</file>
+        <file>qml/ui/UCarousel.qml</file>
+        <file>qml/ui/UChart.qml</file>
+        <file>qml/label/ConditionLabel.qml</file>
         <file>qml/recommendations/Recommendations.qml</file>
         <file>qml/ui/UBreadCrumb.qml</file>
         <file>qml/home/ULandingPage.qml</file>
         <file>qml/home/ULargeButton.qml</file>
         <file>qml/ui/UFrame.qml</file>
         <file>Images/uCtrl.svg</file>
+        <file>qml/component/Titlebar.qml</file>
     </qresource>
 </RCC>

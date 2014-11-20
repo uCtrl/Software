@@ -10,7 +10,7 @@ Rectangle {
     id: main
 
     // Frame configuration
-    height: 600
+    height: 800
     width: 1200
 
     color: Colors.uLightGrey

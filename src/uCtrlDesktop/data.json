@@ -54,14 +54,23 @@
 									"conditions": [
 										{
 											"id": "100000",
-											"type": 4,
-											"comparisonType": 1,
-											"beginValue": "",
+                                            "type": 4,
+                                            "comparisonType": 1,
+                                            "beginValue": "",
 											"endValue": "20",
 											"deviceId": "100",
 											"enabled": true,
 											"lastUpdated": 1413843222
-										}
+                                        },
+                                        {
+                                            "id": "100001",
+                                            "type": 3,
+                                            "comparisonType": 8,
+                                            "beginValue": "6:00",
+                                            "endValue": "18:30",
+                                            "enabled": true,
+                                            "lastUpdated": 1413843436
+                                        }
 									]
 								},
 								{
@@ -99,11 +108,45 @@
 					"minValue": "0",
 					"value": "25.6",
 					"precision": 1,
-					"status": 0,
+                    "status": 2,
 					"unitLabel": "%",
 					"enabled": true,
 					"lastUpdated": 1413843222,
-					"scenarios": [ ]
+                    "scenarios": [
+                        {
+                            "id": "1000",
+                            "name": "Semaine",
+                            "enabled": true,
+                            "lastUpdated": 1413843222,
+                            "tasks": [
+                                {
+                                    "id": "10000",
+                                    "value": "21.65",
+                                    "enabled": true,
+                                    "lastUpdated": 1413843222,
+                                    "conditions": [
+                                        {
+                                            "id": "100000",
+                                            "type": 4,
+                                            "comparisonType": 1,
+                                            "beginValue": "",
+                                            "endValue": "20",
+                                            "deviceId": "100",
+                                            "enabled": true,
+                                            "lastUpdated": 1413843222
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "10001",
+                                    "value": "18.33",
+                                    "enabled": true,
+                                    "lastUpdated": 1413843222,
+                                    "conditions": [ ]
+                                }
+                            ]
+                        }
+                    ]
 				}
 			]
 		},

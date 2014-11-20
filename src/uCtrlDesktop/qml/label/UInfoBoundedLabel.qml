@@ -3,10 +3,15 @@ import "../ui/UColors.js" as Colors
 
 Rectangle {
     id: container
-    color: Colors.uGreen
-    width: Math.round(label.width + 16)
-    height: 22
-    radius: 4
+
+    property int boundedHeight: 8
+    property int boundedWidth: 40
+    property string boundedColor: Colors.uGreen
+
+    color: boundedColor
+    width: Math.round(label.width + boundedWidth)
+    height: Math.round(label.height + boundedHeight)
+    radius: 5
 
     anchors.verticalCenter: parent.verticalCenter
 
@@ -23,7 +28,6 @@ Rectangle {
         font.pointSize: 14
         font.bold: true
         color: Colors.uWhite
-        height: parent.height
         anchors.centerIn: parent
         verticalAlignment: Text.AlignVCenter
     }
