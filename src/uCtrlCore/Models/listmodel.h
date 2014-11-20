@@ -43,6 +43,7 @@ public:
     Q_INVOKABLE bool moveDown(int from);
 
     ListItem* find(const QString& itemId) const;
+    Q_INVOKABLE QObject* findObject(const QString& itemId) const;
     QModelIndex indexFromItem(ListItem *item) const;
     Q_INVOKABLE void clear();
 
