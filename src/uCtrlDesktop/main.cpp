@@ -50,6 +50,7 @@ void Init(QGuiApplication& app, QtQuick2ApplicationViewer& viewer)
     qmlRegisterType<UAudioRecorder>("UAudioRecorder", 1, 0, "UAudioRecorder");
     qmlRegisterType<UVoiceControlResponse>("UVoiceControlResponse", 1, 0, "UVoiceControlResponse");
     qmlRegisterType<UVoiceControlAPI>("UVoiceControl", 1, 0, "UVoiceControl");
+    qmlRegisterType<UDevice>("UDevice", 1, 0, "UDevice");
 
     UPlatformsModel* platforms = new UPlatformsModel();
 

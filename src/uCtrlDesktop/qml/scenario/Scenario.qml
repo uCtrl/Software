@@ -231,6 +231,10 @@ Rectangle {
         if (model !== null) {
             if (nameTextbox.text != "") model.name = nameTextbox.text
             model.isEnabled = (enabledSwitch.state === "ON")
+
+            console.log("Before put scenario")
+            uCtrlApiFacade.putScenario(model)
+            console.log("After put scenario")
         }
 
         toggleEditMode()

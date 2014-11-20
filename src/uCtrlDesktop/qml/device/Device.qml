@@ -9,6 +9,7 @@ import "./type" as Type
 
 import DeviceEnums 1.0
 import HistoryEnums 1.0
+import UDevice 1.0
 
 Rectangle {
 
