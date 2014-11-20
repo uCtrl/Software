@@ -41,7 +41,7 @@ Rectangle {
                 color: Colors.uWhite
                 anchors.top: platformsLevel.top
                 text: breadcrumbModelPlatforms[0].name
-                color: Colors.uWhite
+
                 onHyperLinkClicked: {
                     main.currentPage = breadcrumbModelPlatforms[0].path
                     main.resetBreadcrumbDevices()
