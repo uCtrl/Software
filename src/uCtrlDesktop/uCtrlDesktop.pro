@@ -18,14 +18,9 @@ DEPLOYMENTFOLDERS = folder_01
 include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
 qtcAddDeployment()
 
-INCLUDEPATH += ../uCtrlCore/
-
 # Common stuff
 SOURCES += \
     main.cpp \
-    Network/bonjourservicebrowser.cpp \
-    Network/bonjourserviceresolver.cpp \
-    Network/unetworkscanner.cpp \
     Audio/uaudiorecorder.cpp \
     Voice/uvoicecontrolapi.cpp \
     Voice/uvoicecontrolresponse.cpp \
@@ -37,10 +32,6 @@ SOURCES += \
     Voice/usetdimmerlights.cpp
 
 HEADERS += \
-    Network/bonjourrecord.h \
-    Network/bonjourservicebrowser.h \
-    Network/bonjourserviceresolver.h \
-    Network/unetworkscanner.h \
     Audio/uaudiorecorder.h \
     Voice/uvoicecontrolapi.h \
     Voice/uvoicecontrolresponse.h \
@@ -51,7 +42,6 @@ HEADERS += \
     Voice/uninjaapi.h \
     Voice/usetdimmerlights.h
 
-
 RESOURCES += \
     Resources.qrc
 
@@ -59,47 +49,6 @@ RESOURCES += \
 TRANSLATIONS += \
     Languages/uctrl_en.ts \
     Languages/uctrl_fr.ts
-
-CONFIG(debug, debug|release) {
-    uCtrlCore_QMAKE_CMD = qmake $$SRC_DIR/uCtrlCore/uCtrlCore.pro -r CONFIG+=debug CONFIG-=release\
-                          CONFIG+=x86_64 CONFIG+=declarative_debug CONFIG+=qml_debug
-} else {
-    uCtrlCore_QMAKE_CMD = qmake $$SRC_DIR/uCtrlCore/uCtrlCore.pro -r CONFIG+=x86_64
-}
-
-win32 { 
-    uCtrlCore_DIR = $$OUT_PWD/../uCtrlCore
-    uCtrlCore_CMD = IF NOT EXIST $$uCtrlCore_DIR MKDIR $$uCtrlCore_DIR && cd $$OUT_PWD/../uCtrlCore && $$uCtrlCore_QMAKE_CMD && mingw32-make
-    uCtrlCore_CMD = $$replace(uCtrlCore_CMD, /, \\)
-    CONFIG(debug, debug|release) {
-        LIBS += -L$$OUT_PWD/../uCtrlCore/debug -luCtrlCore
-        uCtrlCore_TARGET = $$OUT_PWD/../uCtrlCore/debug/libuCtrlCore.a
-    } else {
-        LIBS += -L$$OUT_PWD/../uCtrlCore/release -luCtrlCore
-        uCtrlCore_TARGET = $$OUT_PWD/../uCtrlCore/release/libuCtrlCore.a
-    }
-} else {
-    uCtrlCore_CMD = mkdir -p $$OUT_PWD/../uCtrlCore && cd $$OUT_PWD/../uCtrlCore && $$uCtrlCore_QMAKE_CMD && make
-    LIBS += -L$$OUT_PWD/../uCtrlCore/ -luCtrlCore
-    uCtrlCore_TARGET = $$OUT_PWD/../uCtrlCore/libuCtrlCore.a
-}
-
-uCtrlCore.target     = $$uCtrlCore_TARGET
-uCtrlCore.depends    = $$SRC_DIR/uCtrlCore/uCtrlCore.pro
-uCtrlCore.commands   = $$uCtrlCore_CMD
-
-PRE_TARGETDEPS += $$uCtrlCore_TARGET
-QMAKE_EXTRA_TARGETS += uCtrlCore
-INCLUDEPATH += $$PWD/../uCtrlCore
-DEPENDPATH += $$PWD/../uCtrlCore
-
-!mac:LIBS += -ldns_sd
-
-win32 {
-    LIBS += -L$$PWD/../libs/bonjour-sdk -ldnssd
-    INCLUDEPATH += $$PWD/../libs/bonjour-sdk 
-    DEPENDPATH += $$PWD/../libs/bonjour-sdk 
-}
 
 # Rule for regenerating .qm files for translations (missing in qmake
 # default ruleset, ugh!)
@@ -114,3 +63,16 @@ PRE_TARGETDEPS += compiler_updateqm_make_all
 OTHER_FILES += \
     Languages/uctrl_en.ts \
     Languages/uctrl_fr.ts
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../uCtrlCore/release/ -luCtrlCore
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../uCtrlCore/debug/ -luCtrlCore
+else:unix: LIBS += -L$$OUT_PWD/../uCtrlCore/ -luCtrlCore
+
+INCLUDEPATH += $$PWD/../uCtrlCore
+DEPENDPATH += $$PWD/../uCtrlCore
+
+win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../uCtrlCore/release/libuCtrlCore.a
+else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../uCtrlCore/debug/libuCtrlCore.a
+else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../uCtrlCore/release/uCtrlCore.lib
+else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../uCtrlCore/debug/uCtrlCore.lib
+else:unix: PRE_TARGETDEPS += $$OUT_PWD/../uCtrlCore/libuCtrlCore.a

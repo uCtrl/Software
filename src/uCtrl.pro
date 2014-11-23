@@ -4,5 +4,4 @@ CONFIG += ordered
 
 SUBDIRS += \
     uCtrlCore \
-    uCtrlDesktop \
-    uCtrlServiceBrowser
+    uCtrlDesktop
