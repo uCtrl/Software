@@ -11,7 +11,6 @@
 #include <QTimer>
 
 #include "Serialization/jsonserializer.h"
-#include "Network/unetworkscanner.h"
 #include "Audio/uaudiorecorder.h"
 #include "Voice/uvoicecontrolapi.h"
 #include "Utility/oshandler.h"
