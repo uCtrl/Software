@@ -11,6 +11,7 @@ Rectangle
 
     property var model: null
     property bool showEditMode: false
+    property var editTaskFunction
 
     anchors.fill: parent
     color: Colors.uTransparent
@@ -23,6 +24,7 @@ Rectangle
         anchors.bottom: footerContainer.top
 
         showEditMode: scenarioContainer.showEditMode
+        editTaskFunction: scenarioContainer.editTaskFunction
 
         model: getTasks()
     }

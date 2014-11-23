@@ -4,6 +4,7 @@ import "../ui" as UI
 import "../label" as ULabel
 import "../scenario" as Scenario
 import "../ui/UColors.js" as Colors
+import "../task" as Task
 
 import "./type" as Type
 
@@ -155,6 +156,7 @@ Rectangle
 
                                 model: getScenarios()
 
+                                editTaskFunction: taskEditor.editTask
                                 anchors.fill: parent
                             }
                         }
@@ -250,6 +252,21 @@ Rectangle
                                     Component.onCompleted: selectItem(0)
                                 }
                             }
+                        }
+                    }
+
+
+                    Task.TaskEditor
+                    {
+                        id: taskEditor
+
+                        visible: false
+
+                        function editTask(tasks, conditions)
+                        {
+                            taskModel = tasks
+                            conditionModel = conditions
+                            visible = true
                         }
                     }
                 }

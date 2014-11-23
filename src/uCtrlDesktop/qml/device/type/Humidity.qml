@@ -322,22 +322,6 @@ Rectangle {
                 ULabel.DeviceInfoHeaderLabel { text: "Range"; width: infoContainer.headerWidth }
                 ULabel.DeviceInfoValueLabel { text: getDeviceRange(); width: infoContainer.valueWidth }
             }
-            Rectangle
-            {
-                width: parent.width
-                height: infoContainer.standardRowHeight
-
-                ULabel.DeviceInfoHeaderLabel { text: "GUID"; width: infoContainer.headerWidth }
-                ULabel.DeviceInfoValueLabel { text: "ffab-346ddf1-c234a3c-1259afc"; width: infoContainer.valueWidth }
-            }
-            Rectangle
-            {
-                width: parent.width
-                height: infoContainer.standardRowHeight
-
-                ULabel.DeviceInfoHeaderLabel { text: "Modele"; width: infoContainer.headerWidth }
-                ULabel.DeviceInfoValueLabel { text: "TCa4V38-2"; width: infoContainer.valueWidth }
-            }
         }
 
         Rectangle

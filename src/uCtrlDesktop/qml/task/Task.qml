@@ -14,6 +14,7 @@ Column {
     property var item: null
     property variant deviceModel: main.activeDevice
     property bool showEditMode: false
+    property var editTaskFunction
 
     Rectangle {
         id: taskContainer
@@ -158,7 +159,7 @@ Column {
 
     function editTask()
     {
-
+        container.editTaskFunction(item, getConditions())
     }
 
     function getUnitLabel()
@@ -169,7 +170,7 @@ Column {
 
     function getValue() {
         if (item !== null) return item.value
-        else return "ON"
+        else return ""
     }
 
     function getConditions() {

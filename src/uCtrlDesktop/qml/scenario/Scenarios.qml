@@ -11,6 +11,7 @@ Rectangle {
     property var model: null
     property var scenariosList: []
     property bool showEditMode: false
+    property var editTaskFunction
 
     Rectangle {
        id: noScenario
@@ -95,6 +96,8 @@ Rectangle {
             anchors.top: scenarioSelectionHeader.bottom
             anchors.topMargin: 95
             anchors.bottom: parent.bottom
+
+            editTaskFunction: scenarios.editTaskFunction
 
             visible: (currentScenario.model != null)
         }

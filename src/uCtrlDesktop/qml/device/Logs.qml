@@ -28,7 +28,7 @@ ListView {
             width: parent.width
             height: 50
 
-            color: getBackgroundColor()
+            color: getBackgroundColor(model)
             anchors.leftMargin: -5
             anchors.rightMargin: -5
             radius: 5
@@ -50,7 +50,7 @@ ListView {
                     anchors.verticalCenter: parent.verticalCenter
                     radius: 5
 
-                    color: getBoundingColor()
+                    color: getBoundingColor(model)
 
                     ULabel.Default
                     {
@@ -60,7 +60,7 @@ ListView {
                         font.pointSize: 16
                         font.bold: true
 
-                        text: getHeaderText()
+                        text: getHeaderText(model)
 
                         anchors.centerIn: parent
                     }
@@ -133,12 +133,12 @@ ListView {
         }
     }
 
-    function getBackgroundColor()
+    function getBackgroundColor(model)
     {
         return model.type === UELogType.Update ? Colors.uLightGrey : Colors.uTransparent
     }
 
-    function getHeaderText()
+    function getHeaderText(model)
     {
         switch(model.type)
         {
@@ -157,7 +157,7 @@ ListView {
         }
     }
 
-    function getBoundingColor()
+    function getBoundingColor(model)
     {
         if(model.type === UELogType.Update)
             return Colors.uGrey

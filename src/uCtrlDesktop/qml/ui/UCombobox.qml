@@ -13,7 +13,7 @@ Rectangle {
                                     { value:"4", displayedValue:"Start", iconId:"Bolt"}
                                 ]
 
-    property var selectedItem
+    property var selectedItem: null
     z:1
     signal selectValue(var newValue)
     property int itemDisplayedBeforeScroll: 10
