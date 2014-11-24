@@ -24,6 +24,8 @@ Rectangle
     property int paddingSize: 20
     property int bottomMarginSize: 30
 
+    property bool showEditMode: false
+
     Rectangle
     {
         id: contentCanvas
@@ -36,7 +38,7 @@ Rectangle
         anchors.margins: devicePage.marginSize
         anchors.bottomMargin: devicePage.bottomMarginSize
 
-        color: Colors.uWhite
+        color:  Colors.uWhite
         radius: 5
 
         Rectangle
@@ -51,7 +53,7 @@ Rectangle
 
             color: Colors.uTransparent
 
-            Rectangle
+            /*Rectangle
             {
                 id: deviceInformationContainer
                 anchors.left: parent.left
@@ -86,7 +88,209 @@ Rectangle
                         }
                     }
                 }
+            }*/
+
+            Rectangle {
+                id: infoContainer
+
+                color: Colors.uTransparent
+
+                anchors.left: parent.left
+                anchors.right: leftToRightSeparator.left
+                anchors.rightMargin: devicePage.paddingSize
+
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+
+                Rectangle {
+                    id: baseInfo
+
+                    color: Colors.uTransparent
+
+                    anchors.top: parent.top
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+
+                    height: 40
+
+                    UI.UButton {
+                        id: editButton
+
+                        iconId: "pencil"
+
+                        iconSize: 22
+
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.right: parent.right
+
+                        width: 50
+                        height: 50
+
+                        buttonTextColor: Colors.uGrey
+                        buttonColor: Colors.uTransparent
+                        buttonHoveredTextColor: Colors.uGreen
+                        buttonHoveredColor: Colors.uTransparent
+
+                        visible: !showEditMode
+                        onClicked: showEditMode = true
+                    }
+
+                    Rectangle {
+                        id: deviceIconContainer
+                        width: parent.height
+                        height: parent.height
+
+                        radius: 10
+                        color: {
+                            switch(getDeviceStatus())
+                            {
+                            case 0:
+                                return Colors.uGreen; //OK
+                            case 1:
+                                return Colors.uYellow; //Disconnected
+                            case 2:
+                                return Colors.uRed; //Warning
+                            }
+                        }
+
+                        UI.UFontAwesome {
+                            iconId: getDeviceIcon()
+                            iconColor: Colors.uWhite
+                            iconSize: 20
+                            anchors.centerIn: parent
+                        }
+                    }
+
+                    Rectangle {
+                        id: nameContainer
+
+                        anchors.left: deviceIconContainer.right
+                        anchors.right: editButton.left
+                        height: parent.height
+
+                        ULabel.Description
+                        {
+                            text: getDeviceName()
+                            font.pointSize: 22
+
+                            anchors.verticalCenter: parent.verticalCenter
+
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+
+                            anchors.margins: 10
+                        }
+
+                        Rectangle {
+                            id: nameEdit
+
+                            anchors.fill: parent
+
+                            visible: showEditMode
+
+                            UI.UTextbox {
+                                id: nameTextbox
+                                width: parent.width
+
+                                anchors.left: parent.left
+                                anchors.leftMargin: 10
+                                anchors.right: saveCancelButton.left
+                                anchors.rightMargin: 10
+                                anchors.verticalCenter: parent.verticalCenter
+
+                                text: getDeviceName()
+                                placeholderText: "Enter a device name"
+
+                                function validate() {
+                                    return text !== ""
+                                }
+
+                                visible: showEditMode
+
+                                state: (validate() ? "SUCCESS" : "ERROR")
+                            }
+
+                            UI.USaveCancel {
+                                id: saveCancelButton
+                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.right: parent.right
+
+                                onSave: saveForm()
+                                onCancel: toggleEditMode()
+
+                                visible: showEditMode
+                            }
+                        }
+                    }
+                }
+
+                Rectangle {
+                    id: moreInfo
+
+                    color: Colors.uTransparent
+
+                    anchors.top: baseInfo.bottom
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+
+                    height: 200
+
+                    Loader {
+                        id: infoLoader
+
+                        active: false;
+                        asynchronous: true;
+
+                        anchors.fill: parent
+
+                        onVisibleChanged:      { loadIfNotLoaded(); }
+                        Component.onCompleted: { loadIfNotLoaded(); }
+
+                        function loadIfNotLoaded () {
+                            // to load the file at first show
+                            if (visible && !active) {
+                                active = true;
+                            }
+
+                            setSource("type/" + getDeviceFile() + ".qml", { "displayed": "info"})
+                        }
+                    }
+                }
+
+                Rectangle {
+                    id: graphContainer
+
+                    color: "cyan"
+
+                    anchors.top: moreInfo.bottom
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.bottom: parent.bottom
+
+                    Loader {
+                        id: statsLoader
+
+                        active: false;
+                        asynchronous: true;
+
+                        anchors.fill: parent
+
+                        onVisibleChanged:      { loadIfNotLoaded(); }
+                        Component.onCompleted: { loadIfNotLoaded(); }
+
+                        function loadIfNotLoaded () {
+                            // to load the file at first show
+                            if (visible && !active) {
+                                active = true;
+                            }
+
+                            setSource("type/" + getDeviceFile() + ".qml", { "displayed": "graph"})
+                        }
+                    }
+
+                }
             }
+
             Rectangle
             {
                 id: leftToRightSeparator
@@ -95,6 +299,7 @@ Rectangle
                 anchors.right: scenariosAndLogsContainer.left
                 color: Colors.uLightGrey
             }
+
             Rectangle
             {
                 id: scenariosAndLogsContainer
@@ -372,5 +577,49 @@ Rectangle
             }
         }
         return "Error"
+    }
+
+    function getDeviceStatus() {
+        if (model !== null) return model.status
+        else return 2
+    }
+
+    function getDeviceIcon() {
+        if (model !== null) {
+            switch(model.type) {
+                case UEType.BelkinWeMoSocket:
+                    return "droplet"
+                case UEType.Humidity:
+                    return "droplet"
+                case UEType.Light:
+                    return "droplet"
+                case UEType.LightSensor:
+                    return "droplet"
+                case UEType.NinjasEyes:
+                    return "droplet"
+                case UEType.OnBoardRGBLed:
+                    return "droplet"
+                case UEType.PIRMotionSensor:
+                    return "droplet"
+                case UEType.ProximitySensor:
+                    return "droplet"
+                case UEType.PushButton:
+                    return "droplet"
+                case UEType.RF4333:
+                    return "droplet"
+                case UEType.StatusLight:
+                    return "droplet"
+                case UEType.Switch:
+                    return "droplet"
+                case UEType.Temperature:
+                    return "droplet"
+            }
+        }
+        return "droplet"
+    }
+
+    function getDeviceName() {
+        if (model !== null) return model.name
+        else return "Unknown device name"
     }
 }

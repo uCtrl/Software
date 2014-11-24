@@ -7,8 +7,30 @@ import "../../ui/UColors.js" as Colors
 import jbQuick.Charts 1.0
 import "../../jbQuick/Charts/QChartGallery.js" as ChartsData
 
-
 Rectangle {
+    id: container
+
+    property var displayed: null
+    anchors.fill: parent
+
+    Rectangle {
+        anchors.fill: parent
+
+        color: "green"
+
+        visible: (displayed === "info")
+    }
+
+    Rectangle {
+        anchors.fill: parent
+
+        color: "yellow"
+
+        visible: (displayed === "graph")
+    }
+
+}
+/*Rectangle {
     id: container
 
     property var item: main.activeDevice
@@ -633,4 +655,4 @@ Rectangle {
         if (item !== null) return item.maxValue
         else return "70"
     }
-}
+}*/

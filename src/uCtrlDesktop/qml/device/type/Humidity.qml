@@ -45,8 +45,6 @@ Rectangle {
                     case 2:
                         return Colors.uRed; //Warning
                     }
-
-
                 }
 
                 UI.UFontAwesome
@@ -145,7 +143,7 @@ Rectangle {
             }
         }
 
-        Column
+        /*Column
         {
             id: alwaysShownInfoContainer
             width: parent.width
@@ -248,9 +246,9 @@ Rectangle {
                     }
                 }
             }
-        }
+        }*/
 
-        Column
+        /*Column
         {
             property int openedHeight: 0
             property bool isCollapsed: true
@@ -322,7 +320,7 @@ Rectangle {
                 ULabel.DeviceInfoHeaderLabel { text: "Range"; width: infoContainer.headerWidth }
                 ULabel.DeviceInfoValueLabel { text: getDeviceRange(); width: infoContainer.valueWidth }
             }
-        }
+        }*/
 
         Rectangle
         {
