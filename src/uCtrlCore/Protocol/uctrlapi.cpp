@@ -414,6 +414,7 @@ void UCtrlAPI::postScenario(const QString& platformId, const QString& deviceId, 
         return;
 
     QNetworkReply* reply = postRequest(QString("platforms/%1/devices/%2/scenarios").arg(platformId, deviceId), scenario);
+    reply->setProperty(ScenarioPtr, (int)scenario);
     connect(reply, SIGNAL(finished()), this, SLOT(postScenarioReply()));
 }
 
@@ -421,9 +422,13 @@ void UCtrlAPI::postScenarioReply()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
 
+    QJsonObject jsonScenarioReply = QJsonDocument::fromJson(reply->readAll()).object();
     if (!checkNetworkError(reply)) {
         checkServerError(QJsonDocument::fromJson(reply->readAll()).object());
     }
+
+    UScenario* scenario = (UScenario*)reply->property(ScenarioPtr).toInt();
+    scenario->read(jsonScenarioReply["scenario"].toObject());
 
     reply->deleteLater();
 }

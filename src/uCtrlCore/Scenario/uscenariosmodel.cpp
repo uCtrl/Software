@@ -4,6 +4,14 @@ UScenariosModel::UScenariosModel(QObject* parent) : NestedListModel(new UScenari
 {
 }
 
+QObject* UScenariosModel::createNewScenario()
+{
+    UScenario* newScenario = new UScenario(this);
+    newScenario->name("New Scenario");
+    appendRow(newScenario);
+    return newScenario;
+}
+
 void UScenariosModel::write(QJsonObject &jsonObj) const
 {
     QJsonArray scenarios;

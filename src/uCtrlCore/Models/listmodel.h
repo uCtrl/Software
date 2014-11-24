@@ -44,7 +44,8 @@ public:
 
     ListItem* find(const QString& itemId) const;
     Q_INVOKABLE QObject* findObject(const QString& itemId) const;
-    QModelIndex indexFromItem(ListItem *item) const;
+    Q_INVOKABLE QModelIndex indexFromItem(ListItem *item) const;
+    Q_INVOKABLE int indexOf(ListItem *item) const;
     Q_INVOKABLE void clear();
 
 protected:

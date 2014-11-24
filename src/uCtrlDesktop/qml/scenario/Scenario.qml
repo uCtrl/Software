@@ -37,29 +37,6 @@ Rectangle
         clip: true
 
         height: !isActiveScenario() ? 30 : 0
-
-        UI.UButton
-        {
-            id: createScenarioButton
-            text: "Create new scenario"
-            iconId: ""
-            iconSize: 12
-            width: 225
-            anchors.verticalCenter: parent.verticalCenter
-        }
-        UI.UButton
-        {
-            id: createTaskButton
-            text: "Create new task"
-            iconId: ""
-            iconSize: 12
-            width: 225
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.left: createScenarioButton.right
-            anchors.leftMargin: 10
-
-            visible: showEditMode
-        }
     }
 
     function getTasks() {

@@ -602,6 +602,8 @@ Rectangle {
             model.name = nameTextbox.text
             model.isEnabled = editEnabled.state === "ON" ? true : false
             model.description = editDescription.text
+
+            devicePage.saveForm()
         }
 
         toggleEditMode()

@@ -10,6 +10,7 @@ class UScenariosModel : public NestedListModel
 
 public:
     explicit UScenariosModel(QObject* parent = 0);
+    Q_INVOKABLE QObject* createNewScenario();
 
     // JsonSerializable
     void write(QJsonObject &jsonObj) const;
