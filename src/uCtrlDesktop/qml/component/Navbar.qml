@@ -61,8 +61,8 @@ Rectangle {
                             main.addToBreadcrumbDevices("device/Device", "")
                         }
                         if(currentPage === "platform/Platforms"){
-                            main.showBreadcrumbPlatforms()
                             main.resetBreadcrumbDevices()
+                            main.showBreadcrumbPlatforms()
                             main.addToBreadcrumbDevices("device/Device", "")
                         }
                     }
