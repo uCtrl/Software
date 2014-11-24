@@ -60,14 +60,13 @@ Rectangle {
             anchors.verticalCenter: platformsLevel.verticalCenter
             anchors.right: platformsLevel.right
             text: breadcrumbModelPlatformsName
-
+            state: "ENABLED"
             onHyperLinkClicked: {
                 main.currentPage = breadcrumbModelPlatformsPath
                 main.resetBreadcrumbDevices()
                 main.addToBreadcrumbDevices("device/Device", "")
             }
         }
-
     }
 
     Rectangle{
@@ -85,6 +84,7 @@ Rectangle {
             anchors.verticalCenter: devicesLevel.verticalCenter
             anchors.left: devicesLevel.left
             color: Colors.uWhite
+            state: "ENABLED"
             text: breadcrumbModelDevicesName
         }
     }
