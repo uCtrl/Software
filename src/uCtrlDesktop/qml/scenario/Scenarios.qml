@@ -154,12 +154,16 @@ Rectangle {
 
                 Component.onCompleted: {
                     selectItem(0)
-                    console.log(scenariosList.length)
                     currentScenario.model = scenarios.model.get(selectedItem)
                 }
 
-                onSelectedItemChanged: if (scenarios.model !== null && scenarios.model !== undefined) currentScenario.model = scenarios.model.get(selectedItem)
-            }
+                onSelectedItemChanged: {
+                    if (scenarios.model !== null && scenarios.model !== undefined)
+                    {
+                        currentScenario.model = scenarios.model.get(selectedItem.value)
+                    }
+                }
+             }
 
             UI.UButton
             {
@@ -252,6 +256,7 @@ Rectangle {
     function saveForm()
     {
         var scenario  = scenarios.model.findObject(currentScenario.model.id)
+        console.log(currentScenario.model.id)
         if (scenario !== null) {
             scenario.name(editScenarioName.text)
             currentScenario.model.name = editScenarioName.text
