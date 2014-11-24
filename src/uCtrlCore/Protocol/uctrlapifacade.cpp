@@ -115,6 +115,7 @@ void UCtrlAPIFacade::postScenario(UScenario* scenario)
     QString platformId;
     QString deviceId;
     resolveIds(platformId, deviceId, scenario);
+    QString scenarioId = scenario->id();
     m_uCtrlApi.postScenario(platformId, deviceId, scenario->id());
 }
 void UCtrlAPIFacade::getScenario(UScenario* scenario)

@@ -33,7 +33,7 @@ public:
 
     // Properties
     QString name() const;
-    void name(const QString& name);
+    Q_INVOKABLE void name(const QString& name);
 
 private:
     QString m_name;

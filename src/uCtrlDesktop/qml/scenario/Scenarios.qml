@@ -15,6 +15,10 @@ Rectangle {
 
     Rectangle {
        id: noScenario
+       anchors.top: parent.top
+       anchors.left: parent.left
+       anchors.right: parent.right
+       anchors.bottom: createScenarioButton.top
 
        visible: (model !== null && model !== undefined && !(model.rowCount() > 0))
 
@@ -39,22 +43,14 @@ Rectangle {
                color: Colors.uGrey
            }
        }
-
-       UI.UButton
-       {
-           id: createScenarioButton
-           text: "Create new scenario"
-           iconId: ""
-           iconSize: 12
-           width: 225
-           anchors.bottom: parent.bottom
-           anchors.left: parent.left
-       }
     }
 
     Rectangle {
         id: scenarioContainer
-        anchors.fill: parent
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: createScenarioButton.top
 
         visible: (model !== null && model !== undefined && model.rowCount() > 0)
 
@@ -134,6 +130,7 @@ Rectangle {
                 anchors.right: parent.right
                 anchors.verticalCenter: parent.verticalCenter
 
+                onSave: saveForm()
                 onCancel: toggleEditMode()
             }
         }
@@ -160,11 +157,16 @@ Rectangle {
 
                 Component.onCompleted: {
                     selectItem(0)
-                    currentScenario.model = scenarios.model.get(selectedItem)
+                    currentScenario.model = scenarios.model.get(0)
                 }
 
-                onSelectedItemChanged: if (scenarios.model !== null && scenarios.model !== undefined) currentScenario.model = scenarios.model.get(selectedItem)
-            }
+                onSelectedItemChanged: {
+                    if (scenarios.model !== null && scenarios.model !== undefined)
+                    {
+                        currentScenario.model = scenarios.model.get(selectedItem.value)
+                    }
+                }
+             }
 
             UI.UButton
             {
@@ -191,32 +193,84 @@ Rectangle {
                 buttonTextColor : Colors.uWhite
 
                 anchors.right: parent.right
+
+                onClicked: deleteScenario()
             }
         }
     }
 
+    UI.UButton
+    {
+        id: createScenarioButton
+        text: "Create new scenario"
+        iconId: ""
+        iconSize: 12
+        width: 225
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
 
-    onModelChanged: {
+        onClicked: {
+            createNewScenario()
+        }
+
+    }
+
+    UI.UButton
+    {
+        id: createTaskButton
+        text: "Create new task"
+        iconId: ""
+        iconSize: 12
+        width: 225
+        anchors.verticalCenter: createScenarioButton.verticalCenter
+        anchors.left: createScenarioButton.right
+        anchors.leftMargin: 10
+
+        visible: currentScenario !== null && currentScenario !== undefined && currentScenario.showEditMode
+    }
+
+    onModelChanged: refreshComboBox()
+
+    function refreshComboBox(){
         currentScenario.model = null;
-        scenarioCombo.selectedItem = null
         if (model !== null && model !== undefined) {
             scenariosList = null;
             if (model.rowCount() > 0) {
                 for (var i=0;i<model.rowCount();i++) {
-                    var item = {value: i, displayedValue: model.get(i).name, iconId: ""};
-                    if (scenariosList != null) scenariosList.push(item);
-                    else scenariosList = [item];
+                    var item = {value: i, displayedValue: model.get(i).name, iconId: ""}
 
-                        onClicked: {
-                            currentScenario.model = model;
-                            main.addToBreadCrumb("scenario/Scenarios", model.name)
-                        }
+                    if (scenariosList != null)
+                        scenariosList.push(item)
+                    else
+                        scenariosList = [item]
                     }
-
                 }
             }
         }
 
+    function createNewScenario()
+    {
+        var scenario = scenarios.model.createNewScenario()
+        uCtrlApiFacade.postScenario(scenario)
+
+        // TODO : Update the interface to show the newly created scenario
+    }
+
+    function saveForm()
+    {
+        var scenario  = scenarios.model.findObject(currentScenario.model.id)
+        console.log(currentScenario.model.id)
+        if (scenario !== null) {
+            scenario.name(editScenarioName.text)
+            currentScenario.model.name = editScenarioName.text
+        }
+
+        uCtrlApiFacade.putScenario(scenario)
+        toggleEditMode()
+        refreshComboBox()
+
+        // TODO : Update interface
+    }
 
     function toggleEditMode()
     {
@@ -227,5 +281,15 @@ Rectangle {
         {
             editScenarioName.text = currentScenario.model.name
         }
+    }
+
+    function deleteScenario()
+    {
+        var scenario = scenarios.model.findObject(currentScenario.model.id);
+        uCtrlApiFacade.deleteScenario(scenario)
+        var rowIndex = scenarios.model.indexOf(scenario)
+        scenarios.model.removeRow(rowIndex);
+
+        // TODO : Update interface or it will crash on the next delete
     }
 }

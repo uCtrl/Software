@@ -196,6 +196,18 @@ QModelIndex ListModel::indexFromItem(ListItem *item) const
     return QModelIndex();
 }
 
+int ListModel::indexOf(ListItem *item) const
+{
+    if (item != NULL)
+    {
+        for (int i = 0; i < m_items.size(); i++) {
+            if (m_items.at(i) == item)
+                return i;
+        }
+    }
+    return -1;
+}
+
 void ListModel::updateItem()
 {
     ListItem* item = static_cast<ListItem*>(sender());

@@ -17,6 +17,7 @@ const char* const DeviceId = "deviceId";
 const char* const ScenarioId = "scenarioId";
 const char* const TaskId = "taskId";
 const char* const ConditionId = "conditionId";
+const char* const ScenarioPtr = "scenarioPtr";
 
 class UCtrlAPI : public QObject
 {
