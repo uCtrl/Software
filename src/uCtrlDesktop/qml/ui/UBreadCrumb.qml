@@ -42,7 +42,6 @@ Rectangle {
             iconSize: 10
             visible: false
         }
-
     }
 
 
@@ -56,7 +55,7 @@ Rectangle {
 
         ULabel.Link{
             id: linkplatforms
-            font.pointSize: 16
+            font.pointSize: 14
             color: Colors.uWhite
             anchors.verticalCenter: platformsLevel.verticalCenter
             anchors.right: platformsLevel.right
@@ -82,7 +81,7 @@ Rectangle {
 
         ULabel.Link{
             id: linkdevice
-            font.pointSize: 16
+            font.pointSize: 14
             anchors.verticalCenter: devicesLevel.verticalCenter
             anchors.left: devicesLevel.left
             color: Colors.uWhite
