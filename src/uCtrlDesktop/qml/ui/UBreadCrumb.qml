@@ -19,25 +19,25 @@ Rectangle {
 
 
     color: Colors.uTransparent
-    width: parent.width
+    width: 600
     height: parent.height
 
 
     Rectangle{
-        id: devicesLevel
-        width: 500
-        height: breadcrumbContainer.height
+        id: platforms
+
         color: Colors.uTransparent
+        height: breadcrumbContainer.height
         anchors.right: breadcrumbContainer.right
         anchors.verticalCenter: breadcrumbContainer.verticalCenter
 
-
         ULabel.Link{
-            id: linkplatforms
+            id: platformsLink
             font.pointSize: 14
             color: Colors.uWhite
             anchors.verticalCenter: parent.verticalCenter
-            anchors.right: parent.right
+            anchors.right: if(breadcrumbModelDevicesName !== "") iconChevron.left;else parent.right
+            anchors.rightMargin: if(breadcrumbModelDevicesName !== "") 10;else 0
             text: breadcrumbModelPlatformsName
             state: "ENABLED"
             onHyperLinkClicked: {
@@ -49,8 +49,8 @@ Rectangle {
         ULabel.Link{
             id: linkdevice
             font.pointSize: 14
-            anchors.verticalCenter: devicesLevel.verticalCenter
-            anchors.right: devicesLevel.right
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: parent.right
             color: Colors.uWhite
             state: "ENABLED"
             text: breadcrumbModelDevicesName
@@ -62,13 +62,12 @@ Rectangle {
             iconSize: 10
             iconColor: Colors.uWhite
             anchors.rightMargin: 10
+            anchors.leftMargin: 10
             anchors.right: linkdevice.left
-            anchors.verticalCenter: devicesLevel.verticalCenter
-            visible: false
+            anchors.verticalCenter: parent.verticalCenter
+            visible: if(breadcrumbModelDevicesName !== "") true;else false
         }
     }
-
-
     function addToBreadcrumbPlatforms (pagePath, pageName)
     {
         breadcrumbModelPlatformsName = pageName
@@ -79,36 +78,27 @@ Rectangle {
     {
         breadcrumbModelDevicesName = pageName
         breadcrumbModelDevicesPath = pagePath
-        iconChevron.visible = true
+
     }
 
     function resetBreadcrumbDevices(){
         breadcrumbModelDevicesName = ""
         breadcrumbModelDevicesPath = ""
-        iconChevron.visible = false
+
     }
 
     function resetBreadcrumbPlatforms(){
         breadcrumbModelPlatformsName = ""
         breadcrumbModelPlatformsPath = ""
-        iconChevron.visible = false
+
     }
 
     function hideBreadcrumbPlatforms(){
-        iconChevron.visible = false
-        linkplatforms.visible = false
+        platformsLink.visible = false
     }
 
     function showBreadcrumbPlatforms(){
-        linkplatforms.visible = true
-    }
-
-    function moveBreadcrumbPlatforms(){
-        linkplatforms.anchors.right = iconChevron.left
-    }
-
-    function showIconChevron(){
-        iconChevron.visible = true
+        platformsLink.visible = true
     }
 }
 
