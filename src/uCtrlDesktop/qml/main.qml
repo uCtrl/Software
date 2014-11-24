@@ -99,6 +99,7 @@ Rectangle {
 
     function changePageFromHome(path){
         currentPage = path
+        titlebar.showBreadcrumbPlatforms()
     }
 
     function addToBreadcrumbPlatforms(path, pageName){
@@ -122,6 +123,9 @@ Rectangle {
     }
     function showBreadcrumbPlatforms(){
         titlebar.showBreadcrumbPlatforms()
+    }
+    function moveBreadcrumbPlatforms(){
+        titlebar.moveBreadcrumbPlatforms()
     }
 
 }

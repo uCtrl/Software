@@ -89,7 +89,6 @@ Rectangle {
 
                 onClicked: {
                     main.changePageFromHome("platform/Platforms")
-                    main.showBreadcrumbPlatforms()
                 }
             }
         }

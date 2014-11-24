@@ -60,4 +60,7 @@ Rectangle {
     function showBreadcrumbPlatforms(){
         breadcrumb.showBreadcrumbPlatforms()
     }
+    function moveBreadcrumbPlatforms(){
+        breadcrumb.moveBreadcrumbPlatforms()
+    }
 }

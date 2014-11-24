@@ -31,19 +31,18 @@ Rectangle {
         anchors.right: breadcrumbContainer.right
         anchors.verticalCenter: breadcrumbContainer.verticalCenter
 
+
         ULabel.Link{
             id: linkplatforms
             font.pointSize: 14
             color: Colors.uWhite
-            anchors.verticalCenter: devicesLevel.verticalCenter
-            anchors.right: devicesLevel.right
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: parent.right
             text: breadcrumbModelPlatformsName
             state: "ENABLED"
             onHyperLinkClicked: {
                 main.currentPage = breadcrumbModelPlatformsPath
                 main.resetBreadcrumbDevices()
-                main.addToBreadcrumbDevices("device/Device", "")
-                linkplatforms.anchors.right = devicesLevel.right
             }
         }
 
@@ -63,7 +62,6 @@ Rectangle {
             iconSize: 10
             iconColor: Colors.uWhite
             anchors.rightMargin: 10
-
             anchors.right: linkdevice.left
             anchors.verticalCenter: devicesLevel.verticalCenter
             visible: false
@@ -81,11 +79,7 @@ Rectangle {
     {
         breadcrumbModelDevicesName = pageName
         breadcrumbModelDevicesPath = pagePath
-        if(pageName !== ""){
-            iconChevron.visible = true
-        }
-        linkplatforms.anchors.right = iconChevron.left
-        linkplatforms.anchors.rightMargin = 10
+        iconChevron.visible = true
     }
 
     function resetBreadcrumbDevices(){
@@ -108,6 +102,11 @@ Rectangle {
     function showBreadcrumbPlatforms(){
         linkplatforms.visible = true
     }
+
+    function moveBreadcrumbPlatforms(){
+        linkplatforms.anchors.right = iconChevron.left
+    }
+
     function showIconChevron(){
         iconChevron.visible = true
     }

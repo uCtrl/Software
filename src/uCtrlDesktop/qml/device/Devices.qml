@@ -35,6 +35,7 @@ Rectangle {
                         main.currentPage = "device/Device"
                         main.resetBreadcrumbDevices()
                         main.addToBreadcrumbDevices("device/Device", model.name)
+                        main.moveBreadcrumbPlatforms()
                     }
                 }
             }
