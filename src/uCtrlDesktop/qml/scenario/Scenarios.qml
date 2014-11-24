@@ -154,6 +154,7 @@ Rectangle {
 
                 Component.onCompleted: {
                     selectItem(0)
+                    console.log(scenariosList.length)
                     currentScenario.model = scenarios.model.get(selectedItem)
                 }
 
@@ -229,14 +230,12 @@ Rectangle {
             scenariosList = null;
             if (model.rowCount() > 0) {
                 for (var i=0;i<model.rowCount();i++) {
-                    var item = {value: i, displayedValue: model.get(i).name, iconId: ""};
-                    if (scenariosList != null) scenariosList.push(item);
-                    else scenariosList = [item];
+                    var item = {value: i, displayedValue: model.get(i).name, iconId: ""}
 
-                        onClicked: {
-                            currentScenario.model = model;
-                            main.addToBreadCrumb("scenario/Scenarios", model.name)
-                        }
+                    if (scenariosList != null)
+                        scenariosList.push(item)
+                    else
+                        scenariosList = [item]
                     }
                 }
             }

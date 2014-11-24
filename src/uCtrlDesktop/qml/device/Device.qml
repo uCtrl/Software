@@ -302,6 +302,7 @@ Rectangle
 
     function getScenarios() {
         if (model !== null) return main.devicesList.nestedModelFromId(model.id)
+
     }
 
     function getDescription() {
