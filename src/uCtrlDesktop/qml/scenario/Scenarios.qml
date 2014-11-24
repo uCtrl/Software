@@ -154,7 +154,7 @@ Rectangle {
 
                 Component.onCompleted: {
                     selectItem(0)
-                    currentScenario.model = scenarios.model.get(selectedItem)
+                    currentScenario.model = scenarios.model.get(0)
                 }
 
                 onSelectedItemChanged: {

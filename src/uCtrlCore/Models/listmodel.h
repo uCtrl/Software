@@ -35,7 +35,7 @@ public:
     void appendRow(ListItem* item);
     void appendRows(const QList<ListItem*> &items);
     void insertRow(int row, ListItem* item);
-    bool removeRow(int row, const QModelIndex& index = QModelIndex());
+    Q_INVOKABLE bool removeRow(int row, const QModelIndex& index = QModelIndex());
     bool removeRows(int row, int count, const QModelIndex& index = QModelIndex());
     ListItem* takeRow(int row, const QModelIndex &index = QModelIndex());
     Q_INVOKABLE bool moveRow(int from, int to);
