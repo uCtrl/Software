@@ -252,6 +252,7 @@ void UCtrlAPI::postDevice(const QString& platformId, const QString& deviceId)
         return;
 
     QNetworkReply* reply = postRequest(QString("platforms/%1/devices").arg(platformId), device);
+    reply->setProperty(DevicePtr, (long long)device);
     connect(reply, SIGNAL(finished()), this, SLOT(postDeviceReply()));
 }
 
@@ -259,9 +260,13 @@ void UCtrlAPI::postDeviceReply()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
 
+    QJsonObject jsonDeviceReply = QJsonDocument::fromJson(reply->readAll()).object();
     if (!checkNetworkError(reply)) {
-        checkServerError(QJsonDocument::fromJson(reply->readAll()).object());
+        checkServerError(jsonDeviceReply);
     }
+
+    UDevice* device = (UDevice*)reply->property(DevicePtr).toLongLong();
+    device->read(jsonDeviceReply["device"].toObject());
 
     reply->deleteLater();
 }
@@ -607,6 +612,7 @@ void UCtrlAPI::postTask(const QString& platformId, const QString& deviceId, cons
         return;
 
     QNetworkReply* reply = postRequest(QString("platforms/%1/devices/%2/scenarios/%3/tasks").arg(platformId, deviceId, scenarioId), task);
+    reply->setProperty(TaskPtr, (long long)task);
     connect(reply, SIGNAL(finished()), this, SLOT(postTasksReply()));
 }
 
@@ -614,9 +620,13 @@ void UCtrlAPI::postTaskReply()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
 
+    QJsonObject jsonTaskReply = QJsonDocument::fromJson(reply->readAll()).object();
     if (!checkNetworkError(reply)) {
-        checkServerError(QJsonDocument::fromJson(reply->readAll()).object());
+        checkServerError(jsonTaskReply);
     }
+
+    UTask* task = (UTask*)reply->property(TaskPtr).toLongLong();
+    task->read(jsonTaskReply["task"].toObject());
 
     reply->deleteLater();
 }
@@ -816,7 +826,9 @@ void UCtrlAPI::postCondition(const QString& platformId, const QString& deviceId,
     if (!checkModel(condition))
         return;
 
+
     QNetworkReply* reply = postRequest(QString("platforms/%1/devices/%2/scenarios/%3/tasks/%4/conditions").arg(platformId, deviceId, scenarioId, taskId), condition);
+    reply->setProperty(ConditionPtr, (long long)condition);
     connect(reply, SIGNAL(finished()), this, SLOT(postConditionReply()));
 }
 
@@ -824,9 +836,13 @@ void UCtrlAPI::postConditionReply()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
 
+    QJsonObject jsonConditionReply = QJsonDocument::fromJson(reply->readAll()).object();
     if (!checkNetworkError(reply)) {
-        checkServerError(QJsonDocument::fromJson(reply->readAll()).object());
+        checkServerError(jsonConditionReply);
     }
+
+    UCondition* condition = (UCondition*)reply->property(ConditionPtr).toLongLong();
+    condition->read(jsonConditionReply["condition"].toObject());
 
     reply->deleteLater();
 }
