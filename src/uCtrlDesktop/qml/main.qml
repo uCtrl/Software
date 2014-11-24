@@ -93,7 +93,9 @@ Rectangle {
     }
 
 
-
+    function initBreadcrumb(){
+        titlebar.initBreadcrumb()
+    }
 
     function changePageFromHome(path){
         currentPage = path

@@ -34,6 +34,11 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         anchors.right: parent.right
         anchors.rightMargin: 12
+
+    }
+
+    function initBreadcrumb (){
+        breadcrumb.initBreadcrumb()
     }
 
     function addToBreadcrumbDevices(path, pageName){

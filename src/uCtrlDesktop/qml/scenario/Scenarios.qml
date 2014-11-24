@@ -209,7 +209,6 @@ Rectangle {
 
                         onClicked: {
                             currentScenario.model = model;
-                            main.addToBreadCrumb("scenario/Scenarios", model.name)
                         }
                     }
 

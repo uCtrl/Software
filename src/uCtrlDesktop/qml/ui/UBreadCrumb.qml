@@ -8,18 +8,14 @@ import "../device" as Device
 import "../platform"
 
 
-
 Rectangle {
 
     id: breadcrumbContainer
 
-    property variant breadcrumbModelPlatforms: []
-    property variant breadCrumbModeldevices: []
-
-
-
-
-
+    property variant breadcrumbModelPlatformsPath: {path: ""}
+    property variant breadcrumbModelPlatformsName: {name: ""}
+    property variant breadcrumbModelDevicesPath: {path: ""}
+    property variant breadcrumbModelDevicesName: {name: ""}
 
 
     color: Colors.uTransparent
@@ -64,10 +60,10 @@ Rectangle {
             color: Colors.uWhite
             anchors.verticalCenter: platformsLevel.verticalCenter
             anchors.right: platformsLevel.right
-            text: breadcrumbModelPlatforms[0].name
+            text: breadcrumbModelPlatformsName
 
             onHyperLinkClicked: {
-                main.currentPage = breadcrumbModelPlatforms[0].path
+                main.currentPage = breadcrumbModelPlatformsPath
                 main.resetBreadcrumbDevices()
                 main.addToBreadcrumbDevices("device/Device", "")
             }
@@ -90,49 +86,40 @@ Rectangle {
             anchors.verticalCenter: devicesLevel.verticalCenter
             anchors.left: devicesLevel.left
             color: Colors.uWhite
-            text: breadCrumbModeldevices[0].name
+            text: breadcrumbModelDevicesName
         }
     }
+
+
 
 
 
 
     function addToBreadcrumbPlatforms (pagePath, pageName)
     {
-
-        var newModel = []
-        for(var i = 0; i < breadcrumbModelPlatforms.length; i++) {
-            newModel.push(breadcrumbModelPlatforms[i])
-        }
-
-        var newItem = {path: pagePath, name: pageName}
-        newModel.push(newItem)
-
-        breadcrumbModelPlatforms = newModel
+        breadcrumbModelPlatformsName = pageName
+        breadcrumbModelPlatformsPath = pagePath
     }
+
+
     function addToBreadcrumbDevices (pagePath, pageName)
     {
+        breadcrumbModelDevicesName = pageName
+        breadcrumbModelDevicesPath = pagePath
 
-        var newModel = []
-        for(var i = 0; i < breadCrumbModeldevices.length; i++) {
-            newModel.push(breadCrumbModeldevices[i])
-        }
-
-        var newItem = {path: pagePath, name: pageName}
-        newModel.push(newItem)
-
-        breadCrumbModeldevices = newModel
         if(pageName !== ""){
             iconChevron.visible = true
         }
-
     }
+
     function resetBreadcrumbDevices(){
-        breadCrumbModeldevices = []
+        breadcrumbModelDevicesName = ""
+        breadcrumbModelDevicesPath = ""
         iconChevron.visible = false
     }
     function resetBreadcrumbPlatforms(){
-        breadcrumbModelPlatforms = []
+        breadcrumbModelPlatformsName = ""
+        breadcrumbModelPlatformsPath = ""
         iconChevron.visible = false
     }
     function hideBreadcrumbPlatforms(){
