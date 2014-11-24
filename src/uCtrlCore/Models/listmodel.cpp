@@ -171,7 +171,7 @@ ListItem* ListModel::find(const QString& itemId) const
     return NULL;
 }
 
-QObject *ListModel::findObject(const QString &itemId) const
+QObject* ListModel::findObject(const QString &itemId) const
 {
     return find(itemId);
 }

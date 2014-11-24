@@ -103,6 +103,13 @@ void UCtrlAPIFacade::deleteDevice(UDevice* device)
     m_uCtrlApi.deleteDevice(platformId, device->id());
 }
 
+void UCtrlAPIFacade::getDeviceStats(UDevice *device, QMap<QString, QVariant> params)
+{
+    QString platformId;
+    resolveIds(platformId, device);
+    m_uCtrlApi.getDeviceStats(platformId, device->id(), params);
+}
+
 void UCtrlAPIFacade::getScenarios(UDevice* device)
 {
     QString platformId;

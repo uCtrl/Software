@@ -53,6 +53,8 @@ public:
     Q_INVOKABLE void putDevice(const QString& platformId, const QString& deviceId);
     Q_INVOKABLE void deleteDevice(const QString& platformId, const QString& deviceId);
 
+    Q_INVOKABLE void getDeviceStats(const QString& platformId, const QString& deviceId, QMap<QString, QVariant> params);
+
     // Scenarios
     Q_INVOKABLE void getScenarios(const QString& platformId, const QString& deviceId);
     Q_INVOKABLE void postScenario(const QString& platformId, const QString& deviceId, const QString& scenarioId);
@@ -115,6 +117,8 @@ private slots:
     void putDeviceReply();
     void deleteDeviceReply();
 
+    void getDeviceStatsReply();
+
     // Scenarios
     void getScenariosReply();
     void postScenarioReply();
@@ -149,7 +153,7 @@ private:
     bool checkServerError(const QJsonObject& jsonObj);
     bool checkNetworkError(QNetworkReply* reply);
     bool checkModel(ListItem* item);
-    QNetworkReply* getRequest(const QString& url);
+    QNetworkReply* getRequest(const QString& url, QMap<QString, QVariant> params = QMap<QString, QVariant>());
     QNetworkReply* postRequest(const QString& url, JsonWritable* data);
     QNetworkReply* putRequest(const QString &urlString, JsonWritable* data);
     QNetworkReply* deleteRequest(const QString& url);
