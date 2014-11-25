@@ -57,8 +57,8 @@ void Init(QGuiApplication& app, QtQuick2ApplicationViewer& viewer)
     UCtrlAPIFacade* uCtrlApiFacade = new UCtrlAPIFacade(networkAccessManager, platforms);
     UCtrlAPI* uCtrlApi = uCtrlApiFacade->getAPI();
 
-    LoadSystemFromFile(platforms, ":/data.json");
-    //uCtrlApiFacade->postUser();
+    //LoadSystemFromFile(platforms, ":/data.json");
+    uCtrlApiFacade->postUser();
 
     QQmlContext *ctxt = viewer.rootContext();
     ctxt->setContextProperty("platformsModel", platforms);
