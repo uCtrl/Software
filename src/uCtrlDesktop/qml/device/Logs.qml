@@ -17,6 +17,10 @@ ListView {
 
     model: logsModel
 
+    Component.onCompleted: {
+        console.log("We have found " + logsModel.rowCount() + " logs")
+    }
+
     property variant currentItem: null
 
     delegate: Column {
@@ -120,7 +124,7 @@ ListView {
 
                     ULabel.Default
                     {
-                        text: model.timestamp
+                        text: getTimestampLabel(model.timestamp)
                         font.italic: true
                         font.pointSize: 10
                         anchors.verticalCenter: parent.verticalCenter
@@ -131,6 +135,18 @@ ListView {
 
             }
         }
+    }
+
+    function getTimestampLabel(timestamp)
+    {
+        var timestampUtc = new Date(timestamp + (timestamp.getTimezoneOffset() * 60000));
+        console.log(timestampUtc)
+
+        var now = new Date()
+        var nowUtc = new Date(now.getTime() + (now.getTimezoneOffset() * 60000));
+        console.log(nowUtc)
+
+        return timestamp
     }
 
     function getBackgroundColor(model)
