@@ -36,12 +36,12 @@ void ListItem::enabled(bool enabled)
     }
 }
 
-uint ListItem::lastUpdated() const
+double ListItem::lastUpdated() const
 {
     return m_lastUpdated;
 }
 
-void ListItem::lastUpdated(uint lastUpdated)
+void ListItem::lastUpdated(double lastUpdated)
 {
     if (m_lastUpdated != lastUpdated) {
         m_lastUpdated = lastUpdated;

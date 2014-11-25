@@ -102,7 +102,7 @@ bool UDevice::setData(const QVariant& value, int role)
         enabled(value.toBool());
         break;
     case lastUpdatedRole:
-        lastUpdated(value.toUInt());
+        lastUpdated(value.toDouble());
         break;
     default:
         return false;
@@ -162,7 +162,7 @@ void UDevice::write(QJsonObject& jsonObj) const
     jsonObj["status"] = (int)this->status();
     jsonObj["unitLabel"] = this->unitLabel();
     jsonObj["enabled"] = this->enabled();
-    jsonObj["lastUpdated"] = QString::number(this->lastUpdated());
+    jsonObj["lastUpdated"] = this->lastUpdated();
 
     QJsonObject scenarios;
     m_scenarios->write(scenarios);
@@ -182,7 +182,7 @@ void UDevice::read(const QJsonObject &jsonObj)
     this->status((UEStatus)jsonObj["status"].toInt());
     this->unitLabel(jsonObj["unitLabel"].toString());
     this->enabled(jsonObj["enabled"].toBool());
-    this->lastUpdated(jsonObj["lastUpdated"].toString().toUInt());
+    this->lastUpdated(jsonObj["lastUpdated"].toDouble());
 
     m_scenarios->read(jsonObj);
 }

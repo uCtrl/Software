@@ -44,7 +44,7 @@ bool UHistoryLog::setData(const QVariant& value, int role)
         message(value.toString());
         break;
     case timestampRole:
-        timestamp(value.toUInt());
+        timestamp(value.toDouble());
         break;
     default:
         return false;
@@ -71,7 +71,7 @@ void UHistoryLog::write(QJsonObject& jsonObj) const
     jsonObj["type"] = (int)m_type;
     jsonObj["severity"] = (int)m_severity;
     jsonObj["message"] = m_message;
-    jsonObj["timestamp"] = QString::number(m_timestamp);
+    jsonObj["timestamp"] = m_timestamp;
 }
 
 void UHistoryLog::read(const QJsonObject &jsonObj)
@@ -80,7 +80,7 @@ void UHistoryLog::read(const QJsonObject &jsonObj)
     this->type((UELogType)jsonObj["type"].toInt());
     this->severity((UESeverity)jsonObj["severity"].toInt());
     this->message(jsonObj["message"].toString());
-    this->timestamp(jsonObj["timestamp"].toString().toUInt());
+    this->timestamp(jsonObj["timestamp"].toDouble());
 }
 
 UHistoryLog::UELogType UHistoryLog::type() const
@@ -122,12 +122,12 @@ void UHistoryLog::message(const QString& message)
     }
 }
 
-uint UHistoryLog::timestamp() const
+double UHistoryLog::timestamp() const
 {
     return m_timestamp;
 }
 
-void UHistoryLog::timestamp(uint timestamp)
+void UHistoryLog::timestamp(double timestamp)
 {
     if (m_timestamp != timestamp) {
         m_timestamp = timestamp;

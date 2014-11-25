@@ -59,7 +59,7 @@ bool UCondition::setData(const QVariant& value, int role)
         enabled(value.toBool());
         break;
     case lastUpdatedRole:
-        lastUpdated(value.toUInt());
+        lastUpdated(value.toDouble());
         break;
     default:
         return false;
@@ -92,7 +92,7 @@ void UCondition::write(QJsonObject &jsonObj) const
     jsonObj["endValue"] = this->endValue();
     jsonObj["deviceId"] = this->deviceId();
     jsonObj["enabled"] = this->enabled();
-    jsonObj["lastUpdated"] = QString::number(this->lastUpdated());
+    jsonObj["lastUpdated"] = this->lastUpdated();
 }
 
 void UCondition::read(const QJsonObject &jsonObj)
@@ -104,7 +104,7 @@ void UCondition::read(const QJsonObject &jsonObj)
     this->endValue(jsonObj["endValue"].toString());
     this->deviceId(jsonObj["deviceId"].toString());
     this->enabled(jsonObj["enabled"].toBool());
-    this->lastUpdated(jsonObj["lastUpdated"].toString().toUInt());
+    this->lastUpdated(jsonObj["lastUpdated"].toDouble());
 }
 
 UCondition::UEType UCondition::type() const

@@ -60,15 +60,14 @@ public:
     QString message() const;
     void message(const QString& message);
 
-    uint timestamp() const;
-    void timestamp(uint timestamp);
-
+    double timestamp() const;
+    void timestamp(double timestamp);
 
 private:
     UELogType m_type;
     UESeverity m_severity;
     QString m_message;
-    uint m_timestamp;
+    double m_timestamp;
 };
 
 #endif // UHISTORYLOG_H
