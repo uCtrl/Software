@@ -39,7 +39,7 @@ bool UStatistic::setData(const QVariant &value, int role)
         type(value.toInt());
         break;
     case timestampRole:
-        timestamp(value.toUInt());
+        timestamp(value.toDouble());
         break;
     default:
         return false;
@@ -64,7 +64,7 @@ void UStatistic::write(QJsonObject &jsonObj) const
     jsonObj["id"] = this->id();
     jsonObj["data"] = this->data();
     jsonObj["type"] = this->type();
-    jsonObj["timestamp"] = QString::number(this->timestamp());
+    jsonObj["timestamp"] = this->timestamp();
 }
 
 void UStatistic::read(const QJsonObject &jsonObj)
@@ -72,7 +72,7 @@ void UStatistic::read(const QJsonObject &jsonObj)
     this->id(jsonObj["id"].toString());
     this->data(jsonObj["data"].toString());
     this->type(jsonObj["type"].toInt());
-    this->timestamp(jsonObj["timestamp"].toString().toUInt());
+    this->timestamp(jsonObj["timestamp"].toDouble());
 }
 
 QString UStatistic::data() const
@@ -101,12 +101,12 @@ void UStatistic::type(int type)
     }
 }
 
-uint UStatistic::timestamp() const
+double UStatistic::timestamp() const
 {
     return m_timestamp;
 }
 
-void UStatistic::timestamp(uint timestamp)
+void UStatistic::timestamp(double timestamp)
 {
     if (m_timestamp != timestamp) {
         m_timestamp = timestamp;

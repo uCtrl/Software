@@ -4,7 +4,7 @@ UCtrlAPI::UCtrlAPI(QNetworkAccessManager* nam, UPlatformsModel* platforms, QObje
     QObject(parent), m_networkAccessManager(nam)
 {
     m_platforms = platforms;
-    m_serverBaseUrl = "http://uctrl.gel.usherbrooke.ca/dev/"; //"http://uctrl.gel.usherbrooke.ca/dev/";
+    m_serverBaseUrl = "http://uctrl.gel.usherbrooke.ca/dev/";
     m_ninjaToken = "107f6f460bed2dbb10f0a93b994deea7fe07dad5";
 }
 
@@ -328,7 +328,7 @@ void UCtrlAPI::putDevice(const QString& platformId, const QString& deviceId)
     if (!checkModel(device))
         return;
 
-    QNetworkReply* reply = putRequest(QString("platforms/%1/device/%2").arg(platformId, deviceId), device);
+    QNetworkReply* reply = putRequest(QString("platforms/%1/devices/%2").arg(platformId, deviceId), device);
     connect(reply, SIGNAL(finished()), this, SLOT(putDeviceReply()));
 }
 
@@ -346,7 +346,7 @@ void UCtrlAPI::putDeviceReply()
 // Delete this device from the system.
 void UCtrlAPI::deleteDevice(const QString& platformId, const QString& deviceId)
 {
-    QNetworkReply* reply = deleteRequest(QString("platforms/%1/device/%2").arg(platformId, deviceId));
+    QNetworkReply* reply = deleteRequest(QString("platforms/%1/devices/%2").arg(platformId, deviceId));
     connect(reply, SIGNAL(finished()), this, SLOT(deleteDeviceReply()));
 }
 
@@ -361,15 +361,15 @@ void UCtrlAPI::deleteDeviceReply()
     reply->deleteLater();
 }
 
-void UCtrlAPI::getDeviceStats(const QString &platformId, const QString &deviceId, QMap<QString, QVariant> params)
+void UCtrlAPI::getDeviceValues(const QString &platformId, const QString &deviceId, QMap<QString, QVariant> params)
 {
     QNetworkReply* reply = getRequest(QString("platforms/%1/devices/%2/stats").arg(platformId, deviceId), params);
     reply->setProperty(PlatformId, platformId);
     reply->setProperty(DeviceId, deviceId);
-    connect(reply, SIGNAL(finished()), this, SLOT(getDeviceStatsReply()));
+    connect(reply, SIGNAL(finished()), this, SLOT(getDeviceValuesReply()));
 }
 
-void UCtrlAPI::getDeviceStatsReply()
+void UCtrlAPI::getDeviceValuesReply()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
     if (!checkNetworkError(reply)) {
@@ -397,7 +397,218 @@ void UCtrlAPI::getDeviceStatsReply()
         return;
     }
 
+    device->statistics()->clear();
     device->statistics()->read(jsonObj);
+
+    reply->deleteLater();
+}
+
+void UCtrlAPI::getDeviceMin(const QString &platformId, const QString &deviceId, QMap<QString, QVariant> params)
+{
+    params["fn"] = "min";
+    QNetworkReply* reply = getRequest(QString("platforms/%1/devices/%2/stats").arg(platformId, deviceId), params);
+    reply->setProperty(PlatformId, platformId);
+    reply->setProperty(DeviceId, deviceId);
+    connect(reply, SIGNAL(finished()), this, SLOT(getDeviceMinReply()));
+}
+
+void UCtrlAPI::getDeviceMinReply()
+{
+    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
+    if (!checkNetworkError(reply)) {
+        reply->deleteLater();
+        return;
+    }
+
+    QJsonObject jsonObj = QJsonDocument::fromJson(reply->readAll()).object();
+    if (!checkServerError(jsonObj)) {
+        reply->deleteLater();
+        return;
+    }
+
+    QString platformId = reply->property(PlatformId).toString();
+    QString deviceId = reply->property(DeviceId).toString();
+    NestedListItem* platform = (NestedListItem*)m_platforms->find(platformId);
+    if (!checkModel(platform)) {
+        reply->deleteLater();
+        return;
+    }
+
+    UDevice* device = (UDevice*)platform->nestedModel()->find(deviceId);
+    if (!checkModel(device)) {
+        reply->deleteLater();
+        return;
+    }
+
+    device->minStat(jsonObj["min"].toString());
+
+    reply->deleteLater();
+}
+
+void UCtrlAPI::getDeviceMax(const QString &platformId, const QString &deviceId, QMap<QString, QVariant> params)
+{
+    params["fn"] = "max";
+    QNetworkReply* reply = getRequest(QString("platforms/%1/devices/%2/stats").arg(platformId, deviceId), params);
+    reply->setProperty(PlatformId, platformId);
+    reply->setProperty(DeviceId, deviceId);
+    connect(reply, SIGNAL(finished()), this, SLOT(getDeviceMaxReply()));
+}
+
+void UCtrlAPI::getDeviceMaxReply()
+{
+    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
+    if (!checkNetworkError(reply)) {
+        reply->deleteLater();
+        return;
+    }
+
+    QJsonObject jsonObj = QJsonDocument::fromJson(reply->readAll()).object();
+    if (!checkServerError(jsonObj)) {
+        reply->deleteLater();
+        return;
+    }
+
+    QString platformId = reply->property(PlatformId).toString();
+    QString deviceId = reply->property(DeviceId).toString();
+    NestedListItem* platform = (NestedListItem*)m_platforms->find(platformId);
+    if (!checkModel(platform)) {
+        reply->deleteLater();
+        return;
+    }
+
+    UDevice* device = (UDevice*)platform->nestedModel()->find(deviceId);
+    if (!checkModel(device)) {
+        reply->deleteLater();
+        return;
+    }
+
+    device->maxStat(jsonObj["max"].toString());
+
+    reply->deleteLater();
+}
+
+void UCtrlAPI::getDeviceMean(const QString &platformId, const QString &deviceId, QMap<QString, QVariant> params)
+{
+    params["fn"] = "mean";
+    QNetworkReply* reply = getRequest(QString("platforms/%1/devices/%2/stats").arg(platformId, deviceId), params);
+    reply->setProperty(PlatformId, platformId);
+    reply->setProperty(DeviceId, deviceId);
+    connect(reply, SIGNAL(finished()), this, SLOT(getDeviceMeanReply()));
+}
+
+void UCtrlAPI::getDeviceMeanReply()
+{
+    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
+    if (!checkNetworkError(reply)) {
+        reply->deleteLater();
+        return;
+    }
+
+    QJsonObject jsonObj = QJsonDocument::fromJson(reply->readAll()).object();
+    if (!checkServerError(jsonObj)) {
+        reply->deleteLater();
+        return;
+    }
+
+    QString platformId = reply->property(PlatformId).toString();
+    QString deviceId = reply->property(DeviceId).toString();
+    NestedListItem* platform = (NestedListItem*)m_platforms->find(platformId);
+    if (!checkModel(platform)) {
+        reply->deleteLater();
+        return;
+    }
+
+    UDevice* device = (UDevice*)platform->nestedModel()->find(deviceId);
+    if (!checkModel(device)) {
+        reply->deleteLater();
+        return;
+    }
+
+    device->meanStat(jsonObj["mean"].toString());
+
+    reply->deleteLater();
+}
+
+void UCtrlAPI::getDeviceCount(const QString &platformId, const QString &deviceId, QMap<QString, QVariant> params)
+{
+    params["fn"] = "count";
+    QNetworkReply* reply = getRequest(QString("platforms/%1/devices/%2/stats").arg(platformId, deviceId), params);
+    reply->setProperty(PlatformId, platformId);
+    reply->setProperty(DeviceId, deviceId);
+    connect(reply, SIGNAL(finished()), this, SLOT(getDeviceCountReply()));
+}
+
+void UCtrlAPI::getDeviceCountReply()
+{
+    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
+    if (!checkNetworkError(reply)) {
+        reply->deleteLater();
+        return;
+    }
+
+    QJsonObject jsonObj = QJsonDocument::fromJson(reply->readAll()).object();
+    if (!checkServerError(jsonObj)) {
+        reply->deleteLater();
+        return;
+    }
+
+    QString platformId = reply->property(PlatformId).toString();
+    QString deviceId = reply->property(DeviceId).toString();
+    NestedListItem* platform = (NestedListItem*)m_platforms->find(platformId);
+    if (!checkModel(platform)) {
+        reply->deleteLater();
+        return;
+    }
+
+    UDevice* device = (UDevice*)platform->nestedModel()->find(deviceId);
+    if (!checkModel(device)) {
+        reply->deleteLater();
+        return;
+    }
+
+    device->countStat(jsonObj["count"].toString());
+
+    reply->deleteLater();
+}
+
+void UCtrlAPI::getDeviceHistory(const QString& platformId, const QString& deviceId, QMap<QString, QVariant> params)
+{
+    QNetworkReply* reply = getRequest(QString("platforms/%1/devices/%2/logs").arg(platformId, deviceId), params);
+    reply->setProperty(PlatformId, platformId);
+    reply->setProperty(DeviceId, deviceId);
+    connect(reply, SIGNAL(finished()), this, SLOT(getDeviceHistoryReply()));
+}
+
+void UCtrlAPI::getDeviceHistoryReply()
+{
+    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
+    if (!checkNetworkError(reply)) {
+        reply->deleteLater();
+        return;
+    }
+
+    QJsonObject jsonObj = QJsonDocument::fromJson(reply->readAll()).object();
+    if (!checkServerError(jsonObj)) {
+        reply->deleteLater();
+        return;
+    }
+
+    QString platformId = reply->property(PlatformId).toString();
+    QString deviceId = reply->property(DeviceId).toString();
+    NestedListItem* platform = (NestedListItem*)m_platforms->find(platformId);
+    if (!checkModel(platform)) {
+        reply->deleteLater();
+        return;
+    }
+
+    UDevice* device = (UDevice*)platform->nestedModel()->find(deviceId);
+    if (!checkModel(device)) {
+        reply->deleteLater();
+        return;
+    }
+
+    device->history()->clear();
+    device->history()->read(jsonObj);
 
     reply->deleteLater();
 }

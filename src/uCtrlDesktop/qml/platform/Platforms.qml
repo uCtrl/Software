@@ -102,7 +102,8 @@ Rectangle {
             highlight: Rectangle {
                 id: highlighter
 
-                width: parent.width; height: parent.height;
+                width: parent.width
+                height: parent.height
 
                 color: Colors.uMediumLightGrey
                 opacity: 0.6

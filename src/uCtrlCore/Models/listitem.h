@@ -29,8 +29,8 @@ public:
     void id(const QString& id);
     bool enabled() const;
     void enabled(bool enabled);
-    uint lastUpdated() const;
-    void lastUpdated(uint lastUpdated);
+    double lastUpdated() const;
+    void lastUpdated(double lastUpdated);
 
 signals:
     void dataChanged();
@@ -41,7 +41,7 @@ public slots:
 protected:
     QString m_id;
     bool m_enabled;
-    uint m_lastUpdated;
+    double m_lastUpdated;
 };
 
 #endif // LISTITEM_H

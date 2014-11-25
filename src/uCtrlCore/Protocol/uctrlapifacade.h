@@ -32,7 +32,14 @@ public:
     Q_INVOKABLE void putDevice(UDevice* device);
     Q_INVOKABLE void deleteDevice(UDevice* device);
 
-    Q_INVOKABLE void getDeviceStats(UDevice* device, QMap<QString, QVariant> params = QMap<QString, QVariant>());
+    Q_INVOKABLE void getDeviceAllStats(UDevice* device, QMap<QString, QVariant> params = QMap<QString, QVariant>());
+    Q_INVOKABLE void getDeviceValues(UDevice* device, QMap<QString, QVariant> params = QMap<QString, QVariant>());
+    Q_INVOKABLE void getDeviceMax(UDevice* device, QMap<QString, QVariant> params = QMap<QString, QVariant>());
+    Q_INVOKABLE void getDeviceMin(UDevice* device, QMap<QString, QVariant> params = QMap<QString, QVariant>());
+    Q_INVOKABLE void getDeviceMean(UDevice* device, QMap<QString, QVariant> params = QMap<QString, QVariant>());
+    Q_INVOKABLE void getDeviceCount(UDevice* device, QMap<QString, QVariant> params = QMap<QString, QVariant>());
+
+    Q_INVOKABLE void getDeviceHistory(UDevice* device, QMap<QString, QVariant> params = QMap<QString, QVariant>());
 
     // Scenarios
     Q_INVOKABLE void getScenarios(UDevice* device);

@@ -53,7 +53,12 @@ public:
     Q_INVOKABLE void putDevice(const QString& platformId, const QString& deviceId);
     Q_INVOKABLE void deleteDevice(const QString& platformId, const QString& deviceId);
 
-    Q_INVOKABLE void getDeviceStats(const QString& platformId, const QString& deviceId, QMap<QString, QVariant> params);
+    Q_INVOKABLE void getDeviceMin(const QString& platformId, const QString& deviceId, QMap<QString, QVariant> params);
+    Q_INVOKABLE void getDeviceMax(const QString& platformId, const QString& deviceId, QMap<QString, QVariant> params);
+    Q_INVOKABLE void getDeviceMean(const QString& platformId, const QString& deviceId, QMap<QString, QVariant> params);
+    Q_INVOKABLE void getDeviceCount(const QString& platformId, const QString& deviceId, QMap<QString, QVariant> params);
+    Q_INVOKABLE void getDeviceValues(const QString& platformId, const QString& deviceId, QMap<QString, QVariant> params);
+    Q_INVOKABLE void getDeviceHistory(const QString& platformId, const QString& deviceId, QMap<QString, QVariant> params);
 
     // Scenarios
     Q_INVOKABLE void getScenarios(const QString& platformId, const QString& deviceId);
@@ -117,7 +122,12 @@ private slots:
     void putDeviceReply();
     void deleteDeviceReply();
 
-    void getDeviceStatsReply();
+    void getDeviceValuesReply();
+    void getDeviceMinReply();
+    void getDeviceMaxReply();
+    void getDeviceMeanReply();
+    void getDeviceCountReply();
+    void getDeviceHistoryReply();
 
     // Scenarios
     void getScenariosReply();

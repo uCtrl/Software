@@ -20,6 +20,10 @@ class UDevice : public NestedListItem
         maxValueRole,
         minValueRole,
         valueRole,
+        maxStatRole,
+        minStatRole,
+        meanStatRole,
+        countStatRole,
         precisionRole,
         statusRole,
         unitLabelRole,
@@ -38,19 +42,15 @@ public:
     };
 
     enum class UEType: int {
+        None = 0,
+        PowerSocketSwitch = 1,
         PushButton = 5,
-        LightSensor = 6,
-        PIRMotionSensor = 7,
-        RF4333 = 11,
+        MotionSensor = 7,
         Humidity = 30,
         Temperature = 31,
-        Switch = 206,
-        ProximitySensor = 219,
-        Light = 233,
-        StatusLight = 999,
-        OnBoardRGBLed = 1000,
         NinjasEyes = 1007,
-        BelkinWeMoSocket = 1009
+        LimitlessLEDWhite = 1012,
+        DoorSensor = 9990,
     };
 
     explicit UDevice(QObject *parent = 0);
@@ -79,6 +79,14 @@ public:
     void minValue(const QString& minValue);
     QString value() const;
     void value(const QString& value);
+    QString minStat() const;
+    void minStat(const QString& minStat);
+    QString maxStat() const;
+    void maxStat(const QString& maxStat);
+    QString meanStat() const;
+    void meanStat(const QString& meanStat);
+    QString countStat() const;
+    void countStat(const QString& countStat);
     int precision() const;
     void precision(int precision);
     UEStatus status() const;
@@ -96,11 +104,16 @@ private:
     QString m_maxValue;
     QString m_minValue;
     QString m_value;
+    QString m_maxStat;
+    QString m_minStat;
+    QString m_meanStat;
+    QString m_countStat;
     int m_precision;
     UEStatus m_status;
     QString m_unitLabel;
     NestedListModel* m_scenarios;
     ListModel* m_statistics;
+    ListModel* m_history;
 };
 
 #endif // UDEVICE_H

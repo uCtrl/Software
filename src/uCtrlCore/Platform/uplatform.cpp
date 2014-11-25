@@ -65,7 +65,7 @@ bool UPlatform::setData(const QVariant& value, int role)
         enabled(value.toBool());
         break;
     case lastUpdatedRole:
-        lastUpdated(value.toUInt());
+        lastUpdated(value.toDouble());
         break;
     default:
         return false;
@@ -105,7 +105,7 @@ void UPlatform::write(QJsonObject& jsonObj) const
     jsonObj["room"] = this->room();
     jsonObj["status"] = (int)this->status();
     jsonObj["enabled"] = this->enabled();
-    jsonObj["lastUpdated"] = QString::number(this->lastUpdated());
+    jsonObj["lastUpdated"] = this->lastUpdated();
 
     QJsonObject devices;
     m_devices->write(devices);
@@ -122,7 +122,7 @@ void UPlatform::read(const QJsonObject& jsonObj)
     this->room(jsonObj["room"].toString());
     this->status((UEStatus)jsonObj["status"].toInt());
     this->enabled(jsonObj["enabled"].toBool());
-    this->lastUpdated(jsonObj["lastUpdated"].toString().toUInt());
+    this->lastUpdated(jsonObj["lastUpdated"].toDouble());
 
     m_devices->read(jsonObj);
 }

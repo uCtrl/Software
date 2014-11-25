@@ -40,7 +40,7 @@ bool UTask::setData(const QVariant& value, int role)
         enabled(value.toBool());
         break;
     case lastUpdatedRole:
-        lastUpdated(value.toUInt());
+        lastUpdated(value.toDouble());
         break;
     default:
         return false;
@@ -70,7 +70,7 @@ void UTask::write(QJsonObject &jsonObj) const
     jsonObj["id"] = this->id();
     jsonObj["value"] = this->value();
     jsonObj["enabled"] = this->enabled();
-    jsonObj["lastUpdated"] = QString::number(this->lastUpdated());
+    jsonObj["lastUpdated"] = this->lastUpdated();
 
     QJsonObject conditions;
     m_conditions->write(conditions);
@@ -82,7 +82,7 @@ void UTask::read(const QJsonObject &jsonObj)
     this->id(jsonObj["id"].toString());
     this->value(jsonObj["value"].toString());
     this->enabled(jsonObj["enabled"].toBool());
-    this->lastUpdated(jsonObj["lastUpdated"].toString().toUInt());
+    this->lastUpdated(jsonObj["lastUpdated"].toDouble());
 
     m_conditions->read(jsonObj);
 }

@@ -14,9 +14,6 @@ public:
     // JsonSerializable
     void write(QJsonObject &jsonObj) const;
     void read(const QJsonObject &jsonObj);
-
-private:
-    bool contains(const QString& id, const QString& data, int type, uint timestamp);
 };
 
 #endif // USTATISTICSMODEL_H

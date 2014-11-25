@@ -4,6 +4,7 @@ UDevice::UDevice(QObject* parent) : NestedListItem(parent)
 {
     m_scenarios = new UScenariosModel(this);
     m_statistics = new UStatisticsModel(this);
+    m_history = new UHistoryLogModel(this);
 }
 
 UDevice::~UDevice()
@@ -28,6 +29,14 @@ QVariant UDevice::data(int role) const
         return minValue();
     case valueRole:
         return value();
+    case minStatRole:
+        return minStat();
+    case maxStatRole:
+        return maxStat();
+    case meanStatRole:
+        return meanStat();
+    case countStatRole:
+        return countStat();
     case precisionRole:
         return precision();
     case statusRole:
@@ -68,6 +77,18 @@ bool UDevice::setData(const QVariant& value, int role)
     case valueRole:
         this->value(value.toString());
         break;
+    case minStatRole:
+        minStat(value.toString());
+        break;
+    case maxStatRole:
+        maxStat(value.toString());
+        break;
+    case meanStatRole:
+        meanStat(value.toString());
+        break;
+    case countStatRole:
+        countStat(value.toString());
+        break;
     case precisionRole:
         precision(value.toInt());
         break;
@@ -81,7 +102,7 @@ bool UDevice::setData(const QVariant& value, int role)
         enabled(value.toBool());
         break;
     case lastUpdatedRole:
-        lastUpdated(value.toUInt());
+        lastUpdated(value.toDouble());
         break;
     default:
         return false;
@@ -100,6 +121,10 @@ QHash<int, QByteArray> UDevice::roleNames() const
     roles[maxValueRole] = "maxValue";
     roles[minValueRole] = "minValue";
     roles[valueRole] = "value";
+    roles[minStatRole] = "minStat";
+    roles[maxStatRole] = "maxStat";
+    roles[meanStatRole] = "meanStat";
+    roles[countStatRole] = "countStat";
     roles[precisionRole] = "precision";
     roles[statusRole] = "status";
     roles[unitLabelRole] = "unitLabel";
@@ -116,17 +141,7 @@ ListModel* UDevice::nestedModel() const
 
 ListModel* UDevice::history() const
 {
-    //Todo (m'Lord): Fetch the data from the server
-    ListModel* data = new UHistoryLogModel();
-    data->appendRow(new UHistoryLog(UHistoryLog::UELogType::Condition, UHistoryLog::UESeverity::Normal, "Light turned ON", QDateTime::currentDateTime().addDays(-1).addSecs(125)));
-    data->appendRow(new UHistoryLog(UHistoryLog::UELogType::Action, UHistoryLog::UESeverity::Normal, "Light manually turned OFF", QDateTime::currentDateTime().addDays(-5)));
-    data->appendRow(new UHistoryLog(UHistoryLog::UELogType::Scenario, UHistoryLog::UESeverity::Normal, "Scenario changed to 'Summertime'", QDateTime::currentDateTime().addDays(-15)));
-    data->appendRow(new UHistoryLog(UHistoryLog::UELogType::Status, UHistoryLog::UESeverity::Normal, "Status cleared", QDateTime::currentDateTime().addDays(-32).addSecs(564)));
-    data->appendRow(new UHistoryLog(UHistoryLog::UELogType::Status, UHistoryLog::UESeverity::Error, "The device is no longer working", QDateTime::currentDateTime().addDays(-32).addSecs(98)));
-    data->appendRow(new UHistoryLog(UHistoryLog::UELogType::Status, UHistoryLog::UESeverity::Warning, "There is a problem with the device", QDateTime::currentDateTime().addDays(-32)));
-    data->appendRow(new UHistoryLog(UHistoryLog::UELogType::Update, UHistoryLog::UESeverity::Normal, "Updated to firmware version 1.2.3.0", QDateTime::currentDateTime().addDays(-1245).addSecs(1234)));
-
-    return data;
+    return m_history;
 }
 
 ListModel *UDevice::statistics() const
@@ -147,7 +162,7 @@ void UDevice::write(QJsonObject& jsonObj) const
     jsonObj["status"] = (int)this->status();
     jsonObj["unitLabel"] = this->unitLabel();
     jsonObj["enabled"] = this->enabled();
-    jsonObj["lastUpdated"] = QString::number(this->lastUpdated());
+    jsonObj["lastUpdated"] = this->lastUpdated();
 
     QJsonObject scenarios;
     m_scenarios->write(scenarios);
@@ -167,7 +182,7 @@ void UDevice::read(const QJsonObject &jsonObj)
     this->status((UEStatus)jsonObj["status"].toInt());
     this->unitLabel(jsonObj["unitLabel"].toString());
     this->enabled(jsonObj["enabled"].toBool());
-    this->lastUpdated(jsonObj["lastUpdated"].toString().toUInt());
+    this->lastUpdated(jsonObj["lastUpdated"].toDouble());
 
     m_scenarios->read(jsonObj);
 }
@@ -246,6 +261,58 @@ void UDevice::value(const QString &value)
 {
     if (m_value != value) {
         m_value = value;
+        emit dataChanged();
+    }
+}
+
+QString UDevice::minStat() const
+{
+    return m_minStat;
+}
+
+void UDevice::minStat(const QString& minStat)
+{
+    if (m_minStat != minStat) {
+        m_minStat = minStat;
+        emit dataChanged();
+    }
+}
+
+QString UDevice::maxStat() const
+{
+    return m_maxStat;
+}
+
+void UDevice::maxStat(const QString& maxStat)
+{
+    if (m_maxStat != maxStat) {
+        m_maxStat = maxStat;
+        emit dataChanged();
+    }
+}
+
+QString UDevice::meanStat() const
+{
+    return m_meanStat;
+}
+
+void UDevice::meanStat(const QString& meanStat)
+{
+    if (m_meanStat != meanStat) {
+        m_meanStat = meanStat;
+        emit dataChanged();
+    }
+}
+
+QString UDevice::countStat() const
+{
+    return m_countStat;
+}
+
+void UDevice::countStat(const QString& countStat)
+{
+    if (m_countStat != countStat) {
+        m_countStat = countStat;
         emit dataChanged();
     }
 }
