@@ -99,5 +99,7 @@
         <file>qml/ui/UDatePicker.qml</file>
         <file>qml/ui/UWeekdayPicker.qml</file>
         <file>qml/ui/UNumberSelector.qml</file>
+        <file>qml/device/type/MotionSensor.qml</file>
+        <file>qml/device/type/Sensor.qml</file>
     </qresource>
 </RCC>
