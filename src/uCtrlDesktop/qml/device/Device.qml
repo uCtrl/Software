@@ -298,6 +298,217 @@ Rectangle
                 }
 
                 Rectangle {
+                    id: techContainer
+
+                    property bool hidden: true
+
+                    anchors.left: infoContainer.left
+                    anchors.right: infoContainer.right
+
+                    anchors.top: enabledContainer.bottom
+                    anchors.topMargin: 10
+
+                    height: (hidden ? 25 : techInfoColumn.height + techIcon.height + 20)
+
+                    radius: 4
+
+                    color: (techContainerMouse.containsMouse ? Colors.uUltraLightGrey : Colors.uWhite)
+
+                    Rectangle {
+                        id: techContainerSeparator
+
+                        anchors.left: techContainer.left
+                        anchors.right: techContainer.right
+                        anchors.top: techContainer.top
+
+                        height: 1
+
+                        color: Colors.uUltraLightGrey
+                    }
+
+                    UI.UFontAwesome {
+                        id: techIcon
+
+                        iconId: "Cog"
+                        iconSize: 12
+                        iconColor: Colors.uGrey
+
+                        anchors.top: techContainer.top
+                        anchors.topMargin: 12
+
+                        anchors.left: techContainer.left
+                        anchors.leftMargin: 10
+                    }
+
+                    ULabel.Default {
+                        id: techLabel
+
+                        font.bold: false
+                        font.pixelSize: 11
+
+                        anchors.verticalCenter: techIcon.verticalCenter
+                        anchors.left: techIcon.right
+                        anchors.leftMargin: 13
+
+                        text: (techContainer.hidden ? "Show technical information" : "Hide technical information")
+
+                        font.underline: techContainerMouse.containsMouse
+                        color: Colors.uGrey
+
+                    }
+
+                    Column {
+                        id: techInfoColumn
+
+                        anchors.left: techContainer.left
+                        anchors.right: techContainer.right
+                        anchors.top: techLabel.bottom
+
+                        Repeater {
+                            model: [{title: "MODEL", value: getModel()},
+                                    {title: "TYPE", value: getType()},
+                                    {title: "GUID", value: getGUID()},
+                                    {title: "RANGE", value: "from " + getMinValue() + " to " + getMaxValue()}]
+
+                            Rectangle {
+                                color: Colors.uTransparent
+                                height: 20; width: techInfoColumn.width;
+
+                                Row {
+                                    spacing: 10
+
+                                    anchors.top: parent.top
+                                    anchors.topMargin: 5
+
+                                    anchors.left: parent.left
+                                    anchors.leftMargin: 22
+
+                                    ULabel.Default {
+                                        text: modelData.title
+                                        anchors.top: parent.top
+                                        anchors.leftMargin: 15
+
+                                        font.pixelSize: 10
+                                        font.bold: true
+
+                                        width: 35
+
+                                        color: Colors.uGrey
+                                    }
+
+                                    ULabel.Default {
+                                        text: modelData.value
+                                        anchors.top: parent.top
+                                        anchors.leftMargin: 15
+
+                                        font.pixelSize: 10
+                                        font.bold: false
+
+                                        color: Colors.uGrey
+                                    }
+                                }
+                            }
+                        }
+
+                        visible: !techContainer.hidden
+                    }
+
+                    MouseArea {
+                        id: techContainerMouse
+
+                        anchors.fill: techContainer
+                        hoverEnabled: true
+
+                        onClicked: techContainer.hidden = !techContainer.hidden
+                    }
+                }
+
+                Rectangle {
+                    id: descriptionContainer
+
+                    property bool hidden: true
+
+                    anchors.left: infoContainer.left
+                    anchors.right: infoContainer.right
+
+                    anchors.top: techContainer.bottom
+                    height: (hidden ? 25 : 50)
+
+                    radius: 4
+
+                    color: (descriptionContainerMouse.containsMouse ? Colors.uUltraLightGrey : Colors.uWhite)
+
+                    UI.UFontAwesome {
+                        id: descriptionIcon
+
+                        iconId: "File"
+                        iconSize: 12
+                        iconColor: Colors.uGrey
+
+                        anchors.top: descriptionContainer.top
+                        anchors.topMargin: 12
+
+                        anchors.left: descriptionContainer.left
+                        anchors.leftMargin: 10
+                    }
+
+                    ULabel.Default {
+                        id: descriptionLabel
+
+                        font.bold: false
+                        font.pixelSize: 11
+
+                        anchors.verticalCenter: descriptionIcon.verticalCenter
+                        anchors.left: descriptionIcon.right
+                        anchors.leftMargin: 13
+
+                        text: (descriptionContainer.hidden ? "Show device description" : "Hide device description")
+
+                        font.underline: descriptionContainerMouse.containsMouse
+                        color: Colors.uGrey
+
+                    }
+
+                    ULabel.Description {
+                        id: descriptionValue
+
+                        font.pixelSize: 12
+                        color: Colors.uMediumDarkGrey
+
+                        anchors.top: descriptionLabel.bottom
+                        anchors.topMargin: 7
+
+                        anchors.left: descriptionContainer.left
+                        anchors.leftMargin: 22
+
+                        text: getDescription()
+
+                        visible: !descriptionContainer.hidden
+                    }
+
+                    Rectangle {
+                        id: descriptionContainerSeparator
+
+                        anchors.left: descriptionContainer.left
+                        anchors.right: descriptionContainer.right
+                        anchors.bottom: descriptionContainer.bottom
+
+                        height: 1
+
+                        color: Colors.uUltraLightGrey
+                    }
+
+                    MouseArea {
+                        id: descriptionContainerMouse
+
+                        anchors.fill: descriptionContainer
+                        hoverEnabled: true
+
+                        onClicked: descriptionContainer.hidden = !descriptionContainer.hidden
+                    }
+                }
+
+                Rectangle {
                     id: fileContainer
 
                     color: Colors.uTransparent
@@ -305,7 +516,7 @@ Rectangle
                     anchors.left: infoContainer.left
                     anchors.right: infoContainer.right
 
-                    anchors.top: enabledContainer.bottom
+                    anchors.top: descriptionContainer.bottom
                     anchors.bottom: infoContainer.bottom
 
                     ULabel.Default {
@@ -558,11 +769,6 @@ Rectangle
         anchors.bottom: parent.bottom
     }
 
-    function getType() {
-        if (model !== null) return model.type
-        else return 0
-    }
-
     function getLastUpdatedText() {
         if (model !== null && model.lastUpdate !== undefined) return model.lastUpdate
         else return "Last updated a second ago."
@@ -570,11 +776,6 @@ Rectangle
 
     function getScenarios() {
         if (model !== null) return main.devicesList.nestedModelFromId(model.id)
-    }
-
-    function getDescription() {
-        if (model !== null) return model.description
-        else return ""
     }
 
     function saveForm() {
@@ -633,5 +834,32 @@ Rectangle
     function getDeviceEnabled() {
         if (model !== null) return model.isEnabled ? "ON" : "OFF"
         else return "OFF"
+    }
+
+    function getModel() {
+        return "La Crosse Temp WS2355"
+    }
+
+    function getType() {
+        return "Thermometer (sensor)"
+    }
+
+    function getGUID() {
+        return "12312412412321"
+    }
+
+    function getMinValue() {
+        if (model !== null) return model.minValue
+        else return "-70"
+    }
+
+    function getMaxValue() {
+        if (model !== null) return model.maxValue
+        else return "70"
+    }
+
+    function getDescription() {
+        if (model !== null) return model.description
+        else return ""
     }
 }
