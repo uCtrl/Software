@@ -1,9 +1,8 @@
 #include "usetdimmerlights.h"
 
-USetDimmerLights::USetDimmerLights(UNinjaAPI* ninjaAPI, const QString& deviceId, int lightIntensityPercent)
+USetDimmerLights::USetDimmerLights(UCtrlAPIFacade* uCtrlApiFacade, int lightIntensityPercent)
 {
-    m_ninjaAPI = ninjaAPI;
-    m_deviceId = deviceId;
+    m_uCtrlApiFacade = uCtrlApiFacade;
     m_lightIntensityPercent = lightIntensityPercent;
 }
 
@@ -11,11 +10,27 @@ void USetDimmerLights::setAllLightsIntensity()
 {
     QString data = "";
 
-    int rescaledLightIntensity255 = m_lightIntensityPercent * 255 / 100;
-    data = "{\\\"on\\\":true,\\\"bri\\\":{0}}";
+    // Ninja lights
+    QList<UDevice*> deviceList = m_uCtrlApiFacade->getPlatformsModel()->findDevicesByType(UDevice::UEType::Light);
+    foreach (UDevice* device, deviceList)
+    {
+        // TODO : Implement when we have ninja lights
+        continue;
+    }
 
-    QString rescaledLightIntensity255Str = QString::number(rescaledLightIntensity255);
-    data = data.replace("{0}", rescaledLightIntensity255Str);
+    // LimitlessLED
+    deviceList = m_uCtrlApiFacade->getPlatformsModel()->findDevicesByType(UDevice::UEType::LimitlessLed);
+    foreach (UDevice* device, deviceList)
+    {
+        QJsonObject jsonLimitless = QJsonDocument::fromJson(device->value().toUtf8()).object();
+        bool isOn = jsonLimitless["on"].toBool();
 
-    m_ninjaAPI->sendData(m_deviceId, data);
+        int rescaledLightIntensity255 = m_lightIntensityPercent * 255 / 100;
+
+        data = QString("{\\\"on\\\":%1,\\\"bri\\\":%2}").arg(isOn, rescaledLightIntensity255);
+
+        device->value(data);
+        m_uCtrlApiFacade->putDevice(device);
+    }
+
 }

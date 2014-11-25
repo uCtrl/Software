@@ -11,6 +11,9 @@
 #include "Voice/uturnonofflightintent.h"
 #include "Voice/uturnonoffplugintent.h"
 #include "Voice/uninjaapi.h"
+#include "Voice/uvoicecontrolapi.h"
+
+class UVoiceControlAPI;
 
 class UVoiceControlResponse : public QObject
 {
@@ -18,7 +21,7 @@ class UVoiceControlResponse : public QObject
 
 public:
     UVoiceControlResponse(QObject* parent = 0);
-    UVoiceControlResponse(const QJsonObject& jsonResponse, UNinjaAPI* ninjaAPI, QObject* parent = 0);
+    UVoiceControlResponse(const QJsonObject& jsonResponse, UNinjaAPI* ninjaAPI, UVoiceControlAPI* voiceControlAPI, QObject* parent = 0);
 
     Q_INVOKABLE QString getIntent() { return m_intent; }
     Q_INVOKABLE QString getText() { return m_text; }
@@ -42,6 +45,7 @@ private:
     QJsonObject m_entities;
     float m_confidence;
     UNinjaAPI* m_ninjaAPI;
+    UVoiceControlAPI* m_voiceControlAPI;
 
     QJsonValue getFirstJsonValue(const QString& key);
 };

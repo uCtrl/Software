@@ -18,7 +18,6 @@ void UVoiceControlAPI::sendVoiceControlFile(QString voiceFilePath)
     request.setRawHeader("Authorization", "Bearer AJKFKPXCCXDD6CPEXASZMJSLCOZSUQ3Z");
     request.setRawHeader("Content-Type", "audio/wav");
 
-    //voiceFilePath = "C:/Users/Frank/Desktop/c29decaada78f883c58fec7d46bb04a7.wav";
     voiceFile = new QFile(voiceFilePath);
     if (!voiceFile->open(QIODevice::ReadOnly))
         return;
@@ -32,7 +31,7 @@ UVoiceControlResponse* UVoiceControlAPI::analyseIntent()
 {
     QJsonDocument jsonResponse = QJsonDocument::fromJson(m_voiceControlIntent.toUtf8());
     QJsonObject jsonObj = jsonResponse.object();
-    UVoiceControlResponse* voiceControlResponse = new UVoiceControlResponse(jsonObj, &m_ninjaAPI);
+    UVoiceControlResponse* voiceControlResponse = new UVoiceControlResponse(jsonObj, &m_ninjaAPI, this);
 
     return voiceControlResponse;
 }

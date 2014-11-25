@@ -16,6 +16,10 @@ public:
     void read(const QJsonObject &jsonObj);
 
     Q_INVOKABLE QObject* getHistoryWithId(const QString& id);
+
+    QList<UDevice*> findDevicesByType(UDevice::UEType deviceType);
+    QList<UDevice*> findDevicesByName(const QString& deviceName);
+
 };
 
 #endif // UDEVICESMODEL_H

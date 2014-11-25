@@ -4,6 +4,7 @@
 #include "Models/nestedlistmodel.h"
 #include "Recommendations/recommendationsModel.h"
 #include "uplatform.h"
+#include "Device/udevice.h"
 
 class UPlatformsModel : public NestedListModel
 {
@@ -19,6 +20,11 @@ public:
 
     // Recommendations
     Q_INVOKABLE QObject* getRecommendations();
+
+    // Helper functions
+    QList<UDevice*> findDevicesByType(UDevice::UEType deviceType);
+    QList<UDevice*> findDevicesByLocation(const QString& locationName);
+    QList<UDevice*> findDevicesByName(const QString& deviceName);
 
 private:
     RecommendationsModel* m_recModel;

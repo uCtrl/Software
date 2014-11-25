@@ -158,6 +158,11 @@ Rectangle
 
                                 editTaskFunction: taskEditor.editTask
                                 anchors.fill: parent
+
+                                Component.onCompleted: {
+                                    console.log("hey")
+                                    console.log(getType())
+                                }
                             }
                         }
 

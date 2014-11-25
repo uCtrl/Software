@@ -5,13 +5,14 @@ UVoiceControlResponse::UVoiceControlResponse(QObject *parent)
 {
 }
 
-UVoiceControlResponse::UVoiceControlResponse(const QJsonObject& jsonResponse, UNinjaAPI* ninjaAPI, QObject *parent)
+UVoiceControlResponse::UVoiceControlResponse(const QJsonObject& jsonResponse, UNinjaAPI* ninjaAPI, UVoiceControlAPI* voiceControlAPI, QObject *parent)
     : QObject(parent)
 {
     m_msgId = jsonResponse["msg_id"].toString();
     m_text = jsonResponse["_text"].toString();
 
     m_ninjaAPI = ninjaAPI;
+    m_voiceControlAPI = voiceControlAPI;
 
     QJsonArray outcomesArray = jsonResponse["outcomes"].toArray();
     QJsonObject firstOutcome = outcomesArray.first().toObject();
@@ -63,6 +64,12 @@ QString UVoiceControlResponse::getCommand()
         bool onOffValue = getOnOff("uctrl_onoff");
         return QString("Turn {0} all lights").replace("{0}", (onOffValue ? "on" : "off"));
     }
+    else if (getIntent() == QString("turn_onoff_lights_in_location"))
+    {
+        bool onOffValue = getOnOff("uctrl_onoff");
+        QString locationName = getStringValue("location");
+        return QString("Turn {0} all lights in {1}").replace("{0}", (onOffValue ? "on" : "off")).replace("{1}", locationName);
+    }
     else if (getIntent() == QString("set_dimmer_lights"))
     {
         int lightIntensityPercent = getInt("number");
@@ -96,6 +103,10 @@ bool UVoiceControlResponse::hasValidIntent()
     {
         return getFirstJsonValue("uctrl_onoff").toString() != QString("");
     }
+    else if (getIntent() == QString("turn_onoff_lights_in_location"))
+    {
+        return getFirstJsonValue("uctrl_onoff").toString() != QString("") && getFirstJsonValue("location").toString() != QString("");
+    }
     else if (getIntent() == QString("set_dimmer_lights"))
     {
         return getFirstJsonValue("number").toInt() >= 0 && getFirstJsonValue("number").toInt() <= 100;
@@ -122,23 +133,33 @@ void UVoiceControlResponse::sendIntent()
     {
         bool isOn = getOnOff("uctrl_onoff");
 
-        UTurnOnOffLightIntent turnOnOffLightIntent(m_ninjaAPI, "1014BBBK6089_allwhite_0_1012", isOn);
+        UTurnOnOffLightIntent turnOnOffLightIntent(m_voiceControlAPI->getUCtrlApiFacade(), isOn);
         turnOnOffLightIntent.turnOnOffAllLights();
+    }
+    // TODO : Update the whole file for this thing, verify if it's the right command
+    else if (getIntent() == QString("turn_onoff_lights_in_location"))
+    {
+        bool isOn = getOnOff("uctrl_onoff");
+        QString locationName = getStringValue("location");
+
+        UTurnOnOffLightIntent turnOnOffLightIntent(m_voiceControlAPI->getUCtrlApiFacade(), isOn);
+        turnOnOffLightIntent.turnOnOffLightsInLocation(locationName);
     }
     else if (getIntent() == QString("set_dimmer_lights"))
     {
         int lightIntensityPercent = getInt("number");
 
-        USetDimmerLights setDimmerLights(m_ninjaAPI, "1014BBBK6089_allwhite_0_1012", lightIntensityPercent);
+        USetDimmerLights setDimmerLights(m_voiceControlAPI->getUCtrlApiFacade(), lightIntensityPercent);
         setDimmerLights.setAllLightsIntensity();
     }
     else if (getIntent() == QString("set_ninja_eyes_color"))
     {
         QString colorString = getStringValue("uctrl_color");
 
-        USetNinjaEyesColorIntent setNinjaEyesColorIntent(m_ninjaAPI, "1014BBBK6089_0_0_1007");
+        USetNinjaEyesColorIntent setNinjaEyesColorIntent(m_voiceControlAPI->getUCtrlApiFacade());
         setNinjaEyesColorIntent.setNinjaEyesColors(colorString);
     }
+    // TODO : Hardcode stuff in wit.ai ? device names and stuff OR find a way to add stuff in the wit.ai dictionary dynamically (could be hard)
     else if (getIntent() == QString("turn_onoff_plugs_in_location"))
     {
         bool isOn = getOnOff("uctrl_onoff");

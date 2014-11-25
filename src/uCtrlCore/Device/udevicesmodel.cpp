@@ -42,3 +42,22 @@ QObject* UDevicesModel::getHistoryWithId(const QString &id)
         return (UDevice*) item->history();
     return NULL;
 }
+
+QList<UDevice*> UDevicesModel::findDevicesByType(UDevice::UEType deviceType)
+{
+    QList<UDevice*> deviceList;
+    foreach(ListItem *item, m_items) {
+        UDevice* device = (UDevice*)item;
+
+        if (device->type() == deviceType)
+            deviceList.push_back(device);
+    }
+
+    return deviceList;
+}
+
+QList<UDevice*> UDevicesModel::findDevicesByName(const QString& deviceName)
+{
+    QList<UDevice*> deviceList;
+    return deviceList;
+}

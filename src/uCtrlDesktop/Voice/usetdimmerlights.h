@@ -1,19 +1,17 @@
 #ifndef USETDIMMERLIGHTS_H
 #define USETDIMMERLIGHTS_H
 
-#include "uninjaapi.h"
+#include "Protocol/uctrlapifacade.h"
 
 class USetDimmerLights
 {
-
 public:
-    USetDimmerLights(UNinjaAPI* ninjaAPI, const QString& deviceId, int lightIntensityPercent);
+    USetDimmerLights(UCtrlAPIFacade* uCtrlApiFacade, int lightIntensityPercent);
 
     void setAllLightsIntensity();
 
 private:
-    UNinjaAPI* m_ninjaAPI;
-    QString m_deviceId;
+    UCtrlAPIFacade* m_uCtrlApiFacade;
     int m_lightIntensityPercent;
 };
 

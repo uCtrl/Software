@@ -2,20 +2,20 @@
 #define USETNINJAEYESCOLORINTENT_H
 
 #include "uvoiceintent.h"
-#include "uninjaapi.h"
+#include "Protocol/uctrlapifacade.h"
+#include "Device/udevice.h"
 #include <QColor>
 #include <QRgb>
 
 class USetNinjaEyesColorIntent
 {
 public:
-    USetNinjaEyesColorIntent(UNinjaAPI* ninjaAPI, const QString& deviceId);
+    USetNinjaEyesColorIntent(UCtrlAPIFacade* uCtrlApiFacade);
 
     void setNinjaEyesColors(const QString& colorName);
 
 private:
-    UNinjaAPI* m_ninjaAPI;
-    QString m_deviceId;
+    UCtrlAPIFacade* m_uCtrlApiFacade;
 };
 
 #endif // USETNINJAEYESCOLORINTENT_H

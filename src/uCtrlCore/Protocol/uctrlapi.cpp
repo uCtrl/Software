@@ -324,7 +324,7 @@ void UCtrlAPI::putDevice(const QString& platformId, const QString& deviceId)
     if (!checkModel(device))
         return;
 
-    QNetworkReply* reply = putRequest(QString("platforms/%1/device/%2").arg(platformId, deviceId), device);
+    QNetworkReply* reply = putRequest(QString("platforms/%1/devices/%2").arg(platformId, deviceId), device);
     connect(reply, SIGNAL(finished()), this, SLOT(putDeviceReply()));
 }
 
@@ -342,7 +342,7 @@ void UCtrlAPI::putDeviceReply()
 // Delete this device from the system.
 void UCtrlAPI::deleteDevice(const QString& platformId, const QString& deviceId)
 {
-    QNetworkReply* reply = deleteRequest(QString("platforms/%1/device/%2").arg(platformId, deviceId));
+    QNetworkReply* reply = deleteRequest(QString("platforms/%1/devices/%2").arg(platformId, deviceId));
     connect(reply, SIGNAL(finished()), this, SLOT(deleteDeviceReply()));
 }
 

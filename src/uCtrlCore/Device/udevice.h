@@ -36,6 +36,7 @@ public:
         Error
     };
 
+    // TODO: UPDATE THIS ENUM, IT'S NOT UP-TO-DATE
     enum class UEType: int {
         PushButton = 5,
         LightSensor = 6,
@@ -49,7 +50,8 @@ public:
         StatusLight = 999,
         OnBoardRGBLed = 1000,
         NinjasEyes = 1007,
-        BelkinWeMoSocket = 1009
+        BelkinWeMoSocket = 1009,
+        LimitlessLed = 1022 // TODO : Verify
     };
 
     explicit UDevice(QObject *parent = 0);

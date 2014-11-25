@@ -21,6 +21,7 @@ Rectangle {
     UVoiceControl
     {
         id: voiceControl
+        uCtrlApiFacadeObject: uCtrlApiFacade
 
         onVoiceControlIntentChanged: {
             console.log("New intent : " + voiceControlIntent)
