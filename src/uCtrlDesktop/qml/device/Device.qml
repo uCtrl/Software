@@ -101,13 +101,12 @@ Rectangle
                             }
                         }
 
-                        UI.UFontAwesome {
-                            id: deviceIcon
+                        DeviceIcon
+                        {
+                            model: devicePage.model
 
-                            iconId: getDeviceIcon()
                             iconColor: Colors.uWhite
-                            iconSize: 20
-                            anchors.centerIn: parent
+                            iconSize: 24
                         }
                     }
 
@@ -141,7 +140,7 @@ Rectangle
                         anchors.right: parent.right
                         anchors.verticalCenter: iconContainer.verticalCenter
 
-                        height: 35
+                        height: 30
 
                         onSave: infoContainer.showEditMode = !infoContainer.showEditMode
                         onCancel: infoContainer.showEditMode = !infoContainer.showEditMode
@@ -175,7 +174,7 @@ Rectangle
 
                         anchors.verticalCenter: iconContainer.verticalCenter
 
-                        height: 35
+                        height: 30
 
                         text: getDeviceName()
                         placeholderText: "Device name"
@@ -620,40 +619,6 @@ Rectangle
     function getDeviceStatus() {
         if (model !== null) return model.status
         else return 2
-    }
-
-    function getDeviceIcon() {
-        if (model !== null) {
-            switch(model.type) {
-                case UEType.BelkinWeMoSocket:
-                    return "droplet"
-                case UEType.Humidity:
-                    return "droplet"
-                case UEType.Light:
-                    return "droplet"
-                case UEType.LightSensor:
-                    return "droplet"
-                case UEType.NinjasEyes:
-                    return "droplet"
-                case UEType.OnBoardRGBLed:
-                    return "droplet"
-                case UEType.PIRMotionSensor:
-                    return "droplet"
-                case UEType.ProximitySensor:
-                    return "droplet"
-                case UEType.PushButton:
-                    return "droplet"
-                case UEType.RF4333:
-                    return "droplet"
-                case UEType.StatusLight:
-                    return "droplet"
-                case UEType.Switch:
-                    return "droplet"
-                case UEType.Temperature:
-                    return "droplet"
-            }
-        }
-        return "droplet"
     }
 
     function getDeviceName() {

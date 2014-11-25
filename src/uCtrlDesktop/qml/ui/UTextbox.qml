@@ -14,6 +14,8 @@ Rectangle {
     property string iconId: ""
     property int iconSize: 8
 
+    property int pointSize: 14
+
     property int textAlignment: TextInput.AlignLeft
 
     width: 100
@@ -71,7 +73,7 @@ Rectangle {
         id: field
 
         font.family: "Lato"
-        font.pointSize: 14
+        font.pointSize: container.pointSize
 
         state: parent.state
         readOnly: (state === "DISABLED")

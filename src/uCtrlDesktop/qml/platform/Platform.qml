@@ -235,7 +235,7 @@ Rectangle {
 
                 anchors.verticalCenter: parent.verticalCenter
 
-                height: 25
+                height: 30
 
                 visible: showEditMode
 
@@ -271,7 +271,9 @@ Rectangle {
             anchors.margins: 20
             anchors.bottomMargin: 10
 
-            height: showAdvanced ? 100 : 30
+            clip: true
+
+            height: 30
 
             color: Colors.uLightGrey
 
@@ -279,161 +281,204 @@ Rectangle {
             border.color: Colors.uTransparent
             radius: 4
 
-            Row {
-                id: idRow
+            NumberAnimation
+            {
+                id: expandAdvanced
+                target: advanced
+                properties: "height"
+                duration: 200
+                to: 120
+                easing.type: Easing.InOutQuad
+            }
 
-                anchors.left: parent.left
-                anchors.right: parent.right
+            NumberAnimation
+            {
+                id: collapseAdvanced
+                target: advanced
+                properties: "height"
+                duration: 200
+                to: 30
+                easing.type: Easing.InOutQuad
+            }
+
+            Rectangle
+            {
+                width: parent.width
                 anchors.top: parent.top
+                anchors.bottom: advancedLabel.top
+                color: Colors.uTransparent
 
-                anchors.margins: 10
+                clip: true
 
-                height: 15
+                Row {
+                    id: idRow
 
-                visible: showAdvanced
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.top: parent.top
 
-                ULabel.Default {
-                    width: (parent.width / 4); height: parent.height
+                    anchors.margins: 10
 
-                    color: Colors.uGrey
-                    font.family: "Courier"
-                    font.pointSize: 11
+                    height: 15
 
-                    text: "Platform ID"
+                    z: 1
+
+                    ULabel.Default {
+                        width: (parent.width / 4); height: parent.height
+
+                        color: Colors.uGrey
+                        font.family: "Courier"
+                        font.pointSize: 11
+
+                        text: "Platform ID"
+                    }
+
+                    ULabel.Default {
+                        width: 3*(parent.width / 4); height: parent.height
+
+                        color: Colors.uGrey
+                        font.family: "Courier"
+                        font.pointSize: 11
+
+                        text: getId()
+                    }
                 }
 
-                ULabel.Default {
-                    width: 3*(parent.width / 4); height: parent.height
+                Row {
+                    id: ipRow
 
-                    color: Colors.uGrey
-                    font.family: "Courier"
-                    font.pointSize: 11
+                    anchors.left: idRow.left
+                    anchors.right: idRow.right
+                    anchors.top: idRow.bottom
 
-                    text: getId()
+                    height: 15
+
+                    z: 1
+
+                    ULabel.Default {
+                        width: (parent.width / 4); height: parent.height
+
+                        color: Colors.uGrey
+                        font.family: "Courier"
+                        font.pointSize: 11
+
+                        text: "IP Address"
+                    }
+
+                    ULabel.Default {
+                        width: 3*(parent.width / 4); height: parent.height
+
+                        color: Colors.uGrey
+                        font.family: "Courier"
+                        font.pointSize: 11
+
+                        text: getIp()
+                    }
+                }
+
+                Row {
+                    id: portRow
+
+                    anchors.left: ipRow.left
+                    anchors.right: ipRow.right
+                    anchors.top: ipRow.bottom
+
+                    height: 15
+
+                    z: 1
+
+                    ULabel.Default {
+                        width: (parent.width / 4); height: parent.height
+
+                        color: Colors.uGrey
+                        font.family: "Courier"
+                        font.pointSize: 11
+
+                        text: "Port Number"
+                    }
+
+                    ULabel.Default {
+                        width: 3*(parent.width / 4); height: parent.height
+
+                        color: Colors.uGrey
+                        font.family: "Courier"
+                        font.pointSize: 11
+
+                        text: getPort()
+                    }
+                }
+
+                Row {
+                    id: firmwareRow
+
+                    anchors.left: portRow.left
+                    anchors.right: portRow.right
+                    anchors.top: portRow.bottom
+
+                    height: 15
+
+                    z: 1
+
+                    ULabel.Default {
+                        width: (parent.width / 4); height: parent.height
+
+                        color: Colors.uGrey
+                        font.family: "Courier"
+                        font.pointSize: 11
+
+                        text: "Firmware Version"
+                    }
+
+                    ULabel.Default {
+                        width: 3*(parent.width / 4); height: parent.height
+
+                        color: Colors.uGrey
+                        font.family: "Courier"
+                        font.pointSize: 11
+
+                        text: getFirmwareVersion()
+                    }
                 }
             }
 
-            Row {
-                id: ipRow
+            Rectangle
+            {
+                id: advancedLabel
+                width: parent.width
+                height: 30
+                color: Colors.uTransparent
+                anchors.horizontalCenter: parent.horizontalCenter
 
-                anchors.left: idRow.left
-                anchors.right: idRow.right
-                anchors.top: idRow.bottom
-
-                height: 15
-
-                visible: showAdvanced
-
-                ULabel.Default {
-                    width: (parent.width / 4); height: parent.height
-
-                    color: Colors.uGrey
-                    font.family: "Courier"
-                    font.pointSize: 11
-
-                    text: "IP Address"
-                }
-
-                ULabel.Default {
-                    width: 3*(parent.width / 4); height: parent.height
-
-                    color: Colors.uGrey
-                    font.family: "Courier"
-                    font.pointSize: 11
-
-                    text: getIp()
-                }
-            }
-
-            Row {
-                id: portRow
-
-                anchors.left: ipRow.left
-                anchors.right: ipRow.right
-                anchors.top: ipRow.bottom
-
-                height: 15
-
-                visible: showAdvanced
-
-                ULabel.Default {
-                    width: (parent.width / 4); height: parent.height
-
-                    color: Colors.uGrey
-                    font.family: "Courier"
-                    font.pointSize: 11
-
-                    text: "Port Number"
-                }
-
-                ULabel.Default {
-                    width: 3*(parent.width / 4); height: parent.height
-
-                    color: Colors.uGrey
-                    font.family: "Courier"
-                    font.pointSize: 11
-
-                    text: getPort()
-                }
-            }
-
-            Row {
-                id: firmwareRow
-
-                anchors.left: portRow.left
-                anchors.right: portRow.right
-                anchors.top: portRow.bottom
-
-                height: 15
-
-                visible: showAdvanced
-
-                ULabel.Default {
-                    width: (parent.width / 4); height: parent.height
-
-                    color: Colors.uGrey
-                    font.family: "Courier"
-                    font.pointSize: 11
-
-                    text: "Firmware Version"
-                }
-
-                ULabel.Default {
-                    width: 3*(parent.width / 4); height: parent.height
-
-                    color: Colors.uGrey
-                    font.family: "Courier"
-                    font.pointSize: 11
-
-                    text: getFirmwareVersion()
-                }
-            }
-
-            UI.UFontAwesome {
-                id: advancedIcon
-
-                anchors.left: parent.left
                 anchors.bottom: parent.bottom
+                anchors.bottomMargin: 2
 
-                anchors.margins: 15
+                z: 2
+                UI.UFontAwesome {
+                    id: advancedIcon
 
-                iconId: "earth"
-                iconSize: 12
-                iconColor: Colors.uGrey
-            }
+                    anchors.left: parent.left
+                    anchors.bottom: parent.bottom
 
-            ULabel.Default {
-                id: advancedText
+                    anchors.margins: 15
 
-                text: (showAdvanced ? "Hide" : "Show") + " advanced information"
+                    iconId: "earth"
+                    iconSize: 12
+                    iconColor: Colors.uGrey
+                }
 
-                anchors.left: advancedIcon.right
-                anchors.leftMargin: 12
-                anchors.verticalCenter: advancedIcon.verticalCenter
+                ULabel.Default {
+                    id: advancedText
 
-                font.family: "Courier"
+                    text: (showAdvanced ? "Hide" : "Show") + " advanced information"
 
-                color: Colors.uGrey
+                    anchors.left: advancedIcon.right
+                    anchors.leftMargin: 12
+                    anchors.verticalCenter: advancedIcon.verticalCenter
+
+                    font.family: "Courier"
+
+                    color: Colors.uGrey
+                }
             }
 
             MouseArea {
@@ -446,7 +491,19 @@ Rectangle {
                     advanced.border.color = (containsMouse ? Colors.uGrey : Colors.uTransparent)
                 }
 
-                onClicked: showAdvanced = !showAdvanced
+                onClicked: {
+                    showAdvanced = !showAdvanced
+                    if(showAdvanced)
+                    {
+                        collapseAdvanced.stop()
+                        expandAdvanced.start()
+                    }
+                    else
+                    {
+                        collapseAdvanced.start()
+                        expandAdvanced.stop()
+                    }
+                }
             }
         }
 
