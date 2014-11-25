@@ -171,7 +171,7 @@ ListItem* ListModel::find(const QString& itemId) const
     return NULL;
 }
 
-QObject *ListModel::findObject(const QString &itemId) const
+QObject* ListModel::findObject(const QString &itemId) const
 {
     return find(itemId);
 }
@@ -184,6 +184,18 @@ void ListModel::clear()
     removeRows(0, m_items.size());
 }
 
+bool ListModel::removeRow(const QString& itemId)
+{
+    if (itemId != NULL)
+    {
+        for (int i = 0; i < m_items.size(); i++) {
+            if (m_items.at(i)->id() == itemId)
+                return removeRow(i);
+        }
+    }
+    return false;
+}
+
 QModelIndex ListModel::indexFromItem(ListItem *item) const
 {
     if (item != NULL)
@@ -194,6 +206,18 @@ QModelIndex ListModel::indexFromItem(ListItem *item) const
         }
     }
     return QModelIndex();
+}
+
+int ListModel::indexOf(ListItem *item) const
+{
+    if (item != NULL)
+    {
+        for (int i = 0; i < m_items.size(); i++) {
+            if (m_items.at(i) == item)
+                return i;
+        }
+    }
+    return -1;
 }
 
 void ListModel::updateItem()

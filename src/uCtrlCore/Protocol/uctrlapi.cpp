@@ -85,6 +85,10 @@ void UCtrlAPI::getSystemReply()
     }
 
     m_platforms->read(jsonObj);
+
+    // Fetch recommendations (optimization)
+    getRecommendations();
+
     reply->deleteLater();
 }
 
@@ -252,6 +256,7 @@ void UCtrlAPI::postDevice(const QString& platformId, const QString& deviceId)
         return;
 
     QNetworkReply* reply = postRequest(QString("platforms/%1/devices").arg(platformId), device);
+    reply->setProperty(DevicePtr, (long long)device);
     connect(reply, SIGNAL(finished()), this, SLOT(postDeviceReply()));
 }
 
@@ -259,9 +264,13 @@ void UCtrlAPI::postDeviceReply()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
 
+    QJsonObject jsonDeviceReply = QJsonDocument::fromJson(reply->readAll()).object();
     if (!checkNetworkError(reply)) {
-        checkServerError(QJsonDocument::fromJson(reply->readAll()).object());
+        checkServerError(jsonDeviceReply);
     }
+
+    UDevice* device = (UDevice*)reply->property(DevicePtr).toLongLong();
+    device->read(jsonDeviceReply["device"].toObject());
 
     reply->deleteLater();
 }
@@ -352,6 +361,47 @@ void UCtrlAPI::deleteDeviceReply()
     reply->deleteLater();
 }
 
+void UCtrlAPI::getDeviceStats(const QString &platformId, const QString &deviceId, QMap<QString, QVariant> params)
+{
+    QNetworkReply* reply = getRequest(QString("platforms/%1/devices/%2/stats").arg(platformId, deviceId), params);
+    reply->setProperty(PlatformId, platformId);
+    reply->setProperty(DeviceId, deviceId);
+    connect(reply, SIGNAL(finished()), this, SLOT(getDeviceStatsReply()));
+}
+
+void UCtrlAPI::getDeviceStatsReply()
+{
+    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
+    if (!checkNetworkError(reply)) {
+        reply->deleteLater();
+        return;
+    }
+
+    QJsonObject jsonObj = QJsonDocument::fromJson(reply->readAll()).object();
+    if (!checkServerError(jsonObj)) {
+        reply->deleteLater();
+        return;
+    }
+
+    QString platformId = reply->property(PlatformId).toString();
+    QString deviceId = reply->property(DeviceId).toString();
+    NestedListItem* platform = (NestedListItem*)m_platforms->find(platformId);
+    if (!checkModel(platform)) {
+        reply->deleteLater();
+        return;
+    }
+
+    UDevice* device = (UDevice*)platform->nestedModel()->find(deviceId);
+    if (!checkModel(device)) {
+        reply->deleteLater();
+        return;
+    }
+
+    device->statistics()->read(jsonObj);
+
+    reply->deleteLater();
+}
+
 // /////////////////////////////////////
 //             Scenario               //
 // /////////////////////////////////////
@@ -414,6 +464,7 @@ void UCtrlAPI::postScenario(const QString& platformId, const QString& deviceId, 
         return;
 
     QNetworkReply* reply = postRequest(QString("platforms/%1/devices/%2/scenarios").arg(platformId, deviceId), scenario);
+    reply->setProperty(ScenarioPtr, (long long)scenario);
     connect(reply, SIGNAL(finished()), this, SLOT(postScenarioReply()));
 }
 
@@ -421,9 +472,13 @@ void UCtrlAPI::postScenarioReply()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
 
+    QJsonObject jsonScenarioReply = QJsonDocument::fromJson(reply->readAll()).object();
     if (!checkNetworkError(reply)) {
         checkServerError(QJsonDocument::fromJson(reply->readAll()).object());
     }
+
+    UScenario* scenario = (UScenario*)reply->property(ScenarioPtr).toLongLong();
+    scenario->read(jsonScenarioReply["scenario"].toObject());
 
     reply->deleteLater();
 }
@@ -602,6 +657,7 @@ void UCtrlAPI::postTask(const QString& platformId, const QString& deviceId, cons
         return;
 
     QNetworkReply* reply = postRequest(QString("platforms/%1/devices/%2/scenarios/%3/tasks").arg(platformId, deviceId, scenarioId), task);
+    reply->setProperty(TaskPtr, (long long)task);
     connect(reply, SIGNAL(finished()), this, SLOT(postTasksReply()));
 }
 
@@ -609,9 +665,13 @@ void UCtrlAPI::postTaskReply()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
 
+    QJsonObject jsonTaskReply = QJsonDocument::fromJson(reply->readAll()).object();
     if (!checkNetworkError(reply)) {
-        checkServerError(QJsonDocument::fromJson(reply->readAll()).object());
+        checkServerError(jsonTaskReply);
     }
+
+    UTask* task = (UTask*)reply->property(TaskPtr).toLongLong();
+    task->read(jsonTaskReply["task"].toObject());
 
     reply->deleteLater();
 }
@@ -811,7 +871,9 @@ void UCtrlAPI::postCondition(const QString& platformId, const QString& deviceId,
     if (!checkModel(condition))
         return;
 
+
     QNetworkReply* reply = postRequest(QString("platforms/%1/devices/%2/scenarios/%3/tasks/%4/conditions").arg(platformId, deviceId, scenarioId, taskId), condition);
+    reply->setProperty(ConditionPtr, (long long)condition);
     connect(reply, SIGNAL(finished()), this, SLOT(postConditionReply()));
 }
 
@@ -819,9 +881,13 @@ void UCtrlAPI::postConditionReply()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
 
+    QJsonObject jsonConditionReply = QJsonDocument::fromJson(reply->readAll()).object();
     if (!checkNetworkError(reply)) {
-        checkServerError(QJsonDocument::fromJson(reply->readAll()).object());
+        checkServerError(jsonConditionReply);
     }
+
+    UCondition* condition = (UCondition*)reply->property(ConditionPtr).toLongLong();
+    condition->read(jsonConditionReply["condition"].toObject());
 
     reply->deleteLater();
 }
@@ -1029,12 +1095,18 @@ void UCtrlAPI::getRecommendationsReply()
     reply->deleteLater();
 }
 
-void UCtrlAPI::acceptRecommendation(const QString &id)
+void UCtrlAPI::acceptRecommendation(const QString& recommendationId, bool accepted)
 {
-    RecommendationsModel* recModel = (RecommendationsModel*)m_platforms->getRecommendations();
-    Recommendation* rec = (Recommendation*)recModel->find(id);
+    ListModel* recModel = (ListModel*)m_platforms->getRecommendations();
+    Recommendation* rec = (Recommendation*)recModel->find(recommendationId);
+    if (!checkModel(rec))
+        return;
 
-    QNetworkReply* reply = putRequest(QString("recommendations"), rec);
+    rec->accepted(accepted);
+
+    QNetworkReply* reply = putRequest(QString("recommendations/%1").arg(recommendationId), rec);
+    reply->setProperty("recommendationId", recommendationId);
+
     connect(reply, SIGNAL(finished()), this, SLOT(acceptRecommendationReply()));
 }
 
@@ -1045,6 +1117,11 @@ void UCtrlAPI::acceptRecommendationReply()
     if (!checkNetworkError(reply)) {
         checkServerError(QJsonDocument::fromJson(reply->readAll()).object());
     }
+
+    QString recId = reply->property("recommendationId").toString();
+
+    RecommendationsModel* recModel = (RecommendationsModel*)m_platforms->getRecommendations();
+    recModel->removeRow(recId);
 
     reply->deleteLater();
 }
@@ -1080,9 +1157,20 @@ bool UCtrlAPI::checkModel(ListItem* item)
     return !!item;
 }
 
-QNetworkReply* UCtrlAPI::getRequest(const QString &urlString)
+QNetworkReply* UCtrlAPI::getRequest(const QString &urlString, QMap<QString, QVariant> params)
 {
     QUrl url(m_serverBaseUrl + urlString);
+
+    if (!params.empty()) {
+        QUrlQuery urlParams;
+
+        QMap<QString, QVariant>::iterator i;
+        for (i = params.begin(); i != params.end(); ++i)
+             urlParams.addQueryItem(i.key(), i.value().toString());
+
+        url.setQuery(urlParams);
+    }
+
     QNetworkRequest req(url);
     req.setRawHeader("X-uCtrl-Token", m_userToken.toUtf8());
     return m_networkAccessManager->get(req);

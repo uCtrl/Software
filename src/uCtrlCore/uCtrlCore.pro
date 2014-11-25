@@ -25,7 +25,9 @@ SOURCES += \
     History/uhistorylogmodel.cpp \
     Recommendations/recommendation.cpp \
     Recommendations/recommendationsModel.cpp \
-    Protocol/uctrlapifacade.cpp
+    Protocol/uctrlapifacade.cpp \
+    Statistics/ustatisticsmodel.cpp \
+    Statistics/ustatistic.cpp
 
 
 HEADERS += \
@@ -53,6 +55,8 @@ HEADERS += \
     History/uhistorylogmodel.h \
     Recommendations/recommendation.h \
     Recommendations/recommendationsModel.h \
-    Protocol/uctrlapifacade.h
+    Protocol/uctrlapifacade.h \
+    Statistics/ustatisticsmodel.h \
+    Statistics/ustatistic.h
 
 DEFINES += PROJECT_PATH=\"\\\"$$PWD/../\\\"\"

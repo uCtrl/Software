@@ -36,7 +36,7 @@ Rectangle {
                 clip: true
                 anchors.fill: parent
                 width: parent.width
-                model: testModel
+                model: platformsModel.getRecommendations()
 
                 delegate: Column {
                     width: parent.width
@@ -66,6 +66,9 @@ Rectangle {
                                 anchors.right: declineButton.left
                                 anchors.rightMargin: 10
                                 text: "Accept"
+                                onClicked: {
+                                    uCtrlApiFacade.acceptRecommendation(model.id, true)
+                                }
                             }
 
                             UI.UButton {
@@ -75,25 +78,18 @@ Rectangle {
                                 text: "Decline"
                                 buttonColor: Colors.uDarkGrey
                                 buttonHoveredColor: Colors.uMediumDarkGrey
+                                onClicked: {
+                                    uCtrlApiFacade.acceptRecommendation(model.id, false)
+                                }
                             }
                         }
                     }
                 }
             }
         }
+    }
 
-        ListModel {
-            id: testModel
-
-            ListElement {
-                description: "Turn on Kitchen Lamp #2 when Kitchen Lamp #1 is on"
-            }
-            ListElement {
-                description: "Turn off Kitchen Lamp #2 when Kitchen Lamp #1 is off"
-            }
-            ListElement {
-                description: "Turn off Office Switch #2 when Office Switch #1 is off"
-            }
-        }
+    Component.onCompleted: {
+        uCtrlApiFacade.getRecommendations();
     }
 }

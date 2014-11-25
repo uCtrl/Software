@@ -2,7 +2,6 @@
 #define RECOMMENDATION_H
 
 #include "Models/nestedlistitem.h"
-#include "Models/nestedlistmodel.h"
 
 class Recommendation : public ListItem
 {

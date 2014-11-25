@@ -327,12 +327,7 @@ Rectangle
     }
 
     function saveForm() {
-        if (model !== null) {
-            if (nameTextbox.text !== "") model.name = nameTextbox.text
-            model.isEnabled = (enabledSwitch.state === "ON")
-        }
-
-        toggleEditMode()
+        uCtrlApiFacade.putDevice(devicesList.findObject(model.id))
     }
 
     function getHistory() {

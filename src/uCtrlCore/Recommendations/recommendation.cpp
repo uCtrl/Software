@@ -55,8 +55,6 @@ QHash<int, QByteArray> Recommendation::roleNames() const
 
 void Recommendation::write(QJsonObject& jsonObj) const
 {
-    jsonObj["id"] = this->id();
-    jsonObj["description"] = this->description();
     jsonObj["accepted"] = this->accepted();
 }
 

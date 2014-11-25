@@ -3,6 +3,7 @@
 UDevice::UDevice(QObject* parent) : NestedListItem(parent)
 {
     m_scenarios = new UScenariosModel(this);
+    m_statistics = new UStatisticsModel(this);
 }
 
 UDevice::~UDevice()
@@ -126,6 +127,11 @@ ListModel* UDevice::history() const
     data->appendRow(new UHistoryLog(UHistoryLog::UELogType::Update, UHistoryLog::UESeverity::Normal, "Updated to firmware version 1.2.3.0", QDateTime::currentDateTime().addDays(-1245).addSecs(1234)));
 
     return data;
+}
+
+ListModel *UDevice::statistics() const
+{
+    return m_statistics;
 }
 
 void UDevice::write(QJsonObject& jsonObj) const
