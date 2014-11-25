@@ -10,7 +10,8 @@ class UHistoryLog : public ListItem
 
     enum HistoryLogRoles
     {
-        typeRole = Qt::UserRole + 1,
+        idRole = Qt::UserRole + 1,
+        typeRole,
         severityRole,
         messageRole,
         timestampRole
@@ -26,7 +27,7 @@ public:
         Condition,
         Update,
         Scenario,
-        Other,
+        Other
     };
 
     enum class UESeverity: int {
@@ -34,11 +35,10 @@ public:
         Inactive,
         Warning,
         Error,
-        Other,
+        Other
     };
 
     explicit UHistoryLog(QObject *parent = 0);
-    explicit UHistoryLog(UELogType type, UESeverity severity, QString message, QDateTime date, QObject *parent = 0);
     ~UHistoryLog();
 
     // NestedListItem
@@ -60,15 +60,15 @@ public:
     QString message() const;
     void message(const QString& message);
 
-    QString timestamp() const;
-    void timestamp(const QDateTime& type);
+    uint timestamp() const;
+    void timestamp(uint timestamp);
 
 
 private:
     UELogType m_type;
     UESeverity m_severity;
     QString m_message;
-    QDateTime m_timestamp;
+    uint m_timestamp;
 };
 
 #endif // UHISTORYLOG_H

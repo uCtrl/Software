@@ -30,6 +30,7 @@ Rectangle {
             anchors.margins: 5
             width: parent.width
             color: Colors.uWhite
+            radius: 4
 
             ListView {
                 id: recommendations

@@ -54,6 +54,7 @@ public:
     Q_INVOKABLE void deleteDevice(const QString& platformId, const QString& deviceId);
 
     Q_INVOKABLE void getDeviceStats(const QString& platformId, const QString& deviceId, QMap<QString, QVariant> params);
+    Q_INVOKABLE void getDeviceHistory(const QString& platformId, const QString& deviceId, QMap<QString, QVariant> params);
 
     // Scenarios
     Q_INVOKABLE void getScenarios(const QString& platformId, const QString& deviceId);
@@ -118,6 +119,7 @@ private slots:
     void deleteDeviceReply();
 
     void getDeviceStatsReply();
+    void getDeviceHistoryReply();
 
     // Scenarios
     void getScenariosReply();

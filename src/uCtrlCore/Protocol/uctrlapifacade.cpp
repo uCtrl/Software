@@ -110,6 +110,13 @@ void UCtrlAPIFacade::getDeviceStats(UDevice *device, QMap<QString, QVariant> par
     m_uCtrlApi.getDeviceStats(platformId, device->id(), params);
 }
 
+void UCtrlAPIFacade::getDeviceHistory(UDevice *device, QMap<QString, QVariant> params)
+{
+    QString platformId;
+    resolveIds(platformId, device);
+    m_uCtrlApi.getDeviceHistory(platformId, device->id(), params);
+}
+
 void UCtrlAPIFacade::getScenarios(UDevice* device)
 {
     QString platformId;

@@ -101,6 +101,7 @@ private:
     QString m_unitLabel;
     NestedListModel* m_scenarios;
     ListModel* m_statistics;
+    ListModel* m_history;
 };
 
 #endif // UDEVICE_H

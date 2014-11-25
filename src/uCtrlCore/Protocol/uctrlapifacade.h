@@ -33,6 +33,7 @@ public:
     Q_INVOKABLE void deleteDevice(UDevice* device);
 
     Q_INVOKABLE void getDeviceStats(UDevice* device, QMap<QString, QVariant> params = QMap<QString, QVariant>());
+    Q_INVOKABLE void getDeviceHistory(UDevice* device, QMap<QString, QVariant> params = QMap<QString, QVariant>());
 
     // Scenarios
     Q_INVOKABLE void getScenarios(UDevice* device);

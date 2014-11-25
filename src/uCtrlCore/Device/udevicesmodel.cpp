@@ -39,7 +39,7 @@ QObject* UDevicesModel::getHistoryWithId(const QString &id)
 {
     UDevice* item = (UDevice*)find(id);
     if (item != NULL)
-        return (UHistoryLogModel*) item->history();
+        return (UHistoryLogModel*)item->history();
     return NULL;
 }
 
