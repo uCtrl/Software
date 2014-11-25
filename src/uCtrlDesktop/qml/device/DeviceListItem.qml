@@ -30,7 +30,7 @@ Rectangle {
 
         DeviceIcon
         {
-            model: listItem.item
+            deviceType: listItem.item === null ? 0 : listItem.item.type
 
             iconSize: 16
             iconColor: Colors.uWhite

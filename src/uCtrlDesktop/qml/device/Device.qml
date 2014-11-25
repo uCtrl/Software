@@ -103,8 +103,7 @@ Rectangle
 
                         DeviceIcon
                         {
-                            model: devicePage.model
-
+                            deviceType: devicePage.model === null ? 0 : devicePage.model.type
                             iconColor: Colors.uWhite
                             iconSize: 24
                         }

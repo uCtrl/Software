@@ -474,7 +474,6 @@ Rectangle {
                     anchors.left: advancedIcon.right
                     anchors.leftMargin: 12
                     anchors.verticalCenter: advancedIcon.verticalCenter
-
                     font.family: "Courier"
 
                     color: Colors.uGrey
