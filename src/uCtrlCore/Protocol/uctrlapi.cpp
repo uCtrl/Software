@@ -85,6 +85,10 @@ void UCtrlAPI::getSystemReply()
     }
 
     m_platforms->read(jsonObj);
+
+    // Fetch recommendations (optimization)
+    getRecommendations();
+
     reply->deleteLater();
 }
 
@@ -1091,12 +1095,18 @@ void UCtrlAPI::getRecommendationsReply()
     reply->deleteLater();
 }
 
-void UCtrlAPI::acceptRecommendation(const QString &id)
+void UCtrlAPI::acceptRecommendation(const QString& recommendationId, bool accepted)
 {
-    RecommendationsModel* recModel = (RecommendationsModel*)m_platforms->getRecommendations();
-    Recommendation* rec = (Recommendation*)recModel->find(id);
+    ListModel* recModel = (ListModel*)m_platforms->getRecommendations();
+    Recommendation* rec = (Recommendation*)recModel->find(recommendationId);
+    if (!checkModel(rec))
+        return;
 
-    QNetworkReply* reply = putRequest(QString("recommendations"), rec);
+    rec->accepted(accepted);
+
+    QNetworkReply* reply = putRequest(QString("recommendations/%1").arg(recommendationId), rec);
+    reply->setProperty("recommendationId", recommendationId);
+
     connect(reply, SIGNAL(finished()), this, SLOT(acceptRecommendationReply()));
 }
 
@@ -1107,6 +1117,11 @@ void UCtrlAPI::acceptRecommendationReply()
     if (!checkNetworkError(reply)) {
         checkServerError(QJsonDocument::fromJson(reply->readAll()).object());
     }
+
+    QString recId = reply->property("recommendationId").toString();
+
+    RecommendationsModel* recModel = (RecommendationsModel*)m_platforms->getRecommendations();
+    recModel->removeRow(recId);
 
     reply->deleteLater();
 }

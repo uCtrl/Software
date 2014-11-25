@@ -184,6 +184,18 @@ void ListModel::clear()
     removeRows(0, m_items.size());
 }
 
+bool ListModel::removeRow(const QString& itemId)
+{
+    if (itemId != NULL)
+    {
+        for (int i = 0; i < m_items.size(); i++) {
+            if (m_items.at(i)->id() == itemId)
+                return removeRow(i);
+        }
+    }
+    return false;
+}
+
 QModelIndex ListModel::indexFromItem(ListItem *item) const
 {
     if (item != NULL)

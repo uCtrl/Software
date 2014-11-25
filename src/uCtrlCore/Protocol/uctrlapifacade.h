@@ -55,6 +55,10 @@ public:
     Q_INVOKABLE void putCondition(UCondition* condition);
     Q_INVOKABLE void deleteCondition(UCondition* condition);
 
+    // Recommendations
+    Q_INVOKABLE void getRecommendations();
+    Q_INVOKABLE void acceptRecommendation(const QString& recommendationId, bool accepted);
+
     Q_INVOKABLE UCtrlAPI* getAPI() { return &m_uCtrlApi; }
 
 private:

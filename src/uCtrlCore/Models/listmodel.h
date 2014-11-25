@@ -47,6 +47,7 @@ public:
     Q_INVOKABLE QModelIndex indexFromItem(ListItem *item) const;
     Q_INVOKABLE int indexOf(ListItem *item) const;
     Q_INVOKABLE void clear();
+    Q_INVOKABLE bool removeRow(const QString& itemId);
 
 protected:
     ListItem* m_prototype;

@@ -85,7 +85,7 @@ public:
 
     // Recommendations
     Q_INVOKABLE void getRecommendations();
-    Q_INVOKABLE void acceptRecommendation(const QString& id);
+    Q_INVOKABLE void acceptRecommendation(const QString& recommendationId, bool accpeted);
 
 signals:
     void networkError(const QString& errorString);

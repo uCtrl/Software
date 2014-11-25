@@ -239,3 +239,14 @@ void UCtrlAPIFacade::deleteCondition(UCondition* condition)
     resolveIds(platformId, deviceId, scenarioId, taskId, condition);
     m_uCtrlApi.deleteCondition(platformId, deviceId, scenarioId, taskId, condition->id());
 }
+
+void UCtrlAPIFacade::getRecommendations()
+{
+    m_uCtrlApi.getRecommendations();
+}
+
+void UCtrlAPIFacade::acceptRecommendation(const QString &recommendationId, bool accepted)
+{
+    m_uCtrlApi.acceptRecommendation(recommendationId, accepted);
+}
+
