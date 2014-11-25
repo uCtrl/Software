@@ -45,8 +45,6 @@ Rectangle {
                     case 2:
                         return Colors.uRed; //Warning
                     }
-
-
                 }
 
                 UI.UFontAwesome

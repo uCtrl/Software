@@ -4,6 +4,8 @@ import "../ui" as UI
 import "../label" as ULabel
 import "../ui/UColors.js" as Colors
 
+import DeviceEnums 1.0
+
 Rectangle {
     id: listItem
 
@@ -24,16 +26,13 @@ Rectangle {
         anchors.leftMargin: 5
         anchors.verticalCenter: parent.verticalCenter
 
-        color: Colors.uGreen
+        color: getStatusColor()
 
-        // @TODO : Replace with proper icon when ready.
-        UI.UFontAwesome {
-            id: iconLabel
+        DeviceIcon
+        {
+            model: listItem.item
 
-            anchors.centerIn: iconFrame
-
-            iconId: "Bolt"
-            iconSize: 24
+            iconSize: 16
             iconColor: Colors.uWhite
         }
     }
@@ -94,5 +93,23 @@ Rectangle {
     function getName() {
         if (item != null) return item.name
         else return "Device name"
+    }
+
+    function getStatusColor()
+    {
+        if(item !== null)
+        {
+            switch(item.status)
+            {
+            case 0:
+                return Colors.uGreen; //OK
+            case 1:
+                return Colors.uYellow; //Disconnected
+            case 2:
+                return Colors.uRed; //Warning
+            }
+        }
+
+        return Colors.uRed
     }
 }
