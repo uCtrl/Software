@@ -132,6 +132,8 @@ Rectangle {
 
                 z: 3
             }
+
+            z: 2
         }
 
         Rectangle {
@@ -164,6 +166,8 @@ Rectangle {
                 width: graph.width
                 height: graph.height
                 chartType: Charts.ChartType.BAR
+
+                z: 2
             }
 
             UI.UChart {
@@ -184,7 +188,11 @@ Rectangle {
                 width: graph.width
                 height: graph.height
                 chartType: Charts.ChartType.LINE
+
+                z: 2
             }
+
+            z: 1
         }
 
         Rectangle {
