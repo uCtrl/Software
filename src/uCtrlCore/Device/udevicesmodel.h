@@ -16,6 +16,7 @@ public:
     void read(const QJsonObject &jsonObj);
 
     Q_INVOKABLE QObject* getHistoryWithId(const QString& id);
+    Q_INVOKABLE QObject* getStatisticsWithId(const QString& id);
 };
 
 #endif // UDEVICESMODEL_H

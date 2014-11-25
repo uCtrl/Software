@@ -103,6 +103,13 @@ void UCtrlAPIFacade::deleteDevice(UDevice* device)
     m_uCtrlApi.deleteDevice(platformId, device->id());
 }
 
+void UCtrlAPIFacade::getDeviceStats(UDevice *device, QMap<QString, QVariant> params)
+{
+    QString platformId;
+    resolveIds(platformId, device);
+    m_uCtrlApi.getDeviceStats(platformId, device->id(), params);
+}
+
 void UCtrlAPIFacade::getScenarios(UDevice* device)
 {
     QString platformId;
@@ -115,6 +122,7 @@ void UCtrlAPIFacade::postScenario(UScenario* scenario)
     QString platformId;
     QString deviceId;
     resolveIds(platformId, deviceId, scenario);
+    QString scenarioId = scenario->id();
     m_uCtrlApi.postScenario(platformId, deviceId, scenario->id());
 }
 void UCtrlAPIFacade::getScenario(UScenario* scenario)
@@ -231,3 +239,14 @@ void UCtrlAPIFacade::deleteCondition(UCondition* condition)
     resolveIds(platformId, deviceId, scenarioId, taskId, condition);
     m_uCtrlApi.deleteCondition(platformId, deviceId, scenarioId, taskId, condition->id());
 }
+
+void UCtrlAPIFacade::getRecommendations()
+{
+    m_uCtrlApi.getRecommendations();
+}
+
+void UCtrlAPIFacade::acceptRecommendation(const QString &recommendationId, bool accepted)
+{
+    m_uCtrlApi.acceptRecommendation(recommendationId, accepted);
+}
+

@@ -35,7 +35,7 @@ public:
     void appendRow(ListItem* item);
     void appendRows(const QList<ListItem*> &items);
     void insertRow(int row, ListItem* item);
-    bool removeRow(int row, const QModelIndex& index = QModelIndex());
+    Q_INVOKABLE bool removeRow(int row, const QModelIndex& index = QModelIndex());
     bool removeRows(int row, int count, const QModelIndex& index = QModelIndex());
     ListItem* takeRow(int row, const QModelIndex &index = QModelIndex());
     Q_INVOKABLE bool moveRow(int from, int to);
@@ -44,8 +44,10 @@ public:
 
     ListItem* find(const QString& itemId) const;
     Q_INVOKABLE QObject* findObject(const QString& itemId) const;
-    QModelIndex indexFromItem(ListItem *item) const;
+    Q_INVOKABLE QModelIndex indexFromItem(ListItem *item) const;
+    Q_INVOKABLE int indexOf(ListItem *item) const;
     Q_INVOKABLE void clear();
+    Q_INVOKABLE bool removeRow(const QString& itemId);
 
 protected:
     ListItem* m_prototype;

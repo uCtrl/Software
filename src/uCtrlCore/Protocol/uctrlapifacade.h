@@ -32,6 +32,8 @@ public:
     Q_INVOKABLE void putDevice(UDevice* device);
     Q_INVOKABLE void deleteDevice(UDevice* device);
 
+    Q_INVOKABLE void getDeviceStats(UDevice* device, QMap<QString, QVariant> params = QMap<QString, QVariant>());
+
     // Scenarios
     Q_INVOKABLE void getScenarios(UDevice* device);
     Q_INVOKABLE void postScenario(UScenario* scenario);
@@ -52,6 +54,10 @@ public:
     Q_INVOKABLE void getCondition(UCondition* condition);
     Q_INVOKABLE void putCondition(UCondition* condition);
     Q_INVOKABLE void deleteCondition(UCondition* condition);
+
+    // Recommendations
+    Q_INVOKABLE void getRecommendations();
+    Q_INVOKABLE void acceptRecommendation(const QString& recommendationId, bool accepted);
 
     Q_INVOKABLE UCtrlAPI* getAPI() { return &m_uCtrlApi; }
 

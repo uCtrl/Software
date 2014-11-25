@@ -39,6 +39,14 @@ QObject* UDevicesModel::getHistoryWithId(const QString &id)
 {
     UDevice* item = (UDevice*)find(id);
     if (item != NULL)
-        return (UDevice*) item->history();
+        return (UHistoryLogModel*) item->history();
+    return NULL;
+}
+
+QObject *UDevicesModel::getStatisticsWithId(const QString &id)
+{
+    UDevice* item = (UDevice*)find(id);
+    if (item != NULL)
+        return (UStatisticsModel*) item->statistics();
     return NULL;
 }
