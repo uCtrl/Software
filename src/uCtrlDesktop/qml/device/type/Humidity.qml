@@ -5,7 +5,14 @@ import "../../ui/UColors.js" as Colors
 import "../../label" as ULabel
 import "../../jbQuick/Charts/QChart.js" as Charts
 
-Rectangle {
+Temperature {
+
+    //property var model: null
+    unitLabel : "%"
+
+}
+
+/*Rectangle {
     id: deviceInformation
     property bool showEditMode: false
 
@@ -320,7 +327,7 @@ Rectangle {
                 ULabel.DeviceInfoHeaderLabel { text: "Range"; width: infoContainer.headerWidth }
                 ULabel.DeviceInfoValueLabel { text: getDeviceRange(); width: infoContainer.valueWidth }
             }
-        }*/
+        }
 
         Rectangle
         {
@@ -598,4 +605,4 @@ Rectangle {
 
         showEditMode = !showEditMode
     }
-}
+}*/
