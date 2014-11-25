@@ -4,7 +4,7 @@ UCtrlAPI::UCtrlAPI(QNetworkAccessManager* nam, UPlatformsModel* platforms, QObje
     QObject(parent), m_networkAccessManager(nam)
 {
     m_platforms = platforms;
-    m_serverBaseUrl = "http://localhost:3000/"; //"http://uctrl.gel.usherbrooke.ca/dev/";
+    m_serverBaseUrl = "http://uctrl.gel.usherbrooke.ca/dev/";
     m_ninjaToken = "107f6f460bed2dbb10f0a93b994deea7fe07dad5";
 }
 
