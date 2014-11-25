@@ -38,6 +38,8 @@ public:
     };
 
     enum class UEType: int {
+        None = 0,
+        PowerSocketSwitch = 1,
         PushButton = 5,
         LightSensor = 6,
         PIRMotionSensor = 7,
@@ -50,7 +52,11 @@ public:
         StatusLight = 999,
         OnBoardRGBLed = 1000,
         NinjasEyes = 1007,
-        BelkinWeMoSocket = 1009
+        BelkinWeMoSocket = 1009,
+        LimitlessLEDRGBW = 1011,
+        LimitlessLEDWhite = 1012,
+        LimitlessLEDRGBW2 = 1013,
+        DoorCaptor = 9990,
     };
 
     explicit UDevice(QObject *parent = 0);

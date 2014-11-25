@@ -223,6 +223,9 @@ Item {
         "CalendarEmpty"     : "\uf133",
         "SortAlphabetical"  : "\uf15d",
         "UserMd"            : "\uf200",
+        "Plug"              : "\uf1e6",
+        "Lightbulb"         : "\uf0eb",
+        "ToggleOn"          : "\uf205",
         ""                  : "",
     }
 
@@ -677,7 +680,7 @@ Item {
         "IE": "\ue7b4",
         "opera": "\ue7b5",
         "safari": "\ue7b6",
-        "lightbulb": "\f0eb",
+        "thermometer": "\ue600",
         "IcoMoon": "\ue7b7",
         "": "",
     }

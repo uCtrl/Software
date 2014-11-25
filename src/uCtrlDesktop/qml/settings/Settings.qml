@@ -57,7 +57,7 @@ Rectangle {
             anchors.top: ninjaTokenLabel.bottom
 
             height: 30
-            width: 400
+            width: 800
 
             text: uCtrlApi.ninjaToken
             onTextChanged: {
@@ -69,6 +69,8 @@ Rectangle {
             id: syncButton
             anchors.top: ninjaTokenBox.bottom
             anchors.topMargin: 10
+
+            width: 200
 
             buttonColor: Colors.uDarkGrey
             buttonHoveredColor: Colors.uMediumDarkGrey
