@@ -33,7 +33,12 @@ Rectangle {
         height: 50
         anchors.verticalCenter: parent.verticalCenter
         anchors.right: parent.right
-        anchors.rightMargin: 12
+        anchors.rightMargin: 20
+
+    }
+
+    function initBreadcrumb (){
+        breadcrumb.initBreadcrumb()
     }
 
     function addToBreadcrumbDevices(path, pageName){
@@ -54,5 +59,8 @@ Rectangle {
     }
     function showBreadcrumbPlatforms(){
         breadcrumb.showBreadcrumbPlatforms()
+    }
+    function moveBreadcrumbPlatforms(){
+        breadcrumb.moveBreadcrumbPlatforms()
     }
 }

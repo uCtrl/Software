@@ -7,128 +7,98 @@ import "../label" as ULabel
 import "../device" as Device
 import "../platform"
 
+
 Rectangle {
 
     id: breadcrumbContainer
 
-    property variant breadcrumbModelPlatforms: []
-    property variant breadCrumbModeldevices: []
+    property variant breadcrumbModelPlatformsPath: {path: ""}
+    property variant breadcrumbModelPlatformsName: {name: ""}
+    property variant breadcrumbModelDevicesPath: {path: ""}
+    property variant breadcrumbModelDevicesName: {name: ""}
+
+
     color: Colors.uTransparent
-    width: parent.width
+    width: 600
     height: parent.height
 
-    Rectangle {
-        id: container
+
+    Rectangle{
+        id: platforms
 
         color: Colors.uTransparent
-        anchors.top: parent.top
-        anchors.right: parent.right
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.horizontalCenter: parent.horizontalCenter
-        height: parent.height
-        width: 500
+        height: breadcrumbContainer.height
+        anchors.right: breadcrumbContainer.right
+        anchors.verticalCenter: breadcrumbContainer.verticalCenter
 
-        Rectangle{
-            id: platformsLevel
-
-            height: container.height / 2
-            width: 300
-            anchors.right: parent.right
-            color: Colors.uTransparent
-
-            ULabel.Link{
-                font.pointSize: 15
-                color: Colors.uWhite
-                anchors.top: platformsLevel.top
-                text: breadcrumbModelPlatforms[0].name
-
-                onHyperLinkClicked: {
-                    main.currentPage = breadcrumbModelPlatforms[0].path
-                    main.resetBreadcrumbDevices()
-                    main.addToBreadcrumbDevices("device/Device", "")
-                }
+        ULabel.Link{
+            id: platformsLink
+            font.pointSize: 14
+            color: Colors.uWhite
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: if(breadcrumbModelDevicesName !== "") iconChevron.left;else parent.right
+            anchors.rightMargin: if(breadcrumbModelDevicesName !== "") 10;else 0
+            text: breadcrumbModelPlatformsName
+            state: "ENABLED"
+            onHyperLinkClicked: {
+                main.currentPage = breadcrumbModelPlatformsPath
+                main.resetBreadcrumbDevices()
             }
         }
 
-        Rectangle{
-            id: devicesLevel
-
-            height: container.height / 2
-            width: 300
-            anchors.top: platformsLevel.bottom
+        ULabel.Link{
+            id: linkdevice
+            font.pointSize: 14
+            anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
-            color: Colors.uTransparent
+            color: Colors.uWhite
+            state: "ENABLED"
+            text: breadcrumbModelDevicesName
+        }
 
-            ULabel.Link{
-                id: linkdevice
-                font.pointSize: 15
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.right: devicesLevel.right
-                anchors.leftMargin: 25
-                color: Colors.uWhite
-                text: breadCrumbModeldevices[0].name
-            }
-            UFontAwesome {
-                id: iconForward
-
-                iconId: "forward"
-                iconColor: Colors.uWhite
-                iconSize: 20
-                anchors.right: linkdevice.left
-                anchors.rightMargin: 25
-                anchors.verticalCenter: parent.verticalCenter
-                visible: false
-            }
+        UFontAwesome {
+            id: iconChevron
+            iconId: "ChevronRight"
+            iconSize: 10
+            iconColor: Colors.uWhite
+            anchors.rightMargin: 10
+            anchors.leftMargin: 10
+            anchors.right: linkdevice.left
+            anchors.verticalCenter: parent.verticalCenter
+            visible: if(breadcrumbModelDevicesName !== "") true;else false
         }
     }
-
     function addToBreadcrumbPlatforms (pagePath, pageName)
     {
-
-        var newModel = []
-        for(var i = 0; i < breadcrumbModelPlatforms.length; i++) {
-            newModel.push(breadcrumbModelPlatforms[i])
-        }
-
-        var newItem = {path: pagePath, name: pageName}
-        newModel.push(newItem)
-
-        breadcrumbModelPlatforms = newModel
+        breadcrumbModelPlatformsName = pageName
+        breadcrumbModelPlatformsPath = pagePath
     }
+
     function addToBreadcrumbDevices (pagePath, pageName)
     {
-
-        var newModel = []
-        for(var i = 0; i < breadCrumbModeldevices.length; i++) {
-            newModel.push(breadCrumbModeldevices[i])
-        }
-
-        var newItem = {path: pagePath, name: pageName}
-        newModel.push(newItem)
-
-        breadCrumbModeldevices = newModel
-        if(pageName !== ""){
-            iconForward.visible = true
-        }
+        breadcrumbModelDevicesName = pageName
+        breadcrumbModelDevicesPath = pagePath
 
     }
+
     function resetBreadcrumbDevices(){
-        breadCrumbModeldevices = []
-        iconForward.visible = false
+        breadcrumbModelDevicesName = ""
+        breadcrumbModelDevicesPath = ""
+
     }
+
     function resetBreadcrumbPlatforms(){
-        breadcrumbModelPlatforms = []
-        iconForward.visible = false
+        breadcrumbModelPlatformsName = ""
+        breadcrumbModelPlatformsPath = ""
+
     }
+
     function hideBreadcrumbPlatforms(){
-        iconForward.visible = false;
-        platformsLevel.visible = false
+        platformsLink.visible = false
     }
+
     function showBreadcrumbPlatforms(){
-        platformsLevel.visible = true
-    }
-    function showIconForward(){
-        iconForward.visible = true
+        platformsLink.visible = true
     }
 }
 

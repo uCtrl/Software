@@ -56,14 +56,12 @@ Rectangle {
 
 
                         if(currentPage !== "platform/Platforms"){
-                            main.hideBreadcrumbPlatforms()
                             main.resetBreadcrumbDevices()
-                            main.addToBreadcrumbDevices("device/Device", "")
+                            main.hideBreadcrumbPlatforms()
                         }
                         if(currentPage === "platform/Platforms"){
                             main.showBreadcrumbPlatforms()
                             main.resetBreadcrumbDevices()
-                            main.addToBreadcrumbDevices("device/Device", "")
                         }
                     }
                 }
