@@ -53,45 +53,11 @@ Rectangle
 
             color: Colors.uTransparent
 
-            /*Rectangle
-            {
-                id: deviceInformationContainer
-                anchors.left: parent.left
-                anchors.right: leftToRightSeparator.right
-                height: parent.height
-
-                Rectangle
-                {
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: parent.top
-                    anchors.bottom: parent.bottom
-                    anchors.rightMargin: devicePage.paddingSize
-
-                    Loader {
-                        id: deviceInfoLoader
-
-                        active: false;
-                        asynchronous: true;
-
-                        anchors.fill: parent
-
-                        source: "qrc:/qml/device/type/%1.qml".arg(getDeviceFile())
-                        onVisibleChanged:      { loadIfNotLoaded(); }
-                        Component.onCompleted: { loadIfNotLoaded(); }
-
-                        function loadIfNotLoaded () {
-                            // to load the file at first show
-                            if (visible && !active) {
-                                active = true;
-                            }
-                        }
-                    }
-                }
-            }*/
-
             Rectangle {
                 id: infoContainer
+
+                property int headerWidth: 125
+                property int sectionPadding: 10
 
                 color: Colors.uTransparent
 
@@ -103,57 +69,226 @@ Rectangle
                 anchors.bottom: parent.bottom
 
                 Rectangle {
-                    id: baseInfo
+                    id: nameContainer
+
+                    anchors.top: infoContainer.top
+                    anchors.left: infoContainer.left
+                    anchors.right: infoContainer.right
+
+                    height: iconContainer.height
 
                     color: Colors.uTransparent
 
-                    anchors.top: parent.top
-                    anchors.left: parent.left
-                    anchors.right: parent.right
+                    Rectangle {
+                        id: iconContainer
 
-                    height: 40
-
-                    UI.UButton {
-                        id: editButton
-
-                        iconId: "pencil"
-
-                        iconSize: 22
-
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.right: parent.right
+                        anchors.left: nameContainer.left
+                        anchors.top: nameContainer.top
 
                         width: 50
-                        height: 50
-
-                        buttonTextColor: Colors.uGrey
-                        buttonColor: Colors.uTransparent
-                        buttonHoveredTextColor: Colors.uGreen
-                        buttonHoveredColor: Colors.uTransparent
-
-                        visible: !showEditMode
-                        onClicked: showEditMode = true
-                    }
-
-                    Rectangle {
-                        id: deviceIconContainer
-                        width: parent.height
-                        height: parent.height
+                        height: width
 
                         radius: 10
                         color: {
                             switch(getDeviceStatus())
                             {
                             case 0:
-                                return Colors.uGreen; //OK
+                                return Colors.uGreen;   // OK
                             case 1:
-                                return Colors.uYellow; //Disconnected
+                                return Colors.uYellow;  // Disconnected
                             case 2:
-                                return Colors.uRed; //Warning
+                                return Colors.uRed;     // Warning
                             }
                         }
 
                         UI.UFontAwesome {
+                            id: deviceIcon
+
+                            iconId: getDeviceIcon()
+                            iconColor: Colors.uWhite
+                            iconSize: 20
+                            anchors.centerIn: parent
+                        }
+                    }
+
+                    ULabel.Description {
+                        text: getDeviceName()
+
+                        font.bold: true
+                        font.pointSize: 22
+
+                        anchors.verticalCenter: iconContainer.verticalCenter
+                        anchors.left: iconContainer.right
+                        anchors.right: nameContainer.right
+
+                        anchors.margins: 10
+                    }
+                }
+
+                Rectangle {
+                    id: statusContainer
+
+                    color: Colors.uTransparent
+
+                    anchors.top: nameContainer.bottom
+                    anchors.left: infoContainer.left
+                    anchors.right: infoContainer.right
+
+                    height: 40
+
+                    ULabel.DeviceInfoHeaderLabel {
+                        id: statusLabel
+
+                        text: "Status"
+                        width: infoContainer.headerWidth
+
+                        anchors.left: statusContainer.left
+                    }
+
+                    Rectangle {
+                        id: statusSwitchContainer
+                        anchors.left: statusLabel.right
+                        anchors.leftMargin: 10
+
+                        width: infoContainer.valueWidth
+                        height: statusInfoBoundedLabel.height
+
+                        anchors.verticalCenter: statusContainer.verticalCenter
+
+                        ULabel.UInfoBoundedLabel {
+                            id: statusInfoBoundedLabel
+
+                            Component.onCompleted: {
+                                switch(getDeviceStatus()) {
+                                case 0:
+                                    text = "OK";
+                                    boundedColor = Colors.uGreen;
+                                    break;
+                                case 1:
+                                    text = "DISCONNECTED";
+                                    boundedColor = Colors.uYellow;
+                                    break;
+                                case 2:
+                                    text = "WARNING";
+                                    boundedColor = Colors.uRed;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Rectangle {
+                    id: fileContainer
+
+                    color: "blue"
+
+                    anchors.left: infoContainer.left
+                    anchors.right: infoContainer.right
+
+                    anchors.top: statusContainer.bottom
+                    anchors.bottom: infoContainer.bottom
+
+                    ULabel.Default {
+                        text: "File"
+
+                        font.bold: true
+                        font.pixelSize: 24
+
+                        anchors.centerIn: parent
+
+                        color: Colors.uWhite
+                    }
+
+                    Loader {
+                        id: fileLoader
+
+                        active: false
+                        asynchronous: true
+
+                        anchors.fill: parent
+
+                        onVisibleChanged:      { loadIfNotLoaded(); }
+                        Component.onCompleted: { loadIfNotLoaded(); }
+
+                        function loadIfNotLoaded () {
+                            // to load the file at first show
+                            if (visible && !active) {
+                                active = true;
+                            }
+
+                            setSource("type/" + getDeviceFile() + ".qml", { "model" : model });
+                        }
+                    }
+                }
+
+                /*Rectangle {
+                    id: fileContainer
+
+                    color: "cyan"
+
+                    anchors.top: moreInfo.bottom
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.bottom: parent.bottom
+
+                    Loader {
+                        id: statsLoader
+
+                        active: false;
+                        asynchronous: true;
+
+                        anchors.fill: parent
+
+                        onVisibleChanged:      { loadIfNotLoaded(); }
+                        Component.onCompleted: { loadIfNotLoaded(); }
+
+                        function loadIfNotLoaded () {
+                            // to load the file at first show
+                            if (visible && !active) {
+                                active = true;
+                            }
+
+                            setSource("type/" + getDeviceFile() + ".qml", { "displayed": "graph", "model": model })
+                        }
+                    }
+                }*/
+
+                /*Rectangle {
+                    id: baseInfo
+
+                    color: Colors.uTransparent
+
+                    anchors.top: infoContainer.top
+                    anchors.left: infoContainer.left
+                    anchors.right: infoContainer.right
+
+                    height: 170
+
+                    Rectangle {
+                        id: iconContainer
+
+                        anchors.left: baseInfo.left
+                        anchors.top: baseInfo.top
+
+                        width: 50
+                        height: width
+
+                        radius: 10
+                        color: {
+                            switch(getDeviceStatus())
+                            {
+                            case 0:
+                                return Colors.uGreen;   // OK
+                            case 1:
+                                return Colors.uYellow;  // Disconnected
+                            case 2:
+                                return Colors.uRed;     // Warning
+                            }
+                        }
+
+                        UI.UFontAwesome {
+                            id: deviceIcon
+
                             iconId: getDeviceIcon()
                             iconColor: Colors.uWhite
                             iconSize: 20
@@ -162,14 +297,60 @@ Rectangle
                     }
 
                     Rectangle {
+                        id: buttonContainer
+
+                        anchors.right: baseInfo.right
+                        anchors.verticalCenter: iconContainer.verticalCenter
+
+                        height: (showEditMode ? saveCancelButton.height : editButton.height)
+                        width: (showEditMode ? saveCancelButton.width : editButton.width)
+
+                        color: Colors.uTransparent
+
+                        UI.UButton {
+                            id: editButton
+
+                            iconId: "pencil"
+
+                            iconSize: 22
+
+                            anchors.top: parent.top
+                            anchors.right: parent.right
+
+                            width: 50
+                            height: 50
+
+                            buttonTextColor: Colors.uGrey
+                            buttonColor: Colors.uTransparent
+                            buttonHoveredTextColor: Colors.uGreen
+                            buttonHoveredColor: Colors.uTransparent
+
+                            visible: !showEditMode
+                            onClicked: showEditMode = true
+                       }
+
+                        UI.USaveCancel {
+                            id: saveCancelButton
+                            anchors.right: parent.right
+
+                            onSave: saveForm()
+                            onCancel: toggleEditMode()
+
+                            visible: showEditMode
+                        }
+                    }
+
+                    Rectangle {
                         id: nameContainer
 
-                        anchors.left: deviceIconContainer.right
-                        anchors.right: editButton.left
-                        height: parent.height
+                        anchors.left: iconContainer.right
+                        anchors.right: buttonContainer.left
 
-                        ULabel.Description
-                        {
+                        height: iconContainer.height
+
+                        color: Colors.uTransparent
+
+                        ULabel.Description {
                             text: getDeviceName()
                             font.pointSize: 22
 
@@ -194,8 +375,8 @@ Rectangle
 
                                 anchors.left: parent.left
                                 anchors.leftMargin: 10
-                                anchors.right: saveCancelButton.left
-                                anchors.rightMargin: 10
+                                anchors.right: parent.right
+                                anchors.rightMargin: 20
                                 anchors.verticalCenter: parent.verticalCenter
 
                                 text: getDeviceName()
@@ -209,50 +390,228 @@ Rectangle
 
                                 state: (validate() ? "SUCCESS" : "ERROR")
                             }
+                        }
+                    }
 
-                            UI.USaveCancel {
-                                id: saveCancelButton
+                    Rectangle {
+                        id: currentValueContainer
+
+                        color: Colors.uTransparent
+
+                        anchors.top: nameContainer.bottom
+                        anchors.left: baseInfo.left
+
+                        width: (infoContainer.width / 2)
+                        height: valueLoader.height
+
+                        Loader {
+                            id: valueLoader
+
+                            active: false;
+                            asynchronous: true;
+
+                            anchors.fill: parent
+
+                            onVisibleChanged:      { loadIfNotLoaded(); }
+                            Component.onCompleted: { loadIfNotLoaded(); }
+
+                            function loadIfNotLoaded () {
+                                // to load the file at first show
+                                if (visible && !active) {
+                                    active = true;
+                                }
+
+                                setSource("type/" + getDeviceFile() + ".qml",
+                                          {"displayed": "value",
+                                           "model": model
+                                          })
+                            }
+                        }
+                    }
+
+                    Rectangle {
+                        id: statusContainer
+
+                        anchors.left: currentValueContainer.right
+                        anchors.right: baseInfo.right
+
+                        anchors.top: nameContainer.bottom
+                        anchors.topMargin: infoContainer.sectionPadding
+
+                        height: statusSwitchContainer.height
+
+                        color: Colors.uTransparent
+
+                        ULabel.DeviceInfoHeaderLabel {
+                            id: statusLabel
+
+                            text: "Status"
+                            width: infoContainer.headerWidth
+                        }
+
+                        Rectangle {
+                            id: statusSwitchContainer
+                            anchors.left: statusLabel.right
+                            anchors.leftMargin: 10
+
+                            width: infoContainer.valueWidth
+                            height: statusInfoBoundedLabel.height
+
+                            ULabel.UInfoBoundedLabel {
+                                id: statusInfoBoundedLabel
+
+                                Component.onCompleted: {
+                                    switch(getDeviceStatus()) {
+                                    case 0:
+                                        text = "OK";
+                                        boundedColor = Colors.uGreen;
+                                        break;
+                                    case 1:
+                                        text = "DISCONNECTED";
+                                        boundedColor = Colors.uYellow;
+                                        break;
+                                    case 2:
+                                        text = "WARNING";
+                                        boundedColor = Colors.uRed;
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+
+                    Rectangle {
+                        id: enabledContainer
+
+                        anchors.left: currentValueContainer.right
+                        anchors.right: baseInfo.right
+
+                        anchors.top: statusContainer.bottom
+                        anchors.topMargin: infoContainer.sectionPadding
+
+                        height: enabledswitchContainer.height
+
+                        color: Colors.uTransparent
+
+                        ULabel.DeviceInfoHeaderLabel {
+                            id: enabledLabel
+
+                            text: "Enabled"
+                            width: infoContainer.headerWidth
+                        }
+
+                        Rectangle {
+                            id: enabledswitchContainer
+                            anchors.left: enabledLabel.right
+                            anchors.leftMargin: 10
+
+                            width: infoContainer.valueWidth
+                            height: editEnabled.height
+
+                            ULabel.UInfoBoundedLabel {
+                                text: getDeviceEnabled()
+                                visible: !showEditMode
+                                boundedColor: text === "ON" ? Colors.uGreen : Colors.uGrey
+                            }
+
+                            UI.USwitch {
+                                id: editEnabled
                                 anchors.verticalCenter: parent.verticalCenter
-                                anchors.right: parent.right
-
-                                onSave: saveForm()
-                                onCancel: toggleEditMode()
-
+                                state: getDeviceEnabled()
                                 visible: showEditMode
                             }
                         }
                     }
                 }
 
-                Rectangle {
+                Column {
                     id: moreInfo
-
-                    color: Colors.uTransparent
 
                     anchors.top: baseInfo.bottom
                     anchors.left: parent.left
                     anchors.right: parent.right
 
-                    height: 200
+                    NumberAnimation {
+                        id: expandAnimation;
+                        target: moreInfo;
 
-                    Loader {
-                        id: infoLoader
+                        properties: "height";
 
-                        active: false;
-                        asynchronous: true;
+                        duration: 200;
+                        easing.type: Easing.InOutQuad
+                    }
+                    NumberAnimation {
+                        id: collapseAnimation;
+                        target: moreInfo;
 
-                        anchors.fill: parent
+                        properties: "height";
+                        to: 0;
 
-                        onVisibleChanged:      { loadIfNotLoaded(); }
-                        Component.onCompleted: { loadIfNotLoaded(); }
+                        duration: 200;
+                        easing.type: Easing.InOutQuad
+                    }
 
-                        function loadIfNotLoaded () {
-                            // to load the file at first show
-                            if (visible && !active) {
-                                active = true;
+                    Rectangle {
+
+                        anchors.left: moreInfo.left
+                        anchors.right: moreInfo.right
+
+                        height: 200
+
+                        visible: infoContainer.showMoreInfo
+
+                        Loader {
+                            id: infoLoader
+
+                            active: false;
+                            asynchronous: true;
+
+                            anchors.fill: parent
+
+                            visible: infoContainer.showMoreInfo
+
+                            onVisibleChanged:      { loadIfNotLoaded(); }
+                            Component.onCompleted: { loadIfNotLoaded(); }
+
+                            function loadIfNotLoaded () {
+                                // to load the file at first show
+                                if (visible && !active) {
+                                    active = true;
+                                }
+
+                                setSource("type/" + getDeviceFile() + ".qml",
+                                          {"displayed": "info",
+                                           "model": model
+                                          })
                             }
+                        }
+                    }
 
-                            setSource("type/" + getDeviceFile() + ".qml", { "displayed": "info"})
+                    Rectangle {
+                        id: moreInfoLabelContainer
+
+                        height: 25
+
+                        anchors.left: moreInfo.left
+                        anchors.right: moreInfo.right
+
+                        ULabel.Link {
+                            id: moreInfoText
+                            text: "Show " + (infoContainer.showMoreInfo ? "less" : "more") + " information"
+                            anchors.right: parent.right
+                            color: Colors.uGrey
+                            anchors.verticalCenter: parent.verticalCenter
+                            onHyperLinkClicked: infoContainer.showMoreInfo = !infoContainer.showMoreInfo
+                        }
+
+                        UI.UFontAwesome {
+                            id: moreInfoIcon
+                            iconId: (infoContainer.showMoreInfo ? "MinusSign" : "PlusSign")
+                            iconSize: 12
+                            iconColor: Colors.uGrey
+                            anchors.right: moreInfoText.left
+                            anchors.rightMargin: 10
+                            anchors.verticalCenter: parent.verticalCenter
                         }
                     }
                 }
@@ -284,11 +643,11 @@ Rectangle
                                 active = true;
                             }
 
-                            setSource("type/" + getDeviceFile() + ".qml", { "displayed": "graph"})
+                            setSource("type/" + getDeviceFile() + ".qml", { "displayed": "graph", "model": model })
                         }
                     }
-
                 }
+            }*/
             }
 
             Rectangle
@@ -507,11 +866,6 @@ Rectangle
         anchors.bottom: parent.bottom
     }
 
-    function getEnabled() {
-        if (model !== null) return model.isEnabled ? "ON" : "OFF"
-        else return "OFF"
-    }
-
     function getType() {
         if (model !== null) return model.type
         else return 0
@@ -621,5 +975,10 @@ Rectangle
     function getDeviceName() {
         if (model !== null) return model.name
         else return "Unknown device name"
+    }
+
+    function getDeviceEnabled() {
+        if (model !== null) return model.isEnabled ? "ON" : "OFF"
+        else return "OFF"
     }
 }

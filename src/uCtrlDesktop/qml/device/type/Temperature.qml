@@ -10,26 +10,380 @@ import "../../jbQuick/Charts/QChartGallery.js" as ChartsData
 Rectangle {
     id: container
 
-    property var displayed: null
-    anchors.fill: parent
+    property var model: null
+    property string unitLabel : "°C"
 
     Rectangle {
-        anchors.fill: parent
+        id: enabledContainer
 
-        color: "green"
+        color: Colors.uTransparent
 
-        visible: (displayed === "info")
+        anchors.top: container.top
+        anchors.left: container.left
+        anchors.right: container.right
+
+        height: 30
+
+        ULabel.DeviceInfoHeaderLabel {
+            id: enabledLabel
+
+            text: "Enabled"
+            width: 125
+
+            anchors.left: enabledContainer.left
+        }
+
+        Rectangle {
+            id: enabledSwitchContainer
+            anchors.left: enabledLabel.right
+            anchors.leftMargin: 10
+
+            width: 100
+            height: enabledInfoBoundedLabel.height
+
+            anchors.verticalCenter: enabledContainer.verticalCenter
+
+            ULabel.UInfoBoundedLabel {
+                id: enabledInfoBoundedLabel
+
+                text: (getDeviceEnabled())
+                boundedColor: (getDeviceEnabled() === "ON" ? Colors.uGreen : Colors.uGrey)
+            }
+        }
     }
 
     Rectangle {
-        anchors.fill: parent
+        id: techContainer
 
-        color: "yellow"
+        property bool hidden: true
 
-        visible: (displayed === "graph")
+        anchors.left: container.left
+        anchors.right: container.right
+
+        anchors.top: enabledContainer.bottom
+        anchors.topMargin: 10
+
+        height: (hidden ? 25 : 50)
+
+        radius: 4
+
+        color: (techContainerMouse.containsMouse ? Colors.uUltraLightGrey : Colors.uWhite)
+
+        Rectangle {
+            id: techContainerSeparator
+
+            anchors.left: techContainer.left
+            anchors.right: techContainer.right
+            anchors.top: techContainer.top
+
+            height: 1
+
+            color: Colors.uUltraLightGrey
+        }
+
+        MouseArea {
+            id: techContainerMouse
+
+            anchors.fill: techContainer
+            hoverEnabled: true
+        }
     }
 
-}
+    Rectangle {
+        id: descriptionContainer
+
+        property bool hidden: true
+
+        anchors.left: container.left
+        anchors.right: container.right
+
+        anchors.top: techContainer.bottom
+        height: (hidden ? 25 : 50)
+
+        radius: 4
+
+        color: (descriptionContainerMouse.containsMouse ? Colors.uUltraLightGrey : Colors.uWhite)
+
+        Rectangle {
+            id: descriptionContainerSeparator
+
+            anchors.left: descriptionContainer.left
+            anchors.right: descriptionContainer.right
+            anchors.bottom: descriptionContainer.bottom
+
+            height: 1
+
+            color: Colors.uUltraLightGrey
+        }
+
+        MouseArea {
+            id: descriptionContainerMouse
+
+            anchors.fill: descriptionContainer
+            hoverEnabled: true
+        }
+    }
+
+    Rectangle {
+        id: valueContainer
+
+        color: Colors.uTransparent
+
+        height: 100; width: 185
+
+        anchors.top: descriptionContainer.bottom
+        anchors.topMargin: 5
+
+        anchors.left: container.left
+
+        ULabel.Default {
+            id: currentValueLabel
+
+            text: "CURRENT VALUE"
+
+            font.bold: true
+            font.pixelSize: 9
+
+            anchors.top: valueContainer.top
+            anchors.topMargin: 5
+
+            anchors.left: valueContainer.left
+
+            color: Colors.uGrey
+        }
+
+        Rectangle {
+            id: currentValueContainer
+
+            color: Colors.uTransparent
+
+            anchors.left: valueContainer.left
+            anchors.right: unitContainer.left
+            anchors.top: valueContainer.top
+            anchors.bottom: valueContainer.bottom
+
+            ULabel.Default {
+                id: currentValue
+
+                text: getValue()
+
+                font.bold: true
+                font.pixelSize: 68
+
+                color: Colors.uMediumDarkGrey
+
+                anchors.right: currentValueContainer.right
+                anchors.verticalCenter: currentValueContainer.verticalCenter
+            }
+        }
+
+        Rectangle {
+            id: unitContainer
+
+            color: Colors.uTransparent
+
+            anchors.right: valueContainer.right
+            width: 30
+
+            anchors.top: valueContainer.top
+            height: (valueContainer.height / 2)
+
+            ULabel.Default {
+                id: unitLabel
+
+                font.pixelSize: 20
+
+                text: container.unitLabel
+
+                color: Colors.uGrey
+
+                anchors.bottom: unitContainer.bottom
+                anchors.left: unitContainer.left
+            }
+        }
+
+        Rectangle {
+            id: precisionContainer
+
+            color: Colors.uTransparent
+
+            anchors.left: unitContainer.left
+            anchors.right: unitContainer.right
+            anchors.top: unitContainer.bottom
+            height: unitContainer.height
+
+            ULabel.Default {
+                id: precisionLabel
+
+                font.pixelSize: 12
+
+                text: "±" + getPrecision()
+
+                color: Colors.uGrey
+
+                anchors.top: precisionContainer.precisionContainer
+                anchors.left: precisionContainer.left
+            }
+        }
+    }
+
+    Rectangle {
+        id: averageContainer
+
+        color: "red"
+
+        height: valueContainer.height; width: 300
+
+        anchors.top: valueContainer.top
+        anchors.bottom: valueContainer.bottom
+
+        anchors.left: valueContainer.right
+    }
+
+    Rectangle {
+        id: statsContainer
+
+        anchors.left: container.left
+        anchors.right: container.right
+
+        anchors.top: valueContainer.bottom
+        anchors.bottom: container.bottom
+
+        color: Colors.uTransparent
+
+        Rectangle {
+            id: chartContainer
+            anchors.top: statsHeader.bottom
+            anchors.bottom: carouselContainer.top
+
+            clip: true
+            width: parent.width
+
+            UI.UChart {
+                id: stateChart
+                chartAnimated: false
+                chartName: "Daily status"
+                chartData: {
+                               "labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
+                               "axisY": [0, 25, 50, 75, 100],
+                               "datasets": [{
+                                   fillColor: "rgba(237,237,237,0.5)",
+                                   strokeColor: Colors.uMediumLightGrey,
+                                   pointColor: Colors.uGreen,
+                                   pointStrokeColor: Colors.uGreen,
+                                   data: [0, 55, 15, 75, 100, 0, 50],
+                               }]
+                           }
+                width: chartContainer.width
+                height: chartContainer.height
+                chartType: Charts.ChartType.LINE
+            }
+
+            UI.UChart {
+                id: powerChart
+                chartAnimated: false
+                chartName: "Power consumption"
+                chartData: {
+                               "labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
+                               "axisY": [0, 25, 50, 75, 100],
+                               "datasets": [{
+                                   fillColor: "rgba(237,237,237,0.5)",
+                                   strokeColor: Colors.uMediumLightGrey,
+                                   pointColor: Colors.uGreen,
+                                   pointStrokeColor: Colors.uGreen,
+                                   data: [0, 15, 20, 23, 25, 60, 67]
+                               }]
+                           }
+                width: chartContainer.width
+                height: chartContainer.height
+                chartType: Charts.ChartType.LINE
+            }
+        }
+
+        Rectangle {
+            id: carouselContainer
+            width: parent.width
+            height: 30
+            anchors.bottom: parent.bottom
+
+            UI.UCarousel {
+                carouselItems:  [stateChart, powerChart]
+                carouselIcons: ["info", "lightning"]
+                onChangeItem: {
+                    statsText.text = "Statistics : " + item.chartName
+                }
+            }
+        }
+
+        Rectangle {
+            id: statsHeader
+            width: parent.width
+            height: 40
+
+            anchors.top: statsContainer.top
+
+            UI.UFontAwesome {
+                id: statsIcon
+                iconId: "stats"
+                iconSize: 12
+                iconColor: Colors.uGrey
+                anchors.left: parent.left
+                anchors.leftMargin: 10
+                anchors.verticalCenter: parent.verticalCenter
+            }
+
+            ULabel.Default {
+                id: statsText
+                text: "Statistics"
+                anchors.left: statsIcon.right
+                anchors.leftMargin: 15
+                color: Colors.uGrey
+                anchors.verticalCenter: parent.verticalCenter
+                font.bold: true
+            }
+
+            UI.UCombobox {
+                id: periodCombo
+
+                property var periods: [
+                    { value: "today",     displayedValue: "Today", iconId: ""},
+                    { value: "week",   displayedValue: "This week", iconId: ""},
+                    { value: "month",   displayedValue: "This month", iconId: ""},
+               ]
+
+                itemListModel: periods
+
+                anchors.right: parent.right
+
+                itemColor: Colors.uTransparent
+                itemTextColor: Colors.uGreen
+
+                dropdownColor: Colors.uGreen
+                dropdownTextColor: Colors.uWhite
+
+                selectedItemColor: Colors.uDarkGreen
+                selectedItemTextColor: Colors.uWhite
+                selectedItemHoverColor: Colors.uWhite
+                selectedItemHoverTextColor: Colors.uGreen
+
+                hoverColor: Colors.uDarkGreen
+                hoverTextColor: Colors.uWhite
+
+                height: parent.height;
+                width: 150
+
+                Component.onCompleted: selectItem(0)
+
+                z: 3
+            }
+        }
+    }
+
+    function getDeviceEnabled() {
+        if (model !== null) return model.isEnabled ? "ON" : "OFF"
+        else return "OFF"
+    }
+
 /*Rectangle {
     id: container
 
@@ -616,21 +970,15 @@ Rectangle {
             }
             chartType: Charts.ChartType.LINE;
         }
-    }
+    }*/
 
     function getValue() {
-        if (item !== null) return item.value
+        if (model !== null) return model.value
         else return 0
     }
 
-    function getUnit() {
-        if (item !== null) return item.unitLabel
-        else return "C"
-
-    }
-
     function getPrecision() {
-        if (item !== null) return item.precision
+        if (model !== null) return model.precision
         else return "0.1"
     }
 
@@ -647,12 +995,12 @@ Rectangle {
     }
 
     function getMinValue() {
-        if (item !== null) return item.minValue
+        if (model !== null) return model.minValue
         else return "-70"
     }
 
     function getMaxValue() {
-        if (item !== null) return item.maxValue
+        if (model !== null) return model.maxValue
         else return "70"
     }
-}*/
+}
