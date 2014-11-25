@@ -17,10 +17,11 @@ Rectangle {
 
     color: getColor()
 
-    ULabel.Default {
+    ULabel.Description {
         id: platformNameText
 
-        x: marginSize; y: marginSize
+        x: marginSize
+        y: marginSize
 
         text: getName()
 

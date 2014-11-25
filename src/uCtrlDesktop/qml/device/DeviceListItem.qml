@@ -53,7 +53,7 @@ Rectangle {
         iconColor: Colors.uMediumLightGrey
     }
 
-    ULabel.Default {
+    ULabel.Description {
         text: getName()
 
         color: Colors.uBlack
