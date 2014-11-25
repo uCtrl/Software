@@ -26,6 +26,11 @@ Rectangle
 
     property bool showEditMode: false
 
+    Component.onCompleted: {
+        console.log("OnCompleted")
+        uCtrlApiFacade.getDeviceHistory(devicesList.findObject(model.id));
+    }
+
     Rectangle {
         id: contentCanvas
 

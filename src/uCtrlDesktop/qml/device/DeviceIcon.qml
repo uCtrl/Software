@@ -19,39 +19,19 @@ UI.UFontAwesome {
         switch(deviceType) {
             case UEType.PowerSocketSwitch:
                 return "Plug"
-            case UEType.BelkinWeMoSocket:
+            case UEType.PushButton:
+                return "ToggleOn"
+            case UEType.MotionSensor:
                 return "Bolt"
             case UEType.Humidity:
                 return "droplet"
-            case UEType.Light:
-                return "Lightbulb"
-            case UEType.LightSensor:
-                return "Bolt"
-            case UEType.NinjasEyes:
-                return "EyeOpen"
-            case UEType.OnBoardRGBLed:
-                return "Lightbulb"
-            case UEType.PIRMotionSensor:
-                return "Bolt"
-            case UEType.ProximitySensor:
-                return "Bolt"
-            case UEType.PushButton:
-                return "ToggleOn"
-            case UEType.RF4333:
-                return "Bolt"
-            case UEType.StatusLight:
-                return "Lightbulb"
-            case UEType.Switch:
-                return "ToggleOn"
             case UEType.Temperature:
                 return "thermometer"
-            case UEType.LimitlessLEDRGBW:
-                return "Lightbulb"
+            case UEType.NinjasEyes:
+                return "EyeOpen"
             case UEType.LimitlessLEDWhite:
                 return "Lightbulb"
-            case UEType.LimitlessLEDRGBW2:
-                return "Lightbulb"
-            case UEType.DoorCaptor:
+            case UEType.DoorSensor:
                 return "Key"
             default:
                 return ""
