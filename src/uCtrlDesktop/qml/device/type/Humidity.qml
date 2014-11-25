@@ -5,17 +5,11 @@ import "../../ui/UColors.js" as Colors
 import "../../label" as ULabel
 import "../../jbQuick/Charts/QChart.js" as Charts
 
-Rectangle {
-    id: deviceInformation
-    property bool showEditMode: false
+Temperature {
 
-    anchors.fill: parent
-    Column
-    {
-        id: infoContainer
-        width: parent.width
-        spacing: 5
+    unitLabel : "%"
 
+<<<<<<< HEAD
         property variant model: main.activeDevice
 
         property int headerWidth: 150
@@ -600,4 +594,6 @@ Rectangle {
 
         showEditMode = !showEditMode
     }
+=======
+>>>>>>> master
 }
