@@ -99,39 +99,47 @@ Rectangle {
                 visible : !showEditMode
             }
 
-            UI.USaveCancel {
-                id: saveCancelPlatform
-
-                anchors.top: parent.top
-                anchors.right: parent.right
-
-                width: parent.width / 5
-
-                onSave: saveForm()
-                onCancel: toggleEditMode()
-
+            Rectangle
+            {
                 visible: showEditMode
-            }
+                width: parent.width
+                height: 30
+                anchors.verticalCenter: parent.verticalCenter
 
-            UI.UTextbox {
-                id: nameTextbox
+                UI.USaveCancel {
+                    id: saveCancelPlatform
 
-                anchors.top: parent.top
-                anchors.bottom: saveCancelPlatform.bottom
+                    height: parent.height
 
-                anchors.left: parent.left
-                anchors.right: saveCancelPlatform.left
+                    anchors.top: parent.top
+                    anchors.right: parent.right
 
-                text: getName()
-                placeholderText: "Platform name"
+                    onSave: saveForm()
+                    onCancel: toggleEditMode()
 
-                function validate() {
-                    return text !== ""
+                    visible: showEditMode
                 }
 
-                state: (validate() ? "SUCCESS" : "ERROR")
+                UI.UTextbox {
+                    id: nameTextbox
 
-                visible: showEditMode
+                    anchors.left: parent.left
+                    anchors.right: saveCancelPlatform.left
+                    anchors.rightMargin: 5
+
+                    height: 30
+
+                    text: getName()
+                    placeholderText: "Platform name"
+
+                    function validate() {
+                        return text !== ""
+                    }
+
+                    state: (validate() ? "SUCCESS" : "ERROR")
+
+                    visible: showEditMode
+                }
             }
         }
 
@@ -213,8 +221,6 @@ Rectangle {
 
                 anchors.left: locationTitle.right
                 anchors.right: parent.right
-
-                anchors.margins: 20
 
                 visible: !showEditMode
             }
