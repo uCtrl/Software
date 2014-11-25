@@ -20,6 +20,10 @@ class UDevice : public NestedListItem
         maxValueRole,
         minValueRole,
         valueRole,
+        maxStatRole,
+        minStatRole,
+        meanStatRole,
+        countStatRole,
         precisionRole,
         statusRole,
         unitLabelRole,
@@ -85,6 +89,14 @@ public:
     void minValue(const QString& minValue);
     QString value() const;
     void value(const QString& value);
+    QString minStat() const;
+    void minStat(const QString& minStat);
+    QString maxStat() const;
+    void maxStat(const QString& maxStat);
+    QString meanStat() const;
+    void meanStat(const QString& meanStat);
+    QString countStat() const;
+    void countStat(const QString& countStat);
     int precision() const;
     void precision(int precision);
     UEStatus status() const;
@@ -102,6 +114,10 @@ private:
     QString m_maxValue;
     QString m_minValue;
     QString m_value;
+    QString m_maxStat;
+    QString m_minStat;
+    QString m_meanStat;
+    QString m_countStat;
     int m_precision;
     UEStatus m_status;
     QString m_unitLabel;

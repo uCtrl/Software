@@ -29,6 +29,14 @@ QVariant UDevice::data(int role) const
         return minValue();
     case valueRole:
         return value();
+    case minStatRole:
+        return minStat();
+    case maxStatRole:
+        return maxStat();
+    case meanStatRole:
+        return meanStat();
+    case countStatRole:
+        return countStat();
     case precisionRole:
         return precision();
     case statusRole:
@@ -69,6 +77,18 @@ bool UDevice::setData(const QVariant& value, int role)
     case valueRole:
         this->value(value.toString());
         break;
+    case minStatRole:
+        minStat(value.toString());
+        break;
+    case maxStatRole:
+        maxStat(value.toString());
+        break;
+    case meanStatRole:
+        meanStat(value.toString());
+        break;
+    case countStatRole:
+        countStat(value.toString());
+        break;
     case precisionRole:
         precision(value.toInt());
         break;
@@ -101,6 +121,10 @@ QHash<int, QByteArray> UDevice::roleNames() const
     roles[maxValueRole] = "maxValue";
     roles[minValueRole] = "minValue";
     roles[valueRole] = "value";
+    roles[minStatRole] = "minStat";
+    roles[maxStatRole] = "maxStat";
+    roles[meanStatRole] = "meanStat";
+    roles[countStatRole] = "countStat";
     roles[precisionRole] = "precision";
     roles[statusRole] = "status";
     roles[unitLabelRole] = "unitLabel";
@@ -237,6 +261,58 @@ void UDevice::value(const QString &value)
 {
     if (m_value != value) {
         m_value = value;
+        emit dataChanged();
+    }
+}
+
+QString UDevice::minStat() const
+{
+    return m_minStat;
+}
+
+void UDevice::minStat(const QString& minStat)
+{
+    if (m_minStat != minStat) {
+        m_minStat = minStat;
+        emit dataChanged();
+    }
+}
+
+QString UDevice::maxStat() const
+{
+    return m_maxStat;
+}
+
+void UDevice::maxStat(const QString& maxStat)
+{
+    if (m_maxStat != maxStat) {
+        m_maxStat = maxStat;
+        emit dataChanged();
+    }
+}
+
+QString UDevice::meanStat() const
+{
+    return m_meanStat;
+}
+
+void UDevice::meanStat(const QString& meanStat)
+{
+    if (m_meanStat != meanStat) {
+        m_meanStat = meanStat;
+        emit dataChanged();
+    }
+}
+
+QString UDevice::countStat() const
+{
+    return m_countStat;
+}
+
+void UDevice::countStat(const QString& countStat)
+{
+    if (m_countStat != countStat) {
+        m_countStat = countStat;
         emit dataChanged();
     }
 }

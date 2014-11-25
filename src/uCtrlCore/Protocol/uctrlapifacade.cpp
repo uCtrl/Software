@@ -103,11 +103,50 @@ void UCtrlAPIFacade::deleteDevice(UDevice* device)
     m_uCtrlApi.deleteDevice(platformId, device->id());
 }
 
-void UCtrlAPIFacade::getDeviceStats(UDevice *device, QMap<QString, QVariant> params)
+void UCtrlAPIFacade::getDeviceAllStats(UDevice *device, QMap<QString, QVariant> params)
 {
     QString platformId;
     resolveIds(platformId, device);
-    m_uCtrlApi.getDeviceStats(platformId, device->id(), params);
+    m_uCtrlApi.getDeviceValues(platformId, device->id(), params);
+    m_uCtrlApi.getDeviceMax(platformId, device->id(), params);
+    m_uCtrlApi.getDeviceMin(platformId, device->id(), params);
+    m_uCtrlApi.getDeviceMean(platformId, device->id(), params);
+    m_uCtrlApi.getDeviceCount(platformId, device->id(), params);
+}
+
+void UCtrlAPIFacade::getDeviceValues(UDevice *device, QMap<QString, QVariant> params)
+{
+    QString platformId;
+    resolveIds(platformId, device);
+    m_uCtrlApi.getDeviceValues(platformId, device->id(), params);
+}
+
+void UCtrlAPIFacade::getDeviceMax(UDevice *device, QMap<QString, QVariant> params)
+{
+    QString platformId;
+    resolveIds(platformId, device);
+    m_uCtrlApi.getDeviceMax(platformId, device->id(), params);
+}
+
+void UCtrlAPIFacade::getDeviceMin(UDevice *device, QMap<QString, QVariant> params)
+{
+    QString platformId;
+    resolveIds(platformId, device);
+    m_uCtrlApi.getDeviceMin(platformId, device->id(), params);
+}
+
+void UCtrlAPIFacade::getDeviceMean(UDevice *device, QMap<QString, QVariant> params)
+{
+    QString platformId;
+    resolveIds(platformId, device);
+    m_uCtrlApi.getDeviceMean(platformId, device->id(), params);
+}
+
+void UCtrlAPIFacade::getDeviceCount(UDevice *device, QMap<QString, QVariant> params)
+{
+    QString platformId;
+    resolveIds(platformId, device);
+    m_uCtrlApi.getDeviceCount(platformId, device->id(), params);
 }
 
 void UCtrlAPIFacade::getDeviceHistory(UDevice *device, QMap<QString, QVariant> params)
