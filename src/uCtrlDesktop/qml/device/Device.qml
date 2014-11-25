@@ -138,11 +138,10 @@ Rectangle
                     UI.USaveCancel {
                         id: saveCancelDevice
 
-                        anchors.top: parent.top
                         anchors.right: parent.right
+                        anchors.verticalCenter: iconContainer.verticalCenter
 
-                        //width: parent.width / 5
-                        height: iconContainer.height
+                        height: 35
 
                         onSave: infoContainer.showEditMode = !infoContainer.showEditMode
                         onCancel: infoContainer.showEditMode = !infoContainer.showEditMode
@@ -168,8 +167,6 @@ Rectangle
                     UI.UTextbox {
                         id: nameTextbox
 
-                        anchors.top: nameContainer.top
-
                         anchors.left: iconContainer.right
                         anchors.leftMargin: 10
 
@@ -177,6 +174,8 @@ Rectangle
                         anchors.rightMargin: 10
 
                         anchors.verticalCenter: iconContainer.verticalCenter
+
+                        height: 35
 
                         text: getDeviceName()
                         placeholderText: "Device name"
@@ -287,10 +286,9 @@ Rectangle
 
                             state: getDeviceEnabled()
 
-                            anchors.left: enabledLabel.right
-                            anchors.leftMargin: 10
-
+                            anchors.left: enabledSwitchContainer.left
                             anchors.verticalCenter: enabledSwitchContainer.verticalCenter
+
                             visible: infoContainer.showEditMode
                         }
                     }
