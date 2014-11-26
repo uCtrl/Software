@@ -280,17 +280,7 @@ Rectangle {
                 id: stateChart
                 chartAnimated: false
                 chartName: "Daily status"
-                chartData: getDeviceValueStats() /*{
-                               "labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
-                               "axisY": [0, 25, 50, 75, 100],
-                               "datasets": [{
-                                   fillColor: "rgba(237,237,237,0.5)",
-                                   strokeColor: Colors.uMediumLightGrey,
-                                   pointColor: Colors.uGreen,
-                                   pointStrokeColor: Colors.uGreen,
-                                   data: [0, 55, 15, 75, 100, 0, 50],
-                               }]
-                           }*/
+                chartData: getDeviceValueStats()
                 width: chartContainer.width
                 height: chartContainer.height
                 chartType: Charts.ChartType.LINE
@@ -300,17 +290,7 @@ Rectangle {
                 id: powerChart
                 chartAnimated: false
                 chartName: "Power consumption"
-                chartData: getDevicePowerStats() /*{
-                               "labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
-                               "axisY": [0, 25, 50, 75, 100],
-                               "datasets": [{
-                                   fillColor: "rgba(237,237,237,0.5)",
-                                   strokeColor: Colors.uMediumLightGrey,
-                                   pointColor: Colors.uGreen,
-                                   pointStrokeColor: Colors.uGreen,
-                                   data: [0, 15, 20, 23, 25, 60, 67]
-                               }]
-                           }*/
+                chartData: getDevicePowerStats()
                 width: chartContainer.width
                 height: chartContainer.height
                 chartType: Charts.ChartType.LINE
@@ -401,7 +381,6 @@ Rectangle {
     }
 
     onModelChanged: {
-        console.log(model.value)
         uCtrlApiFacade.getDeviceAllStats(devicesList.findObject(model.id));
     }
 
@@ -434,34 +413,6 @@ Rectangle {
         if (model !== null) return parseFloat(model.meanStat).toFixed(1)
         else return "0";
     }
-
-    /*
-     * chartData: {
-     *     "labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
-     *     "axisY": [0, 25, 50, 75, 100],
-     *     "datasets": [{
-     *         fillColor: "rgba(237,237,237,0.5)",
-     *         strokeColor: Colors.uMediumLightGrey,
-     *         pointColor: Colors.uGreen,
-     *         pointStrokeColor: Colors.uGreen,
-     *         data: [0, 55, 15, 75, 100, 0, 50],
-     *     }]
-     * }
-     */
-
-    /*
-{
-                               "labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
-                               "axisY": [0, 25, 50, 75, 100],
-                               "datasets": [{
-                                   fillColor: "rgba(237,237,237,0.5)",
-                                   strokeColor: Colors.uMediumLightGrey,
-                                   pointColor: Colors.uGreen,
-                                   pointStrokeColor: Colors.uGreen,
-                                   data: [0, 55, 15, 75, 100, 0, 50],
-                               }]
-                           }
-    */
 
     function getDeviceValueStats() {
         if (model !== null) {
