@@ -1,16 +1,16 @@
 #ifndef UTURNONOFFLIGHTINTENT_H
 #define UTURNONOFFLIGHTINTENT_H
 
-#include "uninjaapi.h"
 #include <QString>
+#include "Protocol/uctrlapifacade.h"
+#include "Device/udevice.h"
 
 class UTurnOnOffLightIntent
 {
     bool m_isTurnOn;
-    UNinjaAPI* m_ninjaAPI;
-    QString m_deviceId;
+    UCtrlAPIFacade* m_uCtrlApiFacade;
 public:
-    UTurnOnOffLightIntent(UNinjaAPI* ninjaAPI, const QString& deviceId, bool turnOn);
+    UTurnOnOffLightIntent(UCtrlAPIFacade* uCtrlApiFacade, bool turnOn);
 
     void turnOnOffAllLights();
     void turnOnOffLightWithId(long id);

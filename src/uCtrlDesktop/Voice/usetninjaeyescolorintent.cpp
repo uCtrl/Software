@@ -1,9 +1,8 @@
 #include "usetninjaeyescolorintent.h"
 
-USetNinjaEyesColorIntent::USetNinjaEyesColorIntent(UNinjaAPI* ninjaAPI, const QString& deviceId)
+USetNinjaEyesColorIntent::USetNinjaEyesColorIntent(UCtrlAPIFacade* uCtrlApiFacade)
 {
-    m_ninjaAPI = ninjaAPI;
-    m_deviceId = deviceId;
+    m_uCtrlApiFacade = uCtrlApiFacade;
 }
 
 
@@ -13,9 +12,14 @@ void USetNinjaEyesColorIntent::setNinjaEyesColors(const QString& colorName)
         return;
 
     QColor color(colorName);
-
     QString colorStringValue = QString::number(color.rgb(), 16);
     colorStringValue = colorStringValue.right(6);
-    m_ninjaAPI->sendData(m_deviceId, colorStringValue);
+
+    QList<UDevice*> deviceList = m_uCtrlApiFacade->getPlatformsModel()->findDevicesByType(UDevice::UEType::NinjasEyes);
+    foreach (UDevice* device, deviceList)
+    {
+        device->value(colorStringValue);
+        m_uCtrlApiFacade->putDevice(device);
+    }
 }
 

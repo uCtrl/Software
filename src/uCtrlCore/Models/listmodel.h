@@ -41,6 +41,7 @@ public:
     Q_INVOKABLE bool moveRow(int from, int to);
     Q_INVOKABLE bool moveUp(int from);
     Q_INVOKABLE bool moveDown(int from);
+    QList<ListItem*> getItems() { return m_items; }
 
     ListItem* find(const QString& itemId) const;
     Q_INVOKABLE QObject* findObject(const QString& itemId) const;

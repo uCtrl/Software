@@ -46,3 +46,53 @@ QObject* UPlatformsModel::getRecommendations()
 {
     return m_recModel;
 }
+
+QList<UDevice*> UPlatformsModel::findDevicesByType(UDevice::UEType deviceType)
+{
+    QList<UDevice*> deviceList;
+    foreach(ListItem *item, m_items) {
+        UPlatform* platform = (UPlatform*)item;
+        UDevicesModel* devicesModel = (UDevicesModel*)platform->nestedModel();
+
+        QList<UDevice*> subDeviceList = devicesModel->findDevicesByType(deviceType);
+        foreach(UDevice* device, subDeviceList) {
+            deviceList.push_back(device);
+        }
+    }
+    return deviceList;
+}
+
+QList<UDevice*> UPlatformsModel::findDevicesByLocation(const QString& locationName)
+{
+    QList<UDevice*> deviceList;
+    foreach(ListItem *item, m_items) {
+        UPlatform* platform = (UPlatform*)item;
+        UDevicesModel* devicesModel = (UDevicesModel*)platform->nestedModel();
+
+        if (locationName == platform->room())
+        {
+            QList<ListItem*> subDeviceList = devicesModel->getItems();
+            foreach(ListItem* device, subDeviceList) {
+                deviceList.push_back((UDevice*)device);
+            }
+        }
+    }
+    return deviceList;
+
+}
+
+QList<UDevice*> UPlatformsModel::findDevicesByName(const QString& deviceName)
+{
+    QList<UDevice*> deviceList;
+    foreach(ListItem *item, m_items) {
+        UPlatform* platform = (UPlatform*)item;
+        UDevicesModel* devicesModel = (UDevicesModel*)platform->nestedModel();
+
+        QList<UDevice*> subDeviceList = devicesModel->findDevicesByName(deviceName);
+        foreach(UDevice* device, subDeviceList) {
+            deviceList.push_back(device);
+        }
+    }
+    return deviceList;
+
+}

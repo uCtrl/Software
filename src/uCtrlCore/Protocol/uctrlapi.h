@@ -92,6 +92,9 @@ public:
     Q_INVOKABLE void getRecommendations();
     Q_INVOKABLE void acceptRecommendation(const QString& recommendationId, bool accpeted);
 
+    // Platform models
+    UPlatformsModel* getPlatformsModel() { return m_platforms; }
+
 signals:
     void networkError(const QString& errorString);
     void serverError(const QString& errorString);

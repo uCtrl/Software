@@ -68,6 +68,8 @@ public:
 
     Q_INVOKABLE UCtrlAPI* getAPI() { return &m_uCtrlApi; }
 
+    UPlatformsModel* getPlatformsModel() { return m_uCtrlApi.getPlatformsModel(); }
+
 private:
     UCtrlAPI m_uCtrlApi;
 

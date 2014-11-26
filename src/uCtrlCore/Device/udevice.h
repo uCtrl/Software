@@ -41,6 +41,7 @@ public:
         Error
     };
 
+    // TODO: Missing types?
     enum class UEType: int {
         None = 0,
         PowerSocketSwitch = 1,
@@ -50,7 +51,6 @@ public:
         Temperature = 31,
         NinjasEyes = 1007,
         LimitlessLEDWhite = 1012,
-        DoorSensor = 9990,
     };
 
     explicit UDevice(QObject *parent = 0);

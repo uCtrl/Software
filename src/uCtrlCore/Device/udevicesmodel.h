@@ -17,6 +17,9 @@ public:
 
     Q_INVOKABLE QObject* getHistoryWithId(const QString& id);
     Q_INVOKABLE QObject* getStatisticsWithId(const QString& id);
+
+    QList<UDevice*> findDevicesByType(UDevice::UEType deviceType);
+    QList<UDevice*> findDevicesByName(const QString& deviceName);
 };
 
 #endif // UDEVICESMODEL_H
