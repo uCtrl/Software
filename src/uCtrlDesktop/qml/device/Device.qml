@@ -26,9 +26,9 @@ Rectangle
 
     property bool showEditMode: false
 
-    Component.onCompleted: {
-        console.log("OnCompleted")
+    onModelChanged: {
         uCtrlApiFacade.getDeviceHistory(devicesList.findObject(model.id));
+        showEditMode = false
     }
 
     Rectangle {
@@ -589,32 +589,22 @@ Rectangle
     function getDeviceFile() {
         if (model !== null) {
             switch(model.type) {
-                case UEType.BelkinWeMoSocket:
-                    return "Weemo"
-                case UEType.Humidity:
-                    return "Humidity"
-                case UEType.Light:
-                    return "Light"
-                case UEType.LightSensor:
-                    return "LightSensor"
-                case UEType.NinjasEyes:
-                    return "NinjaEyes"
-                case UEType.OnBoardRGBLed:
-                    return "LED"
-                case UEType.PIRMotionSensor:
-                    return "MotionSensor"
-                case UEType.ProximitySensor:
-                    return "ProximitySensor"
+                case UEType.PowerSocketSwitch:
+                    return "PowerSocketSwitch"
                 case UEType.PushButton:
                     return "PushButton"
-                case UEType.RF4333:
-                    return "RF"
-                case UEType.StatusLight:
-                    return "StatusLight"
-                case UEType.Switch:
-                    return "Switch"
+                case UEType.MotionSensor:
+                    return "MotionSensor"
+                case UEType.Humidity:
+                    return "Humidity"
                 case UEType.Temperature:
                     return "Temperature"
+                case UEType.NinjasEyes:
+                    return "NinjaEyes"
+                case UEType.LimitlessLEDWhite:
+                    return "LimitlessLEDWhite"
+                case UEType.DoorSensor:
+                    return "DoorSensor"
             }
         }
         return "Error"
