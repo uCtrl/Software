@@ -17,10 +17,6 @@ ListView {
 
     model: logsModel
 
-    Component.onCompleted: {
-        console.log("We have found " + logsModel.rowCount() + " logs")
-    }
-
     property variant currentItem: null
 
     delegate: Column {
@@ -139,14 +135,33 @@ ListView {
 
     function getTimestampLabel(timestamp)
     {
-        var timestampUtc = new Date(timestamp + (timestamp.getTimezoneOffset() * 60000));
-        console.log(timestampUtc)
+        var nowDate = new Date()
+        var timestampDate = new Date(timestamp);
+        var nowTimestamp = nowDate.getTime()
 
-        var now = new Date()
-        var nowUtc = new Date(now.getTime() + (now.getTimezoneOffset() * 60000));
-        console.log(nowUtc)
+        var deltaTime = Math.abs(nowTimestamp - timestamp)
 
-        return timestamp
+        var minute = 60
+        var hour = 60 * minute
+        var day = 24 * hour
+        var week = 7 * day
+
+        if(deltaTime < minute)
+        {
+            return "Less than a minute ago"
+        }
+        else if(nowDate.getDate() === timestampDate.getDate())
+        {
+            return "Today at " + Qt.formatDateTime(timestampDate, "HH:mm:ss")
+        }
+        else if(nowDate.getDate() - 1 === timestampDate.getDate())
+        {
+            return "Yesterday at " + Qt.formatDateTime(timestampDate, "HH:mm:ss")
+        }
+        else
+        {
+            return Qt.formatDateTime(timestampDate, "dd-MM-YYYY HH:mm")
+        }
     }
 
     function getBackgroundColor(model)
