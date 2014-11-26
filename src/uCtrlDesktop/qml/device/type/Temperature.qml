@@ -421,32 +421,17 @@ Rectangle {
     }
 
     function getDeviceMinValue() {
-       if (model !== null) {
-           uCtrlApiFacade.getDeviceMin(devicesList.findObject(model.id));
-           console.log('- min -' + model.minStat + '---')
-           return model.minStat
-       }
-
+       if (model !== null) return parseFloat(model.minStat).toFixed(1)
        else return "0";
     }
 
     function getDeviceMaxValue() {
-        if (model !== null) {
-            //uCtrlApiFacade.getDeviceMin(devicesList.findObject(model.id));
-            console.log('- max -' + model.maxStat + '---')
-            return model.maxStat
-        }
-
+        if (model !== null) return parseFloat(model.maxStat).toFixed(1)
         else return "0";
     }
 
     function getDeviceMeanValue() {
-        if (model !== null) {
-            //uCtrlApiFacade.getDeviceMin(devicesList.findObject(model.id));
-            console.log('- mean -' + model.meanStat + '---')
-            return model.meanStat
-        }
-
+        if (model !== null) return parseFloat(model.meanStat).toFixed(1)
         else return "0";
     }
 
@@ -480,14 +465,19 @@ Rectangle {
 
     function getDeviceValueStats() {
         if (model !== null) {
-            var statsModel = devicesList.getStatisticsWithId(model.id);
 
-            /*for (var i=0; i<statsModel.rowCount();i++) {
-                //console.log(statsModel.get(i));
-                var stat = statsModel.get(i);
+            /** Commented until server can handle statistics
+                var data = []
+                var labels = []
 
-                console.log("[" + stat.timestamp + "] (" + stat.type +") :" + stat.data);
-            }*/
+                for (var i=0; i<statsModel.rowCount();i++) {
+                    var stat = statsModel.get(i);
+
+                    //console.log("[" + new Date(stat.timestamp).toTimeString() + "] (" + stat.type +") :" + stat.data);
+                    labels.push(new Date(stat.timestamp).toTimeString())
+                    data.push(stat.data)
+                }
+            */
 
             var chartData = {
                 "labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
@@ -505,30 +495,20 @@ Rectangle {
         }
     }
 
+    // Will always be hardcoded value since hardware no longer supports it.
     function getDevicePowerStats() {
-        if (model !== null) {
-            var statsModel = devicesList.getStatisticsWithId(model.id);
-
-            for (var i=0; i<statsModel.rowCount();i++) {
-                //console.log(statsModel.get(i));
-                var stat = statsModel.get(i);
-
-                console.log("[" + stat.timestamp + "] (" + stat.type +") :" + stat.data);
-            }
-
-            var chartData = {
-                "labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
-                "axisY": [0, 25, 50, 75, 100],
-                "datasets": [{
-                        fillColor: "rgba(237,237,237,0.5)",
-                        strokeColor: Colors.uMediumLightGrey,
-                        pointColor: Colors.uGreen,
-                        pointStrokeColor: Colors.uGreen,
-                        data: [0, 15, 20, 23, 25, 60, 67]
-                }]
-            }
-
-            return chartData
+        var chartData = {
+            "labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
+            "axisY": [0, 25, 50, 75, 100],
+            "datasets": [{
+                    fillColor: "rgba(237,237,237,0.5)",
+                    strokeColor: Colors.uMediumLightGrey,
+                    pointColor: Colors.uGreen,
+                    pointStrokeColor: Colors.uGreen,
+                    data: [0, 15, 20, 23, 25, 60, 67]
+            }]
         }
+
+        return chartData
     }
 }

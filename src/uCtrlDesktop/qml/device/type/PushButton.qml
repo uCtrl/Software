@@ -19,18 +19,21 @@ Rectangle {
         color: Colors.uTransparent
 
         UI.UButton {
-            property int marginSize: 10
+            property int marginSize: 5
 
             id: triggerButton
 
-            iconId: "droplet"
+            iconId: "Upload"
+            text: "Send action"
 
             anchors.centerIn: buttonContainer
 
-            height: buttonContainer.height - (2 * marginSize); width: height
+            height: buttonContainer.height - (2 * marginSize); width: 110
+
+            onClicked: sendAction()
         }
 
-        height: 25
+        height: 45; width: 100
     }
 
     Sensor {
@@ -40,5 +43,10 @@ Rectangle {
         anchors.left: container.left
         anchors.right: container.right
         anchors.bottom: container.bottom
+    }
+
+    function sendAction() {
+        model.value = true
+        uCtrlApiFacade.putDevice(devicesList.findObject(model.id))
     }
 }
