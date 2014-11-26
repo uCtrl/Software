@@ -10,16 +10,8 @@ void USetDimmerLights::setAllLightsIntensity()
 {
     QString data = "";
 
-    // Ninja lights
-    QList<UDevice*> deviceList = m_uCtrlApiFacade->getPlatformsModel()->findDevicesByType(UDevice::UEType::Light);
-    foreach (UDevice* device, deviceList)
-    {
-        // TODO : Implement when we have ninja lights
-        continue;
-    }
-
     // LimitlessLED
-    deviceList = m_uCtrlApiFacade->getPlatformsModel()->findDevicesByType(UDevice::UEType::LimitlessLed);
+    QList<UDevice*> deviceList = m_uCtrlApiFacade->getPlatformsModel()->findDevicesByType(UDevice::UEType::LimitlessLEDWhite);
     foreach (UDevice* device, deviceList)
     {
         QJsonObject jsonLimitless = QJsonDocument::fromJson(device->value().toUtf8()).object();

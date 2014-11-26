@@ -10,16 +10,8 @@ void UTurnOnOffLightIntent::turnOnOffAllLights()
 {
     QString data = "";
 
-    // Ninja lights
-    QList<UDevice*> deviceList = m_uCtrlApiFacade->getPlatformsModel()->findDevicesByType(UDevice::UEType::Light);
-    foreach (UDevice* device, deviceList)
-    {
-        // TODO : Implement when we have ninja lights
-        continue;
-    }
-
     // LimitlessLED
-    deviceList = m_uCtrlApiFacade->getPlatformsModel()->findDevicesByType(UDevice::UEType::LimitlessLed);
+    QList<UDevice*> deviceList = m_uCtrlApiFacade->getPlatformsModel()->findDevicesByType(UDevice::UEType::LimitlessLEDWhite);
     foreach (UDevice* device, deviceList)
     {
         QJsonObject jsonLimitless = QJsonDocument::fromJson(device->value().toUtf8()).object();
@@ -44,20 +36,18 @@ void UTurnOnOffLightIntent::turnOnOffLightsInLocation(QString locationName)
     QList<UDevice*> devicesInLocation = m_uCtrlApiFacade->getPlatformsModel()->findDevicesByLocation(locationName);
     foreach (UDevice* device, devicesInLocation)
     {
+        if (device->type() != UDevice::UEType::LimitlessLEDWhite)
+            continue;
+
         QString data = "";
 
-        // TODO : Implement when we have ninja lights
-        if (device->type() == UDevice::UEType::Light)
-            continue;
+        QJsonObject jsonLimitless = QJsonDocument::fromJson(device->value().toUtf8()).object();
+        int brightness = jsonLimitless["bri"].toInt();
+        if (m_isTurnOn)
+            data = QString("{\\\"on\\\":true,\\\"bri\\\":%1}").arg(brightness);
         else
-        {
-            QJsonObject jsonLimitless = QJsonDocument::fromJson(device->value().toUtf8()).object();
-            int brightness = jsonLimitless["bri"].toInt();
-            if (m_isTurnOn)
-                data = QString("{\\\"on\\\":true,\\\"bri\\\":%1}").arg(brightness);
-            else
-                data = QString("{\\\"on\\\":false,\\\"bri\\\":%1}").arg(brightness);
-        }
+            data = QString("{\\\"on\\\":false,\\\"bri\\\":%1}").arg(brightness);
+
         device->value(data);
         m_uCtrlApiFacade->putDevice(device);
     }
