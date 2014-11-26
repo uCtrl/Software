@@ -103,5 +103,6 @@
         <file>qml/device/type/Sensor.qml</file>
         <file>qml/device/DeviceIcon.qml</file>
         <file>qml/ui/UCheckbox.qml</file>
+        <file>qml/ui/UColorPicker.qml</file>
     </qresource>
 </RCC>
