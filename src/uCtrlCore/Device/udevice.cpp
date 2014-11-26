@@ -47,6 +47,8 @@ QVariant UDevice::data(int role) const
         return enabled();
     case lastUpdatedRole:
         return lastUpdated();
+    case deviceModelRole:
+        return deviceModel();
     default:
         return QVariant();
     }
@@ -104,6 +106,9 @@ bool UDevice::setData(const QVariant& value, int role)
     case lastUpdatedRole:
         lastUpdated(value.toDouble());
         break;
+    case deviceModelRole:
+        deviceModel(value.toString());
+        break;
     default:
         return false;
     }
@@ -130,6 +135,7 @@ QHash<int, QByteArray> UDevice::roleNames() const
     roles[unitLabelRole] = "unitLabel";
     roles[enabledRole] = "isEnabled";
     roles[lastUpdatedRole] = "lastUpdated";
+    roles[deviceModelRole] = "deviceModel";
 
     return roles;
 }
@@ -163,6 +169,7 @@ void UDevice::write(QJsonObject& jsonObj) const
     jsonObj["unitLabel"] = this->unitLabel();
     jsonObj["enabled"] = this->enabled();
     jsonObj["lastUpdated"] = this->lastUpdated();
+    jsonObj["model"] = this->deviceModel();
 
     QJsonObject scenarios;
     m_scenarios->write(scenarios);
@@ -183,6 +190,7 @@ void UDevice::read(const QJsonObject &jsonObj)
     this->unitLabel(jsonObj["unitLabel"].toString());
     this->enabled(jsonObj["enabled"].toBool());
     this->lastUpdated(jsonObj["lastUpdated"].toDouble());
+    this->deviceModel(jsonObj["model"].toString());
 
     m_scenarios->read(jsonObj);
 }
@@ -352,6 +360,19 @@ void UDevice::unitLabel(const QString &unitLabel)
 {
     if (m_unitLabel != unitLabel) {
         m_unitLabel = unitLabel;
+        emit dataChanged();
+    }
+}
+
+QString UDevice::deviceModel() const
+{
+    return m_deviceModel;
+}
+
+void UDevice::deviceModel(const QString &deviceModel)
+{
+    if (m_deviceModel != deviceModel) {
+        m_deviceModel = deviceModel;
         emit dataChanged();
     }
 }

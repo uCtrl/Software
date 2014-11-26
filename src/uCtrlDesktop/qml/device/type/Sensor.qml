@@ -13,7 +13,6 @@ Rectangle {
     property var model: null
 
     color: Colors.uTransparent
-    anchors.fill: parent
 
     Rectangle {
         id: updateContainer
