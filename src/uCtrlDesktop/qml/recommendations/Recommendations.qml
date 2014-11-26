@@ -6,7 +6,7 @@ import "../ui/UColors.js" as Colors
 
 Rectangle {
     id: recommandationsPage
-    color: Colors.uLightGrey
+    color: Colors.uLightGrey    
 
     Rectangle {
         id: recommandationsContainer
@@ -47,7 +47,6 @@ Rectangle {
                         id: rowContainer
                         height: parent.height; width: parent.width
 
-
                         ULabel.Default {
                             font.pointSize: 15
                             text: model.description
@@ -87,10 +86,40 @@ Rectangle {
                     }
                 }
             }
+
+            Rectangle {
+               id: noRecommendation
+               anchors.fill: parent
+               visible: (recommendations.model !== null && recommendations.model !== undefined && !(recommendations.model.rowCount() > 0))
+               color: Colors.uTransparent
+
+               Rectangle
+               {
+                   width: parent.width
+                   height: noRecommendationLabel.height
+                   anchors.centerIn: parent
+                   ULabel.Default {
+                       id: noRecommendationLabel
+                       anchors.horizontalCenter: parent.horizontalCenter
+                       text: "No recommendation available"
+                       width: parent.width * 0.75
+                       font.bold: true
+                       font.pointSize: 32
+                       horizontalAlignment: Text.AlignHCenter
+                       color: Colors.uGrey
+                   }
+               }
+            }
         }
     }
 
     Component.onCompleted: {
+        var recPage = main.currentPage;
         uCtrlApiFacade.getRecommendations();
+        main.onCurrentPageChanged.connect(function() {
+            if (main.currentPage === recPage) {
+                uCtrlApiFacade.getRecommendations();
+            }
+        });
     }
 }
