@@ -68,15 +68,12 @@
         <file>qml/jbQuick/Charts/README.md</file>
         <file>qml/ui/UAlert.qml</file>
         <file>qml/settings/Settings.qml</file>
-        <file>qml/device/type/Switch.qml</file>
-        <file>qml/device/type/StatusLight.qml</file>
-        <file>qml/device/type/RF.qml</file>
+        <file>qml/device/type/PowerSocketSwitch.qml</file>
         <file>qml/device/type/PushButton.qml</file>
-        <file>qml/device/type/ProximitySensor.qml</file>
         <file>qml/device/type/NinjaEyes.qml</file>
         <file>qml/device/type/LightSensor.qml</file>
         <file>qml/device/type/Light.qml</file>
-        <file>qml/device/type/LED.qml</file>
+        <file>qml/device/type/LimitlessLEDWhite.qml</file>
         <file>qml/label/IconLabel.qml</file>
         <file>qml/ui/USlider.qml</file>
         <file>qml/device/Logs.qml</file>
@@ -104,5 +101,6 @@
         <file>qml/device/DeviceIcon.qml</file>
         <file>qml/ui/UCheckbox.qml</file>
         <file>qml/ui/UColorPicker.qml</file>
+        <file>qml/device/type/DoorSensor.qml</file>
     </qresource>
 </RCC>
