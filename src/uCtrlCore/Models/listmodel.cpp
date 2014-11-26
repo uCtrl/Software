@@ -78,7 +78,7 @@ void ListModel::appendRows(const QList<ListItem*>& items)
     if (items.size() == 0)
         return;
 
-    beginInsertRows(QModelIndex(), rowCount(), rowCount() + items.size());
+    beginInsertRows(QModelIndex(), rowCount(), rowCount() + items.size() - 1);
 
     foreach(ListItem* item, items)
     {
@@ -94,7 +94,7 @@ void ListModel::insertRow(int row, ListItem* item)
     if (item == NULL)
         return;
 
-    beginInsertRows(QModelIndex(), row, row + 1);
+    beginInsertRows(QModelIndex(), row, row);
 
     QObject::connect(item, SIGNAL(dataChanged()), this, SLOT(updateItem()));
     m_items.insert(row, item);
