@@ -108,7 +108,7 @@ Rectangle {
 
                 font.pixelSize: 12
 
-                text: "±" + getPrecision()
+                text: "±0." + getPrecision()
 
                 color: Colors.uGrey
 
@@ -164,7 +164,7 @@ Rectangle {
                 font.pixelSize: 28
 
                 color: Colors.uGreen
-                text: "23.5"
+                text: getDeviceMeanValue()
 
                 anchors.horizontalCenter: averageValueContainer.horizontalCenter
                 anchors.bottom: averageValueContainer.bottom
@@ -206,7 +206,7 @@ Rectangle {
                 font.pixelSize: 28
 
                 color: Colors.uGreen
-                text: "19.5"
+                text: getDeviceMinValue()
 
                 anchors.horizontalCenter: lowestValueContainer.horizontalCenter
                 anchors.bottom: lowestValueContainer.bottom
@@ -248,7 +248,7 @@ Rectangle {
                 font.pixelSize: 28
 
                 color: Colors.uGreen
-                text: "26.0"
+                text: getDeviceMaxValue()
 
                 anchors.horizontalCenter: highestValueContianer.horizontalCenter
                 anchors.bottom: highestValueContianer.bottom
@@ -280,7 +280,7 @@ Rectangle {
                 id: stateChart
                 chartAnimated: false
                 chartName: "Daily status"
-                chartData: {
+                chartData: getDeviceValueStats() /*{
                                "labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
                                "axisY": [0, 25, 50, 75, 100],
                                "datasets": [{
@@ -290,7 +290,7 @@ Rectangle {
                                    pointStrokeColor: Colors.uGreen,
                                    data: [0, 55, 15, 75, 100, 0, 50],
                                }]
-                           }
+                           }*/
                 width: chartContainer.width
                 height: chartContainer.height
                 chartType: Charts.ChartType.LINE
@@ -300,7 +300,7 @@ Rectangle {
                 id: powerChart
                 chartAnimated: false
                 chartName: "Power consumption"
-                chartData: {
+                chartData: getDevicePowerStats() /*{
                                "labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
                                "axisY": [0, 25, 50, 75, 100],
                                "datasets": [{
@@ -310,7 +310,7 @@ Rectangle {
                                    pointStrokeColor: Colors.uGreen,
                                    data: [0, 15, 20, 23, 25, 60, 67]
                                }]
-                           }
+                           }*/
                 width: chartContainer.width
                 height: chartContainer.height
                 chartType: Charts.ChartType.LINE
@@ -394,6 +394,15 @@ Rectangle {
                 z: 3
             }
         }
+
+        Component.onCompleted: {
+            getDeviceMinValue();
+        }
+    }
+
+    onModelChanged: {
+        console.log(model.value)
+        uCtrlApiFacade.getDeviceAllStats(devicesList.findObject(model.id));
     }
 
     function getDeviceEnabled() {
@@ -409,5 +418,117 @@ Rectangle {
     function getPrecision() {
         if (model !== null) return model.precision
         else return "0.1"
+    }
+
+    function getDeviceMinValue() {
+       if (model !== null) {
+           uCtrlApiFacade.getDeviceMin(devicesList.findObject(model.id));
+           console.log('- min -' + model.minStat + '---')
+           return model.minStat
+       }
+
+       else return "0";
+    }
+
+    function getDeviceMaxValue() {
+        if (model !== null) {
+            //uCtrlApiFacade.getDeviceMin(devicesList.findObject(model.id));
+            console.log('- max -' + model.maxStat + '---')
+            return model.maxStat
+        }
+
+        else return "0";
+    }
+
+    function getDeviceMeanValue() {
+        if (model !== null) {
+            //uCtrlApiFacade.getDeviceMin(devicesList.findObject(model.id));
+            console.log('- mean -' + model.meanStat + '---')
+            return model.meanStat
+        }
+
+        else return "0";
+    }
+
+    /*
+     * chartData: {
+     *     "labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
+     *     "axisY": [0, 25, 50, 75, 100],
+     *     "datasets": [{
+     *         fillColor: "rgba(237,237,237,0.5)",
+     *         strokeColor: Colors.uMediumLightGrey,
+     *         pointColor: Colors.uGreen,
+     *         pointStrokeColor: Colors.uGreen,
+     *         data: [0, 55, 15, 75, 100, 0, 50],
+     *     }]
+     * }
+     */
+
+    /*
+{
+                               "labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
+                               "axisY": [0, 25, 50, 75, 100],
+                               "datasets": [{
+                                   fillColor: "rgba(237,237,237,0.5)",
+                                   strokeColor: Colors.uMediumLightGrey,
+                                   pointColor: Colors.uGreen,
+                                   pointStrokeColor: Colors.uGreen,
+                                   data: [0, 55, 15, 75, 100, 0, 50],
+                               }]
+                           }
+    */
+
+    function getDeviceValueStats() {
+        if (model !== null) {
+            var statsModel = devicesList.getStatisticsWithId(model.id);
+
+            /*for (var i=0; i<statsModel.rowCount();i++) {
+                //console.log(statsModel.get(i));
+                var stat = statsModel.get(i);
+
+                console.log("[" + stat.timestamp + "] (" + stat.type +") :" + stat.data);
+            }*/
+
+            var chartData = {
+                "labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
+                "axisY": [0, 25, 50, 75, 100],
+                "datasets": [{
+                    fillColor: "rgba(237,237,237,0.5)",
+                    strokeColor: Colors.uMediumLightGrey,
+                    pointColor: Colors.uGreen,
+                    pointStrokeColor: Colors.uGreen,
+                    data: [0, 55, 15, 75, 100, 0, 50]
+                }]
+            }
+
+            return chartData
+        }
+    }
+
+    function getDevicePowerStats() {
+        if (model !== null) {
+            var statsModel = devicesList.getStatisticsWithId(model.id);
+
+            for (var i=0; i<statsModel.rowCount();i++) {
+                //console.log(statsModel.get(i));
+                var stat = statsModel.get(i);
+
+                console.log("[" + stat.timestamp + "] (" + stat.type +") :" + stat.data);
+            }
+
+            var chartData = {
+                "labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
+                "axisY": [0, 25, 50, 75, 100],
+                "datasets": [{
+                        fillColor: "rgba(237,237,237,0.5)",
+                        strokeColor: Colors.uMediumLightGrey,
+                        pointColor: Colors.uGreen,
+                        pointStrokeColor: Colors.uGreen,
+                        data: [0, 15, 20, 23, 25, 60, 67]
+                }]
+            }
+
+            return chartData
+        }
     }
 }

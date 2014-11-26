@@ -27,6 +27,7 @@ Rectangle
     property bool showEditMode: false
 
     onModelChanged: {
+        uCtrlApiFacade.getDeviceAllStats(devicesList.findObject(model.id));
         uCtrlApiFacade.getDeviceHistory(devicesList.findObject(model.id));
         showEditMode = false
     }
@@ -146,7 +147,10 @@ Rectangle
 
                         height: 30
 
-                        onSave: infoContainer.showEditMode = !infoContainer.showEditMode
+                        onSave: {
+                            saveForm();
+                            infoContainer.showEditMode = !infoContainer.showEditMode;
+                        }
                         onCancel: infoContainer.showEditMode = !infoContainer.showEditMode
 
                         visible: infoContainer.showEditMode
@@ -779,6 +783,8 @@ Rectangle
     }
 
     function saveForm() {
+        model.name = nameTextbox.text
+        model.isEnabled = (enabledSwitch.state === "ON")
         uCtrlApiFacade.putDevice(devicesList.findObject(model.id))
     }
 
@@ -827,7 +833,8 @@ Rectangle
     }
 
     function getModel() {
-        return "La Crosse Temp WS2355"
+        if (model !== null) return model.deviceModel
+        else return "La Crosse Temp WS2355"
     }
 
     function getType() {

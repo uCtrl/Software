@@ -11,5 +11,7 @@ Rectangle {
 
     Sensor {
         property var model: container.model
+
+        anchors.fill: parent
     }
 }
