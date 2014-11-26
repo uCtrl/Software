@@ -9,7 +9,21 @@ import QtQuick.Controls.Styles 1.2
 import "../../jbQuick/Charts/" as UCharts
 import "../../jbQuick/Charts/QChart.js" as Charts
 
+import QtQuick 2.0
+
 Rectangle {
+    id: container
+
+    property var model: null
+
+    color: "yellow"
+
+    anchors.fill: parent
+
+}
+
+
+/*Rectangle {
     id: container
     anchors.centerIn: parent
     color: Colors.uTransparent
@@ -305,4 +319,4 @@ Rectangle {
         }
 
     }
-}
+}*/
