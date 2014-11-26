@@ -6,6 +6,7 @@
 UVoiceControlAPI::UVoiceControlAPI(QObject *parent) :
     QObject(parent)
 {
+    voiceFile = NULL;
     manager = new QNetworkAccessManager(this);
     connect(manager, SIGNAL(finished(QNetworkReply*)),
             this, SLOT(replyFinished(QNetworkReply*)));
@@ -25,6 +26,19 @@ void UVoiceControlAPI::sendVoiceControlFile(QString voiceFilePath)
     QNetworkReply* reply = manager->post(request, voiceFile);
 
     voiceFile->setParent(reply);
+}
+
+void UVoiceControlAPI::sendMessage(QString message)
+{
+    QString url = QString("https://api.wit.ai/message?v=20141125&q=%1").arg(message).replace(" ", "%20");
+    QNetworkRequest request;
+    request.setUrl(QUrl(url));
+    request.setRawHeader("Authorization", "Bearer AJKFKPXCCXDD6CPEXASZMJSLCOZSUQ3Z");
+    //request.setRawHeader("Content-Type", "application/wav");
+
+    QNetworkReply* reply = manager->get(request);
+
+    //voiceFile->setParent(reply);
 }
 
 UVoiceControlResponse* UVoiceControlAPI::analyseIntent()
@@ -52,9 +66,10 @@ void  UVoiceControlAPI::replyFinished(QNetworkReply* reply)
         QString error = reply->errorString();
     }
 
-    if (voiceFile)
+    if (voiceFile != NULL)
     {
         voiceFile->close();
+        delete voiceFile;
         voiceFile = NULL;
     }
     delete reply;

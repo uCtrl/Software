@@ -66,7 +66,7 @@ QString UVoiceControlResponse::getCommand()
     }
     else if (getIntent() == QString("turn_onoff_lights_in_location"))
     {
-        bool onOffValue = getOnOff("uctrl_onoff");
+        bool onOffValue = getOnOff("on_off");
         QString locationName = getStringValue("location");
         return QString("Turn {0} all lights in {1}").replace("{0}", (onOffValue ? "on" : "off")).replace("{1}", locationName);
     }
@@ -105,7 +105,7 @@ bool UVoiceControlResponse::hasValidIntent()
     }
     else if (getIntent() == QString("turn_onoff_lights_in_location"))
     {
-        return getFirstJsonValue("uctrl_onoff").toString() != QString("") && getFirstJsonValue("location").toString() != QString("");
+        return getFirstJsonValue("on_off").toString() != QString("") && getFirstJsonValue("location").toString() != QString("");
     }
     else if (getIntent() == QString("set_dimmer_lights"))
     {
@@ -139,7 +139,7 @@ void UVoiceControlResponse::sendIntent()
     // TODO : Update the whole file for this thing, verify if it's the right command
     else if (getIntent() == QString("turn_onoff_lights_in_location"))
     {
-        bool isOn = getOnOff("uctrl_onoff");
+        bool isOn = getOnOff("on_off");
         QString locationName = getStringValue("location");
 
         UTurnOnOffLightIntent turnOnOffLightIntent(m_voiceControlAPI->getUCtrlApiFacade(), isOn);

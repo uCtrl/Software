@@ -31,7 +31,6 @@ Rectangle {
             {
                 commandLabel.text = "Command received: " + currentCommand.getCommand()
                 currentCommand.sendIntent()
-                //TODO: Send the command to NinjaWare
             }
             else if(currentCommand.isUnsure())
             {
@@ -124,31 +123,36 @@ Rectangle {
                         voiceControlButton.color = Colors.uGreen
                     }
                     onClicked: {
-                        voiceControlButton.startedRecording = !voiceControlButton.startedRecording
-
-                        if(voiceControlButton.startedRecording)
-                        {
-                            didYouMeanAnswerContainer.visible = false
-
-                            voiceControlColorAnimation.start()
-                            voiceControlSizeAnimation.start()
-
-                            commandLabel.text = "Recording your command..."
-                        }
+                        if (messageCheckbox.checked)
+                            voiceControl.sendMessage(messageTextbox.text)
                         else
                         {
-                            voiceControlColorAnimation.stop()
-                            voiceControlSizeAnimation.stop()
+                            voiceControlButton.startedRecording = !voiceControlButton.startedRecording
 
-                            voiceControlAnimation.width = 200
-                            voiceControlAnimation.height = 200
+                            if(voiceControlButton.startedRecording)
+                            {
+                                didYouMeanAnswerContainer.visible = false
 
-                            commandLabel.text = "Analyzing your command..."
+                                voiceControlColorAnimation.start()
+                                voiceControlSizeAnimation.start()
 
-                            voiceControl.sendVoiceControlFile(audioRecorder.getOutputLocation())
+                                commandLabel.text = "Recording your command..."
+                            }
+                            else
+                            {
+                                voiceControlColorAnimation.stop()
+                                voiceControlSizeAnimation.stop()
+
+                                voiceControlAnimation.width = 200
+                                voiceControlAnimation.height = 200
+
+                                commandLabel.text = "Analyzing your command..."
+
+                                voiceControl.sendVoiceControlFile(audioRecorder.getOutputLocation())
+                            }
+
+                            audioRecorder.toggleRecord()
                         }
-
-                        audioRecorder.toggleRecord()
                     }
                 }
             }
@@ -166,6 +170,31 @@ Rectangle {
             color: Colors.uDarkGrey
             font.pointSize: 24
         }
+
+        Rectangle
+        {
+            anchors.horizontalCenter: commandLabel.horizontalCenter
+            anchors.top: commandLabel.bottom
+            width: commandLabel.width * 0.75
+
+            UI.UCheckbox
+            {
+                id: messageCheckbox
+                anchors.left: parent.left
+                anchors.verticalCenter: messageTextbox.verticalCenter
+            }
+
+            UI.UTextbox
+            {
+                id: messageTextbox
+                anchors.top: commandLabel.bottom
+                anchors.left: messageCheckbox.right
+                anchors.right: parent.right
+                anchors.leftMargin: 10
+            }
+        }
+
+
     }
 
     Rectangle
