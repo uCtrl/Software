@@ -187,7 +187,7 @@ Rectangle {
             UI.UTextbox
             {
                 id: messageTextbox
-                anchors.top: commandLabel.bottom
+                anchors.top: parent.top
                 anchors.left: messageCheckbox.right
                 anchors.right: parent.right
                 anchors.leftMargin: 10
