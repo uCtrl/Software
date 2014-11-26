@@ -193,8 +193,6 @@ Rectangle {
                 anchors.leftMargin: 10
             }
         }
-
-
     }
 
     Rectangle

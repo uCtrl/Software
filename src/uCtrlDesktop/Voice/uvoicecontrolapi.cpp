@@ -34,11 +34,8 @@ void UVoiceControlAPI::sendMessage(QString message)
     QNetworkRequest request;
     request.setUrl(QUrl(url));
     request.setRawHeader("Authorization", "Bearer AJKFKPXCCXDD6CPEXASZMJSLCOZSUQ3Z");
-    //request.setRawHeader("Content-Type", "application/wav");
 
     QNetworkReply* reply = manager->get(request);
-
-    //voiceFile->setParent(reply);
 }
 
 UVoiceControlResponse* UVoiceControlAPI::analyseIntent()
