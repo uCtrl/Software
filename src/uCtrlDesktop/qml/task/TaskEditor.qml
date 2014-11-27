@@ -12,6 +12,8 @@ Rectangle {
     anchors.fill: parent
     color: Colors.uWhite
 
+    onTaskModelChanged: valueTextbox.text = getTaskValue()
+
     Rectangle
     {
         id: editorContent
@@ -73,6 +75,7 @@ Rectangle {
                     }
                     UI.UTextbox
                     {
+                        id: valueTextbox
                         width: 100
                         height: 40
                         placeholderText: "Value"
@@ -166,7 +169,17 @@ Rectangle {
         anchors.bottom: parent.bottom
         anchors.right: parent.right
 
+        onSave: saveForm()
         onCancel: cancelEditing()
+    }
+
+    function saveForm()
+    {
+        taskModel.value(valueTextbox.text)
+
+        uCtrlApiFacade.putTask(taskModel)
+
+        taskEditorContainer.visible = false
     }
 
     function cancelEditing()
@@ -182,7 +195,7 @@ Rectangle {
 
     function getTaskValue()
     {
-        if (taskModel !== null && taskModel !== undefined) return taskModel.value
+        if (taskModel !== null && taskModel !== undefined) return taskModel.value()
         else return ""
     }
 }

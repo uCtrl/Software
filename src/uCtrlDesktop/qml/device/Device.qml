@@ -733,9 +733,9 @@ Rectangle
 
                         visible: false
 
-                        function editTask(tasks, conditions)
+                        function editTask(task, conditions)
                         {
-                            taskModel = tasks
+                            taskModel = task
                             conditionModel = conditions
                             visible = true
                         }

@@ -27,13 +27,15 @@ public:
     QHash<int, QByteArray> roleNames() const;
     ListModel* nestedModel() const;
 
+    Q_INVOKABLE QObject* conditions() { return m_conditions; }
+
     // JsonSerializable
     void write(QJsonObject &jsonObj) const;
     void read(const QJsonObject &jsonObj);
 
     // Properties
-    QString value() const;
-    void value(const QString& value);
+    Q_INVOKABLE QString value() const;
+    Q_INVOKABLE void value(const QString& value);
 
 private:
     QString m_value;

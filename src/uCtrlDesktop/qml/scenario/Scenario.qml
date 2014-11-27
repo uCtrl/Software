@@ -42,7 +42,7 @@ Rectangle
     }
 
     function getTasks() {
-        if (model !== null && model !== undefined && scenarios !== undefined) return scenarios.model.nestedModelFromId(model.id)
+        if (model !== null && model !== undefined && scenarios !== undefined) return scenarios.model.nestedModelFromId(model.id())
     }
 
     function isActiveScenario()

@@ -178,7 +178,7 @@ Column {
     }
 
     function deleteTask() {
-        console.log("delete")
+        tasks.model.removeRow(item.id)
     }
 
     function moveUp() {

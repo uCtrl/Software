@@ -9,6 +9,7 @@ Rectangle {
     id: scenarios
 
     property var model: null
+
     property var scenariosList: []
     property bool showEditMode: false
     property var editTaskFunction
@@ -264,6 +265,8 @@ Rectangle {
     {
         var task = scenarios.model.nestedModelFromId(currentScenario.model.id()).createNewTask();
         uCtrlApiFacade.postTask(task)
+
+        editTaskFunction(task, task.conditions())
     }
 
     function saveForm()
