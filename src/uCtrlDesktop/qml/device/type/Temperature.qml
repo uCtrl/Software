@@ -421,18 +421,17 @@ Rectangle {
     function getDeviceValueStats() {
         if (model !== null) {
 
-            /** Commented until server can handle statistics
-                var data = []
-                var labels = []
-                statsModel = deviceList.getStatisticsWithId(model.id)
-                for (var i=0; i<statsModel.rowCount();i++) {
-                    var stat = statsModel.get(i);
+            //Commented until server can handle statistics
+            var data = []
+            var labels = []
+            statsModel = devicesList.getStatisticsWithId(model.id)
+            for (var i=0; i<statsModel.rowCount();i++) {
+                var stat = statsModel.get(i);
 
-                    //console.log("[" + new Date(stat.timestamp).toTimeString() + "] (" + stat.type +") :" + stat.data);
-                    labels.push(new Date(stat.timestamp).toTimeString())
-                    data.push(stat.data)
-                }
-            */
+                //console.log("[" + new Date(stat.timestamp).toTimeString() + "] (" + stat.type +") :" + stat.data);
+                labels.push(new Date(stat.timestamp).toTimeString())
+                data.push(stat.data)
+            }
 
             console.log(labels)
             console.log(data)
@@ -498,7 +497,14 @@ Rectangle {
             break;
         }
 
-        to = new Date().toUTCString()
-        uCtrlApiFacade.getDeviceAllStats(devicesList.findObject(model.id), {"from": from, "to": to, "interval": interval, "fn": "mean"});
+        from = from * 1000
+        to = (new Date().getTime() * 1000)
+
+        console.log(" --- INTERVAL ---")
+        console.log("  FROM : " + from)
+        console.log("  TO   : " + to)
+        console.log("  INT  : " + interval)
+
+        uCtrlApiFacade.getDeviceAllStats(devicesList.findObject(model.id), {"from": from.toString(), "to": to.toString(), "interval": interval, "fn": "mean"});
     }
 }
