@@ -385,8 +385,12 @@ Rectangle {
         }
     }
 
-    onModelChanged: container.statsModel = statsModel = deviceList.getStatisticsWithId(model.id)
-    onStatsModelChanged: updateStatsPeriod()
+    onModelChanged: container.statsModel = devicesList.getStatisticsWithId(model.id)
+    //onStatsModelChanged: updateStatsPeriod()
+
+    onStatsModelChanged: {
+        console.log("Stats changed !");
+    }
 
     function getDeviceEnabled() {
         if (model !== null) return model.isEnabled ? "ON" : "OFF"
@@ -404,17 +408,17 @@ Rectangle {
     }
 
     function getDeviceMinValue() {
-       if (model !== null) return parseFloat(model.minStat).toFixed(1)
+       if (model !== null) return model.minStat
        else return "0";
     }
 
     function getDeviceMaxValue() {
-        if (model !== null) return parseFloat(model.maxStat).toFixed(1)
+        if (model !== null) return model.maxStat
         else return "0";
     }
 
     function getDeviceMeanValue() {
-        if (model !== null) return parseFloat(model.meanStat).toFixed(1)
+        if (model !== null) return model.meanStat
         else return "0";
     }
 
@@ -428,23 +432,23 @@ Rectangle {
             for (var i=0; i<statsModel.rowCount();i++) {
                 var stat = statsModel.get(i);
 
-                //console.log("[" + new Date(stat.timestamp).toTimeString() + "] (" + stat.type +") :" + stat.data);
+                //console.log(stat.toString())
                 labels.push(new Date(stat.timestamp).toTimeString())
                 data.push(stat.data)
             }
 
-            console.log(labels)
-            console.log(data)
+            //console.log(labels)
+            //console.log(data)
 
             var chartData = {
-                "labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
+                "labels": labels,
                 "axisY": [0, 25, 50, 75, 100],
                 "datasets": [{
                     fillColor: "rgba(237,237,237,0.5)",
                     strokeColor: Colors.uMediumLightGrey,
                     pointColor: Colors.uGreen,
                     pointStrokeColor: Colors.uGreen,
-                    data: [0, 55, 15, 75, 100, 0, 50]
+                    data: data
                 }]
             }
 
@@ -470,7 +474,7 @@ Rectangle {
     }
 
     function updateStatsPeriod() {
-        console.log("triggered")
+
         if (periodCombo.selectedItem !== null) var period = periodCombo.selectedItem.value
         else period = "hour"
 
@@ -496,15 +500,13 @@ Rectangle {
             interval = "1month"
             break;
         }
+        to = new Date().getTime()
 
-        from = from * 1000
-        to = (new Date().getTime() * 1000)
+        //console.log(" --- INTERVAL ---")
+        //console.log("  FROM : " + from)
+        //console.log("  TO   : " + to)
+        //console.log("  INT  : " + interval)
 
-        console.log(" --- INTERVAL ---")
-        console.log("  FROM : " + from)
-        console.log("  TO   : " + to)
-        console.log("  INT  : " + interval)
-
-        uCtrlApiFacade.getDeviceAllStats(devicesList.findObject(model.id), {"from": from.toString(), "to": to.toString(), "interval": interval, "fn": "mean"});
+        uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id), {"from": from.toString(), "to": to.toString(), "interval": interval, "fn": "mean"});
     }
 }

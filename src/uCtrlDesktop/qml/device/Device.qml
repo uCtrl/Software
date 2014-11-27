@@ -27,7 +27,11 @@ Rectangle
     property bool showEditMode: false
 
     onModelChanged: {
-        uCtrlApiFacade.getDeviceAllStats(devicesList.findObject(model.id));
+        uCtrlApiFacade.getDeviceAllStats(devicesList.findObject(model.id),
+                                         {"from": new Date().setMinutes(0, 0).toString(),
+                                          "to": new Date().getTime().toString(),
+                                          "interval": "15min",
+                                          "fn": "mean"});
         uCtrlApiFacade.getDeviceHistory(devicesList.findObject(model.id));
         showEditMode = false
     }
