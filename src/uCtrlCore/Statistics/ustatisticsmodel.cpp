@@ -18,4 +18,6 @@ void UStatisticsModel::read(const QJsonObject& jsonObj)
         s->read(statistic.toObject());
         this->appendRow(s);
     }
+
+    emit statsReceived();
 }

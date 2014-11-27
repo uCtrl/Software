@@ -27,7 +27,6 @@ Rectangle
     property bool showEditMode: false
 
     onModelChanged: {
-        uCtrlApiFacade.getDeviceAllStats(devicesList.findObject(model.id));
         uCtrlApiFacade.getDeviceHistory(devicesList.findObject(model.id));
         showEditMode = false
     }

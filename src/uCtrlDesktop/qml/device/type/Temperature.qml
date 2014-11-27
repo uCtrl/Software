@@ -13,7 +13,11 @@ Rectangle {
     id: container
 
     property var model: null
+    property var statsModel: null
+
     property string unitLabel : "°C"
+
+    property bool displayStats: false
 
     Rectangle {
         id: valueContainer
@@ -280,10 +284,21 @@ Rectangle {
                 id: stateChart
                 chartAnimated: false
                 chartName: "Daily status"
-                chartData: getDeviceValueStats()
+                chartData: {
+                    "labels": [],
+                    "datasets": [{
+                        fillColor: "rgba(237,237,237,0.5)",
+                        strokeColor: Colors.uMediumLightGrey,
+                        pointColor: Colors.uGreen,
+                        pointStrokeColor: Colors.uGreen,
+                        data: []
+                    }]
+                }
                 width: chartContainer.width
                 height: chartContainer.height
                 chartType: Charts.ChartType.LINE
+
+                onChartDataChanged: refresh()
             }
 
             UI.UChart {
@@ -295,6 +310,33 @@ Rectangle {
                 height: chartContainer.height
                 chartType: Charts.ChartType.LINE
             }
+
+            visible: container.displayStats
+        }
+
+        Rectangle {
+            id: noStats
+
+            anchors.top: statsHeader.bottom
+            anchors.bottom: carouselContainer.top
+
+            clip: true
+            width: parent.width
+
+            color: Colors.uTransparent
+
+            ULabel.Default {
+                anchors.centerIn: parent
+
+                font.bold: true
+                font.pixelSize: 36
+
+                color: Colors.uGrey
+
+                text: "No stats to display"
+            }
+
+            visible: !container.displayStats
         }
 
         Rectangle {
@@ -343,9 +385,10 @@ Rectangle {
                 id: periodCombo
 
                 property var periods: [
+                    { value: "hour", displayedValue: "This hour", iconId: ""},
                     { value: "today",     displayedValue: "Today", iconId: ""},
-                    { value: "week",   displayedValue: "This week", iconId: ""},
                     { value: "month",   displayedValue: "This month", iconId: ""},
+                    { value: "year", displayedValue: "This year", iconId: ""}
                ]
 
                 itemListModel: periods
@@ -370,18 +413,21 @@ Rectangle {
                 width: 150
 
                 Component.onCompleted: selectItem(0)
+                onSelectValue: updateStatsPeriod();
 
                 z: 3
             }
         }
-
-        Component.onCompleted: {
-            getDeviceMinValue();
-        }
     }
 
     onModelChanged: {
-        uCtrlApiFacade.getDeviceAllStats(devicesList.findObject(model.id));
+        uCtrlApiFacade.getDeviceAllStats(devicesList.findObject(model.id),
+                                         {"from": new Date().setMinutes(0, 0).toString(),
+                                          "to": new Date().getTime().toString()});
+
+        container.statsModel = devicesList.getStatisticsWithId(model.id);
+        container.statsModel.statsReceived.disconnect(getDeviceValueStats);
+        container.statsModel.statsReceived.connect(getDeviceValueStats);
     }
 
     function getDeviceEnabled() {
@@ -400,49 +446,49 @@ Rectangle {
     }
 
     function getDeviceMinValue() {
-       if (model !== null) return parseFloat(model.minStat).toFixed(1)
+       if (model !== null) return model.minStat
        else return "0";
     }
 
     function getDeviceMaxValue() {
-        if (model !== null) return parseFloat(model.maxStat).toFixed(1)
+        if (model !== null) return model.maxStat
         else return "0";
     }
 
     function getDeviceMeanValue() {
-        if (model !== null) return parseFloat(model.meanStat).toFixed(1)
+        if (model !== null) return model.meanStat
         else return "0";
     }
 
     function getDeviceValueStats() {
         if (model !== null) {
 
-            /** Commented until server can handle statistics
-                var data = []
-                var labels = []
+            var data = []
+            var labels = []
 
-                for (var i=0; i<statsModel.rowCount();i++) {
-                    var stat = statsModel.get(i);
+            for (var i=0; i<statsModel.rowCount();i++) {
+                var stat = statsModel.get(i);
 
-                    //console.log("[" + new Date(stat.timestamp).toTimeString() + "] (" + stat.type +") :" + stat.data);
+                if (!isNaN(stat.data)) {
                     labels.push(new Date(stat.timestamp).toTimeString())
-                    data.push(stat.data)
+                    data.push(Number(stat.data))
                 }
-            */
+            }
+
+            container.displayStats = (data.length > 0)
 
             var chartData = {
-                "labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
-                "axisY": [0, 25, 50, 75, 100],
+                "labels": labels,
                 "datasets": [{
                     fillColor: "rgba(237,237,237,0.5)",
                     strokeColor: Colors.uMediumLightGrey,
                     pointColor: Colors.uGreen,
                     pointStrokeColor: Colors.uGreen,
-                    data: [0, 55, 15, 75, 100, 0, 50]
+                    data: data
                 }]
             }
 
-            return chartData
+            stateChart.chartData = chartData;
         }
     }
 
@@ -461,5 +507,37 @@ Rectangle {
         }
 
         return chartData
+    }
+
+    function updateStatsPeriod() {
+
+        if (periodCombo.selectedItem !== null) var period = periodCombo.selectedItem.value
+        else period = "hour"
+
+        var from = ""
+        var to = ""
+        var interval = ""
+
+        switch (period) {
+        case "hour":
+            from = new Date().setMinutes(0, 0)
+            interval = "15min"
+            break;
+        case "today":
+            from = new Date().setHours(0, 0, 0)
+            interval = "1hour"
+            break;
+        case "month":
+            from = new Date().setDate(1, 0, 0, 0)
+            interval = "12hour"
+            break;
+        case "year":
+            from = new Date().setMonth(0, 1, 0, 0, 0)
+            interval = "1month"
+            break;
+        }
+        to = new Date().getTime()
+
+        uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id), {"from": from.toString(), "to": to.toString(), "interval": interval, "fn": "mean"});
     }
 }

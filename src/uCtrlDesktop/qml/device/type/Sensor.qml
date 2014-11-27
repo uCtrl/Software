@@ -11,6 +11,7 @@ Rectangle {
     id: container
 
     property var model: null
+    property var statsModel: null
 
     color: Colors.uTransparent
 
@@ -127,7 +128,8 @@ Rectangle {
                 height: parent.height;
                 width: 150
 
-                Component.onCompleted: selectItem(0)
+                Component.onCompleted: selectItem(0);
+                onSelectValue: updateStatsPeriod();
 
                 z: 3
             }
@@ -150,40 +152,37 @@ Rectangle {
             UI.UChart {
                 id: stateChart
                 chartAnimated: false
-                chartName: "Number of detection"
+                chartName: "Daily status"
                 chartData: {
-                               "labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
-                               "axisY": [0, 25, 50, 75, 100],
-                               "datasets": [{
-                                   fillColor: Colors.uGreen,
-                                   strokeColor: Colors.uDarkGreen,
-                                   pointColor: Colors.uGreen,
-                                   pointStrokeColor: Colors.uGreen,
-                                   data: [0, 55, 15, 75, 100, 0, 50],
-                               }]
-                           }
+                    "labels": [],
+                    "datasets": [{
+                        fillColor: "rgba(237,237,237,0.5)",
+                        strokeColor: Colors.uMediumLightGrey,
+                        pointColor: Colors.uGreen,
+                        pointStrokeColor: Colors.uGreen,
+                        data: []
+                    }]
+                }
                 width: graph.width
                 height: graph.height
-                chartType: Charts.ChartType.BAR
+                chartType: Charts.ChartType.LINE
 
-                z: 2
+                onChartDataChanged: refresh()
             }
 
             UI.UChart {
                 id: powerChart
                 chartAnimated: false
                 chartName: "Power consumption"
-                chartData: {
-                               "labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
-                               "axisY": [0, 25, 50, 75, 100],
-                               "datasets": [{
-                                   fillColor: "rgba(237,237,237,0.5)",
-                                   strokeColor: Colors.uMediumLightGrey,
-                                   pointColor: Colors.uGreen,
-                                   pointStrokeColor: Colors.uGreen,
-                                   data: [0, 15, 20, 23, 25, 60, 67]
-                               }]
-                           }
+                chartData: {"labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
+                           "datasets": [{
+                               fillColor: "rgba(237,237,237,0.5)",
+                               strokeColor: Colors.uMediumLightGrey,
+                               pointColor: Colors.uGreen,
+                               pointStrokeColor: Colors.uGreen,
+                               data: [0, 15, 20, 23, 25, 60, 67]
+                           }]
+                       }
                 width: graph.width
                 height: graph.height
                 chartType: Charts.ChartType.LINE
@@ -210,8 +209,74 @@ Rectangle {
         }
     }
 
+    onModelChanged: {
+        container.statsModel = devicesList.getStatisticsWithId(model.id);
+        container.statsModel.statsReceived.disconnect(getDeviceValueStats);
+        container.statsModel.statsReceived.connect(getDeviceValueStats);
+    }
+
     function getLastUpdatedText() {
         if (model !== null && model.lastUpdate !== undefined) return model.lastUpdate
         else return " A second ago."
+    }
+
+    function getDeviceValueStats() {
+        if (statsModel !== null && statsModel !== undefined) {
+
+            var data = []
+            var labels = []
+
+            for (var i=0; i<statsModel.rowCount();i++) {
+                var stat = statsModel.get(i);
+                labels.push(new Date(stat.timestamp).toTimeString())
+                data.push(stat.data)
+            }
+
+            var chartData = {
+                "labels": labels,
+                "axisY": [0, 50, 150, 200, 250, 300],
+                "datasets": [{
+                    fillColor: "rgba(237,237,237,0.5)",
+                    strokeColor: Colors.uMediumLightGrey,
+                    pointColor: Colors.uGreen,
+                    pointStrokeColor: Colors.uGreen,
+                    data: data
+                }]
+            }
+
+            stateChart.chartData = chartData;
+        }
+    }
+
+    function updateStatsPeriod() {
+
+        if (periodCombo.selectedItem !== null) var period = periodCombo.selectedItem.value
+        else period = "hour"
+
+        var from = ""
+        var to = ""
+        var interval = ""
+
+        switch (period) {
+        case "hour":
+            from = new Date().setMinutes(0, 0)
+            interval = "15min"
+            break;
+        case "today":
+            from = new Date().setHours(0, 0, 0)
+            interval = "1hour"
+            break;
+        case "month":
+            from = new Date().setDate(1, 0, 0, 0)
+            interval = "1day"
+            break;
+        case "year":
+            from = new Date().setMonth(0, 1, 0, 0, 0)
+            interval = "1month"
+            break;
+        }
+        to = new Date().getTime()
+
+        uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id), {"from": from.toString(), "to": to.toString(), "interval": interval, "fn": "count"});
     }
 }

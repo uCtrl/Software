@@ -107,7 +107,6 @@ void UCtrlAPIFacade::getDeviceAllStats(UDevice *device, QMap<QString, QVariant> 
 {
     QString platformId;
     resolveIds(platformId, device);
-    m_uCtrlApi.getDeviceValues(platformId, device->id(), params);
     m_uCtrlApi.getDeviceMax(platformId, device->id(), params);
     m_uCtrlApi.getDeviceMin(platformId, device->id(), params);
     m_uCtrlApi.getDeviceMean(platformId, device->id(), params);

@@ -15,6 +15,7 @@ Rectangle {
 
     property var selectedItem: null
     z:1
+
     signal selectValue(var newValue)
     property int itemDisplayedBeforeScroll: 10
 
