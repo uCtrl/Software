@@ -157,13 +157,13 @@ Rectangle {
 
                 Component.onCompleted: {
                     selectItem(0)
-                    currentScenario.model = scenarios.model.get(0)
+                    currentScenario.model = scenarios.model.getRow(0)
                 }
 
                 onSelectedItemChanged: {
-                    if (scenarios.model !== null && scenarios.model !== undefined)
+                    if (scenarios.model !== null && scenarios.model !== undefined && selectedItem !== null)
                     {
-                        currentScenario.model = scenarios.model.get(selectedItem.value)
+                        currentScenario.model = scenarios.model.getRow(selectedItem.value)
                     }
                 }
              }
@@ -227,6 +227,8 @@ Rectangle {
         anchors.leftMargin: 10
 
         visible: currentScenario !== null && currentScenario !== undefined && currentScenario.showEditMode
+
+        onClicked: createNewTask()
     }
 
     onModelChanged: refreshComboBox()
@@ -237,7 +239,7 @@ Rectangle {
             scenariosList = null;
             if (model.rowCount() > 0) {
                 for (var i=0;i<model.rowCount();i++) {
-                    var item = {value: i, displayedValue: model.get(i).name, iconId: ""}
+                    var item = {value: i, displayedValue: model.getRow(i).name(), iconId: ""}
 
                     if (scenariosList != null)
                         scenariosList.push(item)
@@ -254,42 +256,50 @@ Rectangle {
         uCtrlApiFacade.postScenario(scenario)
 
         // TODO : Update the interface to show the newly created scenario
+        currentScenario.model = scenario
+        changeEditMode(true)
+    }
+
+    function createNewTask()
+    {
+        var task = scenarios.model.nestedModelFromId(currentScenario.model.id()).createNewTask();
+        uCtrlApiFacade.postTask(task)
     }
 
     function saveForm()
     {
-        var scenario  = scenarios.model.findObject(currentScenario.model.id)
-        console.log(currentScenario.model.id)
+        var scenario = scenarios.model.findObject(currentScenario.model.id())
+
         if (scenario !== null) {
             scenario.name(editScenarioName.text)
-            currentScenario.model.name = editScenarioName.text
+            currentScenario.model.name(editScenarioName.text)
         }
 
         uCtrlApiFacade.putScenario(scenario)
         toggleEditMode()
         refreshComboBox()
-
-        // TODO : Update interface
     }
 
     function toggleEditMode()
     {
-        showEditMode = !showEditMode
+        changeEditMode(!showEditMode)
+    }
+
+    function changeEditMode(newEditMode)
+    {
+        showEditMode = newEditMode
         currentScenario.showEditMode = showEditMode
 
         if(currentScenario.model !== null)
         {
-            editScenarioName.text = currentScenario.model.name
+            editScenarioName.text = currentScenario.model.name()
         }
     }
 
     function deleteScenario()
     {
-        var scenario = scenarios.model.findObject(currentScenario.model.id);
+        var scenario = scenarios.model.findObject(currentScenario.model.id());
         uCtrlApiFacade.deleteScenario(scenario)
-        var rowIndex = scenarios.model.indexOf(scenario)
-        scenarios.model.removeRow(rowIndex);
-
-        // TODO : Update interface or it will crash on the next delete
+        scenarios.model.removeRow(scenario.id);
     }
 }

@@ -25,7 +25,7 @@ public:
     virtual void read(const QJsonObject &jsonObj) = 0;
 
     // Base properties
-    QString id() const;
+    Q_INVOKABLE QString id() const;
     void id(const QString& id);
     bool enabled() const;
     void enabled(bool enabled);

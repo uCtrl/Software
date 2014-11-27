@@ -52,6 +52,7 @@ public:
         Temperature = 31,
         NinjasEyes = 1007,
         LimitlessLEDWhite = 1012,
+        DoorSensor = 9990,
     };
 
     explicit UDevice(QObject *parent = 0);

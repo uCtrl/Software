@@ -32,7 +32,7 @@ public:
     void read(const QJsonObject &jsonObj);
 
     // Properties
-    QString name() const;
+    Q_INVOKABLE QString name() const;
     Q_INVOKABLE void name(const QString& name);
 
 private:

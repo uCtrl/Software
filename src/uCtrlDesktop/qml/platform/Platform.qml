@@ -571,6 +571,8 @@ Rectangle {
         model.room = roomTextbox.text
 
         toggleEditMode()
+
+        uCtrlApiFacade.putPlatform(platformsModel.findObject(model.id))
     }
 
     function toggleEditMode() {
