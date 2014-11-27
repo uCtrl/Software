@@ -386,8 +386,6 @@ Rectangle {
 
                 Component.onCompleted: selectItem(0)
 
-                onSelectedItemChanged: updateStatsPeriod()
-
                 z: 3
             }
         }
@@ -486,6 +484,8 @@ Rectangle {
     }
 
     function updateStatsPeriod() {
+
+        console.log("updateStatsPeriod");
 
         if (periodCombo.selectedItem !== null) var period = periodCombo.selectedItem.value
         else period = "hour"

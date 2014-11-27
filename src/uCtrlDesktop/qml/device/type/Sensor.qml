@@ -213,8 +213,6 @@ Rectangle {
     }
 
     onModelChanged: {
-        console.log(model)
-
         container.statsModel = devicesList.getStatisticsWithId(model.id);
         container.statsModel.statsReceived.disconnect(getDeviceValueStats);
         container.statsModel.statsReceived.connect(getDeviceValueStats);
@@ -232,7 +230,7 @@ Rectangle {
     }
 
     function getDeviceValueStats() {
-        if (model !== null) {
+        if (statsModel !== null) {
 
             //Commented until server can handle statistics
             var data = []
