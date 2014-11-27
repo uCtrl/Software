@@ -68,7 +68,7 @@
         <file>qml/jbQuick/Charts/README.md</file>
         <file>qml/ui/UAlert.qml</file>
         <file>qml/settings/Settings.qml</file>
-        <file>qml/device/type/Switch.qml</file>
+        <file>qml/device/type/PowerSocketSwitch.qml</file>
         <file>qml/device/type/StatusLight.qml</file>
         <file>qml/device/type/RF.qml</file>
         <file>qml/device/type/PushButton.qml</file>
