@@ -20,9 +20,9 @@ Rectangle
     anchors.fill: parent
     color: Colors.uLightGrey
 
-    property int marginSize: 20
-    property int paddingSize: 20
-    property int bottomMarginSize: 30
+    property int marginSize: (resourceLoader.loadResource("deviceDevicepageMarginSize"))
+    property int paddingSize: (resourceLoader.loadResource("deviceDevicepagePaddingSize"))
+    property int bottomMarginSize: (resourceLoader.loadResource("deviceDevicepageBottomMarginSize"))
 
     property bool showEditMode: false
 
@@ -44,7 +44,7 @@ Rectangle
         anchors.bottomMargin: devicePage.bottomMarginSize
 
         color:  Colors.uWhite
-        radius: 5
+        radius: 5(resourceLoader.loadResource("deviceDevicepageContentcanvasRadius"))
 
         Rectangle {
             id: contentContainer
@@ -91,7 +91,7 @@ Rectangle
                         anchors.left: nameContainer.left
                         anchors.top: nameContainer.top
 
-                        width: 50
+                        width: (resourceLoader.loadResource("deviceDevicepageContentcanvasIconcontainerWidth"))
                         height: width
 
                         radius: 10

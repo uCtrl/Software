@@ -23,17 +23,17 @@ Rectangle {
         anchors.right: container.right
 
         anchors.top: container.top
-        height: 35
+        height: (resourceLoader.loadResource("sensorUpdatecontainerHeight"))
 
         UI.UFontAwesome {
             id: updateIcon
 
             iconId: "earth"
-            iconSize: 12
+            iconSize: (resourceLoader.loadResource("sensorUpdateiconSize"))
             iconColor: Colors.uGrey
 
             anchors.left: updateContainer.left
-            anchors.leftMargin: 10
+            anchors.leftMargin: (resourceLoader.loadResource("sensorUpdateiconLeftMargin"))
             anchors.verticalCenter: updateContainer.verticalCenter
         }
 
@@ -43,12 +43,12 @@ Rectangle {
             text: "Last detection : " + getLastUpdatedText()
 
             font.bold: false
-            font.pixelSize: 11
+            font.pixelSize: (resourceLoader.loadResource("sensorUpdatelabelFontPixeSize"))
 
             color: Colors.uGrey
 
             anchors.left: updateIcon.right
-            anchors.leftMargin: 15
+            anchors.leftMargin: (resourceLoader.loadResource("sensorUpdatelabelLeftMargin"))
 
             anchors.verticalCenter: updateContainer.verticalCenter
         }
@@ -74,15 +74,15 @@ Rectangle {
             anchors.right: graphContainer.right
             anchors.top: graphContainer.top
 
-            height: 25
+            height: (resourceLoader.loadResource("sensorGraphheaderHeight"))
 
             UI.UFontAwesome {
                 id: statsIcon
                 iconId: "stats"
-                iconSize: 12
+                iconSize: (resourceLoader.loadResource("sensorGraphheaderStatsiconSize"))
                 iconColor: Colors.uGrey
                 anchors.left: parent.left
-                anchors.leftMargin: 10
+                anchors.leftMargin: (resourceLoader.loadResource("sensorGraphheaderStatsIconLeftMargin"))
                 anchors.verticalCenter: parent.verticalCenter
             }
 
