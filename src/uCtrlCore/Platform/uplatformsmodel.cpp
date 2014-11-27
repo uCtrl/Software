@@ -69,7 +69,7 @@ QList<UDevice*> UPlatformsModel::findDevicesByLocation(const QString& locationNa
         UPlatform* platform = (UPlatform*)item;
         UDevicesModel* devicesModel = (UDevicesModel*)platform->nestedModel();
 
-        if (locationName == platform->room())
+        if (locationName.toLower() == platform->room().toLower())
         {
             QList<ListItem*> subDeviceList = devicesModel->getItems();
             foreach(ListItem* device, subDeviceList) {
