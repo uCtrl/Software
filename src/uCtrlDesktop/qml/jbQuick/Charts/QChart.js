@@ -1095,6 +1095,8 @@ var Chart = function(canvas, context) {
 
         this.draw = function (progress) {
 
+            this.init();
+
             clear(ctx);
 
             if(config.scaleOverlay) {
@@ -1135,7 +1137,6 @@ var Chart = function(canvas, context) {
         }
 
         function drawScale() {
-
             ctx.lineWidth = config.scaleLineWidth;
             ctx.strokeStyle = config.scaleLineColor;
             ctx.beginPath();
@@ -1219,6 +1220,7 @@ var Chart = function(canvas, context) {
             barWidth = (valueHop - config.scaleGridLineWidth*2 - (config.barValueSpacing*2) - (config.barDatasetSpacing*data.datasets.length-1) - ((config.barStrokeWidth/2)*data.datasets.length-1))/data.datasets.length;
 
             yAxisPosX = width-widestXLabel/2-xAxisLength;
+
             xAxisPosY = scaleHeight + config.scaleFontSize/2;
         }
 

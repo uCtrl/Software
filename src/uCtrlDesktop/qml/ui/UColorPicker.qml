@@ -18,7 +18,8 @@ Rectangle {
 
     property var saturatedPickerColor: hsb(hue, 1, 1)
     property var pickerColor: hsb(hue, saturation, value)
-    property var pickerColorString: fullColorString(pickerColor)
+    property var pickerString: fullColorString(pickerColor)
+    property var pickerColorString: "#" + pickerString
     onPickerColorStringChanged: colorStringTextbox.text = pickerColorString
 
     color: Colors.uDarkGrey
@@ -650,7 +651,7 @@ Rectangle {
 
     //  creates a full color string from color value and alpha[0..1], e.g. "#00FF00"
     function fullColorString(clr) {
-        return "#" + (clr.toString().substr(1, 6)).toUpperCase();
+        return (clr.toString().substr(1, 6)).toUpperCase();
     }
 
     //  extracts integer color channel value [0..255] from color value
