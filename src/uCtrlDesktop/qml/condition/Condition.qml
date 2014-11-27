@@ -152,7 +152,7 @@ Rectangle {
                 anchors.left: deviceConditionIcon.right
                 anchors.verticalCenter: parent.verticalCenter
 
-                text: "Device with id " + model.deviceId + " is "
+                text: "Device \"" + getDeviceName(model.deviceId) + "\" is "
             }
 
             Loader {
@@ -169,7 +169,7 @@ Rectangle {
         id: gtComponent
 
         ULabel.ConditionLabel {
-            text: "greater than " + model.endValue
+            text: "greater than " + model.beginValue
         }
     }
 
@@ -177,7 +177,7 @@ Rectangle {
         id: ltComponent
 
         ULabel.ConditionLabel {
-            text: "lesser than " + model.beginValue
+            text: "less than " + model.endValue
         }
     }
 
@@ -201,8 +201,14 @@ Rectangle {
         id: notComponent
 
         ULabel.ConditionLabel {
-            text: "not " + model.beginValue
+            text: "not equal to " + model.beginValue
         }
+    }
+
+    function getDeviceName(deviceId)
+    {
+        console.log("DeviceId: " + deviceId)
+        return devicesList.findObject(deviceId).name()
     }
 
     function getSourceComponent() {

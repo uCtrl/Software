@@ -54,16 +54,16 @@ public:
     void read(const QJsonObject &jsonObj);
 
     // Properties
-    UEType type() const;
-    void type(UEType type);
-    UEComparisonType comparisonType() const;
-    void comparisonType(UEComparisonType comparisonType);
-    QString beginValue() const;
-    void beginValue(const QString& beginValue);
-    QString endValue() const;
-    void endValue(const QString& endValue);
-    QString deviceId() const;
-    void deviceId(const QString& deviceId);
+    Q_INVOKABLE UEType type() const;
+    Q_INVOKABLE void type(UEType type);
+    Q_INVOKABLE UEComparisonType comparisonType() const;
+    Q_INVOKABLE void comparisonType(UEComparisonType comparisonType);
+    Q_INVOKABLE QString beginValue() const;
+    Q_INVOKABLE void beginValue(const QString& beginValue);
+    Q_INVOKABLE QString endValue() const;
+    Q_INVOKABLE void endValue(const QString& endValue);
+    Q_INVOKABLE QString deviceId() const;
+    Q_INVOKABLE void deviceId(const QString& deviceId);
 
 private:
     UEType m_type;

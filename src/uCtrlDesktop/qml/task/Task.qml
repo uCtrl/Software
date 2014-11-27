@@ -179,6 +179,7 @@ Column {
     }
 
     function deleteTask() {
+        uCtrlApiFacade.deleteTask(tasks.model.findObject(item.id))
         tasks.model.removeRow(item.id)
     }
 

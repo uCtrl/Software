@@ -12,9 +12,20 @@ Rectangle {
     property var conditionModel
     property int rowHeight: 38
 
+    signal saveConditionDetails()
+
     width: parent.width
     height: conditionTypeContainer.height + conditionCriterionContainer.height + separator.height
     color: Colors.uTransparent
+
+    onConditionModelChanged:
+    {
+        console.log("CONDITION MODEL UPDATE")
+        if(getCondition().type() !== UEType.None)
+        {
+            deviceTypeCombo.selectItemByValue(getCondition().type())
+        }
+    }
 
     Rectangle
     {
@@ -81,10 +92,10 @@ Rectangle {
                         width: 200
                         height: 30
                         itemListModel: [
-                                           { value:"Day", displayedValue:"Day", iconId:"Calendar"},
-                                           { value:"Date", displayedValue:"Date", iconId:"Calendar"},
-                                           { value:"Device", displayedValue:"Device", iconId:"lightning"},
-                                           { value:"Time", displayedValue:"Time", iconId:"clock"}
+                                           { value:UEType.Day,    displayedValue:"Day",    iconId:"Calendar"},
+                                           { value:UEType.Date,   displayedValue:"Date",   iconId:"Calendar"},
+                                           { value:UEType.Device, displayedValue:"Device", iconId:"lightning"},
+                                           { value:UEType.Time,   displayedValue:"Time",   iconId:"clock"}
                                        ]
                         anchors.verticalCenter: parent.verticalCenter
                     }
@@ -195,12 +206,12 @@ Rectangle {
                         width: 200
                         height: 30
                         itemListModel: [
-                                           { value:"lt", displayedValue:"Less than",    iconId:"" },
-                                           { value:"gt", displayedValue:"Greater than", iconId:"" },
-                                           { value:"e",  displayedValue:"Equal to",     iconId:"" },
-                                           { value:"n",  displayedValue:"Not equal to", iconId:"" },
-                                           { value:"b",  displayedValue:"Between",      iconId:"" }
-                                       ]
+                                           { value:UEComparisonType.LesserThan,  displayedValue:"Less than",    iconId:"" },
+                                           { value:UEComparisonType.GreaterThan, displayedValue:"Greater than", iconId:"" },
+                                           { value:UEComparisonType.Equals,      displayedValue:"Equal to",     iconId:"" },
+                                           { value:UEComparisonType.Not,         displayedValue:"Not equal to", iconId:"" },
+                                           { value:UEComparisonType.InBetween,   displayedValue:"Between",      iconId:"" }
+                                      ]
                         anchors.verticalCenter: parent.verticalCenter
                     }
                 }
@@ -221,6 +232,25 @@ Rectangle {
                 {
                     id: conditionParameterSelector
                     sourceComponent: getParameterComponent(operatorCombo.selectedItem)
+                }
+            }
+
+            Component.onCompleted: {
+                conditionEditorContainer.saveConditionDetails.connect(saveOperator)
+
+                conditionModelChanged()
+            }
+
+            function conditionModelChanged()
+            {
+                operatorCombo.selectItemByValue(getCondition().comparisonType())
+            }
+
+            function saveOperator()
+            {
+                if(operatorCombo.selectedItem !== null)
+                {
+                    getCondition().comparisonType(operatorCombo.selectedItem.value)
                 }
             }
         }
@@ -308,11 +338,9 @@ Rectangle {
                     UI.UCombobox
                     {
                         id: deviceCombo
-                        width: 200
+                        width: 300
                         height: 30
-                        itemListModel: [
-                                           { value:"100", displayedValue:"Device with id=100", iconId:"" }
-                                       ]
+                        itemListModel: getDeviceList()
                         anchors.verticalCenter: parent.verticalCenter
                     }
                 }
@@ -354,11 +382,11 @@ Rectangle {
                         width: 200
                         height: 30
                         itemListModel: [
-                                           { value:"lt", displayedValue:"Less than",    iconId:"" },
-                                           { value:"gt", displayedValue:"Greater than", iconId:"" },
-                                           { value:"e",  displayedValue:"Equal to",     iconId:"" },
-                                           { value:"n",  displayedValue:"Not equal to", iconId:"" },
-                                           { value:"b",  displayedValue:"Between",      iconId:"" }
+                                           { value:UEComparisonType.LesserThan,  displayedValue:"Less than",    iconId:"" },
+                                           { value:UEComparisonType.GreaterThan, displayedValue:"Greater than", iconId:"" },
+                                           { value:UEComparisonType.Equals,      displayedValue:"Equal to",     iconId:"" },
+                                           { value:UEComparisonType.Not,         displayedValue:"Not equal to", iconId:"" },
+                                           { value:UEComparisonType.InBetween,   displayedValue:"Between",      iconId:"" }
                                        ]
                         anchors.verticalCenter: parent.verticalCenter
                     }
@@ -380,6 +408,29 @@ Rectangle {
                 {
                     id: conditionParameterSelector
                     sourceComponent: getParameterComponent(operatorCombo.selectedItem)
+                }
+            }
+
+            Component.onCompleted: {
+                conditionEditorContainer.saveConditionDetails.connect(saveOperator)
+                conditionModelChanged()
+            }
+
+            function conditionModelChanged()
+            {
+                deviceCombo.selectItemByValue(getCondition().deviceId())
+                operatorCombo.selectItemByValue(getCondition().comparisonType())
+            }
+
+            function saveOperator()
+            {
+                if(deviceCombo.selectedItem !== null)
+                {
+                    getCondition().deviceId(deviceCombo.selectedItem.value)
+                }
+                if(operatorCombo.selectedItem !== null)
+                {
+                    getCondition().comparisonType(operatorCombo.selectedItem.value)
                 }
             }
         }
@@ -426,7 +477,7 @@ Rectangle {
                     Loader
                     {
                         id: parameterSelector
-                        sourceComponent: getSelectorComponent()
+                        sourceComponent: getSelectorComponent("endCondition")
                     }
                 }
             }
@@ -474,7 +525,7 @@ Rectangle {
                     Loader
                     {
                         id: parameterSelector
-                        sourceComponent: getSelectorComponent()
+                        sourceComponent: getSelectorComponent("beginCondition")
                     }
                 }
             }
@@ -522,7 +573,7 @@ Rectangle {
                     Loader
                     {
                         id: parameterSelector
-                        sourceComponent: getSelectorComponent()
+                        sourceComponent: getSelectorComponent("beginCondition")
                     }
                 }
             }
@@ -570,7 +621,7 @@ Rectangle {
                     Loader
                     {
                         id: parameterSelector
-                        sourceComponent: getSelectorComponent()
+                        sourceComponent: getSelectorComponent("beginCondition")
                     }
                 }
             }
@@ -619,7 +670,7 @@ Rectangle {
 
                     Loader
                     {
-                        sourceComponent: getSelectorComponent()
+                        sourceComponent: getSelectorComponent("beginCondition")
                     }
                 }
             }
@@ -655,7 +706,7 @@ Rectangle {
 
                     Loader
                     {
-                        sourceComponent: getSelectorComponent()
+                        sourceComponent: getSelectorComponent("endCondition")
                     }
                 }
             }
@@ -664,7 +715,7 @@ Rectangle {
 
     Component
     {
-        id: dateSelectorComponent
+        id: dateSelectorComponentBegin
 
         Rectangle
         {
@@ -677,12 +728,47 @@ Rectangle {
             {
                 anchors.verticalCenter: parent.verticalCenter
             }
+
+            Component.onCompleted: {
+                conditionEditorContainer.saveConditionDetails.connect(saveOperator)
+            }
+
+            function saveOperator()
+            {
+
+            }
+        }
+    }
+    Component
+    {
+        id: dateSelectorComponentEnd
+
+        Rectangle
+        {
+            width: conditionTypeCombo.width
+            height: conditionEditorContainer.rowHeight
+
+            color: Colors.uTransparent
+
+            UI.UDatePicker
+            {
+                anchors.verticalCenter: parent.verticalCenter
+            }
+
+            Component.onCompleted: {
+                conditionEditorContainer.saveConditionDetails.connect(saveOperator)
+            }
+
+            function saveOperator()
+            {
+
+            }
         }
     }
 
     Component
     {
-        id: daySelectorComponent
+        id: daySelectorComponentBegin
 
         Rectangle
         {
@@ -695,12 +781,47 @@ Rectangle {
             {
                 anchors.verticalCenter: parent.verticalCenter
             }
+
+            Component.onCompleted: {
+                conditionEditorContainer.saveConditionDetails.connect(saveOperator)
+            }
+
+            function saveOperator()
+            {
+
+            }
+        }
+    }
+    Component
+    {
+        id: daySelectorComponentEnd
+
+        Rectangle
+        {
+            width: conditionTypeCombo.width
+            height: conditionEditorContainer.rowHeight
+
+            color: Colors.uTransparent
+
+            UI.UWeekdayPicker
+            {
+                anchors.verticalCenter: parent.verticalCenter
+            }
+
+            Component.onCompleted: {
+                conditionEditorContainer.saveConditionDetails.connect(saveOperator)
+            }
+
+            function saveOperator()
+            {
+
+            }
         }
     }
 
     Component
     {
-        id: timeSelectorComponent
+        id: timeSelectorComponentBegin
 
         Rectangle
         {
@@ -713,12 +834,47 @@ Rectangle {
             {
                 anchors.verticalCenter: parent.verticalCenter
             }
+
+            Component.onCompleted: {
+                conditionEditorContainer.saveConditionDetails.connect(saveOperator)
+            }
+
+            function saveOperator()
+            {
+
+            }
+        }
+    }
+    Component
+    {
+        id: timeSelectorComponentEnd
+
+        Rectangle
+        {
+            width: conditionTypeCombo.width
+            height: conditionEditorContainer.rowHeight
+
+            color: Colors.uTransparent
+
+            UI.UTimePicker
+            {
+                anchors.verticalCenter: parent.verticalCenter
+            }
+
+            Component.onCompleted: {
+                conditionEditorContainer.saveConditionDetails.connect(saveOperator)
+            }
+
+            function saveOperator()
+            {
+
+            }
         }
     }
 
     Component
     {
-        id: deviceSelectorComponent
+        id: deviceSelectorComponentBegin
 
         Rectangle
         {
@@ -729,6 +885,7 @@ Rectangle {
 
             UI.UTextbox
             {
+                id: deviceTextbox
                 width: 300
                 height: 30
 
@@ -741,24 +898,102 @@ Rectangle {
 
                 state: validate() ? "SUCCESS" : "ERROR"
             }
+
+            Component.onCompleted: {
+                conditionEditorContainer.saveConditionDetails.connect(saveOperator)
+                conditionModelChanged()
+            }
+
+            function conditionModelChanged()
+            {
+                deviceTextbox.text = getCondition().beginValue()
+            }
+
+            function saveOperator()
+            {
+                if(deviceTextbox.validate())
+                {
+                    getCondition().beginValue(deviceTextbox.text)
+                }
+            }
+        }
+    }
+    Component
+    {
+        id: deviceSelectorComponentEnd
+
+        Rectangle
+        {
+            width: conditionTypeCombo.width
+            height: conditionEditorContainer.rowHeight
+
+            color: Colors.uTransparent
+
+            UI.UTextbox
+            {
+                id: deviceTextbox
+
+                width: 300
+                height: 30
+
+                placeholderText: "Enter a device value"
+
+                function validate()
+                {
+                    return text !== ""
+                }
+
+                state: validate() ? "SUCCESS" : "ERROR"
+            }
+
+            Component.onCompleted: {
+                conditionEditorContainer.saveConditionDetails.connect(saveOperator)
+                conditionModelChanged()
+            }
+
+            function conditionModelChanged()
+            {
+                deviceTextbox.text = getCondition().endValue()
+            }
+
+            function saveOperator()
+            {
+                if(deviceTextbox.validate())
+                {
+                    getCondition().endValue(deviceTextbox.text)
+                }
+            }
         }
     }
 
-    function getSelectorComponent()
+    function getDeviceList()
+    {
+        var deviceComboList = [];
+
+        for(var i = 0; i < devicesList.rowCount(); i++)
+        {
+            var device = devicesList.getRow(i);
+            deviceComboList[i] = { value: device.id(), displayedValue:device.name(), iconId:"" }
+        }
+
+        return deviceComboList
+    }
+
+    function getSelectorComponent(valueType)
     {
         if(deviceTypeCombo.selectedItem === null)
             return emptyComponent
 
         switch(deviceTypeCombo.selectedItem.value)
         {
-            case "Date":
-                return dateSelectorComponent
-            case "Day":
-                return daySelectorComponent
-            case "Time":
-                return timeSelectorComponent
-            case "Device":
-                return deviceSelectorComponent
+            case UEType.Date:
+                return valueType === "beginCondition" ? dateSelectorComponentBegin : dateSelectorComponentEnd
+            case UEType.Day:
+                return valueType === "beginCondition" ? daySelectorComponentBegin : daySelectorComponentEnd
+            case UEType.Time:
+                return valueType === "beginCondition" ? timeSelectorComponentBegin : timeSelectorComponentEnd
+            case UEType.Device:
+                return valueType === "beginCondition" ? deviceSelectorComponentBegin : deviceSelectorComponentEnd
         }
     }
 
@@ -769,12 +1004,12 @@ Rectangle {
 
         switch(deviceTypeCombo.selectedItem.value)
         {
-            case "Date":
-            case "Time":
+            case UEType.Date:
+            case UEType.Time:
                 return globalComponent
-            case "Day":
+            case UEType.Day:
                 return dayGlobalComponent
-            case "Device":
+            case UEType.Device:
                 return deviceGlobalComponent
         }
     }
@@ -786,25 +1021,41 @@ Rectangle {
 
         switch(selectedOperator.value)
         {
-            case "lt":
+            case UEComparisonType.LesserThan:
                 return lessThanComponent
-            case "gt":
+            case UEComparisonType.GreaterThan:
                 return greaterThanComponent
-            case "e":
+            case UEComparisonType.Equals:
                 return equalComponent
-            case "n":
+            case UEComparisonType.Not:
                 return notComponent
-            case "b":
+            case UEComparisonType.InBetween:
                 return betweenComponent
         }
     }
 
+    function saveForm()
+    {
+        var condition = getCondition();
+        if(deviceTypeCombo.selectedItem !== null)
+        {
+            condition.type(deviceTypeCombo.selectedItem.value)
+        }
+
+        saveConditionDetails()
+
+        uCtrlApiFacade.putCondition(condition)
+    }
+
+    function getCondition()
+    {
+        return taskEditorContainer.conditionModel.findObject(conditionModel.id)
+    }
+
     function deleteCondition()
     {
-        var condition = taskEditorContainer.conditionModel.findObject(conditionModel.id);
-
-        uCtrlApiFacade.deleteCondition(condition)
-        taskEditorContainer.conditionModel.removeRow(condition.id())
+        uCtrlApiFacade.deleteCondition(getCondition())
+        taskEditorContainer.conditionModel.removeRow(getCondition().id())
 
         taskEditorContainer.refreshConditionCountLabel()
     }

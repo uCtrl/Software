@@ -9,6 +9,8 @@ Rectangle {
     property var taskModel
     property var conditionModel
 
+    signal saveConditions()
+
     anchors.fill: parent
     color: Colors.uWhite
 
@@ -157,14 +159,20 @@ Rectangle {
 
                 ListView
                 {
+                    id: conditionEditorListView
                     anchors.fill: parent
 
                     model: conditionModel
 
                     delegate: ConditionEditor {
+                        id: cdnEditor
                         conditionModel: model
                         z: countConditions() - index
                         color: index % 2 === 0 ? Colors.uWhite : Colors.uUltraLightGrey
+
+                        Component.onCompleted: {
+                            taskEditorContainer.saveConditions.connect(cdnEditor.saveForm)
+                        }
                     }
                 }
             }
@@ -191,8 +199,9 @@ Rectangle {
 
     function saveForm()
     {
-        taskModel.value(valueTextbox.text)
+        taskEditorContainer.saveConditions()
 
+        taskModel.value(valueTextbox.text)
         uCtrlApiFacade.putTask(taskModel)
 
         taskEditorContainer.visible = false
