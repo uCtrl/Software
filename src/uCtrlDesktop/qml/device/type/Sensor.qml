@@ -219,12 +219,6 @@ Rectangle {
         container.statsModel = devicesList.getStatisticsWithId(model.id);
         container.statsModel.statsReceived.disconnect(getDeviceValueStats);
         container.statsModel.statsReceived.connect(getDeviceValueStats);
-
-        /*uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id),
-                                         {"from": new Date().setMinutes(0, 0).toString(),
-                                          "to": new Date().getTime().toString(),
-                                          "interval": "15min",
-                                          "fn": "count"});*/
     }
 
     function getLastUpdatedText() {
