@@ -20,7 +20,6 @@ Rectangle {
 
     onConditionModelChanged:
     {
-        console.log("CONDITION MODEL UPDATE")
         if(getCondition().type() !== UEType.None)
         {
             deviceTypeCombo.selectItemByValue(getCondition().type())
@@ -768,7 +767,7 @@ Rectangle {
 
     Component
     {
-        id: daySelectorComponentBegin
+        id: daySelectorComponent
 
         Rectangle
         {
@@ -779,42 +778,23 @@ Rectangle {
 
             UI.UWeekdayPicker
             {
+                id: weekdayPicker
                 anchors.verticalCenter: parent.verticalCenter
             }
 
             Component.onCompleted: {
                 conditionEditorContainer.saveConditionDetails.connect(saveOperator)
+                conditionModelChanged()
+            }
+
+            function conditionModelChanged()
+            {
+                weekdayPicker.setValue(getCondition().beginValue())
             }
 
             function saveOperator()
             {
-
-            }
-        }
-    }
-    Component
-    {
-        id: daySelectorComponentEnd
-
-        Rectangle
-        {
-            width: conditionTypeCombo.width
-            height: conditionEditorContainer.rowHeight
-
-            color: Colors.uTransparent
-
-            UI.UWeekdayPicker
-            {
-                anchors.verticalCenter: parent.verticalCenter
-            }
-
-            Component.onCompleted: {
-                conditionEditorContainer.saveConditionDetails.connect(saveOperator)
-            }
-
-            function saveOperator()
-            {
-
+                getCondition().beginValue(weekdayPicker.getValue())
             }
         }
     }
@@ -989,7 +969,7 @@ Rectangle {
             case UEType.Date:
                 return valueType === "beginCondition" ? dateSelectorComponentBegin : dateSelectorComponentEnd
             case UEType.Day:
-                return valueType === "beginCondition" ? daySelectorComponentBegin : daySelectorComponentEnd
+                return valueType === daySelectorComponent
             case UEType.Time:
                 return valueType === "beginCondition" ? timeSelectorComponentBegin : timeSelectorComponentEnd
             case UEType.Device:

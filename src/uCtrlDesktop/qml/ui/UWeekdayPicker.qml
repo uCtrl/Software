@@ -190,4 +190,26 @@ Rectangle {
             }
         }
     }
+
+    function getValue()
+    {
+        return (sundayCheckbox.checked ? 1 : 0) +
+                (mondayCheckbox.checked ? 2 : 0) +
+                (tuesdayCheckbox.checked ? 4 : 0) +
+                (wednesdayCheckbox.checked ? 8 : 0) +
+                (thursdayCheckbox.checked ? 16 : 0) +
+                (fridayCheckbox.checked ? 32 : 0) +
+                (saturdayCheckbox.checked ? 64 : 0)
+    }
+
+    function setValue(value)
+    {
+        sundayCheckbox.checked = value & 0x1
+        mondayCheckbox.checked = value & 0x2
+        tuesdayCheckbox.checked = value & 0x4
+        wednesdayCheckbox.checked = value & 0x8
+        thursdayCheckbox.checked = value & 0x16
+        fridayCheckbox.checked = value & 0x32
+        saturdayCheckbox.checked = value & 0x64
+    }
 }
