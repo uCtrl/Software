@@ -10,6 +10,7 @@ Rectangle {
 
     property string iconId: "UNKNOWN"
     property int iconLabelSize: 10
+    property int iconSize: 9
     property string iconLabelColor: Colors.uGreen
     property string text: "UNKNOWN"
 
@@ -25,10 +26,10 @@ Rectangle {
             id: labelIcon
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
-            anchors.leftMargin: 10
+            anchors.leftMargin: 7
 
             iconColor: iconLabel.iconLabelColor
-            iconSize: iconLabel.iconLabelSize * 1.4
+            iconSize: iconLabel.iconSize
             iconId: iconLabel.iconId
         }
 
@@ -36,13 +37,13 @@ Rectangle {
             id: labelText
 
             anchors.left: labelIcon.right
-            anchors.leftMargin: 15
+            anchors.leftMargin: 13
 
             anchors.verticalCenter: parent.verticalCenter
 
             text: iconLabel.text
 
-            font.bold: true
+            font.bold: false
             font.pointSize: iconLabel.iconLabelSize
 
             color: iconLabel.iconLabelColor
