@@ -258,7 +258,6 @@ Rectangle {
     }
 
     function getOpacity() {
-        console.log(model.value)
         if (model !== null & model !== undefined) return model.value;
         else return 1;
     }
