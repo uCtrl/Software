@@ -13,7 +13,37 @@ Rectangle {
     property var model: null
     property var statsModel: null
 
+    property bool hideButton: false
+
     color: Colors.uTransparent
+
+    Rectangle {
+        id: buttonContainer
+
+        anchors.top: container.top
+        anchors.left: container.left
+        anchors.right: container.right
+
+        color: Colors.uTransparent
+
+        UI.UButton {
+            property int marginSize: 5
+
+            id: triggerButton
+
+            iconId: "Upload"
+            text: "Send action"
+
+            anchors.centerIn: buttonContainer
+
+            height: buttonContainer.height - (2 * marginSize); width: 110
+
+            onClicked: sendAction()
+        }
+
+        visible: !container.hideButton
+        height: 45; width: 100
+    }
 
     Rectangle {
         id: updateContainer
@@ -23,7 +53,7 @@ Rectangle {
         anchors.left: container.left
         anchors.right: container.right
 
-        anchors.top: container.top
+        anchors.top: (container.hideButton ? container.top : buttonContainer.bottom)
         height: 35
 
         UI.UFontAwesome {
@@ -278,5 +308,10 @@ Rectangle {
         to = new Date().getTime()
 
         uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id), {"from": from.toString(), "to": to.toString(), "interval": interval, "fn": "count"});
+    }
+
+    function sendAction() {
+        model.value = true
+        uCtrlApiFacade.putDevice(devicesList.findObject(model.id))
     }
 }
