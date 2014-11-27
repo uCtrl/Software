@@ -184,6 +184,11 @@ void UDevice::read(const QJsonObject &jsonObj)
     this->enabled(jsonObj["enabled"].toBool());
     this->lastUpdated(jsonObj["lastUpdated"].toDouble());
 
+    readScenarios(jsonObj);
+}
+
+void UDevice::readScenarios(const QJsonObject &jsonObj)
+{
     m_scenarios->read(jsonObj);
 }
 

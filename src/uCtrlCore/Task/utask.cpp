@@ -84,6 +84,11 @@ void UTask::read(const QJsonObject &jsonObj)
     this->enabled(jsonObj["enabled"].toBool());
     this->lastUpdated(jsonObj["lastUpdated"].toDouble());
 
+    readConditions(jsonObj);
+}
+
+void UTask::readConditions(const QJsonObject &jsonObj)
+{
     m_conditions->read(jsonObj);
 }
 

@@ -2,6 +2,7 @@
 
 UCtrlAPIFacade::UCtrlAPIFacade(QNetworkAccessManager* nam, UPlatformsModel* platforms, QObject *parent)
     : m_uCtrlApi(nam, platforms, parent)
+    , m_uCtrlLocalApi(platforms, parent)
 {
 }
 
@@ -66,7 +67,10 @@ void UCtrlAPIFacade::getPlatform(UPlatform* platform)
 
 void UCtrlAPIFacade::putPlatform(UPlatform* platform)
 {
-    m_uCtrlApi.putPlatform(platform->id());
+    if (platform->isLocalPlatform())
+        m_uCtrlLocalApi.savePlatform(platform);
+    else
+        m_uCtrlApi.putPlatform(platform->id());
 }
 
 void UCtrlAPIFacade::deletePlatform(UPlatform* platform)

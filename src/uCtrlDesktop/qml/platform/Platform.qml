@@ -569,6 +569,7 @@ Rectangle {
         if (nameTextbox.text != "") model.name = nameTextbox.text
         model.isEnabled = (enabledSwitch.state === "ON")
         model.room = roomTextbox.text
+        uCtrlApiFacade.putPlatform(platforms.model.findObject(model.id));
 
         toggleEditMode()
     }

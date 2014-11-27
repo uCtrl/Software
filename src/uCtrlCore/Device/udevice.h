@@ -65,6 +65,7 @@ public:
     // JsonSerializable
     void write(QJsonObject &jsonObj) const;
     void read(const QJsonObject &jsonObj);
+    void readScenarios(const QJsonObject &jsonObj);
 
     // Properties
     QString name() const;

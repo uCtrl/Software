@@ -29,16 +29,21 @@ void UPlatformsModel::read(const QJsonObject& jsonObj)
     foreach(QJsonValue platform, platforms)
     {
         QJsonObject platformObj = platform.toObject();
-        QString id = platformObj["id"].toString();
-        ListItem* p = find(id);
+        readPlatform(platformObj);
+    }
+}
 
-        if (p) {
-            p->read(platformObj);
-        } else {
-            p = new UPlatform(this);
-            p->read(platformObj);
-            this->appendRow(p);
-        }
+void UPlatformsModel::readPlatform(const QJsonObject &jsonObj)
+{
+    QString id = jsonObj["id"].toString();
+    ListItem* p = find(id);
+
+    if (p) {
+        p->read(jsonObj);
+    } else {
+        p = new UPlatform(this);
+        p->read(jsonObj);
+        this->appendRow(p);
     }
 }
 
