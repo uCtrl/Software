@@ -37,6 +37,8 @@ public:
     Q_INVOKABLE QString value() const;
     Q_INVOKABLE void value(const QString& value);
 
+    Q_INVOKABLE QObject* getConditions() { return m_conditions; }
+
 private:
     QString m_value;
     ListModel* m_conditions;

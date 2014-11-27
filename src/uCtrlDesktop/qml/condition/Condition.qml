@@ -11,7 +11,7 @@ Rectangle {
 
     property bool showEditMode: false
 
-    width: parent.width
+    width: parent !== null ? parent.width : 100
     height: 30
 
     Loader {

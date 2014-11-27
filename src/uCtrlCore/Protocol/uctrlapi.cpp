@@ -1355,6 +1355,7 @@ bool UCtrlAPI::checkServerError(const QJsonObject& jsonObj)
 {
     bool status = jsonObj["status"].toBool();
     if (!status) {
+        QString s = QString(jsonObj["error"].toString());
         emit serverError(QString(jsonObj["error"].toString()));
     }
     return status;

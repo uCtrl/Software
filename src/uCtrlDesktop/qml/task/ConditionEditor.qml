@@ -132,6 +132,8 @@ Rectangle {
                 buttonHoveredTextColor : Colors.uRed
 
                 anchors.centerIn: parent
+
+                onClicked: deleteCondition()
             }
         }
     }
@@ -795,5 +797,15 @@ Rectangle {
             case "b":
                 return betweenComponent
         }
+    }
+
+    function deleteCondition()
+    {
+        var condition = taskEditorContainer.conditionModel.findObject(conditionModel.id);
+
+        uCtrlApiFacade.deleteCondition(condition)
+        taskEditorContainer.conditionModel.removeRow(condition.id())
+
+        taskEditorContainer.refreshConditionCountLabel()
     }
 }

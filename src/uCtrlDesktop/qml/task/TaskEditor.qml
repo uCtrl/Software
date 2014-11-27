@@ -16,6 +16,10 @@ Rectangle {
         valueTextbox.text = getTaskValue()
     }
 
+    onConditionModelChanged: {
+        refreshConditionCountLabel()
+    }
+
     Rectangle
     {
         id: editorContent
@@ -78,7 +82,7 @@ Rectangle {
                     UI.UTextbox
                     {
                         id: valueTextbox
-                        width: 100
+                        width: 130
                         height: 40
                         placeholderText: "Value"
                         anchors.verticalCenter: parent.verticalCenter
@@ -106,6 +110,8 @@ Rectangle {
                     width: 150
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
+
+                    onClicked: createNewCondition()
                 }
             }
             Rectangle
@@ -130,7 +136,7 @@ Rectangle {
                 }
                 ULabel.ConditionLabel
                 {
-                    text: countConditions() + " condition(s)"
+                    id: countConditionsLabel
                     font.pointSize: 12
                     anchors.right: parent.right
 
@@ -175,6 +181,14 @@ Rectangle {
         onCancel: cancelEditing()
     }
 
+    function createNewCondition()
+    {
+        var newCondition = conditionModel.createNewCondition();
+        uCtrlApiFacade.postCondition(newCondition)
+
+        refreshConditionCountLabel()
+    }
+
     function saveForm()
     {
         taskModel.value(valueTextbox.text)
@@ -193,6 +207,11 @@ Rectangle {
     {
         if(conditionModel !== null && conditionModel !== undefined) return conditionModel.rowCount()
         else return 0
+    }
+
+    function refreshConditionCountLabel()
+    {
+        countConditionsLabel.text = countConditions() + " condition(s)"
     }
 
     function getTaskValue()
