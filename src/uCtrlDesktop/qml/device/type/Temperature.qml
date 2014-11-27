@@ -282,7 +282,17 @@ Rectangle {
                 id: stateChart
                 chartAnimated: false
                 chartName: "Daily status"
-                chartData: getDeviceValueStats()
+                chartData: {
+                    "labels": [],
+                    "axisY": [0, 25, 50, 75, 100],
+                    "datasets": [{
+                        fillColor: "rgba(237,237,237,0.5)",
+                        strokeColor: Colors.uMediumLightGrey,
+                        pointColor: Colors.uGreen,
+                        pointStrokeColor: Colors.uGreen,
+                        data: []
+                    }]
+                }
                 width: chartContainer.width
                 height: chartContainer.height
                 chartType: Charts.ChartType.LINE
@@ -374,22 +384,23 @@ Rectangle {
 
                 Component.onCompleted: selectItem(0)
 
-                onSelectedItemChanged: updateStatsPeriod()
+                //onSelectedItemChanged: updateStatsPeriod()
 
                 z: 3
             }
         }
-
-        Component.onCompleted: {
-            getDeviceMinValue();
-        }
     }
 
-    onModelChanged: container.statsModel = devicesList.getStatisticsWithId(model.id)
-    //onStatsModelChanged: updateStatsPeriod()
+    onModelChanged: {
+        container.statsModel = devicesList.getStatisticsWithId(model.id);
+        container.statsModel.statsReceived.disconnect(getDeviceValueStats);
+        container.statsModel.statsReceived.connect(getDeviceValueStats);
 
-    onStatsModelChanged: {
-        console.log("Stats changed !");
+        uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id),
+                                         {"from": new Date().setMinutes(0, 0).toString(),
+                                          "to": new Date().getTime().toString(),
+                                          "interval": "5min",
+                                          "fn": "mean"});
     }
 
     function getDeviceEnabled() {
@@ -428,17 +439,15 @@ Rectangle {
             //Commented until server can handle statistics
             var data = []
             var labels = []
-            statsModel = devicesList.getStatisticsWithId(model.id)
+
             for (var i=0; i<statsModel.rowCount();i++) {
                 var stat = statsModel.get(i);
-
-                //console.log(stat.toString())
                 labels.push(new Date(stat.timestamp).toTimeString())
                 data.push(stat.data)
             }
 
-            //console.log(labels)
-            //console.log(data)
+            console.log(labels)
+            console.log(data)
 
             var chartData = {
                 "labels": labels,
@@ -452,7 +461,8 @@ Rectangle {
                 }]
             }
 
-            return chartData
+            stateChart.chartData = chartData;
+            stateChart.repaint();
         }
     }
 
@@ -508,5 +518,12 @@ Rectangle {
         //console.log("  INT  : " + interval)
 
         uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id), {"from": from.toString(), "to": to.toString(), "interval": interval, "fn": "mean"});
+    }
+
+    Component.onCompleted: {
+       /* container.statsModel = devicesList.getStatisticsWithId(model.id);
+        container.statsModel.statsReceived.connect(function() {
+            getDeviceValueStats();
+        });*/
     }
 }

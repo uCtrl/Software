@@ -1,6 +1,4 @@
 #include "uctrlapifacade.h"
-#include "QDebug"
-
 
 UCtrlAPIFacade::UCtrlAPIFacade(QNetworkAccessManager* nam, UPlatformsModel* platforms, QObject *parent)
     : m_uCtrlApi(nam, platforms, parent)
@@ -107,12 +105,8 @@ void UCtrlAPIFacade::deleteDevice(UDevice* device)
 
 void UCtrlAPIFacade::getDeviceAllStats(UDevice *device, QMap<QString, QVariant> params)
 {
-
-    qDebug() << params;
-
     QString platformId;
     resolveIds(platformId, device);
-    m_uCtrlApi.getDeviceValues(platformId, device->id(), params);
     m_uCtrlApi.getDeviceMax(platformId, device->id(), params);
     m_uCtrlApi.getDeviceMin(platformId, device->id(), params);
     m_uCtrlApi.getDeviceMean(platformId, device->id(), params);
