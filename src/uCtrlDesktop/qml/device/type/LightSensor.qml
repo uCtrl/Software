@@ -10,8 +10,7 @@ Rectangle {
     property var model: null
 
     Sensor {
-        property var model: container.model
-
+        model: container.model
         anchors.fill: parent
     }
 }

@@ -296,6 +296,8 @@ Rectangle {
                 width: chartContainer.width
                 height: chartContainer.height
                 chartType: Charts.ChartType.LINE
+
+                onChartDataChanged: repaint()
             }
 
             UI.UChart {
@@ -384,7 +386,7 @@ Rectangle {
 
                 Component.onCompleted: selectItem(0)
 
-                //onSelectedItemChanged: updateStatsPeriod()
+                onSelectedItemChanged: updateStatsPeriod()
 
                 z: 3
             }
@@ -399,7 +401,7 @@ Rectangle {
         uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id),
                                          {"from": new Date().setMinutes(0, 0).toString(),
                                           "to": new Date().getTime().toString(),
-                                          "interval": "5min",
+                                          "interval": "15min",
                                           "fn": "mean"});
     }
 
@@ -512,18 +514,6 @@ Rectangle {
         }
         to = new Date().getTime()
 
-        //console.log(" --- INTERVAL ---")
-        //console.log("  FROM : " + from)
-        //console.log("  TO   : " + to)
-        //console.log("  INT  : " + interval)
-
         uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id), {"from": from.toString(), "to": to.toString(), "interval": interval, "fn": "mean"});
-    }
-
-    Component.onCompleted: {
-       /* container.statsModel = devicesList.getStatisticsWithId(model.id);
-        container.statsModel.statsReceived.connect(function() {
-            getDeviceValueStats();
-        });*/
     }
 }

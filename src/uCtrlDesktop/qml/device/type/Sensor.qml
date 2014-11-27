@@ -11,6 +11,7 @@ Rectangle {
     id: container
 
     property var model: null
+    property var statsModel: null
 
     color: Colors.uTransparent
 
@@ -152,16 +153,17 @@ Rectangle {
                 chartAnimated: false
                 chartName: "Number of detection"
                 chartData: {
-                               "labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
-                               "axisY": [0, 25, 50, 75, 100],
-                               "datasets": [{
-                                   fillColor: Colors.uGreen,
-                                   strokeColor: Colors.uDarkGreen,
-                                   pointColor: Colors.uGreen,
-                                   pointStrokeColor: Colors.uGreen,
-                                   data: [0, 55, 15, 75, 100, 0, 50],
-                               }]
-                           }
+                    "labels": [],
+                    "axisY": [0, 25, 50, 75, 100],
+                    "datasets": [{
+                        fillColor: Colors.uGreen,
+                        strokeColor: Colors.uDarkGreen,
+                        pointColor: Colors.uGreen,
+                        pointStrokeColor: Colors.uGreen,
+                        data: [],
+                    }]
+                }
+
                 width: graph.width
                 height: graph.height
                 chartType: Charts.ChartType.BAR
@@ -210,8 +212,87 @@ Rectangle {
         }
     }
 
+    onModelChanged: {
+        console.log(model)
+
+        container.statsModel = devicesList.getStatisticsWithId(model.id);
+        container.statsModel.statsReceived.disconnect(getDeviceValueStats);
+        container.statsModel.statsReceived.connect(getDeviceValueStats);
+
+        uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id),
+                                         {"from": new Date().setMinutes(0, 0).toString(),
+                                          "to": new Date().getTime().toString(),
+                                          "interval": "15min",
+                                          "fn": "count"});
+    }
+
     function getLastUpdatedText() {
         if (model !== null && model.lastUpdate !== undefined) return model.lastUpdate
         else return " A second ago."
+    }
+
+    function getDeviceValueStats() {
+        if (model !== null) {
+
+            //Commented until server can handle statistics
+            var data = []
+            var labels = []
+
+            for (var i=0; i<statsModel.rowCount();i++) {
+                var stat = statsModel.get(i);
+                labels.push(new Date(stat.timestamp).toTimeString())
+                data.push(stat.data)
+            }
+
+            console.log(labels)
+            console.log(data)
+
+            var chartData = {
+                "labels": labels,
+                "axisY": [0, 25, 50, 75, 100],
+                "datasets": [{
+                    fillColor: "rgba(237,237,237,0.5)",
+                    strokeColor: Colors.uMediumLightGrey,
+                    pointColor: Colors.uGreen,
+                    pointStrokeColor: Colors.uGreen,
+                    data: data
+                }]
+            }
+
+            stateChart.chartData = chartData;
+            stateChart.repaint();
+        }
+    }
+
+    function updateStatsPeriod() {
+
+        if (periodCombo.selectedItem !== null) var period = periodCombo.selectedItem.value
+        else period = "hour"
+
+        var from = ""
+        var to = ""
+        var interval = ""
+
+        switch (period) {
+        case "hour":
+            from = new Date().setMinutes(0, 0)
+            interval = "15min"
+            break;
+        case "today":
+            from = new Date().setHours(0, 0, 0)
+            interval = "1hour"
+            break;
+        case "month":
+            from = new Date().setDate(1, 0, 0, 0)
+            interval = "1day"
+            break;
+        case "year":
+            from = new Date().setMonth(0, 1, 0, 0, 0)
+            interval = "1month"
+            break;
+        }
+        to = new Date().getTime()
+
+        uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id), {"from": from.toString(), "to": to.toString(), "interval": interval, "fn": "mean"});
     }
 }
