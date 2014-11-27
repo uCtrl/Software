@@ -17,6 +17,8 @@ Rectangle {
 
     property string unitLabel : "°C"
 
+    property bool displayStats: false
+
     Rectangle {
         id: valueContainer
 
@@ -309,6 +311,33 @@ Rectangle {
                 height: chartContainer.height
                 chartType: Charts.ChartType.LINE
             }
+
+            visible: container.displayStats
+        }
+
+        Rectangle {
+            id: noStats
+
+            anchors.top: statsHeader.bottom
+            anchors.bottom: carouselContainer.top
+
+            clip: true
+            width: parent.width
+
+            color: Colors.uTransparent
+
+            ULabel.Default {
+                anchors.centerIn: parent
+
+                font.bold: true
+                font.pixelSize: 36
+
+                color: Colors.uGrey
+
+                text: "No stats to display"
+            }
+
+            visible: !container.displayStats
         }
 
         Rectangle {
@@ -385,6 +414,7 @@ Rectangle {
                 width: 150
 
                 Component.onCompleted: selectItem(0)
+                onSelectValue: updateStatsPeriod();
 
                 z: 3
             }
@@ -395,12 +425,6 @@ Rectangle {
         container.statsModel = devicesList.getStatisticsWithId(model.id);
         container.statsModel.statsReceived.disconnect(getDeviceValueStats);
         container.statsModel.statsReceived.connect(getDeviceValueStats);
-
-        uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id),
-                                         {//"from": new Date().setMinutes(0, 0).toString(),
-                                          //"to": new Date().getTime().toString(),
-                                          "interval": "15min",
-                                          "fn": "mean"});
     }
 
     function getDeviceEnabled() {
@@ -442,12 +466,14 @@ Rectangle {
 
             for (var i=0; i<statsModel.rowCount();i++) {
                 var stat = statsModel.get(i);
-                labels.push(new Date(stat.timestamp).toTimeString())
-                data.push(stat.data)
+
+                if (!isNaN(stat.data)) {
+                    labels.push(new Date(stat.timestamp).toTimeString())
+                    data.push(stat.data)
+                }
             }
 
-            console.log(labels)
-            console.log(data)
+            container.displayStats = (data.length > 0)
 
             var chartData = {
                 "labels": labels,
@@ -485,8 +511,6 @@ Rectangle {
 
     function updateStatsPeriod() {
 
-        console.log("updateStatsPeriod");
-
         if (periodCombo.selectedItem !== null) var period = periodCombo.selectedItem.value
         else period = "hour"
 
@@ -505,7 +529,7 @@ Rectangle {
             break;
         case "month":
             from = new Date().setDate(1, 0, 0, 0)
-            interval = "1day"
+            interval = "12hour"
             break;
         case "year":
             from = new Date().setMonth(0, 1, 0, 0, 0)

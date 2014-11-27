@@ -128,7 +128,8 @@ Rectangle {
                 height: parent.height;
                 width: 150
 
-                Component.onCompleted: selectItem(0)
+                Component.onCompleted: selectItem(0);
+                onSelectValue: updateStatsPeriod();
 
                 z: 3
             }
@@ -169,6 +170,8 @@ Rectangle {
                 chartType: Charts.ChartType.BAR
 
                 z: 2
+
+                onChartDataChanged: repaint()
             }
 
             UI.UChart {
@@ -217,11 +220,11 @@ Rectangle {
         container.statsModel.statsReceived.disconnect(getDeviceValueStats);
         container.statsModel.statsReceived.connect(getDeviceValueStats);
 
-        uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id),
+        /*uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id),
                                          {"from": new Date().setMinutes(0, 0).toString(),
                                           "to": new Date().getTime().toString(),
                                           "interval": "15min",
-                                          "fn": "count"});
+                                          "fn": "count"});*/
     }
 
     function getLastUpdatedText() {
@@ -258,7 +261,7 @@ Rectangle {
             }
 
             stateChart.chartData = chartData;
-            stateChart.repaint();
+            stateChart.refresh();
         }
     }
 
@@ -291,6 +294,6 @@ Rectangle {
         }
         to = new Date().getTime()
 
-        uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id), {"from": from.toString(), "to": to.toString(), "interval": interval, "fn": "mean"});
+        uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id), {"from": from.toString(), "to": to.toString(), "interval": interval, "fn": "count"});
     }
 }
