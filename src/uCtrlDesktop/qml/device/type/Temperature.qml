@@ -434,6 +434,9 @@ Rectangle {
                 }
             */
 
+            console.log(labels)
+            console.log(data)
+
             var chartData = {
                 "labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
                 "axisY": [0, 25, 50, 75, 100],
