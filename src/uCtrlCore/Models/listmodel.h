@@ -42,7 +42,7 @@ public:
     Q_INVOKABLE bool moveRow(int from, int to);
     Q_INVOKABLE bool moveUp(int from);
     Q_INVOKABLE bool moveDown(int from);
-    QList<ListItem*> getItems() { return m_items; }
+    Q_INVOKABLE QList<ListItem*> getItems() { return m_items; }
 
     Q_INVOKABLE QObject* getRow(int row);
 

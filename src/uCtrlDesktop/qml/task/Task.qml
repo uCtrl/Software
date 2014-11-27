@@ -159,7 +159,7 @@ Column {
 
     function editTask()
     {
-        container.editTaskFunction(item, getConditions())
+        container.editTaskFunction(tasks.model.findObject(item.id), getConditions())
     }
 
     function getUnitLabel()

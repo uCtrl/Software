@@ -12,7 +12,9 @@ Rectangle {
     anchors.fill: parent
     color: Colors.uWhite
 
-    onTaskModelChanged: valueTextbox.text = getTaskValue()
+    onTaskModelChanged: {
+        valueTextbox.text = getTaskValue()
+    }
 
     Rectangle
     {
