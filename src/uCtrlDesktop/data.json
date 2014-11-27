@@ -29,7 +29,7 @@
 				{
 					"id": "101",
 					"name": "Lumière",
-                    "type": 233,
+					"type": 233,
 					"description": "Lumière principale du salon",
 					"maxValue": "1",
 					"minValue": "0",

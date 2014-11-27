@@ -28,7 +28,6 @@ Rectangle {
             height: buttonContainer.height - (2 * marginSize); width: 110
 
             state: "ON"
-            onStateChanged: console.log("State is " + state)
         }
 
         height: 45; width: 100
