@@ -152,43 +152,37 @@ Rectangle {
             UI.UChart {
                 id: stateChart
                 chartAnimated: false
-                chartName: "Number of detection"
+                chartName: "Daily status"
                 chartData: {
                     "labels": [],
-                    "axisY": [0, 25, 50, 75, 100],
                     "datasets": [{
-                        fillColor: Colors.uGreen,
-                        strokeColor: Colors.uDarkGreen,
+                        fillColor: "rgba(237,237,237,0.5)",
+                        strokeColor: Colors.uMediumLightGrey,
                         pointColor: Colors.uGreen,
                         pointStrokeColor: Colors.uGreen,
-                        data: [],
+                        data: []
                     }]
                 }
-
                 width: graph.width
                 height: graph.height
-                chartType: Charts.ChartType.BAR
+                chartType: Charts.ChartType.LINE
 
-                z: 2
-
-                onChartDataChanged: repaint()
+                onChartDataChanged: refresh()
             }
 
             UI.UChart {
                 id: powerChart
                 chartAnimated: false
                 chartName: "Power consumption"
-                chartData: {
-                               "labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
-                               "axisY": [0, 25, 50, 75, 100],
-                               "datasets": [{
-                                   fillColor: "rgba(237,237,237,0.5)",
-                                   strokeColor: Colors.uMediumLightGrey,
-                                   pointColor: Colors.uGreen,
-                                   pointStrokeColor: Colors.uGreen,
-                                   data: [0, 15, 20, 23, 25, 60, 67]
-                               }]
-                           }
+                chartData: {"labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
+                           "datasets": [{
+                               fillColor: "rgba(237,237,237,0.5)",
+                               strokeColor: Colors.uMediumLightGrey,
+                               pointColor: Colors.uGreen,
+                               pointStrokeColor: Colors.uGreen,
+                               data: [0, 15, 20, 23, 25, 60, 67]
+                           }]
+                       }
                 width: graph.width
                 height: graph.height
                 chartType: Charts.ChartType.LINE
@@ -227,9 +221,8 @@ Rectangle {
     }
 
     function getDeviceValueStats() {
-        if (statsModel !== null) {
+        if (statsModel !== null && statsModel !== undefined) {
 
-            //Commented until server can handle statistics
             var data = []
             var labels = []
 
@@ -239,12 +232,9 @@ Rectangle {
                 data.push(stat.data)
             }
 
-            console.log(labels)
-            console.log(data)
-
             var chartData = {
                 "labels": labels,
-                "axisY": [0, 25, 50, 75, 100],
+                "axisY": [0, 50, 150, 200, 250, 300],
                 "datasets": [{
                     fillColor: "rgba(237,237,237,0.5)",
                     strokeColor: Colors.uMediumLightGrey,
@@ -255,7 +245,6 @@ Rectangle {
             }
 
             stateChart.chartData = chartData;
-            stateChart.refresh();
         }
     }
 

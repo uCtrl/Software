@@ -286,7 +286,6 @@ Rectangle {
                 chartName: "Daily status"
                 chartData: {
                     "labels": [],
-                    "axisY": [0, 25, 50, 75, 100],
                     "datasets": [{
                         fillColor: "rgba(237,237,237,0.5)",
                         strokeColor: Colors.uMediumLightGrey,
@@ -299,7 +298,7 @@ Rectangle {
                 height: chartContainer.height
                 chartType: Charts.ChartType.LINE
 
-                onChartDataChanged: repaint()
+                onChartDataChanged: refresh()
             }
 
             UI.UChart {
@@ -422,6 +421,10 @@ Rectangle {
     }
 
     onModelChanged: {
+        uCtrlApiFacade.getDeviceAllStats(devicesList.findObject(model.id),
+                                         {"from": new Date().setMinutes(0, 0).toString(),
+                                          "to": new Date().getTime().toString()});
+
         container.statsModel = devicesList.getStatisticsWithId(model.id);
         container.statsModel.statsReceived.disconnect(getDeviceValueStats);
         container.statsModel.statsReceived.connect(getDeviceValueStats);
@@ -460,7 +463,6 @@ Rectangle {
     function getDeviceValueStats() {
         if (model !== null) {
 
-            //Commented until server can handle statistics
             var data = []
             var labels = []
 
@@ -469,7 +471,7 @@ Rectangle {
 
                 if (!isNaN(stat.data)) {
                     labels.push(new Date(stat.timestamp).toTimeString())
-                    data.push(stat.data)
+                    data.push(Number(stat.data))
                 }
             }
 
@@ -477,7 +479,6 @@ Rectangle {
 
             var chartData = {
                 "labels": labels,
-                "axisY": [0, 25, 50, 75, 100],
                 "datasets": [{
                     fillColor: "rgba(237,237,237,0.5)",
                     strokeColor: Colors.uMediumLightGrey,
@@ -488,7 +489,6 @@ Rectangle {
             }
 
             stateChart.chartData = chartData;
-            stateChart.refresh();
         }
     }
 
