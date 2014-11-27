@@ -74,7 +74,7 @@ void UScenario::write(QJsonObject &jsonObj) const
 
     QJsonObject tasks;
     m_tasks->write(tasks);
-    jsonObj["tasks"] = tasks;
+    jsonObj["tasks"] = tasks["tasks"];
 }
 
 void UScenario::read(const QJsonObject &jsonObj)

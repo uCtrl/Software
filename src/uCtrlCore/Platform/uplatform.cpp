@@ -110,7 +110,7 @@ void UPlatform::write(QJsonObject& jsonObj) const
 
     QJsonObject devices;
     m_devices->write(devices);
-    jsonObj["devices"] = devices;
+    jsonObj["devices"] = devices["devices"];
 }
 
 void UPlatform::read(const QJsonObject& jsonObj)

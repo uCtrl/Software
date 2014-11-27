@@ -198,33 +198,129 @@ void UCtrlLocalApi::saveDevices(UPlatform* platform)
 void UCtrlLocalApi::saveDevices(UPlatform* platform, const QJsonArray& devicesArray)
 {
     QJsonArray devicesArrayClean;
+    QList<UDevice*> devicesToSave;
     for (int i = 0; i < devicesArray.size(); ++i)
     {
         QJsonObject jsonDevice = devicesArray.at(i).toObject();
-        jsonDevice.remove(QString("tasks"));
+        jsonDevice.remove(QString("scenarios"));
         devicesArrayClean.push_back(QJsonValue(jsonDevice));
+
+        QString deviceId = jsonDevice["id"].toString();
+        UDevice* device = (UDevice*)platform->nestedModel()->findObject(deviceId);
+        devicesToSave.push_back(device);
     }
 
     sendSaveRequest(platform->ip(),
                     platform->port(),
                     UEMessageType::SaveDevicesRequest,
                     QString("devices"),
-                    devicesArrayClean);
+                    devicesArrayClean,
+                    QString("platformId"),
+                    platform->id());
+
+    foreach(UDevice* device, devicesToSave)
+    {
+        saveScenarios(device);
+    }
 }
 
 void UCtrlLocalApi::saveScenarios(UDevice* device)
 {
+    QJsonObject jsonDevice;
+    device->write(jsonDevice);
 
+    UPlatform* platform = (UPlatform*)device->parent()->parent();
+    QJsonArray scenariosArray = jsonDevice.take("scenarios").toArray();
+    saveScenarios(platform, device, scenariosArray);
+}
+
+void UCtrlLocalApi::saveScenarios(UPlatform* platform, UDevice* device, const QJsonArray& scenariosArray)
+{
+    QJsonArray scenariosArrayClean;
+    QList<UScenario*> scenariosToSave;
+    for (int i = 0; i < scenariosArray.size(); ++i)
+    {
+        QJsonObject jsonScenario = scenariosArray.at(i).toObject();
+        jsonScenario.remove(QString("tasks"));
+        scenariosArrayClean.push_back(QJsonValue(jsonScenario));
+
+        QString scenarioId = jsonScenario["id"].toString();
+        UScenario* scenario = (UScenario*)device->nestedModel()->findObject(scenarioId);
+        scenariosToSave.push_back(scenario);
+    }
+
+    sendSaveRequest(platform->ip(),
+                    platform->port(),
+                    UEMessageType::SaveScenariosRequest,
+                    QString("scenarios"),
+                    scenariosArrayClean,
+                    QString("deviceId"),
+                    device->id());
+
+    foreach(UScenario* scenario, scenariosToSave)
+    {
+        saveTasks(scenario);
+    }
 }
 
 void UCtrlLocalApi::saveTasks(UScenario* scenario)
 {
+    QJsonObject jsonScenario;
+    scenario->write(jsonScenario);
 
+    UPlatform* platform = (UPlatform*)scenario->parent()->parent()->parent()->parent();
+    QJsonArray tasksArray = jsonScenario.take("tasks").toArray();
+    saveTasks(platform, scenario, tasksArray);
+}
+
+void UCtrlLocalApi::saveTasks(UPlatform* platform, UScenario* scenario, const QJsonArray& tasksArray)
+{
+    QJsonArray tasksArrayClean;
+    QList<UTask*> tasksToSave;
+    for (int i = 0; i < tasksArray.size(); ++i)
+    {
+        QJsonObject jsonTask = tasksArray.at(i).toObject();
+        jsonTask.remove(QString("conditions"));
+        tasksArrayClean.push_back(QJsonValue(jsonTask));
+
+        QString taskId = jsonTask["id"].toString();
+        UTask* task = (UTask*)scenario->nestedModel()->findObject(taskId);
+        tasksToSave.push_back(task);
+    }
+
+    sendSaveRequest(platform->ip(),
+                    platform->port(),
+                    UEMessageType::SaveTasksRequest,
+                    QString("tasks"),
+                    tasksArrayClean,
+                    QString("scenarioId"),
+                    scenario->id());
+
+    foreach(UTask* task, tasksToSave)
+    {
+        saveConditions(task);
+    }
 }
 
 void UCtrlLocalApi::saveConditions(UTask* task)
 {
+    QJsonObject jsonTask;
+    task->write(jsonTask);
 
+    UPlatform* platform = (UPlatform*)task->parent()->parent()->parent()->parent()->parent()->parent();
+    QJsonArray conditionsArray = jsonTask.take("conditions").toArray();
+    saveConditions(platform, task, conditionsArray);
+}
+
+void UCtrlLocalApi::saveConditions(UPlatform* platform, UTask* task, const QJsonArray& conditionsArray)
+{
+    sendSaveRequest(platform->ip(),
+                    platform->port(),
+                    UEMessageType::SaveConditionsRequest,
+                    QString("conditions"),
+                    conditionsArray,
+                    QString("taskId"),
+                    task->id());
 }
 
 void UCtrlLocalApi::sendSaveRequest(const QString& address, int port, UEMessageType messageType, const QString& saveKey, const QJsonArray& jsonArray)
@@ -236,6 +332,25 @@ void UCtrlLocalApi::sendSaveRequest(const QString& address, int port, UEMessageT
                  QString::number(jsonArray.count()),
                  saveKey,
                  QString(jsonDoc.toJson()));
+
+    qDebug() << saveRequest;
+
+    m_socket->writeDatagram(saveRequest.toUtf8(), hostAddress, port);
+}
+
+void UCtrlLocalApi::sendSaveRequest(const QString& address, int port, UEMessageType messageType, const QString& saveKey, const QJsonArray& jsonArray, const QString& additionalKey, const QString& additionalValue)
+{
+    QHostAddress hostAddress(address);
+    QJsonDocument jsonDoc(jsonArray);
+    QString saveRequest = QString("{\"messageType\":%1,\"size\":%2,\"%3\":\"%4\",\"%5\":%6}")
+            .arg(QString::number((int)messageType),
+                 QString::number(jsonArray.count()),
+                 additionalKey,
+                 additionalValue,
+                 saveKey,
+                 QString(jsonDoc.toJson()));
+
+    qDebug() << saveRequest;
 
     m_socket->writeDatagram(saveRequest.toUtf8(), hostAddress, port);
 }

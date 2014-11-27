@@ -173,7 +173,7 @@ void UDevice::write(QJsonObject& jsonObj) const
 
     QJsonObject scenarios;
     m_scenarios->write(scenarios);
-    jsonObj["scenarios"] = scenarios;
+    jsonObj["scenarios"] = scenarios["scenarios"];
 }
 
 void UDevice::read(const QJsonObject &jsonObj)

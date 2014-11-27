@@ -38,8 +38,11 @@ public:
     void saveDevices(UPlatform* platform);
     void saveDevices(UPlatform* platform, const QJsonArray& devicesArray);
     void saveScenarios(UDevice* device);
+    void saveScenarios(UPlatform* platform, UDevice* device, const QJsonArray& scenariosArray);
     void saveTasks(UScenario* scenario);
+    void saveTasks(UPlatform* platform, UScenario* scenario, const QJsonArray& tasksArray);
     void saveConditions(UTask* task);
+    void saveConditions(UPlatform* platform, UTask* task, const QJsonArray& conditionsArray);
 
 private:
     QUdpSocket* m_socket;
@@ -53,6 +56,7 @@ private:
 
     void sendGetRequest(const QString& address, int port, UEMessageType messageType, const QString& additionalKey, const QString& additionalValue, void* property);
     void sendSaveRequest(const QString& address, int port, UEMessageType messageType, const QString& saveKey, const QJsonArray& jsonArray);
+    void sendSaveRequest(const QString& address, int port, UEMessageType messageType, const QString& saveKey, const QJsonArray& jsonArray, const QString& additionalKey, const QString& additionalValue);
 
 private slots:
     void processPendingDatagrams();
