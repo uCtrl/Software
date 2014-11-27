@@ -13,6 +13,8 @@ Rectangle {
     id: container
 
     property var model: null
+    property var statsModel: null
+
     property string unitLabel : "°C"
 
     Rectangle {
@@ -343,9 +345,10 @@ Rectangle {
                 id: periodCombo
 
                 property var periods: [
+                    { value: "hour", displayedValue: "This hour", iconId: ""},
                     { value: "today",     displayedValue: "Today", iconId: ""},
-                    { value: "week",   displayedValue: "This week", iconId: ""},
                     { value: "month",   displayedValue: "This month", iconId: ""},
+                    { value: "year", displayedValue: "This year", iconId: ""}
                ]
 
                 itemListModel: periods
@@ -371,6 +374,8 @@ Rectangle {
 
                 Component.onCompleted: selectItem(0)
 
+                onSelectedItemChanged: updateStatsPeriod()
+
                 z: 3
             }
         }
@@ -380,9 +385,8 @@ Rectangle {
         }
     }
 
-    onModelChanged: {
-        uCtrlApiFacade.getDeviceAllStats(devicesList.findObject(model.id));
-    }
+    onModelChanged: container.statsModel = statsModel = deviceList.getStatisticsWithId(model.id)
+    onStatsModelChanged: updateStatsPeriod()
 
     function getDeviceEnabled() {
         if (model !== null) return model.isEnabled ? "ON" : "OFF"
@@ -420,7 +424,7 @@ Rectangle {
             /** Commented until server can handle statistics
                 var data = []
                 var labels = []
-
+                statsModel = deviceList.getStatisticsWithId(model.id)
                 for (var i=0; i<statsModel.rowCount();i++) {
                     var stat = statsModel.get(i);
 
@@ -461,5 +465,37 @@ Rectangle {
         }
 
         return chartData
+    }
+
+    function updateStatsPeriod() {
+        console.log("triggered")
+        if (periodCombo.selectedItem !== null) var period = periodCombo.selectedItem.value
+        else period = "hour"
+
+        var from = ""
+        var to = ""
+        var interval = ""
+
+        switch (period) {
+        case "hour":
+            from = new Date().setMinutes(0, 0)
+            interval = "15min"
+            break;
+        case "today":
+            from = new Date().setHours(0, 0, 0)
+            interval = "1hour"
+            break;
+        case "month":
+            from = new Date().setDate(1, 0, 0, 0)
+            interval = "1day"
+            break;
+        case "year":
+            from = new Date().setMonth(0, 1, 0, 0, 0)
+            interval = "1month"
+            break;
+        }
+
+        to = new Date().toUTCString()
+        uCtrlApiFacade.getDeviceAllStats(devicesList.findObject(model.id), {"from": from, "to": to, "interval": interval, "fn": "mean"});
     }
 }
