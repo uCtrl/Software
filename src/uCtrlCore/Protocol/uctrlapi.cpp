@@ -440,7 +440,7 @@ void UCtrlAPI::getDeviceMinReply()
         return;
     }
 
-    device->minStat(jsonObj["min"].toString());
+    device->minStat(jsonObj["data"].toString());
 
     reply->deleteLater();
 }
@@ -482,7 +482,7 @@ void UCtrlAPI::getDeviceMaxReply()
         return;
     }
 
-    device->maxStat(jsonObj["max"].toString());
+    device->maxStat(jsonObj["data"].toString());
 
     reply->deleteLater();
 }
@@ -524,7 +524,7 @@ void UCtrlAPI::getDeviceMeanReply()
         return;
     }
 
-    device->meanStat(jsonObj["mean"].toString());
+    device->meanStat(jsonObj["data"].toString());
 
     reply->deleteLater();
 }
@@ -566,7 +566,7 @@ void UCtrlAPI::getDeviceCountReply()
         return;
     }
 
-    device->countStat(jsonObj["count"].toString());
+    device->countStat(jsonObj["data"].toString());
 
     reply->deleteLater();
 }

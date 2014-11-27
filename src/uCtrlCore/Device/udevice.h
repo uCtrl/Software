@@ -28,7 +28,8 @@ class UDevice : public NestedListItem
         statusRole,
         unitLabelRole,
         enabledRole,
-        lastUpdatedRole
+        lastUpdatedRole,
+        deviceModelRole
     };
 
 public:
@@ -94,6 +95,8 @@ public:
     void status(UEStatus status);
     QString unitLabel() const;
     void unitLabel(const QString& unitLabel);
+    QString deviceModel() const;
+    void deviceModel(const QString& deviceModel);
 
     ListModel* history() const;
     ListModel* statistics() const;
@@ -112,6 +115,7 @@ private:
     int m_precision;
     UEStatus m_status;
     QString m_unitLabel;
+    QString m_deviceModel;
     NestedListModel* m_scenarios;
     ListModel* m_statistics;
     ListModel* m_history;

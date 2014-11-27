@@ -18,19 +18,16 @@ Rectangle {
 
         color: Colors.uTransparent
 
-        UI.UButton {
+        UI.USwitch {
             property int marginSize: 5
 
             id: triggerButton
-
-            iconId: "Upload"
-            text: "Send action"
 
             anchors.centerIn: buttonContainer
 
             height: buttonContainer.height - (2 * marginSize); width: 110
 
-            onClicked: sendAction()
+            state: "ON"
         }
 
         height: 45; width: 100

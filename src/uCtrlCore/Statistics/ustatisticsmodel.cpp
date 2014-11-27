@@ -11,7 +11,7 @@ void UStatisticsModel::write(QJsonObject& jsonObj) const
 
 void UStatisticsModel::read(const QJsonObject& jsonObj)
 {
-    QJsonArray statistics = jsonObj["statistics"].toArray();
+    QJsonArray statistics = jsonObj["data"].toArray();
     foreach(QJsonValue statistic, statistics)
     {
         ListItem* s = new UStatistic(this);
