@@ -45,6 +45,8 @@ void UCtrlLocalApi::processPendingDatagrams()
         else
         {
             int messageId = jsonMulticastObject["messageId"].toInt();
+            if (!m_messageProperties.contains(messageId))
+                continue;
 
             switch (messageType)
             {
@@ -181,12 +183,48 @@ void UCtrlLocalApi::savePlatform(UPlatform* platform)
                     QString("platform"),
                     platformArray);
 
-    /*
+    saveDevices(platform, devicesArray);
+}
+
+void UCtrlLocalApi::saveDevices(UPlatform* platform)
+{
+    QJsonObject jsonPlatform;
+    platform->write(jsonPlatform);
+
+    QJsonArray devicesArray = jsonPlatform.take("devices").toArray();
+    saveDevices(platform, devicesArray);
+}
+
+void UCtrlLocalApi::saveDevices(UPlatform* platform, const QJsonArray& devicesArray)
+{
+    QJsonArray devicesArrayClean;
     for (int i = 0; i < devicesArray.size(); ++i)
     {
         QJsonObject jsonDevice = devicesArray.at(i).toObject();
+        jsonDevice.remove(QString("tasks"));
+        devicesArrayClean.push_back(QJsonValue(jsonDevice));
     }
-    */
+
+    sendSaveRequest(platform->ip(),
+                    platform->port(),
+                    UEMessageType::SaveDevicesRequest,
+                    QString("devices"),
+                    devicesArrayClean);
+}
+
+void UCtrlLocalApi::saveScenarios(UDevice* device)
+{
+
+}
+
+void UCtrlLocalApi::saveTasks(UScenario* scenario)
+{
+
+}
+
+void UCtrlLocalApi::saveConditions(UTask* task)
+{
+
 }
 
 void UCtrlLocalApi::sendSaveRequest(const QString& address, int port, UEMessageType messageType, const QString& saveKey, const QJsonArray& jsonArray)

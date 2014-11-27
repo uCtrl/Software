@@ -75,7 +75,10 @@ void UCtrlAPIFacade::putPlatform(UPlatform* platform)
 
 void UCtrlAPIFacade::deletePlatform(UPlatform* platform)
 {
-    m_uCtrlApi.deletePlatform(platform->id());
+    if (platform->isLocalPlatform()) // WHAT DO?
+        ;
+    else
+        m_uCtrlApi.deletePlatform(platform->id());
 }
 
 void UCtrlAPIFacade::getDevices(UPlatform* platform)
@@ -96,9 +99,15 @@ void UCtrlAPIFacade::getDevice(UDevice* device)
 }
 void UCtrlAPIFacade::putDevice(UDevice* device)
 {
-    QString platformId;
-    resolveIds(platformId, device);
-    m_uCtrlApi.putDevice(platformId, device->id());
+    UPlatform* platform = (UPlatform*)device->parent()->parent();
+    if (platform->isLocalPlatform())
+        m_uCtrlLocalApi.saveDevices(platform);
+    else
+    {
+        QString platformId;
+        resolveIds(platformId, device);
+        m_uCtrlApi.putDevice(platformId, device->id());
+    }
 }
 void UCtrlAPIFacade::deleteDevice(UDevice* device)
 {

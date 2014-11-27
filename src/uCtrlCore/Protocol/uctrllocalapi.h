@@ -35,6 +35,11 @@ public:
     void getTasks(UScenario* scenario);
     void getConditions(UTask* task);
     void savePlatform(UPlatform* platform);
+    void saveDevices(UPlatform* platform);
+    void saveDevices(UPlatform* platform, const QJsonArray& devicesArray);
+    void saveScenarios(UDevice* device);
+    void saveTasks(UScenario* scenario);
+    void saveConditions(UTask* task);
 
 private:
     QUdpSocket* m_socket;
