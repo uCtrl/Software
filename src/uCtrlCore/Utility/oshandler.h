@@ -9,7 +9,8 @@ class OsHandler : public QObject
 public:
     explicit OsHandler(QObject *parent = 0) : QObject(parent) {}
 
-    enum OsType
+
+    enum class OsType: int
     {
         Unknown = 0,
         Windows = 1,
@@ -18,33 +19,37 @@ public:
         Symbian = 4,
         Maemo5 = 5,
         Maemo6 = 6,
+        Android = 7,
     };
 
-    Q_INVOKABLE int getOS()
+    Q_ENUMS (OsType)
+
+    Q_INVOKABLE OsType getOS()
     {
         #ifdef Q_OS_MAC
-            return (int)Mac;
+            return OsType::Mac;
         #endif
         #ifdef Q_OS_WIN
-            return (int)Windows;
+            return OsType::Windows;
         #endif
         #ifdef Q_OS_WIN32
-            return (int)Windows;
-        #endif
-        #ifdef Q_OS_LINUX
-            return (int)Linux;
+            return OsType::Windows;
         #endif
         #ifdef Q_WS_MAEMO_5
-            return (int)Maemo5;
+            return OsType::Maemo5;
         #endif
         #ifdef Q_WS_MAEMO_6
-            return (int)Maemo6;
+            return OsType::Maemo6;
         #endif
         #ifdef Q_OS_SYMBIAN
-            return (int)Symbian;
+            return OsType::Symbian;
         #endif
+        #ifdef Q_OS_ANDROID
+            return OsType::Android;
+        #endif
+
         //No OS type was found
-        return (int)Unknown;
+        return OsType::Unknown;
     }
 signals:
 

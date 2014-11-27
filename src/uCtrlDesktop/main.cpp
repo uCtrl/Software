@@ -45,6 +45,7 @@ void Init(QGuiApplication& app, QtQuick2ApplicationViewer& viewer)
     qmlRegisterType<UCondition>("ConditionEnums", 1, 0, "UEComparisonType");
     qmlRegisterType<UHistoryLog>("HistoryEnums", 1, 0, "UESeverity");
     qmlRegisterType<UHistoryLog>("HistoryEnums", 1, 0, "UELogType");
+    qmlRegisterType<OsHandler>("OSEnums", 1, 0, "OsType");
 
     qmlRegisterType<UAudioRecorder>("UAudioRecorder", 1, 0, "UAudioRecorder");
     qmlRegisterType<UVoiceControlResponse>("UVoiceControlResponse", 1, 0, "UVoiceControlResponse");
@@ -55,6 +56,7 @@ void Init(QGuiApplication& app, QtQuick2ApplicationViewer& viewer)
     QNetworkAccessManager* networkAccessManager = viewer.engine()->networkAccessManager();
     UCtrlAPIFacade* uCtrlApiFacade = new UCtrlAPIFacade(networkAccessManager, platforms);
     UCtrlAPI* uCtrlApi = uCtrlApiFacade->getAPI();
+    OsHandler* uOSHandler = new OsHandler();
 
     //LoadSystemFromFile(platforms, ":/data.json");
     uCtrlApiFacade->postUser();
@@ -63,6 +65,7 @@ void Init(QGuiApplication& app, QtQuick2ApplicationViewer& viewer)
     ctxt->setContextProperty("platformsModel", platforms);
     ctxt->setContextProperty("uCtrlApiFacade", uCtrlApiFacade);
     ctxt->setContextProperty("uCtrlApi", uCtrlApi);
+    ctxt->setContextProperty("uOSHandler", uOSHandler);
     viewer.addImportPath(QStringLiteral(":/qml"));
     viewer.setSource(QUrl("qrc:///qml/main.qml"));
     viewer.setMinimumHeight(650);

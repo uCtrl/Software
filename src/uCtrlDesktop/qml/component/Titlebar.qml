@@ -8,7 +8,7 @@ Rectangle {
     id: titlebar
 
     color: Colors.uGreen
-    height: 65
+    height: (resourceLoader.loadResource("titlebarheight"))
 
     property var pages: null
 

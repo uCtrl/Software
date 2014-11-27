@@ -99,7 +99,9 @@
         <file>qml/ui/UDatePicker.qml</file>
         <file>qml/ui/UWeekdayPicker.qml</file>
         <file>qml/ui/UNumberSelector.qml</file>
-        <file>qml/device/type/MotionSensor.qml</file>
+        <file>qml/resources/AndroidResource.js</file>
+        <file>qml/resources/WindowsResource.js</file>
+		<file>qml/device/type/MotionSensor.qml</file>
         <file>qml/device/type/Sensor.qml</file>
         <file>qml/device/DeviceIcon.qml</file>
         <file>qml/ui/UCheckbox.qml</file>

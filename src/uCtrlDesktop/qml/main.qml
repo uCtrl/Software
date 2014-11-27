@@ -5,16 +5,31 @@ import QtQuick.Controls 1.0
 import "component" as Components
 import "ui" as Ui
 import "ui/UColors.js" as Colors
+import "resources/AndroidResource.js" as AndroidResource
+import "resources/WindowsResource.js" as WindowsResource
+import OSEnums 1.0
 
 Rectangle {
     id: main
+
+    Rectangle{
+        id: resourceLoader
+
+        function loadResource(resourceName){
+            switch(uOSHandler.getOS()){
+                case OsType.Android:
+                    return AndroidResource.loadResource(resourceName)
+                case OsType.Windows:
+                    return WindowsResource.loadResource(resourceName)
+            }
+        }
+    }
 
     // Frame configuration
     height: 800
     width: 1200
 
     color: Colors.uLightGrey
-
     // Available pages
     property variant pages: [
         {file: "home/ULandingPage", icon: "Dashboard", text: "Dashboard", showInNavBar: true},

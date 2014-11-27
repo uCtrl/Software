@@ -61,7 +61,7 @@ Rectangle {
             iconId: container.iconId
             anchors.centerIn: parent
 
-            iconSize: (parent.width ? parent.width * 0.55 : 100)
+            iconSize: parent.width * (resourceLoader.loadResource("iconHomeSize"))
             iconColor: Colors.uWhite
         }
     }
@@ -80,7 +80,7 @@ Rectangle {
         verticalAlignment: Text.AlignVCenter
 
         font.bold: true
-        font.pointSize: 24
+        font.pointSize: (resourceLoader.loadResource("labelHomeSize"))
         color: Colors.uWhite
     }
 }

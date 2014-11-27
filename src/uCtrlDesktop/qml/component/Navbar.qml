@@ -8,7 +8,7 @@ Rectangle {
     id: navbar
 
     color: Colors.uDarkGrey
-    width: 67;
+    width: (resourceLoader.loadResource("navbarWidth"))
 
     property variant pages: []
 
@@ -25,7 +25,7 @@ Rectangle {
             Rectangle {
                 id: rectangle
 
-                height: 50
+                height: (resourceLoader.loadResource("navbarItemHeight"))
 
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -35,7 +35,7 @@ Rectangle {
 
                     iconId: modelData.icon
                     iconColor: Colors.uWhite
-                    iconSize: 24
+                    iconSize: (resourceLoader.loadResource("navbarIconSize"))
                     anchors.centerIn: parent
                 }
 
