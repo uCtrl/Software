@@ -37,10 +37,7 @@ Rectangle {
             id: searchBox
 
             anchors.left: filters.left
-            anchors.leftMargin: 0
-
             anchors.right: filters.right
-            anchors.rightMargin: 5
 
             anchors.verticalCenter: filters.verticalCenter
 
@@ -94,7 +91,7 @@ Rectangle {
                 color: Colors.uMediumLightGrey
                 opacity: 0.6
 
-                visible: (platformInfo.model != null)
+                visible: (platformInfo.model !== null)
 
                 z: 2
 
