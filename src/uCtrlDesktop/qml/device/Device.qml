@@ -133,7 +133,7 @@ Rectangle
                         buttonHoveredTextColor: Colors.uGreen
                         buttonHoveredColor: Colors.uTransparent
 
-                        onClicked: infoContainer.showEditMode = !infoContainer.showEditMode
+                        onClicked: toggleEditMode()
 
                         visible : !infoContainer.showEditMode
                     }
@@ -857,5 +857,11 @@ Rectangle
     function getDescription() {
         if (model !== null) return model.description
         else return ""
+    }
+
+    function toggleEditMode()
+    {
+        infoContainer.showEditMode = !infoContainer.showEditMode
+        nameTextbox.text = model.name
     }
 }

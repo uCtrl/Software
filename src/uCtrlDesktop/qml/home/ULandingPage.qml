@@ -125,6 +125,7 @@ Rectangle {
                 height: parent.height
 
                 onClicked: {
+                    main.changePageFromHome("settings/Settings")
                 }
             }
         }
