@@ -26,11 +26,6 @@ Rectangle
 
     property bool showEditMode: false
 
-    onModelChanged: {
-        uCtrlApiFacade.getDeviceHistory(devicesList.findObject(model.id));
-        showEditMode = false
-    }
-
     Rectangle {
         id: contentCanvas
 
@@ -637,7 +632,14 @@ Rectangle
                             anchors.fill: parent
                             visible: tabs.selectedValue === "log"
 
-                            Rectangle
+                            Logs
+                            {
+                                id: logs
+                                anchors.fill: parent
+                                model: devicePage.model
+                            }
+
+                            /*Rectangle
                             {
                                 id: logsHeaderContainer
                                 width: parent.width
@@ -703,6 +705,7 @@ Rectangle
                                         { value:"Update", displayedValue:"Update", iconId:""},
                                     ]
                                     Component.onCompleted: selectItem(0)
+                                    onSelectValue: updateLogType()
                                 }
 
                                 UI.UCombobox
@@ -720,8 +723,9 @@ Rectangle
                                         { value:"Yeah", displayedValue:"This year", iconId:""},
                                     ]
                                     Component.onCompleted: selectItem(0)
+                                    onSelectValue: updateLogPeriod()
                                 }
-                            }
+                            }*/
                         }
                     }
 

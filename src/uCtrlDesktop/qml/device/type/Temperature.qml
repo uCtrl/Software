@@ -461,7 +461,7 @@ Rectangle {
     }
 
     function getDeviceValueStats() {
-        if (model !== null) {
+        if (model !== null && statsModel !== undefined) {
 
             var data = []
             var labels = []
