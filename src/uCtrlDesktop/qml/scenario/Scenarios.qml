@@ -61,13 +61,13 @@ Rectangle {
         {
             id: scenarioHeader
             width: parent.width
-            height: 50
+            height: (resourceLoader.loadResource("scenariosScenariocontainerScenarioHeaderHeight"))
 
             UI.UFontAwesome
             {
                 id: scHeaderIcon
                 iconId: "Cog"
-                iconSize: 24
+                iconSize: (resourceLoader.loadResource("scenariosScenariocontainerScenarioHeaderScHeaderIcon"))
                 iconColor: Colors.uGrey
 
                 anchors.left: parent.left
@@ -78,9 +78,9 @@ Rectangle {
             ULabel.Default
             {
                 text: "Scenario configuration"
-                font.pointSize: 20
+                font.pointSize: (resourceLoader.loadResource("scenariosScenariocontainerScenarioHeaderFontPointSize"))
                 anchors.left: scHeaderIcon.right
-                anchors.leftMargin: 20
+                anchors.leftMargin: (resourceLoader.loadResource("scenariosScenariocontainerScenarioHeaderLeftMargin"))
                 anchors.verticalCenter: parent.verticalCenter
                 color: Colors.uGrey
             }

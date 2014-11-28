@@ -49,6 +49,7 @@ Rectangle {
     }
 
     anchors.fill: parent
+
     color: Colors.uTransparent
 
     Component.onCompleted: {
@@ -64,20 +65,22 @@ Rectangle {
         onTriggered: moveForward()
     }
 
-    Row
-    {
+    Row{
         anchors.horizontalCenter: parent.horizontalCenter
+
         height: parent.height
-        spacing: 15
+        spacing: (resourceLoader.loadResource("UCarouselRowSpacing"))
 
         UButton
         {
-            width: (resourceLoader.loadResource("UCarouselUButtonChevronLeftWidth"))
-            height: (resourceLoader.loadResource("UCarouselUButtonChevronLeftHeight"))
+            width: 30
+            height: 30
 
             buttonColor: Colors.uTransparent
             buttonHoveredColor: Colors.uTransparent
             buttonTextColor : Colors.uGrey
+            anchors.verticalCenter: parent.verticalCenter
+
             iconId: "ChevronLeft"
             onClicked: {
                 moveBackwards()
@@ -87,35 +90,36 @@ Rectangle {
 
         ListView
         {
-            spacing: 10
+            spacing: (resourceLoader.loadResource("UCarouselListviewSpacing"))
             orientation: ListView.Horizontal
             width: carouselIcons.length * 30 + (carouselIcons.length - 1) * 10
-            height: 90
+            height: 60
             model: carouselIcons
             interactive: false
+            anchors.verticalCenter: parent.verticalCenter
             delegate: Rectangle {
                 width: (resourceLoader.loadResource("UCarouselListviewRectangleWidth"))
                 height: (resourceLoader.loadResource("UCarouselListviewRectangleHeight"))
-
+                anchors.verticalCenter: parent.verticalCenter
                 UFontAwesome
                 {
                     iconId: carouselIcons[index]
                     iconColor: currentIndex === index ? Colors.uGreen : Colors.uGrey
+                    iconSize: 30
                     anchors.centerIn: parent
-                    iconSize: resourceLoader.loadResource("UCarouselListviewUFontawesomeIconSIze")
                 }
             }
         }
 
         UButton
         {
-            width: (resourceLoader.loadResource("UCarouselUButtonChevronRightWidth"))
-            height: (resourceLoader.loadResource("UCarouselUButtonChevronRightHeight"))
+            width: 30
+            height: 30
 
             buttonColor: Colors.uTransparent
             buttonHoveredColor: Colors.uTransparent
             buttonTextColor : Colors.uGrey
-
+            anchors.verticalCenter: parent.verticalCenter
             iconId: "ChevronRight"
             onClicked: {
                 moveForward()

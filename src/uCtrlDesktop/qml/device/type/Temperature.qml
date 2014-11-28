@@ -24,7 +24,8 @@ Rectangle {
 
         color: Colors.uTransparent
 
-        height: 100; width: 185
+        height: (resourceLoader.loadResource("temperatureValuecontainerHeight"))
+        width: (resourceLoader.loadResource("temperatureValuecontainerWidth"))
 
         anchors.top: container.top
         anchors.topMargin: 5
@@ -37,7 +38,7 @@ Rectangle {
             text: "CURRENT VALUE"
 
             font.bold: true
-            font.pixelSize: 9
+            font.pixelSize: (resourceLoader.loadResource("temperatureValuecontainerCurrentValuelabelFontPixelSize"))
 
             anchors.top: valueContainer.top
             anchors.topMargin: 5
@@ -63,7 +64,7 @@ Rectangle {
                 text: getValue()
 
                 font.bold: true
-                font.pixelSize: 68
+                font.pixelSize: (resourceLoader.loadResource("temperatureValuecontainerCurrentValuecontainerCurrentvalueFontPixelSize"))
 
                 color: Colors.uMediumDarkGrey
 
@@ -86,7 +87,7 @@ Rectangle {
             ULabel.Default {
                 id: unitLabel
 
-                font.pixelSize: 20
+                font.pixelSize: (resourceLoader.loadResource("temperatureValuecontainerUnitcontainerUnitlabelFontPixelSize"))
 
                 text: container.unitLabel
 
@@ -110,7 +111,7 @@ Rectangle {
             ULabel.Default {
                 id: precisionLabel
 
-                font.pixelSize: 12
+                font.pixelSize: (resourceLoader.loadResource("temperatureValuecontainerPrecisioncontainerPrecisionalabelFontPixelSize"))
 
                 text: "±0." + getPrecision()
 
@@ -127,11 +128,12 @@ Rectangle {
 
         color: Colors.uTransparent
 
-        height: valueContainer.height; width: 300
+        height: valueContainer.height
+        width: (resourceLoader.loadResource("temperatureAveragecontainerWidth"))
 
         anchors.top: valueContainer.top
         anchors.bottom: valueContainer.bottom
-
+        anchors.leftMargin: (resourceLoader.loadResource("temperatureAveragecontainerLeftmargin"))
         anchors.left: valueContainer.right
 
         Rectangle {
@@ -149,7 +151,7 @@ Rectangle {
                 id: averageLabel
 
                 font.bold: true
-                font.pixelSize: 14
+                font.pixelSize: (resourceLoader.loadResource("temperatureAveragecontainerAveragelabelFontPixelSize"))
 
                 color: Colors.uGrey
 
@@ -165,7 +167,7 @@ Rectangle {
                 id: averageValue
 
                 font.bold: true
-                font.pixelSize: 28
+                font.pixelSize: (resourceLoader.loadResource("temperatureAveragecontainerAverageValueFontPixelSize"))
 
                 color: Colors.uGreen
                 text: getDeviceMeanValue()
@@ -191,7 +193,7 @@ Rectangle {
                 id: lowestLabel
 
                 font.bold: true
-                font.pixelSize: 14
+                font.pixelSize: (resourceLoader.loadResource("temperatureAveragecontainerAveragelabelFontPixelSize"))
 
                 color: Colors.uGrey
 
@@ -207,7 +209,7 @@ Rectangle {
                 id: lowestValue
 
                 font.bold: true
-                font.pixelSize: 28
+                font.pixelSize: (resourceLoader.loadResource("temperatureAveragecontainerAverageValueFontPixelSize"))
 
                 color: Colors.uGreen
                 text: getDeviceMinValue()
@@ -233,7 +235,7 @@ Rectangle {
                 id: highestLabel
 
                 font.bold: true
-                font.pixelSize: 14
+                font.pixelSize: (resourceLoader.loadResource("temperatureAveragecontainerAveragelabelFontPixelSize"))
 
                 color: Colors.uGrey
 
@@ -249,7 +251,7 @@ Rectangle {
                 id: highesValue
 
                 font.bold: true
-                font.pixelSize: 28
+                font.pixelSize: (resourceLoader.loadResource("temperatureAveragecontainerAverageValueFontPixelSize"))
 
                 color: Colors.uGreen
                 text: getDeviceMaxValue()
@@ -342,7 +344,7 @@ Rectangle {
         Rectangle {
             id: carouselContainer
             width: parent.width
-            height: 30
+            height: 60
             anchors.bottom: parent.bottom
 
             UI.UCarousel {
@@ -357,14 +359,14 @@ Rectangle {
         Rectangle {
             id: statsHeader
             width: parent.width
-            height: 40
+            height: (resourceLoader.loadResource("temperatureStatsheaderHeight"))
 
             anchors.top: statsContainer.top
 
             UI.UFontAwesome {
                 id: statsIcon
                 iconId: "stats"
-                iconSize: 12
+                iconSize: (resourceLoader.loadResource("temperatureStatsheaderStatsiconIconSize"))
                 iconColor: Colors.uGrey
                 anchors.left: parent.left
                 anchors.leftMargin: 10
@@ -375,10 +377,11 @@ Rectangle {
                 id: statsText
                 text: "Statistics"
                 anchors.left: statsIcon.right
-                anchors.leftMargin: 15
+                anchors.leftMargin: (resourceLoader.loadResource("temperatureStatsheaderStatstextLeftMargin"))
                 color: Colors.uGrey
                 anchors.verticalCenter: parent.verticalCenter
                 font.bold: true
+                font.pixelSize: (resourceLoader.loadResource("temperatureStatsheaderStatstextFontPixelSize"))
             }
 
             UI.UCombobox {
@@ -409,8 +412,8 @@ Rectangle {
                 hoverColor: Colors.uDarkGreen
                 hoverTextColor: Colors.uWhite
 
-                height: parent.height;
-                width: 150
+                height: (resourceLoader.loadResource("temperatureStatsheaderHeight"))
+                width: (resourceLoader.loadResource("temperatureStatsheaderPeriodcomboWidth"))
 
                 Component.onCompleted: selectItem(0)
                 onSelectValue: updateStatsPeriod();

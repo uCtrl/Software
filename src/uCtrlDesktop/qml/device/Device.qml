@@ -43,7 +43,7 @@ Rectangle
         anchors.bottomMargin: devicePage.bottomMarginSize
 
         color:  Colors.uWhite
-        radius: 5(resourceLoader.loadResource("deviceDevicepageContentcanvasRadius"))
+        radius: (resourceLoader.loadResource("deviceDevicepageContentcanvasRadius"))
 
         Rectangle {
             id: contentContainer
@@ -311,7 +311,7 @@ Rectangle
                     anchors.top: enabledContainer.bottom
                     anchors.topMargin: 10
 
-                    height: (hidden ? 25 : techInfoColumn.height + techIcon.height + 20)
+                    height: (hidden ? (resourceLoader.loadResource("deviceDevicepageContentcanvascontentcontainerTechcontainerHeight")) : techInfoColumn.height + techIcon.height + 20)
 
                     radius: 4
 
@@ -333,7 +333,7 @@ Rectangle
                         id: techIcon
 
                         iconId: "Cog"
-                        iconSize: (resourceLoader.loadResource("contentcontainerTechIconIconSize"))
+                        iconSize: (resourceLoader.loadResource("deviceDevicepageContentcanvascontentcontainerTechIconIconSize"))
                         iconColor: Colors.uGrey
 
                         anchors.top: techContainer.top
@@ -347,11 +347,11 @@ Rectangle
                         id: techLabel
 
                         font.bold: false
-                        font.pixelSize: 11(resourceLoader.loadResource("contentcontainerTechlabelFontPixelSize"))
+                        font.pixelSize: (resourceLoader.loadResource("deviceDevicepageContentcanvascontentcontainerTechlabelFontPixelSize"))
 
                         anchors.verticalCenter: techIcon.verticalCenter
                         anchors.left: techIcon.right
-                        anchors.leftMargin: 13
+                        anchors.leftMargin: (resourceLoader.loadResource("deviceDevicepageContentcanvascontentcontainerTechlabelLeftMargin"))
 
                         text: (techContainer.hidden ? "Show technical information" : "Hide technical information")
 
@@ -375,7 +375,8 @@ Rectangle
 
                             Rectangle {
                                 color: Colors.uTransparent
-                                height: 20; width: techInfoColumn.width;
+                                height: (resourceLoader.loadResource("deviceDevicepageContentcanvascontentcontainerTechinfocolumnRowheight"))
+                                width: techInfoColumn.width
 
                                 Row {
                                     spacing: 10
@@ -391,10 +392,10 @@ Rectangle
                                         anchors.top: parent.top
                                         anchors.leftMargin: 15
 
-                                        font.pixelSize: 10
+                                        font.pixelSize: (resourceLoader.loadResource("deviceDevicepageContentcanvascontentcontainerTechinfocolumnRowTitleFontPixelSize"))
                                         font.bold: true
 
-                                        width: 35
+                                        width: (resourceLoader.loadResource("deviceDevicepageContentcanvascontentcontainerTechinfocolumnRowTitleWidth"))
 
                                         color: Colors.uGrey
                                     }
@@ -402,9 +403,9 @@ Rectangle
                                     ULabel.Default {
                                         text: modelData.value
                                         anchors.top: parent.top
-                                        anchors.leftMargin: 15
+                                        anchors.leftMargin: (resourceLoader.loadResource("deviceDevicepageContentcanvascontentcontainerTechinfocolumnRowvalueLeftMargin"))
 
-                                        font.pixelSize: 10
+                                        font.pixelSize: (resourceLoader.loadResource("deviceDevicepageContentcanvascontentcontainerTechinfocolumnRowTitleFontPixelSize"))
                                         font.bold: false
 
                                         color: Colors.uGrey
@@ -435,7 +436,7 @@ Rectangle
                     anchors.right: infoContainer.right
 
                     anchors.top: techContainer.bottom
-                    height: (hidden ? 25 : 50)
+                    height: (hidden ? (resourceLoader.loadResource("deviceDevicepageContentcanvasContentcontainerDescriptioncontainerHeight")) : 50)
 
                     radius: 4
 
@@ -445,7 +446,7 @@ Rectangle
                         id: descriptionIcon
 
                         iconId: "File"
-                        iconSize: 12
+                        iconSize: (resourceLoader.loadResource("deviceDevicepageContentcanvasdescriptioncontainerDescriptionIconIconSize"))
                         iconColor: Colors.uGrey
 
                         anchors.top: descriptionContainer.top
@@ -459,11 +460,11 @@ Rectangle
                         id: descriptionLabel
 
                         font.bold: false
-                        font.pixelSize: 11
+                        font.pixelSize: (resourceLoader.loadResource("deviceDevicepageContentcanvasdescriptioncontainerDescriptionlabelFontPixelSize"))
 
                         anchors.verticalCenter: descriptionIcon.verticalCenter
                         anchors.left: descriptionIcon.right
-                        anchors.leftMargin: 13
+                        anchors.leftMargin: (resourceLoader.loadResource("deviceDevicepageContentcanvasdescriptioncontainerDescriptionlabelLeftMargin"))
 
                         text: (descriptionContainer.hidden ? "Show device description" : "Hide device description")
 

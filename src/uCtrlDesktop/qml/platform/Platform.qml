@@ -59,11 +59,11 @@ Rectangle {
             anchors.margins: marginSize
 
             UI.UButton {
-                id: editButton
 
+                id: editButton
                 iconId: "pencil"
 
-                iconSize: 22
+                iconSize: (resourceLoader.loadResource("platformPlatformInfoInformationsNamecontainerEditbuttonIconSize"))
 
                 anchors.top: parent.top
                 anchors.right: parent.right
@@ -127,7 +127,7 @@ Rectangle {
                     anchors.right: saveCancelPlatform.left
                     anchors.rightMargin: 5
 
-                    height: 30
+                    height: (resourceLoader.loadResource("platformPlatformInfoInformationsNametextboxHeight"))
 
                     text: getName()
                     placeholderText: "Platform name"
@@ -185,7 +185,7 @@ Rectangle {
                 anchors.left: enabledTitle.right
 
                 anchors.verticalCenter: parent.verticalCenter
-
+                height : 30
                 visible: showEditMode
             }
         }
@@ -249,7 +249,6 @@ Rectangle {
             id: separator
 
             height: 0.5
-
             anchors.bottom: roomContainer.bottom
 
             anchors.left: parent.left
@@ -273,7 +272,7 @@ Rectangle {
 
             clip: true
 
-            height: 30
+            height: (resourceLoader.loadResource("platformAdvancedHeight"))
 
             color: Colors.uLightGrey
 
@@ -287,7 +286,7 @@ Rectangle {
                 target: advanced
                 properties: "height"
                 duration: 200
-                to: 120
+                to: (resourceLoader.loadResource("platformAdvancedAnimationToHeight"))
                 easing.type: Easing.InOutQuad
             }
 
@@ -297,7 +296,7 @@ Rectangle {
                 target: advanced
                 properties: "height"
                 duration: 200
-                to: 30
+                to: (resourceLoader.loadResource("platformAdvancedHeight"))
                 easing.type: Easing.InOutQuad
             }
 
@@ -317,9 +316,9 @@ Rectangle {
                     anchors.right: parent.right
                     anchors.top: parent.top
 
-                    anchors.margins: 10
+                    anchors.topMargin: (resourceLoader.loadResource("platformAdvancedIdrowTopMargin"))
 
-                    height: 15
+                    height: (resourceLoader.loadResource("platformAdvancedIdrowHeight"))
 
                     z: 1
 
@@ -328,7 +327,7 @@ Rectangle {
 
                         color: Colors.uGrey
                         font.family: "Courier"
-                        font.pointSize: 11
+                        font.pointSize: (resourceLoader.loadResource("platformAdvancedIdrowFontPointSize"))
 
                         text: "Platform ID"
                     }
@@ -338,7 +337,7 @@ Rectangle {
 
                         color: Colors.uGrey
                         font.family: "Courier"
-                        font.pointSize: 11
+                        font.pointSize: (resourceLoader.loadResource("platformAdvancedIdrowFontPointSize"))
 
                         text: getId()
                     }
@@ -351,7 +350,7 @@ Rectangle {
                     anchors.right: idRow.right
                     anchors.top: idRow.bottom
 
-                    height: 15
+                    height: (resourceLoader.loadResource("platformAdvancedIdrowHeight"))
 
                     z: 1
 
@@ -360,7 +359,7 @@ Rectangle {
 
                         color: Colors.uGrey
                         font.family: "Courier"
-                        font.pointSize: 11
+                        font.pointSize: (resourceLoader.loadResource("platformAdvancedIdrowFontPointSize"))
 
                         text: "IP Address"
                     }
@@ -370,7 +369,7 @@ Rectangle {
 
                         color: Colors.uGrey
                         font.family: "Courier"
-                        font.pointSize: 11
+                        font.pointSize: (resourceLoader.loadResource("platformAdvancedIdrowFontPointSize"))
 
                         text: getIp()
                     }
@@ -383,7 +382,7 @@ Rectangle {
                     anchors.right: ipRow.right
                     anchors.top: ipRow.bottom
 
-                    height: 15
+                    height: (resourceLoader.loadResource("platformAdvancedIdrowHeight"))
 
                     z: 1
 
@@ -392,7 +391,7 @@ Rectangle {
 
                         color: Colors.uGrey
                         font.family: "Courier"
-                        font.pointSize: 11
+                        font.pointSize: (resourceLoader.loadResource("platformAdvancedIdrowFontPointSize"))
 
                         text: "Port Number"
                     }
@@ -402,7 +401,7 @@ Rectangle {
 
                         color: Colors.uGrey
                         font.family: "Courier"
-                        font.pointSize: 11
+                        font.pointSize: (resourceLoader.loadResource("platformAdvancedIdrowFontPointSize"))
 
                         text: getPort()
                     }
@@ -415,7 +414,7 @@ Rectangle {
                     anchors.right: portRow.right
                     anchors.top: portRow.bottom
 
-                    height: 15
+                    height: (resourceLoader.loadResource("platformAdvancedIdrowHeight"))
 
                     z: 1
 
@@ -424,7 +423,7 @@ Rectangle {
 
                         color: Colors.uGrey
                         font.family: "Courier"
-                        font.pointSize: 11
+                        font.pointSize: (resourceLoader.loadResource("platformAdvancedIdrowFontPointSize"))
 
                         text: "Firmware Version"
                     }
@@ -434,7 +433,7 @@ Rectangle {
 
                         color: Colors.uGrey
                         font.family: "Courier"
-                        font.pointSize: 11
+                        font.pointSize: (resourceLoader.loadResource("platformAdvancedIdrowFontPointSize"))
 
                         text: getFirmwareVersion()
                     }
@@ -445,7 +444,7 @@ Rectangle {
             {
                 id: advancedLabel
                 width: parent.width
-                height: 30
+                height: (resourceLoader.loadResource("platformAdvancedHeight"))
                 color: Colors.uTransparent
                 anchors.horizontalCenter: parent.horizontalCenter
 
@@ -457,12 +456,12 @@ Rectangle {
                     id: advancedIcon
 
                     anchors.left: parent.left
-                    anchors.bottom: parent.bottom
+                   // anchors.bottom: parent.bottom
 
-                    anchors.margins: 15
-
+                    anchors.margins: (resourceLoader.loadResource("platformAdvancedAdvancediconMargin"))
+                    anchors.verticalCenter: advancedLabel.verticalCenter
                     iconId: "earth"
-                    iconSize: 12
+                    iconSize: (resourceLoader.loadResource("platformAdvancedAdvancediconIconSize"))
                     iconColor: Colors.uGrey
                 }
 
@@ -470,9 +469,9 @@ Rectangle {
                     id: advancedText
 
                     text: (showAdvanced ? "Hide" : "Show") + " advanced information"
-
+                    font.pointSize: (resourceLoader.loadResource("platformAdvancedAdvancedtextFontPointSize"))
                     anchors.left: advancedIcon.right
-                    anchors.leftMargin: 12
+                    anchors.leftMargin: (resourceLoader.loadResource("platformAdvancedAdvancedtextLeftmargin"))
                     anchors.verticalCenter: advancedIcon.verticalCenter
                     font.family: "Courier"
 

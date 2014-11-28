@@ -28,7 +28,7 @@ Rectangle {
         color: Colors.uBlack
 
         font.bold: true
-        font.pointSize: 16
+        font.pointSize: (resourceLoader.loadResource("platformListitemPlatformNameTextFontPointSize"))
     }
 
     ULabel.Default {
@@ -41,7 +41,7 @@ Rectangle {
 
         color: Colors.uMediumDarkGrey
 
-        font.pixelSize: 11
+        font.pixelSize: (resourceLoader.loadResource("platformListitemPlatformUpdateTextFontPointSize"))
     }
 
     Rectangle {

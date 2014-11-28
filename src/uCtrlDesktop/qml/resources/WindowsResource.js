@@ -32,6 +32,25 @@ var resourceDictionary = {
     "sensorGraphheaderPeriodcomboWidth": 150,
     "sensorCarouselcontainerHeight": 30,
 
+    "temperatureValuecontainerHeight": 100,
+    "temperatureValuecontainerWidth": 185,
+    "temperatureValuecontainerCurrentValuelabelFontPixelSize": 9,
+    "temperatureValuecontainerCurrentValuecontainerCurrentvalueFontPixelSize": 68,
+    "temperatureValuecontainerUnitcontainerUnitlabelFontPixelSize": 20,
+    "temperatureValuecontainerPrecisioncontainerPrecisionalabelFontPixelSize": 12,
+
+    "temperatureAveragecontainerLeftmargin":0,
+    "temperatureAveragecontainerWidth": 300,
+    "temperatureAveragecontainerAveragelabelFontPixelSize":14,
+    "temperatureAveragecontainerAverageValueFontPixelSize": 28,
+    "temperatureStatsheaderHeight": 40,
+    "temperatureStatsheaderStatstextFontPixelSize": 11,
+    "temperatureStatsheaderStatstextLeftMargin":15,
+    "temperatureStatsheaderStatsiconIconSize":12,
+    "temperatureStatsheaderPeriodcomboWidth": 150,
+
+
+
     "deviceDevicepageMarginSize": 20,
     "deviceDevicepagePaddingSize": 20,
     "deviceDevicepageBottomMarginSize": 30,
@@ -39,6 +58,19 @@ var resourceDictionary = {
     "deviceDevicepageContentcanvasIconcontainerWidth": 50,
     "deviceDevicepageContentcanvasStatuscontainerHeight": 40,
     "deviceDevicepageContentcanvasEnablecontainerHeight": 30,
+    "deviceDevicepageContentcanvascontentcontainerTechcontainerHeight": 25,
+    "deviceDevicepageContentcanvascontentcontainerTechIconIconSize": 12,
+    "deviceDevicepageContentcanvascontentcontainerTechlabelFontPixelSize": 11,
+    "deviceDevicepageContentcanvascontentcontainerTechlabelLeftMargin": 13,
+    "deviceDevicepageContentcanvasContentcontainerDescriptioncontainerHeight": 25,
+    "deviceDevicepageContentcanvasdescriptioncontainerDescriptionIconIconSize": 12,
+    "deviceDevicepageContentcanvasdescriptioncontainerDescriptionlabelFontPixelSize": 11,
+    "deviceDevicepageContentcanvasdescriptioncontainerDescriptionlabelLeftMargin": 13,
+    "deviceDevicepageContentcanvascontentcontainerTechinfocolumnRowheight": 20,
+    "deviceDevicepageContentcanvascontentcontainerTechinfocolumnRowvalueLeftMargin":15,
+    "deviceDevicepageContentcanvascontentcontainerTechinfocolumnRowTitleWidth": 35,
+    "deviceDevicepageContentcanvascontentcontainerTechinfocolumnRowTitleFontPixelSize": 10,
+
     "deviceDevicepageInfocontainerHeaderWidth": 125,
 
     "deviceListItemListItemHeight": 42,
@@ -54,14 +86,43 @@ var resourceDictionary = {
 
 
     "platformPlatformInfoInformationsNamecontainerHeight": 40,
+    "platformAdvancedHeight": 30,
+    "platformAdvancedIdrowHeight": 15,
+    "platformAdvancedAnimationToHeight": 120,
+    "platformAdvancedIdrowTopMargin": 10,
+    "platformAdvancedIdrowFontPointSize": 11,
+    "platformAdvancedAdvancediconIconSize": 12,
+    "platformAdvancedAdvancediconMargin": 15,
+    "platformAdvancedAdvancedtextFontPointSize": 12,
+    "platformAdvancedAdvancedtextLeftmargin":12,
+    "platformPlatformInfoInformationsNamecontainerEditbuttonIconSize": 22,
+    "platformPlatformInfoInformationsNametextboxHeight": 30,
+
+    "platformListitemPlatformNameTextFontPointSize": 16,
+    "platformListitemPlatformUpdateTextFontPointSize": 11,
 
     "platformsFiltersHeight": 35,
     "platformsRectplatformsPlatformsColumnItemcontainerHeight": 60,
     "platformsFiltersSearchBoxIconSize": 13,
+    "platformsFiltersSearchBoxRightmargin": 5,
+
+    "scenariosScenariocontainerScenarioHeaderHeight": 50,
+    "scenariosScenariocontainerScenarioHeaderScHeaderIcon": 24,
+    "scenariosScenariocontainerScenarioHeaderFontPointSize": 20,
+    "scenariosScenariocontainerScenarioHeaderLeftMargin": 20,
+
+    "settingsSettingscontainerNinjaServerUrlBox": 30,
+    "settingsSettingscontainerNinjaTokenBox": 30,
+    "settingsSettingscontainerSyncButtonTopmargin": 10,
 
 
+    "UCarouselRowSpacing":15,
+    "UCarouselListviewSpacing":10,
     "UCarouselUButtonChevronLeftWidth": 30,
     "UCarouselUButtonChevronLeftHeight": 30,
+    "UCarouselListviewWidht1": 30,
+    "UCarouselListviewWidht2": 10,
+    "UCarouselListviewHeight": 30,
     "UCarouselListviewRectangleWidth":30,
     "UCarouselListviewRectangleHeight":30,
     "UCarouselListviewUFontawesomeIconSIze": 16,

@@ -33,7 +33,7 @@ Rectangle {
             id: ninjaServerUrlBox
             anchors.top: ninjaServerUrlToken.bottom
 
-            height: 30
+            height: (resourceLoader.loadResource("settingsSettingscontainerNinjaServerUrlBox"))
             width: 400
 
             text: uCtrlApi.serverBaseUrl
@@ -56,7 +56,7 @@ Rectangle {
             id: ninjaTokenBox
             anchors.top: ninjaTokenLabel.bottom
 
-            height: 30
+            height: (resourceLoader.loadResource("settingsSettingscontainerNinjaTokenBox"))
             width: 800
 
             text: uCtrlApi.ninjaToken
@@ -68,7 +68,7 @@ Rectangle {
         UI.UButton {
             id: syncButton
             anchors.top: ninjaTokenBox.bottom
-            anchors.topMargin: 10
+            anchors.topMargin: (resourceLoader.loadResource("settingsSettingscontainerSyncButtonTopmargin"))
 
             width: 200
 

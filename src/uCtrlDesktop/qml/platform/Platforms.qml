@@ -152,7 +152,8 @@ Rectangle {
                 id: header
 
                 property bool showChildren: true
-                width: parent.width; height: 20;
+                width: parent.width
+                height: 20
 
                 color: Colors.uGreen
 
