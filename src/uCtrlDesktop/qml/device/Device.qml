@@ -435,7 +435,7 @@ Rectangle
                     anchors.right: infoContainer.right
 
                     anchors.top: techContainer.bottom
-                    height: (hidden ? 25 : 50)
+                    height: (infoContainer.showEditMode ? 60 : (hidden ? 25 : 50))
 
                     radius: 4
 
@@ -486,7 +486,26 @@ Rectangle
 
                         text: getDescription()
 
-                        visible: !descriptionContainer.hidden
+                        visible: !descriptionContainer.hidden && !infoContainer.showEditMode
+                    }
+
+                    UI.UTextbox
+                    {
+                        id: descriptionTextbox
+
+                        width: parent.width - 10
+                        height: 30
+
+                        anchors.top: descriptionLabel.bottom
+                        anchors.topMargin: 7
+
+                        pointSize: 10
+
+                        anchors.horizontalCenter: parent.horizontalCenter
+
+                        placeholderText: "Enter a device description"
+
+                        visible: infoContainer.showEditMode
                     }
 
                     Rectangle {
@@ -503,6 +522,8 @@ Rectangle
 
                     MouseArea {
                         id: descriptionContainerMouse
+
+                        enabled: !infoContainer.showEditMode
 
                         anchors.fill: descriptionContainer
                         hoverEnabled: true
@@ -784,6 +805,8 @@ Rectangle
     function saveForm() {
         model.name = nameTextbox.text
         model.isEnabled = (enabledSwitch.state === "ON")
+        model.description = descriptionTextbox.text
+
         uCtrlApiFacade.putDevice(devicesList.findObject(model.id))
 
         main.addToBreadcrumb("device/Device", model.name, 2)
@@ -813,6 +836,8 @@ Rectangle
                     return "LimitlessLEDWhite"
                 case UEType.DoorSensor:
                     return "DoorSensor"
+                case UEType.LightSensor:
+                    return "LightSensor"
             }
         }
         return "Error"
@@ -857,6 +882,8 @@ Rectangle
                     return "LimitlessLED"
                 case UEType.DoorSensor:
                     return "Door sensor"
+                case UEType.LightSensor:
+                    return "Light sensor"
             }
         }
         return "Error"
@@ -886,5 +913,6 @@ Rectangle
     {
         infoContainer.showEditMode = !infoContainer.showEditMode
         nameTextbox.text = model.name
+        descriptionTextbox.text = model.description
     }
 }

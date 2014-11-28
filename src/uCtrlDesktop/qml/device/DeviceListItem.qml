@@ -12,14 +12,15 @@ Rectangle {
     property variant item: null
 
     width: parent.width
-    height: 42
+    height: 50
 
     color: getColor()
 
     Rectangle {
         id: iconFrame
 
-        width: 32; height: 32
+        width: 40
+        height: 40
         radius: 4
 
         anchors.left: parent.left
@@ -32,7 +33,7 @@ Rectangle {
         {
             deviceType: listItem.item === null ? 0 : listItem.item.type
 
-            iconSize: 16
+            iconSize: 18
             iconColor: Colors.uWhite
         }
     }
@@ -52,21 +53,80 @@ Rectangle {
         iconColor: Colors.uMediumLightGrey
     }
 
-    ULabel.Description {
-        text: getName()
-
-        color: Colors.uBlack
-
-        font.bold: true
-        font.pointSize: 18
-
-        anchors.verticalCenter: iconFrame.verticalCenter
-
+    Rectangle
+    {
         anchors.left: iconFrame.right
         anchors.leftMargin: 10
 
         anchors.right: itemChevron.left
         anchors.rightMargin: 10
+
+        height: parent.height
+        color: Colors.uTransparent
+
+        Loader
+        {
+            anchors.fill: parent
+            sourceComponent: getDescription() === "" ? nameOnly : nameAndDescription
+        }
+    }
+
+    Component
+    {
+        id: nameAndDescription
+
+        Rectangle
+        {
+            anchors.fill: parent
+            color: Colors.uTransparent
+            ULabel.Description {
+                text: getName()
+
+                color: Colors.uBlack
+
+                font.bold: true
+                font.pointSize: 16
+
+                anchors.top: parent.top
+                anchors.topMargin: 5
+                width: parent.width
+            }
+
+            ULabel.Description {
+                text: getDescription()
+
+                color: Colors.uGrey
+
+                font.pointSize: 11
+                font.italic: true
+
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 5
+
+                width: parent.width
+            }
+        }
+    }
+
+    Component
+    {
+        id: nameOnly
+        Rectangle
+        {
+            anchors.fill: parent
+            color: Colors.uTransparent
+            ULabel.Description {
+                text: getName()
+
+                color: Colors.uBlack
+
+                font.bold: true
+                font.pointSize: 18
+
+                anchors.verticalCenter: parent.verticalCenter
+                width: parent.width
+            }
+        }
     }
 
     Rectangle {
@@ -93,6 +153,11 @@ Rectangle {
     function getName() {
         if (item != null) return item.name
         else return "Device name"
+    }
+
+    function getDescription() {
+        if (item != null) return item.description
+        else return ""
     }
 
     function getStatusColor()
