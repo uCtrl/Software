@@ -668,6 +668,7 @@ Rectangle
                         id: taskEditor
 
                         visible: false
+                        deviceType: model.type
 
                         function editTask(task, conditions)
                         {

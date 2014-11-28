@@ -25,5 +25,5 @@ Slider
     }
 
     signal newValue(var value);
-    onPressedChanged: if (!pressed) newValue(slider.value)
+    onPressedChanged: if (!pressed) newValue(slider.value.toFixed(2));
 }
