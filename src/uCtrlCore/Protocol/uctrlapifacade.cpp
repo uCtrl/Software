@@ -1,4 +1,5 @@
 #include "uctrlapifacade.h"
+#include "Utility/uuniqueidgenerator.h"
 
 UCtrlAPIFacade::UCtrlAPIFacade(QNetworkAccessManager* nam, UPlatformsModel* platforms, QObject *parent)
     : m_uCtrlApi(nam, platforms, parent)
@@ -99,7 +100,11 @@ void UCtrlAPIFacade::postDevice(UDevice* device)
 {
     UPlatform* platform = (UPlatform*)device->parent()->parent();
     if (platform->isLocalPlatform())
+    {
+        QString deviceId = QString::number(UUniqueIdGenerator::generateUniqueId());
+        device->id(deviceId);
         putDevice(device);
+    }
     else
     {
         QString platformId;
@@ -244,7 +249,11 @@ void UCtrlAPIFacade::postScenario(UScenario* scenario)
 {
     UPlatform* platform = (UPlatform*)scenario->parent()->parent()->parent()->parent();
     if (platform->isLocalPlatform())
+    {
+        QString scenarioId = QString::number(UUniqueIdGenerator::generateUniqueId());
+        scenario->id(scenarioId);
         putScenario(scenario);
+    }
     else
     {
         QString platformId;
@@ -311,7 +320,11 @@ void UCtrlAPIFacade::postTask(UTask* task)
 {
     UPlatform* platform = (UPlatform*)task->parent()->parent()->parent()->parent()->parent()->parent();
     if (platform->isLocalPlatform())
+    {
+        QString taskId = QString::number(UUniqueIdGenerator::generateUniqueId());
+        task->id(taskId);
         putTask(task);
+    }
     else
     {
         QString platformId;
@@ -385,7 +398,11 @@ void UCtrlAPIFacade::postCondition(UCondition* condition)
 {
     UPlatform* platform = (UPlatform*)condition->parent()->parent()->parent()->parent()->parent()->parent()->parent()->parent();
     if (platform->isLocalPlatform())
+    {
+        QString conditionId = QString::number(UUniqueIdGenerator::generateUniqueId());
+        condition->id(conditionId);
         putCondition(condition);
+    }
     else
     {
         QString platformId;

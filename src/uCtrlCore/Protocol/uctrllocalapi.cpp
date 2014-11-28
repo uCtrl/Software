@@ -55,6 +55,9 @@ void UCtrlLocalApi::processPendingDatagrams()
                 UPlatform* platform = (UPlatform*)m_messageProperties.take(messageId);
                 platform->readDevices(jsonMulticastObject);
 
+                if (m_platforms->find(platform->id()) == NULL)
+                    m_platforms->appendRow(platform);
+
                 QList<ListItem*> devicesList = platform->nestedModel()->getItems();
                 foreach (ListItem* item, devicesList)
                 {
@@ -62,8 +65,6 @@ void UCtrlLocalApi::processPendingDatagrams()
                     getScenarios(device);
                 }
 
-                if (m_platforms->find(platform->id()) == NULL)
-                    m_platforms->appendRow(platform);
                 break;
             }
             case UEMessageType::GetScenariosResponse:
