@@ -81,17 +81,16 @@ QString UVoiceControlResponse::getCommand()
         QString colorString = getStringValue("uctrl_color");
         return QString("Set ninja eyes to {0}").replace("{0}", colorString);
     }
-    else if (getIntent() == QString("turn_onoff_plugs_in_location"))
+    else if (getIntent() == QString("turn_onoff_device"))
     {
-        bool isOn = getOnOff("uctrl_onoff");
-        QString locationName = getStringValue("location");
-        return QString("Turn {0} all plugs in {1}").replace("{0}", (isOn ? "on" : "off")).replace("{1}", locationName);
+        bool isOn = getOnOff("on_off");
+        QString deviceName = getStringValue("uctrl_device");
+        return QString("Turn {0} the {1}").replace("{0}", (isOn ? "on" : "off")).replace("{1}", deviceName);
     }
-    else if (getIntent() == QString("turn_onoff_plug_with_id"))
+    else if (getIntent() == QString("turn_onoff_all_plugs"))
     {
-        bool isOn = getOnOff("uctrl_onoff");
-        int plugId = getInt("number");
-        return QString("Turn {0} plug with id#{1}").replace("{0}", (isOn ? "on" : "off")).replace("{1}", QString::number(plugId));
+        bool isOn = getOnOff("on_off");
+        return QString("Turn {0} all plugs").replace("{0}", (isOn ? "on" : "off"));
     }
 
     return "Unknown command";
@@ -115,13 +114,13 @@ bool UVoiceControlResponse::hasValidIntent()
     {
         return getStringValue("uctrl_color") != QString("");
     }
-    else if (getIntent() == QString("turn_onoff_plugs_in_location"))
+    else if (getIntent() == QString("turn_onoff_device"))
     {
-        return getFirstJsonValue("uctrl_onoff").toString() != QString("");
+        return getFirstJsonValue("on_off").toString() != QString("") && getFirstJsonValue("uctrl_device").toString() != QString("");
     }
-    else if (getIntent() == QString("turn_onoff_plug_with_id"))
+    else if (getIntent() == QString("turn_onoff_all_plugs"))
     {
-        return getFirstJsonValue("uctrl_onoff").toString() != QString("") && getFirstJsonValue("number").toInt() != 0;
+        return getFirstJsonValue("on_off").toString() != QString("");
     }
 
     return false;
@@ -136,7 +135,6 @@ void UVoiceControlResponse::sendIntent()
         UTurnOnOffLightIntent turnOnOffLightIntent(m_voiceControlAPI->getUCtrlApiFacade(), isOn);
         turnOnOffLightIntent.turnOnOffAllLights();
     }
-    // TODO : Update the whole file for this thing, verify if it's the right command
     else if (getIntent() == QString("turn_onoff_lights_in_location"))
     {
         bool isOn = getOnOff("on_off");
@@ -159,21 +157,19 @@ void UVoiceControlResponse::sendIntent()
         USetNinjaEyesColorIntent setNinjaEyesColorIntent(m_voiceControlAPI->getUCtrlApiFacade());
         setNinjaEyesColorIntent.setNinjaEyesColors(colorString);
     }
-    // TODO : Hardcode stuff in wit.ai ? device names and stuff OR find a way to add stuff in the wit.ai dictionary dynamically (could be hard)
-    else if (getIntent() == QString("turn_onoff_plugs_in_location"))
+    else if (getIntent() == QString("turn_onoff_device"))
     {
-        bool isOn = getOnOff("uctrl_onoff");
-        QString locationName = getStringValue("location");
+        bool isOn = getOnOff("on_off");
+        QString deviceName = getStringValue("uctrl_device");
 
-        UTurnOnOffPlugIntent intent(m_ninjaAPI, "1014BBBK6089_0_0_11", isOn);
-        intent.turnOnOffPlugInLocation(locationName);
+        UTurnOnOffPlugIntent turnOnOffPlugIntent(m_voiceControlAPI->getUCtrlApiFacade(), isOn);
+        turnOnOffPlugIntent.turnOnOffPlugsByName(deviceName);
     }
-    else if (getIntent() == QString("turn_onoff_plug_with_id"))
+    else if (getIntent() == QString("turn_onoff_all_plugs"))
     {
-        bool isOn = getOnOff("uctrl_onoff");
-        int plugId = getInt("number");
+        bool isOn = getOnOff("on_off");
 
-        UTurnOnOffPlugIntent intent(m_ninjaAPI, "1014BBBK6089_0_0_11", isOn);
-        intent.turnOnOffPlugWithId(plugId);
+        UTurnOnOffPlugIntent turnOnOffPlugIntent(m_voiceControlAPI->getUCtrlApiFacade(), isOn);
+        turnOnOffPlugIntent.turnOnOffAllPlugs();
     }
 }

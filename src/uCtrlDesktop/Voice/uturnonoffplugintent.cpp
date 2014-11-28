@@ -1,44 +1,33 @@
 #include "uturnonoffplugintent.h"
 
-UTurnOnOffPlugIntent::UTurnOnOffPlugIntent(UNinjaAPI* ninjaAPI, const QString& deviceId, bool turnOn)
+UTurnOnOffPlugIntent::UTurnOnOffPlugIntent(UCtrlAPIFacade* uCtrlApiFacade, bool turnOn)
 {
-    m_ninjaAPI = ninjaAPI;
-    m_deviceId = deviceId;
+    m_uCtrlApiFacade = uCtrlApiFacade;
     m_isTurnOn = turnOn;
 }
 
-void UTurnOnOffPlugIntent::turnOnOffPlugWithId(long id)
+void UTurnOnOffPlugIntent::turnOnOffAllPlugs()
 {
-    QString data(SocketTypeRFCode);
+    UPlatformsModel* platforms = m_uCtrlApiFacade->getPlatformsModel();
+    QList<UDevice*> deviceList = platforms->findDevicesByType(UDevice::UEType::PowerSocketSwitch);
 
-    if (m_isTurnOn)
-        data = data.append(SocketOnRFCode);
-    else
-        data = data.append(SocketOffRFCode);
-
-    if (id == 1)
-        data = data.append(Socket1RFCode);
-    else if (id == 2)
-        data = data.append(Socket2RFCode);
-    else if (id == 3)
-        data = data.append(Socket3RFCode);
-    else
-        return;
-
-    m_ninjaAPI->sendData(m_deviceId, data);
+    turnOnOffPlugs(deviceList);
 }
 
-
-
-void UTurnOnOffPlugIntent::turnOnOffPlugInLocation(QString location)
+void UTurnOnOffPlugIntent::turnOnOffPlugsByName(const QString& deviceName)
 {
-    if (location == QString("living room"))
+    UPlatformsModel* platforms = m_uCtrlApiFacade->getPlatformsModel();
+    QList<UDevice*> deviceList = platforms->findDevicesByTypeAndName(UDevice::UEType::PowerSocketSwitch, deviceName);
+
+    turnOnOffPlugs(deviceList);
+}
+
+void UTurnOnOffPlugIntent::turnOnOffPlugs(const QList<UDevice*>& deviceList)
+{
+    QString nextDeviceValue = m_isTurnOn ? "1" : "0";
+    foreach (UDevice* device, deviceList)
     {
-        turnOnOffPlugWithId(1);
-    }
-    else if (location == QString("kitchen"))
-    {
-        turnOnOffPlugWithId(2);
-        turnOnOffPlugWithId(3);
+        device->value(nextDeviceValue);
+        m_uCtrlApiFacade->putDevice(device);
     }
 }

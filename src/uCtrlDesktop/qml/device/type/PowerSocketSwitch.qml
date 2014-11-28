@@ -29,7 +29,7 @@ Rectangle {
 
             state: "ON"
 
-            onStateChanged: sendAction(state === "ON")
+            onStateChanged: sendAction(state === "ON" ? "1" : "0")
         }
 
         height: 45; width: 100

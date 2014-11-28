@@ -83,7 +83,6 @@ QList<UDevice*> UPlatformsModel::findDevicesByLocation(const QString& locationNa
         }
     }
     return deviceList;
-
 }
 
 QList<UDevice*> UPlatformsModel::findDevicesByName(const QString& deviceName)
@@ -99,5 +98,19 @@ QList<UDevice*> UPlatformsModel::findDevicesByName(const QString& deviceName)
         }
     }
     return deviceList;
+}
 
+QList<UDevice*> UPlatformsModel::findDevicesByTypeAndName(UDevice::UEType deviceType, const QString& deviceName)
+{
+    QList<UDevice*> deviceList;
+    foreach(ListItem *item, m_items) {
+        UPlatform* platform = (UPlatform*)item;
+        UDevicesModel* devicesModel = (UDevicesModel*)platform->nestedModel();
+
+        QList<UDevice*> subDeviceList = devicesModel->findDevicesByTypeAndName(deviceType, deviceName);
+        foreach(UDevice* device, subDeviceList) {
+            deviceList.push_back(device);
+        }
+    }
+    return deviceList;
 }

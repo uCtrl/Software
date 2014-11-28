@@ -15,8 +15,6 @@ void USetDimmerLights::setAllLightsIntensity()
     foreach (UDevice* device, deviceList)
     {
         QString currentValue = device->value().replace("\\", "");
-        QJsonObject jsonLimitless = QJsonDocument::fromJson(currentValue.toUtf8()).object();
-        bool isOn = jsonLimitless["on"].toBool();
 
         float rescaledLightIntensity255 = m_lightIntensityPercent / 100.0f;
 

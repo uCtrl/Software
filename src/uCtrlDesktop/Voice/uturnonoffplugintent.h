@@ -2,25 +2,21 @@
 #define UTURNONOFFPLUGINTENT_H
 
 #include "uninjaapi.h"
-
-const QString SocketTypeRFCode = "11011010110110101101";
-const QString SocketOnRFCode = "1";
-const QString SocketOffRFCode = "0";
-const QString Socket1RFCode = "010";
-const QString Socket3RFCode = "110";
-const QString Socket2RFCode = "100";
+#include "Protocol/uctrlapifacade.h"
 
 class UTurnOnOffPlugIntent
-{    
+{
+    UCtrlAPIFacade* m_uCtrlApiFacade;
     bool m_isTurnOn;
-    UNinjaAPI* m_ninjaAPI;
-    QString m_deviceId;
 public:
 
-    UTurnOnOffPlugIntent(UNinjaAPI* ninjaAPI, const QString& deviceId, bool turnOn);
+    UTurnOnOffPlugIntent(UCtrlAPIFacade* uCtrlApiFacade, bool turnOn);
 
-    void turnOnOffPlugWithId(long id);
-    void turnOnOffPlugInLocation(QString location);
+    void turnOnOffAllPlugs();
+    void turnOnOffPlugsByName(const QString& deviceName);
+
+private:
+    void turnOnOffPlugs(const QList<UDevice*>& deviceList);
 
 };
 
