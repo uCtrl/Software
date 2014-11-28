@@ -36,13 +36,16 @@ Rectangle {
 
             anchors.centerIn: buttonContainer
 
-            height: buttonContainer.height - (2 * marginSize); width: 110
+            width: 200
+            height: buttonContainer.height - (2 * marginSize)
 
             onClicked: sendAction()
         }
 
         visible: !container.hideButton
-        height: 45; width: 100
+
+        width: 200
+        height: 45
     }
 
     Rectangle {
