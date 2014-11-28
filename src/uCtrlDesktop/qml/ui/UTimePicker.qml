@@ -186,4 +186,15 @@ Rectangle {
             dropDownContainer.visible = !dropDownContainer.visible
         }
     }
+
+    function setValue(value)
+    {
+        minuteSelector.currentValue = (value % 3600) / 60
+        hourSelector.currentValue = (value - (value % 3600)) / 3600
+    }
+
+    function getValue()
+    {
+        return hourSelector.currentValue * 3600 + minuteSelector.currentValue * 60
+    }
 }
