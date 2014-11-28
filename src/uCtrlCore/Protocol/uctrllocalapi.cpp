@@ -164,6 +164,8 @@ void UCtrlLocalApi::sendGetRequest(const QString& address,
                  additionalKey,
                  additionalValue);
 
+    qDebug() << "Get Request: " << getRequest;
+
     m_messageProperties.insert(messageId, property);
     m_socket->writeDatagram(getRequest.toUtf8(), hostAddress, port);
 }
@@ -183,7 +185,7 @@ void UCtrlLocalApi::savePlatform(UPlatform* platform)
                     QString("platform"),
                     platformArray);
 
-    saveDevices(platform, devicesArray);
+    //saveDevices(platform, devicesArray);
 }
 
 void UCtrlLocalApi::saveDevices(UPlatform* platform)
@@ -220,7 +222,7 @@ void UCtrlLocalApi::saveDevices(UPlatform* platform, const QJsonArray& devicesAr
 
     foreach(UDevice* device, devicesToSave)
     {
-        saveScenarios(device);
+        //saveScenarios(device);
     }
 }
 
@@ -259,7 +261,7 @@ void UCtrlLocalApi::saveScenarios(UPlatform* platform, UDevice* device, const QJ
 
     foreach(UScenario* scenario, scenariosToSave)
     {
-        saveTasks(scenario);
+        //saveTasks(scenario);
     }
 }
 
@@ -298,7 +300,7 @@ void UCtrlLocalApi::saveTasks(UPlatform* platform, UScenario* scenario, const QJ
 
     foreach(UTask* task, tasksToSave)
     {
-        saveConditions(task);
+        //saveConditions(task);
     }
 }
 
@@ -333,7 +335,7 @@ void UCtrlLocalApi::sendSaveRequest(const QString& address, int port, UEMessageT
                  saveKey,
                  QString(jsonDoc.toJson()));
 
-    //qDebug() << saveRequest;
+    qDebug() << "Save Request: " << saveRequest;
 
     m_socket->writeDatagram(saveRequest.toUtf8(), hostAddress, port);
 }
@@ -350,7 +352,7 @@ void UCtrlLocalApi::sendSaveRequest(const QString& address, int port, UEMessageT
                  saveKey,
                  QString(jsonDoc.toJson()));
 
-    //qDebug() << saveRequest;
+    qDebug() << "Save Request: " << saveRequest;
 
     m_socket->writeDatagram(saveRequest.toUtf8(), hostAddress, port);
 }
