@@ -1050,15 +1050,18 @@ Rectangle {
 
     function saveForm()
     {
-        var condition = getCondition();
-        if(deviceTypeCombo.selectedItem !== null)
+        if(typeof(getCondition) != "undefined")
         {
-            condition.type(deviceTypeCombo.selectedItem.value)
+            var condition = getCondition();
+            if(deviceTypeCombo.selectedItem !== null)
+            {
+                condition.type(deviceTypeCombo.selectedItem.value)
+            }
+
+            saveConditionDetails()
+
+            uCtrlApiFacade.putCondition(condition)
         }
-
-        saveConditionDetails()
-
-        uCtrlApiFacade.putCondition(condition)
     }
 
     function getCondition()
