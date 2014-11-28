@@ -725,16 +725,26 @@ Rectangle {
 
             UI.UDatePicker
             {
+                id: datePicker
                 anchors.verticalCenter: parent.verticalCenter
             }
 
             Component.onCompleted: {
                 conditionEditorContainer.saveConditionDetails.connect(saveOperator)
+                conditionModelChanged()
+            }
+
+            function conditionModelChanged()
+            {
+                if(getCondition().beginValue() !== "")
+                {
+                    datePicker.selectedDate = new Date(parseInt(getCondition().beginValue()))
+                }
             }
 
             function saveOperator()
             {
-
+                getCondition().beginValue(datePicker.selectedDate.getTime())
             }
         }
     }
@@ -751,16 +761,26 @@ Rectangle {
 
             UI.UDatePicker
             {
+                id: datePicker
                 anchors.verticalCenter: parent.verticalCenter
             }
 
             Component.onCompleted: {
                 conditionEditorContainer.saveConditionDetails.connect(saveOperator)
+                conditionModelChanged()
+            }
+
+            function conditionModelChanged()
+            {
+                if(getCondition().endValue() !== "")
+                {
+                    datePicker.selectedDate = new Date(parseInt(getCondition().endValue()))
+                }
             }
 
             function saveOperator()
             {
-
+                getCondition().endValue(datePicker.selectedDate.getTime())
             }
         }
     }
@@ -795,6 +815,7 @@ Rectangle {
             function saveOperator()
             {
                 getCondition().beginValue(weekdayPicker.getValue())
+                getCondition().comparisonType(UEComparisonType.None)
             }
         }
     }
@@ -812,16 +833,23 @@ Rectangle {
 
             UI.UTimePicker
             {
+                id: timePicker
                 anchors.verticalCenter: parent.verticalCenter
             }
 
             Component.onCompleted: {
                 conditionEditorContainer.saveConditionDetails.connect(saveOperator)
+                conditionModelChanged()
+            }
+
+            function conditionModelChanged()
+            {
+                timePicker.setValue(getCondition().beginValue())
             }
 
             function saveOperator()
             {
-
+                getCondition().beginValue(timePicker.getValue())
             }
         }
     }
@@ -843,11 +871,17 @@ Rectangle {
 
             Component.onCompleted: {
                 conditionEditorContainer.saveConditionDetails.connect(saveOperator)
+                conditionModelChanged()
+            }
+
+            function conditionModelChanged()
+            {
+                timePicker.setValue(getCondition().endValue())
             }
 
             function saveOperator()
             {
-
+                getCondition().endValue(timePicker.getValue())
             }
         }
     }
@@ -969,7 +1003,7 @@ Rectangle {
             case UEType.Date:
                 return valueType === "beginCondition" ? dateSelectorComponentBegin : dateSelectorComponentEnd
             case UEType.Day:
-                return valueType === daySelectorComponent
+                return daySelectorComponent
             case UEType.Time:
                 return valueType === "beginCondition" ? timeSelectorComponentBegin : timeSelectorComponentEnd
             case UEType.Device:

@@ -99,6 +99,7 @@ Rectangle {
                     }
                     ULabel.ConditionLabel
                     {
+                        id: whenLabel
                         font.pointSize: 16
                         text: countConditions() > 0 ? " when" : " otherwise"
                         anchors.verticalCenter: parent.verticalCenter
@@ -221,6 +222,7 @@ Rectangle {
     function refreshConditionCountLabel()
     {
         countConditionsLabel.text = countConditions() + " condition(s)"
+        whenLabel.text = countConditions() > 0 ? " when" : " otherwise"
     }
 
     function getTaskValue()

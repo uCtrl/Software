@@ -160,7 +160,7 @@ ListView {
         }
         else
         {
-            return Qt.formatDateTime(timestampDate, "dd-MM-YYYY HH:mm")
+            return Qt.formatDateTime(timestampDate, "dd-MM-yyyy HH:mm")
         }
     }
 
