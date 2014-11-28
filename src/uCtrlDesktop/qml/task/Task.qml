@@ -16,6 +16,10 @@ Column {
     property bool showEditMode: false
     property var editTaskFunction
 
+    onItemChanged: {
+        whenLabel.text = getConditions().rowCount() > 0 ? " when" : " otherwise"
+    }
+
     Rectangle {
         id: taskContainer
 

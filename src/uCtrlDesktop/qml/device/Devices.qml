@@ -88,6 +88,7 @@ Rectangle {
             function filterValue(source, filter) {
                 return (filter === ""
                         || source.name.toLowerCase().indexOf(filter.toLowerCase()) !== -1
+                        || source.deviceModel.toLowerCase().indexOf(filter.toLowerCase()) !== -1
                         || source.description.toLowerCase().indexOf(filter.toLowerCase()) !== -1)
             }
         }
