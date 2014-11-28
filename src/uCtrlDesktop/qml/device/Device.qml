@@ -26,6 +26,11 @@ Rectangle
 
     property bool showEditMode: false
 
+    onModelChanged: {
+        devicePage.showEditMode = false
+        infoContainer.showEditMode = false
+    }
+
     Rectangle {
         id: contentCanvas
 

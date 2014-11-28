@@ -25,7 +25,7 @@ Rectangle {
 
             anchors.centerIn: switchContainer
 
-            height: buttonContainer.height - (2 * marginSize); width: 110
+            height: parent.height - (2 * marginSize); width: 110
 
             state: "ON"
 

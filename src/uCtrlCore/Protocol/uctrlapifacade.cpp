@@ -268,7 +268,7 @@ void UCtrlAPIFacade::getScenario(UScenario* scenario)
 void UCtrlAPIFacade::putScenario(UScenario* scenario)
 {
     UDevice* device = (UDevice*)scenario->parent()->parent();
-    UPlatform* platform = (UPlatform*)device;
+    UPlatform* platform = (UPlatform*)device->parent()->parent();
     if (platform->isLocalPlatform())
         m_uCtrlLocalApi.saveScenarios(device);
     else
