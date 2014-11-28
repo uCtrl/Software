@@ -37,30 +37,7 @@ Rectangle {
 
     }
 
-    function initBreadcrumb (){
-        breadcrumb.initBreadcrumb()
-    }
-
-    function addToBreadcrumbDevices(path, pageName){
-        breadcrumb.addToBreadcrumbDevices(path, pageName)
-    }
-    function addToBreadcrumbPlatforms(path, pageName){
-        breadcrumb.addToBreadcrumbPlatforms(path, pageName)
-    }
-
-    function resetBreadcrumbDevices(){
-        breadcrumb.resetBreadcrumbDevices()
-    }
-    function resetBreadcrumbPlatforms(){
-        breadcrumb.resetBreadcrumbPlatforms()
-    }
-    function hideBreadcrumbPlatforms(){
-        breadcrumb.hideBreadcrumbPlatforms()
-    }
-    function showBreadcrumbPlatforms(){
-        breadcrumb.showBreadcrumbPlatforms()
-    }
-    function moveBreadcrumbPlatforms(){
-        breadcrumb.moveBreadcrumbPlatforms()
+    function addToBreadcrumb(pagePath, pageName, level) {
+        breadcrumb.addToBreadcrumb(pagePath, pageName, level)
     }
 }

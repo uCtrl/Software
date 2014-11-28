@@ -92,41 +92,8 @@ Rectangle {
         }   
     }
 
-
-    function initBreadcrumb(){
-        titlebar.initBreadcrumb()
+    function addToBreadcrumb(pagePath, pageName, level) {
+        titlebar.addToBreadcrumb(pagePath, pageName, level)
     }
-
-    function changePageFromHome(path){
-        currentPage = path
-        titlebar.showBreadcrumbPlatforms()
-    }
-
-    function addToBreadcrumbPlatforms(path, pageName){
-        titlebar.addToBreadcrumbPlatforms(path, pageName)
-    }
-
-    function addToBreadcrumbDevices(path, pageName){
-        titlebar.addToBreadcrumbDevices(path, pageName)
-    }
-
-    function resetBreadcrumbDevices(){
-        titlebar.resetBreadcrumbDevices()
-    }
-
-    function resetBreadcrumbPlatforms(){
-        titlebar.resetBreadcrumbPlatforms()
-    }
-
-    function hideBreadcrumbPlatforms(){
-        titlebar.hideBreadcrumbPlatforms()
-    }
-    function showBreadcrumbPlatforms(){
-        titlebar.showBreadcrumbPlatforms()
-    }
-    function moveBreadcrumbPlatforms(){
-        titlebar.moveBreadcrumbPlatforms()
-    }
-
 }
 
