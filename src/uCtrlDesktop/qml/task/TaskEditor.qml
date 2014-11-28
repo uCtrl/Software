@@ -241,14 +241,10 @@ Rectangle {
             switch(deviceType) {
                 case UEType.PowerSocketSwitch:
                     return "Switch"
-                case UEType.Humidity:
-                case UEType.Temperature:
                 case UEType.NinjasEyes:
                     return "Text"
-                case UEType.LimitlessLEDWhite:
-                    return "Slider"
                 default:
-                    return "Button"
+                    return "Slider"
             }
         }
         return "Error"
