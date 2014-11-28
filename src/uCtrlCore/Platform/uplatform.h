@@ -31,7 +31,7 @@ public:
         Error
     };
 
-    explicit UPlatform(QObject *parent = 0);
+    explicit UPlatform(QObject *parent = 0, bool isLocalPlatform = false);
     ~UPlatform();
 
     // NestedListItem
@@ -43,6 +43,7 @@ public:
     // JsonSerializable
     void write(QJsonObject &jsonObj) const;
     void read(const QJsonObject &jsonObj);
+    void readDevices(const QJsonObject &jsonObj);
 
     // Properties
     QString name() const;
@@ -58,6 +59,8 @@ public:
     UEStatus status() const;
     void status(UEStatus status);
 
+    bool isLocalPlatform();
+
 private:
     QString m_firmwareVersion;
     QString m_name;
@@ -66,6 +69,7 @@ private:
     QString m_ip;
     UEStatus m_status;
     NestedListModel* m_devices;
+    bool m_isLocalPlatform;
 };
 
 #endif // UPLATFORM_H

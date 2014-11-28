@@ -32,6 +32,7 @@ public:
     // JsonSerializable
     void write(QJsonObject &jsonObj) const;
     void read(const QJsonObject &jsonObj);
+    void readConditions(const QJsonObject &jsonObj);
 
     // Properties
     Q_INVOKABLE QString value() const;

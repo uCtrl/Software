@@ -27,7 +27,8 @@ SOURCES += \
     Recommendations/recommendationsModel.cpp \
     Protocol/uctrlapifacade.cpp \
     Statistics/ustatisticsmodel.cpp \
-    Statistics/ustatistic.cpp
+    Statistics/ustatistic.cpp \
+    Protocol/uctrllocalapi.cpp
 
 
 HEADERS += \
@@ -57,6 +58,7 @@ HEADERS += \
     Recommendations/recommendationsModel.h \
     Protocol/uctrlapifacade.h \
     Statistics/ustatisticsmodel.h \
-    Statistics/ustatistic.h
+    Statistics/ustatistic.h \
+    Protocol/uctrllocalapi.h
 
 DEFINES += PROJECT_PATH=\"\\\"$$PWD/../\\\"\"

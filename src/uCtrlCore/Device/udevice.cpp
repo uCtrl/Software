@@ -173,7 +173,7 @@ void UDevice::write(QJsonObject& jsonObj) const
 
     QJsonObject scenarios;
     m_scenarios->write(scenarios);
-    jsonObj["scenarios"] = scenarios;
+    jsonObj["scenarios"] = scenarios["scenarios"];
 }
 
 void UDevice::read(const QJsonObject &jsonObj)
@@ -192,6 +192,11 @@ void UDevice::read(const QJsonObject &jsonObj)
     this->lastUpdated(jsonObj["lastUpdated"].toDouble());
     this->deviceModel(jsonObj["model"].toString());
 
+    readScenarios(jsonObj);
+}
+
+void UDevice::readScenarios(const QJsonObject &jsonObj)
+{
     m_scenarios->read(jsonObj);
 }
 
