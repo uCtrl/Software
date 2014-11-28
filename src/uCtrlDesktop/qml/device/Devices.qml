@@ -33,7 +33,7 @@ Rectangle {
 
             state: "ENABLED"
 
-            opacity: 0.75
+            opacity: 1
 
             placeholderText: "Search"
 
@@ -50,11 +50,15 @@ Rectangle {
         id: devicesList
 
         anchors.top: filters.bottom
+        anchors.topMargin: 5
+
         anchors.bottom: container.bottom
         anchors.left: container.left
         anchors.right: container.right
 
         model: parent.model
+
+        clip: true
 
         property variant currentItem: null
 
