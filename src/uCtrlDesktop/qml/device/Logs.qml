@@ -298,10 +298,8 @@ Rectangle {
     function updateLogPeriod() {
         if (filterDate.selectedItem !== null) var period = filterDate.selectedItem.value
         else period = "hour"
-
         var interval = ""
 
-        console.log(period)
         switch (period) {
         case "hour":
             container.from = new Date().setMinutes(0, 0).toString()

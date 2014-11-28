@@ -1,5 +1,4 @@
 #include "uhistorylogmodel.h"
-#include "QDebug"
 
 UHistoryLogModel::UHistoryLogModel(QObject* parent) : ListModel(new UHistoryLog, parent)
 {
@@ -26,8 +25,6 @@ void UHistoryLogModel::read(const QJsonObject &jsonObj)
         s->read(event.toObject());
         this->appendRow(s);
     }
-
-    qDebug() << "CORE -- Reading logs";
 
     emit logsReceived();
 }
