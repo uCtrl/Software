@@ -644,6 +644,30 @@ Rectangle
 
                                 editTaskFunction: taskEditor.editTask
                                 anchors.fill: parent
+
+                                visible: isDeviceScenarioConfigurable()
+                            }
+
+                            Rectangle
+                            {
+                                anchors.fill: parent
+                                color: Colors.uTransparent
+
+                                visible: !isDeviceScenarioConfigurable()
+
+                                ULabel.Default {
+                                    id: notConfigurableLabel
+
+                                    anchors.centerIn: parent
+                                    text: "This device cannot have any scenario"
+                                    width: parent.width * 0.75
+                                    font.bold: true
+                                    font.pointSize: 26
+                                    horizontalAlignment: Text.AlignHCenter
+
+
+                                    color: Colors.uGrey
+                                }
                             }
                         }
 
@@ -757,6 +781,23 @@ Rectangle
             }
         }
         return "Error"
+    }
+
+    function isDeviceScenarioConfigurable()
+    {
+        switch(model.type) {
+            case UEType.PowerSocketSwitch:
+            case UEType.NinjasEyes:
+            case UEType.LimitlessLEDWhite:
+                return true
+            case UEType.PushButton:
+            case UEType.MotionSensor:
+            case UEType.Humidity:
+            case UEType.Temperature:
+            case UEType.DoorSensor:
+            case UEType.LightSensor:
+                return false
+        }
     }
 
     function getDeviceStatus() {
