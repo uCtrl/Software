@@ -25,6 +25,17 @@ Rectangle {
         {file: "settings/Settings", icon: "cog2", text: "Settings", showInNavBar: true}
     ];
 
+    function searchPages(pagePath)
+    {
+        for(var i = 0; i < pages.length; i++)
+        {
+            if(pages[i].file === pagePath)
+                return pages[i]
+        }
+
+        return null
+    }
+
     property variant activeDevice: null
     property variant devicesList: null
 
@@ -60,6 +71,13 @@ Rectangle {
 
     property string currentPage: "home/ULandingPage";
 
+    Component.onCompleted:
+    {
+        console.log("FKOSOJFKLSDJLKJDAK")
+        var homePage = searchPages("home/ULandingPage")
+        addToBreadcrumb(homePage.file, homePage.text, 0)
+    }
+
 
     Repeater {
         id: repeater
@@ -92,41 +110,8 @@ Rectangle {
         }   
     }
 
-
-    function initBreadcrumb(){
-        titlebar.initBreadcrumb()
+    function addToBreadcrumb(pagePath, pageName, level) {
+        titlebar.addToBreadcrumb(pagePath, pageName, level)
     }
-
-    function changePageFromHome(path){
-        currentPage = path
-        titlebar.showBreadcrumbPlatforms()
-    }
-
-    function addToBreadcrumbPlatforms(path, pageName){
-        titlebar.addToBreadcrumbPlatforms(path, pageName)
-    }
-
-    function addToBreadcrumbDevices(path, pageName){
-        titlebar.addToBreadcrumbDevices(path, pageName)
-    }
-
-    function resetBreadcrumbDevices(){
-        titlebar.resetBreadcrumbDevices()
-    }
-
-    function resetBreadcrumbPlatforms(){
-        titlebar.resetBreadcrumbPlatforms()
-    }
-
-    function hideBreadcrumbPlatforms(){
-        titlebar.hideBreadcrumbPlatforms()
-    }
-    function showBreadcrumbPlatforms(){
-        titlebar.showBreadcrumbPlatforms()
-    }
-    function moveBreadcrumbPlatforms(){
-        titlebar.moveBreadcrumbPlatforms()
-    }
-
 }
 

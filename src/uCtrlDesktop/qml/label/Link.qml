@@ -7,12 +7,9 @@ Default {
     MouseArea {
         anchors.fill: parent
         hoverEnabled: true
-        cursorShape: (label.state !== "DISABLED" ? (containsMouse ? Qt.PointingHandCursor : Qt.ArrowCursor) : Qt.ArrowCursor);
+        cursorShape: (containsMouse ? Qt.PointingHandCursor : Qt.ArrowCursor)
         onHoveredChanged: {
-            if(label.state === "ENABLED") {
-                label.font.underline = containsMouse
-            }
-
+            label.font.underline = containsMouse
         }
         onClicked: {
             hyperLinkClicked()

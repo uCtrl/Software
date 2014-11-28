@@ -126,16 +126,11 @@ Rectangle {
                         onClicked: {
                             platformInfo.model = model
                             platforms.currentIndex = index
-                            main.resetBreadcrumbPlatforms()
-                            main.addToBreadcrumbPlatforms("platform/Platforms", model.name)
+                            main.addToBreadcrumb("platform/Platforms", model.name, 1)
                         }
                     }
 
 
-                }
-
-                function addToBreadCrumb(){
-                    main.addToBreadCrumb("platform/Platforms", model.name)
                 }
 
                 function filterValue(source, filter) {
