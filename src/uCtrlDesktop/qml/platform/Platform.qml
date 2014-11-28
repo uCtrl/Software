@@ -572,6 +572,7 @@ Rectangle {
         uCtrlApiFacade.putPlatform(platforms.model.findObject(model.id));
 
         toggleEditMode()
+        main.addToBreadcrumb("device/Device", model.name, 1)
     }
 
     function toggleEditMode() {
