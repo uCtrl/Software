@@ -121,6 +121,7 @@ Rectangle {
                         hoverEnabled: true
 
                         onClicked: {
+                            platformInfo.showEditMode = false
                             platformInfo.model = model
                             platforms.currentIndex = index
                             main.addToBreadcrumb("platform/Platforms", model.name, 1)

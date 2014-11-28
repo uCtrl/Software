@@ -866,6 +866,7 @@ Rectangle {
 
             UI.UTimePicker
             {
+                id: timePicker
                 anchors.verticalCenter: parent.verticalCenter
             }
 

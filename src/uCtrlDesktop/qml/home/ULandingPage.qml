@@ -110,9 +110,14 @@ Rectangle {
                 height: parent.height
 
                 onClicked: {
+                    var page = main.searchPages("stats/GlobalStats")
+
+                    main.currentPage = page.file
+                    main.addToBreadcrumb(page.file, page.text, 1)
                 }
             }
         }
+
         Rectangle {
             id: userPreferenceButtonContainer
             anchors.right: parent.right

@@ -63,7 +63,7 @@ Rectangle {
 
                 color: Colors.uGrey
 
-                text: (getOpacity() * 100) + "%"
+                text: Math.round(getOpacity() * 100) + "%"
             }
         }
 
