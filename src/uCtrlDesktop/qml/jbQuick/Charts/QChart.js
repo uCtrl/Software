@@ -1122,6 +1122,10 @@ var Chart = function(canvas, context) {
 
                     var barOffset = yAxisPosX + config.barValueSpacing + valueHop*j + barWidth*i + config.barDatasetSpacing*i + config.barStrokeWidth*i;
 
+                    if (data.labels.length === 1) {
+                        barOffset = ((xAxisLength - yAxisPosX)/2) + 2.5;
+                    }
+
                     ctx.beginPath();
                     ctx.moveTo(barOffset, xAxisPosY);
                     ctx.lineTo(barOffset, xAxisPosY - animPc*calculateOffset(data.datasets[i].data[j],calculatedScale,scaleHop)+(config.barStrokeWidth/2));
@@ -1222,6 +1226,10 @@ var Chart = function(canvas, context) {
             yAxisPosX = width-widestXLabel/2-xAxisLength;
 
             xAxisPosY = scaleHeight + config.scaleFontSize/2;
+
+            if (data.labels.length === 1) {
+                barWidth = 100;
+            }
         }
 
         function calculateDrawingSizes() {
@@ -1301,6 +1309,10 @@ var Chart = function(canvas, context) {
     function calculateScale(drawingHeight,maxSteps,minSteps,maxValue,minValue,labelTemplateString) {
 
         var graphMin,graphMax,graphRange,stepValue,numberOfSteps,valueRange,rangeOrderOfMagnitude,decimalNum;
+
+        if (maxValue === minValue) {
+            minValue = 0;
+        }
 
         valueRange = maxValue - minValue;
         rangeOrderOfMagnitude = calculateOrderOfMagnitude(valueRange);
