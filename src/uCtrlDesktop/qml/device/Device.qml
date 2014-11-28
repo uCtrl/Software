@@ -839,11 +839,32 @@ Rectangle
     }
 
     function getType() {
-        return "Thermometer (sensor)"
+        if (model !== null) {
+            switch(model.type) {
+                case UEType.PowerSocketSwitch:
+                    return "Power plug"
+                case UEType.PushButton:
+                    return "Push button"
+                case UEType.MotionSensor:
+                    return "Motion sensor"
+                case UEType.Humidity:
+                    return "Humidity sensor"
+                case UEType.Temperature:
+                    return "Thermometer"
+                case UEType.NinjasEyes:
+                    return "Ninja eyes"
+                case UEType.LimitlessLEDWhite:
+                    return "LimitlessLED"
+                case UEType.DoorSensor:
+                    return "Door sensor"
+            }
+        }
+        return "Error"
     }
 
     function getGUID() {
-        return "12312412412321"
+        if (model !== null) return model.id
+        else return "Unknown"
     }
 
     function getMinValue() {

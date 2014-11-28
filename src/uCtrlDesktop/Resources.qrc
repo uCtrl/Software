@@ -102,5 +102,6 @@
         <file>qml/ui/UColorPicker.qml</file>
         <file>Images/NinjaIcon.png</file>
         <file>Images/NinjaIconEyes.png</file>
+        <file>qml/device/type/DoorSensor.qml</file>
     </qresource>
 </RCC>
