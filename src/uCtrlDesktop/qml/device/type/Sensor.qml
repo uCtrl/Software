@@ -156,7 +156,7 @@ Rectangle {
                 chartData: {
                     "labels": [],
                     "datasets": [{
-                        fillColor: "rgba(237,237,237,0.5)",
+                        fillColor: Colors.uGreen,
                         strokeColor: Colors.uMediumLightGrey,
                         pointColor: Colors.uGreen,
                         pointStrokeColor: Colors.uGreen,
@@ -165,7 +165,7 @@ Rectangle {
                 }
                 width: graph.width
                 height: graph.height
-                chartType: Charts.ChartType.LINE
+                chartType: Charts.ChartType.BAR
 
                 onChartDataChanged: refresh()
             }
@@ -236,7 +236,7 @@ Rectangle {
                 "labels": labels,
                 "axisY": [0, 50, 150, 200, 250, 300],
                 "datasets": [{
-                    fillColor: "rgba(237,237,237,0.5)",
+                    fillColor: Colors.uGreen,
                     strokeColor: Colors.uMediumLightGrey,
                     pointColor: Colors.uGreen,
                     pointStrokeColor: Colors.uGreen,
