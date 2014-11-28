@@ -200,11 +200,10 @@ Rectangle {
 
     function saveForm()
     {
-        taskEditorContainer.saveConditions()
-
         taskModel.value(valueTextbox.text)
         uCtrlApiFacade.putTask(taskModel)
 
+        taskEditorContainer.saveConditions()
         taskEditorContainer.visible = false
     }
 
