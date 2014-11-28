@@ -14,6 +14,7 @@
 class ListModel : public QAbstractListModel, public JsonSerializable
 {
     Q_OBJECT
+    Q_PROPERTY(int rowCount READ rowCount NOTIFY rowCountChanged)
 
 public:
     explicit ListModel(ListItem* prototype, QObject* parent = 0);
@@ -52,6 +53,9 @@ public:
     Q_INVOKABLE int indexOf(ListItem *item) const;
     Q_INVOKABLE void clear();
     Q_INVOKABLE bool removeRow(const QString& itemId);
+
+signals:
+    void rowCountChanged();
 
 protected:
     ListItem* m_prototype;

@@ -429,8 +429,7 @@ Rectangle {
                                           "to": new Date().getTime().toString()});
 
         container.statsModel = devicesList.getStatisticsWithId(model.id);
-        container.statsModel.statsReceived.disconnect(getDeviceValueStats);
-        container.statsModel.statsReceived.connect(getDeviceValueStats);
+        container.statsModel.setOnReceivedCallback(getDeviceValueStats);
     }
 
     function getDeviceEnabled() {
@@ -464,12 +463,12 @@ Rectangle {
     }
 
     function getDeviceValueStats() {
-        if (model !== null) {
+        if (model !== null && statsModel !== undefined) {
 
             var data = []
             var labels = []
 
-            for (var i=0; i<statsModel.rowCount();i++) {
+            for (var i=0; i<statsModel.rowCount;i++) {
                 var stat = statsModel.get(i);
 
                 if (!isNaN(stat.data)) {

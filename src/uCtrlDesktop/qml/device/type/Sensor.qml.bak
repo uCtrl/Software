@@ -54,7 +54,7 @@ Rectangle {
         anchors.right: container.right
 
         anchors.top: (container.hideButton ? container.top : buttonContainer.bottom)
-        height: 35
+        height: (resourceLoader.loadResource("sensorUpdatecontainerHeight"))
 
         UI.UFontAwesome {
             id: updateIcon
@@ -255,7 +255,7 @@ Rectangle {
             var data = []
             var labels = []
 
-            for (var i=0; i<statsModel.rowCount;i++) {
+            for (var i=0; i<statsModel.rowCount();i++) {
                 var stat = statsModel.get(i);
                 labels.push(new Date(stat.timestamp).toTimeString())
                 data.push(Number(stat.data))
@@ -307,10 +307,5 @@ Rectangle {
         to = new Date().getTime()
 
         uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id), {"from": from.toString(), "to": to.toString(), "interval": interval, "fn": "count"});
-    }
-
-    function sendAction() {
-        model.value = true
-        uCtrlApiFacade.putDevice(devicesList.findObject(model.id))
     }
 }

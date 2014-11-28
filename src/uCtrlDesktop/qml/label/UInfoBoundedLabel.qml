@@ -6,6 +6,7 @@ Rectangle {
 
     property int boundedHeight: 8
     property int boundedWidth: 40
+    property int boundedTextSize: 14
     property string boundedColor: Colors.uGreen
 
     color: boundedColor
@@ -25,7 +26,7 @@ Rectangle {
     Default {
         id: label
         text: container.text
-        font.pointSize: 14
+        font.pointSize: boundedTextSize
         font.bold: true
         color: Colors.uWhite
         anchors.centerIn: parent

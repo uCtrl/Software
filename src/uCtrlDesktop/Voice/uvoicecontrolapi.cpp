@@ -35,7 +35,7 @@ void UVoiceControlAPI::sendMessage(QString message)
     request.setUrl(QUrl(url));
     request.setRawHeader("Authorization", "Bearer AJKFKPXCCXDD6CPEXASZMJSLCOZSUQ3Z");
 
-    QNetworkReply* reply = manager->get(request);
+    manager->get(request);
 }
 
 UVoiceControlResponse* UVoiceControlAPI::analyseIntent()

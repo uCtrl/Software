@@ -4,19 +4,19 @@ import "../ui/UColors.js" as Colors
 import "../ui" as UI
 import "../label" as ULabel
 
+import DeviceEnums 1.0
+
 Rectangle {
     id: taskEditorContainer
     property var taskModel
     property var conditionModel
 
+    property var deviceType: null
+
     signal saveConditions()
 
     anchors.fill: parent
     color: Colors.uWhite
-
-    onTaskModelChanged: {
-        valueTextbox.text = getTaskValue()
-    }
 
     onConditionModelChanged: {
         refreshConditionCountLabel()
@@ -81,22 +81,30 @@ Rectangle {
                         text: "Set to "
                         anchors.verticalCenter: parent.verticalCenter
                     }
-                    UI.UTextbox
-                    {
-                        id: valueTextbox
+
+                    Loader {
+                        id: fileLoader
+
+                        active: false
+                        asynchronous: true
+                        anchors.verticalCenter: parent.verticalCenter
+
                         width: 130
                         height: 40
-                        placeholderText: "Value"
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: getTaskValue()
 
-                        function validate()
-                        {
-                            return text !== "";
+                        onVisibleChanged:      { loadIfNotLoaded(); }
+                        Component.onCompleted: { loadIfNotLoaded(); }
+
+                        function loadIfNotLoaded () {
+                            // to load the file at first show
+                            if (visible && !active) {
+                                active = true;
+                            }
+
+                            setSource("type/" + getConditionFile() + ".qml", { "model": taskModel });
                         }
-
-                        state: validate() ? "SUCCESS" : "ERROR"
                     }
+
                     ULabel.ConditionLabel
                     {
                         id: whenLabel
@@ -198,13 +206,10 @@ Rectangle {
         refreshConditionCountLabel()
     }
 
-    function saveForm()
-    {
-        taskEditorContainer.saveConditions()
-
-        taskModel.value(valueTextbox.text)
+    function saveForm() {
         uCtrlApiFacade.putTask(taskModel)
 
+        taskEditorContainer.saveConditions()
         taskEditorContainer.visible = false
     }
 
@@ -215,7 +220,7 @@ Rectangle {
 
     function countConditions()
     {
-        if(conditionModel !== null && conditionModel !== undefined) return conditionModel.rowCount()
+        if (conditionModel !== null && conditionModel !== undefined) return conditionModel.rowCount
         else return 0
     }
 
@@ -229,5 +234,19 @@ Rectangle {
     {
         if (taskModel !== null && taskModel !== undefined) return taskModel.value()
         else return ""
+    }
+
+    function getConditionFile() {
+        if (deviceType !== null) {
+            switch(deviceType) {
+                case UEType.PowerSocketSwitch:
+                    return "Switch"
+                case UEType.NinjasEyes:
+                    return "Text"
+                default:
+                    return "Slider"
+            }
+        }
+        return "Error"
     }
 }

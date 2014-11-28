@@ -25,4 +25,6 @@ void UHistoryLogModel::read(const QJsonObject &jsonObj)
         s->read(event.toObject());
         this->appendRow(s);
     }
+
+    emit logsReceived();
 }

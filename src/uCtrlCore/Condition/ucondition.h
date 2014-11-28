@@ -38,7 +38,7 @@ public:
         LesserThan = 0x2,
         Equals = 0x4,
         InBetween = 0x8,
-        Not = 0x16,
+        Not = 0x10,
     };
 
     explicit UCondition(QObject *parent = 0);

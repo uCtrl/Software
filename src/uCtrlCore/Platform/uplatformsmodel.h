@@ -26,6 +26,7 @@ public:
     QList<UDevice*> findDevicesByType(UDevice::UEType deviceType);
     QList<UDevice*> findDevicesByLocation(const QString& locationName);
     QList<UDevice*> findDevicesByName(const QString& deviceName);
+    QList<UDevice*> findDevicesByTypeAndName(UDevice::UEType deviceType, const QString& deviceName);
 
 private:
     RecommendationsModel* m_recModel;

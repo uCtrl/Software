@@ -28,7 +28,8 @@ SOURCES += \
     Protocol/uctrlapifacade.cpp \
     Statistics/ustatisticsmodel.cpp \
     Statistics/ustatistic.cpp \
-    Protocol/uctrllocalapi.cpp
+    Protocol/uctrllocalapi.cpp \
+    Utility/uuniqueidgenerator.cpp
 
 
 HEADERS += \
@@ -59,6 +60,7 @@ HEADERS += \
     Protocol/uctrlapifacade.h \
     Statistics/ustatisticsmodel.h \
     Statistics/ustatistic.h \
-    Protocol/uctrllocalapi.h
+    Protocol/uctrllocalapi.h \
+    Utility/uuniqueidgenerator.h
 
 DEFINES += PROJECT_PATH=\"\\\"$$PWD/../\\\"\"

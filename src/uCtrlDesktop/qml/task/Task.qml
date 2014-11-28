@@ -16,6 +16,10 @@ Column {
     property bool showEditMode: false
     property var editTaskFunction
 
+    onItemChanged: {
+        whenLabel.text = getConditions().rowCount > 0 ? " when" : " otherwise"
+    }
+
     Rectangle {
         id: taskContainer
 
@@ -67,7 +71,7 @@ Column {
 
             anchors.verticalCenter: parent.verticalCenter
 
-            text: getConditions().rowCount() > 0 ? " when" : " otherwise"
+            text: getConditions().rowCount > 0 ? " when" : " otherwise"
 
             color: Colors.uGrey
 

@@ -19,5 +19,12 @@ void UStatisticsModel::read(const QJsonObject& jsonObj)
         this->appendRow(s);
     }
 
-    emit statsReceived();
+    if (m_onReceivedCallback.isCallable()) {
+        m_onReceivedCallback.call();
+    }
+}
+
+void UStatisticsModel::setOnReceivedCallback(const QJSValue& callback)
+{
+    m_onReceivedCallback = callback;
 }

@@ -67,5 +67,21 @@ QList<UDevice*> UDevicesModel::findDevicesByType(UDevice::UEType deviceType)
 QList<UDevice*> UDevicesModel::findDevicesByName(const QString& deviceName)
 {
     QList<UDevice*> deviceList;
+    foreach(ListItem *item, m_items) {
+        UDevice* device = (UDevice*)item;
+        if (device->name().toLower() == deviceName.toLower())
+            deviceList.push_back(device);
+    }
+    return deviceList;
+}
+
+QList<UDevice*> UDevicesModel::findDevicesByTypeAndName(UDevice::UEType deviceType, const QString& deviceName)
+{
+    QList<UDevice*> deviceList;
+    foreach(ListItem *item, m_items) {
+        UDevice* device = (UDevice*)item;
+        if (device->type() == deviceType && device->name().toLower().contains(deviceName.toLower()))
+            deviceList.push_back(device);
+    }
     return deviceList;
 }

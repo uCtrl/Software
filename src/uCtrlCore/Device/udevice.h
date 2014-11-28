@@ -53,6 +53,7 @@ public:
         NinjasEyes = 1007,
         LimitlessLEDWhite = 1012,
         DoorSensor = 9990,
+        LightSensor = 10000,
     };
 
     explicit UDevice(QObject *parent = 0);
@@ -66,7 +67,7 @@ public:
 
     // JsonSerializable
     void write(QJsonObject &jsonObj) const;
-    void read(const QJsonObject &jsonObj);
+    void read(const QJsonObject &jsonObgitj);
     void readScenarios(const QJsonObject &jsonObj);
 
     // Properties

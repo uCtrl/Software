@@ -9,8 +9,6 @@ Rectangle {
     id: scenarios
 
     property var model: null
-
-    property var scenariosList: []
     property bool showEditMode: false
     property var editTaskFunction
 
@@ -21,7 +19,7 @@ Rectangle {
        anchors.right: parent.right
        anchors.bottom: createScenarioButton.top
 
-       visible: (model !== null && model !== undefined && !(model.rowCount() > 0))
+       visible: (model !== null && model !== undefined && !(model.rowCount > 0))
 
        color: Colors.uTransparent
 
@@ -53,7 +51,7 @@ Rectangle {
         anchors.right: parent.right
         anchors.bottom: createScenarioButton.top
 
-        visible: (model !== null && model !== undefined && model.rowCount() > 0)
+        visible: (model !== null && model !== undefined && model.rowCount > 0)
 
         color: Colors.uTransparent
 
@@ -148,8 +146,6 @@ Rectangle {
             UI.UCombobox {
                 id: scenarioCombo
 
-                itemListModel: scenariosList
-
                 anchors.left: parent.left
                 anchors.right: editButton.left
                 anchors.rightMargin: 10
@@ -162,9 +158,9 @@ Rectangle {
                 }
 
                 onSelectedItemChanged: {
-                    if (scenarios.model !== null && scenarios.model !== undefined && selectedItem !== null)
+                    if (scenarios.model !== null && scenarios.model !== undefined && selectedItem !== null && typeof(selectedItem) !== "undefined")
                     {
-                        currentScenario.model = scenarios.model.getRow(selectedItem.value)
+                        currentScenario.model = scenarios.model.findObject(selectedItem.value)
                     }
                 }
              }
@@ -235,26 +231,36 @@ Rectangle {
     onModelChanged: refreshComboBox()
 
     function refreshComboBox(){
-        currentScenario.model = null;
-        if (model !== null && model !== undefined) {
-            scenariosList = null;
-            if (model.rowCount() > 0) {
-                for (var i=0;i<model.rowCount();i++) {
-                    var item = {value: i, displayedValue: model.getRow(i).name(), iconId: ""}
 
-                    if (scenariosList != null)
-                        scenariosList.push(item)
-                    else
-                        scenariosList = [item]
-                    }
-                }
+        var selectedItemValue = scenarioCombo.selectedItem
+
+        if (model !== null && model !== undefined)
+        {
+            var newComboModel = []
+
+            for (var i = 0;i < model.rowCount; i++)
+            {
+                newComboModel.push({ value: model.getRow(i).id(), displayedValue: model.getRow(i).name(), iconId: "" })
+            }
+
+            scenarioCombo.itemListModel = newComboModel
+
+            if(selectedItemValue !== null && typeof(selectedItemValue) !== "undefined")
+            {
+                scenarioCombo.selectItemByValue(selectedItemValue.value)
             }
         }
+    }
 
     function createNewScenario()
     {
         var scenario = scenarios.model.createNewScenario()
         uCtrlApiFacade.postScenario(scenario)
+
+        refreshComboBox()
+
+        noScenario.visible = false
+        scenarioContainer.visible = true
 
         // TODO : Update the interface to show the newly created scenario
         currentScenario.model = scenario
@@ -281,6 +287,7 @@ Rectangle {
         uCtrlApiFacade.putScenario(scenario)
         toggleEditMode()
         refreshComboBox()
+        scenarioCombo.selectItemByValue(scenario.id())
     }
 
     function toggleEditMode()
@@ -303,6 +310,16 @@ Rectangle {
     {
         var scenario = scenarios.model.findObject(currentScenario.model.id());
         uCtrlApiFacade.deleteScenario(scenario)
-        scenarios.model.removeRow(scenario.id);
+        scenarios.model.removeRowWithId(scenario.id());
+
+        if(scenarios.model.rowCount < 1)
+        {
+            noScenario.visible = true
+            scenarioContainer.visible = false
+
+        }
+
+        scenarioCombo.clearSelectItem();
+        refreshComboBox();
     }
 }

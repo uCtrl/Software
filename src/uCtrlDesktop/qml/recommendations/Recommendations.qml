@@ -90,7 +90,7 @@ Rectangle {
             Rectangle {
                id: noRecommendation
                anchors.fill: parent
-               visible: (recommendations.model !== null && recommendations.model !== undefined && !(recommendations.model.rowCount() > 0))
+               visible: isNoRecommendationVisible();
                color: Colors.uTransparent
 
                Rectangle
@@ -121,5 +121,13 @@ Rectangle {
                 uCtrlApiFacade.getRecommendations();
             }
         });
+
+        recommendations.model.onRowCountChanged.connect(function() {
+            noRecommendation.visible = isNoRecommendationVisible();
+        });
+    }
+
+    function isNoRecommendationVisible() {
+        return !recommendations.model || (recommendations.model.rowCount === 0);
     }
 }

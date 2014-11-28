@@ -33,6 +33,8 @@ UI.UFontAwesome {
                 return "Lightbulb"
             case UEType.DoorSensor:
                 return "Key"
+            case UEType.LightSensor:
+                return "Bolt"
             default:
                 return ""
         }

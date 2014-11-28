@@ -50,19 +50,11 @@ Rectangle {
                     hoverEnabled: true
 
                     onClicked: {
-
-
                         main.currentPage = modelData.file;
-
-
-                        if(currentPage !== "platform/Platforms"){
-                            main.resetBreadcrumbDevices()
-                            main.hideBreadcrumbPlatforms()
-                        }
-                        if(currentPage === "platform/Platforms"){
-                            main.showBreadcrumbPlatforms()
-                            main.resetBreadcrumbDevices()
-                        }
+                        if(modelData.file === "home/ULandingPage")
+                            main.addToBreadcrumb(modelData.file, modelData.text, 0)
+                        else
+                            main.addToBreadcrumb(modelData.file, modelData.text, 1)
                     }
                 }
 

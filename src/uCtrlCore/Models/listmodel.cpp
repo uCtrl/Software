@@ -88,6 +88,8 @@ void ListModel::appendRows(const QList<ListItem*>& items)
     }
 
     endInsertRows();
+
+    emit rowCountChanged();
 }
 
 void ListModel::insertRow(int row, ListItem* item)
@@ -101,6 +103,8 @@ void ListModel::insertRow(int row, ListItem* item)
     m_items.insert(row, item);
 
     endInsertRows();
+
+    emit rowCountChanged();
 }
 
 bool ListModel::moveRow(int from, int to)
@@ -151,6 +155,8 @@ bool ListModel::removeRows(int row, int count, const QModelIndex& index)
     }
 
     endRemoveRows();
+
+    emit rowCountChanged();
     return true;
 }
 
@@ -165,6 +171,7 @@ ListItem* ListModel::takeRow(int row, const QModelIndex &index)
 
     endRemoveRows();
 
+    emit rowCountChanged();
     return item;
 }
 

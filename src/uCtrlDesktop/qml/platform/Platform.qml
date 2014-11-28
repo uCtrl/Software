@@ -516,7 +516,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.right: parent.right
 
-            anchors.margins: 20
+            anchors.margins: 10
 
             width: filters.width
         }
@@ -571,8 +571,7 @@ Rectangle {
         uCtrlApiFacade.putPlatform(platforms.model.findObject(model.id));
 
         toggleEditMode()
-
-        uCtrlApiFacade.putPlatform(platformsModel.findObject(model.id))
+        main.addToBreadcrumb("device/Device", model.name, 1)
     }
 
     function toggleEditMode() {
