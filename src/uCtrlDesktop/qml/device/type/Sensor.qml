@@ -221,7 +221,7 @@ Rectangle {
     }
 
     function getDeviceValueStats() {
-        if (statsModel !== null && statsModel !== undefined) {
+        if (statsModel) {
 
             var data = []
             var labels = []
@@ -229,7 +229,7 @@ Rectangle {
             for (var i=0; i<statsModel.rowCount();i++) {
                 var stat = statsModel.get(i);
                 labels.push(new Date(stat.timestamp).toTimeString())
-                data.push(stat.data)
+                data.push(Number(stat.data))
             }
 
             var chartData = {
