@@ -46,6 +46,7 @@ public:
         #endif
         #ifdef Q_OS_ANDROID
             return OsType::Android;
+
         #endif
 
         //No OS type was found

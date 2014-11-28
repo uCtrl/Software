@@ -60,7 +60,7 @@ Rectangle
             Rectangle {
                 id: infoContainer
 
-                property int headerWidth: 125
+                property int headerWidth: (resourceLoader.loadResource("deviceDevicepageInfocontainerHeaderWidth"))
                 property int sectionPadding: 10
 
                 property bool showEditMode: false
@@ -206,7 +206,7 @@ Rectangle
                     anchors.left: infoContainer.left
                     anchors.right: infoContainer.right
 
-                    height: 40
+                    height: (resourceLoader.loadResource("deviceDevicepageContentcanvasStatuscontainerHeight"))
 
                     ULabel.DeviceInfoHeaderLabel {
                         id: statusLabel
@@ -258,13 +258,13 @@ Rectangle
                     anchors.left: infoContainer.left
                     anchors.right: infoContainer.right
 
-                    height: 30
+                    height: (resourceLoader.loadResource("deviceDevicepageContentcanvasEnablecontainerHeight"))
 
                     ULabel.DeviceInfoHeaderLabel {
                         id: enabledLabel
 
                         text: "Enabled"
-                        width: 125
+                        width: infoContainer.headerWidth
 
                         anchors.left: enabledContainer.left
                     }
@@ -334,7 +334,7 @@ Rectangle
                         id: techIcon
 
                         iconId: "Cog"
-                        iconSize: 12
+                        iconSize: (resourceLoader.loadResource("contentcontainerTechIconIconSize"))
                         iconColor: Colors.uGrey
 
                         anchors.top: techContainer.top
@@ -348,7 +348,7 @@ Rectangle
                         id: techLabel
 
                         font.bold: false
-                        font.pixelSize: 11
+                        font.pixelSize: 11(resourceLoader.loadResource("contentcontainerTechlabelFontPixelSize"))
 
                         anchors.verticalCenter: techIcon.verticalCenter
                         anchors.left: techIcon.right

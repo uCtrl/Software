@@ -12,7 +12,7 @@ Rectangle {
         anchors.centerIn: parent
 
         font.bold: true
-        font.pointSize: 24
+        font.pointSize: 24(resourceLoader.loadResource("errorContainerParentFontPointSize"))
 
         color: Colors.uRed
 

@@ -90,11 +90,11 @@ Rectangle {
                 id: statsText
                 text: "Statistics"
                 anchors.left: statsIcon.right
-                anchors.leftMargin: 15
+                anchors.leftMargin: (resourceLoader.loadResource("sensorGraphtextStatstextLeftmargin"))
                 color: Colors.uGrey
                 anchors.verticalCenter: parent.verticalCenter
                 font.bold: false
-                font.pixelSize: 11
+                font.pixelSize: (resourceLoader.loadResource("sensorGraphtextStatstextFontPixeSize"))
             }
 
             UI.UCombobox {
@@ -125,7 +125,7 @@ Rectangle {
                 hoverTextColor: Colors.uWhite
 
                 height: parent.height;
-                width: 150
+                width: (resourceLoader.loadResource("sensorGraphheaderPeriodcomboWidth"))
 
                 Component.onCompleted: selectItem(0)
 
@@ -197,7 +197,7 @@ Rectangle {
         Rectangle {
             id: carouselContainer
             width: parent.width
-            height: 30
+            height: (resourceLoader.loadResource("sensorCarouselcontainerHeight"))
             anchors.bottom: parent.bottom
 
             UI.UCarousel {

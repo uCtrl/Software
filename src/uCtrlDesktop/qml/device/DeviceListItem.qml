@@ -12,15 +12,16 @@ Rectangle {
     property variant item: null
 
     width: parent.width
-    height: 42
+    height: (resourceLoader.loadResource("deviceListItemListItemHeight"))
 
     color: getColor()
 
     Rectangle {
         id: iconFrame
 
-        width: 32; height: 32
-        radius: 4
+        width: (resourceLoader.loadResource("deviceListItemIconFrameWidth"))
+        height: (resourceLoader.loadResource("deviceListItemIconFrameHeight"))
+        radius: (resourceLoader.loadResource("deviceListItemIconFrameRadius"))
 
         anchors.left: parent.left
         anchors.leftMargin: 5
@@ -32,7 +33,7 @@ Rectangle {
         {
             deviceType: listItem.item === null ? 0 : listItem.item.type
 
-            iconSize: 16
+            iconSize: (resourceLoader.loadResource("deviceListItemIconFrameIconSize"))
             iconColor: Colors.uWhite
         }
     }
@@ -58,7 +59,7 @@ Rectangle {
         color: Colors.uBlack
 
         font.bold: true
-        font.pointSize: 18
+        font.pointSize: (resourceLoader.loadResource("deviceListItemGetNameFontPointSize"))
 
         anchors.verticalCenter: iconFrame.verticalCenter
 

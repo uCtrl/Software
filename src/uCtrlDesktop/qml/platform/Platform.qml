@@ -51,7 +51,7 @@ Rectangle {
         Rectangle {
             id: nameContainer
 
-            height: 40
+            height: (resourceLoader.loadResource("platformPlatformInfoInformationsNamecontainerHeight"))
 
             anchors.top: parent.top
             anchors.left: parent.left

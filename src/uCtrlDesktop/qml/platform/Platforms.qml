@@ -26,7 +26,7 @@ Rectangle {
         anchors.left: parent.left
         anchors.margins: parent.marginSize
 
-        height: 35
+        height: (resourceLoader.loadResource("platformsFiltersHeight"))
         width: (parent.width/2) - parent.marginSize
 
         color: Colors.uTransparent
@@ -44,7 +44,8 @@ Rectangle {
 
             anchors.verticalCenter: filters.verticalCenter
 
-            height: filters.height; width: 2 * (filters.width / 3);
+            height: filters.height
+            width: 2 * (filters.width / 3)
 
             state: "ENABLED"
 
@@ -53,7 +54,7 @@ Rectangle {
             placeholderText: "Search"
 
             iconId: "search"
-            iconSize: 13
+            iconSize: (resourceLoader.loadResource("platformsFiltersSearchBoxIconSize"))
 
             onTextChanged: {
                 filterText = searchBox.text
@@ -125,7 +126,7 @@ Rectangle {
                     id: itemContainer
 
                     width: parent.width
-                    height: 60
+                    height: (resourceLoader.loadResource("platformsRectplatformsPlatformsColumnItemcontainerHeight"))
 
                     item: model
 

@@ -8,7 +8,7 @@ Rectangle {
     id: titlebar
 
     color: Colors.uGreen
-    height: (resourceLoader.loadResource("titlebarheight"))
+    height: resourceLoader.loadResource("titlebarheight")
 
     property var pages: null
 
@@ -30,10 +30,10 @@ Rectangle {
         id: breadcrumb
 
         width: 400
-        height: 50
+        height: resourceLoader.loadResource("titlebarBreadcrumbheight")
         anchors.verticalCenter: parent.verticalCenter
         anchors.right: parent.right
-        anchors.rightMargin: 20
+        anchors.rightMargin: resourceLoader.loadResource("titlebarBreadcrumbRightmargin")
 
     }
 

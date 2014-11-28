@@ -72,14 +72,12 @@ Rectangle {
 
         UButton
         {
-            width: 30
-            height: 30
+            width: (resourceLoader.loadResource("UCarouselUButtonChevronLeftWidth"))
+            height: (resourceLoader.loadResource("UCarouselUButtonChevronLeftHeight"))
 
             buttonColor: Colors.uTransparent
             buttonHoveredColor: Colors.uTransparent
             buttonTextColor : Colors.uGrey
-
-
             iconId: "ChevronLeft"
             onClicked: {
                 moveBackwards()
@@ -92,26 +90,27 @@ Rectangle {
             spacing: 10
             orientation: ListView.Horizontal
             width: carouselIcons.length * 30 + (carouselIcons.length - 1) * 10
-            height: 30
+            height: 90
             model: carouselIcons
             interactive: false
             delegate: Rectangle {
-                width: 30
-                height: 30
+                width: (resourceLoader.loadResource("UCarouselListviewRectangleWidth"))
+                height: (resourceLoader.loadResource("UCarouselListviewRectangleHeight"))
 
                 UFontAwesome
                 {
                     iconId: carouselIcons[index]
                     iconColor: currentIndex === index ? Colors.uGreen : Colors.uGrey
                     anchors.centerIn: parent
+                    iconSize: resourceLoader.loadResource("UCarouselListviewUFontawesomeIconSIze")
                 }
             }
         }
 
         UButton
         {
-            width: 30
-            height: 30
+            width: (resourceLoader.loadResource("UCarouselUButtonChevronRightWidth"))
+            height: (resourceLoader.loadResource("UCarouselUButtonChevronRightHeight"))
 
             buttonColor: Colors.uTransparent
             buttonHoveredColor: Colors.uTransparent
