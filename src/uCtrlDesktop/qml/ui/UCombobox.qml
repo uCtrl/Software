@@ -174,6 +174,13 @@ Rectangle {
         selectValue(selectedItem.value)
     }
 
+    function clearSelectItem()
+    {
+        valueItem.refresh({ value:"", displayedValue:"", iconId:""})
+        dropDown.visible = false
+        selectedItem = null
+    }
+
     function setSelectedItem(newSelectedItem) {
         selectedItem = newSelectedItem
         valueItem.refresh(selectedItem)

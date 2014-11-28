@@ -73,7 +73,6 @@ Rectangle {
 
     Component.onCompleted:
     {
-        console.log("FKOSOJFKLSDJLKJDAK")
         var homePage = searchPages("home/ULandingPage")
         addToBreadcrumb(homePage.file, homePage.text, 0)
     }

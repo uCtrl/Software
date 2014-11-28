@@ -12,6 +12,7 @@ Rectangle {
 
     property var pages: null
 
+
     UI.UImage {
         id: logo
 
