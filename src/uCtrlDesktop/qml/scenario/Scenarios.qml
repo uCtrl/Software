@@ -19,7 +19,7 @@ Rectangle {
        anchors.right: parent.right
        anchors.bottom: createScenarioButton.top
 
-       visible: (model !== null && model !== undefined && !(model.rowCount() > 0))
+       visible: (model !== null && model !== undefined && !(model.rowCount > 0))
 
        color: Colors.uTransparent
 
@@ -51,7 +51,7 @@ Rectangle {
         anchors.right: parent.right
         anchors.bottom: createScenarioButton.top
 
-        visible: (model !== null && model !== undefined && model.rowCount() > 0)
+        visible: (model !== null && model !== undefined && model.rowCount > 0)
 
         color: Colors.uTransparent
 
@@ -238,7 +238,7 @@ Rectangle {
         {
             var newComboModel = []
 
-            for (var i = 0;i < model.rowCount(); i++)
+            for (var i = 0;i < model.rowCount; i++)
             {
                 newComboModel.push({ value: model.getRow(i).id(), displayedValue: model.getRow(i).name(), iconId: "" })
             }
@@ -312,7 +312,7 @@ Rectangle {
         uCtrlApiFacade.deleteScenario(scenario)
         scenarios.model.removeRowWithId(scenario.id());
 
-        if(scenarios.model.rowCount() < 1)
+        if(scenarios.model.rowCount < 1)
         {
             noScenario.visible = true
             scenarioContainer.visible = false

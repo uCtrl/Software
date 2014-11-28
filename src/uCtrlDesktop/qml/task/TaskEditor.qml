@@ -214,7 +214,7 @@ Rectangle {
 
     function countConditions()
     {
-        if(conditionModel !== null && conditionModel !== undefined) return conditionModel.rowCount()
+        if (conditionModel !== null && conditionModel !== undefined) return conditionModel.rowCount
         else return 0
     }
 

@@ -15,8 +15,10 @@ public:
     void write(QJsonObject &jsonObj) const;
     void read(const QJsonObject &jsonObj);
 
-signals:
-    void statsReceived();
+    Q_INVOKABLE void setOnReceivedCallback(const QJSValue& callback);
+
+private:
+    QJSValue m_onReceivedCallback;
 };
 
 #endif // USTATISTICSMODEL_H

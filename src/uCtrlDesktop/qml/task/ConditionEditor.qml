@@ -984,7 +984,7 @@ Rectangle {
     {
         var deviceComboList = [];
 
-        for(var i = 0; i < devicesList.rowCount(); i++)
+        for(var i = 0; i < devicesList.rowCount; i++)
         {
             var device = devicesList.getRow(i);
             deviceComboList[i] = { value: device.id(), displayedValue:device.name(), iconId:"" }

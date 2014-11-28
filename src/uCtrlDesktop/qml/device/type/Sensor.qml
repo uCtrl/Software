@@ -241,8 +241,7 @@ Rectangle {
 
     onModelChanged: {
         container.statsModel = devicesList.getStatisticsWithId(model.id);
-        container.statsModel.statsReceived.disconnect(getDeviceValueStats);
-        container.statsModel.statsReceived.connect(getDeviceValueStats);
+        container.statsModel.setOnReceivedCallback(getDeviceValueStats);
     }
 
     function getLastUpdatedText() {
@@ -256,7 +255,7 @@ Rectangle {
             var data = []
             var labels = []
 
-            for (var i=0; i<statsModel.rowCount();i++) {
+            for (var i=0; i<statsModel.rowCount;i++) {
                 var stat = statsModel.get(i);
                 labels.push(new Date(stat.timestamp).toTimeString())
                 data.push(Number(stat.data))
