@@ -15,7 +15,7 @@ Rectangle {
         id: tasks
         anchors.fill: parent
         model: tasksList.model
-        clip:true
+        clip: true
         spacing: 10
         delegate: Task {
             item: model

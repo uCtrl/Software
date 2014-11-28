@@ -33,7 +33,7 @@ Rectangle {
 
             state: "ENABLED"
 
-            opacity: 0.75
+            opacity: 1
 
             placeholderText: "Search"
 
@@ -50,11 +50,15 @@ Rectangle {
         id: devicesList
 
         anchors.top: filters.bottom
+        anchors.topMargin: 5
+
         anchors.bottom: container.bottom
         anchors.left: container.left
         anchors.right: container.right
 
         model: parent.model
+
+        clip: true
 
         property variant currentItem: null
 
@@ -74,8 +78,7 @@ Rectangle {
                         main.devicesList = devicesList.model
                         main.activeDevice = model
                         main.currentPage = "device/Device"
-                        main.resetBreadcrumbDevices()
-                        main.addToBreadcrumbDevices("device/Device", model.name)
+                        main.addToBreadcrumb("device/Device", model.name, 2)
                     }
                 }
 

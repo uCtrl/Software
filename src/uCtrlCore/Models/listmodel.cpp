@@ -65,6 +65,7 @@ QVariant ListModel::get(int index)
     return QVariant(itemData);
 }
 
+
 void ListModel::appendRow(ListItem* item)
 {
     if (item == NULL)
@@ -130,6 +131,11 @@ bool ListModel::removeRow(int row, const QModelIndex& index)
     return removeRows(row, 1, index);
 }
 
+bool ListModel::removeRowWithId(const QString& id, const QModelIndex& index)
+{
+    return removeRows(indexOf(find(id)), 1, index);
+}
+
 bool ListModel::removeRows(int row, int count, const QModelIndex& index)
 {
     if (row < 0 || count <= 0 || (row + count) > m_items.size())
@@ -160,6 +166,11 @@ ListItem* ListModel::takeRow(int row, const QModelIndex &index)
     endRemoveRows();
 
     return item;
+}
+
+QObject* ListModel::getRow(int row)
+{
+    return m_items.at(row);
 }
 
 ListItem* ListModel::find(const QString& itemId) const

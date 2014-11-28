@@ -1,8 +1,9 @@
 #include "uplatform.h"
 
-UPlatform::UPlatform(QObject* parent) : NestedListItem(parent)
+UPlatform::UPlatform(QObject* parent, bool isLocalPlatform) : NestedListItem(parent)
 {
     m_devices = new UDevicesModel(this);
+    m_isLocalPlatform = isLocalPlatform;
 }
 
 UPlatform::~UPlatform()
@@ -109,7 +110,7 @@ void UPlatform::write(QJsonObject& jsonObj) const
 
     QJsonObject devices;
     m_devices->write(devices);
-    jsonObj["devices"] = devices;
+    jsonObj["devices"] = devices["devices"];
 }
 
 void UPlatform::read(const QJsonObject& jsonObj)
@@ -124,6 +125,11 @@ void UPlatform::read(const QJsonObject& jsonObj)
     this->enabled(jsonObj["enabled"].toBool());
     this->lastUpdated(jsonObj["lastUpdated"].toDouble());
 
+    readDevices(jsonObj);
+}
+
+void UPlatform::readDevices(const QJsonObject &jsonObj)
+{
     m_devices->read(jsonObj);
 }
 
@@ -203,4 +209,9 @@ void UPlatform::status(UEStatus status)
         m_status = status;
         emit dataChanged();
     }
+}
+
+bool UPlatform::isLocalPlatform()
+{
+    return m_isLocalPlatform;
 }

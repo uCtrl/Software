@@ -128,7 +128,7 @@ Rectangle
                         buttonHoveredTextColor: Colors.uGreen
                         buttonHoveredColor: Colors.uTransparent
 
-                        onClicked: infoContainer.showEditMode = !infoContainer.showEditMode
+                        onClicked: toggleEditMode()
 
                         visible : !infoContainer.showEditMode
                     }
@@ -648,9 +648,9 @@ Rectangle
 
                         visible: false
 
-                        function editTask(tasks, conditions)
+                        function editTask(task, conditions)
                         {
-                            taskModel = tasks
+                            taskModel = task
                             conditionModel = conditions
                             visible = true
                         }
@@ -701,6 +701,8 @@ Rectangle
         model.name = nameTextbox.text
         model.isEnabled = (enabledSwitch.state === "ON")
         uCtrlApiFacade.putDevice(devicesList.findObject(model.id))
+
+        main.addToBreadcrumb("device/Device", model.name, 2)
     }
 
     function getHistory() {
@@ -773,5 +775,11 @@ Rectangle
     function getDescription() {
         if (model !== null) return model.description
         else return ""
+    }
+
+    function toggleEditMode()
+    {
+        infoContainer.showEditMode = !infoContainer.showEditMode
+        nameTextbox.text = model.name
     }
 }

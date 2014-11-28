@@ -123,36 +123,31 @@ Rectangle {
                         voiceControlButton.color = Colors.uGreen
                     }
                     onClicked: {
-                        if (messageCheckbox.checked)
-                            voiceControl.sendMessage(messageTextbox.text)
+                        voiceControlButton.startedRecording = !voiceControlButton.startedRecording
+
+                        if(voiceControlButton.startedRecording)
+                        {
+                            didYouMeanAnswerContainer.visible = false
+
+                            voiceControlColorAnimation.start()
+                            voiceControlSizeAnimation.start()
+
+                            commandLabel.text = "Recording your command..."
+                        }
                         else
                         {
-                            voiceControlButton.startedRecording = !voiceControlButton.startedRecording
+                            voiceControlColorAnimation.stop()
+                            voiceControlSizeAnimation.stop()
 
-                            if(voiceControlButton.startedRecording)
-                            {
-                                didYouMeanAnswerContainer.visible = false
+                            voiceControlAnimation.width = 200
+                            voiceControlAnimation.height = 200
 
-                                voiceControlColorAnimation.start()
-                                voiceControlSizeAnimation.start()
+                            commandLabel.text = "Analyzing your command..."
 
-                                commandLabel.text = "Recording your command..."
-                            }
-                            else
-                            {
-                                voiceControlColorAnimation.stop()
-                                voiceControlSizeAnimation.stop()
-
-                                voiceControlAnimation.width = 200
-                                voiceControlAnimation.height = 200
-
-                                commandLabel.text = "Analyzing your command..."
-
-                                voiceControl.sendVoiceControlFile(audioRecorder.getOutputLocation())
-                            }
-
-                            audioRecorder.toggleRecord()
+                            voiceControl.sendVoiceControlFile(audioRecorder.getOutputLocation())
                         }
+
+                        audioRecorder.toggleRecord()
                     }
                 }
             }
@@ -169,29 +164,6 @@ Rectangle {
             horizontalAlignment: Text.AlignHCenter
             color: Colors.uDarkGrey
             font.pointSize: 24
-        }
-
-        Rectangle
-        {
-            anchors.horizontalCenter: commandLabel.horizontalCenter
-            anchors.top: commandLabel.bottom
-            width: commandLabel.width * 0.75
-
-            UI.UCheckbox
-            {
-                id: messageCheckbox
-                anchors.left: parent.left
-                anchors.verticalCenter: messageTextbox.verticalCenter
-            }
-
-            UI.UTextbox
-            {
-                id: messageTextbox
-                anchors.top: parent.top
-                anchors.left: messageCheckbox.right
-                anchors.right: parent.right
-                anchors.leftMargin: 10
-            }
         }
     }
 

@@ -186,7 +186,7 @@ Rectangle {
                 chartData: {
                     "labels": [],
                     "datasets": [{
-                        fillColor: "rgba(237,237,237,0.5)",
+                        fillColor: Colors.uGreen,
                         strokeColor: Colors.uMediumLightGrey,
                         pointColor: Colors.uGreen,
                         pointStrokeColor: Colors.uGreen,
@@ -195,7 +195,7 @@ Rectangle {
                 }
                 width: graph.width
                 height: graph.height
-                chartType: Charts.ChartType.LINE
+                chartType: Charts.ChartType.BAR
 
                 onChartDataChanged: refresh()
             }
@@ -251,7 +251,7 @@ Rectangle {
     }
 
     function getDeviceValueStats() {
-        if (statsModel !== null && statsModel !== undefined) {
+        if (statsModel) {
 
             var data = []
             var labels = []
@@ -259,14 +259,14 @@ Rectangle {
             for (var i=0; i<statsModel.rowCount();i++) {
                 var stat = statsModel.get(i);
                 labels.push(new Date(stat.timestamp).toTimeString())
-                data.push(stat.data)
+                data.push(Number(stat.data))
             }
 
             var chartData = {
                 "labels": labels,
                 "axisY": [0, 50, 150, 200, 250, 300],
                 "datasets": [{
-                    fillColor: "rgba(237,237,237,0.5)",
+                    fillColor: Colors.uGreen,
                     strokeColor: Colors.uMediumLightGrey,
                     pointColor: Colors.uGreen,
                     pointStrokeColor: Colors.uGreen,

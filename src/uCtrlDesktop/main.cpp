@@ -19,6 +19,8 @@
 #include "Platform/uplatformsmodel.h"
 #include "Protocol/uctrlapifacade.h"
 
+#include "Utility/uuniqueidgenerator.h"
+
 void LoadSystemFromFile(UPlatformsModel* p, const QString& filename)
 {
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));

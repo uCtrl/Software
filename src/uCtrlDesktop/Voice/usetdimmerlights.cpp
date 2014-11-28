@@ -18,7 +18,7 @@ void USetDimmerLights::setAllLightsIntensity()
         QJsonObject jsonLimitless = QJsonDocument::fromJson(currentValue.toUtf8()).object();
         bool isOn = jsonLimitless["on"].toBool();
 
-        int rescaledLightIntensity255 = m_lightIntensityPercent * 254 / 100;
+        float rescaledLightIntensity255 = m_lightIntensityPercent / 100.0f;
 
         data = QString("{\"on\":true,\"bri\":%1}").arg(QString::number(rescaledLightIntensity255));
 

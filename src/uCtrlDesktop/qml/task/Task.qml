@@ -159,7 +159,8 @@ Column {
 
     function editTask()
     {
-        container.editTaskFunction(item, getConditions())
+        var task = tasks.model.findObject(item.id)
+        container.editTaskFunction(task, task.getConditions())
     }
 
     function getUnitLabel()
@@ -178,7 +179,8 @@ Column {
     }
 
     function deleteTask() {
-        console.log("delete")
+        uCtrlApiFacade.deleteTask(tasks.model.findObject(item.id))
+        tasks.model.removeRow(item.id)
     }
 
     function moveUp() {

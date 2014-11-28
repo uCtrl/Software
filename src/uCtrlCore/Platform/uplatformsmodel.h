@@ -17,6 +17,7 @@ public:
     // JsonSerializable
     void write(QJsonObject &jsonObj) const;
     void read(const QJsonObject &jsonObj);
+    void readPlatform(const QJsonObject &jsonObj);
 
     // Recommendations
     Q_INVOKABLE QObject* getRecommendations();

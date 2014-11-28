@@ -9,8 +9,18 @@ Rectangle {
     property var taskModel
     property var conditionModel
 
+    signal saveConditions()
+
     anchors.fill: parent
     color: Colors.uWhite
+
+    onTaskModelChanged: {
+        valueTextbox.text = getTaskValue()
+    }
+
+    onConditionModelChanged: {
+        refreshConditionCountLabel()
+    }
 
     Rectangle
     {
@@ -73,7 +83,8 @@ Rectangle {
                     }
                     UI.UTextbox
                     {
-                        width: 100
+                        id: valueTextbox
+                        width: 130
                         height: 40
                         placeholderText: "Value"
                         anchors.verticalCenter: parent.verticalCenter
@@ -88,6 +99,7 @@ Rectangle {
                     }
                     ULabel.ConditionLabel
                     {
+                        id: whenLabel
                         font.pointSize: 16
                         text: countConditions() > 0 ? " when" : " otherwise"
                         anchors.verticalCenter: parent.verticalCenter
@@ -101,6 +113,8 @@ Rectangle {
                     width: 150
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
+
+                    onClicked: createNewCondition()
                 }
             }
             Rectangle
@@ -125,7 +139,7 @@ Rectangle {
                 }
                 ULabel.ConditionLabel
                 {
-                    text: countConditions() + " condition(s)"
+                    id: countConditionsLabel
                     font.pointSize: 12
                     anchors.right: parent.right
 
@@ -146,14 +160,20 @@ Rectangle {
 
                 ListView
                 {
+                    id: conditionEditorListView
                     anchors.fill: parent
 
                     model: conditionModel
 
                     delegate: ConditionEditor {
+                        id: cdnEditor
                         conditionModel: model
                         z: countConditions() - index
                         color: index % 2 === 0 ? Colors.uWhite : Colors.uUltraLightGrey
+
+                        Component.onCompleted: {
+                            taskEditorContainer.saveConditions.connect(cdnEditor.saveForm)
+                        }
                     }
                 }
             }
@@ -166,7 +186,25 @@ Rectangle {
         anchors.bottom: parent.bottom
         anchors.right: parent.right
 
+        onSave: saveForm()
         onCancel: cancelEditing()
+    }
+
+    function createNewCondition()
+    {
+        var newCondition = conditionModel.createNewCondition();
+        uCtrlApiFacade.postCondition(newCondition)
+
+        refreshConditionCountLabel()
+    }
+
+    function saveForm()
+    {
+        taskModel.value(valueTextbox.text)
+        uCtrlApiFacade.putTask(taskModel)
+
+        taskEditorContainer.saveConditions()
+        taskEditorContainer.visible = false
     }
 
     function cancelEditing()
@@ -180,9 +218,15 @@ Rectangle {
         else return 0
     }
 
+    function refreshConditionCountLabel()
+    {
+        countConditionsLabel.text = countConditions() + " condition(s)"
+        whenLabel.text = countConditions() > 0 ? " when" : " otherwise"
+    }
+
     function getTaskValue()
     {
-        if (taskModel !== null && taskModel !== undefined) return taskModel.value
+        if (taskModel !== null && taskModel !== undefined) return taskModel.value()
         else return ""
     }
 }

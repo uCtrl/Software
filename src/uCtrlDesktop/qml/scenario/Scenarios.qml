@@ -9,7 +9,6 @@ Rectangle {
     id: scenarios
 
     property var model: null
-    property var scenariosList: []
     property bool showEditMode: false
     property var editTaskFunction
 
@@ -147,8 +146,6 @@ Rectangle {
             UI.UCombobox {
                 id: scenarioCombo
 
-                itemListModel: scenariosList
-
                 anchors.left: parent.left
                 anchors.right: editButton.left
                 anchors.rightMargin: 10
@@ -157,13 +154,13 @@ Rectangle {
 
                 Component.onCompleted: {
                     selectItem(0)
-                    currentScenario.model = scenarios.model.get(0)
+                    currentScenario.model = scenarios.model.getRow(0)
                 }
 
                 onSelectedItemChanged: {
-                    if (scenarios.model !== null && scenarios.model !== undefined)
+                    if (scenarios.model !== null && scenarios.model !== undefined && selectedItem !== null && typeof(selectedItem) !== "undefined")
                     {
-                        currentScenario.model = scenarios.model.get(selectedItem.value)
+                        currentScenario.model = scenarios.model.findObject(selectedItem.value)
                     }
                 }
              }
@@ -227,69 +224,102 @@ Rectangle {
         anchors.leftMargin: 10
 
         visible: currentScenario !== null && currentScenario !== undefined && currentScenario.showEditMode
+
+        onClicked: createNewTask()
     }
 
     onModelChanged: refreshComboBox()
 
     function refreshComboBox(){
-        currentScenario.model = null;
-        if (model !== null && model !== undefined) {
-            scenariosList = null;
-            if (model.rowCount() > 0) {
-                for (var i=0;i<model.rowCount();i++) {
-                    var item = {value: i, displayedValue: model.get(i).name, iconId: ""}
 
-                    if (scenariosList != null)
-                        scenariosList.push(item)
-                    else
-                        scenariosList = [item]
-                    }
-                }
+        var selectedItemValue = scenarioCombo.selectedItem
+
+        if (model !== null && model !== undefined)
+        {
+            var newComboModel = []
+
+            for (var i = 0;i < model.rowCount(); i++)
+            {
+                newComboModel.push({ value: model.getRow(i).id(), displayedValue: model.getRow(i).name(), iconId: "" })
+            }
+
+            scenarioCombo.itemListModel = newComboModel
+
+            if(selectedItemValue !== null && typeof(selectedItemValue) !== "undefined")
+            {
+                scenarioCombo.selectItemByValue(selectedItemValue.value)
             }
         }
+    }
 
     function createNewScenario()
     {
         var scenario = scenarios.model.createNewScenario()
         uCtrlApiFacade.postScenario(scenario)
 
+        refreshComboBox()
+
+        noScenario.visible = false
+        scenarioContainer.visible = true
+
         // TODO : Update the interface to show the newly created scenario
+        currentScenario.model = scenario
+        changeEditMode(true)
+    }
+
+    function createNewTask()
+    {
+        var task = scenarios.model.nestedModelFromId(currentScenario.model.id()).createNewTask();
+        uCtrlApiFacade.postTask(task)
+
+        editTaskFunction(task, task.conditions())
     }
 
     function saveForm()
     {
-        var scenario  = scenarios.model.findObject(currentScenario.model.id)
-        console.log(currentScenario.model.id)
+        var scenario = scenarios.model.findObject(currentScenario.model.id())
+
         if (scenario !== null) {
             scenario.name(editScenarioName.text)
-            currentScenario.model.name = editScenarioName.text
+            currentScenario.model.name(editScenarioName.text)
         }
 
         uCtrlApiFacade.putScenario(scenario)
         toggleEditMode()
         refreshComboBox()
-
-        // TODO : Update interface
+        scenarioCombo.selectItemByValue(scenario.id())
     }
 
     function toggleEditMode()
     {
-        showEditMode = !showEditMode
+        changeEditMode(!showEditMode)
+    }
+
+    function changeEditMode(newEditMode)
+    {
+        showEditMode = newEditMode
         currentScenario.showEditMode = showEditMode
 
         if(currentScenario.model !== null)
         {
-            editScenarioName.text = currentScenario.model.name
+            editScenarioName.text = currentScenario.model.name()
         }
     }
 
     function deleteScenario()
     {
-        var scenario = scenarios.model.findObject(currentScenario.model.id);
+        var scenario = scenarios.model.findObject(currentScenario.model.id());
         uCtrlApiFacade.deleteScenario(scenario)
-        var rowIndex = scenarios.model.indexOf(scenario)
-        scenarios.model.removeRow(rowIndex);
+        scenarios.model.removeRowWithId(scenario.id());
 
-        // TODO : Update interface or it will crash on the next delete
+        if(scenarios.model.rowCount() < 1)
+        {
+            noScenario.visible = true
+            scenarioContainer.visible = false
+
+        }
+
+        scenarioCombo.clearSelectItem();
+        refreshComboBox();
     }
 }
