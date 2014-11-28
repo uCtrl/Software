@@ -74,7 +74,7 @@ void UTask::write(QJsonObject &jsonObj) const
 
     QJsonObject conditions;
     m_conditions->write(conditions);
-    jsonObj["conditions"] = conditions;
+    jsonObj["conditions"] = conditions["conditions"];
 }
 
 void UTask::read(const QJsonObject &jsonObj)

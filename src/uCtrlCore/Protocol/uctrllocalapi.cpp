@@ -333,7 +333,7 @@ void UCtrlLocalApi::sendSaveRequest(const QString& address, int port, UEMessageT
                  saveKey,
                  QString(jsonDoc.toJson()));
 
-    qDebug() << saveRequest;
+    //qDebug() << saveRequest;
 
     m_socket->writeDatagram(saveRequest.toUtf8(), hostAddress, port);
 }
@@ -350,7 +350,7 @@ void UCtrlLocalApi::sendSaveRequest(const QString& address, int port, UEMessageT
                  saveKey,
                  QString(jsonDoc.toJson()));
 
-    qDebug() << saveRequest;
+    //qDebug() << saveRequest;
 
     m_socket->writeDatagram(saveRequest.toUtf8(), hostAddress, port);
 }
