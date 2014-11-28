@@ -1,19 +1,64 @@
 import QtQuick 2.0
 import "../ui/UColors.js" as Colors
 
+import "../ui" as UI
+
 Rectangle {
 
     id: container
     clip: true
 
     property variant model: null
+    property string filterText: ""
+
+    Rectangle {
+        id: filters
+
+        color: Colors.uTransparent
+
+        anchors.top: container.top
+        anchors.left: container.left
+        anchors.right: container.right
+
+        height: 35
+
+        UI.UTextbox {
+            id: searchBox
+
+            anchors.left: filters.left
+            anchors.right: filters.right
+
+            anchors.verticalCenter: filters.verticalCenter
+            height: filters.height; width: 2 * (filters.width / 3);
+
+            state: "ENABLED"
+
+            opacity: 1
+
+            placeholderText: "Search"
+
+            iconId: "search"
+            iconSize: 13
+
+            onTextChanged: {
+                filterText = searchBox.text
+            }
+        }
+    }
 
     ListView {
         id: devicesList
 
-        anchors.fill: parent
+        anchors.top: filters.bottom
+        anchors.topMargin: 5
+
+        anchors.bottom: container.bottom
+        anchors.left: container.left
+        anchors.right: container.right
 
         model: parent.model
+
+        clip: true
 
         property variant currentItem: null
 
@@ -36,6 +81,14 @@ Rectangle {
                         main.addToBreadcrumb("device/Device", model.name, 2)
                     }
                 }
+
+                visible: (filterValue(item, filterText))
+            }
+
+            function filterValue(source, filter) {
+                return (filter === ""
+                        || source.name.toLowerCase().indexOf(filter.toLowerCase()) !== -1
+                        || source.description.toLowerCase().indexOf(filter.toLowerCase()) !== -1)
             }
         }
     }

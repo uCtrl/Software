@@ -517,7 +517,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.right: parent.right
 
-            anchors.margins: 20
+            anchors.margins: 10
 
             width: filters.width
         }
