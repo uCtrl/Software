@@ -9,47 +9,8 @@ Rectangle {
     id: container
     property var model: null
 
-    Rectangle {
-        id: buttonContainer
-
-        anchors.top: container.top
-        anchors.left: container.left
-        anchors.right: container.right
-
-        color: Colors.uTransparent
-
-        UI.UButton {
-            property int marginSize: 5
-
-            id: triggerButton
-
-            iconId: "Upload"
-            text: "Send action"
-
-            anchors.centerIn: buttonContainer
-
-            width: 200
-            height: buttonContainer.height - (2 * marginSize)
-
-
-            onClicked: sendAction()
-        }
-
-        width: 150
-        height: 45
-    }
-
     Sensor {
         model: container.model
-
-        anchors.top: buttonContainer.bottom
-        anchors.left: container.left
-        anchors.right: container.right
-        anchors.bottom: container.bottom
-    }
-
-    function sendAction() {
-        model.value = true
-        uCtrlApiFacade.putDevice(devicesList.findObject(model.id))
+        anchors.fill: parent
     }
 }

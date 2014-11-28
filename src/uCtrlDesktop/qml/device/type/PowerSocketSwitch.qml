@@ -10,7 +10,7 @@ Rectangle {
     property var model: null
 
     Rectangle {
-        id: buttonContainer
+        id: switchContainer
 
         anchors.top: container.top
         anchors.left: container.left
@@ -23,11 +23,13 @@ Rectangle {
 
             id: triggerButton
 
-            anchors.centerIn: buttonContainer
+            anchors.centerIn: switchContainer
 
             height: buttonContainer.height - (2 * marginSize); width: 110
 
             state: "ON"
+
+            onStateChanged: sendAction(state === "ON")
         }
 
         height: 45; width: 100
@@ -36,14 +38,16 @@ Rectangle {
     Sensor {
         model: container.model
 
-        anchors.top: buttonContainer.bottom
+        anchors.top: switchContainer.bottom
         anchors.left: container.left
         anchors.right: container.right
         anchors.bottom: container.bottom
+
+        hideButton: true
     }
 
-    function sendAction() {
-        model.value = true
+    function sendAction(newValue) {
+        model.value = newValue
         uCtrlApiFacade.putDevice(devicesList.findObject(model.id))
     }
 }
