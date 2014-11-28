@@ -869,7 +869,7 @@ void UCtrlAPI::postTask(const QString& platformId, const QString& deviceId, cons
 
     QNetworkReply* reply = postRequest(QString("platforms/%1/devices/%2/scenarios/%3/tasks").arg(platformId, deviceId, scenarioId), task);
     reply->setProperty(TaskPtr, (long long)task);
-    connect(reply, SIGNAL(finished()), this, SLOT(postTasksReply()));
+    connect(reply, SIGNAL(finished()), this, SLOT(postTaskReply()));
 }
 
 void UCtrlAPI::postTaskReply()
@@ -1355,6 +1355,7 @@ bool UCtrlAPI::checkServerError(const QJsonObject& jsonObj)
 {
     bool status = jsonObj["status"].toBool();
     if (!status) {
+        QString s = QString(jsonObj["error"].toString());
         emit serverError(QString(jsonObj["error"].toString()));
     }
     return status;

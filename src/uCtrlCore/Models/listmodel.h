@@ -36,12 +36,15 @@ public:
     void appendRows(const QList<ListItem*> &items);
     void insertRow(int row, ListItem* item);
     Q_INVOKABLE bool removeRow(int row, const QModelIndex& index = QModelIndex());
+    Q_INVOKABLE bool removeRowWithId(const QString& id, const QModelIndex& index = QModelIndex());
     bool removeRows(int row, int count, const QModelIndex& index = QModelIndex());
     ListItem* takeRow(int row, const QModelIndex &index = QModelIndex());
     Q_INVOKABLE bool moveRow(int from, int to);
     Q_INVOKABLE bool moveUp(int from);
     Q_INVOKABLE bool moveDown(int from);
-    QList<ListItem*> getItems() { return m_items; }
+    Q_INVOKABLE QList<ListItem*> getItems() { return m_items; }
+
+    Q_INVOKABLE QObject* getRow(int row);
 
     ListItem* find(const QString& itemId) const;
     Q_INVOKABLE QObject* findObject(const QString& itemId) const;

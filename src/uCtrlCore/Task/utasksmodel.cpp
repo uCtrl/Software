@@ -4,6 +4,14 @@ UTasksModel::UTasksModel(QObject* parent) : NestedListModel(new UTask, parent)
 {
 }
 
+QObject* UTasksModel::createNewTask()
+{
+    UTask* newTask = new UTask(this);
+    appendRow(newTask);
+    return newTask;
+}
+
+
 void UTasksModel::write(QJsonObject &jsonObj) const
 {
     QJsonArray tasks;

@@ -11,7 +11,9 @@ Rectangle {
 
     property bool showEditMode: false
 
-    width: parent.width
+    property var parseValue: doNotParseValue
+
+    width: parent !== null ? parent.width : 100
     height: 30
 
     Loader {
@@ -54,6 +56,10 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter
                 sourceComponent: getContentComponent()
             }
+
+            Component.onCompleted: {
+                conditionItemContainer.parseValue = getDateLabel
+            }
         }
     }
 
@@ -90,6 +96,10 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter
                 sourceComponent: getContentComponent()
             }
+
+            Component.onCompleted: {
+                conditionItemContainer.parseValue = getTimeLabel
+            }
         }
     }
 
@@ -116,15 +126,7 @@ Rectangle {
                 anchors.left: dayConditionIcon.right
                 anchors.verticalCenter: parent.verticalCenter
 
-                text: "Day is "
-            }
-
-            Loader {
-                id: conditionContentLoader
-
-                anchors.left: dayConditionText.right
-                anchors.verticalCenter: parent.verticalCenter
-                sourceComponent: getContentComponent()
+                text: getDayLabel(model.beginValue)
             }
         }
     }
@@ -152,7 +154,7 @@ Rectangle {
                 anchors.left: deviceConditionIcon.right
                 anchors.verticalCenter: parent.verticalCenter
 
-                text: "Device with id " + model.deviceId + " is "
+                text: "Device \"" + getDeviceName(model.deviceId) + "\" is "
             }
 
             Loader {
@@ -162,6 +164,10 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter
                 sourceComponent: getContentComponent()
             }
+
+            Component.onCompleted: {
+                conditionItemContainer.parseValue = doNotParseValue
+            }
         }
     }
 
@@ -169,7 +175,7 @@ Rectangle {
         id: gtComponent
 
         ULabel.ConditionLabel {
-            text: "greater than " + model.endValue
+            text: "greater than " + conditionItemContainer.parseValue(model.beginValue)
         }
     }
 
@@ -177,7 +183,7 @@ Rectangle {
         id: ltComponent
 
         ULabel.ConditionLabel {
-            text: "lesser than " + model.beginValue
+            text: "less than " + conditionItemContainer.parseValue(model.endValue)
         }
     }
 
@@ -185,7 +191,7 @@ Rectangle {
         id: equalsComponent
 
         ULabel.ConditionLabel {
-            text: "equal to " + model.beginValue
+            text: "equal to " + conditionItemContainer.parseValue(model.beginValue)
         }
     }
 
@@ -193,7 +199,7 @@ Rectangle {
         id: inBetweenComponent
 
         ULabel.ConditionLabel {
-            text: "between " + model.beginValue + " and " + model.endValue
+            text: "between " + conditionItemContainer.parseValue(model.beginValue) + " and " + conditionItemContainer.parseValue(model.endValue)
         }
     }
 
@@ -201,8 +207,13 @@ Rectangle {
         id: notComponent
 
         ULabel.ConditionLabel {
-            text: "not " + model.beginValue
+            text: "not equal to " + conditionItemContainer.parseValue(model.beginValue)
         }
+    }
+
+    function getDeviceName(deviceId)
+    {
+        return devicesList.findObject(deviceId).name()
     }
 
     function getSourceComponent() {
@@ -231,5 +242,61 @@ Rectangle {
         case UEComparisonType.Not:
             return notComponent;
         }
+    }
+
+    function getTimeLabel(value)
+    {
+        var minute = (value % 3600) / 60
+        var hour = (value - (value % 3600)) / 3600
+
+        return pad(hour, 2) + ":" + pad(minute, 2)
+
+    }
+
+    function pad(num, size) {
+        var s = "000000000" + num;
+        return s.substr(s.length-size);
+    }
+
+    function getDateLabel(value)
+    {
+        return Qt.formatDateTime(new Date(parseInt(value)), "dd-MM-yyyy")
+    }
+
+    function getDayLabel(value)
+    {
+        switch(value)
+        {
+            case "0":
+                return "Never"
+            case "62":
+                return "During the week"
+            case "65":
+                return "During the weekend"
+            case "127":
+                return "Everyday"
+            default:
+                var valueLabels = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+                var valueActive = [value & 1, value & 2, value & 4, value & 8, value & 16, value & 32, value & 64]
+
+                var label = ""
+                for(var i = 0; i < valueActive.length; i++)
+                {
+                    if(valueActive[i])
+                        label += valueLabels[i] + ", "
+                }
+                label = label.substring(0, label.length - 2)
+                var lastCommaSpace = label.lastIndexOf(", ")
+
+                if(lastCommaSpace === -1)
+                    return label
+                else
+                    return label.substring(0, lastCommaSpace) + " and " + label.substring(lastCommaSpace + 2, label.length)
+        }
+    }
+
+    function doNotParseValue(value)
+    {
+        return value
     }
 }

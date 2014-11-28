@@ -14,6 +14,9 @@ public:
     // JsonSerializable
     void write(QJsonObject &jsonObj) const;
     void read(const QJsonObject &jsonObj);
+
+signals:
+    void statsReceived();
 };
 
 #endif // USTATISTICSMODEL_H

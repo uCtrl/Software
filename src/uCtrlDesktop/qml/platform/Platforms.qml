@@ -39,7 +39,7 @@ Rectangle {
             anchors.left: filters.left
             anchors.leftMargin: 0
 
-            anchors.right: filterCombo.left
+            anchors.right: filters.right
             anchors.rightMargin: 5
 
             anchors.verticalCenter: filters.verticalCenter
@@ -59,20 +59,6 @@ Rectangle {
             onTextChanged: {
                 filterText = searchBox.text
             }
-        }
-
-        UI.UCombobox {
-            id: filterCombo
-
-            itemListModel: sections
-
-            anchors.left: searchBox.right
-            anchors.leftMargin: 5
-
-            anchors.right: filters.right
-
-            height: searchBox.height;
-            Component.onCompleted: selectItem(0)
         }
     }
 
@@ -130,7 +116,7 @@ Rectangle {
 
                     item: model
 
-                    visible: (filterValue(name, filterText))
+                    visible: (filterValue(item, filterText))
 
                     MouseArea {
                         id: mouseArea
@@ -152,9 +138,11 @@ Rectangle {
                 function addToBreadCrumb(){
                     main.addToBreadCrumb("platform/Platforms", model.name)
                 }
+
                 function filterValue(source, filter) {
-                    if (filter === "") return true
-                    else return source.toLowerCase().indexOf(filter.toLowerCase()) !== -1
+                    return (filter === ""
+                            || source.name.toLowerCase().indexOf(filter.toLowerCase()) !== -1
+                            || source.room.toLowerCase().indexOf(filter.toLowerCase()) !== -1)
                 }
             }
 
@@ -164,7 +152,6 @@ Rectangle {
                 id: header
 
                 property bool showChildren: true
-
                 width: parent.width; height: 20;
 
                 color: Colors.uGreen

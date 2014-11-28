@@ -34,3 +34,10 @@ void UConditionsModel::read(const QJsonObject &jsonObj)
         }
     }
 }
+
+QObject* UConditionsModel::createNewCondition()
+{
+    UCondition* newCondition = new UCondition(this);
+    appendRow(newCondition);
+    return newCondition;
+}

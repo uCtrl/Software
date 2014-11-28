@@ -27,7 +27,6 @@ Rectangle
     property bool showEditMode: false
 
     onModelChanged: {
-        uCtrlApiFacade.getDeviceAllStats(devicesList.findObject(model.id));
         uCtrlApiFacade.getDeviceHistory(devicesList.findObject(model.id));
         showEditMode = false
     }
@@ -733,9 +732,9 @@ Rectangle
 
                         visible: false
 
-                        function editTask(tasks, conditions)
+                        function editTask(task, conditions)
                         {
-                            taskModel = tasks
+                            taskModel = task
                             conditionModel = conditions
                             visible = true
                         }

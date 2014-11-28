@@ -30,14 +30,17 @@ public:
     // JsonSerializable
     void write(QJsonObject &jsonObj) const;
     void read(const QJsonObject &jsonObj);
+    void readTasks(const QJsonObject &jsonObj);
 
     // Properties
-    QString name() const;
+    Q_INVOKABLE QString name() const;
     Q_INVOKABLE void name(const QString& name);
+
+    Q_INVOKABLE QObject* tasks() { return m_tasks; }
 
 private:
     QString m_name;
-    NestedListModel* m_tasks;
+    ListModel* m_tasks;
 };
 
 #endif // USCENARIO_H

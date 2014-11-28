@@ -74,7 +74,7 @@ void UScenario::write(QJsonObject &jsonObj) const
 
     QJsonObject tasks;
     m_tasks->write(tasks);
-    jsonObj["tasks"] = tasks;
+    jsonObj["tasks"] = tasks["tasks"];
 }
 
 void UScenario::read(const QJsonObject &jsonObj)
@@ -84,6 +84,11 @@ void UScenario::read(const QJsonObject &jsonObj)
     this->enabled(jsonObj["enabled"].toBool());
     this->lastUpdated(jsonObj["lastUpdated"].toString().toDouble());
 
+    readTasks(jsonObj);
+}
+
+void UScenario::readTasks(const QJsonObject &jsonObj)
+{
     m_tasks->read(jsonObj);
 }
 

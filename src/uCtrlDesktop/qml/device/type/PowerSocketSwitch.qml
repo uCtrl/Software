@@ -34,7 +34,7 @@ Rectangle {
     }
 
     Sensor {
-        property var model: container.model
+        model: container.model
 
         anchors.top: buttonContainer.bottom
         anchors.left: container.left

@@ -52,6 +52,7 @@ public:
         Temperature = 31,
         NinjasEyes = 1007,
         LimitlessLEDWhite = 1012,
+        DoorSensor = 9990,
     };
 
     explicit UDevice(QObject *parent = 0);
@@ -66,36 +67,37 @@ public:
     // JsonSerializable
     void write(QJsonObject &jsonObj) const;
     void read(const QJsonObject &jsonObj);
+    void readScenarios(const QJsonObject &jsonObj);
 
     // Properties
-    QString name() const;
-    void name(const QString& name);
-    UEType type() const;
-    void type(UEType type);
-    QString description() const;
-    void description(const QString& description);
-    QString maxValue() const;
-    void maxValue(const QString& maxValue);
-    QString minValue() const;
-    void minValue(const QString& minValue);
-    QString value() const;
-    void value(const QString& value);
-    QString minStat() const;
-    void minStat(const QString& minStat);
-    QString maxStat() const;
-    void maxStat(const QString& maxStat);
-    QString meanStat() const;
-    void meanStat(const QString& meanStat);
-    QString countStat() const;
-    void countStat(const QString& countStat);
-    int precision() const;
-    void precision(int precision);
-    UEStatus status() const;
-    void status(UEStatus status);
-    QString unitLabel() const;
-    void unitLabel(const QString& unitLabel);
-    QString deviceModel() const;
-    void deviceModel(const QString& deviceModel);
+    Q_INVOKABLE QString name() const;
+    Q_INVOKABLE void name(const QString& name);
+    Q_INVOKABLE UEType type() const;
+    Q_INVOKABLE void type(UEType type);
+    Q_INVOKABLE QString description() const;
+    Q_INVOKABLE void description(const QString& description);
+    Q_INVOKABLE QString maxValue() const;
+    Q_INVOKABLE void maxValue(const QString& maxValue);
+    Q_INVOKABLE QString minValue() const;
+    Q_INVOKABLE void minValue(const QString& minValue);
+    Q_INVOKABLE QString value() const;
+    Q_INVOKABLE void value(const QString& value);
+    Q_INVOKABLE QString minStat() const;
+    Q_INVOKABLE void minStat(const QString& minStat);
+    Q_INVOKABLE QString maxStat() const;
+    Q_INVOKABLE void maxStat(const QString& maxStat);
+    Q_INVOKABLE QString meanStat() const;
+    Q_INVOKABLE void meanStat(const QString& meanStat);
+    Q_INVOKABLE QString countStat() const;
+    Q_INVOKABLE void countStat(const QString& countStat);
+    Q_INVOKABLE int precision() const;
+    Q_INVOKABLE void precision(int precision);
+    Q_INVOKABLE UEStatus status() const;
+    Q_INVOKABLE void status(UEStatus status);
+    Q_INVOKABLE QString unitLabel() const;
+    Q_INVOKABLE void unitLabel(const QString& unitLabel);
+    Q_INVOKABLE QString deviceModel() const;
+    Q_INVOKABLE void deviceModel(const QString& deviceModel);
 
     ListModel* history() const;
     ListModel* statistics() const;

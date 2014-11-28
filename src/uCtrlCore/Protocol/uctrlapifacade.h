@@ -2,6 +2,7 @@
 #define UCTRLAPIFACADE_H
 
 #include "uctrlapi.h"
+#include "uctrllocalapi.h"
 #include "Device/udevicesmodel.h"
 
 class UCtrlAPIFacade : public QObject
@@ -72,6 +73,7 @@ public:
 
 private:
     UCtrlAPI m_uCtrlApi;
+    UCtrlLocalApi m_uCtrlLocalApi;
 
     void resolveIds(QString& platformId, QString& deviceId, QString& scenarioId, QString& taskId, UCondition* condition);
     void resolveIds(QString& platformId, QString& deviceId, QString& scenarioId, UTask* task);
