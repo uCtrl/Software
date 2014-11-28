@@ -11,47 +11,6 @@ Rectangle {
     property variant model: null
     property string filterText: ""
 
-    /*Rectangle {
-        id: filters
-
-        anchors.top: parent.top
-        anchors.left: parent.left
-        anchors.margins: parent.marginSize
-
-        height: 35
-        width: (parent.width/2) - parent.marginSize
-
-        color: Colors.uTransparent
-
-        z: 2
-
-        UI.UTextbox {
-            id: searchBox
-
-            anchors.left: filters.left
-            anchors.leftMargin: 0
-
-            anchors.right: filters.right
-
-            anchors.verticalCenter: filters.verticalCenter
-
-            height: filters.height; width: 2 * (filters.width / 3);
-
-            state: "ENABLED"
-
-            opacity: 0.75
-
-            placeholderText: "Search"
-
-            iconId: "search"
-            iconSize: 13
-
-            onTextChanged: {
-                filterText = searchBox.text
-            }
-        }
-    }*/
-
     Rectangle {
         id: filters
 
