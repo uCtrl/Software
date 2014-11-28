@@ -785,6 +785,8 @@ Rectangle
         model.name = nameTextbox.text
         model.isEnabled = (enabledSwitch.state === "ON")
         uCtrlApiFacade.putDevice(devicesList.findObject(model.id))
+
+        main.addToBreadcrumb("device/Device", model.name, 2)
     }
 
     function getHistory() {

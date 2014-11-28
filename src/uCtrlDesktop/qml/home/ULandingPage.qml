@@ -88,7 +88,10 @@ Rectangle {
                 height: parent.height
 
                 onClicked: {
-                    main.changePageFromHome("platform/Platforms")
+                    var page = main.searchPages("platform/Platforms")
+
+                    main.currentPage = page.file
+                    main.addToBreadcrumb(page.file, page.text, 1)
                 }
             }
         }
@@ -125,7 +128,10 @@ Rectangle {
                 height: parent.height
 
                 onClicked: {
-                    main.changePageFromHome("settings/Settings")
+                    var page = main.searchPages("settings/Settings")
+
+                    main.currentPage = page.file
+                    main.addToBreadcrumb(page.file, page.text, 1)
                 }
             }
         }

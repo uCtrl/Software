@@ -51,8 +51,10 @@ Rectangle {
 
                     onClicked: {
                         main.currentPage = modelData.file;
-
-                        main.addToBreadcrumb(modelData.file, modelData.text, 0)
+                        if(modelData.file === "home/ULandingPage")
+                            main.addToBreadcrumb(modelData.file, modelData.text, 0)
+                        else
+                            main.addToBreadcrumb(modelData.file, modelData.text, 1)
                     }
                 }
 

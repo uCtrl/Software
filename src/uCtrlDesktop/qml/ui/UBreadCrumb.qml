@@ -13,39 +13,56 @@ Rectangle {
     id: breadcrumbContainer
 
     property variant breadcrumbModel: []
-
-    color: Colors.uTransparent
     width: 600
     height: parent.height
 
-    Rectangle{
-        id: platforms
+    color: Colors.uTransparent
+
+    Rectangle
+    {
+        width: breadcrumbListView.width
+        height: parent.height
+
+        anchors.right: parent.right
 
         color: Colors.uTransparent
-        height: breadcrumbContainer.height
-        anchors.right: breadcrumbContainer.right
-        anchors.verticalCenter: breadcrumbContainer.verticalCenter
-
         ListView
         {
+            id: breadcrumbListView
             orientation: ListView.Horizontal
-            model: breadcrumbModel
+            model: breadcrumbContainer.breadcrumbModel
+            height: parent.height
+            width: 0
+
+            anchors.right: parent.right
 
             delegate: Rectangle
             {
-                width: link.width + iconChevron.width + 20
-                height: platforms.height
+                width: link.width + iconChevron.width + (iconChevron.visible ? 20 : 0)
+                height: parent.height
+
+                color: Colors.uTransparent
+
+                Component.onCompleted: {
+                    breadcrumbListView.width += width
+                }
+
                 ULabel.Link
                 {
                     id: link
                     font.pointSize: 14
                     color: Colors.uWhite
 
-                    text: model.name
+                    anchors.verticalCenter: parent.verticalCenter
+
+                    text: breadcrumbModel[index].name
 
                     onHyperLinkClicked: {
-                        main.currentPage = model.path
-                        resetBreadcrumb(index)
+                        if(index !== breadcrumbModel.length - 1)
+                        {
+                            main.currentPage = breadcrumbModel[index].path
+                            addToBreadcrumb(breadcrumbModel[index].path, breadcrumbModel[index].name, index)
+                        }
                     }
                 }
 
@@ -58,27 +75,29 @@ Rectangle {
                     anchors.left: link.right
                     anchors.leftMargin: 10
                     anchors.verticalCenter: parent.verticalCenter
-                    visible: breadcrumbModelDevicesName !== ""
+                    visible: index !== breadcrumbContainer.breadcrumbModel.length - 1
                 }
             }
         }
     }
-
     function addToBreadcrumb(pagePath, pageName, level)
     {
-        resetBreadCrumb(level)
-        breadcrumbModel[level] = { path: pagePath, name: pageName }
-    }
+        if(breadcrumbModel.length > 0 && breadcrumbModel[breadcrumbModel.length-1].path === pagePath &&
+                                         breadcrumbModel[breadcrumbModel.length-1].name === pageName &&
+                                         breadcrumbModel.length-1 === level)
+            return
 
-    function resetBreadCrumb(level)
-    {
-         var newBreadCrumbModel = []
+        breadcrumbListView.width = 0
 
-        for(var i = 0; i <= level || i; i++)
+        var newModel = []
+
+        for(var i = 0; i <= level && i < breadcrumbContainer.breadcrumbModel.length; i++)
         {
-            newBreadCrumbModel[i] = { path: breadcrumbModel[i].path, name: breadcrumbModel[i].name }
+            newModel[i] = { path: breadcrumbContainer.breadcrumbModel[i].path, name: breadcrumbContainer.breadcrumbModel[i].name }
         }
-        breadcrumbModel = newBreadCrumbModel
+
+        newModel[level] =  { path: pagePath, name: pageName }
+        breadcrumbContainer.breadcrumbModel = newModel
     }
 }
 

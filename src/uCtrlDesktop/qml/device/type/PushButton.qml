@@ -28,12 +28,15 @@ Rectangle {
 
             anchors.centerIn: buttonContainer
 
-            height: buttonContainer.height - (2 * marginSize); width: 110
+            width: 200
+            height: buttonContainer.height - (2 * marginSize)
+
 
             onClicked: sendAction()
         }
 
-        height: 45; width: 100
+        width: 150
+        height: 45
     }
 
     Sensor {

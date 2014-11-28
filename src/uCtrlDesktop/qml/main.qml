@@ -25,6 +25,17 @@ Rectangle {
         {file: "settings/Settings", icon: "cog2", text: "Settings", showInNavBar: true}
     ];
 
+    function searchPages(pagePath)
+    {
+        for(var i = 0; i < pages.length; i++)
+        {
+            if(pages[i].file === pagePath)
+                return pages[i]
+        }
+
+        return null
+    }
+
     property variant activeDevice: null
     property variant devicesList: null
 
@@ -59,6 +70,13 @@ Rectangle {
     }
 
     property string currentPage: "home/ULandingPage";
+
+    Component.onCompleted:
+    {
+        console.log("FKOSOJFKLSDJLKJDAK")
+        var homePage = searchPages("home/ULandingPage")
+        addToBreadcrumb(homePage.file, homePage.text, 0)
+    }
 
 
     Repeater {
