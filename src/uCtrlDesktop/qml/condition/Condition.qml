@@ -213,7 +213,8 @@ Rectangle {
 
     function getDeviceName(deviceId)
     {
-        return devicesList.findObject(deviceId).name()
+        if (devicesList.findObject(deviceId) !== null) return devicesList.findObject(deviceId).name()
+        else return ""
     }
 
     function getSourceComponent() {
