@@ -29,7 +29,7 @@ void UNinjaAPI::sendData(const QString& deviceId, const QString& data)
     dataToSend = dataToSend.append("\" }");
 
     QByteArray bytes = dataToSend.toUtf8();
-    QNetworkReply* reply = m_manager->put(request, bytes);
+    m_manager->put(request, bytes);
 }
 
 void  UNinjaAPI::replyFinished(QNetworkReply* reply)

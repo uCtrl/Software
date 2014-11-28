@@ -13,7 +13,6 @@ public:
     UTurnOnOffLightIntent(UCtrlAPIFacade* uCtrlApiFacade, bool turnOn);
 
     void turnOnOffAllLights();
-    void turnOnOffLightWithId(long id);
     void turnOnOffLightsInLocation(QString locationName);
 };
 

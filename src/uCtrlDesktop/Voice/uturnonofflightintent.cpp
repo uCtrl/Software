@@ -27,11 +27,6 @@ void UTurnOnOffLightIntent::turnOnOffAllLights()
     }
 }
 
-void UTurnOnOffLightIntent::turnOnOffLightWithId(long id)
-{
-
-}
-
 void UTurnOnOffLightIntent::turnOnOffLightsInLocation(QString locationName)
 {
     QList<UDevice*> devicesInLocation = m_uCtrlApiFacade->getPlatformsModel()->findDevicesByLocation(locationName);

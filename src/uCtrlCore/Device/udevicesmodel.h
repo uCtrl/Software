@@ -20,6 +20,7 @@ public:
 
     QList<UDevice*> findDevicesByType(UDevice::UEType deviceType);
     QList<UDevice*> findDevicesByName(const QString& deviceName);
+    QList<UDevice*> findDevicesByTypeAndName(UDevice::UEType deviceType, const QString& deviceName);
 };
 
 #endif // UDEVICESMODEL_H
