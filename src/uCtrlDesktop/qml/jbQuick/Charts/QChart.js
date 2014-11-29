@@ -1299,28 +1299,15 @@ var Chart = function(canvas, context) {
     }
 
     function calculateScale(drawingHeight,maxSteps,minSteps,maxValue,minValue,labelTemplateString) {
-
-        var graphMin,graphMax,graphRange,stepValue,numberOfSteps,valueRange,rangeOrderOfMagnitude,decimalNum;
+        var valueRange, stepValue, graphMin, numberOfSteps
+        var labels = [];
 
         valueRange = maxValue - minValue;
-        rangeOrderOfMagnitude = calculateOrderOfMagnitude(valueRange);
-        graphMin = Math.floor(minValue / (1 * Math.pow(10, rangeOrderOfMagnitude))) * Math.pow(10, rangeOrderOfMagnitude);
-        graphMax = Math.ceil(maxValue / (1 * Math.pow(10, rangeOrderOfMagnitude))) * Math.pow(10, rangeOrderOfMagnitude);
-        graphRange = graphMax - graphMin;
-        stepValue = Math.pow(10, rangeOrderOfMagnitude);
-        numberOfSteps = Math.round(graphRange / stepValue);
+        stepValue = calculateStepValue(valueRange)
 
-        while(numberOfSteps < minSteps || numberOfSteps > maxSteps) {
-            if (numberOfSteps < minSteps) {
-                stepValue /= 2;
-                numberOfSteps = Math.round(graphRange/stepValue);
-            } else{
-                stepValue *=2;
-                numberOfSteps = Math.round(graphRange/stepValue);
-            }
-        };
+        graphMin = Math.floor(minValue) - (Math.floor(minValue) % 5)
 
-        var labels = [];
+        numberOfSteps = Math.round((maxValue - graphMin) / stepValue) + 1
 
         populateLabels(labelTemplateString, labels, numberOfSteps, graphMin, stepValue);
 
@@ -1330,13 +1317,32 @@ var Chart = function(canvas, context) {
             graphMin: graphMin,
             labels: labels
         }
+    }
 
-        function calculateOrderOfMagnitude(val) {
-            return Math.floor(Math.log(val) / Math.LN10);
-        }
+    function calculateStepValue(range)
+    {
+        if(range <= 1)
+            return 0.1
+        if(range <= 10)
+            return 1
+        if(range <= 20)
+            return 2
+        if(range <= 50)
+            return 5
+        if(range <= 100)
+            return 10
+        if(range <= 200)
+            return 20
+        if(range <= 500)
+            return 50
+        if(range <= 1000)
+            return 100
+        else
+            return 1000
     }
 
     function populateLabels(labelTemplateString, labels, numberOfSteps, graphMin, stepValue) {
+
         if (labelTemplateString) {
             for (var i = 1; i < numberOfSteps + 1; i++) {
                 labels.push(tmpl(labelTemplateString, {value: (graphMin + (stepValue * i)).toFixed(getDecimalPlaces(stepValue))}));
