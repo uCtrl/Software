@@ -1314,13 +1314,9 @@ var Chart = function(canvas, context) {
             minValue = 0;
         }
 
-        valueRange = maxValue - minValue;
-        stepValue = calculateStepValue(valueRange)
 
-        if(maxValue > 5)
-            graphMin = Math.floor(minValue) - (Math.floor(minValue) % 5)
-        else
-            graphMin = Math.floor(minValue)
+        graphMin = Math.floor(minValue)
+        stepValue = calculateStepValue(maxValue - graphMin)
 
         numberOfSteps = Math.round((maxValue - graphMin) / stepValue)
 
@@ -1341,20 +1337,16 @@ var Chart = function(canvas, context) {
     {
         if(range <= 1)
             return 0.1
+        else if(range <= 3)
+            return 0.25
+        else if(range <= 5)
+            return 0.5
         else if(range <= 10)
             return 1
         else if(range <= 20)
             return 2
         else if(range <= 50)
             return 5
-        else if(range <= 100)
-            return 10
-        else if(range <= 200)
-            return 20
-        else if(range <= 500)
-            return 50
-        else if(range <= 1000)
-            return 100
         else
             return Math.round(range * 0.01) * 10
     }
