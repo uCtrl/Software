@@ -14,8 +14,8 @@ int UUniqueIdGenerator::generateUniqueId()
     struct tm * now = localtime( & t );
 
     int         uniqueId = 0;
-                uniqueId += now->tm_mon * 1000000000;
-                uniqueId += now->tm_mday * 10000000;
+                uniqueId += now->tm_mon * 100000000;
+                uniqueId += now->tm_mday * 1000000;
                 uniqueId += now->tm_hour * now->tm_min * now->tm_sec * 10;
                 uniqueId += idEnd;
 
