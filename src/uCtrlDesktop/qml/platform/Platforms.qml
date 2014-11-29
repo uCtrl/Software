@@ -12,13 +12,6 @@ Rectangle {
     property string section: "room";
     property string filterText: ""
 
-    property variant sections: [
-        { value: "room",     displayedValue: "Location",     iconId: "location"},
-        { value: "lastUpdate",   displayedValue: "Last Updated", iconId: "clock"},
-        { value: "status",   displayedValue: "Status",       iconId: "switch"},
-        { value: "type",     displayedValue: "Device type",  iconId: "spinner3"}
-   ]
-
     Rectangle {
         id: filters
 
@@ -71,105 +64,119 @@ Rectangle {
         anchors.margins: parent.marginSize
 
         width: filters.width
-        clip: true
 
         color: Colors.uWhite
 
-        ListView {
-            id: platforms
+        Rectangle
+        {
+            width: parent.width - 20
+            height: parent.height - 20
+            anchors.centerIn: parent
+            clip: true
 
-            anchors.fill: parent
+            color: Colors.uTransparent
 
-            model: platformsModel
+            ListView {
+                id: platforms
 
-            highlight: Rectangle {
-                id: highlighter
+                anchors.fill: parent
 
-                width: parent.width
-                height: parent.height
+                model: platformsModel
 
-                color: Colors.uMediumLightGrey
-                opacity: 0.6
+                Component.onCompleted: {
+                    resetSelection()
+                    main.pageChanged.connect(checkIfResetSelection)
+                }
 
-                visible: (platformInfo.model !== null)
+                function checkIfResetSelection(level)
+                {
+                    if(level === 0)
+                        resetSelection()
+                }
 
-                z: 2
+                function resetSelection()
+                {
+                    currentIndex = -1
 
-                y: (platforms.currentIndex === null ? -1 : (platforms.currentIndex * (height + 20)) + 20);
-                Behavior on y { SpringAnimation { spring: 5; damping: 0.1; mass: 0.3 } }
-            }
+                    platformInfo.showEditMode = false
+                    platformInfo.model = null
+                    platforms.currentIndex = -1
+                }
 
-            delegate: Column {
-                id: column
-
-                width: parent.width
-
-                PlatformListItem {
-                    id: itemContainer
+                delegate: Column {
+                    id: column
 
                     width: parent.width
-                    height: 60
 
-                    item: model
+                    PlatformListItem {
+                        id: itemContainer
 
-                    visible: (filterValue(item, filterText))
+                        width: parent.width
+                        height: 60
 
-                    MouseArea {
-                        id: mouseArea
+                        item: model
 
-                        anchors.fill: parent
-                        hoverEnabled: true
+                        visible: (filterValue(item, filterText))
 
-                        onClicked: {
-                            platformInfo.showEditMode = false
-                            platformInfo.model = model
-                            platforms.currentIndex = index
-                            main.addToBreadcrumb("platform/Platforms", model.name, 1)
+                        isSelected: platforms.currentIndex === index
+
+                        MouseArea {
+                            id: mouseArea
+
+                            anchors.fill: parent
+                            hoverEnabled: true
+
+                            onClicked: {
+                                platformInfo.showEditMode = false
+                                platformInfo.model = model
+                                platforms.currentIndex = index
+                                main.addToBreadcrumb("platform/Platforms", model.name, 1)
+                            }
                         }
+
+
                     }
 
-
+                    function filterValue(source, filter) {
+                        return (filter === ""
+                                || source.name.toLowerCase().indexOf(filter.toLowerCase()) !== -1
+                                || source.room.toLowerCase().indexOf(filter.toLowerCase()) !== -1)
+                    }
                 }
 
-                function filterValue(source, filter) {
-                    return (filter === ""
-                            || source.name.toLowerCase().indexOf(filter.toLowerCase()) !== -1
-                            || source.room.toLowerCase().indexOf(filter.toLowerCase()) !== -1)
-                }
-            }
+                section.property: platformsList.section
+                section.criteria: ViewSection.FullString
+                section.delegate: Rectangle {
+                    id: header
 
-            section.property: platformsList.section
-            section.criteria: ViewSection.FullString
-            section.delegate: Rectangle {
-                id: header
+                    property bool showChildren: true
+                    width: parent.width; height: 20;
 
-                property bool showChildren: true
-                width: parent.width; height: 20;
+                    color: Colors.uGreen
 
-                color: Colors.uGreen
+                    Text {
+                        id: headerText
 
-                Text {
-                    id: headerText
+                        font.family: "Lato"
+                        font.pointSize: 10
+                        font.bold: true
 
-                    font.family: "Lato"
-                    font.pointSize: 10
-                    font.bold: true
+                        text: section
+                        color: Colors.uWhite
 
-                    text: section
-                    color: Colors.uWhite
+                        anchors.left: parent.left
+                        anchors.leftMargin: 5
 
-                    anchors.left: parent.left
-                    anchors.leftMargin: 5
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
 
-                    anchors.verticalCenter: parent.verticalCenter
-                }
+                    MouseArea {
+                        id: headerArea
 
-                MouseArea {
-                    id: headerArea
+                        anchors.fill: parent
 
-                    anchors.fill: parent
-
-                    onClicked: header.showChildren = !header.showChildren
+                        onClicked: header.showChildren = !header.showChildren
+                    }
                 }
             }
         }
