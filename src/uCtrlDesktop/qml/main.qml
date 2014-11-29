@@ -26,7 +26,7 @@ Rectangle {
         {file: "settings/Settings", icon: "cog2", text: "Settings", showInNavBar: true}
     ];
 
-    signal pageChanged(var level)
+    signal pageChanged(var path, var level)
 
     function searchPages(pagePath)
     {
@@ -113,7 +113,7 @@ Rectangle {
     }
 
     function addToBreadcrumb(pagePath, pageName, level) {
-        pageChanged(level)
+        pageChanged(pagePath, level)
 
         titlebar.addToBreadcrumb(pagePath, pageName, level)
     }

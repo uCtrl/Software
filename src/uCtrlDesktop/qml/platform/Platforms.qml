@@ -88,9 +88,11 @@ Rectangle {
                     main.pageChanged.connect(checkIfResetSelection)
                 }
 
-                function checkIfResetSelection(level)
+                function checkIfResetSelection(path, level)
                 {
                     if(level === 0)
+                        resetSelection()
+                    if(level === 1 && path !== "platform/Platforms")
                         resetSelection()
                 }
 
