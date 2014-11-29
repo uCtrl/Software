@@ -1319,7 +1319,10 @@ var Chart = function(canvas, context) {
 
         graphMin = Math.floor(minValue) - (Math.floor(minValue) % 5)
 
-        numberOfSteps = Math.round((maxValue - graphMin) / stepValue) + 1
+        numberOfSteps = Math.round((maxValue - graphMin) / stepValue)
+
+        if(maxValue > (graphMin + numberOfSteps * stepValue))
+            numberOfSteps++
 
         populateLabels(labelTemplateString, labels, numberOfSteps, graphMin, stepValue);
 
@@ -1350,7 +1353,7 @@ var Chart = function(canvas, context) {
         if(range <= 1000)
             return 100
         else
-            return 1000
+            return Math.round(range * 0.01) * 10
     }
 
     function populateLabels(labelTemplateString, labels, numberOfSteps, graphMin, stepValue) {
