@@ -26,5 +26,12 @@ void UHistoryLogModel::read(const QJsonObject &jsonObj)
         this->appendRow(s);
     }
 
-    emit logsReceived();
+    if (m_onReceivedCallback.isCallable()) {
+        m_onReceivedCallback.call();
+    }
+}
+
+void UHistoryLogModel::setOnReceivedCallback(const QJSValue& callback)
+{
+    m_onReceivedCallback = callback;
 }

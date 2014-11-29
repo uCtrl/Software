@@ -243,8 +243,15 @@ Rectangle {
     }
 
     onModelChanged: {
-        container.statsModel = devicesList.getStatisticsWithId(model.id);
-        container.statsModel.setOnReceivedCallback(getDeviceValueStats);
+        if (model) {
+            container.statsModel = devicesList.getStatisticsWithId(model.id);
+        }
+    }
+
+    onStatsModelChanged: {
+        if (container.statsModel) {
+            container.statsModel.setOnReceivedCallback(getDeviceValueStats);
+        }
     }
 
     function getLastUpdatedText() {

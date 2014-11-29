@@ -421,12 +421,19 @@ Rectangle {
     }
 
     onModelChanged: {
-        uCtrlApiFacade.getDeviceAllStats(devicesList.findObject(model.id),
-                                         {"from": new Date().setMinutes(0, 0).toString(),
-                                          "to": new Date().getTime().toString()});
+        if (model) {
+            uCtrlApiFacade.getDeviceAllStats(devicesList.findObject(model.id),
+                                             {"from": new Date().setMinutes(0, 0).toString(),
+                                              "to": new Date().getTime().toString()});
 
-        container.statsModel = devicesList.getStatisticsWithId(model.id);
-        container.statsModel.setOnReceivedCallback(getDeviceValueStats);
+            container.statsModel = devicesList.getStatisticsWithId(model.id);
+        }
+    }
+
+    onStatsModelChanged: {
+        if (container.statsModel) {
+            container.statsModel.setOnReceivedCallback(getDeviceValueStats);
+        }
     }
 
     function getDeviceEnabled() {

@@ -697,13 +697,17 @@ Rectangle
                         id: taskEditor
 
                         visible: false
-                        deviceType: model.type
+                        deviceType: getDeviceType()
 
                         function editTask(task, conditions)
                         {
                             taskModel = task
                             conditionModel = conditions
                             visible = true
+                        }
+
+                        function getDeviceType() {
+                            return model ? model.type : 0
                         }
                     }
                 }
@@ -791,6 +795,9 @@ Rectangle
 
     function isDeviceScenarioConfigurable()
     {
+        if(!model)
+            return false;
+
         switch(model.type) {
             case UEType.PowerSocketSwitch:
             case UEType.NinjasEyes:
