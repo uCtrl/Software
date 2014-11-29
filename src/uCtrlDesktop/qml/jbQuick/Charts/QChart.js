@@ -1123,7 +1123,7 @@ var Chart = function(canvas, context) {
                     var barOffset = yAxisPosX + config.barValueSpacing + valueHop*j + barWidth*i + config.barDatasetSpacing*i + config.barStrokeWidth*i;
 
                     if (data.labels.length === 1) {
-                        barOffset = ((xAxisLength - yAxisPosX)/2) + 2.5;
+                        barOffset = ((xAxisLength)/2) - (barWidth/2) + yAxisPosX;
                     }
 
                     ctx.beginPath();
