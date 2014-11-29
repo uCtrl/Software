@@ -8,6 +8,7 @@ Rectangle {
     property int boundedWidth: 40
     property int boundedTextSize: 14
     property string boundedColor: Colors.uGreen
+    property string boundedTextColor: Colors.uWhite
 
     color: boundedColor
     width: Math.round(label.width + boundedWidth)
@@ -28,7 +29,7 @@ Rectangle {
         text: container.text
         font.pointSize: boundedTextSize
         font.bold: true
-        color: Colors.uWhite
+        color: boundedTextColor
         anchors.centerIn: parent
         verticalAlignment: Text.AlignVCenter
     }
