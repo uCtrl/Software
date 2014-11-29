@@ -175,7 +175,7 @@ Rectangle {
         id: gtComponent
 
         ULabel.ConditionLabel {
-            text: "greater than " + conditionItemContainer.parseValue(model.beginValue)
+            text: "greater than " + convertToReadableValues(conditionItemContainer.parseValue(model.beginValue))
         }
     }
 
@@ -183,7 +183,7 @@ Rectangle {
         id: ltComponent
 
         ULabel.ConditionLabel {
-            text: "less than " + conditionItemContainer.parseValue(model.endValue)
+            text: "less than " + convertToReadableValues(conditionItemContainer.parseValue(model.endValue))
         }
     }
 
@@ -191,7 +191,7 @@ Rectangle {
         id: equalsComponent
 
         ULabel.ConditionLabel {
-            text: "equal to " + conditionItemContainer.parseValue(model.beginValue)
+            text: "equal to " + convertToReadableValues(conditionItemContainer.parseValue(model.beginValue))
         }
     }
 
@@ -199,7 +199,7 @@ Rectangle {
         id: inBetweenComponent
 
         ULabel.ConditionLabel {
-            text: "between " + conditionItemContainer.parseValue(model.beginValue) + " and " + conditionItemContainer.parseValue(model.endValue)
+            text: "between " + convertToReadableValues(conditionItemContainer.parseValue(model.beginValue)) + " and " + convertToReadableValues(conditionItemContainer.parseValue(model.endValue))
         }
     }
 
@@ -207,7 +207,7 @@ Rectangle {
         id: notComponent
 
         ULabel.ConditionLabel {
-            text: "not equal to " + conditionItemContainer.parseValue(model.beginValue)
+            text: "not equal to " + convertToReadableValues(conditionItemContainer.parseValue(model.beginValue))
         }
     }
 
@@ -299,5 +299,10 @@ Rectangle {
     function doNotParseValue(value)
     {
         return value
+    }
+
+    function convertToReadableValues(value)
+    {
+        return value.replace("true", "ON").replace("false", "OFF")
     }
 }

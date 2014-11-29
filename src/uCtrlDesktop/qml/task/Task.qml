@@ -59,7 +59,7 @@ Column {
             ULabel.UInfoBoundedLabel {
                 id: valueLabel
 
-                text: getValue() + getUnitLabel()
+                text: getValue().replace("true", "ON").replace("false", "OFF") + getUnitLabel()
             }
         }
 

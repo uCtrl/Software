@@ -6,7 +6,7 @@ import "../../ui/UColors.js" as Colors
 Rectangle {
     id: container
 
-    color: "red"
+    color: Colors.uTransparent
 
     property var model
     UI.USwitch {

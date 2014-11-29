@@ -1339,7 +1339,6 @@ var Chart = function(canvas, context) {
 
     function calculateStepValue(range)
     {
-        console.log("range: " + range)
         if(range <= 1)
             return 0.1
         else if(range <= 10)
