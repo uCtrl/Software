@@ -108,5 +108,6 @@
         <file>qml/task/type/Slider.qml</file>
         <file>qml/task/type/Text.qml</file>
         <file>qml/task/type/Button.qml</file>
+        <file>qml/device/type/GraphHelper.js</file>
     </qresource>
 </RCC>
