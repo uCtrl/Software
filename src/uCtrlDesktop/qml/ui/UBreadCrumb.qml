@@ -61,7 +61,7 @@ Rectangle {
                         if(index !== breadcrumbModel.length - 1)
                         {
                             main.currentPage = breadcrumbModel[index].path
-                            addToBreadcrumb(breadcrumbModel[index].path, breadcrumbModel[index].name, index)
+                            main.addToBreadcrumb(breadcrumbModel[index].path, breadcrumbModel[index].name, index)
                         }
                     }
                 }
