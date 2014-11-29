@@ -13,6 +13,9 @@ Rectangle {
 
     property int paddingSize: 15
 
+    property var deviceStatusData: []
+    property var deviceTypeData: []
+
     anchors.fill: parent
     anchors.margins: paddingSize
 
@@ -39,8 +42,7 @@ Rectangle {
             iconId: "ToggleOn"
             iconSize: 26
 
-            // @TODO : Change with real color
-            iconColor: Colors.uGreen
+            iconColor: getSystemStatusColor()
         }
 
         ULabel.Heading1 {
@@ -54,8 +56,7 @@ Rectangle {
             text: "System status"
             font.bold: true
 
-            // @TODO : Change with real color
-            color: Colors.uGreen
+            color: getSystemStatusColor()
         }
 
         ULabel.UInfoBoundedLabel {
@@ -69,11 +70,8 @@ Rectangle {
 
             boundedTextSize: 13
 
-            // @TODO : Change with real status
-            text: "ONLINE"
-
-            // @TODO : Change with real color
-            color: Colors.uGreen
+            text: getSystemStatus()
+            color: getSystemStatusColor()
         }
 
         Column {
@@ -90,10 +88,7 @@ Rectangle {
             Repeater {
                 id: overviewRepeater
 
-                model:[ {"label": "Platforms detected", "value": 2},
-                        {"label": "Devices detected", "value": 100},
-                        {"label": "Active scenarios", "value": 270},
-                        {"label": "Active tasks", "value": 680}]
+                model: getOverviewStats()
                 Row {
                     spacing: 2
 
@@ -118,7 +113,6 @@ Rectangle {
                         boundedColor: Colors.uWhite
                         boundedTextColor: Colors.uGreen
 
-                        // @TODO : Change with real status
                         text: modelData.value
                     }
                 }
@@ -136,96 +130,91 @@ Rectangle {
             anchors.verticalCenter: overviewColumn.verticalCenter
 
             UI.UChart {
-                id: deviceTypeChart
+                id: deviceStatusChart
 
                 anchors.fill: parent
 
                 chartAnimated: false;
-                chartData: [{ value: 60, color: Colors.uGreen  },
-                            { value: 30, color: Colors.uYellow },
-                            { value: 10, color: Colors.uRed    }]
+                chartData: container.deviceStatusData
 
                 chartType: Charts.ChartType.PIE;
             }
-        }
 
-        Rectangle {
-            id: statusLegendContainer
+            Rectangle {
+                id: statusLegendContainer
 
-            anchors.top: overviewColumn.top
-            anchors.bottom: overviewColumn.bottom
+                anchors.top: statusChartContainer.top
+                anchors.bottom: statusChartContainer.bottom
 
-            anchors.right: statusChartContainer.left
-            width: 150
+                anchors.right: statusChartContainer.left
+                width: 150
 
-            color: Colors.uTransparent
+                color: Colors.uTransparent
 
-            ULabel.Default {
-                id: legendLabel
+                ULabel.Default {
+                    id: legendLabel
 
-                text: "100 DEVICES DETECTED"
+                    text: "100 DEVICES DETECTED"
 
-                font.bold: false
-                font.pixelSize: 9
+                    font.bold: false
+                    font.pixelSize: 9
 
-                color: Colors.uGrey
+                    color: Colors.uGrey
 
-                anchors.top: statusLegendContainer.top
-                anchors.horizontalCenter: statusLegendContainer.horizontalCenter
-            }
+                    anchors.top: statusLegendContainer.top
+                    anchors.horizontalCenter: statusLegendContainer.horizontalCenter
+                }
 
-            Column {
-                id: legendColumn
+                Column {
+                    id: legendColumn
 
-                anchors.top: legendLabel.bottom
-                anchors.topMargin: 5
+                    anchors.top: legendLabel.bottom
+                    anchors.topMargin: 5
 
-                anchors.bottom: statusLegendContainer.bottom
-                anchors.right: statusLegendContainer.right
-                anchors.left: statusLegendContainer.left
+                    anchors.bottom: statusLegendContainer.bottom
+                    anchors.right: statusLegendContainer.right
+                    anchors.left: statusLegendContainer.left
 
-                width: 75
-                spacing: 2
+                    width: 75
+                    spacing: 2
 
-                Repeater {
-                    model: [{ value: 30, title: "OK", color: Colors.uGreen  },
-                             { value: 15, title: "WARNING", color: Colors.uYellow },
-                             { value: 5, title: "ERROR", color: Colors.uRed    }]
+                    Repeater {
+                        model: container.deviceStatusData
 
-                    Row {
+                        Row {
+                            anchors.horizontalCenter: legendColumn.horizontalCenter
 
-                        anchors.horizontalCenter: legendColumn.horizontalCenter
+                            spacing: 15
+                            ULabel.Default {
 
-                        spacing: 15
-                        ULabel.Default {
+                                color: modelData.color
 
-                            color: modelData.color
+                                font.bold: true
+                                font.pixelSize: 10
 
-                            font.bold: true
-                            font.pixelSize: 10
+                                text: modelData.value
 
-                            text: modelData.value
+                                width: 15
+                            }
 
-                            width: 15
-                        }
+                            ULabel.Default {
 
-                        ULabel.Default {
+                                color: Colors.uBlack
 
-                            color: Colors.uBlack
+                                font.bold: false
+                                font.pixelSize: 10
 
-                            font.bold: false
-                            font.pixelSize: 10
+                                text: modelData.title
 
-                            text: modelData.title
+                                width: 50
+                            }
 
-                            width: 50
-                        }
+                            Rectangle {
+                                color: modelData.color
 
-                        Rectangle {
-                            color: modelData.color
-
-                            height: 15; width: 15
-                            radius: 2
+                                height: 15; width: 15
+                                radius: 2
+                            }
                         }
                     }
                 }
@@ -270,7 +259,6 @@ Rectangle {
             text: "Device type distribution"
             font.bold: true
 
-            // @TODO : Change with real color
             color: Colors.uGreen
         }
 
@@ -298,5 +286,41 @@ Rectangle {
 
             color: "pink"
         }
+    }
+
+    Component.onCompleted: getDeviceStatusData()
+
+    function getSystemStatus() {
+        // @TODO Complete with real data.
+        return "ONLINE"
+    }
+
+    function getSystemStatusColor() {
+        switch(getSystemStatus()) {
+        case "ONLINE":
+            return Colors.uGreen;
+        case "OFFLINE":
+            return Colors.uRed;
+        default:
+            return Colors.uGrey;
+        }
+    }
+
+    function getOverviewStats() {
+
+        // @TODO Complete with real data.
+
+        return [{"label": "Platforms detected", "value": 2},
+                {"label": "Devices detected", "value": 100},
+                {"label": "Active scenarios", "value": 270},
+                {"label": "Active tasks", "value": 680}]
+    }
+
+    function getDeviceStatusData() {
+
+        // @TODO Complete with real data.
+        container.deviceStatusData = [{ value: 30, title: "OK", color: Colors.uGreen  },
+                                      { value: 15, title: "WARNING", color: Colors.uYellow },
+                                      { value: 5, title: "ERROR", color: Colors.uRed    }]
     }
 }
