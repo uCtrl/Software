@@ -71,6 +71,6 @@ function timestampToLabel(timestamp, period) {
     case "month":
         return Qt.formatDateTime(currentDate, "dd/MM");
     case "year":
-        return Qt.formatDateTime(currentDate, "dd/MM");
+        return Qt.formatDateTime(currentDate, "MMM");
     }
 }

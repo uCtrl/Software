@@ -213,10 +213,9 @@ Rectangle {
                 id: periodCombo
 
                 property var periods: [
-                    { value: "hour", displayedValue: "This hour", iconId: ""},
                     { value: "today",     displayedValue: "Today", iconId: ""},
+                    { value: "week",   displayedValue: "This week", iconId: ""},
                     { value: "month",   displayedValue: "This month", iconId: ""},
-                    { value: "year", displayedValue: "This year", iconId: ""}
                ]
 
                 itemListModel: periods
