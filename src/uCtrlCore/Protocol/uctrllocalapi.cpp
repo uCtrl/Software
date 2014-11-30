@@ -326,3 +326,76 @@ void UCtrlLocalApi::sendSaveRequest(const QString& address, int port, UEMessageT
 
     m_socket->writeDatagram(saveRequest.toUtf8(), hostAddress, port);
 }
+
+void UCtrlLocalApi::deleteDevice(UDevice* device)
+{
+    UPlatform* platform = (UPlatform*)device->parent()->parent();
+    deleteDevice(platform, device);
+}
+
+void UCtrlLocalApi::deleteDevice(UPlatform* platform, UDevice* device)
+{
+    sendDeleteRequest(  platform->ip(),
+                        platform->port(),
+                        UEMessageType::DeleteDeviceRequest,
+                        QString("deviceId"),
+                        device->id());
+}
+
+void UCtrlLocalApi::deleteScenario(UScenario* scenario)
+{
+    UPlatform* platform = (UPlatform*)scenario->parent()->parent()->parent()->parent();
+    deleteScenario(platform, scenario);
+}
+
+void UCtrlLocalApi::deleteScenario(UPlatform* platform, UScenario* scenario)
+{
+    sendDeleteRequest(  platform->ip(),
+                        platform->port(),
+                        UEMessageType::DeleteScenarioRequest,
+                        QString("scenarioId"),
+                        scenario->id());
+}
+
+void UCtrlLocalApi::deleteTask(UTask* task)
+{
+    UPlatform* platform = (UPlatform*)task->parent()->parent()->parent()->parent()->parent()->parent();
+    deleteTask(platform, task);
+}
+
+void UCtrlLocalApi::deleteTask(UPlatform* platform, UTask* task)
+{
+    sendDeleteRequest(  platform->ip(),
+                        platform->port(),
+                        UEMessageType::DeleteTaskRequest,
+                        QString("taskId"),
+                        task->id());
+}
+
+void UCtrlLocalApi::deleteCondition(UCondition* condition)
+{
+    UPlatform* platform = (UPlatform*)condition->parent()->parent()->parent()->parent()->parent()->parent()->parent()->parent();
+    deleteCondition(platform, condition);
+}
+
+void UCtrlLocalApi::deleteCondition(UPlatform* platform, UCondition* condition)
+{
+    sendDeleteRequest(  platform->ip(),
+                        platform->port(),
+                        UEMessageType::DeleteConditionRequest,
+                        QString("conditionId"),
+                        condition->id());
+}
+
+void UCtrlLocalApi::sendDeleteRequest(const QString& address, int port, UEMessageType messageType, const QString& idKey, const QString& idValue)
+{
+    QHostAddress hostAddress(address);
+    QString deleteRequest = QString("{\"messageType\":%1,\"%2\":\"%3\"}")
+            .arg(QString::number((int)messageType),
+                 idKey,
+                 idValue);
+
+    //qDebug() << "Delete Request: " << deleteRequest;
+
+    m_socket->writeDatagram(deleteRequest.toUtf8(), hostAddress, port);
+}

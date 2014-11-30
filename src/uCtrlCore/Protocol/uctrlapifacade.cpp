@@ -170,7 +170,7 @@ void UCtrlAPIFacade::deleteDevice(UDevice* device)
 
     UPlatform* platform = (UPlatform*)device->parent()->parent();
     if (platform->isLocalPlatform())
-        putDevice(device);
+        m_uCtrlLocalApi.deleteDevice(device);
     else
     {
         QString platformId;
@@ -355,7 +355,7 @@ void UCtrlAPIFacade::deleteScenario(UScenario* scenario)
 
     UPlatform* platform = (UPlatform*)scenario->parent()->parent()->parent()->parent();
     if (platform->isLocalPlatform())
-        putScenario(scenario);
+        m_uCtrlLocalApi.deleteScenario(scenario);
     else
     {
         QString platformId;
@@ -446,7 +446,7 @@ void UCtrlAPIFacade::deleteTask(UTask* task)
 
     UPlatform* platform = (UPlatform*)task->parent()->parent()->parent()->parent()->parent()->parent();
     if (platform->isLocalPlatform())
-        putTask(task);
+        m_uCtrlLocalApi.deleteTask(task);
     else
     {
         QString platformId;
@@ -542,7 +542,7 @@ void UCtrlAPIFacade::deleteCondition(UCondition* condition)
 
     UPlatform* platform = (UPlatform*)condition->parent()->parent()->parent()->parent()->parent()->parent()->parent()->parent();
     if (platform->isLocalPlatform())
-        putCondition(condition);
+        m_uCtrlLocalApi.deleteCondition(condition);
     else
     {
         QString platformId;

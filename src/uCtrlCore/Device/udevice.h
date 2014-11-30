@@ -48,6 +48,8 @@ public:
         PowerSocketSwitch = 1,
         PushButton = 5,
         MotionSensor = 7,
+        LED = 20,
+        LEDDisplay = 21,
         Humidity = 30,
         Temperature = 31,
         NinjasEyes = 1007,
