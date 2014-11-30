@@ -165,7 +165,7 @@ void UCtrlLocalApi::sendGetRequest(const QString& address,
                  additionalKey,
                  additionalValue);
 
-    qDebug() << "Get Request: " << getRequest;
+    //qDebug() << "Get Request: " << getRequest;
 
     m_messageProperties.insert(messageId, property);
     m_socket->writeDatagram(getRequest.toUtf8(), hostAddress, port);
@@ -305,7 +305,7 @@ void UCtrlLocalApi::sendSaveRequest(const QString& address, int port, UEMessageT
                  saveKey,
                  QString(jsonDoc.toJson()));
 
-    qDebug() << "Save Request: " << saveRequest;
+    //qDebug() << "Save Request: " << saveRequest;
 
     m_socket->writeDatagram(saveRequest.toUtf8(), hostAddress, port);
 }
@@ -322,7 +322,7 @@ void UCtrlLocalApi::sendSaveRequest(const QString& address, int port, UEMessageT
                  saveKey,
                  QString(jsonDoc.toJson()));
 
-    qDebug() << "Save Request: " << saveRequest;
+    //qDebug() << "Save Request: " << saveRequest;
 
     m_socket->writeDatagram(saveRequest.toUtf8(), hostAddress, port);
 }
@@ -395,7 +395,7 @@ void UCtrlLocalApi::sendDeleteRequest(const QString& address, int port, UEMessag
                  idKey,
                  idValue);
 
-    qDebug() << "Delete Request: " << deleteRequest;
+    //qDebug() << "Delete Request: " << deleteRequest;
 
     m_socket->writeDatagram(deleteRequest.toUtf8(), hostAddress, port);
 }
