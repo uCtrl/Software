@@ -9,24 +9,27 @@ function getDeviceValuesParams (period) {
 
     switch (period) {
     case "hour":
-        from = new Date().setMinutes(0, 0)
+        from = new Date().setMinutes(0, 0, 0);
         interval = "5min"
         break;
     case "today":
-        from = new Date().setHours(0, 0)
+        from = new Date().setHours(0, 0, 0, 0);
         interval = "30min"
         break;
     case "week":
-        var currentDate = new Date();
-        from = new Date().setDate(currentDate.getDate() - currentDate.getDay());
+        from = new Date();
+        from = new Date(from).setDate(from.getDate() - from.getDay());
+        from = new Date(from).setHours(0, 0, 0, 0);
         interval = "1day"
         break;
     case "month":
         from = new Date().setDate(1)
+        from = new Date(from).setHours(0, 0, 0, 0);
         interval = "1day"
         break;
     case "year":
         from = new Date().setMonth(0)
+        from.setHours(0, 0, 0, 0);
         interval = "1month"
         break;
     }
