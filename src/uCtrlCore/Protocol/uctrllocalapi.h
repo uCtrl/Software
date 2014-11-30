@@ -25,7 +25,11 @@ class UCtrlLocalApi : public QObject
         SaveDevicesRequest = 13,
         SaveScenariosRequest = 15,
         SaveTasksRequest = 17,
-        SaveConditionsRequest = 19
+        SaveConditionsRequest = 19,
+        DeleteDeviceRequest = 33,
+        DeleteScenarioRequest = 35,
+        DeleteTaskRequest = 37,
+        DeleteConditionRequest = 39
     };
 public:
     UCtrlLocalApi(UPlatformsModel* platforms, QObject* parent = 0);
@@ -34,6 +38,7 @@ public:
     void getScenarios(UDevice* device);
     void getTasks(UScenario* scenario);
     void getConditions(UTask* task);
+
     void savePlatform(UPlatform* platform);
     void saveDevices(UPlatform* platform);
     void saveDevices(UPlatform* platform, const QJsonArray& devicesArray);
@@ -43,6 +48,15 @@ public:
     void saveTasks(UPlatform* platform, UScenario* scenario, const QJsonArray& tasksArray);
     void saveConditions(UTask* task);
     void saveConditions(UPlatform* platform, UTask* task, const QJsonArray& conditionsArray);
+
+    void deleteDevice(UDevice* device);
+    void deleteDevice(UPlatform* platform, UDevice* device);
+    void deleteScenario(UScenario* scenario);
+    void deleteScenario(UPlatform* platform, UScenario* scenario);
+    void deleteTask(UTask* task);
+    void deleteTask(UPlatform* platform, UTask* task);
+    void deleteCondition(UCondition* condition);
+    void deleteCondition(UPlatform* platform, UCondition* condition);
 
 private:
     QUdpSocket* m_socket;
@@ -57,6 +71,7 @@ private:
     void sendGetRequest(const QString& address, int port, UEMessageType messageType, const QString& additionalKey, const QString& additionalValue, void* property);
     void sendSaveRequest(const QString& address, int port, UEMessageType messageType, const QString& saveKey, const QJsonArray& jsonArray);
     void sendSaveRequest(const QString& address, int port, UEMessageType messageType, const QString& saveKey, const QJsonArray& jsonArray, const QString& additionalKey, const QString& additionalValue);
+    void sendDeleteRequest(const QString& address, int port, UEMessageType messageType, const QString& idKey, const QString& idValue);
 
 private slots:
     void processPendingDatagrams();

@@ -251,7 +251,6 @@ Rectangle {
         var hour = (value - (value % 3600)) / 3600
 
         return pad(hour, 2) + ":" + pad(minute, 2)
-
     }
 
     function pad(num, size) {
@@ -261,7 +260,7 @@ Rectangle {
 
     function getDateLabel(value)
     {
-        return Qt.formatDateTime(new Date(parseInt(value)), "dd-MM-yyyy")
+        return Qt.formatDateTime(new Date(parseInt(value) / 1000), "dd-MM-yyyy")
     }
 
     function getDayLabel(value)

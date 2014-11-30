@@ -788,6 +788,9 @@ Rectangle
                     return "DoorSensor"
                 case UEType.LightSensor:
                     return "LightSensor"
+                case UEType.LED:
+                case UEType.LEDDisplay:
+                    return "ImplementItPlease"
             }
         }
         return "Error"
@@ -802,6 +805,8 @@ Rectangle
             case UEType.PowerSocketSwitch:
             case UEType.NinjasEyes:
             case UEType.LimitlessLEDWhite:
+            case UEType.LED:
+            case UEType.LEDDisplay:
                 return true
             case UEType.PushButton:
             case UEType.MotionSensor:
@@ -854,6 +859,10 @@ Rectangle
                     return "Door sensor"
                 case UEType.LightSensor:
                     return "Light sensor"
+                case UEType.LED:
+                    return "LED"
+                case UEType.LEDDisplay:
+                    return "LED Display"
             }
         }
         return "Error"
