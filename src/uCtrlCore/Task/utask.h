@@ -13,8 +13,7 @@ class UTask : public NestedListItem
     {
         idRole = Qt::UserRole + 1,
         valueRole,
-        lastUpdatedRole,
-        enabledRole
+        lastUpdatedRole
     };
 
 public:

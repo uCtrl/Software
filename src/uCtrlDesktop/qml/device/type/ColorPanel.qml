@@ -356,11 +356,6 @@ Rectangle {
         uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id), {"from": params.from.toString(), "to": params.to.toString(), "interval": params.interval, "fn": "count"});
     }
 
-    function getDeviceEnabled() {
-        if (model !== null) return model.isEnabled ? "ON" : "OFF"
-        else return "OFF"
-    }
-
     function getValue() {
         if (model !== null) return "#" + model.value
         else return "#FFFFFF"

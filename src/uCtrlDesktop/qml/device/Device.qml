@@ -774,11 +774,6 @@ Rectangle
         else return "Unknown device name"
     }
 
-    function getDeviceEnabled() {
-        if (typeof(model) != "undefined" && model !== null) return model.isEnabled ? "ON" : "OFF"
-        else return "OFF"
-    }
-
     function getPlatform() {
         if (typeof(model) != "undefined" && model !== null) return model.platform
         else return "OFF"

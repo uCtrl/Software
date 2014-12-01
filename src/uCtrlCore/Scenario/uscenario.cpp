@@ -17,8 +17,6 @@ QVariant UScenario::data(int role) const
         return id();
     case nameRole:
         return name();
-    case enabledRole:
-        return enabled();
     case lastUpdatedRole:
         return lastUpdated();
     default:
@@ -36,9 +34,6 @@ bool UScenario::setData(const QVariant& value, int role)
     case nameRole:
         name(value.toString());
         break;
-    case enabledRole:
-        enabled(value.toBool());
-        break;
     case lastUpdatedRole:
         lastUpdated(value.toDouble());
         break;
@@ -54,7 +49,6 @@ QHash<int, QByteArray> UScenario::roleNames() const
 
     roles[idRole] = "id";
     roles[nameRole] = "name";
-    roles[enabledRole] = "isEnabled";
     roles[lastUpdatedRole] = "lastUpdated";
 
     return roles;
@@ -69,7 +63,6 @@ void UScenario::write(QJsonObject &jsonObj) const
 {
     jsonObj["id"] = this->id();
     jsonObj["name"] = this->name();
-    jsonObj["enabled"] = this->enabled();
     jsonObj["lastUpdated"] = this->lastUpdated();
 
     QJsonObject tasks;
@@ -81,7 +74,6 @@ void UScenario::read(const QJsonObject &jsonObj)
 {
     this->id(jsonObj["id"].toString());
     this->name(jsonObj["name"].toString());
-    this->enabled(jsonObj["enabled"].toBool());
     this->lastUpdated(jsonObj["lastUpdated"].toString().toDouble());
 
     readTasks(jsonObj);

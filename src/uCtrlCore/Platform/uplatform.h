@@ -18,7 +18,6 @@ class UPlatform : public NestedListItem
         portRole,
         roomRole,
         statusRole,
-        enabledRole,
         lastUpdatedRole,
         isLocalPlatformRole,
     };

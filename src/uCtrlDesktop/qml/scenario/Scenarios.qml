@@ -287,7 +287,6 @@ Rectangle {
 
         if (scenario !== null) {
             scenario.name(editScenarioName.text)
-            scenario.enabled(true);
             currentScenario.model.name(editScenarioName.text)
         }
 

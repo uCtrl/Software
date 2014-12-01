@@ -144,56 +144,9 @@ Rectangle {
         }
 
         Rectangle {
-            id: enabledContainer
-
-            anchors.top: nameContainer.bottom
-
-            anchors.left: parent.left
-            anchors.right: parent.right
-
-            height: 40
-
-            ULabel.UInfoTitle {
-                id: enabledTitle
-
-                text: "Enabled"
-
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: parent.left
-
-                anchors.margins: 20
-
-                width: (parent.width / 4)
-            }
-
-            ULabel.UInfoBoundedLabel {
-                id: enabledStatusLabel
-
-                text: getEnabled()
-
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: enabledTitle.right
-
-                visible: !showEditMode
-            }
-
-            UI.USwitch {
-                id: enabledSwitch
-
-                state: getEnabled()
-
-                anchors.left: enabledTitle.right
-
-                anchors.verticalCenter: parent.verticalCenter
-
-                visible: showEditMode
-            }
-        }
-
-        Rectangle {
             id: roomContainer
 
-            anchors.top: enabledContainer.bottom
+            anchors.top: nameContainer.bottom
             anchors.left: parent.left
             anchors.right: parent.right
 
@@ -530,11 +483,6 @@ Rectangle {
         else return "Test"
     }
 
-    function getEnabled() {
-        if (model != null && model.isEnabled) return "ON"
-        else return "OFF"
-    }
-
     function getRoom() {
         if (model != null) return model.room
         else return "null"
@@ -573,7 +521,6 @@ Rectangle {
 
     function saveForm() {
         if (nameTextbox.text != "") model.name = nameTextbox.text
-        model.isEnabled = (enabledSwitch.state === "ON")
         model.room = roomTextbox.text
         uCtrlApiFacade.putPlatform(platforms.model.findObject(model.id));
 
@@ -584,7 +531,6 @@ Rectangle {
     function toggleEditMode() {
         if (model != null) {
             nameTextbox.text = getName()
-            enabledSwitch.state = getEnabled()
             roomTextbox.text = getRoom()
         }
 
