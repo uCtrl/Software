@@ -645,7 +645,7 @@ Rectangle
                         id: taskEditor
 
                         visible: false
-                        deviceType: getDeviceType()
+                        deviceType: getDeviceValueType()
 
                         function editTask(task, conditions)
                         {
@@ -654,8 +654,8 @@ Rectangle
                             visible = true
                         }
 
-                        function getDeviceType() {
-                            return model ? model.type : 0
+                        function getDeviceValueType() {
+                            return typeof(model) !== "undefined" && model !== null ? model.valueType : UEValueType.Unknown
                         }
                     }
                 }
@@ -736,6 +736,10 @@ Rectangle
                     return "DoorSensor"
                 case UEType.LightSensor:
                     return "LightSensor"
+                case UEType.FlowSwitch:
+                    return "FlowSwitch"
+                case UEType.ColorPanel:
+                    return "ColorPanel"
             }
         }
         return "Error"

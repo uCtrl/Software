@@ -10,7 +10,7 @@ Rectangle {
 
     property double hue: 0
     property double saturation: 1
-    property double value: 0
+    property double value: 1
 
     property double r: getChannelStr(pickerColor, 0)
     property double g: getChannelStr(pickerColor, 1)
@@ -20,7 +20,9 @@ Rectangle {
     property var pickerColor: hsb(hue, saturation, value)
     property var pickerString: fullColorString(pickerColor)
     property string pickerColorString: "#" + pickerString
-    onPickerColorStringChanged: colorDisplayer.color = pickerColorString
+    onPickerColorStringChanged: {
+        colorDisplayer.color = pickerColorString
+    }
 
     color: Colors.uTransparent
 
@@ -43,7 +45,7 @@ Rectangle {
 
             Rectangle
             {
-                width: parent.width - 2
+                width: parent.width
                 height: parent.height
 
                 color: Colors.uTransparent

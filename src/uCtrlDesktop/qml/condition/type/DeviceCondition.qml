@@ -33,7 +33,10 @@ DefaultCondition
             width: parent.width
             valuePickerType: content.editionType
 
-            expanded: (content.editionType === DeviceEnum.UEValueType.Event) || (content.editionType === DeviceEnum.UEValueType.Switch)
+            expanded: (content.editionType === DeviceEnum.UEValueType.Event) ||
+                      (content.editionType === DeviceEnum.UEValueType.Switch) ||
+                      (content.editionType === DeviceEnum.UEValueType.Color) ||
+                      (content.editionType === DeviceEnum.UEValueType.UpDownSwitch)
 
             z: 3
         }

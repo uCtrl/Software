@@ -401,10 +401,11 @@ UDevice::UEValueType UDevice::valueType() const
         case UDevice::UEType::LimitlessLEDWhite:
         case UDevice::UEType::LightSensor:
             return UDevice::UEValueType::Slider;
-        case UDevice::UEType::Humidity:
-        case UDevice::UEType::Temperature:
         case UDevice::UEType::NinjasEyes:
         case UDevice::UEType::ColorPanel:
+            return UDevice::UEValueType::Color;
+        case UDevice::UEType::Humidity:
+        case UDevice::UEType::Temperature:
             return UDevice::UEValueType::Textbox;
         case UDevice::UEType::FlowSwitch:
             return UDevice::UEValueType::UpDownSwitch;

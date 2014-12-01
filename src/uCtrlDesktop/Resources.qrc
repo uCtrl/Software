@@ -126,5 +126,6 @@
         <file>qml/device/type/ColorPanel.qml</file>
         <file>qml/device/type/FlowSwitch.qml</file>
         <file>qml/ui/UCompactColorPicker.qml</file>
+        <file>qml/task/type/ColorPicker.qml</file>
     </qresource>
 </RCC>
