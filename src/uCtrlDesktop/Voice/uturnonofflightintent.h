@@ -14,6 +14,7 @@ public:
 
     void turnOnOffAllLights();
     void turnOnOffLightsInLocation(QString locationName);
+    void turnOnOffLightWithId(int id);
 };
 
 #endif // UTURNONOFFLIGHTINTENT_H

@@ -137,10 +137,7 @@ void UCtrlAPIFacade::getDevice(UDevice* device)
 
     UPlatform* platform = (UPlatform*)device->parent()->parent();
     if (platform->isLocalPlatform())
-    {
-        // TODO
         return;
-    }
     else
     {
         QString platformId;

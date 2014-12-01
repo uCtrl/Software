@@ -49,3 +49,23 @@ void UTurnOnOffLightIntent::turnOnOffLightsInLocation(QString locationName)
         m_uCtrlApiFacade->putDevice(device);
     }
 }
+
+void UTurnOnOffLightIntent::turnOnOffLightWithId(int id)
+{
+    QList<UDevice*> devicesInLocation = m_uCtrlApiFacade->getPlatformsModel()->findDevicesByTypeAndId(UDevice::UEType::LimitlessLEDWhite, id);
+    foreach (UDevice* device, devicesInLocation)
+    {
+        QString data = "";
+
+        QString currentValue = device->value().replace("\\", "");
+        QJsonObject jsonLimitless = QJsonDocument::fromJson(currentValue.toUtf8()).object();
+        int brightness = jsonLimitless["bri"].toDouble();
+        if (m_isTurnOn)
+            data = QString("{\"on\":true,\"bri\":%1}").arg(brightness);
+        else
+            data = QString("{\"on\":false,\"bri\":%1}").arg(brightness);
+
+        device->value(data);
+        m_uCtrlApiFacade->putDevice(device);
+    }
+}

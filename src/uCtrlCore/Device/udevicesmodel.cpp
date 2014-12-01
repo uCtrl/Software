@@ -69,7 +69,7 @@ QList<UDevice*> UDevicesModel::findDevicesByName(const QString& deviceName)
     QList<UDevice*> deviceList;
     foreach(ListItem *item, m_items) {
         UDevice* device = (UDevice*)item;
-        if (device->name().toLower() == deviceName.toLower())
+        if (device->name().toLower().contains(deviceName.toLower()))
             deviceList.push_back(device);
     }
     return deviceList;
@@ -81,6 +81,17 @@ QList<UDevice*> UDevicesModel::findDevicesByTypeAndName(UDevice::UEType deviceTy
     foreach(ListItem *item, m_items) {
         UDevice* device = (UDevice*)item;
         if (device->type() == deviceType && device->name().toLower().contains(deviceName.toLower()))
+            deviceList.push_back(device);
+    }
+    return deviceList;
+}
+
+QList<UDevice*> UDevicesModel::findDevicesByTypeAndId(UDevice::UEType deviceType, int deviceId)
+{
+    QList<UDevice*> deviceList;
+    foreach(ListItem *item, m_items) {
+        UDevice* device = (UDevice*)item;
+        if (device->type() == deviceType && device->name().toLower().contains(QString::number(deviceId)))
             deviceList.push_back(device);
     }
     return deviceList;
