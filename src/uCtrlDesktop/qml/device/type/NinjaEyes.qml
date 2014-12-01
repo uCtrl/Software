@@ -205,32 +205,6 @@ Rectangle {
         }
 
         Rectangle {
-            id: noStats
-
-            anchors.left: container.left
-            anchors.right: container.right
-            anchors.top: valueContainer.bottom
-            anchors.bottom: container.bottom
-
-            clip: true
-            width: parent.width
-            visible: !container.displayStats
-
-            color: Colors.uTransparent
-
-            ULabel.Default {
-                anchors.centerIn: parent
-
-                font.bold: true
-                font.pixelSize: 36
-
-                color: Colors.uGrey
-
-                text: "No stats to display"
-            }
-        }
-
-        Rectangle {
             id: carouselContainer
             width: parent.width
             height: 30
@@ -307,6 +281,32 @@ Rectangle {
 
                 z: 3
             }
+        }
+    }
+
+    Rectangle {
+        id: noStats
+
+        anchors.left: container.left
+        anchors.right: container.right
+        anchors.top: valueContainer.bottom
+        anchors.bottom: container.bottom
+
+        clip: true
+        width: parent.width
+        visible: !container.displayStats
+
+        color: Colors.uTransparent
+
+        ULabel.Default {
+            anchors.centerIn: parent
+
+            font.bold: true
+            font.pixelSize: 36
+
+            color: Colors.uGrey
+
+            text: "No stats to display"
         }
     }
 
