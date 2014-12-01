@@ -125,5 +125,6 @@
         <file>qml/task/type/UpDownSwitch.qml</file>
         <file>qml/device/type/ColorPanel.qml</file>
         <file>qml/device/type/FlowSwitch.qml</file>
+        <file>qml/ui/UCompactColorPicker.qml</file>
     </qresource>
 </RCC>

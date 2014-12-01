@@ -142,4 +142,9 @@ Rectangle {
         }
     }
 
+    UI.UCompactColorPicker
+    {
+        anchors.centerIn: parent
+    }
+
 }
