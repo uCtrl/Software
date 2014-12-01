@@ -155,7 +155,7 @@ void UCtrlAPIFacade::putDevice(UDevice* device)
 
     UPlatform* platform = (UPlatform*)device->parent()->parent();
     if (platform->isLocalPlatform())
-        m_uCtrlLocalApi.saveDevices(platform);
+        m_uCtrlLocalApi.saveDevice(device);
     else
     {
         QString platformId;
@@ -336,10 +336,9 @@ void UCtrlAPIFacade::putScenario(UScenario* scenario)
     if (!scenario)
         return;
 
-    UDevice* device = (UDevice*)scenario->parent()->parent();
-    UPlatform* platform = (UPlatform*)device->parent()->parent();
+    UPlatform* platform = (UPlatform*)scenario->parent()->parent()->parent()->parent();
     if (platform->isLocalPlatform())
-        m_uCtrlLocalApi.saveScenarios(device);
+        m_uCtrlLocalApi.saveScenario(scenario);
     else
     {
         QString platformId;
@@ -426,9 +425,8 @@ void UCtrlAPIFacade::putTask(UTask* task)
         return;
 
     UPlatform* platform = (UPlatform*)task->parent()->parent()->parent()->parent()->parent()->parent();
-    UScenario* scenario = (UScenario*)task->parent()->parent();
     if (platform->isLocalPlatform())
-        m_uCtrlLocalApi.saveTasks(scenario);
+        m_uCtrlLocalApi.saveTask(task);
     else
     {
         QString platformId;
@@ -521,9 +519,8 @@ void UCtrlAPIFacade::putCondition(UCondition* condition)
         return;
 
     UPlatform* platform = (UPlatform*)condition->parent()->parent()->parent()->parent()->parent()->parent()->parent()->parent();
-    UTask* task = (UTask*)condition->parent()->parent();
     if (platform->isLocalPlatform())
-        m_uCtrlLocalApi.saveConditions(task);
+        m_uCtrlLocalApi.saveCondition(condition);
     else
     {
         QString platformId;

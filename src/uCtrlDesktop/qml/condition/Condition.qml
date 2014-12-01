@@ -260,7 +260,7 @@ Rectangle {
 
     function getDateLabel(value)
     {
-        return Qt.formatDateTime(new Date(parseInt(value) / 1000), "dd-MM-yyyy")
+        return Qt.formatDateTime(new Date(parseInt(value * 1000)), "dd-MM-yyyy")
     }
 
     function getDayLabel(value)

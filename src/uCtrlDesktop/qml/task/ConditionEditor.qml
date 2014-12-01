@@ -738,13 +738,13 @@ Rectangle {
             {
                 if(getCondition().beginValue() !== "")
                 {
-                    datePicker.selectedDate = new Date(parseInt(getCondition().beginValue()))
+                    datePicker.selectedDate = new Date(parseInt(getCondition().beginValue()) * 1000)
                 }
             }
 
             function saveOperator()
             {
-                getCondition().beginValue(datePicker.selectedDate.getTime())
+                getCondition().beginValue(parseInt(datePicker.selectedDate.getTime() / 1000))
             }
         }
     }
@@ -774,13 +774,13 @@ Rectangle {
             {
                 if(getCondition().endValue() !== "")
                 {
-                    datePicker.selectedDate = new Date(parseInt(getCondition().endValue()))
+                    datePicker.selectedDate = new Date(parseInt(getCondition().endValue()) * 1000)
                 }
             }
 
             function saveOperator()
             {
-                getCondition().endValue(datePicker.selectedDate.getTime())
+                getCondition().endValue(parseInt(datePicker.selectedDate.getTime() / 1000))
             }
         }
     }

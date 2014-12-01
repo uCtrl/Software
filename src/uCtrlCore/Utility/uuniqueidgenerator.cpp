@@ -16,7 +16,7 @@ int UUniqueIdGenerator::generateUniqueId()
     int         uniqueId = 0;
                 uniqueId += now->tm_mon * 100000000;
                 uniqueId += now->tm_mday * 1000000;
-                uniqueId += now->tm_hour * now->tm_min * now->tm_sec * 10;
+                uniqueId += (now->tm_hour * 3600 + now->tm_min * 60 + now->tm_sec) * 10;
                 uniqueId += idEnd;
 
     idEnd++;
