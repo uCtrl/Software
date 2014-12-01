@@ -27,6 +27,7 @@ Rectangle
     property bool showEditMode: false
 
     onModelChanged: {
+        taskEditor.visible = false
         devicePage.showEditMode = false
         infoContainer.showEditMode = false
     }

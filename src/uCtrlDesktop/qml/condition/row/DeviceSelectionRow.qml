@@ -34,6 +34,7 @@ DefaultRow {
             id: deviceCombo
             width: 300
             height: 30
+            itemDisplayedBeforeScroll: 5
             itemListModel: conditionEditorContainer.getDeviceList()
             anchors.verticalCenter: parent.verticalCenter
         }
