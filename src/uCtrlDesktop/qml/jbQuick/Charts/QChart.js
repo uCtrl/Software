@@ -872,9 +872,10 @@ var Chart = function(canvas, context) {
                     ctx.fillStyle = data.datasets[i].pointColor;
                     ctx.strokeStyle = data.datasets[i].pointStrokeColor;
                     ctx.lineWidth = config.pointDotStrokeWidth;
-                    for (var k=0; k<data.datasets[i].data.length; k++) {
+                    for (var k = 0 ; k<data.datasets[i].data.length; k++) {
+                        var xValue = data.datasets[i].data.length !== 1 ? yAxisPosX + (valueHop *k) : yAxisPosX + valueHop;
                         ctx.beginPath();
-                        ctx.arc(yAxisPosX + (valueHop *k),xAxisPosY - animPc*(calculateOffset(data.datasets[i].data[k],calculatedScale,scaleHop)),config.pointDotRadius,0,Math.PI*2,true);
+                        ctx.arc(xValue, xAxisPosY - animPc*(calculateOffset(data.datasets[i].data[k],calculatedScale,scaleHop)),config.pointDotRadius,0,Math.PI*2,true);
                         ctx.fill();
                         ctx.stroke();
                     }
@@ -917,7 +918,8 @@ var Chart = function(canvas, context) {
                     ctx.fillText(data.labels[i], 0,0);
                     ctx.restore();
                 } else {
-                    ctx.fillText(data.labels[i], yAxisPosX + i*valueHop,xAxisPosY + config.scaleFontSize+3);
+                    var xValue = data.labels.length !== 1 ? yAxisPosX + i*valueHop : yAxisPosX + valueHop;
+                    ctx.fillText(data.labels[i], xValue,xAxisPosY + config.scaleFontSize+3);
                 }
 
                 ctx.beginPath();
@@ -974,6 +976,10 @@ var Chart = function(canvas, context) {
 
             xAxisLength = width - longestText - widestXLabel;
             valueHop = Math.floor(xAxisLength/(data.labels.length-1));
+
+            if (data.labels.length === 1) {
+                valueHop = xAxisLength/2;
+            }
 
             yAxisPosX = width-widestXLabel/2-xAxisLength;
             xAxisPosY = scaleHeight + config.scaleFontSize/2;
