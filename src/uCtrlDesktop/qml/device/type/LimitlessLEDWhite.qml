@@ -312,6 +312,6 @@ Rectangle {
     function updateStatsPeriod() {
         var period = periodCombo.selectedItem ? periodCombo.selectedItem.value : "hour";
         var params = GraphHelper.getDeviceValuesParams(period);
-        uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id), {"from": params.from, "to": params.to, "interval": interval, "fn": "mean"});
+        uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id), {"from": params.from.toString(), "to": params.to.toString(), "interval": params.interval, "fn": "count"});
     }
 }
