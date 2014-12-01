@@ -308,10 +308,21 @@ Rectangle {
                 id: powerChart
                 chartAnimated: false
                 chartName: "Power consumption"
-                chartData: getDevicePowerStats()
+                chartData: {
+                    "labels": [],
+                    "datasets": [{
+                        fillColor: "rgba(237,237,237,0.5)",
+                        strokeColor: Colors.uMediumLightGrey,
+                        pointColor: Colors.uGreen,
+                        pointStrokeColor: Colors.uGreen,
+                        data: []
+                    }]
+                }
                 width: chartContainer.width
                 height: chartContainer.height
                 chartType: Charts.ChartType.LINE
+
+                onChartDataChanged: refresh()
             }
 
             visible: container.displayStats
@@ -484,25 +495,38 @@ Rectangle {
                     pointStrokeColor: Colors.uGreen,
                     data: chartData.data
                 }]
-            };
-        }
-    }
+            }
 
-    // Will always be hardcoded value since hardware no longer supports it.
-    function getDevicePowerStats() {
-        var chartData = {
-            "labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
-            "axisY": [0, 25, 50, 75, 100],
-            "datasets": [{
+            var powerData = []
+            var powerLabel = []
+            for(var i = 0; i < chartData.data.length; i++)
+            {
+                var value = 0;
+                if(i == 0)
+                    value = Math.random() * 10 + 1
+                else
+                    value = powerData[i-1] + Math.random() * 10 + 1
+
+                powerData.push(value)
+                powerLabel.push(chartData.labels[i])
+            }
+
+            var powerChartData = {
+                labels: powerLabel,
+                data: powerData
+            }
+
+            powerChart.chartData = {
+                "labels": powerChartData.labels,
+                "datasets": [{
                     fillColor: "rgba(237,237,237,0.5)",
                     strokeColor: Colors.uMediumLightGrey,
                     pointColor: Colors.uGreen,
                     pointStrokeColor: Colors.uGreen,
-                    data: [0, 15, 20, 23, 25, 60, 67]
-            }]
+                    data: powerChartData.data
+                }]
+            }
         }
-
-        return chartData
     }
 
     function updateStatsPeriod() {

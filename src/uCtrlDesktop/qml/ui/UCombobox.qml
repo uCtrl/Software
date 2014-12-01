@@ -120,6 +120,7 @@ Rectangle {
                 height: dropDown.height - 10
                 radius: 2
                 color: combo.dropdownColor
+                clip: true
 
                 Rectangle {
                     property int selectedIndex: 0

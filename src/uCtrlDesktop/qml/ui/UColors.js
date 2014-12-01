@@ -50,3 +50,12 @@ var warningBorder = "#faebcc";
 var errorBack = "#f2dede";
 var errorText = "#a94442";
 var errorBorder = "#ebccd1";
+
+// Chart Colors
+
+var uBlue = "#294f6d"
+var uOrange = "#ff7c00"
+var uPink = "#d92955"
+var uPurple = "#6b039c"
+var uCyan = "#18c5c5"
+var uLime = "#8Bd000"
