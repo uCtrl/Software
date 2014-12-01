@@ -11,6 +11,7 @@ UCtrlWebSocket::UCtrlWebSocket(UPlatformsModel *platforms, const QString &userTo
 
 UCtrlWebSocket::~UCtrlWebSocket()
 {
+    m_platforms = NULL;
     m_webSocket.close();
     m_webSocket.deleteLater();
 }
@@ -37,6 +38,8 @@ void UCtrlWebSocket::onError(QAbstractSocket::SocketError error)
 
 void UCtrlWebSocket::onMessageReceived(const QString &message)
 {
+    qDebug() << message;
+
     QJsonObject jsonObj = QJsonDocument::fromJson(message.toUtf8()).object();
 
     if (jsonObj.empty()) return;
@@ -74,19 +77,19 @@ void UCtrlWebSocket::treatPlatform(const QJsonObject &jsonObj)
 
     switch (action) {
     case UCtrlWebSocket::UEAction::Create: {
-        UPlatform* platform = new UPlatform(&m_platforms, false);
+        UPlatform* platform = new UPlatform(m_platforms, false);
         platform->read(jsonObj["item"].toObject());
-        m_platforms.appendRow(platform);
+        m_platforms->appendRow(platform);
         break;
     }
     case UCtrlWebSocket::UEAction::Update: {
-        ListItem* platform = m_platforms.find(platformId);
+        ListItem* platform = m_platforms->find(platformId);
         if (!platform) return;
         platform->read(jsonObj["item"].toObject());
         break;
     }
     case UCtrlWebSocket::UEAction::Delete: {
-        m_platforms.removeRow(platformId);
+        m_platforms->removeRow(platformId);
         break;
     }
     }
@@ -98,7 +101,7 @@ void UCtrlWebSocket::treatDevice(const QJsonObject &jsonObj)
     QString platformId = jsonObj["platformId"].toString();
     QString deviceId = jsonObj["deviceId"].toString();
 
-    UPlatform* platform = (UPlatform*)m_platforms.find(platformId);
+    UPlatform* platform = (UPlatform*)m_platforms->find(platformId);
     if (!platform)
         return;
 
@@ -131,7 +134,7 @@ void UCtrlWebSocket::treatScenario(const QJsonObject &jsonObj)
     QString deviceId = jsonObj["deviceId"].toString();
     QString scenarioId = jsonObj["scenarioId"].toString();
 
-    UPlatform* platform = (UPlatform*)m_platforms.find(platformId);
+    UPlatform* platform = (UPlatform*)m_platforms->find(platformId);
     if (!platform)
         return;
 
@@ -170,7 +173,7 @@ void UCtrlWebSocket::treatTask(const QJsonObject &jsonObj)
     QString scenarioId = jsonObj["scenarioId"].toString();
     QString taskId = jsonObj["taskId"].toString();
 
-    UPlatform* platform = (UPlatform*)m_platforms.find(platformId);
+    UPlatform* platform = (UPlatform*)m_platforms->find(platformId);
     if (!platform)
         return;
 
@@ -215,7 +218,7 @@ void UCtrlWebSocket::treatCondition(const QJsonObject &jsonObj)
     QString taskId = jsonObj["taskId"].toString();
     QString conditionId = jsonObj["conditionId"].toString();
 
-    UPlatform* platform = (UPlatform*)m_platforms.find(platformId);
+    UPlatform* platform = (UPlatform*)m_platforms->find(platformId);
     if (!platform)
         return;
 

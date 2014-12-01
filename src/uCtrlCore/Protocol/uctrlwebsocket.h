@@ -46,7 +46,7 @@ private:
     void treatCondition(const QJsonObject& message);
 
     QWebSocket m_webSocket;
-    UPlatformsModel m_platforms;
+    UPlatformsModel* m_platforms;
     QString m_userToken;
 };
 
