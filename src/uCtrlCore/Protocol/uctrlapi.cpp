@@ -1,10 +1,10 @@
 #include "uctrlapi.h"
 
 UCtrlAPI::UCtrlAPI(QNetworkAccessManager* nam, UPlatformsModel* platforms, QObject *parent) :
-    QObject(parent), m_networkAccessManager(nam)
+    QObject(parent), m_networkAccessManager(nam), m_websocket(NULL)
 {
     m_platforms = platforms;
-    m_serverBaseUrl = "http://uctrl.gel.usherbrooke.ca:3000/";
+    m_serverBaseUrl = "http://localhost:3000/";
     m_ninjaToken = "107f6f460bed2dbb10f0a93b994deea7fe07dad5";
 }
 
@@ -51,14 +51,12 @@ void UCtrlAPI::postUserReply()
 
 void UCtrlAPI::getUserStream()
 {
-    connect(&m_webSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(onError(QAbstractSocket::SocketError)));
-    connect(&m_webSocket, SIGNAL(connected()), this, SLOT(onConnected()));
-    connect(&m_webSocket, SIGNAL(textMessageReceived(QString)), this, SLOT(onMessageReceived(QString)));
-    connect(&m_webSocket, SIGNAL(disconnected()), this, SLOT(onClosed()));
+    if (m_websocket)
+        delete m_websocket;
 
+    m_websocket = new UCtrlWebSocket(m_platforms, m_userToken, this);
     QUrl url(m_serverBaseUrl + "stream");
-    url.setScheme("ws");
-    m_webSocket.open(url);
+    m_websocket->open(url);
 }
 
 // /////////////////////////////////////
@@ -1249,30 +1247,6 @@ void UCtrlAPI::deleteConditionReply()
     reply->deleteLater();
 }
 
-void UCtrlAPI::onConnected()
-{
-    QJsonObject tokenObj;
-    tokenObj["token"] = m_userToken;
-    QJsonDocument doc(tokenObj);
-
-    m_webSocket.sendTextMessage(QString(doc.toJson()));
-}
-
-void UCtrlAPI::onError(QAbstractSocket::SocketError error)
-{
-    // TODO: Error
-}
-
-void UCtrlAPI::onMessageReceived(const QString &message)
-{
-    // TODO: Dispatch to alerts or system or whatever
-}
-
-void UCtrlAPI::onClosed()
-{
-    // TODO: Error I guess!?
-}
-
 void UCtrlAPI::synchronize()
 {
     m_platforms->clear();
@@ -1339,6 +1313,11 @@ void UCtrlAPI::acceptRecommendationReply()
     recModel->removeRow(recId);
 
     reply->deleteLater();
+}
+
+void UCtrlAPI::onWebSocketError(const QString &errorString)
+{
+    emit webSocketError(errorString);
 }
 
 // /////////////////////////////////////
