@@ -92,5 +92,6 @@ Rectangle {
         uCtrlApi.networkError.connect(alert.error);
         uCtrlApi.modelError.connect(alert.error);
         uCtrlApi.serverError.connect(alert.error);
+        uCtrlApi.webSocketError.connect(alert.error);
     }
 }
