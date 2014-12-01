@@ -144,7 +144,7 @@ Rectangle
                         anchors.right: parent.right
                         anchors.verticalCenter: iconContainer.verticalCenter
 
-                        height: 30
+                        height: (resourceLoader.loadResource("USaveCancelSaveCancelHeight"))
 
                         onSave: {
                             saveForm();
@@ -181,7 +181,7 @@ Rectangle
 
                         anchors.verticalCenter: iconContainer.verticalCenter
 
-                        height: 30
+                        height: (resourceLoader.loadResource("USaveCancelSaveCancelHeight"))
 
                         text: getDeviceName()
                         placeholderText: "Device name"
@@ -607,14 +607,14 @@ Rectangle
                     {
                         id: tabsContainer
                         width: parent.width
-                        height: 30
+                        height: (resourceLoader.loadResource("deviceDevicepageContentcanvasScenarioandlogscontainerTabsContainerHeight"))
 
                         UI.UTabs {
                             id: tabs
 
                             anchors.centerIn: parent
 
-                            width: 300
+                            width: (resourceLoader.loadResource("deviceDevicepageContentcanvasScenarioandlogscontainerTabsContainerWidth"))
                             height: parent.height
 
                             iconColor: Colors.uWhite

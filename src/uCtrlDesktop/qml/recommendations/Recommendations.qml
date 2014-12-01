@@ -41,7 +41,7 @@ Rectangle {
 
                 delegate: Column {
                     width: parent.width
-                    height: 70
+                    height: (resourceLoader.loadResource("recommandationsRecommandationsHeight"))
 
                     Rectangle {
                         id: rowContainer
@@ -56,7 +56,7 @@ Rectangle {
                         }
 
                         Rectangle {
-                            width: 200
+                            width: (resourceLoader.loadResource("recommandationsButtonsWidth"))
                             anchors.right: parent.right
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.verticalCenterOffset: -acceptButton.height/2
@@ -66,6 +66,7 @@ Rectangle {
                                 anchors.right: declineButton.left
                                 anchors.rightMargin: 10
                                 text: "Accept"
+                                height: (resourceLoader.loadResource("recommandationsAcceptButtonHeight"))
                                 onClicked: {
                                     uCtrlApiFacade.acceptRecommendation(model.id, true)
                                 }
@@ -76,6 +77,7 @@ Rectangle {
                                 anchors.right: parent.right
                                 anchors.rightMargin: 10
                                 text: "Decline"
+                                height: (resourceLoader.loadResource("recommandationsAcceptButtonHeight"))
                                 buttonColor: Colors.uDarkGrey
                                 buttonHoveredColor: Colors.uMediumDarkGrey
                                 onClicked: {

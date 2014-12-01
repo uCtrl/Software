@@ -24,6 +24,7 @@ Rectangle {
         x: marginSize
         y: marginSize
 
+
         text: getName()
 
         color: Colors.uBlack

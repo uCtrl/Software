@@ -45,6 +45,8 @@ Rectangle {
             iconId: "search"
             iconSize: (resourceLoader.loadResource("platformsFiltersSearchBoxIconSize"))
 
+
+
             onTextChanged: {
                 filterText = searchBox.text
             }
@@ -152,7 +154,8 @@ Rectangle {
                     id: header
 
                     property bool showChildren: true
-                    width: parent.width; height: 20;
+                    width: parent.width;
+                    height: (resourceLoader.loadResource("platformsRectplatformsPlatformsHeaderHeight"))
 
                     color: Colors.uGreen
 
@@ -160,14 +163,14 @@ Rectangle {
                         id: headerText
 
                         font.family: "Lato"
-                        font.pointSize: 10
+                        font.pointSize: (resourceLoader.loadResource("platformsRectplatformsPlatformsHeaderTextFontPointSize"))
                         font.bold: true
 
                         text: section
                         color: Colors.uWhite
 
                         anchors.left: parent.left
-                        anchors.leftMargin: 5
+                        anchors.leftMargin: (resourceLoader.loadResource("platformsRectplatformsPlatformsHeaderTextLeftMargin"))
 
                         anchors.verticalCenter: parent.verticalCenter
                     }

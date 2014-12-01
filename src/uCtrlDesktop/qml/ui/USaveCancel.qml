@@ -4,7 +4,7 @@ import "UColors.js" as Colors
 Rectangle {
     id: saveCancel
     width: saveButton.width + cancelButton.width + 5
-    height: 30
+    height: (resourceLoader.loadResource("USaveCancelSaveCancelHeight"))
 
     color: Colors.uTransparent
 

@@ -70,6 +70,8 @@ var resourceDictionary = {
     "deviceDevicepageContentcanvascontentcontainerTechinfocolumnRowvalueLeftMargin":15,
     "deviceDevicepageContentcanvascontentcontainerTechinfocolumnRowTitleWidth": 35,
     "deviceDevicepageContentcanvascontentcontainerTechinfocolumnRowTitleFontPixelSize": 10,
+    "deviceDevicepageContentcanvasScenarioandlogscontainerTabsContainerHeight": 30,
+    "deviceDevicepageContentcanvasScenarioandlogscontainerTabsContainerWidth": 300,
 
     "deviceDevicepageInfocontainerHeaderWidth": 125,
 
@@ -97,6 +99,8 @@ var resourceDictionary = {
     "platformAdvancedAdvancedtextLeftmargin":12,
     "platformPlatformInfoInformationsNamecontainerEditbuttonIconSize": 22,
     "platformPlatformInfoInformationsNametextboxHeight": 30,
+    "platformEnableContainerHeight": 40,
+    "roomContainerRoomTextBoxHeight": 40,
 
     "platformListitemPlatformNameTextFontPointSize": 16,
     "platformListitemPlatformUpdateTextFontPointSize": 11,
@@ -106,6 +110,13 @@ var resourceDictionary = {
     "platformsRectplatformsPlatformsColumnItemcontainerHeight": 60,
     "platformsFiltersSearchBoxIconSize": 13,
     "platformsFiltersSearchBoxRightmargin": 5,
+    "platformsRectplatformsPlatformsHeaderHeight": 20,
+    "platformsRectplatformsPlatformsHeaderTextFontPointSize": 10,
+    "platformsRectplatformsPlatformsHeaderTextLeftMargin": 5,
+
+    "recommandationsRecommandationsHeight": 70,
+    "recommandationsButtonsWidth": 200,
+    "recommandationsAcceptButtonHeight": 30,
 
     "scenariosScenariocontainerScenarioHeaderHeight": 50,
     "scenariosScenariocontainerScenarioHeaderScHeaderIcon": 24,
@@ -128,8 +139,9 @@ var resourceDictionary = {
     "UCarouselListviewRectangleHeight":30,
     "UCarouselListviewUFontawesomeIconSIze": 16,
     "UCarouselUButtonChevronRightWidth": 30,
-    "UCarouselUButtonChevronRightHeight": 30
+    "UCarouselUButtonChevronRightHeight": 30,
 
+    "USaveCancelSaveCancelHeight": 30
 
 
 }

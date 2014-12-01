@@ -103,7 +103,7 @@ Rectangle {
             {
                 visible: showEditMode
                 width: parent.width
-                height: 30
+                height: (resourceLoader.loadResource("USaveCancelSaveCancelHeight"))
                 anchors.verticalCenter: parent.verticalCenter
 
                 UI.USaveCancel {
@@ -127,7 +127,7 @@ Rectangle {
                     anchors.right: saveCancelPlatform.left
                     anchors.rightMargin: 5
 
-                    height: (resourceLoader.loadResource("platformPlatformInfoInformationsNametextboxHeight"))
+                    height: (resourceLoader.loadResource("USaveCancelSaveCancelHeight"))
 
                     text: getName()
                     placeholderText: "Platform name"
@@ -151,7 +151,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.right: parent.right
 
-            height: 40
+            height: (resourceLoader.loadResource("platformEnableContainerHeight"))
 
             ULabel.UInfoTitle {
                 id: enabledTitle
@@ -197,7 +197,7 @@ Rectangle {
             anchors.left: parent.left
             anchors.right: parent.right
 
-            height: 40
+            height: (resourceLoader.loadResource("platformEnableContainerHeight"))
 
             ULabel.UInfoTitle {
                 id: locationTitle
@@ -235,7 +235,7 @@ Rectangle {
 
                 anchors.verticalCenter: parent.verticalCenter
 
-                height: 30
+                height: (resourceLoader.loadResource("roomContainerRoomTextBoxHeight"))
 
                 visible: showEditMode
 

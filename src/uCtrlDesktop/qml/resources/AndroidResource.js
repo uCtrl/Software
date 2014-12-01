@@ -75,6 +75,8 @@ var resourceDictionary = {
     "deviceDevicepageContentcanvascontentcontainerTechinfocolumnRowvalueLeftMargin":40,
     "deviceDevicepageContentcanvascontentcontainerTechinfocolumnRowTitleWidth": 70,
     "deviceDevicepageContentcanvascontentcontainerTechinfocolumnRowTitleFontPixelSize": 25,
+    "deviceDevicepageContentcanvasScenarioandlogscontainerTabsContainerHeight": 65,
+    "deviceDevicepageContentcanvasScenarioandlogscontainerTabsContainerWidth": 800,
 
     "deviceDevicepageInfocontainerHeaderWidth": 350,
 
@@ -89,7 +91,7 @@ var resourceDictionary = {
     "contentcontainerTechIconIconSize": 25,
     "contentcontainerTechlabelFontPixelSize": 19,
 
-    "platformPlatformInfoInformationsNamecontainerHeight": 60,
+    "platformPlatformInfoInformationsNamecontainerHeight": 100,
     "platformAdvancedHeight": 60,
     "platformAdvancedIdrowHeight": 25,
     "platformAdvancedAnimationToHeight": 200,
@@ -101,6 +103,8 @@ var resourceDictionary = {
     "platformAdvancedAdvancedtextLeftmargin": 20,
     "platformPlatformInfoInformationsNamecontainerEditbuttonIconSize": 30,
     "platformPlatformInfoInformationsNametextboxHeight": 50,
+    "platformEnableContainerHeight": 60,
+    "roomContainerRoomTextBoxHeight": 45,
 
     "platformListitemPlatformNameTextFontPointSize": 35,
     "platformListitemPlatformUpdateTextFontPointSize": 22,
@@ -108,8 +112,15 @@ var resourceDictionary = {
     "platformsPlatformlistMarginSize": 45,
     "platformsFiltersHeight": 70,
     "platformsRectplatformsPlatformsColumnItemcontainerHeight": 150,
-    "platformsFiltersSearchBoxIconSize": 20,
+    "platformsFiltersSearchBoxIconSize": 15,
     "platformsFiltersSearchBoxRightmargin": 15,
+    "platformsRectplatformsPlatformsHeaderHeight": 35,
+    "platformsRectplatformsPlatformsHeaderTextFontPointSize": 15,
+    "platformsRectplatformsPlatformsHeaderTextLeftMargin": 15,
+
+    "recommandationsRecommandationsHeight": 200,
+    "recommandationsButtonsWidth": 700,
+    "recommandationsAcceptButtonHeight": 150,
 
     "scenariosScenariocontainerScenarioHeaderHeight": 100,
     "scenariosScenariocontainerScenarioHeaderScHeaderIcon": 40,
@@ -132,5 +143,7 @@ var resourceDictionary = {
     "UCarouselListviewRectangleHeight": 30,
     "UCarouselListviewUFontawesomeIconSIze": 25,
     "UCarouselUButtonChevronRightWidth": 60,
-    "UCarouselUButtonChevronRightHeight": 60
+    "UCarouselUButtonChevronRightHeight": 60,
+
+    "USaveCancelSaveCancelHeight": 80
 }

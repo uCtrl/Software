@@ -53,7 +53,7 @@ Rectangle {
         }
 
         UI.UImage {
-            img: "../../Images/uCtrl-Icon.png"
+            img: "../../Images/uCtrl.png"
 
             width: parent.width*0.15
             height: parent.height

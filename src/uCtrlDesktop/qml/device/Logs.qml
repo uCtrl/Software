@@ -27,7 +27,7 @@ Rectangle {
     Rectangle {
         id: logsHeaderContainer
         width: parent.width
-        height: 50
+        height: (resourceLoader.loadResource("scenariosScenariocontainerScenarioHeaderHeight"))
 
         anchors.top: container.top
         anchors.left: container.left
@@ -38,7 +38,7 @@ Rectangle {
         UI.UFontAwesome {
             id: logsHeaderIcon
             iconId: "info"
-            iconSize: 24
+            iconSize: (resourceLoader.loadResource("scenariosScenariocontainerScenarioHeaderScHeaderIcon"))
             iconColor: Colors.uGrey
 
             anchors.left: parent.left
@@ -48,9 +48,9 @@ Rectangle {
 
         ULabel.Default {
             text: "Device events"
-            font.pointSize: 20
+            font.pointSize: (resourceLoader.loadResource("scenariosScenariocontainerScenarioHeaderFontPointSize"))
             anchors.left: logsHeaderIcon.right
-            anchors.leftMargin: 20
+            anchors.leftMargin: (resourceLoader.loadResource("scenariosScenariocontainerScenarioHeaderLeftMargin"))
             anchors.verticalCenter: parent.verticalCenter
             color: Colors.uGrey
         }

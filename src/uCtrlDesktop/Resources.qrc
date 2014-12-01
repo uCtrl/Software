@@ -124,5 +124,8 @@
         <file>qml/condition/type/DefaultCondition.qml</file>
         <file>qml/condition/row/DefaultRow.qml</file>
         <file>qml/condition/row/DeviceSelectionRow.qml</file>
+        <file>Images/uCtrl-Icon.png</file>
+        <file>Images/uctrl.ico</file>
+        <file>Images/uCtrl-white.svg</file>
     </qresource>
 </RCC>

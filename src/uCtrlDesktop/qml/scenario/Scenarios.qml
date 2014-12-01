@@ -44,8 +44,6 @@ Rectangle {
                font.bold: true
                font.pointSize: 32
                horizontalAlignment: Text.AlignHCenter
-
-
                color: Colors.uGrey
            }
        }
