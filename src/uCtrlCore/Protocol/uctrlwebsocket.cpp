@@ -38,8 +38,6 @@ void UCtrlWebSocket::onError(QAbstractSocket::SocketError error)
 
 void UCtrlWebSocket::onMessageReceived(const QString &message)
 {
-    qDebug() << message;
-
     QJsonObject jsonObj = QJsonDocument::fromJson(message.toUtf8()).object();
 
     if (jsonObj.empty()) return;
