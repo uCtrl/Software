@@ -3,9 +3,11 @@ import QtQuick 2.0
 import "../../ui" as UI
 import "../../label" as ULabel
 import "../../ui/UColors.js" as Colors
+import "./GraphHelper.js" as GraphHelper
 
 import jbQuick.Charts 1.0
 import "../../jbQuick/Charts/QChartGallery.js" as ChartsData
+
 
 Rectangle {
     id: container
@@ -15,6 +17,7 @@ Rectangle {
 
     property bool hideButton: false
 
+    property bool displayStats: false
     color: Colors.uTransparent
 
     Rectangle {
@@ -180,6 +183,7 @@ Rectangle {
             anchors.top: graphHeader.bottom
             anchors.bottom: carouselContainer.top
 
+            visible: container.displayStats
             clip: true
 
             UI.UChart {
@@ -207,23 +211,51 @@ Rectangle {
                 id: powerChart
                 chartAnimated: false
                 chartName: "Power consumption"
-                chartData: {"labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
+                chartData: {"labels": [],
                            "datasets": [{
                                fillColor: "rgba(237,237,237,0.5)",
                                strokeColor: Colors.uMediumLightGrey,
                                pointColor: Colors.uGreen,
                                pointStrokeColor: Colors.uGreen,
-                               data: [0, 15, 20, 23, 25, 60, 67]
+                               data: []
                            }]
                        }
                 width: graph.width
                 height: graph.height
                 chartType: Charts.ChartType.LINE
 
+                onChartDataChanged: refresh()
+
                 z: 2
             }
 
             z: 1
+        }
+
+        Rectangle {
+            id: noStats
+
+            anchors.left: graphContainer.left
+            anchors.right: graphContainer.right
+            anchors.top: graphHeader.bottom
+            anchors.bottom: carouselContainer.top
+
+            clip: true
+            width: parent.width
+            visible: !container.displayStats
+
+            color: Colors.uTransparent
+
+            ULabel.Default {
+                anchors.centerIn: parent
+
+                font.bold: true
+                font.pixelSize: 36
+
+                color: Colors.uGrey
+
+                text: "No stats to display"
+            }
         }
 
         Rectangle {
@@ -243,8 +275,15 @@ Rectangle {
     }
 
     onModelChanged: {
-        container.statsModel = devicesList.getStatisticsWithId(model.id);
-        container.statsModel.setOnReceivedCallback(getDeviceValueStats);
+        if (model) {
+            statsModel = devicesList.getStatisticsWithId(model.id);
+        }
+    }
+
+    onStatsModelChanged: {
+        if (statsModel) {
+            statsModel.setOnReceivedCallback(getDeviceValueStats);
+        }
     }
 
     function getLastUpdatedText() {
@@ -254,62 +293,56 @@ Rectangle {
 
     function getDeviceValueStats() {
         if (statsModel) {
-
-            var data = []
-            var labels = []
-
-            for (var i=0; i<statsModel.rowCount;i++) {
-                var stat = statsModel.get(i);
-                labels.push(new Date(stat.timestamp).toTimeString())
-                data.push(Number(stat.data))
-            }
-
-            var chartData = {
-                "labels": labels,
-                "axisY": [0, 50, 150, 200, 250, 300],
+            var period = periodCombo.selectedItem ? periodCombo.selectedItem.value : "hour";
+            var chartData = GraphHelper.deviceValuesToChartData(statsModel, period);
+            container.displayStats = (chartData.labels.length > 0);
+            stateChart.chartData = {
+                "labels": chartData.labels,
                 "datasets": [{
                     fillColor: Colors.uGreen,
                     strokeColor: Colors.uMediumLightGrey,
                     pointColor: Colors.uGreen,
                     pointStrokeColor: Colors.uGreen,
-                    data: data
+                    data: chartData.data
                 }]
             }
 
-            stateChart.chartData = chartData;
+            var powerData = []
+            var powerLabel = []
+            for(var i = 0; i < chartData.data.length; i++)
+            {
+                var value = 0;
+                if(i == 0)
+                    value = Math.random() * 10 + 1
+                else
+                    value = powerData[i-1] + Math.random() * 10 + 1
+
+                powerData.push(value)
+                powerLabel.push(chartData.labels[i])
+            }
+
+            var powerChartData = {
+                labels: powerLabel,
+                data: powerData
+            }
+
+            powerChart.chartData = {
+                "labels": powerChartData.labels,
+                "datasets": [{
+                    fillColor: "rgba(237,237,237,0.5)",
+                    strokeColor: Colors.uMediumLightGrey,
+                    pointColor: Colors.uGreen,
+                    pointStrokeColor: Colors.uGreen,
+                    data: powerChartData.data
+                }]
+            }
         }
     }
 
     function updateStatsPeriod() {
-
-        if (periodCombo.selectedItem !== null) var period = periodCombo.selectedItem.value
-        else period = "hour"
-
-        var from = ""
-        var to = ""
-        var interval = ""
-
-        switch (period) {
-        case "hour":
-            from = new Date().setMinutes(0, 0)
-            interval = "15min"
-            break;
-        case "today":
-            from = new Date().setHours(0, 0, 0)
-            interval = "1hour"
-            break;
-        case "month":
-            from = new Date().setDate(1, 0, 0, 0)
-            interval = "1day"
-            break;
-        case "year":
-            from = new Date().setMonth(0, 1, 0, 0, 0)
-            interval = "1month"
-            break;
-        }
-        to = new Date().getTime()
-
-        uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id), {"from": from.toString(), "to": to.toString(), "interval": interval, "fn": "count"});
+        var period = periodCombo.selectedItem ? periodCombo.selectedItem.value : "hour";
+        var params = GraphHelper.getDeviceValuesParams(period);
+        uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id), {"from": params.from.toString(), "to": params.to.toString(), "interval": params.interval, "fn": "count"});
     }
 
     function sendAction() {

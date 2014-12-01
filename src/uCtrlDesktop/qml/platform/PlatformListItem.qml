@@ -11,6 +11,7 @@ Rectangle {
 
     property string platformName: "Platform name"
     property int marginSize: 10
+    property bool isSelected
 
     width: parent.width
     height: parent.height
@@ -57,6 +58,7 @@ Rectangle {
 
     function getColor() {
         if (mouseArea.containsMouse) return Colors.uLightGrey
+        else if(isSelected) return Colors.uUltraLightGrey
         else return Colors.uWhite
     }
 

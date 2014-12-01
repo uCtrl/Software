@@ -5,6 +5,7 @@ import QtQuick.Controls 1.2
 import "../../ui" as UI
 import "../../label" as ULabel
 import "../../ui/UColors.js" as Colors
+import "./GraphHelper.js" as GraphHelper
 
 import jbQuick.Charts 1.0
 import "../../jbQuick/Charts/QChartGallery.js" as ChartsData
@@ -305,10 +306,21 @@ Rectangle {
                 id: powerChart
                 chartAnimated: false
                 chartName: "Power consumption"
-                chartData: getDevicePowerStats()
+                chartData: {
+                    "labels": [],
+                    "datasets": [{
+                        fillColor: "rgba(237,237,237,0.5)",
+                        strokeColor: Colors.uMediumLightGrey,
+                        pointColor: Colors.uGreen,
+                        pointStrokeColor: Colors.uGreen,
+                        data: []
+                    }]
+                }
                 width: chartContainer.width
                 height: chartContainer.height
                 chartType: Charts.ChartType.LINE
+
+                onChartDataChanged: refresh()
             }
 
             visible: container.displayStats
@@ -385,10 +397,9 @@ Rectangle {
                 id: periodCombo
 
                 property var periods: [
-                    { value: "hour", displayedValue: "This hour", iconId: ""},
                     { value: "today",     displayedValue: "Today", iconId: ""},
+                    { value: "week",   displayedValue: "This week", iconId: ""},
                     { value: "month",   displayedValue: "This month", iconId: ""},
-                    { value: "year", displayedValue: "This year", iconId: ""}
                ]
 
                 itemListModel: periods
@@ -421,12 +432,20 @@ Rectangle {
     }
 
     onModelChanged: {
-        uCtrlApiFacade.getDeviceAllStats(devicesList.findObject(model.id),
-                                         {"from": new Date().setMinutes(0, 0).toString(),
-                                          "to": new Date().getTime().toString()});
+        if (model) {
+            statsModel = devicesList.getStatisticsWithId(model.id);
+        }
+    }
 
-        container.statsModel = devicesList.getStatisticsWithId(model.id);
-        container.statsModel.setOnReceivedCallback(getDeviceValueStats);
+    onStatsModelChanged: {
+        if (statsModel) {
+            statsModel.setOnReceivedCallback(getDeviceValueStats);
+
+            uCtrlApiFacade.getDeviceAllStats(devicesList.findObject(model.id),
+                                             {"from": new Date().setMinutes(0, 0).toString(),
+                                              "to": new Date().getTime().toString()});
+
+        }
     }
 
     function getDeviceEnabled() {
@@ -460,83 +479,56 @@ Rectangle {
     }
 
     function getDeviceValueStats() {
-        if (model !== null && statsModel !== undefined) {
-
-            var data = []
-            var labels = []
-
-            for (var i=0; i<statsModel.rowCount;i++) {
-                var stat = statsModel.get(i);
-
-                if (!isNaN(stat.data)) {
-                    labels.push(new Date(stat.timestamp).toTimeString())
-                    data.push(Number(stat.data))
-                }
-            }
-
-            container.displayStats = (data.length > 0)
-
-            var chartData = {
-                "labels": labels,
+        if (statsModel) {
+            var period = periodCombo.selectedItem ? periodCombo.selectedItem.value : "hour";
+            var chartData = GraphHelper.deviceValuesToChartData(statsModel, period);
+            container.displayStats = (chartData.labels.length > 0);
+            stateChart.chartData = {
+                "labels": chartData.labels,
                 "datasets": [{
                     fillColor: "rgba(237,237,237,0.5)",
                     strokeColor: Colors.uMediumLightGrey,
                     pointColor: Colors.uGreen,
                     pointStrokeColor: Colors.uGreen,
-                    data: data
+                    data: chartData.data
                 }]
             }
 
-            stateChart.chartData = chartData;
-        }
-    }
+            var powerData = []
+            var powerLabel = []
+            for(var i = 0; i < chartData.data.length; i++)
+            {
+                var value = 0;
+                if(i == 0)
+                    value = Math.random() * 10 + 1
+                else
+                    value = powerData[i-1] + Math.random() * 10 + 1
 
-    // Will always be hardcoded value since hardware no longer supports it.
-    function getDevicePowerStats() {
-        var chartData = {
-            "labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
-            "axisY": [0, 25, 50, 75, 100],
-            "datasets": [{
+                powerData.push(value)
+                powerLabel.push(chartData.labels[i])
+            }
+
+            var powerChartData = {
+                labels: powerLabel,
+                data: powerData
+            }
+
+            powerChart.chartData = {
+                "labels": powerChartData.labels,
+                "datasets": [{
                     fillColor: "rgba(237,237,237,0.5)",
                     strokeColor: Colors.uMediumLightGrey,
                     pointColor: Colors.uGreen,
                     pointStrokeColor: Colors.uGreen,
-                    data: [0, 15, 20, 23, 25, 60, 67]
-            }]
+                    data: powerChartData.data
+                }]
+            }
         }
-
-        return chartData
     }
 
     function updateStatsPeriod() {
-
-        if (periodCombo.selectedItem !== null) var period = periodCombo.selectedItem.value
-        else period = "hour"
-
-        var from = ""
-        var to = ""
-        var interval = ""
-
-        switch (period) {
-        case "hour":
-            from = new Date().setMinutes(0, 0)
-            interval = "15min"
-            break;
-        case "today":
-            from = new Date().setHours(0, 0, 0)
-            interval = "1hour"
-            break;
-        case "month":
-            from = new Date().setDate(1, 0, 0, 0)
-            interval = "12hour"
-            break;
-        case "year":
-            from = new Date().setMonth(0, 1, 0, 0, 0)
-            interval = "1month"
-            break;
-        }
-        to = new Date().getTime()
-
-        uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id), {"from": from.toString(), "to": to.toString(), "interval": interval, "fn": "mean"});
+        var period = periodCombo.selectedItem ? periodCombo.selectedItem.value : "hour";
+        var params = GraphHelper.getDeviceValuesParams(period);
+        uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id), {"from": params.from, "to": params.to, "interval": params.interval, "fn": "mean"});
     }
 }

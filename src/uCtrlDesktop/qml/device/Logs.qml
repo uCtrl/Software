@@ -222,11 +222,11 @@ Rectangle {
     }
 
     onModelChanged: {
-        container.logsModel = devicesList.getHistoryWithId(model.id);
-        container.logsModel.logsReceived.disconnect(updateHistory);
-        container.logsModel.logsReceived.connect(updateHistory);
+        if (model) {
+            container.logsModel = devicesList.getHistoryWithId(model.id);
+            container.logsModel.setOnReceivedCallback(updateHistory);
+        }
     }
-
 
     function getTimestampLabel(timestamp) {
         var nowDate = new Date()

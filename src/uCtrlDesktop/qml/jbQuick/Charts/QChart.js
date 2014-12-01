@@ -1122,6 +1122,10 @@ var Chart = function(canvas, context) {
 
                     var barOffset = yAxisPosX + config.barValueSpacing + valueHop*j + barWidth*i + config.barDatasetSpacing*i + config.barStrokeWidth*i;
 
+                    if (data.labels.length === 1) {
+                        barOffset = ((xAxisLength)/2) - (barWidth/2) + yAxisPosX;
+                    }
+
                     ctx.beginPath();
                     ctx.moveTo(barOffset, xAxisPosY);
                     ctx.lineTo(barOffset, xAxisPosY - animPc*calculateOffset(data.datasets[i].data[j],calculatedScale,scaleHop)+(config.barStrokeWidth/2));
@@ -1222,6 +1226,10 @@ var Chart = function(canvas, context) {
             yAxisPosX = width-widestXLabel/2-xAxisLength;
 
             xAxisPosY = scaleHeight + config.scaleFontSize/2;
+
+            if (data.labels.length === 1) {
+                barWidth = 100;
+            }
         }
 
         function calculateDrawingSizes() {
@@ -1299,28 +1307,21 @@ var Chart = function(canvas, context) {
     }
 
     function calculateScale(drawingHeight,maxSteps,minSteps,maxValue,minValue,labelTemplateString) {
-
-        var graphMin,graphMax,graphRange,stepValue,numberOfSteps,valueRange,rangeOrderOfMagnitude,decimalNum;
-
-        valueRange = maxValue - minValue;
-        rangeOrderOfMagnitude = calculateOrderOfMagnitude(valueRange);
-        graphMin = Math.floor(minValue / (1 * Math.pow(10, rangeOrderOfMagnitude))) * Math.pow(10, rangeOrderOfMagnitude);
-        graphMax = Math.ceil(maxValue / (1 * Math.pow(10, rangeOrderOfMagnitude))) * Math.pow(10, rangeOrderOfMagnitude);
-        graphRange = graphMax - graphMin;
-        stepValue = Math.pow(10, rangeOrderOfMagnitude);
-        numberOfSteps = Math.round(graphRange / stepValue);
-
-        while(numberOfSteps < minSteps || numberOfSteps > maxSteps) {
-            if (numberOfSteps < minSteps) {
-                stepValue /= 2;
-                numberOfSteps = Math.round(graphRange/stepValue);
-            } else{
-                stepValue *=2;
-                numberOfSteps = Math.round(graphRange/stepValue);
-            }
-        };
-
+        var valueRange, stepValue, graphMin, numberOfSteps
         var labels = [];
+
+        if (maxValue === minValue) {
+            minValue = 0;
+        }
+
+
+        graphMin = Math.floor(minValue) - (Math.floor(minValue) % 5)
+        stepValue = calculateStepValue(maxValue - graphMin)
+
+        numberOfSteps = Math.round((maxValue - graphMin) / stepValue)
+
+        if(maxValue > (graphMin + numberOfSteps * stepValue))
+            numberOfSteps++
 
         populateLabels(labelTemplateString, labels, numberOfSteps, graphMin, stepValue);
 
@@ -1330,13 +1331,28 @@ var Chart = function(canvas, context) {
             graphMin: graphMin,
             labels: labels
         }
+    }
 
-        function calculateOrderOfMagnitude(val) {
-            return Math.floor(Math.log(val) / Math.LN10);
-        }
+    function calculateStepValue(range)
+    {
+        if(range <= 1)
+            return 0.1
+        else if(range <= 3)
+            return 0.25
+        else if(range <= 5)
+            return 0.5
+        else if(range <= 10)
+            return 1
+        else if(range <= 20)
+            return 2
+        else if(range <= 50)
+            return 5
+        else
+            return Math.round(range * 0.01) * 10
     }
 
     function populateLabels(labelTemplateString, labels, numberOfSteps, graphMin, stepValue) {
+
         if (labelTemplateString) {
             for (var i = 1; i < numberOfSteps + 1; i++) {
                 labels.push(tmpl(labelTemplateString, {value: (graphMin + (stepValue * i)).toFixed(getDecimalPlaces(stepValue))}));

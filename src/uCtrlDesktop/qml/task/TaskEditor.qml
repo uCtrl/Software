@@ -3,6 +3,7 @@ import QtQuick 2.0
 import "../ui/UColors.js" as Colors
 import "../ui" as UI
 import "../label" as ULabel
+import "../condition" as UConditions
 
 import DeviceEnums 1.0
 
@@ -173,7 +174,7 @@ Rectangle {
 
                     model: conditionModel
 
-                    delegate: ConditionEditor {
+                    delegate: UConditions.ConditionEditor {
                         id: cdnEditor
                         conditionModel: model
                         z: countConditions() - index

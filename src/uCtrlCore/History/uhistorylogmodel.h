@@ -15,8 +15,10 @@ public:
     void write(QJsonObject &jsonObj) const;
     void read(const QJsonObject &jsonObj);
 
-signals:
-    void logsReceived();
+    Q_INVOKABLE void setOnReceivedCallback(const QJSValue& callback);
+
+private:
+    QJSValue m_onReceivedCallback;
 };
 
 #endif // UHISTORYLOGMODEL_H

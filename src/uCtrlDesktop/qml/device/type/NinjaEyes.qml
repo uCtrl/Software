@@ -6,6 +6,7 @@ import QtGraphicalEffects 1.0
 import "../../ui" as UI
 import "../../label" as ULabel
 import "../../ui/UColors.js" as Colors
+import "./GraphHelper.js" as GraphHelper
 
 import jbQuick.Charts 1.0
 import "../../jbQuick/Charts/QChartGallery.js" as ChartsData
@@ -13,10 +14,11 @@ import "../../jbQuick/Charts/QChartGallery.js" as ChartsData
 Rectangle {
     id: container
 
-    width: parent.width
-
     property var model: null
+    property var statsModel: null
+
     property string unitLabel : ""
+    property bool displayStats: false
 
     Rectangle {
         id: valueContainer
@@ -162,14 +164,14 @@ Rectangle {
                 chartAnimated: false
                 chartName: "Number of changes"
                 chartData: {
-                               "labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
+                               "labels": [],
                                "axisY": [0, 25, 50, 75, 100],
                                "datasets": [{
                                    fillColor: Colors.uGreen,
                                    strokeColor: Colors.uDarkGreen,
                                    pointColor: Colors.uGreen,
                                    pointStrokeColor: Colors.uGreen,
-                                   data: [0, 55, 15, 75, 100, 0, 50],
+                                   data: [],
                                }]
                            }
                 width: chartContainer.width
@@ -178,6 +180,7 @@ Rectangle {
                 chartType: Charts.ChartType.BAR
 
                 z: 2
+                onChartDataChanged: refresh()
             }
 
             UI.UChart {
@@ -185,19 +188,20 @@ Rectangle {
                 chartAnimated: false
                 chartName: "Power consumption"
                 chartData: {
-                               "labels": ["06:10am","07:10am","08:10am","09:10am","10:10am","11:10am","12:10am"],
-                               "axisY": [0, 25, 50, 75, 100],
+                               "labels": [],
                                "datasets": [{
                                    fillColor: "rgba(237,237,237,0.5)",
                                    strokeColor: Colors.uMediumLightGrey,
                                    pointColor: Colors.uGreen,
                                    pointStrokeColor: Colors.uGreen,
-                                   data: [0, 15, 20, 23, 25, 60, 67]
+                                   data: []
                                }]
                            }
                 width: chartContainer.width
                 height: chartContainer.height
                 chartType: Charts.ChartType.LINE
+
+                onChartDataChanged: refresh()
             }
         }
 
@@ -274,10 +278,103 @@ Rectangle {
                 width: 150
 
                 Component.onCompleted: selectItem(0)
+                onSelectValue: updateStatsPeriod();
 
                 z: 3
             }
         }
+    }
+
+    Rectangle {
+        id: noStats
+
+        anchors.left: container.left
+        anchors.right: container.right
+        anchors.top: valueContainer.bottom
+        anchors.bottom: container.bottom
+
+        clip: true
+        width: parent.width
+        visible: !container.displayStats
+
+        color: Colors.uTransparent
+
+        ULabel.Default {
+            anchors.centerIn: parent
+
+            font.bold: true
+            font.pixelSize: 36
+
+            color: Colors.uGrey
+
+            text: "No stats to display"
+        }
+    }
+
+    onModelChanged: {
+        if (model) {
+            statsModel = devicesList.getStatisticsWithId(model.id);
+        }
+    }
+
+    onStatsModelChanged: {
+        if (statsModel) {
+            statsModel.setOnReceivedCallback(getDeviceValueStats);
+        }
+    }
+
+    function getDeviceValueStats() {
+        if (statsModel) {
+            var period = periodCombo.selectedItem ? periodCombo.selectedItem.value : "hour";
+            var chartData = GraphHelper.deviceValuesToChartData(statsModel, period);
+            container.displayStats = (chartData.labels.length > 0);
+            stateChart.chartData = {
+                "labels": chartData.labels,
+                "datasets": [{
+                    fillColor: Colors.uGreen,
+                    strokeColor: Colors.uMediumLightGrey,
+                    pointColor: Colors.uGreen,
+                    pointStrokeColor: Colors.uGreen,
+                    data: chartData.data
+                }]
+            }
+
+            var powerData = []
+            var powerLabel = []
+            for(var i = 0; i < chartData.data.length; i++)
+            {
+                var value = 0;
+                if(i == 0)
+                    value = Math.random() * 10 + 1
+                else
+                    value = powerData[i-1] + Math.random() * 10 + 1
+
+                powerData.push(value)
+                powerLabel.push(chartData.labels[i])
+            }
+
+            var powerChartData = {
+                labels: powerLabel,
+                data: powerData
+            }
+
+            powerChart.chartData = {
+                "labels": powerChartData.labels,
+                "datasets": [{
+                    fillColor: "rgba(237,237,237,0.5)",
+                    strokeColor: Colors.uMediumLightGrey,
+                    pointColor: Colors.uGreen,
+                    pointStrokeColor: Colors.uGreen,
+                    data: powerChartData.data
+                }]
+            }
+        }
+    }
+
+    function updateStatsPeriod() {
+        var period = periodCombo.selectedItem ? periodCombo.selectedItem.value : "hour";
+        var params = GraphHelper.getDeviceValuesParams(period);
+        uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id), {"from": params.from.toString(), "to": params.to.toString(), "interval": params.interval, "fn": "count"});
     }
 
     function getDeviceEnabled() {

@@ -29,12 +29,14 @@ class UDevice : public NestedListItem
         unitLabelRole,
         enabledRole,
         lastUpdatedRole,
-        deviceModelRole
+        deviceModelRole,
+        valueTypeRole,
     };
 
 public:
     Q_ENUMS(UEStatus)
     Q_ENUMS(UEType)
+    Q_ENUMS(UEValueType)
 
     enum class UEStatus: int {
         Ok = 0,
@@ -48,12 +50,25 @@ public:
         PowerSocketSwitch = 1,
         PushButton = 5,
         MotionSensor = 7,
+        LED = 20,
+        LEDDisplay = 21,
         Humidity = 30,
         Temperature = 31,
         NinjasEyes = 1007,
         LimitlessLEDWhite = 1012,
         DoorSensor = 9990,
         LightSensor = 10000,
+    };
+
+    enum class UEValueType: int {
+        Unknown = 0,
+        Time,
+        Date,
+        Day,
+        Slider,
+        Switch,
+        Textbox,
+        Event,
     };
 
     explicit UDevice(QObject *parent = 0);
@@ -99,6 +114,7 @@ public:
     Q_INVOKABLE void unitLabel(const QString& unitLabel);
     Q_INVOKABLE QString deviceModel() const;
     Q_INVOKABLE void deviceModel(const QString& deviceModel);
+    Q_INVOKABLE UEValueType valueType() const;
 
     ListModel* history() const;
     ListModel* statistics() const;

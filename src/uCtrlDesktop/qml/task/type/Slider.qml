@@ -6,18 +6,36 @@ import "../../ui/UColors.js" as Colors
 Rectangle {
     id: container
 
-    color: Colors.uTransparent
-
     property var model
-    UI.USlider {
-        id: valueTextbox
-        width: 130
+
+    width: 130
+
+    Rectangle
+    {
+        property int textWidth: 50
+
+        anchors.left: parent.left
+        anchors.leftMargin: textWidth
+
+        width: 130 - textWidth
         height: 40
 
-        anchors.centerIn: parent
+        UI.USlider {
+            id: valueTextbox
+            width: parent.width
+            height: 40
+            textWidth: parent.textWidth
+            textSize: 12
 
-        value: model.value()
+            minimumValue: 0
+            maximumValue: 100
+            stepSize: 1
 
-        onNewValue: model.value(value)
+            anchors.centerIn: parent
+
+            value: model.value() * 100
+
+            onNewValue: model.value(value / 100)
+        }
     }
 }
