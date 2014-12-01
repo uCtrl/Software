@@ -69,6 +69,7 @@ public:
         Switch,
         UpDownSwitch,
         Textbox,
+        Color,
         Event,
     };
 
