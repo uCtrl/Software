@@ -385,8 +385,7 @@ Rectangle {
         }
     }
 
-    Rectangle
-    {
+    Rectangle {
         id: leftToRightSeparator
         width: 2
 
@@ -806,6 +805,8 @@ Rectangle {
     Component.onCompleted: {
         getDeviceStatusData();
         getDeviceTypeData();
+
+        uCtrlApiFacade.getOverallMax({"type": 31})
     }
 
     function getSystemStatus() {

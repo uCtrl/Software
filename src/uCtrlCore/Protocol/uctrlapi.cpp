@@ -1,4 +1,5 @@
 #include "uctrlapi.h"
+#include "QDebug"
 
 UCtrlAPI::UCtrlAPI(QNetworkAccessManager* nam, UPlatformsModel* platforms, QObject *parent) :
     QObject(parent), m_networkAccessManager(nam)
@@ -1416,4 +1417,39 @@ QNetworkReply* UCtrlAPI::deleteRequest(const QString &urlString)
     QNetworkRequest req(url);
     req.setRawHeader("X-uCtrl-Token", m_userToken.toUtf8());
     return m_networkAccessManager->deleteResource(req);
+}
+
+void UCtrlAPI::getOverallMax(QMap<QString, QVariant> params)
+{
+    params["fn"] = "max";
+    QNetworkReply* reply = getRequest(QString("stats"), params);
+    reply->setProperty(DeviceType, params["type"]);
+    connect(reply, SIGNAL(finished()), this, SLOT(getOverallMaxReply()));
+}
+
+void UCtrlAPI::getOverallMaxReply()
+{
+    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
+    if (!checkNetworkError(reply)) {
+        reply->deleteLater();
+        return;
+    }
+
+    QJsonObject jsonObj = QJsonDocument::fromJson(reply->readAll()).object();
+    if (!checkServerError(jsonObj)) {
+        reply->deleteLater();
+        return;
+    }
+
+    QString platformId = reply->property(PlatformId).toString();
+    NestedListItem* platform = (NestedListItem*)m_platforms->find(platformId);
+    if (!checkModel(platform)) {
+        reply->deleteLater();
+        return;
+    }
+
+    qDebug() << jsonObj["data"];
+    //device->maxStat(jsonObj["data"].toString());
+
+    reply->deleteLater();
 }
