@@ -22,10 +22,10 @@ class UCtrlLocalApi : public QObject
         GetConditionsRequest = 9,
         GetConditionsResponse = 10,
         SavePlatformRequest = 11,
-        SaveDevicesRequest = 13,
-        SaveScenariosRequest = 15,
-        SaveTasksRequest = 17,
-        SaveConditionsRequest = 19,
+        SaveDeviceRequest = 13,
+        SaveScenarioRequest = 15,
+        SaveTaskRequest = 17,
+        SaveConditionRequest = 19,
         DeleteDeviceRequest = 33,
         DeleteScenarioRequest = 35,
         DeleteTaskRequest = 37,
@@ -40,14 +40,14 @@ public:
     void getConditions(UTask* task);
 
     void savePlatform(UPlatform* platform);
-    void saveDevices(UPlatform* platform);
-    void saveDevices(UPlatform* platform, const QJsonArray& devicesArray);
-    void saveScenarios(UDevice* device);
-    void saveScenarios(UPlatform* platform, UDevice* device, const QJsonArray& scenariosArray);
-    void saveTasks(UScenario* scenario);
-    void saveTasks(UPlatform* platform, UScenario* scenario, const QJsonArray& tasksArray);
-    void saveConditions(UTask* task);
-    void saveConditions(UPlatform* platform, UTask* task, const QJsonArray& conditionsArray);
+    void saveDevice(UDevice* device);
+    void saveDevice(UPlatform* platform, const QJsonArray& deviceArray);
+    void saveScenario(UScenario* scenario);
+    void saveScenario(UPlatform* platform, UDevice* device, const QJsonArray& scenarioArray);
+    void saveTask(UTask* task);
+    void saveTask(UPlatform* platform, UScenario* scenario, const QJsonArray& taskArray);
+    void saveCondition(UCondition* condition);
+    void saveCondition(UPlatform* platform, UTask* task, const QJsonArray& conditionArray);
 
     void deleteDevice(UDevice* device);
     void deleteDevice(UPlatform* platform, UDevice* device);
