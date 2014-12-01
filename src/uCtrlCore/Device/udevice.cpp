@@ -404,7 +404,10 @@ UDevice::UEValueType UDevice::valueType() const
         case UDevice::UEType::Humidity:
         case UDevice::UEType::Temperature:
         case UDevice::UEType::NinjasEyes:
+        case UDevice::UEType::ColorPanel:
             return UDevice::UEValueType::Textbox;
+        case UDevice::UEType::FlowSwitch:
+            return UDevice::UEValueType::UpDownSwitch;
         default:
             return UDevice::UEValueType::Unknown;
     }

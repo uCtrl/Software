@@ -750,8 +750,8 @@ Rectangle
             case UEType.PowerSocketSwitch:
             case UEType.NinjasEyes:
             case UEType.LimitlessLEDWhite:
-            case UEType.LED:
-            case UEType.LEDDisplay:
+            case UEType.FlowSwitch:
+            case UEType.ColorPanel:
                 return true
             case UEType.PushButton:
             case UEType.MotionSensor:
@@ -759,6 +759,8 @@ Rectangle
             case UEType.Temperature:
             case UEType.DoorSensor:
             case UEType.LightSensor:
+                return false
+            default:
                 return false
         }
     }

@@ -122,5 +122,8 @@
         <file>qml/condition/type/DefaultCondition.qml</file>
         <file>qml/condition/row/DefaultRow.qml</file>
         <file>qml/condition/row/DeviceSelectionRow.qml</file>
+        <file>qml/task/type/UpDownSwitch.qml</file>
+        <file>qml/device/type/ColorPanel.qml</file>
+        <file>qml/device/type/FlowSwitch.qml</file>
     </qresource>
 </RCC>

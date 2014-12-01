@@ -7,6 +7,9 @@ Rectangle {
     property int borderRadius: 5
     property int animationTime: 200
 
+    property string onValueLabel: "ON"
+    property string offValueLabel: "OFF"
+
     state: "ON"
 
     id: container
@@ -36,7 +39,7 @@ Rectangle {
 
         ULabel.Heading4 {
             id: onLabel
-            text: "ON"
+            text: onValueLabel
             anchors.centerIn: parent
             color: Colors.uGreen
             font.bold: true
@@ -54,7 +57,7 @@ Rectangle {
 
         ULabel.Heading4 {
             id: offLabel
-            text: "OFF"
+            text: offValueLabel
             anchors.centerIn: parent
             color: Colors.uWhite
             opacity: 0

@@ -57,6 +57,8 @@ public:
         LimitlessLEDWhite = 1012,
         DoorSensor = 9990,
         LightSensor = 10000,
+        FlowSwitch = 10001,
+        ColorPanel = 10002,
     };
 
     enum class UEValueType: int {
@@ -66,6 +68,7 @@ public:
         Day,
         Slider,
         Switch,
+        UpDownSwitch,
         Textbox,
         Event,
     };
