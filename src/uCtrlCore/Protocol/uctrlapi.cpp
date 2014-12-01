@@ -4,7 +4,7 @@ UCtrlAPI::UCtrlAPI(QNetworkAccessManager* nam, UPlatformsModel* platforms, QObje
     QObject(parent), m_networkAccessManager(nam)
 {
     m_platforms = platforms;
-    m_serverBaseUrl = "http://uctrl.gel.usherbrooke.ca/dev/";
+    m_serverBaseUrl = "http://uctrl.gel.usherbrooke.ca:3000/";
     m_ninjaToken = "107f6f460bed2dbb10f0a93b994deea7fe07dad5";
 }
 
@@ -51,7 +51,9 @@ void UCtrlAPI::postUserReply()
 
 void UCtrlAPI::getUserStream()
 {
+    connect(&m_webSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(onError(QAbstractSocket::SocketError)));
     connect(&m_webSocket, SIGNAL(connected()), this, SLOT(onConnected()));
+    connect(&m_webSocket, SIGNAL(textMessageReceived(QString)), this, SLOT(onMessageReceived(QString)));
     connect(&m_webSocket, SIGNAL(disconnected()), this, SLOT(onClosed()));
 
     QUrl url(m_serverBaseUrl + "stream");
@@ -1249,8 +1251,6 @@ void UCtrlAPI::deleteConditionReply()
 
 void UCtrlAPI::onConnected()
 {
-    connect(&m_webSocket, SIGNAL(textMessageReceived(QString)), this, SLOT(onMessageReceived(QString)));
-
     QJsonObject tokenObj;
     tokenObj["token"] = m_userToken;
     QJsonDocument doc(tokenObj);
@@ -1258,9 +1258,13 @@ void UCtrlAPI::onConnected()
     m_webSocket.sendTextMessage(QString(doc.toJson()));
 }
 
+void UCtrlAPI::onError(QAbstractSocket::SocketError error)
+{
+    // TODO: Error
+}
+
 void UCtrlAPI::onMessageReceived(const QString &message)
 {
-    Q_UNUSED(message)
     // TODO: Dispatch to alerts or system or whatever
 }
 

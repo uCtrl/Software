@@ -155,6 +155,7 @@ private slots:
 
     // Websocket
     void onConnected();
+    void onError(QAbstractSocket::SocketError error);
     void onMessageReceived(const QString& message);
     void onClosed();
 
