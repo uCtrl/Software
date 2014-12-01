@@ -133,9 +133,12 @@ DefaultRow {
 
         Rectangle
         {
-            property int textWidth: 50
+            property int textWidth: 60
             x: textWidth
             width: 200 - textWidth
+            height: parent.height
+
+            color: Colors.uTransparent
 
             UI.USlider
             {

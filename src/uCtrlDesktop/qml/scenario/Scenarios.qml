@@ -13,7 +13,6 @@ Rectangle {
     property var editTaskFunction
 
     onModelChanged: {
-        showEditMode = false
         refreshComboBox()
         scenarioCombo.selectItem(0)
     }
@@ -98,6 +97,8 @@ Rectangle {
             anchors.top: scenarioSelectionHeader.bottom
             anchors.topMargin: 95
             anchors.bottom: parent.bottom
+
+            showEditMode: scenarios.showEditMode
 
             editTaskFunction: scenarios.editTaskFunction
 
@@ -230,7 +231,7 @@ Rectangle {
         anchors.left: createScenarioButton.right
         anchors.leftMargin: 10
 
-        visible: currentScenario !== null && currentScenario !== undefined && currentScenario.showEditMode
+        visible: scenarios.showEditMode
 
         onClicked: createNewTask()
     }
@@ -303,8 +304,7 @@ Rectangle {
 
     function changeEditMode(newEditMode)
     {
-        showEditMode = newEditMode
-        currentScenario.showEditMode = showEditMode
+        scenarios.showEditMode = newEditMode
 
         if(currentScenario.model !== null)
         {

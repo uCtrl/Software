@@ -540,6 +540,12 @@ Rectangle {
         else return "null"
     }
 
+    function isLocalPlatform()
+    {
+        if (typeof(model) != "undefined" && model !== null) return model.isLocalPlatform
+        else return false
+    }
+
     function getId() {
         if (model != null) return model.id
         else return "null"

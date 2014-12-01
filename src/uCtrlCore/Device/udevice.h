@@ -31,6 +31,7 @@ class UDevice : public NestedListItem
         lastUpdatedRole,
         deviceModelRole,
         valueTypeRole,
+        platformRole,
     };
 
 public:
@@ -50,8 +51,6 @@ public:
         PowerSocketSwitch = 1,
         PushButton = 5,
         MotionSensor = 7,
-        LED = 20,
-        LEDDisplay = 21,
         Humidity = 30,
         Temperature = 31,
         NinjasEyes = 1007,
@@ -115,6 +114,8 @@ public:
     Q_INVOKABLE QString deviceModel() const;
     Q_INVOKABLE void deviceModel(const QString& deviceModel);
     Q_INVOKABLE UEValueType valueType() const;
+
+    Q_INVOKABLE QObject* platform() const;
 
     ListModel* history() const;
     ListModel* statistics() const;
