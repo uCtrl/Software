@@ -116,7 +116,10 @@ var resourceDictionary = {
 
     "recommandationsRecommandationsHeight": 70,
     "recommandationsButtonsWidth": 200,
+    "recommandationsRecommandationsRowcontainerFontPointSize": 15,
     "recommandationsAcceptButtonHeight": 30,
+    "recommandationsAcceptButtonWidth": 100,
+    "recommandationsAcceptButtonRightMargin": 10,
 
     "scenariosScenariocontainerScenarioHeaderHeight": 50,
     "scenariosScenariocontainerScenarioHeaderScHeaderIcon": 24,

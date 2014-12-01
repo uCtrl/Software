@@ -119,8 +119,11 @@ var resourceDictionary = {
     "platformsRectplatformsPlatformsHeaderTextLeftMargin": 15,
 
     "recommandationsRecommandationsHeight": 200,
+    "recommandationsRecommandationsRowcontainerFontPointSize": 20,
     "recommandationsButtonsWidth": 700,
-    "recommandationsAcceptButtonHeight": 150,
+    "recommandationsAcceptButtonHeight": 120,
+    "recommandationsAcceptButtonWidth": 300,
+    "recommandationsAcceptButtonRightMargin": 30,
 
     "scenariosScenariocontainerScenarioHeaderHeight": 100,
     "scenariosScenariocontainerScenarioHeaderScHeaderIcon": 40,

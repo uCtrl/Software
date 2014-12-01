@@ -11,7 +11,7 @@ Rectangle {
     Rectangle {
         id: recommandationsContainer
         anchors.fill: parent
-        anchors.margins: 20
+        anchors.margins: (resourceLoader.loadResource("platformsPlatformlistMarginSize"))
         color: Colors.uTransparent
 
         ULabel.Heading1 {
@@ -48,7 +48,7 @@ Rectangle {
                         height: parent.height; width: parent.width
 
                         ULabel.Default {
-                            font.pointSize: 15
+                            font.pointSize: (resourceLoader.loadResource("recommandationsRecommandationsRowcontainerFontPointSize"))
                             text: model.description
                             anchors.left: parent.left
                             anchors.leftMargin: 10
@@ -61,11 +61,13 @@ Rectangle {
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.verticalCenterOffset: -acceptButton.height/2
 
+
                             UI.UButton {
                                 id: acceptButton
                                 anchors.right: declineButton.left
-                                anchors.rightMargin: 10
+                                anchors.rightMargin: (resourceLoader.loadResource("recommandationsAcceptButtonRightMargin"))
                                 text: "Accept"
+                                width: (resourceLoader.loadResource("recommandationsAcceptButtonWidth"))
                                 height: (resourceLoader.loadResource("recommandationsAcceptButtonHeight"))
                                 onClicked: {
                                     uCtrlApiFacade.acceptRecommendation(model.id, true)
@@ -75,8 +77,9 @@ Rectangle {
                             UI.UButton {
                                 id: declineButton
                                 anchors.right: parent.right
-                                anchors.rightMargin: 10
+                                anchors.rightMargin: (resourceLoader.loadResource("recommandationsAcceptButtonRightMargin"))
                                 text: "Decline"
+                                width: (resourceLoader.loadResource("recommandationsAcceptButtonWidth"))
                                 height: (resourceLoader.loadResource("recommandationsAcceptButtonHeight"))
                                 buttonColor: Colors.uDarkGrey
                                 buttonHoveredColor: Colors.uMediumDarkGrey
