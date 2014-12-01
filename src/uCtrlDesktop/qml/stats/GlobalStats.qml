@@ -183,18 +183,13 @@ Rectangle {
 
                         Row {
                             anchors.horizontalCenter: legendColumn.horizontalCenter
-
                             spacing: 15
-                            ULabel.Default {
 
+                            Rectangle {
                                 color: modelData.color
 
-                                font.bold: true
-                                font.pixelSize: 10
-
-                                text: modelData.value
-
-                                width: 15
+                                height: 15; width: 15
+                                radius: 2
                             }
 
                             ULabel.Default {
@@ -209,11 +204,16 @@ Rectangle {
                                 width: 50
                             }
 
-                            Rectangle {
+                            ULabel.Default {
+
                                 color: modelData.color
 
-                                height: 15; width: 15
-                                radius: 2
+                                font.bold: true
+                                font.pixelSize: 10
+
+                                text: modelData.value
+
+                                width: 15
                             }
                         }
                     }
@@ -223,7 +223,6 @@ Rectangle {
     }
 
     Rectangle {
-
         id: typeContainer
 
         color: Colors.uTransparent
@@ -263,34 +262,132 @@ Rectangle {
         }
 
         Rectangle {
-            id: typeLegendContainer
-
-            color: "cyan"
+            id: typeGraphContainer
 
             anchors.top: typeTitleLabel.bottom
             anchors.topMargin: 10
 
-            anchors.left: typeContainer.left
-            anchors.right: typeContainer.right
+            anchors.bottom: typeLegendContainer.top
 
-            height: 100
+            anchors.left: typeContainer.left
+            anchors.leftMargin: 10
+
+            anchors.right: typeContainer.right
+            anchors.rightMargin: 10
+
+            UI.UChart {
+                id: deviceTypeChart
+
+                anchors.fill: parent
+
+                chartAnimated: false;
+                chartData: container.deviceTypeData
+
+                chartType: Charts.ChartType.POLAR;
+            }
         }
 
         Rectangle {
-            id: typeGraphContainer
+            id: typeLegendContainer
 
-            anchors.top: typeLegendContainer.bottom
-            anchors.left: typeContainer.left
-            anchors.right: typeContainer.right
+            color: Colors.uTransparent
+
             anchors.bottom: typeContainer.bottom
+            anchors.bottomMargin: 10
 
-            color: "pink"
+            anchors.left: typeContainer.left
+            anchors.leftMargin: 10
+
+            anchors.right: typeContainer.right
+            anchors.rightMargin: 10
+
+            height: 150
+
+            ULabel.Default {
+                id: typeLegendLabel
+
+                text: "LEGEND"
+
+                font.bold: false
+                font.pixelSize: 12
+
+                color: Colors.uGrey
+
+                anchors.top: typeLegendContainer.top
+                anchors.topMargin: 5
+
+                anchors.horizontalCenter: typeLegendContainer.horizontalCenter
+            }
+
+            Row {
+
+                anchors.top: typeLegendLabel.bottom
+                anchors.topMargin: 10
+
+                anchors.bottom: typeLegendContainer.bottom
+
+                anchors.horizontalCenter: typeLegendContainer.horizontalCenter
+
+                spacing: 20
+
+                Repeater {
+                    id: typeLegendColumnRepeater
+
+                    model: getDeviceTypeLegend()
+
+                    Column {
+                        width: 150; height: (typeLegendContainer.height - typeLegendLabel.height)
+                        spacing: 5
+                        Repeater {
+                            model: modelData
+                            Row {
+                                spacing: 5
+
+                                Rectangle {
+                                    color: modelData.color
+
+                                    height: 15; width: 15
+                                    radius: 2
+                                }
+
+                                ULabel.Default {
+
+                                    color: Colors.uBlack
+
+                                    font.bold: false
+                                    font.pixelSize: 10
+
+                                    text: modelData.title
+
+                                    width: 95
+                                }
+
+                                ULabel.Default {
+
+                                    color: modelData.color
+
+                                    font.bold: true
+                                    font.pixelSize: 10
+
+                                    text: modelData.value
+
+                                    width: 15
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
-    Component.onCompleted: getDeviceStatusData()
+    Component.onCompleted: {
+        getDeviceStatusData();
+        getDeviceTypeData();
+    }
 
     function getSystemStatus() {
+
         // @TODO Complete with real data.
         return "ONLINE"
     }
@@ -309,7 +406,6 @@ Rectangle {
     function getOverviewStats() {
 
         // @TODO Complete with real data.
-
         return [{"label": "Platforms detected", "value": 2},
                 {"label": "Devices detected", "value": 100},
                 {"label": "Active scenarios", "value": 270},
@@ -322,5 +418,28 @@ Rectangle {
         container.deviceStatusData = [{ value: 30, title: "OK", color: Colors.uGreen  },
                                       { value: 15, title: "WARNING", color: Colors.uYellow },
                                       { value: 5, title: "ERROR", color: Colors.uRed    }]
+    }
+
+    function getDeviceTypeData() {
+
+        // @TODO Complete with real data.
+        container.deviceTypeData = [{value: 22, title: "Power Switch Socket", color: Colors.uGreen },
+                                    {value: 43, title: "Push Button", color: Colors.uYellow },
+                                    {value: 12, title: "Motion Sensor", color: Colors.uRed },
+                                    {value: 18, title: "Humidity", color: Colors.uBlue },
+                                    {value: 16, title: "Temperature", color: Colors.uPink },
+                                    {value: 42, title: "Ninja Eyes", color: Colors.uPurple },
+                                    {value: 15, title: "Dimmer Light", color: Colors.uOrange },
+                                    {value: 25, title: "Door sensor", color: Colors.uCyan },
+                                    {value: 12, title: "Light sensor", color: Colors.uLime }]
+
+    }
+
+    function getDeviceTypeLegend() {
+        if (container.deviceTypeData === []) return []
+        else {
+            var length = (container.deviceTypeData.length > 1 ? ((container.deviceTypeData.length / 2) + 1) : 1)
+            return [container.deviceTypeData.slice(0, length), container.deviceTypeData.slice(length)]
+        }
     }
 }
