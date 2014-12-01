@@ -1,4 +1,5 @@
 #include "uctrlapifacade.h"
+#include "Utility/uuniqueidgenerator.h"
 
 UCtrlAPIFacade::UCtrlAPIFacade(QNetworkAccessManager* nam, UPlatformsModel* platforms, QObject *parent)
     : m_uCtrlApi(nam, platforms, parent)
@@ -57,6 +58,9 @@ void UCtrlAPIFacade::getPlatforms()
 
 void UCtrlAPIFacade::postPlatform(UPlatform* platform)
 {
+    if (!platform)
+        return;
+
     if (platform->isLocalPlatform())
         return;
 
@@ -65,6 +69,9 @@ void UCtrlAPIFacade::postPlatform(UPlatform* platform)
 
 void UCtrlAPIFacade::getPlatform(UPlatform* platform)
 {
+    if (!platform)
+        return;
+
     // Not working on uCtrl Hardware, platforms are broadcasted
     if (platform->isLocalPlatform())
         return;
@@ -74,6 +81,9 @@ void UCtrlAPIFacade::getPlatform(UPlatform* platform)
 
 void UCtrlAPIFacade::putPlatform(UPlatform* platform)
 {
+    if (!platform)
+        return;
+
     if (platform->isLocalPlatform())
         m_uCtrlLocalApi.savePlatform(platform);
     else
@@ -82,6 +92,9 @@ void UCtrlAPIFacade::putPlatform(UPlatform* platform)
 
 void UCtrlAPIFacade::deletePlatform(UPlatform* platform)
 {
+    if (!platform)
+        return;
+
     if (platform->isLocalPlatform()) // WHAT DO?
         return;
     else
@@ -90,6 +103,9 @@ void UCtrlAPIFacade::deletePlatform(UPlatform* platform)
 
 void UCtrlAPIFacade::getDevices(UPlatform* platform)
 {
+    if (!platform)
+        return;
+
     if (platform->isLocalPlatform())
         m_uCtrlLocalApi.getDevices(platform);
     else
@@ -97,9 +113,16 @@ void UCtrlAPIFacade::getDevices(UPlatform* platform)
 }
 void UCtrlAPIFacade::postDevice(UDevice* device)
 {
+    if (!device)
+        return;
+
     UPlatform* platform = (UPlatform*)device->parent()->parent();
     if (platform->isLocalPlatform())
+    {
+        QString deviceId = QString::number(UUniqueIdGenerator::generateUniqueId());
+        device->id(deviceId);
         putDevice(device);
+    }
     else
     {
         QString platformId;
@@ -109,6 +132,9 @@ void UCtrlAPIFacade::postDevice(UDevice* device)
 }
 void UCtrlAPIFacade::getDevice(UDevice* device)
 {
+    if (!device)
+        return;
+
     UPlatform* platform = (UPlatform*)device->parent()->parent();
     if (platform->isLocalPlatform())
     {
@@ -124,9 +150,12 @@ void UCtrlAPIFacade::getDevice(UDevice* device)
 }
 void UCtrlAPIFacade::putDevice(UDevice* device)
 {
+    if (!device)
+        return;
+
     UPlatform* platform = (UPlatform*)device->parent()->parent();
     if (platform->isLocalPlatform())
-        m_uCtrlLocalApi.saveDevices(platform);
+        m_uCtrlLocalApi.saveDevice(device);
     else
     {
         QString platformId;
@@ -136,9 +165,12 @@ void UCtrlAPIFacade::putDevice(UDevice* device)
 }
 void UCtrlAPIFacade::deleteDevice(UDevice* device)
 {
+    if (!device)
+        return;
+
     UPlatform* platform = (UPlatform*)device->parent()->parent();
     if (platform->isLocalPlatform())
-        putDevice(device);
+        m_uCtrlLocalApi.deleteDevice(device);
     else
     {
         QString platformId;
@@ -149,6 +181,9 @@ void UCtrlAPIFacade::deleteDevice(UDevice* device)
 
 void UCtrlAPIFacade::getDeviceAllStats(UDevice *device, QMap<QString, QVariant> params)
 {
+    if (!device)
+        return;
+
     UPlatform* platform = (UPlatform*)device->parent()->parent();
     if (platform->isLocalPlatform())
         return;
@@ -163,6 +198,9 @@ void UCtrlAPIFacade::getDeviceAllStats(UDevice *device, QMap<QString, QVariant> 
 
 void UCtrlAPIFacade::getDeviceValues(UDevice *device, QMap<QString, QVariant> params)
 {
+    if (!device)
+        return;
+
     UPlatform* platform = (UPlatform*)device->parent()->parent();
     if (platform->isLocalPlatform())
         return;
@@ -174,6 +212,9 @@ void UCtrlAPIFacade::getDeviceValues(UDevice *device, QMap<QString, QVariant> pa
 
 void UCtrlAPIFacade::getDeviceMax(UDevice *device, QMap<QString, QVariant> params)
 {
+    if (!device)
+        return;
+
     UPlatform* platform = (UPlatform*)device->parent()->parent();
     if (platform->isLocalPlatform())
         return;
@@ -185,6 +226,9 @@ void UCtrlAPIFacade::getDeviceMax(UDevice *device, QMap<QString, QVariant> param
 
 void UCtrlAPIFacade::getDeviceMin(UDevice *device, QMap<QString, QVariant> params)
 {
+    if (!device)
+        return;
+
     UPlatform* platform = (UPlatform*)device->parent()->parent();
     if (platform->isLocalPlatform())
         return;
@@ -196,6 +240,9 @@ void UCtrlAPIFacade::getDeviceMin(UDevice *device, QMap<QString, QVariant> param
 
 void UCtrlAPIFacade::getDeviceMean(UDevice *device, QMap<QString, QVariant> params)
 {
+    if (!device)
+        return;
+
     UPlatform* platform = (UPlatform*)device->parent()->parent();
     if (platform->isLocalPlatform())
         return;
@@ -207,6 +254,9 @@ void UCtrlAPIFacade::getDeviceMean(UDevice *device, QMap<QString, QVariant> para
 
 void UCtrlAPIFacade::getDeviceCount(UDevice *device, QMap<QString, QVariant> params)
 {
+    if (!device)
+        return;
+
     UPlatform* platform = (UPlatform*)device->parent()->parent();
     if (platform->isLocalPlatform())
         return;
@@ -218,6 +268,9 @@ void UCtrlAPIFacade::getDeviceCount(UDevice *device, QMap<QString, QVariant> par
 
 void UCtrlAPIFacade::getDeviceHistory(UDevice *device, QMap<QString, QVariant> params)
 {
+    if (!device)
+        return;
+
     UPlatform* platform = (UPlatform*)device->parent()->parent();
     if (platform->isLocalPlatform())
         return;
@@ -229,6 +282,9 @@ void UCtrlAPIFacade::getDeviceHistory(UDevice *device, QMap<QString, QVariant> p
 
 void UCtrlAPIFacade::getScenarios(UDevice* device)
 {
+    if (!device)
+        return;
+
     UPlatform* platform = (UPlatform*)device->parent()->parent();
     if (platform->isLocalPlatform())
         m_uCtrlLocalApi.getScenarios(device);
@@ -242,9 +298,16 @@ void UCtrlAPIFacade::getScenarios(UDevice* device)
 
 void UCtrlAPIFacade::postScenario(UScenario* scenario)
 {
+    if (!scenario)
+        return;
+
     UPlatform* platform = (UPlatform*)scenario->parent()->parent()->parent()->parent();
     if (platform->isLocalPlatform())
+    {
+        QString scenarioId = QString::number(UUniqueIdGenerator::generateUniqueId());
+        scenario->id(scenarioId);
         putScenario(scenario);
+    }
     else
     {
         QString platformId;
@@ -256,6 +319,9 @@ void UCtrlAPIFacade::postScenario(UScenario* scenario)
 
 void UCtrlAPIFacade::getScenario(UScenario* scenario)
 {
+    if (!scenario)
+        return;
+
     UPlatform* platform = (UPlatform*)scenario->parent()->parent()->parent()->parent();
     if (platform->isLocalPlatform())
         return;
@@ -267,10 +333,12 @@ void UCtrlAPIFacade::getScenario(UScenario* scenario)
 }
 void UCtrlAPIFacade::putScenario(UScenario* scenario)
 {
-    UDevice* device = (UDevice*)scenario->parent()->parent();
-    UPlatform* platform = (UPlatform*)device;
+    if (!scenario)
+        return;
+
+    UPlatform* platform = (UPlatform*)scenario->parent()->parent()->parent()->parent();
     if (platform->isLocalPlatform())
-        m_uCtrlLocalApi.saveScenarios(device);
+        m_uCtrlLocalApi.saveScenario(scenario);
     else
     {
         QString platformId;
@@ -281,9 +349,12 @@ void UCtrlAPIFacade::putScenario(UScenario* scenario)
 }
 void UCtrlAPIFacade::deleteScenario(UScenario* scenario)
 {
+    if (!scenario)
+        return;
+
     UPlatform* platform = (UPlatform*)scenario->parent()->parent()->parent()->parent();
     if (platform->isLocalPlatform())
-        putScenario(scenario);
+        m_uCtrlLocalApi.deleteScenario(scenario);
     else
     {
         QString platformId;
@@ -295,6 +366,9 @@ void UCtrlAPIFacade::deleteScenario(UScenario* scenario)
 
 void UCtrlAPIFacade::getTasks(UScenario* scenario)
 {
+    if (!scenario)
+        return;
+
     UPlatform* platform = (UPlatform*)scenario->parent()->parent()->parent()->parent();
     if (platform->isLocalPlatform())
         m_uCtrlLocalApi.getTasks(scenario);
@@ -309,9 +383,16 @@ void UCtrlAPIFacade::getTasks(UScenario* scenario)
 
 void UCtrlAPIFacade::postTask(UTask* task)
 {
+    if (!task)
+        return;
+
     UPlatform* platform = (UPlatform*)task->parent()->parent()->parent()->parent()->parent()->parent();
     if (platform->isLocalPlatform())
+    {
+        QString taskId = QString::number(UUniqueIdGenerator::generateUniqueId());
+        task->id(taskId);
         putTask(task);
+    }
     else
     {
         QString platformId;
@@ -324,6 +405,9 @@ void UCtrlAPIFacade::postTask(UTask* task)
 
 void UCtrlAPIFacade::getTask(UTask* task)
 {
+    if (!task)
+        return;
+
     UPlatform* platform = (UPlatform*)task->parent()->parent()->parent()->parent()->parent()->parent();
     if (platform->isLocalPlatform())
         return;
@@ -337,10 +421,12 @@ void UCtrlAPIFacade::getTask(UTask* task)
 
 void UCtrlAPIFacade::putTask(UTask* task)
 {
+    if (!task)
+        return;
+
     UPlatform* platform = (UPlatform*)task->parent()->parent()->parent()->parent()->parent()->parent();
-    UScenario* scenario = (UScenario*)task->parent()->parent();
     if (platform->isLocalPlatform())
-        m_uCtrlLocalApi.saveTasks(scenario);
+        m_uCtrlLocalApi.saveTask(task);
     else
     {
         QString platformId;
@@ -353,9 +439,12 @@ void UCtrlAPIFacade::putTask(UTask* task)
 
 void UCtrlAPIFacade::deleteTask(UTask* task)
 {
+    if (!task)
+        return;
+
     UPlatform* platform = (UPlatform*)task->parent()->parent()->parent()->parent()->parent()->parent();
     if (platform->isLocalPlatform())
-        putTask(task);
+        m_uCtrlLocalApi.deleteTask(task);
     else
     {
         QString platformId;
@@ -368,6 +457,9 @@ void UCtrlAPIFacade::deleteTask(UTask* task)
 
 void UCtrlAPIFacade::getConditions(UTask* task)
 {
+    if (!task)
+        return;
+
     UPlatform* platform = (UPlatform*)task->parent()->parent()->parent()->parent()->parent()->parent();
     if (platform->isLocalPlatform())
         m_uCtrlLocalApi.getConditions(task);
@@ -383,9 +475,16 @@ void UCtrlAPIFacade::getConditions(UTask* task)
 
 void UCtrlAPIFacade::postCondition(UCondition* condition)
 {
+    if (!condition)
+        return;
+
     UPlatform* platform = (UPlatform*)condition->parent()->parent()->parent()->parent()->parent()->parent()->parent()->parent();
     if (platform->isLocalPlatform())
+    {
+        QString conditionId = QString::number(UUniqueIdGenerator::generateUniqueId());
+        condition->id(conditionId);
         putCondition(condition);
+    }
     else
     {
         QString platformId;
@@ -399,6 +498,9 @@ void UCtrlAPIFacade::postCondition(UCondition* condition)
 
 void UCtrlAPIFacade::getCondition(UCondition* condition)
 {
+    if (!condition)
+        return;
+
     UPlatform* platform = (UPlatform*)condition->parent()->parent()->parent()->parent()->parent()->parent()->parent()->parent();
     if (platform->isLocalPlatform())
         return;
@@ -413,10 +515,12 @@ void UCtrlAPIFacade::getCondition(UCondition* condition)
 
 void UCtrlAPIFacade::putCondition(UCondition* condition)
 {
+    if (!condition)
+        return;
+
     UPlatform* platform = (UPlatform*)condition->parent()->parent()->parent()->parent()->parent()->parent()->parent()->parent();
-    UTask* task = (UTask*)condition->parent()->parent();
     if (platform->isLocalPlatform())
-        m_uCtrlLocalApi.saveConditions(task);
+        m_uCtrlLocalApi.saveCondition(condition);
     else
     {
         QString platformId;
@@ -430,9 +534,12 @@ void UCtrlAPIFacade::putCondition(UCondition* condition)
 
 void UCtrlAPIFacade::deleteCondition(UCondition* condition)
 {
+    if (!condition)
+        return;
+
     UPlatform* platform = (UPlatform*)condition->parent()->parent()->parent()->parent()->parent()->parent()->parent()->parent();
     if (platform->isLocalPlatform())
-        putCondition(condition);
+        m_uCtrlLocalApi.deleteCondition(condition);
     else
     {
         QString platformId;

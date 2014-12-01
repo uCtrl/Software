@@ -6,21 +6,24 @@ import "../../ui/UColors.js" as Colors
 Rectangle {
     id: container
 
-    color: "red"
+    color: Colors.uTransparent
 
     property var model
     UI.USwitch {
         id: valueTextbox
-        width: 130
-        height: 40
+        width: 100
+        height: 30
 
         anchors.centerIn: parent
-        state: (model.value() ? "ON" : "OFF")
+        Component.onCompleted: {
+            taskEditorContainer.saveConditions.connect(saveState)
 
-        function validate() {
-            return text !== "";
+            state = (model.value() === "1" ? "ON" : "OFF")
         }
 
-        onStateChanged: model.value((state === "ON"));
+        function saveState()
+        {
+            model.value((state === "ON" ? 1 : 0))
+        }
     }
 }

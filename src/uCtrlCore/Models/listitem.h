@@ -28,7 +28,7 @@ public:
     Q_INVOKABLE QString id() const;
     void id(const QString& id);
     bool enabled() const;
-    void enabled(bool enabled);
+    Q_INVOKABLE void enabled(bool enabled);
     double lastUpdated() const;
     void lastUpdated(double lastUpdated);
 

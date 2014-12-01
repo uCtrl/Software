@@ -26,6 +26,11 @@ Rectangle
 
     property bool showEditMode: false
 
+    onModelChanged: {
+        devicePage.showEditMode = false
+        infoContainer.showEditMode = false
+    }
+
     Rectangle {
         id: contentCanvas
 
@@ -645,6 +650,30 @@ Rectangle
 
                                 editTaskFunction: taskEditor.editTask
                                 anchors.fill: parent
+
+                                visible: isDeviceScenarioConfigurable()
+                            }
+
+                            Rectangle
+                            {
+                                anchors.fill: parent
+                                color: Colors.uTransparent
+
+                                visible: !isDeviceScenarioConfigurable()
+
+                                ULabel.Default {
+                                    id: notConfigurableLabel
+
+                                    anchors.centerIn: parent
+                                    text: "This device cannot have any scenario"
+                                    width: parent.width * 0.75
+                                    font.bold: true
+                                    font.pointSize: 26
+                                    horizontalAlignment: Text.AlignHCenter
+
+
+                                    color: Colors.uGrey
+                                }
                             }
                         }
 
@@ -669,13 +698,17 @@ Rectangle
                         id: taskEditor
 
                         visible: false
-                        deviceType: model.type
+                        deviceType: getDeviceType()
 
                         function editTask(task, conditions)
                         {
                             taskModel = task
                             conditionModel = conditions
                             visible = true
+                        }
+
+                        function getDeviceType() {
+                            return model ? model.type : 0
                         }
                     }
                 }
@@ -756,9 +789,34 @@ Rectangle
                     return "DoorSensor"
                 case UEType.LightSensor:
                     return "LightSensor"
+                case UEType.LED:
+                case UEType.LEDDisplay:
+                    return "ImplementItPlease"
             }
         }
         return "Error"
+    }
+
+    function isDeviceScenarioConfigurable()
+    {
+        if(!model)
+            return false;
+
+        switch(model.type) {
+            case UEType.PowerSocketSwitch:
+            case UEType.NinjasEyes:
+            case UEType.LimitlessLEDWhite:
+            case UEType.LED:
+            case UEType.LEDDisplay:
+                return true
+            case UEType.PushButton:
+            case UEType.MotionSensor:
+            case UEType.Humidity:
+            case UEType.Temperature:
+            case UEType.DoorSensor:
+            case UEType.LightSensor:
+                return false
+        }
     }
 
     function getDeviceStatus() {
@@ -802,6 +860,10 @@ Rectangle
                     return "Door sensor"
                 case UEType.LightSensor:
                     return "Light sensor"
+                case UEType.LED:
+                    return "LED"
+                case UEType.LEDDisplay:
+                    return "LED Display"
             }
         }
         return "Error"

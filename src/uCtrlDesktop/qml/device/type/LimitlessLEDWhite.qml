@@ -5,6 +5,7 @@ import QtQuick.Controls 1.2
 import "../../ui" as UI
 import "../../label" as ULabel
 import "../../ui/UColors.js" as Colors
+import "./GraphHelper.js" as GraphHelper
 
 import jbQuick.Charts 1.0
 import "../../jbQuick/Charts/QChartGallery.js" as ChartsData
@@ -15,7 +16,7 @@ Rectangle {
     property var model: null
     property var statsModel: null
 
-    property bool displayStats: true
+    property bool displayStats: false
 
     color: Colors.uTransparent
 
@@ -46,33 +47,13 @@ Rectangle {
             iconLabelColor: Colors.uGrey
         }
 
-        Rectangle {
-            id: currentValueContainer
-
-            anchors.left: slideContainer.left
-            anchors.top: manualCommandHeader.bottom
-            anchors.bottom: slideContainer.bottom
-
-            width: 75
-
-            ULabel.Default {
-                anchors.centerIn: currentValueContainer
-
-                font.bold: true
-                font.pixelSize: 24
-
-                color: Colors.uGrey
-
-                text: (getOpacity() * 100) + "%"
-            }
-        }
-
         UI.USlider {
             id: currentValueSlider
 
             anchors.top: manualCommandHeader.bottom
             anchors.bottom: slideContainer.bottom
-            anchors.left: currentValueContainer.right
+            anchors.left: parent.left
+            anchors.leftMargin: 100
             anchors.right: slideContainer.right
 
             minimumValue: 0
@@ -212,10 +193,9 @@ Rectangle {
                 id: periodCombo
 
                 property var periods: [
-                    { value: "hour", displayedValue: "This hour", iconId: ""},
                     { value: "today",     displayedValue: "Today", iconId: ""},
+                    { value: "week",   displayedValue: "This week", iconId: ""},
                     { value: "month",   displayedValue: "This month", iconId: ""},
-                    { value: "year", displayedValue: "This year", iconId: ""}
                ]
 
                 itemListModel: periods
@@ -248,12 +228,19 @@ Rectangle {
     }
 
     onModelChanged: {
-        uCtrlApiFacade.getDeviceAllStats(devicesList.findObject(model.id),
-                                         {"from": new Date().setMinutes(0, 0).toString(),
-                                          "to": new Date().getTime().toString()});
+        if (model) {
+            container.statsModel = devicesList.getStatisticsWithId(model.id);
+        }
+    }
 
-        container.statsModel = devicesList.getStatisticsWithId(model.id);
-        container.statsModel.setOnReceivedCallback(getDeviceValueStats);
+    onStatsModelChanged: {
+        if (statsModel) {
+            statsModel.setOnReceivedCallback(getDeviceValueStats);
+
+            uCtrlApiFacade.getDeviceAllStats(devicesList.findObject(model.id),
+                                             {"from": new Date().setMinutes(0, 0).toString(),
+                                              "to": new Date().getTime().toString()});
+        }
     }
 
     function getOpacity() {
@@ -267,34 +254,21 @@ Rectangle {
     }
 
     function getDeviceValueStats() {
-        if (model !== null) {
+        if (container.statsModel) {
+            var period = periodCombo.selectedItem ? periodCombo.selectedItem.value : "hour";
+            var chartData = GraphHelper.deviceValuesToChartData(container.statsModel, period);
 
-            var data = []
-            var labels = []
-
-            for (var i=0; i<statsModel.rowCount;i++) {
-                var stat = statsModel.get(i);
-
-                if (!isNaN(stat.data)) {
-                    labels.push(new Date(stat.timestamp).toTimeString())
-                    data.push(Number(stat.data))
-                }
-            }
-
-            container.displayStats = (data.length > 0)
-
-            var chartData = {
-                "labels": labels,
+            container.displayStats = (chartData.data.length > 0);
+            stateChart.chartData = {
+                "labels": chartData.labels,
                 "datasets": [{
                     fillColor: "rgba(237,237,237,0.5)",
                     strokeColor: Colors.uMediumLightGrey,
                     pointColor: Colors.uGreen,
                     pointStrokeColor: Colors.uGreen,
-                    data: data
+                    data: chartData.data
                 }]
-            }
-
-            stateChart.chartData = chartData;
+            };
         }
     }
 
@@ -316,34 +290,8 @@ Rectangle {
     }
 
     function updateStatsPeriod() {
-
-        if (periodCombo.selectedItem !== null) var period = periodCombo.selectedItem.value
-        else period = "hour"
-
-        var from = ""
-        var to = ""
-        var interval = ""
-
-        switch (period) {
-        case "hour":
-            from = new Date().setMinutes(0, 0)
-            interval = "15min"
-            break;
-        case "today":
-            from = new Date().setHours(0, 0, 0)
-            interval = "1hour"
-            break;
-        case "month":
-            from = new Date().setDate(1, 0, 0, 0)
-            interval = "12hour"
-            break;
-        case "year":
-            from = new Date().setMonth(0, 1, 0, 0, 0)
-            interval = "1month"
-            break;
-        }
-        to = new Date().getTime()
-
-        uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id), {"from": from.toString(), "to": to.toString(), "interval": interval, "fn": "mean"});
+        var period = periodCombo.selectedItem ? periodCombo.selectedItem.value : "hour";
+        var params = GraphHelper.getDeviceValuesParams(period);
+        uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id), {"from": params.from, "to": params.to, "interval": params.interval, "fn": "mean"});
     }
 }

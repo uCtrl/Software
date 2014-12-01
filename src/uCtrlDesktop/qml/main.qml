@@ -34,11 +34,14 @@ Rectangle {
     property variant pages: [
         {file: "home/ULandingPage", icon: "Dashboard", text: "Dashboard", showInNavBar: true},
         {file: "platform/Platforms", icon: "settings", text: "Platforms", showInNavBar: true},
+        {file: "stats/GlobalStats", icon: "bars", text: "System statistics", showInNavBar: true},
         {file: "voice/VoiceControl", icon: "Microphone", text: "Voice Control", showInNavBar: true},
         {file: "device/Device", icon: "", text: "Device", showInNavBar: false},
         {file: "recommendations/Recommendations", icon: "wand", text: "Recommendations", showInNavBar: true},
         {file: "settings/Settings", icon: "cog2", text: "Settings", showInNavBar: true}
     ];
+
+    signal pageChanged(var path, var level)
 
     function searchPages(pagePath)
     {
@@ -125,6 +128,8 @@ Rectangle {
     }
 
     function addToBreadcrumb(pagePath, pageName, level) {
+        pageChanged(pagePath, level)
+
         titlebar.addToBreadcrumb(pagePath, pageName, level)
     }
 }

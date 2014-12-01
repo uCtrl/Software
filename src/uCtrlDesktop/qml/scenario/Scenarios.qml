@@ -12,7 +12,14 @@ Rectangle {
     property bool showEditMode: false
     property var editTaskFunction
 
-    Rectangle {
+    onModelChanged: {
+        showEditMode = false
+        refreshComboBox()
+        scenarioCombo.selectItem(0)
+    }
+
+    Rectangle
+    {
        id: noScenario
        anchors.top: parent.top
        anchors.left: parent.left
@@ -228,8 +235,6 @@ Rectangle {
         onClicked: createNewTask()
     }
 
-    onModelChanged: refreshComboBox()
-
     function refreshComboBox(){
 
         var selectedItemValue = scenarioCombo.selectedItem
@@ -281,6 +286,7 @@ Rectangle {
 
         if (scenario !== null) {
             scenario.name(editScenarioName.text)
+            scenario.enabled(true);
             currentScenario.model.name(editScenarioName.text)
         }
 

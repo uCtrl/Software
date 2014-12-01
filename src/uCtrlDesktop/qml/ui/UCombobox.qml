@@ -1,6 +1,8 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
 import "UColors.js" as Colors
+import "." as UI
+
 
 Rectangle {
 
@@ -133,6 +135,7 @@ Rectangle {
 
                         id: dropDownMenu
                         anchors.fill: parent
+                        anchors.rightMargin: dropDownMenu.visibleArea.heightRatio < 1.0 ? 10 : 0
                         interactive: (itemListModel !== null ? (itemListModel.length > itemDisplayedBeforeScroll) : false)
 
                         model: itemListModel
@@ -163,6 +166,13 @@ Rectangle {
                         }
                     }
 
+                    UI.UScrollbar {
+                        flk: dropDownMenu
+                        radius: 10
+                        basicWidth: 10
+                        expandedWidth: 10
+                        color: Colors.uMediumDarkGrey
+                    }
                 }
             }
         }

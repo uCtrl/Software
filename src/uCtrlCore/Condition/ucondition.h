@@ -15,7 +15,6 @@ class UCondition : public ListItem
         beginValueRole,
         endValueRole,
         deviceIdRole,
-        deviceValueRole,
         enabledRole,
         lastUpdatedRole
     };
