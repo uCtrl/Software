@@ -322,7 +322,7 @@ Rectangle {
             var powerLabel = []
             for(var i = 0; i < chartData.data.length; i++)
             {
-                var value = Math.random() * 10 + 1
+                var value = Math.random() * 2 + 1.5
 
                 powerData.push(value)
                 powerLabel.push(chartData.labels[i])

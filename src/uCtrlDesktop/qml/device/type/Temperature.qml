@@ -247,7 +247,7 @@ Rectangle {
             }
 
             ULabel.Default {
-                id: highesValue
+                id: highestValue
 
                 font.bold: true
                 font.pixelSize: 28
@@ -441,10 +441,7 @@ Rectangle {
         if (statsModel) {
             statsModel.setOnReceivedCallback(getDeviceValueStats);
 
-            uCtrlApiFacade.getDeviceAllStats(devicesList.findObject(model.id),
-                                             {"from": new Date().setMinutes(0, 0).toString(),
-                                              "to": new Date().getTime().toString()});
-
+            uCtrlApiFacade.getDeviceAllStats(devicesList.findObject(model.id));
         }
     }
 
@@ -493,7 +490,7 @@ Rectangle {
             var powerLabel = []
             for(var i = 0; i < chartData.data.length; i++)
             {
-                var value = Math.random() * 10 + 1
+                var value = Math.random() * 3 + 14
 
                 powerData.push(value)
                 powerLabel.push(chartData.labels[i])
