@@ -208,11 +208,17 @@ Rectangle {
     }
 
     function saveForm() {
-        uCtrlApiFacade.putTask(taskModel)
-
-        taskEditorContainer.saveConditions()
+        if (devicePage.getPlatform().isLocalPlatform())
+        {
+            uCtrlApiFacade.putTask(taskModel)
+            taskEditorContainer.saveConditions()
+        }
+        else
+        {
+            taskEditorContainer.saveConditions()
+            uCtrlApiFacade.putTask(taskModel)
+        }
         taskEditorContainer.visible = false
-
     }
 
     function cancelEditing()

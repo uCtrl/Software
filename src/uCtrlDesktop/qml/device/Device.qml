@@ -702,7 +702,6 @@ Rectangle
 
     function saveForm() {
         model.name = nameTextbox.text
-        model.isEnabled = (enabledSwitch.state === "ON")
         model.description = descriptionTextbox.text
 
         uCtrlApiFacade.putDevice(devicesList.findObject(model.id))
