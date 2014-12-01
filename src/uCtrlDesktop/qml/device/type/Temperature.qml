@@ -448,11 +448,6 @@ Rectangle {
         }
     }
 
-    function getDeviceEnabled() {
-        if (model !== null) return model.isEnabled ? "ON" : "OFF"
-        else return "OFF"
-    }
-
     function getValue() {
         if (model !== null) return model.value
         else return 0

@@ -27,7 +27,6 @@ class UDevice : public NestedListItem
         precisionRole,
         statusRole,
         unitLabelRole,
-        enabledRole,
         lastUpdatedRole,
         deviceModelRole,
         valueTypeRole,

@@ -43,8 +43,6 @@ QVariant UDevice::data(int role) const
         return (int)status();
     case unitLabelRole:
         return unitLabel();
-    case enabledRole:
-        return enabled();
     case lastUpdatedRole:
         return lastUpdated();
     case deviceModelRole:
@@ -104,9 +102,6 @@ bool UDevice::setData(const QVariant& value, int role)
     case unitLabelRole:
         unitLabel(value.toString());
         break;
-    case enabledRole:
-        enabled(value.toBool());
-        break;
     case lastUpdatedRole:
         lastUpdated(value.toDouble());
         break;
@@ -137,7 +132,6 @@ QHash<int, QByteArray> UDevice::roleNames() const
     roles[precisionRole] = "precision";
     roles[statusRole] = "status";
     roles[unitLabelRole] = "unitLabel";
-    roles[enabledRole] = "isEnabled";
     roles[lastUpdatedRole] = "lastUpdated";
     roles[deviceModelRole] = "deviceModel";
     roles[valueTypeRole] = "valueType";
@@ -173,7 +167,6 @@ void UDevice::write(QJsonObject& jsonObj) const
     jsonObj["precision"] = this->precision();
     jsonObj["status"] = (int)this->status();
     jsonObj["unitLabel"] = this->unitLabel();
-    jsonObj["enabled"] = this->enabled();
     jsonObj["lastUpdated"] = this->lastUpdated();
     jsonObj["model"] = this->deviceModel();
 
@@ -194,7 +187,6 @@ void UDevice::read(const QJsonObject &jsonObj)
     this->precision(jsonObj["precision"].toInt());
     this->status((UEStatus)jsonObj["status"].toInt());
     this->unitLabel(jsonObj["unitLabel"].toString());
-    this->enabled(jsonObj["enabled"].toBool());
     this->lastUpdated(jsonObj["lastUpdated"].toDouble());
     this->deviceModel(jsonObj["model"].toString());
 

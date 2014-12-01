@@ -702,7 +702,6 @@ Rectangle
 
     function saveForm() {
         model.name = nameTextbox.text
-        model.isEnabled = (enabledSwitch.state === "ON")
         model.description = descriptionTextbox.text
 
         uCtrlApiFacade.putDevice(devicesList.findObject(model.id))
@@ -777,11 +776,6 @@ Rectangle
     function getDeviceName() {
         if (typeof(model) != "undefined" && model !== null) return model.name
         else return "Unknown device name"
-    }
-
-    function getDeviceEnabled() {
-        if (typeof(model) != "undefined" && model !== null) return model.isEnabled ? "ON" : "OFF"
-        else return "OFF"
     }
 
     function getPlatform() {

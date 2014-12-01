@@ -17,8 +17,6 @@ QVariant UTask::data(int role) const
         return id();
     case valueRole:
         return value();
-    case enabledRole:
-        return enabled();
     case lastUpdatedRole:
         return lastUpdated();
     default:
@@ -36,9 +34,6 @@ bool UTask::setData(const QVariant& value, int role)
     case valueRole:
         this->value(value.toString());
         break;
-    case enabledRole:
-        enabled(value.toBool());
-        break;
     case lastUpdatedRole:
         lastUpdated(value.toDouble());
         break;
@@ -54,7 +49,6 @@ QHash<int, QByteArray> UTask::roleNames() const
 
     roles[idRole] = "id";
     roles[valueRole] = "value";
-    roles[enabledRole] = "enabled";
     roles[lastUpdatedRole] = "lastUpdated";
 
     return roles;
@@ -69,7 +63,6 @@ void UTask::write(QJsonObject &jsonObj) const
 {
     jsonObj["id"] = this->id();
     jsonObj["value"] = this->value();
-    jsonObj["enabled"] = this->enabled();
     jsonObj["lastUpdated"] = this->lastUpdated();
 
     QJsonObject conditions;
@@ -81,7 +74,6 @@ void UTask::read(const QJsonObject &jsonObj)
 {
     this->id(jsonObj["id"].toString());
     this->value(jsonObj["value"].toString());
-    this->enabled(jsonObj["enabled"].toBool());
     this->lastUpdated(jsonObj["lastUpdated"].toDouble());
 
     readConditions(jsonObj);

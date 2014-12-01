@@ -23,19 +23,6 @@ void ListItem::id(const QString &id)
     }
 }
 
-bool ListItem::enabled() const
-{
-    return m_enabled;
-}
-
-void ListItem::enabled(bool enabled)
-{
-    if (m_enabled != enabled) {
-        m_enabled = enabled;
-        emit dataChanged();
-    }
-}
-
 double ListItem::lastUpdated() const
 {
     return m_lastUpdated;
