@@ -68,6 +68,8 @@ Rectangle {
                 {
                     case DeviceEnums.UEValueType.Event:
                         return "When device \"" + getDeviceName(model.deviceId) + "\" fires an event"
+                    case DeviceEnums.UEValueType.Color:
+                        return "When device \"" + getDeviceName(model.deviceId) + "\" is " + model.beginValue
                     case DeviceEnums.UEValueType.UpDownSwitch:
                         return "When device \"" + getDeviceName(model.deviceId) + "\" is " + (model.beginValue === "1" ? "UP" : "DOWN")
                     case DeviceEnums.UEValueType.Switch:
@@ -76,7 +78,7 @@ Rectangle {
                         return "When device \"" + getDeviceName(model.deviceId) + "\" is " + getValueString(getSliderLabel)
                     default:
                         return "When device \"" + getDeviceName(model.deviceId) + "\" is " + getValueString(getLabel)
-        }
+                }
             default:
                 return "Unknown condition"
         }

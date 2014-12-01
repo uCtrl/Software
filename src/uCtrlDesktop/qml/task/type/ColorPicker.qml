@@ -17,7 +17,7 @@ Rectangle {
 
         anchors.centerIn: parent
         Component.onCompleted: {
-            taskEditorContainer.saveConditions.connect(saveState)
+            taskEditorContainer.saveTasks.connect(saveState)
 
             hsbFromRgb("#" + model.value())
 
@@ -27,7 +27,6 @@ Rectangle {
 
         function saveState()
         {
-            console.log("SaveSet: " + pickerString)
             model.value(pickerString)
         }
     }

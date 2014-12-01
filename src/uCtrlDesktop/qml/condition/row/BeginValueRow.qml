@@ -99,6 +99,36 @@ DefaultRow {
 
     Component
     {
+        id: colorComponent
+
+        UI.UCompactColorPicker
+        {
+            width: 130
+            height: 30
+
+            Component.onCompleted: {
+                conditionEditorContainer.saveConditionDetails.connect(saveValue)
+                conditionModelChanged()
+            }
+
+            function conditionModelChanged()
+            {
+                hsbFromRgb("#" + conditionEditorContainer.getCondition().beginValue())
+            }
+
+            function saveValue()
+            {
+                if(expanded)
+                {
+                    conditionEditorContainer.getCondition().beginValue(pickerString)
+                    conditionEditorContainer.getCondition().comparisonType(UEComparisonType.None)
+                }
+            }
+        }
+    }
+
+    Component
+    {
         id: switchComponent
 
         UI.USwitch
@@ -291,6 +321,8 @@ DefaultRow {
                 return switchComponent
             case DeviceEnums.UEValueType.UpDownSwitch:
                 return upDownSwitchComponent
+            case DeviceEnums.UEValueType.Color:
+                return colorComponent
             case DeviceEnums.UEValueType.Slider:
                 return sliderComponent
             case DeviceEnums.UEValueType.Textbox:

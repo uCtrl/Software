@@ -15,6 +15,7 @@ Rectangle {
     property var deviceType: null
 
     signal saveConditions()
+    signal saveTasks()
 
     anchors.fill: parent
     color: Colors.uWhite
@@ -210,12 +211,14 @@ Rectangle {
     function saveForm() {
         if (devicePage.getPlatform().isLocalPlatform())
         {
+            saveTasks()
             uCtrlApiFacade.putTask(taskModel)
             taskEditorContainer.saveConditions()
         }
         else
         {
             taskEditorContainer.saveConditions()
+            saveTasks()
             uCtrlApiFacade.putTask(taskModel)
         }
         taskEditorContainer.visible = false

@@ -53,7 +53,8 @@ Rectangle {
                 Rectangle {
                     width: parent.height
                     height: parent.width
-                    x: parent.width
+
+                    y: parent.height
 
                     gradient: Gradient {
                         GradientStop { position: 1.0;  color: "#FF0000" }
@@ -67,7 +68,7 @@ Rectangle {
 
                     transform: Rotation
                     {
-                        angle: 90
+                        angle: -90
                     }
                 }
 
