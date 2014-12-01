@@ -100,6 +100,7 @@
         <file>qml/device/DeviceIcon.qml</file>
         <file>qml/ui/UCheckbox.qml</file>
         <file>qml/ui/UColorPicker.qml</file>
+        <file>qml/ui/UScrollbar.qml</file>
         <file>Images/NinjaIcon.png</file>
         <file>Images/NinjaIconEyes.png</file>
         <file>qml/device/type/DoorSensor.qml</file>
