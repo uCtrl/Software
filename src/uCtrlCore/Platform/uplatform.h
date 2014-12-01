@@ -20,6 +20,7 @@ class UPlatform : public NestedListItem
         statusRole,
         enabledRole,
         lastUpdatedRole,
+        isLocalPlatformRole,
     };
 
 public:
@@ -59,7 +60,7 @@ public:
     UEStatus status() const;
     void status(UEStatus status);
 
-    bool isLocalPlatform();
+    Q_INVOKABLE bool isLocalPlatform() const;
 
 private:
     QString m_firmwareVersion;

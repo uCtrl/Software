@@ -212,6 +212,7 @@ Rectangle {
 
         taskEditorContainer.saveConditions()
         taskEditorContainer.visible = false
+
     }
 
     function cancelEditing()

@@ -24,11 +24,9 @@ Rectangle
     property int paddingSize: 20
     property int bottomMarginSize: 30
 
-    property bool showEditMode: false
-
     onModelChanged: {
         taskEditor.visible = false
-        devicePage.showEditMode = false
+        scenariosList.showEditMode = false
         infoContainer.showEditMode = false
     }
 
@@ -109,7 +107,7 @@ Rectangle
 
                         DeviceIcon
                         {
-                            deviceType: devicePage.model === null ? 0 : devicePage.model.type
+                            deviceType: typeof(devicePage.model) === "undefined" || devicePage.model === null ? 0 : devicePage.model.type
                             iconColor: Colors.uWhite
                             iconSize: 24
                         }
@@ -249,57 +247,6 @@ Rectangle
                     }
                 }
 
-                Rectangle {
-                    id: enabledContainer
-
-                    color: Colors.uTransparent
-
-                    anchors.top: statusContainer.bottom
-                    anchors.left: infoContainer.left
-                    anchors.right: infoContainer.right
-
-                    height: 30
-
-                    ULabel.DeviceInfoHeaderLabel {
-                        id: enabledLabel
-
-                        text: "Enabled"
-                        width: 125
-
-                        anchors.left: enabledContainer.left
-                    }
-
-                    Rectangle {
-                        id: enabledSwitchContainer
-                        anchors.left: enabledLabel.right
-                        anchors.leftMargin: 10
-
-                        width: 100
-                        height: enabledInfoBoundedLabel.height
-
-                        anchors.verticalCenter: enabledContainer.verticalCenter
-
-                        ULabel.UInfoBoundedLabel {
-                            id: enabledInfoBoundedLabel
-
-                            text: (getDeviceEnabled())
-                            boundedColor: (getDeviceEnabled() === "ON" ? Colors.uGreen : Colors.uGrey)
-
-                            visible: !infoContainer.showEditMode
-                        }
-
-                        UI.USwitch {
-                            id: enabledSwitch
-
-                            state: getDeviceEnabled()
-
-                            anchors.left: enabledSwitchContainer.left
-                            anchors.verticalCenter: enabledSwitchContainer.verticalCenter
-
-                            visible: infoContainer.showEditMode
-                        }
-                    }
-                }
 
                 Rectangle {
                     id: techContainer
@@ -309,7 +256,7 @@ Rectangle
                     anchors.left: infoContainer.left
                     anchors.right: infoContainer.right
 
-                    anchors.top: enabledContainer.bottom
+                    anchors.top: statusContainer.bottom
                     anchors.topMargin: 10
 
                     height: (hidden ? 25 : techInfoColumn.height + techIcon.height + 20)
@@ -745,12 +692,12 @@ Rectangle
     }
 
     function getLastUpdatedText() {
-        if (model !== null && model.lastUpdate !== undefined) return model.lastUpdate
+        if (typeof(model) != "undefined" && model !== null && model.lastUpdate !== undefined) return model.lastUpdate
         else return "Last updated a second ago."
     }
 
     function getScenarios() {
-        if (model !== null) return main.devicesList.nestedModelFromId(model.id)
+        if (typeof(model) != "undefined" && model !== null) return main.devicesList.nestedModelFromId(model.id)
     }
 
     function saveForm() {
@@ -764,12 +711,12 @@ Rectangle
     }
 
     function getHistory() {
-        if (model !== null) return main.devicesList.getHistoryWithId(model.id)
+        if (typeof(model) != "undefined" && model !== null) return main.devicesList.getHistoryWithId(model.id)
         else return null;
     }
 
     function getDeviceFile() {
-        if (model !== null) {
+        if (typeof(model) != "undefined" && model !== null) {
             switch(model.type) {
                 case UEType.PowerSocketSwitch:
                     return "PowerSocketSwitch"
@@ -789,9 +736,6 @@ Rectangle
                     return "DoorSensor"
                 case UEType.LightSensor:
                     return "LightSensor"
-                case UEType.LED:
-                case UEType.LEDDisplay:
-                    return "ImplementItPlease"
             }
         }
         return "Error"
@@ -799,15 +743,15 @@ Rectangle
 
     function isDeviceScenarioConfigurable()
     {
-        if(!model)
+        if(typeof(model) === "undefined" || model === null)
             return false;
 
         switch(model.type) {
             case UEType.PowerSocketSwitch:
             case UEType.NinjasEyes:
             case UEType.LimitlessLEDWhite:
-            case UEType.LED:
-            case UEType.LEDDisplay:
+            case UEType.FlowSwitch:
+            case UEType.ColorPanel:
                 return true
             case UEType.PushButton:
             case UEType.MotionSensor:
@@ -816,31 +760,38 @@ Rectangle
             case UEType.DoorSensor:
             case UEType.LightSensor:
                 return false
+            default:
+                return false
         }
     }
 
     function getDeviceStatus() {
-        if (model !== null) return model.status
+        if (typeof(model) != "undefined" && model !== null) return model.status
         else return 2
     }
 
     function getDeviceName() {
-        if (model !== null) return model.name
+        if (typeof(model) != "undefined" && model !== null) return model.name
         else return "Unknown device name"
     }
 
     function getDeviceEnabled() {
-        if (model !== null) return model.isEnabled ? "ON" : "OFF"
+        if (typeof(model) != "undefined" && model !== null) return model.isEnabled ? "ON" : "OFF"
+        else return "OFF"
+    }
+
+    function getPlatform() {
+        if (typeof(model) != "undefined" && model !== null) return model.platform
         else return "OFF"
     }
 
     function getModel() {
-        if (model !== null) return model.deviceModel
-        else return "La Crosse Temp WS2355"
+        if (typeof(model) != "undefined" && model !== null) return model.deviceModel
+        else return ""
     }
 
     function getType() {
-        if (model !== null) {
+        if (typeof(model) != "undefined" && model !== null) {
             switch(model.type) {
                 case UEType.PowerSocketSwitch:
                     return "Power plug"
@@ -870,22 +821,22 @@ Rectangle
     }
 
     function getGUID() {
-        if (model !== null) return model.id
+        if (typeof(model) != "undefined" && model !== null) return model.id
         else return "Unknown"
     }
 
     function getMinValue() {
-        if (model !== null) return model.minValue
+        if (typeof(model) != "undefined" && model !== null) return model.minValue
         else return "-70"
     }
 
     function getMaxValue() {
-        if (model !== null) return model.maxValue
+        if (typeof(model) != "undefined" && model !== null) return model.maxValue
         else return "70"
     }
 
     function getDescription() {
-        if (model !== null) return model.description
+        if (typeof(model) != "undefined" && model !== null) return model.description
         else return ""
     }
 

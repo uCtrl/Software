@@ -129,13 +129,49 @@ DefaultRow {
 
     Component
     {
+        id: upDownSwitchComponent
+
+        UI.USwitch
+        {
+            width: 100
+            height: 30
+
+            onValueLabel: "UP"
+            offValueLabel: "DOWN"
+
+            Component.onCompleted: {
+                conditionEditorContainer.saveConditionDetails.connect(saveValue)
+                conditionModelChanged()
+            }
+
+            function conditionModelChanged()
+            {
+                state = conditionEditorContainer.getCondition().endValue() === "1" ? "ON" : "OFF"
+            }
+
+            function saveValue()
+            {
+                if(expanded)
+                {
+                    conditionEditorContainer.getCondition().endValue(state === "ON" ? 1 : 0)
+                    conditionEditorContainer.getCondition().comparisonType(UEComparisonType.None)
+                }
+            }
+        }
+    }
+
+    Component
+    {
         id: sliderComponent
 
         Rectangle
         {
-            property int textWidth: 50
+            property int textWidth: 60
             x: textWidth
             width: 200 - textWidth
+            height: parent.height
+
+            color: Colors.uTransparent
 
             UI.USlider
             {
@@ -253,6 +289,8 @@ DefaultRow {
                 return dateComponent
             case DeviceEnums.UEValueType.Switch:
                 return switchComponent
+            case DeviceEnums.UEValueType.UpDownSwitch:
+                return upDownSwitchComponent
             case DeviceEnums.UEValueType.Slider:
                 return sliderComponent
             case DeviceEnums.UEValueType.Textbox:

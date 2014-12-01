@@ -51,6 +51,8 @@ QVariant UDevice::data(int role) const
         return deviceModel();
     case valueTypeRole:
         return (int)valueType();
+    case platformRole:
+        return QVariant::fromValue(platform());
     default:
         return QVariant();
     }
@@ -139,6 +141,7 @@ QHash<int, QByteArray> UDevice::roleNames() const
     roles[lastUpdatedRole] = "lastUpdated";
     roles[deviceModelRole] = "deviceModel";
     roles[valueTypeRole] = "valueType";
+    roles[platformRole] = "platform";
 
     return roles;
 }
@@ -398,13 +401,19 @@ UDevice::UEValueType UDevice::valueType() const
         case UDevice::UEType::LimitlessLEDWhite:
         case UDevice::UEType::LightSensor:
             return UDevice::UEValueType::Slider;
-        case UDevice::UEType::LED:
-        case UDevice::UEType::LEDDisplay:
         case UDevice::UEType::Humidity:
         case UDevice::UEType::Temperature:
         case UDevice::UEType::NinjasEyes:
+        case UDevice::UEType::ColorPanel:
             return UDevice::UEValueType::Textbox;
+        case UDevice::UEType::FlowSwitch:
+            return UDevice::UEValueType::UpDownSwitch;
         default:
             return UDevice::UEValueType::Unknown;
     }
+}
+
+QObject* UDevice::platform() const
+{
+    return this->parent()->parent();
 }

@@ -32,6 +32,8 @@ QVariant UPlatform::data(int role) const
         return enabled();
     case lastUpdatedRole:
         return lastUpdated();
+    case isLocalPlatformRole:
+        return isLocalPlatform();
     default:
         return QVariant();
     }
@@ -87,6 +89,7 @@ QHash<int, QByteArray> UPlatform::roleNames() const
     roles[statusRole] = "status";
     roles[enabledRole] = "isEnabled";
     roles[lastUpdatedRole] = "lastUpdated";
+    roles[isLocalPlatformRole] = "isLocalPlatform";
 
     return roles;
 }
@@ -211,7 +214,7 @@ void UPlatform::status(UEStatus status)
     }
 }
 
-bool UPlatform::isLocalPlatform()
+bool UPlatform::isLocalPlatform() const
 {
     return m_isLocalPlatform;
 }

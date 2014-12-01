@@ -189,6 +189,9 @@ Column {
 
     function getValueLabel()
     {
+        if(typeof(deviceModel) === "undefined")
+            return ""
+
         switch(deviceModel.valueType)
         {
             case UEType.Switch:
