@@ -226,6 +226,7 @@ Item {
         "Plug"              : "\uf1e6",
         "Lightbulb"         : "\uf0eb",
         "ToggleOn"          : "\uf205",
+        "QuestionMark"      : "\uf128",
         ""                  : "",
     }
 

@@ -90,7 +90,6 @@
         <file>Images/uCtrl.svg</file>
         <file>qml/component/Titlebar.qml</file>
         <file>qml/task/TaskEditor.qml</file>
-        <file>qml/task/ConditionEditor.qml</file>
         <file>qml/ui/UTimePicker.qml</file>
         <file>qml/ui/UDatePicker.qml</file>
         <file>qml/ui/UWeekdayPicker.qml</file>
@@ -109,5 +108,18 @@
         <file>qml/task/type/Text.qml</file>
         <file>qml/task/type/Button.qml</file>
         <file>qml/device/type/GraphHelper.js</file>
+        <file>qml/condition/ConditionEditor.qml</file>
+        <file>qml/condition/type/DateCondition.qml</file>
+        <file>qml/condition/type/DayCondition.qml</file>
+        <file>qml/condition/type/DeviceCondition.qml</file>
+        <file>qml/condition/type/TimeCondition.qml</file>
+        <file>qml/condition/type/EmptyCondition.qml</file>
+        <file>qml/condition/row/OperatorRow.qml</file>
+        <file>qml/condition/row/BeginValueRow.qml</file>
+        <file>qml/condition/row/EndValueRow.qml</file>
+        <file>qml/condition/row/DaySelectionRow.qml</file>
+        <file>qml/condition/type/DefaultCondition.qml</file>
+        <file>qml/condition/row/DefaultRow.qml</file>
+        <file>qml/condition/row/DeviceSelectionRow.qml</file>
     </qresource>
 </RCC>

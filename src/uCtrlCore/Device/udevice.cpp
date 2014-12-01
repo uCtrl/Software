@@ -49,6 +49,8 @@ QVariant UDevice::data(int role) const
         return lastUpdated();
     case deviceModelRole:
         return deviceModel();
+    case valueTypeRole:
+        return (int)valueType();
     default:
         return QVariant();
     }
@@ -136,6 +138,7 @@ QHash<int, QByteArray> UDevice::roleNames() const
     roles[enabledRole] = "isEnabled";
     roles[lastUpdatedRole] = "lastUpdated";
     roles[deviceModelRole] = "deviceModel";
+    roles[valueTypeRole] = "valueType";
 
     return roles;
 }
@@ -379,5 +382,29 @@ void UDevice::deviceModel(const QString &deviceModel)
     if (m_deviceModel != deviceModel) {
         m_deviceModel = deviceModel;
         emit dataChanged();
+    }
+}
+
+UDevice::UEValueType UDevice::valueType() const
+{
+    switch(type())
+    {
+        case UDevice::UEType::PowerSocketSwitch:
+        case UDevice::UEType::DoorSensor:
+            return UDevice::UEValueType::Switch;
+        case UDevice::UEType::PushButton:
+        case UDevice::UEType::MotionSensor:
+            return UDevice::UEValueType::Event;
+        case UDevice::UEType::LimitlessLEDWhite:
+        case UDevice::UEType::LightSensor:
+            return UDevice::UEValueType::Slider;
+        case UDevice::UEType::LED:
+        case UDevice::UEType::LEDDisplay:
+        case UDevice::UEType::Humidity:
+        case UDevice::UEType::Temperature:
+        case UDevice::UEType::NinjasEyes:
+            return UDevice::UEValueType::Textbox;
+        default:
+            return UDevice::UEValueType::Unknown;
     }
 }

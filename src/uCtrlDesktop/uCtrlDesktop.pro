@@ -62,7 +62,8 @@ PRE_TARGETDEPS += compiler_updateqm_make_all
 
 OTHER_FILES += \
     Languages/uctrl_en.ts \
-    Languages/uctrl_fr.ts
+    Languages/uctrl_fr.ts \
+    qml/condition/operator/GreaterThanCondition.qml
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../uCtrlCore/release/ -luCtrlCore
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../uCtrlCore/debug/ -luCtrlCore
