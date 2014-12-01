@@ -59,7 +59,7 @@ Column {
             ULabel.UInfoBoundedLabel {
                 id: valueLabel
 
-                text: getValue().replace("true", "ON").replace("false", "OFF") + getUnitLabel()
+                text: getValueLabel()
             }
         }
 
@@ -185,6 +185,19 @@ Column {
     function deleteTask() {
         uCtrlApiFacade.deleteTask(tasks.model.findObject(item.id))
         tasks.model.removeRow(item.id)
+    }
+
+    function getValueLabel()
+    {
+        switch(deviceModel.valueType)
+        {
+            case UEType.Switch:
+                return (getValue() === "1" ? "ON" : "OFF")
+            case UEType.Slider:
+                return (getValue() * 100) + getUnitLabel()
+            default:
+                return getValue() + getUnitLabel()
+        }
     }
 
     function moveUp() {

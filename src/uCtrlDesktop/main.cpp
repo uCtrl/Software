@@ -43,6 +43,7 @@ void Init(QGuiApplication& app, QtQuick2ApplicationViewer& viewer)
     qmlRegisterType<UPlatform>("PlatformEnums", 1, 0, "UEStatus");
     qmlRegisterType<UDevice>("DeviceEnums", 1, 0, "UEStatus");
     qmlRegisterType<UDevice>("DeviceEnums", 1, 0, "UEType");
+    qmlRegisterType<UDevice>("DeviceEnums", 1, 0, "UEValueType");
     qmlRegisterType<UCondition>("ConditionEnums", 1, 0, "UEType");
     qmlRegisterType<UCondition>("ConditionEnums", 1, 0, "UEComparisonType");
     qmlRegisterType<UHistoryLog>("HistoryEnums", 1, 0, "UESeverity");

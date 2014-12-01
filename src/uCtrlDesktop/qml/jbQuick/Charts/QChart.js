@@ -1315,7 +1315,7 @@ var Chart = function(canvas, context) {
         }
 
 
-        graphMin = Math.floor(minValue)
+        graphMin = Math.floor(minValue) - (Math.floor(minValue) % 5)
         stepValue = calculateStepValue(maxValue - graphMin)
 
         numberOfSteps = Math.round((maxValue - graphMin) / stepValue)

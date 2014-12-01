@@ -3,39 +3,25 @@ import QtQuick 2.0
 import "../ui" as UI
 import "../label" as ULabel
 import "../ui/UColors.js" as Colors
-import ConditionEnums 1.0
 
+import DeviceEnums 1.0 as DeviceEnums
+import ConditionEnums 1.0
 
 Rectangle {
     id: conditionItemContainer
 
     property bool showEditMode: false
 
-    property var parseValue: doNotParseValue
-
     width: parent !== null ? parent.width : 100
     height: 30
 
-    Loader {
-        id: conditionLoader
-
-        anchors.fill: parent
-        sourceComponent: getSourceComponent()
-    }
-
-    Component {
-        id: dateComponent
-
-        Rectangle {
-            anchors.fill: parent
-
             UI.UFontAwesome {
-                id: dateConditionIcon
+        id: conditionIcon
 
                 width: 30
                 anchors.verticalCenter: parent.verticalCenter
 
-                iconId: "Calendar"
+        iconId: getConditionIcon()
                 iconSize: 16
                 iconColor: Colors.uMediumDarkGrey
                 anchors.left: parent.left
@@ -43,171 +29,54 @@ Rectangle {
 
             ULabel.ConditionLabel {
                 id: dateConditionText
-                anchors.left: dateConditionIcon.right
+        anchors.left: conditionIcon.right
                 anchors.verticalCenter: parent.verticalCenter
 
-                text: "Date is "
+        text: getConditionLabel()
             }
 
-            Loader {
-                id: conditionContentLoader
-
-                anchors.left: dateConditionText.right
-                anchors.verticalCenter: parent.verticalCenter
-                sourceComponent: getContentComponent()
-            }
-
-            Component.onCompleted: {
-                conditionItemContainer.parseValue = getDateLabel
-            }
+    function getConditionIcon()
+    {
+        switch(model.type)
+        {
+            case UEType.Date:
+                return "Calendar"
+            case UEType.Day:
+                return "CalendarEmpty"
+            case UEType.Time:
+                return "clock"
+            case UEType.Device:
+                return "Bolt"
+            default:
+                return "QuestionMark"
         }
     }
 
-    Component {
-        id: timeComponent
-
-        Rectangle {
-            anchors.fill: parent
-
-            UI.UFontAwesome {
-                id: timeConditionIcon
-
-                width: 30
-                anchors.verticalCenter: parent.verticalCenter
-
-                iconId: "clock"
-                iconSize: 16
-                iconColor: Colors.uMediumDarkGrey
-                anchors.left: parent.left
-            }
-
-            ULabel.ConditionLabel {
-                id: timeConditionText
-                anchors.left: timeConditionIcon.right
-                anchors.verticalCenter: parent.verticalCenter
-
-                text: "Time is "
-            }
-
-            Loader {
-                id: conditionContentLoader
-
-                anchors.left: timeConditionText.right
-                anchors.verticalCenter: parent.verticalCenter
-                sourceComponent: getContentComponent()
-            }
-
-            Component.onCompleted: {
-                conditionItemContainer.parseValue = getTimeLabel
-            }
+    function getConditionLabel()
+    {
+        switch(model.type)
+        {
+            case UEType.Date:
+                return "When date is " + getValueString(getDateLabel)
+            case UEType.Day:
+                return getDayLabel(model.beginValue)
+            case UEType.Time:
+                return "When time is "  + getValueString(getTimeLabel)
+            case UEType.Device:
+                var deviceValueType = getDeviceValueType(model.deviceId)
+                switch(deviceValueType)
+                {
+                    case DeviceEnums.UEValueType.Event:
+                        return "When device \"" + getDeviceName(model.deviceId) + "\" fires an event"
+                    case DeviceEnums.UEValueType.Switch:
+                        return "When device \"" + getDeviceName(model.deviceId) + "\" is " + (model.beginValue === "1" ? "ON" : "OFF")
+                    case DeviceEnums.UEValueType.Slider:
+                        return "When device \"" + getDeviceName(model.deviceId) + "\" is " + getValueString(getSliderLabel)
+                    default:
+                        return "When device \"" + getDeviceName(model.deviceId) + "\" is " + getValueString(getLabel)
         }
-    }
-
-    Component {
-        id: dayComponent
-
-        Rectangle {
-            anchors.fill: parent
-
-            UI.UFontAwesome {
-                id: dayConditionIcon
-
-                width: 30
-                anchors.verticalCenter: parent.verticalCenter
-
-                iconId: "Calendar"
-                iconSize: 16
-                iconColor: Colors.uMediumDarkGrey
-                anchors.left: parent.left
-            }
-
-            ULabel.ConditionLabel {
-                id: dayConditionText
-                anchors.left: dayConditionIcon.right
-                anchors.verticalCenter: parent.verticalCenter
-
-                text: getDayLabel(model.beginValue)
-            }
-        }
-    }
-
-    Component {
-        id: deviceComponent
-
-        Rectangle {
-            anchors.fill: parent
-
-            UI.UFontAwesome {
-                id: deviceConditionIcon
-
-                width: 30
-                anchors.verticalCenter: parent.verticalCenter
-
-                iconId: "lightning"
-                iconSize: 16
-                iconColor: Colors.uMediumDarkGrey
-                anchors.left: parent.left
-            }
-
-            ULabel.ConditionLabel {
-                id: deviceConditionText
-                anchors.left: deviceConditionIcon.right
-                anchors.verticalCenter: parent.verticalCenter
-
-                text: "Device \"" + getDeviceName(model.deviceId) + "\" is "
-            }
-
-            Loader {
-                id: conditionContentLoader
-
-                anchors.left: deviceConditionText.right
-                anchors.verticalCenter: parent.verticalCenter
-                sourceComponent: getContentComponent()
-            }
-
-            Component.onCompleted: {
-                conditionItemContainer.parseValue = doNotParseValue
-            }
-        }
-    }
-
-    Component {
-        id: gtComponent
-
-        ULabel.ConditionLabel {
-            text: "greater than " + convertToReadableValues(conditionItemContainer.parseValue(model.beginValue))
-        }
-    }
-
-    Component {
-        id: ltComponent
-
-        ULabel.ConditionLabel {
-            text: "less than " + convertToReadableValues(conditionItemContainer.parseValue(model.endValue))
-        }
-    }
-
-    Component {
-        id: equalsComponent
-
-        ULabel.ConditionLabel {
-            text: "equal to " + convertToReadableValues(conditionItemContainer.parseValue(model.beginValue))
-        }
-    }
-
-    Component {
-        id: inBetweenComponent
-
-        ULabel.ConditionLabel {
-            text: "between " + convertToReadableValues(conditionItemContainer.parseValue(model.beginValue)) + " and " + convertToReadableValues(conditionItemContainer.parseValue(model.endValue))
-        }
-    }
-
-    Component {
-        id: notComponent
-
-        ULabel.ConditionLabel {
-            text: "not equal to " + convertToReadableValues(conditionItemContainer.parseValue(model.beginValue))
+            default:
+                return "Unknown condition"
         }
     }
 
@@ -217,31 +86,26 @@ Rectangle {
         else return ""
     }
 
-    function getSourceComponent() {
-        switch(model.type)  {
-        case UEType.Date:
-            return dateComponent;
-        case UEType.Day:
-            return dayComponent;
-        case UEType.Time:
-            return timeComponent;
-        case UEType.Device:
-            return deviceComponent;
-        }
+    function getDeviceValueType(deviceId)
+    {
+        if (devicesList.findObject(deviceId) !== null) return devicesList.findObject(deviceId).valueType()
+        else return ""
     }
 
-    function getContentComponent() {
-        switch(model.comparisonType)  {
+    function getValueString(parseValueFunction)
+    {
+        switch(model.comparisonType)
+        {
         case UEComparisonType.GreaterThan:
-            return gtComponent;
+                return "greater than " + parseValueFunction(model.beginValue)
         case UEComparisonType.LesserThan:
-            return ltComponent;
+                return "less than " + parseValueFunction(model.endValue)
         case UEComparisonType.Equals:
-            return equalsComponent;
+                return "equal to " + parseValueFunction(model.beginValue)
         case UEComparisonType.InBetween:
-            return inBetweenComponent;
+                return "between " + parseValueFunction(model.beginValue) + " and " + parseValueFunction(model.endValue)
         case UEComparisonType.Not:
-            return notComponent;
+                return "not equal to " + parseValueFunction(model.beginValue)
         }
     }
 
@@ -253,6 +117,16 @@ Rectangle {
         return pad(hour, 2) + ":" + pad(minute, 2)
     }
 
+    function getSliderLabel(value)
+    {
+        return Math.round(value * 100)
+    }
+
+    function getLabel(value)
+    {
+        return value
+    }
+
     function pad(num, size) {
         var s = "000000000" + num;
         return s.substr(s.length-size);
@@ -260,7 +134,7 @@ Rectangle {
 
     function getDateLabel(value)
     {
-        return Qt.formatDateTime(new Date(parseInt(value * 1000)), "dd-MM-yyyy")
+        return Qt.formatDateTime(new Date(parseInt(value)), "dd-MM-yyyy")
     }
 
     function getDayLabel(value)
@@ -289,19 +163,9 @@ Rectangle {
                 var lastCommaSpace = label.lastIndexOf(", ")
 
                 if(lastCommaSpace === -1)
-                    return label
+                    return "On " + label
                 else
-                    return label.substring(0, lastCommaSpace) + " and " + label.substring(lastCommaSpace + 2, label.length)
+                    return "On " + label.substring(0, lastCommaSpace) + " and " + label.substring(lastCommaSpace + 2, label.length)
         }
-    }
-
-    function doNotParseValue(value)
-    {
-        return value
-    }
-
-    function convertToReadableValues(value)
-    {
-        return value.replace("true", "ON").replace("false", "OFF")
     }
 }

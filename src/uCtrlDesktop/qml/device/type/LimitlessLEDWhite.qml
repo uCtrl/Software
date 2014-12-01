@@ -47,33 +47,13 @@ Rectangle {
             iconLabelColor: Colors.uGrey
         }
 
-        Rectangle {
-            id: currentValueContainer
-
-            anchors.left: slideContainer.left
-            anchors.top: manualCommandHeader.bottom
-            anchors.bottom: slideContainer.bottom
-
-            width: 75
-
-            ULabel.Default {
-                anchors.centerIn: currentValueContainer
-
-                font.bold: true
-                font.pixelSize: 24
-
-                color: Colors.uGrey
-
-                text: Math.round(getOpacity() * 100) + "%"
-            }
-        }
-
         UI.USlider {
             id: currentValueSlider
 
             anchors.top: manualCommandHeader.bottom
             anchors.bottom: slideContainer.bottom
-            anchors.left: currentValueContainer.right
+            anchors.left: parent.left
+            anchors.leftMargin: 100
             anchors.right: slideContainer.right
 
             minimumValue: 0
@@ -312,6 +292,6 @@ Rectangle {
     function updateStatsPeriod() {
         var period = periodCombo.selectedItem ? periodCombo.selectedItem.value : "hour";
         var params = GraphHelper.getDeviceValuesParams(period);
-        uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id), {"from": params.from.toString(), "to": params.to.toString(), "interval": params.interval, "fn": "count"});
+        uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id), {"from": params.from, "to": params.to, "interval": params.interval, "fn": "mean"});
     }
 }
