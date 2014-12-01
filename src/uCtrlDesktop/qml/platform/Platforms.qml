@@ -8,7 +8,7 @@ Rectangle {
 
     color: Colors.uLightGrey
 
-    property int marginSize: 20;
+    property int marginSize: (resourceLoader.loadResource("platformsPlatformlistMarginSize"));
     property string section: "room";
     property string filterText: ""
 

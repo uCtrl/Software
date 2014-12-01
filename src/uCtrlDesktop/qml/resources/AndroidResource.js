@@ -105,6 +105,7 @@ var resourceDictionary = {
     "platformListitemPlatformNameTextFontPointSize": 35,
     "platformListitemPlatformUpdateTextFontPointSize": 22,
 
+    "platformsPlatformlistMarginSize": 45,
     "platformsFiltersHeight": 70,
     "platformsRectplatformsPlatformsColumnItemcontainerHeight": 150,
     "platformsFiltersSearchBoxIconSize": 20,
