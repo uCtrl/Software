@@ -11,6 +11,7 @@
 #include "Task/utasksmodel.h"
 #include "Condition/uconditionsmodel.h"
 #include "Recommendations/recommendationsModel.h"
+#include "uctrlwebsocket.h"
 
 const char* const PlatformId = "platformId";
 const char* const DeviceId = "deviceId";
@@ -99,6 +100,7 @@ signals:
     void networkError(const QString& errorString);
     void serverError(const QString& errorString);
     void modelError(const QString& errorString);
+    void webSocketError(const QString& errorString);
 
     // Settings
     void ninjaTokenChanged(const QString& ninjaToken);
@@ -153,15 +155,12 @@ private slots:
     void putConditionReply();
     void deleteConditionReply();
 
-    // Websocket
-    void onConnected();
-    void onError(QAbstractSocket::SocketError error);
-    void onMessageReceived(const QString& message);
-    void onClosed();
-
     // Recommendations
     void getRecommendationsReply();
     void acceptRecommendationReply();
+
+    // Websocket errors
+    void onWebSocketError(const QString& errorString);
 
 private:
     bool checkServerError(const QJsonObject& jsonObj);
@@ -177,7 +176,7 @@ private:
     QString m_serverBaseUrl;
     QString m_userToken;
     QNetworkAccessManager* m_networkAccessManager;
-    QWebSocket m_webSocket;
+    UCtrlWebSocket* m_websocket;
 };
 
 #endif // UCTRLAPI_H
