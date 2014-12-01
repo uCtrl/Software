@@ -52,13 +52,13 @@ void UCtrlWebSocket::onMessageReceived(const QString &message)
         treatDevice(jsonObj);
         break;
     case UCtrlWebSocket::UETarget::Scenario:
-        treatScenario(jsonObj);
+        //treatScenario(jsonObj);
         break;
     case UCtrlWebSocket::UETarget::Task:
-        treatTask(jsonObj);
+        //treatTask(jsonObj);
         break;
     case UCtrlWebSocket::UETarget::Condition:
-        treatCondition(jsonObj);
+        //treatCondition(jsonObj);
         break;
     }
 }
