@@ -18,9 +18,9 @@ void UTurnOnOffLightIntent::turnOnOffAllLights()
         QJsonObject jsonLimitless = QJsonDocument::fromJson(currentValue.toUtf8()).object();
         int brightness = jsonLimitless["bri"].toDouble();
         if (m_isTurnOn)
-            data = QString("{\"on\":true,\"bri\":%1}").arg(brightness);
+            data = "1";
         else
-            data = QString("{\"on\":false,\"bri\":%1}").arg(brightness);
+            data = "0";
 
         device->value(data);
         m_uCtrlApiFacade->putDevice(device);
@@ -41,9 +41,9 @@ void UTurnOnOffLightIntent::turnOnOffLightsInLocation(QString locationName)
         QJsonObject jsonLimitless = QJsonDocument::fromJson(currentValue.toUtf8()).object();
         int brightness = jsonLimitless["bri"].toDouble();
         if (m_isTurnOn)
-            data = QString("{\"on\":true,\"bri\":%1}").arg(brightness);
+            data = "1";
         else
-            data = QString("{\"on\":false,\"bri\":%1}").arg(brightness);
+            data = "0";
 
         device->value(data);
         m_uCtrlApiFacade->putDevice(device);
@@ -61,9 +61,9 @@ void UTurnOnOffLightIntent::turnOnOffLightWithId(int id)
         QJsonObject jsonLimitless = QJsonDocument::fromJson(currentValue.toUtf8()).object();
         int brightness = jsonLimitless["bri"].toDouble();
         if (m_isTurnOn)
-            data = QString("{\"on\":true,\"bri\":%1}").arg(brightness);
+            data = "1";
         else
-            data = QString("{\"on\":false,\"bri\":%1}").arg(brightness);
+            data = "0";
 
         device->value(data);
         m_uCtrlApiFacade->putDevice(device);

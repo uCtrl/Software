@@ -161,6 +161,10 @@ Column {
         id: conditionsContainer
         showEditMode: container.showEditMode
         model: getConditions()
+
+        onModelChanged: {
+            whenLabel.text = getConditions().rowCount > 0 ? " when" : " otherwise"
+        }
     }
 
     function editTask()
