@@ -22,6 +22,7 @@ const char* const ScenarioPtr = "scenarioPtr";
 const char* const DevicePtr = "devicePtr";
 const char* const TaskPtr = "taskPtr";
 const char* const ConditionPtr = "conditionPtr";
+const char* const DeviceType = "deviceType";
 
 class UCtrlAPI : public QObject
 {
@@ -96,6 +97,10 @@ public:
     // Platform models
     UPlatformsModel* getPlatformsModel() { return m_platforms; }
 
+    // Overall statistics
+    Q_INVOKABLE void getOverallTemperature(QMap<QString, QVariant> params);
+    Q_INVOKABLE void getOverallHumidity(QMap<QString, QVariant> params);
+
 signals:
     void networkError(const QString& errorString);
     void serverError(const QString& errorString);
@@ -161,6 +166,10 @@ private slots:
 
     // Websocket errors
     void onWebSocketError(const QString& errorString);
+
+    // Global Statistics
+    void getOverallTemperatureReply();
+    void getOverallHumidityReply();
 
 private:
     bool checkServerError(const QJsonObject& jsonObj);

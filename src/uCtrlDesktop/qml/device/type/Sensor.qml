@@ -205,6 +205,8 @@ Rectangle {
                 chartType: Charts.ChartType.BAR
 
                 onChartDataChanged: refresh()
+                visible: (chartCarousel.currentItemName === chartName)
+
             }
 
             UI.UChart {
@@ -225,6 +227,7 @@ Rectangle {
                 chartType: Charts.ChartType.LINE
 
                 onChartDataChanged: refresh()
+                visible: (chartCarousel.currentItemName === chartName)
 
                 z: 2
             }
@@ -265,10 +268,16 @@ Rectangle {
             anchors.bottom: parent.bottom
 
             UI.UCarousel {
+
+                id: chartCarousel
+
+                property var currentItemName: null
+
                 carouselItems:  [stateChart, powerChart]
                 carouselIcons: ["info", "lightning"]
                 onChangeItem: {
                     statsText.text = "Statistics : " + item.chartName
+                    currentItemName = item.chartName
                 }
             }
         }

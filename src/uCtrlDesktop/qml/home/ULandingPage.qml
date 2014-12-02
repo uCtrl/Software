@@ -96,7 +96,7 @@ Rectangle {
             }
         }
 
-        /*Rectangle {
+        Rectangle {
             id: statisticsButtonContainer
             anchors.left: configureButtonContainer.right
             width: parent.width / 3
@@ -117,11 +117,11 @@ Rectangle {
                     main.addToBreadcrumb(page.file, page.text, 1)
                 }
             }
-        }*/
+        }
 
         Rectangle {
             id: userPreferenceButtonContainer
-            anchors.left: configureButtonContainer.right
+            anchors.right: parent.right
             width: parent.width / 3
             height: parent.height
             color: Colors.uTransparent

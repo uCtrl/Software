@@ -137,4 +137,14 @@ QList<UDevice*> UPlatformsModel::findDevicesByTypeAndId(UDevice::UEType deviceTy
     return deviceList;
 }
 
+ListModel *UPlatformsModel::temperature() const
+{
+    return m_tempStats;
+}
+
+ListModel *UPlatformsModel::humidity() const
+{
+    return m_humdityStats;
+}
+
 

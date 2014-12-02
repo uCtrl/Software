@@ -1,4 +1,5 @@
 #include "uctrlapi.h"
+#include "QDebug"
 
 UCtrlAPI::UCtrlAPI(QNetworkAccessManager* nam, UPlatformsModel* platforms, QObject *parent) :
     QObject(parent), m_networkAccessManager(nam), m_websocket(NULL)
@@ -1399,4 +1400,56 @@ QNetworkReply* UCtrlAPI::deleteRequest(const QString &urlString)
     QNetworkRequest req(url);
     req.setRawHeader("X-uCtrl-Token", m_userToken.toUtf8());
     return m_networkAccessManager->deleteResource(req);
+}
+
+void UCtrlAPI::getOverallTemperature(QMap<QString, QVariant> params)
+{
+    params["fn"] = "mean";
+    QNetworkReply* reply = getRequest(QString("stats"), params);
+    reply->setProperty(DeviceType, params["type"]);
+    connect(reply, SIGNAL(finished()), this, SLOT(getOverallTemperatureReply()));
+}
+
+void UCtrlAPI::getOverallTemperatureReply()
+{
+    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
+    if (!checkNetworkError(reply)) {
+        reply->deleteLater();
+        return;
+    }
+
+    QJsonObject jsonObj = QJsonDocument::fromJson(reply->readAll()).object();
+    if (!checkServerError(jsonObj)) {
+        reply->deleteLater();
+        return;
+    }
+
+    m_platforms->temperature()->clear();
+    m_platforms->temperature()->read(jsonObj);
+    reply->deleteLater();
+}
+
+void UCtrlAPI::getOverallHumidity(QMap<QString, QVariant> params)
+{
+    params["fn"] = "mean";
+    QNetworkReply* reply = getRequest(QString("stats"), params);
+    reply->setProperty(DeviceType, params["type"]);
+    connect(reply, SIGNAL(finished()), this, SLOT(getOverallHumidityReply()));
+}
+
+void UCtrlAPI::getOverallHumidityReply()
+{
+    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
+    if (!checkNetworkError(reply)) {
+        reply->deleteLater();
+        return;
+    }
+
+    QJsonObject jsonObj = QJsonDocument::fromJson(reply->readAll()).object();
+    if (!checkServerError(jsonObj)) {
+        reply->deleteLater();
+        return;
+    }
+
+    reply->deleteLater();
 }
