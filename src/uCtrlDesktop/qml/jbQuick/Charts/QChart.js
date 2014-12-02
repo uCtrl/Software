@@ -331,11 +331,12 @@ var Chart = function(canvas, context) {
                     ctx.stroke();
                 }
 
+
                 if (config.scaleShowLabels) {
                     ctx.textAlign = "center";
                     ctx.font = config.scaleFontStyle + " " + config.scaleFontSize + "px " + config.scaleFontFamily;
 
-                    var label =  calculatedScale.labels[i];
+                    var label = "" //calculatedScale.labels[i];
 
                     if (config.scaleShowLabelBackdrop) {
                         var textWidth = ctx.measureText(label).width;

@@ -70,7 +70,7 @@ Rectangle {
             anchors.rightMargin: 15
 
             anchors.verticalCenter: statusIcon.verticalCenter
-            height: 25; width: 60;
+            height: 25; width: 100;
 
             boundedTextSize: 13
 
@@ -283,7 +283,6 @@ Rectangle {
                 id: deviceTypeChart
 
                 anchors.fill: parent
-
                 chartAnimated: false;
                 chartData: container.deviceTypeData
 
