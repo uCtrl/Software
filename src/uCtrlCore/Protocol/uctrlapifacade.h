@@ -72,7 +72,8 @@ public:
     UPlatformsModel* getPlatformsModel() { return m_uCtrlApi.getPlatformsModel(); }
 
     // Global Statistics
-    Q_INVOKABLE void getOverallMax(QMap<QString, QVariant> params);
+    Q_INVOKABLE void getOverallTemperature(QMap<QString, QVariant> params);
+    Q_INVOKABLE void getOverallHumidity(QMap<QString, QVariant> params);
 
 private:
     UCtrlAPI m_uCtrlApi;

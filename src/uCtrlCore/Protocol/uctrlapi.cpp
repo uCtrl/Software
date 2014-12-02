@@ -1419,15 +1419,15 @@ QNetworkReply* UCtrlAPI::deleteRequest(const QString &urlString)
     return m_networkAccessManager->deleteResource(req);
 }
 
-void UCtrlAPI::getOverallMax(QMap<QString, QVariant> params)
+void UCtrlAPI::getOverallTemperature(QMap<QString, QVariant> params)
 {
-    params["fn"] = "max";
+    params["fn"] = "mean";
     QNetworkReply* reply = getRequest(QString("stats"), params);
     reply->setProperty(DeviceType, params["type"]);
-    connect(reply, SIGNAL(finished()), this, SLOT(getOverallMaxReply()));
+    connect(reply, SIGNAL(finished()), this, SLOT(getOverallTemperatureReply()));
 }
 
-void UCtrlAPI::getOverallMaxReply()
+void UCtrlAPI::getOverallTemperatureReply()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
     if (!checkNetworkError(reply)) {
@@ -1441,15 +1441,32 @@ void UCtrlAPI::getOverallMaxReply()
         return;
     }
 
-    QString platformId = reply->property(PlatformId).toString();
-    NestedListItem* platform = (NestedListItem*)m_platforms->find(platformId);
-    if (!checkModel(platform)) {
+    m_platforms->temperature()->clear();
+    m_platforms->temperature()->read(jsonObj);
+    reply->deleteLater();
+}
+
+void UCtrlAPI::getOverallHumidity(QMap<QString, QVariant> params)
+{
+    params["fn"] = "mean";
+    QNetworkReply* reply = getRequest(QString("stats"), params);
+    reply->setProperty(DeviceType, params["type"]);
+    connect(reply, SIGNAL(finished()), this, SLOT(getOverallHumidityReply()));
+}
+
+void UCtrlAPI::getOverallHumidityReply()
+{
+    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
+    if (!checkNetworkError(reply)) {
         reply->deleteLater();
         return;
     }
 
-    qDebug() << jsonObj["data"];
-    //device->maxStat(jsonObj["data"].toString());
+    QJsonObject jsonObj = QJsonDocument::fromJson(reply->readAll()).object();
+    if (!checkServerError(jsonObj)) {
+        reply->deleteLater();
+        return;
+    }
 
     reply->deleteLater();
 }

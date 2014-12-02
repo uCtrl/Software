@@ -97,7 +97,8 @@ public:
     UPlatformsModel* getPlatformsModel() { return m_platforms; }
 
     // Overall statistics
-    Q_INVOKABLE void getOverallMax(QMap<QString, QVariant> params);
+    Q_INVOKABLE void getOverallTemperature(QMap<QString, QVariant> params);
+    Q_INVOKABLE void getOverallHumidity(QMap<QString, QVariant> params);
 
 signals:
     void networkError(const QString& errorString);
@@ -168,7 +169,8 @@ private slots:
     void acceptRecommendationReply();
 
     // Global Statistics
-    void getOverallMaxReply();
+    void getOverallTemperatureReply();
+    void getOverallHumidityReply();
 
 private:
     bool checkServerError(const QJsonObject& jsonObj);

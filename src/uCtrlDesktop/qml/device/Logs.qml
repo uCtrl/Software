@@ -75,6 +75,8 @@ Rectangle {
             anchors.fill: parent
             model: container.history
 
+            visible: !(container.logsModel.length === undefined || container.logsModel.length === 0)
+
             delegate: Column {
                 id: column
 
@@ -180,6 +182,28 @@ Rectangle {
                 }
             }
         }
+
+        Rectangle {
+            id: noLogs
+
+            color: Colors.uTransparent
+
+            anchors.fill: parent
+
+            ULabel.Default {
+                anchors.centerIn: parent
+
+                text: "This device has no logs right now."
+
+                color: Colors.uMediumDarkGrey
+
+                font.bold: true
+                font.pixelSize: 18
+            }
+
+            visible: (container.logsModel.length === undefined || container.logsModel.length === 0)
+        }
+
     }
 
     Rectangle {

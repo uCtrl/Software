@@ -806,7 +806,11 @@ Rectangle {
         getDeviceStatusData();
         getDeviceTypeData();
 
-        uCtrlApiFacade.getOverallMax({"type": 31})
+        var from = new Date().setHours(0, 0, 0, 0);
+        var to = new Date().getTime()
+
+        uCtrlApiFacade.getOverallTemperature({"type": 31, "interval": "1day", "from": from, "to": to})
+        uCtrlApiFacade.getOverallHumidity({"type": 30, "interval": "1day", "from": from, "to": to})
     }
 
     function getSystemStatus() {

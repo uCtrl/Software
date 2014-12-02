@@ -70,6 +70,12 @@ QString UVoiceControlResponse::getCommand()
         QString locationName = getStringValue("location");
         return QString("Turn {0} all lights in {1}").replace("{0}", (onOffValue ? "on" : "off")).replace("{1}", locationName);
     }
+    else if (getIntent() == QString("turn_onoff_light_with_id"))
+    {
+        bool onOffValue = getOnOff("on_off");
+        int id = getInt("number");
+        return QString("Turn {0} light with id {1}").replace("{0}", (onOffValue ? "on" : "off")).replace("{1}", QString::number(id));
+    }
     else if (getIntent() == QString("set_dimmer_lights"))
     {
         int lightIntensityPercent = getInt("number");
@@ -105,6 +111,10 @@ bool UVoiceControlResponse::hasValidIntent()
     else if (getIntent() == QString("turn_onoff_lights_in_location"))
     {
         return getFirstJsonValue("on_off").toString() != QString("") && getFirstJsonValue("location").toString() != QString("");
+    }
+    else if (getIntent() == QString("turn_onoff_light_with_id"))
+    {
+        return getFirstJsonValue("on_off").toString() != QString("") && getFirstJsonValue("id").toString() != QString("");
     }
     else if (getIntent() == QString("set_dimmer_lights"))
     {
@@ -142,6 +152,14 @@ void UVoiceControlResponse::sendIntent()
 
         UTurnOnOffLightIntent turnOnOffLightIntent(m_voiceControlAPI->getUCtrlApiFacade(), isOn);
         turnOnOffLightIntent.turnOnOffLightsInLocation(locationName);
+    }
+    else if (getIntent() == QString("turn_onoff_light_with_id"))
+    {
+        bool onOffValue = getOnOff("on_off");
+        int id = getInt("number");
+
+        UTurnOnOffLightIntent turnOnOffLightIntent(m_voiceControlAPI->getUCtrlApiFacade(), onOffValue);
+        turnOnOffLightIntent.turnOnOffLightWithId(id);
     }
     else if (getIntent() == QString("set_dimmer_lights"))
     {

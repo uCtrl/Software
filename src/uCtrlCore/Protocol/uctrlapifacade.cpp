@@ -139,10 +139,7 @@ void UCtrlAPIFacade::getDevice(UDevice* device)
 
     UPlatform* platform = (UPlatform*)device->parent()->parent();
     if (platform->isLocalPlatform())
-    {
-        // TODO
         return;
-    }
     else
     {
         QString platformId;
@@ -563,15 +560,15 @@ void UCtrlAPIFacade::acceptRecommendation(const QString &recommendationId, bool 
     m_uCtrlApi.acceptRecommendation(recommendationId, accepted);
 }
 
-void UCtrlAPIFacade::getOverallMax(QMap<QString, QVariant> params)
+
+void UCtrlAPIFacade::getOverallTemperature(QMap<QString, QVariant> params)
 {
+    m_uCtrlApi.getOverallTemperature(params);
+}
 
-    //if (!params["type"])
-    //    return;
-
-    qDebug() << params["type"].toString();
-
-    m_uCtrlApi.getOverallMax(params);
+void UCtrlAPIFacade::getOverallHumidity(QMap<QString, QVariant> params)
+{
+    m_uCtrlApi.getOverallHumidity(params);
 }
 
 
