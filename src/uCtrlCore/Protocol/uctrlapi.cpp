@@ -1312,6 +1312,9 @@ void UCtrlAPI::acceptRecommendationReply()
     RecommendationsModel* recModel = (RecommendationsModel*)m_platforms->getRecommendations();
     recModel->removeRow(recId);
 
+    // FIXME: Refetch only the scenarios/tasks/conditions
+    this->getSystem();
+
     reply->deleteLater();
 }
 
@@ -1367,6 +1370,7 @@ QNetworkReply* UCtrlAPI::getRequest(const QString &urlString, QMap<QString, QVar
     }
 
     QNetworkRequest req(url);
+    qDebug() << req.url().toDisplayString();
     req.setRawHeader("X-uCtrl-Token", m_userToken.toUtf8());
     return m_networkAccessManager->get(req);
 }
