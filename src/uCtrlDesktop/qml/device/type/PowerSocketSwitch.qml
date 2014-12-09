@@ -16,6 +16,9 @@ Rectangle {
         anchors.left: container.left
         anchors.right: container.right
 
+        width: 100
+        height: 45
+
         color: Colors.uTransparent
 
         UI.USwitch {
@@ -25,14 +28,16 @@ Rectangle {
 
             anchors.centerIn: switchContainer
 
-            height: parent.height - (2 * marginSize); width: 110
+            width: 110
+            height: parent.height - (2 * marginSize)
 
-            state: "ON"
+            state: (model.value === "1" ? "ON" : "OFF")
 
-            onStateChanged: sendAction(state === "ON" ? "1" : "0")
+            onSwitchToggled: {
+                console.log("SAVE: " + state)
+                sendAction(state === "ON" ? "1" : "0")
+            }
         }
-
-        height: 45; width: 100
     }
 
     Sensor {

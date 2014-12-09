@@ -61,6 +61,7 @@ DefaultCondition
                       (operatorRow.operatorSelected === ConditionEnum.UEComparisonType.GreaterThan ||
                        operatorRow.operatorSelected === ConditionEnum.UEComparisonType.Equals ||
                        operatorRow.operatorSelected === ConditionEnum.UEComparisonType.Not ||
+                       operatorRow.operatorSelected === ConditionEnum.UEComparisonType.LesserThan ||
                        operatorRow.operatorSelected === ConditionEnum.UEComparisonType.InBetween)
 
             z: 1
@@ -73,8 +74,7 @@ DefaultCondition
             valuePickerType: content.editionType
 
             expanded: operatorRow.expanded && operatorRow.operatorSelected !== null &&
-                      (operatorRow.operatorSelected === ConditionEnum.UEComparisonType.LesserThan ||
-                       operatorRow.operatorSelected === ConditionEnum.UEComparisonType.InBetween)
+                      (operatorRow.operatorSelected === ConditionEnum.UEComparisonType.InBetween)
         }
     }
 

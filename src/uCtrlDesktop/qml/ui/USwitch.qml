@@ -10,6 +10,8 @@ Rectangle {
     property string onValueLabel: "ON"
     property string offValueLabel: "OFF"
 
+    signal switchToggled(var value);
+
     state: "ON"
 
     id: container
@@ -78,7 +80,7 @@ Rectangle {
                 container.state = "ON"
             }
 
-            stateChanged(container.state)
+            switchToggled(container.state)
         }
     }
 
