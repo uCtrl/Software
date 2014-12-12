@@ -14,15 +14,27 @@ Rectangle {
 
     property var model: null
 
-    property var history: []
     property var logsModel: null
 
     property string from: ""
     property string to: ""
+    property string type: ""
 
     property var filterType: null
 
     anchors.fill: parent
+
+    onModelChanged:
+    {
+        container.logsModel = devicesList.getHistoryWithId(model.id);
+        container.logsModel.setOnReceivedCallback(updateHistory);
+
+        if (model) {
+            filterType.selectItemWithoutEvent(0)
+            filterDate.selectItemWithoutEvent(0)
+            updateLogPeriod()
+        }
+    }
 
     Rectangle {
         id: logsHeaderContainer
@@ -73,9 +85,9 @@ Rectangle {
             property variant currentItem: null
 
             anchors.fill: parent
-            model: container.history
+            model: container.logsModel
 
-            visible: !(container.logsModel.length === undefined || container.logsModel.length === 0)
+            visible: container.logsModel.rowCount !== 0
 
             delegate: Column {
                 id: column
@@ -90,8 +102,6 @@ Rectangle {
                     anchors.rightMargin: -5
                     radius: 5
 
-                    visible: (container.filterType === "Any" || container.filterType === model.type.toString())
-
                     Rectangle {
                         id: content
                         width: parent.width - 20
@@ -102,7 +112,7 @@ Rectangle {
                         Rectangle {
                             id: eventHeader
 
-                            width: 140
+                            width: 100
                             height: parent.height - 10
                             anchors.verticalCenter: parent.verticalCenter
                             radius: 5
@@ -113,7 +123,7 @@ Rectangle {
                                 id: eventHeaderLabel
 
                                 color: Colors.uWhite
-                                font.pointSize: 16
+                                font.pointSize: 12
                                 font.bold: true
 
                                 text: getHeaderText(model)
@@ -135,14 +145,14 @@ Rectangle {
                                 id: eventDescriptionIcon
                                 visible: model.type === UELogType.Update
 
-                                width: model.type === UELogType.Update ? parent.height : 0
+                                width: model.type === UELogType.Update ? 25 : 0
                                 height: parent.height
                                 color: Colors.uTransparent
 
                                 UI.UFontAwesome {
                                     iconColor: Colors.uGrey
                                     iconId: "earth"
-                                    iconSize: 18
+                                    iconSize: 16
                                     anchors.centerIn: parent
                                 }
                             }
@@ -164,18 +174,20 @@ Rectangle {
 
                         Rectangle {
                             id: eventTimestamp
-                            width: parent.width * 0.25
+                            width: 100
                             height: parent.height
                             anchors.right: parent.right
                             color: Colors.uTransparent
 
                             ULabel.Default {
                                 text: getTimestampLabel(model.timestamp)
+
+                                width: parent.width
                                 font.italic: true
                                 font.pointSize: 10
                                 anchors.verticalCenter: parent.verticalCenter
-                                anchors.right: parent.right
                                 color: Colors.uGrey
+                                horizontalAlignment: Text.AlignHCenter
                             }
                         }
                     }
@@ -193,7 +205,7 @@ Rectangle {
             ULabel.Default {
                 anchors.centerIn: parent
 
-                text: "This device has no logs right now."
+                text: "This device has no logs for the selected filters."
 
                 color: Colors.uMediumDarkGrey
 
@@ -201,7 +213,7 @@ Rectangle {
                 font.pixelSize: 18
             }
 
-            visible: (container.logsModel.length === undefined || container.logsModel.length === 0)
+            visible: container.logsModel.rowCount === 0
         }
 
     }
@@ -218,14 +230,14 @@ Rectangle {
             height: parent.height
             itemListModel: [
                 { value:"Any", displayedValue:"Any event", iconId:""},
-                { value:"0", displayedValue:"Action", iconId:""},
-                { value:"1", displayedValue:"Condition", iconId:""},
-                { value:"2", displayedValue:"Scenario", iconId:""},
-                { value:"3", displayedValue:"Status", iconId:""},
-                { value:"4", displayedValue:"Update", iconId:""},
+                { value:UELogType.Action, displayedValue:"Action", iconId:""},
+                { value:UELogType.Condition, displayedValue:"Condition", iconId:""},
+                { value:UELogType.Scenario, displayedValue:"Scenario", iconId:""},
+                { value:UELogType.Status, displayedValue:"Status", iconId:""},
+                { value:UELogType.Update, displayedValue:"Update", iconId:""},
             ]
-            Component.onCompleted: selectItem(0)
-            onSelectValue: container.filterType = newValue
+            Component.onCompleted: selectItemWithoutEvent(0)
+            onSelectValue: updateLogPeriod()
         }
 
         UI.UCombobox {
@@ -235,20 +247,13 @@ Rectangle {
             anchors.right: parent.right
             height: parent.height
             itemListModel: [
-                { value:"hour", displayedValue:"This hour", iconId:""},
+                { value:"any", displayedValue:"Any time", iconId:""},
                 { value:"today", displayedValue:"Today", iconId:""},
                 { value:"month", displayedValue:"This month", iconId:""},
                 { value:"Yeah", displayedValue:"This year", iconId:""},
             ]
-            Component.onCompleted: selectItem(0)
+            Component.onCompleted: selectItemWithoutEvent(0)
             onSelectValue: updateLogPeriod()
-        }
-    }
-
-    onModelChanged: {
-        if (model) {
-            container.logsModel = devicesList.getHistoryWithId(model.id);
-            container.logsModel.setOnReceivedCallback(updateHistory);
         }
     }
 
@@ -321,12 +326,12 @@ Rectangle {
 
     function updateLogPeriod() {
         if (filterDate.selectedItem !== null) var period = filterDate.selectedItem.value
-        else period = "hour"
+        else period = "today"
         var interval = ""
 
         switch (period) {
-        case "hour":
-            container.from = new Date().setMinutes(0, 0).toString()
+        case "any":
+            container.from = "0"
             break;
         case "today":
             container.from = new Date().setHours(0, 0, 0).toString()
@@ -340,12 +345,21 @@ Rectangle {
         }
 
         container.to = new Date().getTime().toString()
-        uCtrlApiFacade.getDeviceHistory(devicesList.findObject(model.id), {"from": container.from, "to": container.to, "type": container.type, "fn": "mean"});
+        container.type = filterType.selectedItem.value
+
+        if(container.type === "Any")
+        {
+            uCtrlApiFacade.getDeviceHistory(devicesList.findObject(model.id), {"from": container.from, "to": container.to, "fn": "mean"});
+        }
+        else
+        {
+            uCtrlApiFacade.getDeviceHistory(devicesList.findObject(model.id), {"from": container.from, "to": container.to, "type": container.type, "fn": "mean"});
+        }
+
     }
 
     function updateHistory() {
-        container.history = devicesList.getHistoryWithId(model.id);
-        container.logsModel = container.history
+        container.logsModel = devicesList.getHistoryWithId(model.id);
         historyLogs.model = container.logsModel
     }
 }

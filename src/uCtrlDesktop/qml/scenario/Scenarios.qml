@@ -261,14 +261,13 @@ Rectangle {
     function createNewScenario()
     {
         var scenario = scenarios.model.createNewScenario()
+        scenario.name("New scenario #" + scenarios.model.rowCount);
         uCtrlApiFacade.postScenario(scenario)
 
         refreshComboBox()
 
         noScenario.visible = false
         scenarioContainer.visible = true
-
-        // TODO : Update the interface to show the newly created scenario
         currentScenario.model = scenario
         changeEditMode(true)
     }
@@ -317,14 +316,19 @@ Rectangle {
         uCtrlApiFacade.deleteScenario(scenario)
         scenarios.model.removeRowWithId(scenario.id());
 
+        scenarioCombo.clearSelectItem();
+        refreshComboBox();
+
         if(scenarios.model.rowCount < 1)
         {
             noScenario.visible = true
             scenarioContainer.visible = false
-
+        }
+        else
+        {
+            scenarioCombo.selectItem(0)
         }
 
-        scenarioCombo.clearSelectItem();
-        refreshComboBox();
+
     }
 }

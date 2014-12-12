@@ -187,6 +187,12 @@ Rectangle {
             selectValue(selectedItem.value)
     }
 
+    function selectItemWithoutEvent(index) {
+        selectedItem = (itemListModel !== null ? itemListModel[index] : 0)
+        valueItem.refresh(selectedItem)
+        dropDown.visible = false
+    }
+
     function clearSelectItem()
     {
         valueItem.refresh({ value:"", displayedValue:"", iconId:""})

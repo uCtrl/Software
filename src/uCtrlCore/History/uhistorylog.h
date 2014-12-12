@@ -22,7 +22,7 @@ public:
     Q_ENUMS(UESeverity)
 
     enum class UELogType: int {
-        Action,
+        Action = 0,
         Status,
         Condition,
         Update,

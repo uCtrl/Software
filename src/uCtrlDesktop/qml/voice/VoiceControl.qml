@@ -190,7 +190,6 @@ Rectangle {
             buttonTextColor : Colors.uWhite
 
             onClicked: {
-                //TODO: Send the command to NinjaWare
                 currentCommand.sendIntent()
                 commandLabel.text = "Command sent to NinjaWare."
                 didYouMeanAnswerContainer.visible = false

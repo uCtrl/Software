@@ -34,7 +34,6 @@ Rectangle {
             state: (model.value === "1" ? "ON" : "OFF")
 
             onSwitchToggled: {
-                console.log("SAVE: " + state)
                 sendAction(state === "ON" ? "1" : "0")
             }
         }
