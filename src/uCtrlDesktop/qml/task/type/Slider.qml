@@ -33,7 +33,7 @@ Rectangle {
 
             anchors.centerIn: parent
 
-            value: model.value() * 100
+            value: model === null ? 0 : model.value() * 100
 
             onNewValue: model.value(value / 100)
         }

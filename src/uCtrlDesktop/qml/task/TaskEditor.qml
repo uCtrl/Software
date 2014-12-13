@@ -211,17 +211,24 @@ Rectangle {
     function saveForm() {
         if (devicePage.getPlatform().isLocalPlatform())
         {
-            saveTasks()
-            uCtrlApiFacade.putTask(taskModel)
+            console.log("Local platform saved")
+            doSaveTasks()
             taskEditorContainer.saveConditions()
         }
         else
         {
+            console.log("Remote platform saved")
             taskEditorContainer.saveConditions()
-            saveTasks()
-            uCtrlApiFacade.putTask(taskModel)
+
+            doSaveTasks()
         }
         taskEditorContainer.visible = false
+    }
+
+    function doSaveTasks()
+    {
+        saveTasks()
+        uCtrlApiFacade.putTask(taskModel)
     }
 
     function cancelEditing()

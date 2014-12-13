@@ -53,7 +53,7 @@ var Chart = function(canvas, context) {
             segmentShowStroke: true,
             segmentStrokeColor: "#fff",
             segmentStrokeWidth: 2,
-            animation: true,
+            animation: false,
             animationSteps: 100,
             animationEasing: "easeOutBounce",
             animateRotate: true,
@@ -104,7 +104,7 @@ var Chart = function(canvas, context) {
             datasetStroke: true,
             datasetStrokeWidth: 2,
             datasetFill: true,
-            animation: true,
+            animation: false,
             animationSteps: 60,
             animationEasing: "easeOutQuart",
             onAnimationComplete: null
@@ -125,7 +125,7 @@ var Chart = function(canvas, context) {
             segmentShowStroke: true,
             segmentStrokeColor: "#fff",
             segmentStrokeWidth: 2,
-            animation: true,
+            animation: false,
             animationSteps: 100,
             animationEasing: "easeOutBounce",
             animateRotate: true,
@@ -149,7 +149,7 @@ var Chart = function(canvas, context) {
             segmentStrokeColor: "#fff",
             segmentStrokeWidth: 2,
             percentageInnerCutout: 50,
-            animation: true,
+            animation: false,
             animationSteps: 100,
             animationEasing: "easeOutBounce",
             animateRotate: true,
@@ -193,7 +193,7 @@ var Chart = function(canvas, context) {
             datasetStroke: true,
             datasetStrokeWidth: 2,
             datasetFill: true,
-            animation: true,
+            animation: false,
             animationSteps: 60,
             animationEasing: "easeOutQuart",
             onAnimationComplete: null
@@ -231,7 +231,7 @@ var Chart = function(canvas, context) {
             barStrokeWidth: 2,
             barValueSpacing: 5,
             barDatasetSpacing: 1,
-            animation: true,
+            animation: false,
             animationSteps: 60,
             animationEasing: "easeOutQuart",
             onAnimationComplete: null
@@ -365,6 +365,8 @@ var Chart = function(canvas, context) {
             scaleAnimation = 1,
             rotateAnimation = 1;
 
+            console.log("Data: " + data)
+
             if (config.animation) {
                 if (config.animateScale) {
                     scaleAnimation = animationDecimal;
@@ -377,6 +379,7 @@ var Chart = function(canvas, context) {
             for (var i=0; i<data.length; i++) {
 
                 ctx.beginPath();
+
                 ctx.arc(width/2,height/2,scaleAnimation * calculateOffset(data[i].value,calculatedScale,scaleHop),startAngle, startAngle + rotateAnimation*angleStep, false);
                 ctx.lineTo(width/2,height/2);
                 ctx.closePath();
