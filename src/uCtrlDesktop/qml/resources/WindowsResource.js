@@ -66,12 +66,14 @@ var resourceDictionary = {
     "deviceDevicepageContentcanvasdescriptioncontainerDescriptionIconIconSize": 12,
     "deviceDevicepageContentcanvasdescriptioncontainerDescriptionlabelFontPixelSize": 11,
     "deviceDevicepageContentcanvasdescriptioncontainerDescriptionlabelLeftMargin": 13,
+    "deviceDevicepageContentcanvasdescriptioncontainerDescriptionvalueHeight": 12,
     "deviceDevicepageContentcanvascontentcontainerTechinfocolumnRowheight": 20,
     "deviceDevicepageContentcanvascontentcontainerTechinfocolumnRowvalueLeftMargin":15,
     "deviceDevicepageContentcanvascontentcontainerTechinfocolumnRowTitleWidth": 35,
     "deviceDevicepageContentcanvascontentcontainerTechinfocolumnRowTitleFontPixelSize": 10,
     "deviceDevicepageContentcanvasScenarioandlogscontainerTabsContainerHeight": 30,
     "deviceDevicepageContentcanvasScenarioandlogscontainerTabsContainerWidth": 300,
+
 
     "deviceDevicepageInfocontainerHeaderWidth": 125,
 
@@ -86,6 +88,7 @@ var resourceDictionary = {
 
     "deviceInfoHeaderLabelFontPointSize": 16,
 
+    "devicesFiltersHeight":35,
 
     "platformPlatformInfoInformationsNamecontainerHeight": 40,
     "platformAdvancedHeight": 30,
@@ -121,10 +124,18 @@ var resourceDictionary = {
     "recommandationsAcceptButtonWidth": 100,
     "recommandationsAcceptButtonRightMargin": 10,
 
+    "scenarioFootercontainerHeight":30,
+
+    "scenariosNoscenarioFontPointSize": 32,
     "scenariosScenariocontainerScenarioHeaderHeight": 50,
     "scenariosScenariocontainerScenarioHeaderScHeaderIcon": 24,
     "scenariosScenariocontainerScenarioHeaderFontPointSize": 20,
     "scenariosScenariocontainerScenarioHeaderLeftMargin": 20,
+    "scenarioCurrentscenarioAnchorstopmargin": 95,
+    "scenariosScenarioeditheaderHeight": 35,
+    "scenariosCreatescenariobuttonHeight": 30,
+    "scenariosCreatescenariobuttonWidth": 225,
+    "scenariosCreatescenariobuttonRadius": 4,
 
     "settingsSettingscontainerNinjaServerUrlBox": 30,
     "settingsSettingscontainerNinjaTokenBox": 30,

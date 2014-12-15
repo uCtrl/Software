@@ -20,7 +20,7 @@ Rectangle {
         anchors.left: container.left
         anchors.right: container.right
 
-        height: 35
+        height: (resourceLoader.loadResource("devicesFiltersHeight"))
 
         UI.UTextbox {
             id: searchBox

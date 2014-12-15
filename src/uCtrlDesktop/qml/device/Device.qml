@@ -386,7 +386,8 @@ Rectangle
                     anchors.right: infoContainer.right
 
                     anchors.top: techContainer.bottom
-                    height: (infoContainer.showEditMode ? 60 : (hidden ? 25 : 50))
+                    anchors.topMargin: 15
+                    height: (infoContainer.showEditMode ? 60 : (hidden ? 50 : 100))
 
                     radius: 4
 
@@ -426,7 +427,7 @@ Rectangle
                     ULabel.Description {
                         id: descriptionValue
 
-                        font.pixelSize: 12
+                        font.pixelSize: (resourceLoader.loadResource("deviceDevicepageContentcanvasdescriptioncontainerDescriptionvalueHeight"))
                         color: Colors.uMediumDarkGrey
 
                         anchors.top: descriptionLabel.bottom

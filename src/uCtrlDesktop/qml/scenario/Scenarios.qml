@@ -41,7 +41,7 @@ Rectangle {
                text: "No scenario available"
                width: parent.width * 0.75
                font.bold: true
-               font.pointSize: 32
+               font.pointSize: (resourceLoader.loadResource("scenariosNoscenarioFontPointSize"))
                horizontalAlignment: Text.AlignHCenter
                color: Colors.uGrey
            }
@@ -93,7 +93,7 @@ Rectangle {
 
             width: parent.width
             anchors.top: scenarioSelectionHeader.bottom
-            anchors.topMargin: 95
+            anchors.topMargin: (resourceLoader.loadResource("scenarioCurrentscenarioAnchorstopmargin"))
             anchors.bottom: parent.bottom
 
             showEditMode: scenarios.showEditMode
@@ -102,12 +102,11 @@ Rectangle {
 
             visible: (currentScenario.model != null)
         }
-
         Rectangle
         {
             id: scenarioEditHeader
             width: parent.width
-            height: 35
+            height: (resourceLoader.loadResource("scenariosScenarioeditheaderHeight"))
             anchors.top: scenarioHeader.bottom
 
             visible: showEditMode
@@ -144,7 +143,7 @@ Rectangle {
         {
             id: scenarioSelectionHeader
             width: parent.width
-            height: 35
+            height: (resourceLoader.loadResource("scenariosScenarioeditheaderHeight"))
             anchors.top: scenarioHeader.bottom
 
             visible: !showEditMode
@@ -208,9 +207,11 @@ Rectangle {
         text: "Create new scenario"
         iconId: ""
         iconSize: 12
-        width: 225
+        height: (resourceLoader.loadResource("scenariosCreatescenariobuttonHeight"))
+        width: (resourceLoader.loadResource("scenariosCreatescenariobuttonWidth"))
         anchors.bottom: parent.bottom
         anchors.left: parent.left
+        radius: (resourceLoader.loadResource("scenariosCreatescenariobuttonRadius"))
 
         onClicked: {
             createNewScenario()
@@ -224,10 +225,12 @@ Rectangle {
         text: "Create new task"
         iconId: ""
         iconSize: 12
-        width: 225
+        height: (resourceLoader.loadResource("scenariosCreatescenariobuttonHeight"))
+        width: (resourceLoader.loadResource("scenariosCreatescenariobuttonWidth"))
         anchors.verticalCenter: createScenarioButton.verticalCenter
         anchors.left: createScenarioButton.right
         anchors.leftMargin: 10
+        radius: (resourceLoader.loadResource("scenariosCreatescenariobuttonRadius"))
 
         visible: scenarios.showEditMode
 

@@ -59,7 +59,7 @@ var resourceDictionary = {
     "deviceDevicepageMarginSize": 45,
     "deviceDevicepagePaddingSize": 40,
     "deviceDevicepageBottomMarginSize": 68,
-    "deviceDevicepageContentcanvasRadius": 35,
+    "deviceDevicepageContentcanvasRadius": 30,
     "deviceDevicepageContentcanvasIconcontainerWidth": 80,
     "deviceDevicepageContentcanvasStatuscontainerHeight": 80,
     "deviceDevicepageContentcanvasEnablecontainerHeight": 80,
@@ -71,12 +71,14 @@ var resourceDictionary = {
     "deviceDevicepageContentcanvasdescriptioncontainerDescriptionIconIconSize": 20,
     "deviceDevicepageContentcanvasdescriptioncontainerDescriptionlabelFontPixelSize": 20,
     "deviceDevicepageContentcanvasdescriptioncontainerDescriptionlabelLeftMargin": 20,
+    "deviceDevicepageContentcanvasdescriptioncontainerDescriptionvalueHeight": 35,
     "deviceDevicepageContentcanvascontentcontainerTechinfocolumnRowheight": 60,
     "deviceDevicepageContentcanvascontentcontainerTechinfocolumnRowvalueLeftMargin":40,
     "deviceDevicepageContentcanvascontentcontainerTechinfocolumnRowTitleWidth": 70,
     "deviceDevicepageContentcanvascontentcontainerTechinfocolumnRowTitleFontPixelSize": 25,
     "deviceDevicepageContentcanvasScenarioandlogscontainerTabsContainerHeight": 65,
     "deviceDevicepageContentcanvasScenarioandlogscontainerTabsContainerWidth": 800,
+
 
     "deviceDevicepageInfocontainerHeaderWidth": 350,
 
@@ -90,6 +92,10 @@ var resourceDictionary = {
     "deviceListItemGetNameFontPointSize": 25,
     "contentcontainerTechIconIconSize": 25,
     "contentcontainerTechlabelFontPixelSize": 19,
+
+    "devicesFiltersHeight":60,
+
+
 
     "platformPlatformInfoInformationsNamecontainerHeight": 100,
     "platformAdvancedHeight": 60,
@@ -125,10 +131,18 @@ var resourceDictionary = {
     "recommandationsAcceptButtonWidth": 300,
     "recommandationsAcceptButtonRightMargin": 30,
 
+    "scenarioFootercontainerHeight":60,
+
+    "scenariosNoscenarioFontPointSize": 45,
     "scenariosScenariocontainerScenarioHeaderHeight": 100,
     "scenariosScenariocontainerScenarioHeaderScHeaderIcon": 40,
     "scenariosScenariocontainerScenarioHeaderFontPointSize": 30,
     "scenariosScenariocontainerScenarioHeaderLeftMargin": 40,
+    "scenarioCurrentscenarioAnchorstopmargin": 200,
+    "scenariosScenarioeditheaderHeight": 80,
+    "scenariosCreatescenariobuttonHeight": 50,
+    "scenariosCreatescenariobuttonWidth": 500,
+    "scenariosCreatescenariobuttonRadius": 10,
 
     "settingsSettingscontainerNinjaServerUrlBox": 60,
     "settingsSettingscontainerNinjaTokenBox": 60,

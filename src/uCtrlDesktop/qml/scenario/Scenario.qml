@@ -38,7 +38,7 @@ Rectangle
         anchors.bottom: parent.bottom
         clip: true
 
-        height: !isActiveScenario() ? 30 : 0
+        height: !isActiveScenario() ? (resourceLoader.loadResource("scenarioFootercontainerHeight")) : 0
     }
 
     function getTasks() {
