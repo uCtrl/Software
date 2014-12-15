@@ -11,6 +11,7 @@
 #include "Task/utasksmodel.h"
 #include "Condition/uconditionsmodel.h"
 #include "Recommendations/recommendationsModel.h"
+#include "uctrlwebsocket.h"
 
 const char* const PlatformId = "platformId";
 const char* const DeviceId = "deviceId";
@@ -21,6 +22,7 @@ const char* const ScenarioPtr = "scenarioPtr";
 const char* const DevicePtr = "devicePtr";
 const char* const TaskPtr = "taskPtr";
 const char* const ConditionPtr = "conditionPtr";
+const char* const DeviceType = "deviceType";
 
 class UCtrlAPI : public QObject
 {
@@ -95,10 +97,15 @@ public:
     // Platform models
     UPlatformsModel* getPlatformsModel() { return m_platforms; }
 
+    // Overall statistics
+    Q_INVOKABLE void getOverallTemperature(QMap<QString, QVariant> params);
+    Q_INVOKABLE void getOverallHumidity(QMap<QString, QVariant> params);
+
 signals:
     void networkError(const QString& errorString);
     void serverError(const QString& errorString);
     void modelError(const QString& errorString);
+    void webSocketError(const QString& errorString);
 
     // Settings
     void ninjaTokenChanged(const QString& ninjaToken);
@@ -153,15 +160,16 @@ private slots:
     void putConditionReply();
     void deleteConditionReply();
 
-    // Websocket
-    void onConnected();
-    void onError(QAbstractSocket::SocketError error);
-    void onMessageReceived(const QString& message);
-    void onClosed();
-
     // Recommendations
     void getRecommendationsReply();
     void acceptRecommendationReply();
+
+    // Websocket errors
+    void onWebSocketError(const QString& errorString);
+
+    // Global Statistics
+    void getOverallTemperatureReply();
+    void getOverallHumidityReply();
 
 private:
     bool checkServerError(const QJsonObject& jsonObj);
@@ -177,7 +185,7 @@ private:
     QString m_serverBaseUrl;
     QString m_userToken;
     QNetworkAccessManager* m_networkAccessManager;
-    QWebSocket m_webSocket;
+    UCtrlWebSocket* m_websocket;
 };
 
 #endif // UCTRLAPI_H

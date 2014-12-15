@@ -1,6 +1,7 @@
 import QtQuick 2.0
 
 import QtQuick.Controls 1.2
+import QtGraphicalEffects 1.0
 
 import "../../ui" as UI
 import "../../label" as ULabel
@@ -16,67 +17,116 @@ Rectangle {
     property var model: null
     property var statsModel: null
 
+    property string unitLabel : ""
     property bool displayStats: false
 
-    color: Colors.uTransparent
-
-    anchors.fill: parent
-
     Rectangle {
-        id: slideContainer
+        id: valueContainer
 
         color: Colors.uTransparent
 
+        width: parent.width
+        height: editValueMode ? 190 : 105
+
         anchors.top: container.top
+        anchors.topMargin: 5
+
         anchors.left: container.left
-        anchors.right: container.right
 
-        ULabel.IconLabel {
-            id: manualCommandHeader
+        property bool editValueMode: false
 
-            iconId: "info"
-            text: "Current value"
-            width: parent.width
+        ULabel.Default {
+            id: currentValueLabel
 
-            iconLabelSize: 11
-            iconSize: 11
+            text: "CURRENT VALUE"
 
-            anchors.top: slideContainer.top
-            anchors.left: slideContainer.left
+            font.bold: true
+            font.pixelSize: 9
 
-            iconLabelColor: Colors.uGrey
+            anchors.top: valueContainer.top
+            anchors.topMargin: 5
+
+            anchors.left: valueContainer.left
+
+            color: Colors.uGrey
         }
 
-        UI.USlider {
-            id: currentValueSlider
+        Rectangle
+        {
+            width: 50
+            height: 50
+            color: Colors.uTransparent
+            anchors.verticalCenter: parent.verticalCenter
 
-            anchors.top: manualCommandHeader.bottom
-            anchors.bottom: slideContainer.bottom
-            anchors.left: parent.left
-            anchors.leftMargin: 100
-            anchors.right: slideContainer.right
-
-            minimumValue: 0
-            maximumValue: 100
-
-            value: getOpacity() * 100
-
-            stepSize: 5
-
-            onNewValue: saveForm(value)
-
+            Rectangle
+            {
+                anchors.fill: parent
+                color: getValue()
+            }
         }
 
-        height: 75
+        UI.UButton
+        {
+            id: editButton
+
+            iconId: "pencil"
+
+            iconSize: 12
+
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: parent.right
+
+            width: 40
+
+            buttonTextColor: Colors.uGrey
+            buttonColor: Colors.uTransparent
+            buttonHoveredTextColor: Colors.uGreen
+            buttonHoveredColor: Colors.uTransparent
+
+            onClicked: {
+                valueContainer.editValueMode = !valueContainer.editValueMode
+                colorPicker.hsbFromRgb(getValue())
+            }
+
+            visible : !valueContainer.editValueMode
+        }
+
+        UI.UColorPicker
+        {
+            id: colorPicker
+            anchors.bottom: parent.bottom
+            visible : valueContainer.editValueMode
+        }
+
+        UI.USaveCancel
+        {
+            anchors.right: parent.right
+            anchors.verticalCenter: colorPicker.verticalCenter
+
+            visible : valueContainer.editValueMode
+
+            onSave: {
+                //Send manual command
+                model.value = colorPicker.pickerString
+                uCtrlApiFacade.putDevice(devicesList.findObject(model.id))
+
+                valueContainer.editValueMode = false
+            }
+
+            onCancel: {
+                valueContainer.editValueMode = false
+            }
+        }
     }
 
     Rectangle {
         id: statsContainer
 
-        anchors.top: slideContainer.bottom
-        anchors.bottom: container.bottom
         anchors.left: container.left
         anchors.right: container.right
+
+        anchors.top: valueContainer.bottom
+        anchors.bottom: container.bottom
 
         color: Colors.uTransparent
 
@@ -91,21 +141,24 @@ Rectangle {
             UI.UChart {
                 id: stateChart
                 chartAnimated: false
-                chartName: "Daily status"
+                chartName: "Number of changes"
                 chartData: {
-                    "labels": [],
-                    "datasets": [{
-                        fillColor: Colors.uBlack,
-                        strokeColor: Colors.uMediumLightGrey,
-                        pointColor: Colors.uGreen,
-                        pointStrokeColor: Colors.uGreen,
-                        data: []
-                    }]
-                }
+                               "labels": [],
+                               "axisY": [0, 25, 50, 75, 100],
+                               "datasets": [{
+                                   fillColor: Colors.uGreen,
+                                   strokeColor: Colors.uDarkGreen,
+                                   pointColor: Colors.uGreen,
+                                   pointStrokeColor: Colors.uGreen,
+                                   data: [],
+                               }]
+                           }
                 width: chartContainer.width
                 height: chartContainer.height
-                chartType: Charts.ChartType.LINE
 
+                chartType: Charts.ChartType.BAR
+
+                z: 2
                 onChartDataChanged: refresh()
             }
 
@@ -114,48 +167,21 @@ Rectangle {
                 chartAnimated: false
                 chartName: "Power consumption"
                 chartData: {
-                    "labels": [],
-                    "datasets": [{
-                        fillColor: Colors.uBlack,
-                        strokeColor: Colors.uMediumLightGrey,
-                        pointColor: Colors.uGreen,
-                        pointStrokeColor: Colors.uGreen,
-                        data: []
-                    }]
-                }
+                               "labels": [],
+                               "datasets": [{
+                                   fillColor: "rgba(237,237,237,0.5)",
+                                   strokeColor: Colors.uMediumLightGrey,
+                                   pointColor: Colors.uGreen,
+                                   pointStrokeColor: Colors.uGreen,
+                                   data: []
+                               }]
+                           }
                 width: chartContainer.width
                 height: chartContainer.height
                 chartType: Charts.ChartType.LINE
 
                 onChartDataChanged: refresh()
             }
-
-            visible: container.displayStats
-        }
-
-        Rectangle {
-            id: noStats
-
-            anchors.top: statsHeader.bottom
-            anchors.bottom: carouselContainer.top
-
-            clip: true
-            width: parent.width
-
-            color: Colors.uTransparent
-
-            ULabel.Default {
-                anchors.centerIn: parent
-
-                font.bold: true
-                font.pixelSize: 36
-
-                color: Colors.uGrey
-
-                text: "No stats to display"
-            }
-
-            visible: !container.displayStats
         }
 
         Rectangle {
@@ -238,41 +264,53 @@ Rectangle {
         }
     }
 
+    Rectangle {
+        id: noStats
+
+        anchors.left: container.left
+        anchors.right: container.right
+        anchors.top: valueContainer.bottom
+        anchors.bottom: container.bottom
+
+        clip: true
+        width: parent.width
+        visible: !container.displayStats
+
+        color: Colors.uTransparent
+
+        ULabel.Default {
+            anchors.centerIn: parent
+
+            font.bold: true
+            font.pixelSize: 36
+
+            color: Colors.uGrey
+
+            text: "No stats to display"
+        }
+    }
+
     onModelChanged: {
         if (model) {
-            container.statsModel = devicesList.getStatisticsWithId(model.id);
+            statsModel = devicesList.getStatisticsWithId(model.id);
         }
     }
 
     onStatsModelChanged: {
         if (statsModel) {
             statsModel.setOnReceivedCallback(getDeviceValueStats);
-
-            uCtrlApiFacade.getDeviceAllStats(devicesList.findObject(model.id));
         }
     }
 
-    function getOpacity() {
-        if (model !== null & model !== undefined) return model.value;
-        else return 1;
-    }
-
-    function saveForm(newValue) {
-        if (model.value !== newValue) model.value = (newValue / 100);
-        uCtrlApiFacade.putDevice(devicesList.findObject(model.id));
-    }
-
     function getDeviceValueStats() {
-        if (container.statsModel)
-        {
+        if (statsModel) {
             var period = periodCombo.selectedItem ? periodCombo.selectedItem.value : "hour";
-            var chartData = GraphHelper.deviceValuesToChartData(container.statsModel, period);
-
-            container.displayStats = (chartData.data.length > 0);
+            var chartData = GraphHelper.deviceValuesToChartData(statsModel, period);
+            container.displayStats = (chartData.labels.length > 0);
             stateChart.chartData = {
                 "labels": chartData.labels,
                 "datasets": [{
-                    fillColor: "rgba(237,237,237,0.5)",
+                    fillColor: Colors.uGreen,
                     strokeColor: Colors.uMediumLightGrey,
                     pointColor: Colors.uGreen,
                     pointStrokeColor: Colors.uGreen,
@@ -284,7 +322,7 @@ Rectangle {
             var powerLabel = []
             for(var i = 0; i < chartData.data.length; i++)
             {
-                var value = Math.random() * 3 + 10
+                var value = Math.random() * 2 + 1.5
 
                 powerData.push(value)
                 powerLabel.push(chartData.labels[i])
@@ -311,6 +349,16 @@ Rectangle {
     function updateStatsPeriod() {
         var period = periodCombo.selectedItem ? periodCombo.selectedItem.value : "hour";
         var params = GraphHelper.getDeviceValuesParams(period);
-        uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id), {"from": params.from, "to": params.to, "interval": params.interval, "fn": "mean"});
+        uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id), {"from": params.from.toString(), "to": params.to.toString(), "interval": params.interval, "fn": "count"});
+    }
+
+    function getValue() {
+        if (model !== null) return "#" + model.value
+        else return "#FFFFFF"
+    }
+
+    function getPrecision() {
+        if (model !== null) return model.precision
+        else return "0.1"
     }
 }

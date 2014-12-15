@@ -59,7 +59,7 @@ Rectangle {
     Timer
     {
         id: autoSwitchTimer
-        interval: 5000
+        interval: 10000
         repeat: true
         running: true
         onTriggered: moveForward()

@@ -343,11 +343,7 @@ Rectangle {
             var powerLabel = []
             for(var i = 0; i < chartData.data.length; i++)
             {
-                var value = 0;
-                if(i == 0)
-                    value = Math.random() * 10 + 1
-                else
-                    value = powerData[i-1] + Math.random() * 10 + 1
+                var value = Math.random() * 1.75 + 0.25
 
                 powerData.push(value)
                 powerLabel.push(chartData.labels[i])
@@ -375,11 +371,6 @@ Rectangle {
         var period = periodCombo.selectedItem ? periodCombo.selectedItem.value : "hour";
         var params = GraphHelper.getDeviceValuesParams(period);
         uCtrlApiFacade.getDeviceValues(devicesList.findObject(model.id), {"from": params.from.toString(), "to": params.to.toString(), "interval": params.interval, "fn": "count"});
-    }
-
-    function getDeviceEnabled() {
-        if (model !== null) return model.isEnabled ? "ON" : "OFF"
-        else return "OFF"
     }
 
     function getValue() {

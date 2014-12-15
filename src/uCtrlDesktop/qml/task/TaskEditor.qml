@@ -15,6 +15,7 @@ Rectangle {
     property var deviceType: null
 
     signal saveConditions()
+    signal saveTasks()
 
     anchors.fill: parent
     color: Colors.uWhite
@@ -208,10 +209,26 @@ Rectangle {
     }
 
     function saveForm() {
-        uCtrlApiFacade.putTask(taskModel)
+        if (devicePage.getPlatform().isLocalPlatform())
+        {
+            console.log("Local platform saved")
+            doSaveTasks()
+            taskEditorContainer.saveConditions()
+        }
+        else
+        {
+            console.log("Remote platform saved")
+            taskEditorContainer.saveConditions()
 
-        taskEditorContainer.saveConditions()
+            doSaveTasks()
+        }
         taskEditorContainer.visible = false
+    }
+
+    function doSaveTasks()
+    {
+        saveTasks()
+        uCtrlApiFacade.putTask(taskModel)
     }
 
     function cancelEditing()
@@ -240,12 +257,16 @@ Rectangle {
     function getConditionFile() {
         if (deviceType !== null) {
             switch(deviceType) {
-                case UEType.PowerSocketSwitch:
+                case UEValueType.Switch:
                     return "Switch"
-                case UEType.NinjasEyes:
-                    return "Text"
-                default:
+                case UEValueType.Slider:
                     return "Slider"
+                case UEValueType.UpDownSwitch:
+                    return "UpDownSwitch"
+                case UEValueType.Color:
+                    return "ColorPicker"
+                default:
+                    return "Textbox"
             }
         }
         return "Error"

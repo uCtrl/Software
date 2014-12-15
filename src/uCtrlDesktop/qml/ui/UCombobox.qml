@@ -182,7 +182,15 @@ Rectangle {
         selectedItem = (itemListModel !== null ? itemListModel[index] : 0)
         valueItem.refresh(selectedItem)
         dropDown.visible = false
-        selectValue(selectedItem.value)
+
+        if(typeof(selectedItem) !== "undefined")
+            selectValue(selectedItem.value)
+    }
+
+    function selectItemWithoutEvent(index) {
+        selectedItem = (itemListModel !== null ? itemListModel[index] : 0)
+        valueItem.refresh(selectedItem)
+        dropDown.visible = false
     }
 
     function clearSelectItem()

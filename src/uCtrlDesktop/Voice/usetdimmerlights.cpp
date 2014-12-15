@@ -16,9 +16,9 @@ void USetDimmerLights::setAllLightsIntensity()
     {
         QString currentValue = device->value().replace("\\", "");
 
-        float rescaledLightIntensity255 = m_lightIntensityPercent / 100.0f;
+        float floatValue = m_lightIntensityPercent / 100.0f;
 
-        data = QString("{\"on\":true,\"bri\":%1}").arg(QString::number(rescaledLightIntensity255));
+        data = QString::number(floatValue);
 
         device->value(data);
         m_uCtrlApiFacade->putDevice(device);

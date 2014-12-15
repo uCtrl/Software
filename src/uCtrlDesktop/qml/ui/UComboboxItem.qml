@@ -16,7 +16,8 @@ Rectangle {
 
     function refresh(newItemData) {
         itemData = newItemData
-        comboBoxItemIcon.refresh(itemData.iconId)
+        if(typeof(itemData) !== "undefined" && itemData !== null)
+            comboBoxItemIcon.refresh(itemData.iconId)
         comboBoxItemText.text = (itemData !== null && itemData !== undefined && itemData !== 0 ? itemData.displayedValue : "")
     }
 

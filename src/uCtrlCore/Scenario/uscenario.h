@@ -13,7 +13,6 @@ class UScenario : public NestedListItem
     {
         idRole = Qt::UserRole + 1,
         nameRole,
-        enabledRole,
         lastUpdatedRole
     };
 

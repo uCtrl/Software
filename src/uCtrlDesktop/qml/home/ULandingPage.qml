@@ -95,6 +95,7 @@ Rectangle {
                 }
             }
         }
+
         Rectangle {
             id: statisticsButtonContainer
             anchors.left: configureButtonContainer.right
@@ -141,5 +142,4 @@ Rectangle {
             }
         }
     }
-
 }

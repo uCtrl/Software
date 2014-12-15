@@ -70,7 +70,7 @@ Rectangle {
             anchors.rightMargin: 15
 
             anchors.verticalCenter: statusIcon.verticalCenter
-            height: 25; width: 60;
+            height: 25; width: 100;
 
             boundedTextSize: 13
 
@@ -283,7 +283,6 @@ Rectangle {
                 id: deviceTypeChart
 
                 anchors.fill: parent
-
                 chartAnimated: false;
                 chartData: container.deviceTypeData
 
@@ -385,8 +384,7 @@ Rectangle {
         }
     }
 
-    Rectangle
-    {
+    Rectangle {
         id: leftToRightSeparator
         width: 2
 
@@ -795,7 +793,7 @@ Rectangle {
                 anchors.fill: parent
 
                 chartAnimated: false;
-                chartData: getThermometerStats()
+                chartData: getHumidityStats()
 
                 chartType: Charts.ChartType.LINE;
             }
@@ -837,23 +835,23 @@ Rectangle {
     function getDeviceStatusData() {
 
         // @TODO Complete with real data.
-        container.deviceStatusData = [{ value: 30, title: "OK", color: Colors.uGreen  },
-                                      { value: 15, title: "WARNING", color: Colors.uYellow },
-                                      { value: 5, title: "ERROR", color: Colors.uRed    }]
+        container.deviceStatusData = [{ value: 16, title: "OK", color: Colors.uGreen  },
+                                      { value: 1, title: "WARNING", color: Colors.uYellow },
+                                      { value: 1, title: "ERROR", color: Colors.uRed    }]
     }
 
     function getDeviceTypeData() {
 
         // @TODO Complete with real data.
-        container.deviceTypeData = [{value: 22, title: "Power Switch Socket", color: Colors.uGreen },
-                                    {value: 43, title: "Push Button", color: Colors.uYellow },
-                                    {value: 12, title: "Motion Sensor", color: Colors.uRed },
-                                    {value: 18, title: "Humidity", color: Colors.uBlue },
-                                    {value: 16, title: "Temperature", color: Colors.uPink },
-                                    {value: 42, title: "Ninja Eyes", color: Colors.uPurple },
-                                    {value: 15, title: "Dimmer Light", color: Colors.uOrange },
-                                    {value: 25, title: "Door sensor", color: Colors.uCyan },
-                                    {value: 12, title: "Light sensor", color: Colors.uLime }]
+        container.deviceTypeData = [{value: 3, title: "Power Switch Socket", color: Colors.uGreen },
+                                    {value: 2, title: "Push Button", color: Colors.uYellow },
+                                    {value: 1, title: "Motion Sensor", color: Colors.uRed },
+                                    {value: 3, title: "Dimmer Light", color: Colors.uOrange },
+                                    {value: 2, title: "Door sensor", color: Colors.uCyan },
+                                    {value: 2, title: "Light sensor", color: Colors.uLime },
+                                    {value: 1, title: "Humidity", color: Colors.uBlue },
+                                    {value: 1, title: "Temperature", color: Colors.uPink },
+                                    {value: 1, title: "Ninja Eyes", color: Colors.uPurple}]
 
     }
 
@@ -861,13 +859,28 @@ Rectangle {
         // @TODO Complete with real data.
 
         return {
-            "labels": ["A", "B", "C", "D", "E", "F"],
+            "labels": ["6:22am", "7:22am", "8:22am", "9:22am", "10:22am", "11:22am"],
             "datasets": [{
                 fillColor: "rgba(237,237,237,0.5)",
                 strokeColor: Colors.uMediumLightGrey,
                 pointColor: Colors.uGreen,
                 pointStrokeColor: Colors.uGreen,
-                data: [21, 20, 18, 22, 23, 25]
+                data: [24.3, 24.1, 24.2, 24.0, 23.9, 23.5]
+            }]
+        }
+    }
+
+    function getHumidityStats() {
+        // @TODO Complete with real data.
+
+        return {
+            "labels": ["6:22am", "7:22am", "8:22am", "9:22am", "10:22am", "11:22am"],
+            "datasets": [{
+                fillColor: "rgba(237,237,237,0.5)",
+                strokeColor: Colors.uMediumLightGrey,
+                pointColor: Colors.uGreen,
+                pointStrokeColor: Colors.uGreen,
+                data: [20.1, 20.3, 20.7, 21.1, 20.9, 20.5]
             }]
         }
     }
@@ -875,9 +888,9 @@ Rectangle {
     function getThermometerSensorStats() {
 
         // @TODO Complete with real data.
-        return [{"label": "Sensor detected", "value": 4},
-                {"label": "Lowest value", "value": 16.5},
-                {"label": "Highest value", "value": 25.4}]
+        return [{"label": "Sensor detected", "value": 1},
+                {"label": "Lowest value", "value": 23.5},
+                {"label": "Highest value", "value": 24.3}]
     }
 
     function getDeviceTypeLegend() {
@@ -901,14 +914,14 @@ Rectangle {
     function getHumiditySensorStats() {
 
         // @TODO Complete with real data.
-        return [{"label": "Sensor detected", "value": 4},
-                {"label": "Lowest value", "value": 16.5},
-                {"label": "Highest value", "value": 25.4}]
+        return [{"label": "Sensor detected", "value": 1},
+                {"label": "Lowest value", "value": 20.1},
+                {"label": "Highest value", "value": 21.1}]
     }
 
     function getHumidityValue() {
         // @TODO Complete with real data.
-        return "73.4"
+        return "21.4"
     }
 
     function getHumidityPrecision() {

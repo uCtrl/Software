@@ -90,12 +90,24 @@ Rectangle {
                         id: deviceTypeCombo
                         width: 200
                         height: 30
-                        itemListModel: [
+                        itemListModel: {
+                            if(typeof(devicePage.getPlatform()) != "object")
+                                return []
+
+                            if(devicePage.getPlatform().isLocalPlatform())
+                                return [
                                            { value:UEType.Day,    displayedValue:"Day",    iconId:"Calendar"},
-                                           { value:UEType.Date,   displayedValue:"Date",   iconId:"Calendar"},
+                                           { value:UEType.Date,   displayedValue:"Date",   iconId:"CalendarEmpty"},
                                            { value:UEType.Device, displayedValue:"Device", iconId:"lightning"},
                                            { value:UEType.Time,   displayedValue:"Time",   iconId:"clock"}
                                        ]
+                            else
+                                return [
+                                           { value:UEType.Day,    displayedValue:"Day",    iconId:"Calendar"},
+                                           { value:UEType.Device, displayedValue:"Device", iconId:"lightning"},
+                                           { value:UEType.Time,   displayedValue:"Time",   iconId:"clock"}
+                                       ]
+                        }
                         anchors.verticalCenter: parent.verticalCenter
                     }
                 }

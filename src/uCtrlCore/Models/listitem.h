@@ -27,8 +27,6 @@ public:
     // Base properties
     Q_INVOKABLE QString id() const;
     void id(const QString& id);
-    bool enabled() const;
-    Q_INVOKABLE void enabled(bool enabled);
     double lastUpdated() const;
     void lastUpdated(double lastUpdated);
 
@@ -40,7 +38,6 @@ public slots:
 
 protected:
     QString m_id;
-    bool m_enabled;
     double m_lastUpdated;
 };
 

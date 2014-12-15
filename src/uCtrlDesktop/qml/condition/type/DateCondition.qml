@@ -33,6 +33,7 @@ DefaultCondition
                       (operatorRow.operatorSelected === UEComparisonType.GreaterThan ||
                        operatorRow.operatorSelected === UEComparisonType.Equals ||
                        operatorRow.operatorSelected === UEComparisonType.Not ||
+                       operatorRow.operatorSelected === UEComparisonType.LesserThan ||
                        operatorRow.operatorSelected === UEComparisonType.InBetween)
 
             z: 2
@@ -44,8 +45,7 @@ DefaultCondition
             valuePickerType: DeviceEnums.UEValueType.Date
 
             expanded: operatorRow.operatorSelected !== null &&
-                      (operatorRow.operatorSelected === UEComparisonType.LesserThan ||
-                       operatorRow.operatorSelected === UEComparisonType.InBetween)
+                      (operatorRow.operatorSelected === UEComparisonType.InBetween)
 
             z: 1
         }

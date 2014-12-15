@@ -28,8 +28,30 @@ public:
     QList<UDevice*> findDevicesByName(const QString& deviceName);
     QList<UDevice*> findDevicesByTypeAndName(UDevice::UEType deviceType, const QString& deviceName);
 
+    ListModel* temperature() const;
+    ListModel* humidity() const;
+
+    // Statistics
+    /*Q_INVOKABLE QString minStat() const;
+    Q_INVOKABLE void minStat(const QString& minStat);
+    Q_INVOKABLE QString maxStat() const;
+    Q_INVOKABLE void maxStat(const QString& maxStat);
+    Q_INVOKABLE QString meanStat() const;
+    Q_INVOKABLE void meanStat(const QString& meanStat);
+    Q_INVOKABLE QString countStat() const;
+    Q_INVOKABLE void countStat(const QString& countStat);*/
+
+    QList<UDevice*> findDevicesByTypeAndId(UDevice::UEType deviceType, int deviceId);
+
 private:
     RecommendationsModel* m_recModel;
+
+    QString m_maxStat;
+    QString m_minStat;
+    QString m_meanStat;
+    QString m_countStat;
+    ListModel* m_humdityStats;
+    ListModel* m_tempStats;
 };
 
 #endif // UPLATFORMSMODEL_H

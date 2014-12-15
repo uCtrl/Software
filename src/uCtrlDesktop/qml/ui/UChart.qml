@@ -54,14 +54,17 @@ UCharts.QChart {
     {
         enterLeftChart.start()
     }
+
     function enterRight()
     {
         enterRightChart.start()
     }
+
     function exitLeft()
     {
         exitLeftChart.start()
     }
+
     function exitRight()
     {
         exitRightChart.start()

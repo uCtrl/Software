@@ -1,6 +1,8 @@
 #include "uctrlapifacade.h"
 #include "Utility/uuniqueidgenerator.h"
 
+#include "QDebug"
+
 UCtrlAPIFacade::UCtrlAPIFacade(QNetworkAccessManager* nam, UPlatformsModel* platforms, QObject *parent)
     : m_uCtrlApi(nam, platforms, parent)
     , m_uCtrlLocalApi(platforms, parent)
@@ -137,10 +139,7 @@ void UCtrlAPIFacade::getDevice(UDevice* device)
 
     UPlatform* platform = (UPlatform*)device->parent()->parent();
     if (platform->isLocalPlatform())
-    {
-        // TODO
         return;
-    }
     else
     {
         QString platformId;
@@ -560,4 +559,17 @@ void UCtrlAPIFacade::acceptRecommendation(const QString &recommendationId, bool 
 {
     m_uCtrlApi.acceptRecommendation(recommendationId, accepted);
 }
+
+
+void UCtrlAPIFacade::getOverallTemperature(QMap<QString, QVariant> params)
+{
+    m_uCtrlApi.getOverallTemperature(params);
+}
+
+void UCtrlAPIFacade::getOverallHumidity(QMap<QString, QVariant> params)
+{
+    m_uCtrlApi.getOverallHumidity(params);
+}
+
+
 

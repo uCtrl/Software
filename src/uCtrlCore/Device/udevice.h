@@ -27,10 +27,10 @@ class UDevice : public NestedListItem
         precisionRole,
         statusRole,
         unitLabelRole,
-        enabledRole,
         lastUpdatedRole,
         deviceModelRole,
         valueTypeRole,
+        platformRole,
     };
 
 public:
@@ -50,14 +50,14 @@ public:
         PowerSocketSwitch = 1,
         PushButton = 5,
         MotionSensor = 7,
-        LED = 20,
-        LEDDisplay = 21,
         Humidity = 30,
         Temperature = 31,
         NinjasEyes = 1007,
         LimitlessLEDWhite = 1012,
         DoorSensor = 9990,
         LightSensor = 10000,
+        FlowSwitch = 10001,
+        ColorPanel = 10002,
     };
 
     enum class UEValueType: int {
@@ -67,7 +67,9 @@ public:
         Day,
         Slider,
         Switch,
+        UpDownSwitch,
         Textbox,
+        Color,
         Event,
     };
 
@@ -115,6 +117,8 @@ public:
     Q_INVOKABLE QString deviceModel() const;
     Q_INVOKABLE void deviceModel(const QString& deviceModel);
     Q_INVOKABLE UEValueType valueType() const;
+
+    Q_INVOKABLE QObject* platform() const;
 
     ListModel* history() const;
     ListModel* statistics() const;

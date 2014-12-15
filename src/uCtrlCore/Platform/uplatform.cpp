@@ -28,10 +28,10 @@ QVariant UPlatform::data(int role) const
         return room();
     case statusRole:
         return (int)status();
-    case enabledRole:
-        return enabled();
     case lastUpdatedRole:
         return lastUpdated();
+    case isLocalPlatformRole:
+        return isLocalPlatform();
     default:
         return QVariant();
     }
@@ -62,9 +62,6 @@ bool UPlatform::setData(const QVariant& value, int role)
     case statusRole:
         status((UEStatus)value.toInt());
         break;
-    case enabledRole:
-        enabled(value.toBool());
-        break;
     case lastUpdatedRole:
         lastUpdated(value.toDouble());
         break;
@@ -85,8 +82,8 @@ QHash<int, QByteArray> UPlatform::roleNames() const
     roles[portRole] = "port";
     roles[roomRole] = "room";
     roles[statusRole] = "status";
-    roles[enabledRole] = "isEnabled";
     roles[lastUpdatedRole] = "lastUpdated";
+    roles[isLocalPlatformRole] = "isLocalPlatform";
 
     return roles;
 }
@@ -105,7 +102,6 @@ void UPlatform::write(QJsonObject& jsonObj) const
     jsonObj["port"] = this->port();
     jsonObj["room"] = this->room();
     jsonObj["status"] = (int)this->status();
-    jsonObj["enabled"] = this->enabled();
     jsonObj["lastUpdated"] = this->lastUpdated();
 
     QJsonObject devices;
@@ -122,7 +118,6 @@ void UPlatform::read(const QJsonObject& jsonObj)
     this->port(jsonObj["port"].toInt());
     this->room(jsonObj["room"].toString());
     this->status((UEStatus)jsonObj["status"].toInt());
-    this->enabled(jsonObj["enabled"].toBool());
     this->lastUpdated(jsonObj["lastUpdated"].toDouble());
 
     readDevices(jsonObj);
@@ -211,7 +206,7 @@ void UPlatform::status(UEStatus status)
     }
 }
 
-bool UPlatform::isLocalPlatform()
+bool UPlatform::isLocalPlatform() const
 {
     return m_isLocalPlatform;
 }

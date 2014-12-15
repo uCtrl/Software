@@ -13,7 +13,6 @@ Rectangle {
     property var editTaskFunction
 
     onModelChanged: {
-        showEditMode = false
         refreshComboBox()
         scenarioCombo.selectItem(0)
     }
@@ -96,6 +95,8 @@ Rectangle {
             anchors.top: scenarioSelectionHeader.bottom
             anchors.topMargin: 95
             anchors.bottom: parent.bottom
+
+            showEditMode: scenarios.showEditMode
 
             editTaskFunction: scenarios.editTaskFunction
 
@@ -228,7 +229,7 @@ Rectangle {
         anchors.left: createScenarioButton.right
         anchors.leftMargin: 10
 
-        visible: currentScenario !== null && currentScenario !== undefined && currentScenario.showEditMode
+        visible: scenarios.showEditMode
 
         onClicked: createNewTask()
     }
@@ -258,14 +259,13 @@ Rectangle {
     function createNewScenario()
     {
         var scenario = scenarios.model.createNewScenario()
+        scenario.name("New scenario #" + scenarios.model.rowCount);
         uCtrlApiFacade.postScenario(scenario)
 
         refreshComboBox()
 
         noScenario.visible = false
         scenarioContainer.visible = true
-
-        // TODO : Update the interface to show the newly created scenario
         currentScenario.model = scenario
         changeEditMode(true)
     }
@@ -284,7 +284,6 @@ Rectangle {
 
         if (scenario !== null) {
             scenario.name(editScenarioName.text)
-            scenario.enabled(true);
             currentScenario.model.name(editScenarioName.text)
         }
 
@@ -301,8 +300,7 @@ Rectangle {
 
     function changeEditMode(newEditMode)
     {
-        showEditMode = newEditMode
-        currentScenario.showEditMode = showEditMode
+        scenarios.showEditMode = newEditMode
 
         if(currentScenario.model !== null)
         {
@@ -316,14 +314,19 @@ Rectangle {
         uCtrlApiFacade.deleteScenario(scenario)
         scenarios.model.removeRowWithId(scenario.id());
 
+        scenarioCombo.clearSelectItem();
+        refreshComboBox();
+
         if(scenarios.model.rowCount < 1)
         {
             noScenario.visible = true
             scenarioContainer.visible = false
-
+        }
+        else
+        {
+            scenarioCombo.selectItem(0)
         }
 
-        scenarioCombo.clearSelectItem();
-        refreshComboBox();
+
     }
 }

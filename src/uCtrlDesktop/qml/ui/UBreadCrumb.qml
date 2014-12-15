@@ -34,6 +34,8 @@ Rectangle {
             height: parent.height
             width: 0
 
+            interactive: false
+
             anchors.right: parent.right
 
             delegate: Rectangle

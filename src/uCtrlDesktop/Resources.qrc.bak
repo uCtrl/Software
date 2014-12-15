@@ -90,7 +90,6 @@
         <file>Images/uCtrl.svg</file>
         <file>qml/component/Titlebar.qml</file>
         <file>qml/task/TaskEditor.qml</file>
-        <file>qml/task/ConditionEditor.qml</file>
         <file>qml/ui/UTimePicker.qml</file>
         <file>qml/ui/UDatePicker.qml</file>
         <file>qml/ui/UWeekdayPicker.qml</file>
@@ -102,7 +101,33 @@
         <file>qml/device/DeviceIcon.qml</file>
         <file>qml/ui/UCheckbox.qml</file>
         <file>qml/ui/UColorPicker.qml</file>
+        <file>qml/ui/UScrollbar.qml</file>
         <file>Images/NinjaIcon.png</file>
         <file>Images/NinjaIconEyes.png</file>
+        <file>qml/device/type/DoorSensor.qml</file>
+        <file>qml/stats/GlobalStats.qml</file>
+        <file>qml/task/type/Switch.qml</file>
+        <file>qml/task/type/Slider.qml</file>
+        <file>qml/task/type/Text.qml</file>
+        <file>qml/task/type/Button.qml</file>
+        <file>qml/device/type/GraphHelper.js</file>
+        <file>qml/condition/ConditionEditor.qml</file>
+        <file>qml/condition/type/DateCondition.qml</file>
+        <file>qml/condition/type/DayCondition.qml</file>
+        <file>qml/condition/type/DeviceCondition.qml</file>
+        <file>qml/condition/type/TimeCondition.qml</file>
+        <file>qml/condition/type/EmptyCondition.qml</file>
+        <file>qml/condition/row/OperatorRow.qml</file>
+        <file>qml/condition/row/BeginValueRow.qml</file>
+        <file>qml/condition/row/EndValueRow.qml</file>
+        <file>qml/condition/row/DaySelectionRow.qml</file>
+        <file>qml/condition/type/DefaultCondition.qml</file>
+        <file>qml/condition/row/DefaultRow.qml</file>
+        <file>qml/condition/row/DeviceSelectionRow.qml</file>
+        <file>qml/task/type/UpDownSwitch.qml</file>
+        <file>qml/device/type/ColorPanel.qml</file>
+        <file>qml/device/type/FlowSwitch.qml</file>
+        <file>qml/ui/UCompactColorPicker.qml</file>
+        <file>qml/task/type/ColorPicker.qml</file>
     </qresource>
 </RCC>

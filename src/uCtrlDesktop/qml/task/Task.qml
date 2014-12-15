@@ -16,10 +16,6 @@ Column {
     property bool showEditMode: false
     property var editTaskFunction
 
-    onItemChanged: {
-        whenLabel.text = getConditions().rowCount > 0 ? " when" : " otherwise"
-    }
-
     Rectangle {
         id: taskContainer
 
@@ -59,6 +55,8 @@ Column {
             ULabel.UInfoBoundedLabel {
                 id: valueLabel
 
+                boundedColor: getValueColor()
+
                 text: getValueLabel()
             }
         }
@@ -71,7 +69,7 @@ Column {
 
             anchors.verticalCenter: parent.verticalCenter
 
-            text: getConditions().rowCount > 0 ? " when" : " otherwise"
+            text: "when"
 
             color: Colors.uGrey
 
@@ -189,14 +187,35 @@ Column {
 
     function getValueLabel()
     {
+        if(typeof(deviceModel) === "undefined")
+            return ""
+
         switch(deviceModel.valueType)
         {
-            case UEType.Switch:
+            case UEValueType.Switch:
                 return (getValue() === "1" ? "ON" : "OFF")
-            case UEType.Slider:
+            case UEValueType.UpDownSwitch:
+                return (getValue() === "1" ? "UP" : "DOWN")
+            case UEValueType.Color:
+                return getValue()
+            case UEValueType.Slider:
                 return (getValue() * 100) + getUnitLabel()
             default:
                 return getValue() + getUnitLabel()
+        }
+    }
+
+    function getValueColor()
+    {
+        if(typeof(deviceModel) === "undefined")
+            return Colors.uGreen
+
+        switch(deviceModel.valueType)
+        {
+            case UEValueType.Color:
+                return "#" + getValue()
+            default:
+                return Colors.uGreen
         }
     }
 

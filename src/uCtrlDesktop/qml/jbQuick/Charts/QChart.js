@@ -53,7 +53,7 @@ var Chart = function(canvas, context) {
             segmentShowStroke: true,
             segmentStrokeColor: "#fff",
             segmentStrokeWidth: 2,
-            animation: true,
+            animation: false,
             animationSteps: 100,
             animationEasing: "easeOutBounce",
             animateRotate: true,
@@ -104,7 +104,7 @@ var Chart = function(canvas, context) {
             datasetStroke: true,
             datasetStrokeWidth: 2,
             datasetFill: true,
-            animation: true,
+            animation: false,
             animationSteps: 60,
             animationEasing: "easeOutQuart",
             onAnimationComplete: null
@@ -125,7 +125,7 @@ var Chart = function(canvas, context) {
             segmentShowStroke: true,
             segmentStrokeColor: "#fff",
             segmentStrokeWidth: 2,
-            animation: true,
+            animation: false,
             animationSteps: 100,
             animationEasing: "easeOutBounce",
             animateRotate: true,
@@ -149,7 +149,7 @@ var Chart = function(canvas, context) {
             segmentStrokeColor: "#fff",
             segmentStrokeWidth: 2,
             percentageInnerCutout: 50,
-            animation: true,
+            animation: false,
             animationSteps: 100,
             animationEasing: "easeOutBounce",
             animateRotate: true,
@@ -193,7 +193,7 @@ var Chart = function(canvas, context) {
             datasetStroke: true,
             datasetStrokeWidth: 2,
             datasetFill: true,
-            animation: true,
+            animation: false,
             animationSteps: 60,
             animationEasing: "easeOutQuart",
             onAnimationComplete: null
@@ -231,7 +231,7 @@ var Chart = function(canvas, context) {
             barStrokeWidth: 2,
             barValueSpacing: 5,
             barDatasetSpacing: 1,
-            animation: true,
+            animation: false,
             animationSteps: 60,
             animationEasing: "easeOutQuart",
             onAnimationComplete: null
@@ -331,11 +331,12 @@ var Chart = function(canvas, context) {
                     ctx.stroke();
                 }
 
+
                 if (config.scaleShowLabels) {
                     ctx.textAlign = "center";
                     ctx.font = config.scaleFontStyle + " " + config.scaleFontSize + "px " + config.scaleFontFamily;
 
-                    var label =  calculatedScale.labels[i];
+                    var label = "" //calculatedScale.labels[i];
 
                     if (config.scaleShowLabelBackdrop) {
                         var textWidth = ctx.measureText(label).width;
@@ -364,6 +365,8 @@ var Chart = function(canvas, context) {
             scaleAnimation = 1,
             rotateAnimation = 1;
 
+            console.log("Data: " + data)
+
             if (config.animation) {
                 if (config.animateScale) {
                     scaleAnimation = animationDecimal;
@@ -376,6 +379,7 @@ var Chart = function(canvas, context) {
             for (var i=0; i<data.length; i++) {
 
                 ctx.beginPath();
+
                 ctx.arc(width/2,height/2,scaleAnimation * calculateOffset(data[i].value,calculatedScale,scaleHop),startAngle, startAngle + rotateAnimation*angleStep, false);
                 ctx.lineTo(width/2,height/2);
                 ctx.closePath();
@@ -872,9 +876,10 @@ var Chart = function(canvas, context) {
                     ctx.fillStyle = data.datasets[i].pointColor;
                     ctx.strokeStyle = data.datasets[i].pointStrokeColor;
                     ctx.lineWidth = config.pointDotStrokeWidth;
-                    for (var k=0; k<data.datasets[i].data.length; k++) {
+                    for (var k = 0 ; k<data.datasets[i].data.length; k++) {
+                        var xValue = data.datasets[i].data.length !== 1 ? yAxisPosX + (valueHop *k) : yAxisPosX + valueHop;
                         ctx.beginPath();
-                        ctx.arc(yAxisPosX + (valueHop *k),xAxisPosY - animPc*(calculateOffset(data.datasets[i].data[k],calculatedScale,scaleHop)),config.pointDotRadius,0,Math.PI*2,true);
+                        ctx.arc(xValue, xAxisPosY - animPc*(calculateOffset(data.datasets[i].data[k],calculatedScale,scaleHop)),config.pointDotRadius,0,Math.PI*2,true);
                         ctx.fill();
                         ctx.stroke();
                     }
@@ -917,7 +922,8 @@ var Chart = function(canvas, context) {
                     ctx.fillText(data.labels[i], 0,0);
                     ctx.restore();
                 } else {
-                    ctx.fillText(data.labels[i], yAxisPosX + i*valueHop,xAxisPosY + config.scaleFontSize+3);
+                    var xValue = data.labels.length !== 1 ? yAxisPosX + i*valueHop : yAxisPosX + valueHop;
+                    ctx.fillText(data.labels[i], xValue,xAxisPosY + config.scaleFontSize+3);
                 }
 
                 ctx.beginPath();
@@ -974,6 +980,10 @@ var Chart = function(canvas, context) {
 
             xAxisLength = width - longestText - widestXLabel;
             valueHop = Math.floor(xAxisLength/(data.labels.length-1));
+
+            if (data.labels.length === 1) {
+                valueHop = xAxisLength/2;
+            }
 
             yAxisPosX = width-widestXLabel/2-xAxisLength;
             xAxisPosY = scaleHeight + config.scaleFontSize/2;

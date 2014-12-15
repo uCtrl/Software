@@ -35,8 +35,12 @@ UI.UFontAwesome {
                 return "Key"
             case UEType.LightSensor:
                 return "Bolt"
+            case UEType.FlowSwitch:
+                return "ToggleOn"
+            case UEType.ColorPanel:
+                return "Bolt"
             default:
-                return ""
+                return "QuestionMark"
         }
     }
 }

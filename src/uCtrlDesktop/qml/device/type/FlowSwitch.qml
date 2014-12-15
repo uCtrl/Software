@@ -16,9 +16,6 @@ Rectangle {
         anchors.left: container.left
         anchors.right: container.right
 
-        width: 100
-        height: 45
-
         color: Colors.uTransparent
 
         UI.USwitch {
@@ -26,17 +23,19 @@ Rectangle {
 
             id: triggerButton
 
+            onValueLabel: "UP"
+            offValueLabel: "DOWN"
+
             anchors.centerIn: switchContainer
 
-            width: 110
-            height: parent.height - (2 * marginSize)
+            height: parent.height - (2 * marginSize); width: 110
 
-            state: (model.value === "1" ? "ON" : "OFF")
+            state: "ON"
 
-            onSwitchToggled: {
-                sendAction(state === "ON" ? "1" : "0")
-            }
+            onSwitchToggled: sendAction(state === "ON" ? "1" : "0")
         }
+
+        height: 45; width: 100
     }
 
     Sensor {

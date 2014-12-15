@@ -43,14 +43,14 @@ QVariant UDevice::data(int role) const
         return (int)status();
     case unitLabelRole:
         return unitLabel();
-    case enabledRole:
-        return enabled();
     case lastUpdatedRole:
         return lastUpdated();
     case deviceModelRole:
         return deviceModel();
     case valueTypeRole:
         return (int)valueType();
+    case platformRole:
+        return QVariant::fromValue(platform());
     default:
         return QVariant();
     }
@@ -102,9 +102,6 @@ bool UDevice::setData(const QVariant& value, int role)
     case unitLabelRole:
         unitLabel(value.toString());
         break;
-    case enabledRole:
-        enabled(value.toBool());
-        break;
     case lastUpdatedRole:
         lastUpdated(value.toDouble());
         break;
@@ -135,10 +132,10 @@ QHash<int, QByteArray> UDevice::roleNames() const
     roles[precisionRole] = "precision";
     roles[statusRole] = "status";
     roles[unitLabelRole] = "unitLabel";
-    roles[enabledRole] = "isEnabled";
     roles[lastUpdatedRole] = "lastUpdated";
     roles[deviceModelRole] = "deviceModel";
     roles[valueTypeRole] = "valueType";
+    roles[platformRole] = "platform";
 
     return roles;
 }
@@ -170,7 +167,6 @@ void UDevice::write(QJsonObject& jsonObj) const
     jsonObj["precision"] = this->precision();
     jsonObj["status"] = (int)this->status();
     jsonObj["unitLabel"] = this->unitLabel();
-    jsonObj["enabled"] = this->enabled();
     jsonObj["lastUpdated"] = this->lastUpdated();
     jsonObj["model"] = this->deviceModel();
 
@@ -191,7 +187,6 @@ void UDevice::read(const QJsonObject &jsonObj)
     this->precision(jsonObj["precision"].toInt());
     this->status((UEStatus)jsonObj["status"].toInt());
     this->unitLabel(jsonObj["unitLabel"].toString());
-    this->enabled(jsonObj["enabled"].toBool());
     this->lastUpdated(jsonObj["lastUpdated"].toDouble());
     this->deviceModel(jsonObj["model"].toString());
 
@@ -398,13 +393,20 @@ UDevice::UEValueType UDevice::valueType() const
         case UDevice::UEType::LimitlessLEDWhite:
         case UDevice::UEType::LightSensor:
             return UDevice::UEValueType::Slider;
-        case UDevice::UEType::LED:
-        case UDevice::UEType::LEDDisplay:
+        case UDevice::UEType::NinjasEyes:
+        case UDevice::UEType::ColorPanel:
+            return UDevice::UEValueType::Color;
         case UDevice::UEType::Humidity:
         case UDevice::UEType::Temperature:
-        case UDevice::UEType::NinjasEyes:
             return UDevice::UEValueType::Textbox;
+        case UDevice::UEType::FlowSwitch:
+            return UDevice::UEValueType::UpDownSwitch;
         default:
             return UDevice::UEValueType::Unknown;
     }
+}
+
+QObject* UDevice::platform() const
+{
+    return this->parent()->parent();
 }
