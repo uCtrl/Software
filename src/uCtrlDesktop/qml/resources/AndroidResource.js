@@ -52,8 +52,10 @@ var resourceDictionary = {
     "temperatureStatsheaderStatstextFontPixelSize": 30,
     "temperatureStatsheaderStatstextLeftMargin":30,
     "temperatureAveragecontainerWidth": 700,
-
     "temperatureStatsheaderPeriodcomboWidth": 300,
+
+
+    "limitlessLEDwhiteCurrentvaluesliderHeight":150,
 
     //device/Device.qml
     "deviceDevicepageMarginSize": 45,
@@ -148,6 +150,12 @@ var resourceDictionary = {
     "settingsSettingscontainerNinjaTokenBox": 60,
     "settingsSettingscontainerSyncButtonTopmargin": 30,
 
+    "taskContainerTaskcontainerHeight": 100,
+    "taskContainerTaskcontainerSeparatorFontPointsize": 20,
+    "taskContainerButtoncontainerIconsize": 26,
+    "taskContainerButtoncontainerButtonsize": 45,
+    "taskContainerButtoncontainerMarginsize": 40,
+    "taskContainerButtoncontainerHeight": 50,
 
     "UCarouselRowSpacing": 70,
     "UCarouselListviewSpacing": 40,
@@ -162,5 +170,7 @@ var resourceDictionary = {
     "UCarouselUButtonChevronRightWidth": 60,
     "UCarouselUButtonChevronRightHeight": 60,
 
-    "USaveCancelSaveCancelHeight": 80
+    "USaveCancelSaveCancelHeight": 80,
+
+    "usliderSliderImplicitHeight": 20
 }

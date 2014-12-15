@@ -20,7 +20,7 @@ Column {
         id: taskContainer
 
         width: parent.width
-        height: 40
+        height: (resourceLoader.loadResource("taskContainerTaskcontainerHeight"))
         color: Colors.uTransparent
 
         ULabel.Default {
@@ -33,7 +33,7 @@ Column {
             text: "Set to "
 
             font.bold: true
-            font.pointSize: 14
+            font.pointSize: (resourceLoader.loadResource("taskContainerTaskcontainerSeparatorFontPointsize"))
 
             color: Colors.uGrey
 
@@ -74,21 +74,21 @@ Column {
             color: Colors.uGrey
 
             font.bold: true
-            font.pointSize: 14
+            font.pointSize: (resourceLoader.loadResource("taskContainerTaskcontainerSeparatorFontPointsize"))
         }
 
         Rectangle {
             id: buttonContainer
 
-            property int iconSize: 20
-            property int buttonSize: 30
-            property int marginSize: 5
+            property int iconSize: (resourceLoader.loadResource("taskContainerButtoncontainerIconsize"))
+            property int buttonSize: (resourceLoader.loadResource("taskContainerButtoncontainerButtonsize"))
+            property int marginSize: (resourceLoader.loadResource("taskContainerButtoncontainerMarginsize"))
 
             anchors.top: parent.top
             anchors.right: parent.right
 
             width: editButton.width + deleteButton.width + moveUpButton.width + moveDownButton.width
-            height: 30
+            height: (resourceLoader.loadResource("taskContainerButtoncontainerHeight"))
             visible: showEditMode
 
             UI.UButton {

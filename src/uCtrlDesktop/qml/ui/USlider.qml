@@ -13,7 +13,7 @@ Slider
     id: slider
     style: SliderStyle {
         groove: Rectangle {
-            implicitHeight: 6
+            implicitHeight: (resourceLoader.loadResource("usliderSliderImplicitHeight"))
             implicitWidth: 100
             radius: height/2
             border.color: Colors.uGrey

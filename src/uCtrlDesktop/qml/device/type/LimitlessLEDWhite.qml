@@ -67,7 +67,7 @@ Rectangle {
 
         }
 
-        height: 75
+        height: (resourceLoader.loadResource("limitlessLEDwhiteCurrentvaluesliderHeight"))
     }
 
     Rectangle {
@@ -176,14 +176,14 @@ Rectangle {
         Rectangle {
             id: statsHeader
             width: parent.width
-            height: 40
+            height: (resourceLoader.loadResource("temperatureStatsheaderHeight"))
 
             anchors.top: statsContainer.top
 
             UI.UFontAwesome {
                 id: statsIcon
                 iconId: "stats"
-                iconSize: 12
+                iconSize: (resourceLoader.loadResource("temperatureStatsheaderStatsiconIconSize"))
                 iconColor: Colors.uGrey
                 anchors.left: parent.left
                 anchors.leftMargin: 10
@@ -193,8 +193,9 @@ Rectangle {
             ULabel.Default {
                 id: statsText
                 text: "Statistics"
+                font.pixelSize: (resourceLoader.loadResource("temperatureStatsheaderStatstextFontPixelSize"))
                 anchors.left: statsIcon.right
-                anchors.leftMargin: 15
+                anchors.leftMargin: (resourceLoader.loadResource("temperatureStatsheaderStatstextLeftMargin"))
                 color: Colors.uGrey
                 anchors.verticalCenter: parent.verticalCenter
                 font.bold: true

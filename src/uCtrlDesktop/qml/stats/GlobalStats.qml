@@ -11,7 +11,7 @@ Rectangle {
 
     color: Colors.uWhite
 
-    property int paddingSize: 15
+    property int paddingSize: (resourceLoader.loadResource("deviceDevicepagePaddingSize"))
 
     property var deviceStatusData: []
     property var deviceTypeData: []
@@ -19,7 +19,7 @@ Rectangle {
     anchors.fill: parent
     anchors.margins: paddingSize
 
-    radius: 8
+    radius: (resourceLoader.loadResource("deviceDevicepageContentcanvasRadius"))
 
     Rectangle {
         id: statusContainer
